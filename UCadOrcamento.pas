@@ -220,6 +220,11 @@ type
     ckImpFoto: TCheckBox;
     ckImpPeso: TCheckBox;
     ckMeiaFolha: TCheckBox;
+    Panel6: TPanel;
+    Label47: TLabel;
+    RxDBLookupCombo10: TRxDBLookupCombo;
+    Label48: TLabel;
+    rxcbFinalidade: TRxDBComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
