@@ -619,8 +619,12 @@ begin
     vID_LocalAux := fnc_Verificar_Local(fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString)
   else
   if (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString <> 'S') then
-    vID_LocalAux := 0;
-  vQtdAux := fnc_Busca_Estoque2(fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger,ID_Produto,ID_Cor,Tamanho,vID_LocalAux,fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE.AsInteger);
+    vID_LocalAux := fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger;
+
+  if fDMCadDocEstoque.qParametros_EstUSA_ESTOQUE_GERAL_CAD.AsString = 'S' then
+    vQtdAux := uUtilPadrao.fnc_Buscar_Estoque(RxDBLookupCombo4.KeyValue,vID_LocalAux,ID_Cor,fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger)
+  else
+    vQtdAux := fnc_Busca_Estoque2(fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger,ID_Produto,ID_Cor,Tamanho,vID_LocalAux,fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE.AsInteger);
 
   if StrToFloat(FormatFloat('0.0000',vQtdAux)) < StrToFloat(FormatFloat('0.0000',Qtd)) then
   begin

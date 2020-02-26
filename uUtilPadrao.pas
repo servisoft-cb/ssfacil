@@ -886,9 +886,9 @@ begin
       sds.CommandText := 'SELECT sum(QTD) QTD FROM ESTOQUE_ATUAL WHERE '
     else
       sds.CommandText := 'SELECT QTD FROM ESTOQUE_ATUAL WHERE FILIAL = :FILIAL AND ';
-    sds.CommandText := sds.CommandText
-                     + 'ID_PRODUTO = :ID_PRODUTO '
-                     + 'AND ID_LOCAL_ESTOQUE = :ID_LOCAL_ESTOQUE ';
+    sds.CommandText := sds.CommandText  + ' ID_PRODUTO = :ID_PRODUTO ';
+    if ID_Local_Estoque > 0 then
+      sds.CommandText := sds.CommandText + ' AND ID_LOCAL_ESTOQUE = :ID_LOCAL_ESTOQUE ';
     if ID_Cor > 0 then
     begin
       sds.CommandText := sds.CommandText + ' AND ID_COR = :ID_COR ';
@@ -899,7 +899,8 @@ begin
     if Filial > 0 then
       sds.ParamByName('FILIAL').AsInteger           := vFilial;
     sds.ParamByName('ID_PRODUTO').AsInteger       := CodProduto;
-    sds.ParamByName('ID_LOCAL_ESTOQUE').AsInteger := ID_Local_Estoque;
+    if ID_Local_Estoque > 0 then
+      sds.ParamByName('ID_LOCAL_ESTOQUE').AsInteger := ID_Local_Estoque;
     sds.Open;
     Result := StrToFloat(FormatFloat('0.0000',sds.FieldByName('QTD').AsFloat));
   finally

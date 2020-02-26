@@ -425,6 +425,7 @@ type
     qParametros_UsuarioCONTROLE_DOC_EST: TStringField;
     qParametros_UsuarioUSUARIO: TStringField;
     qParametros_EstCONTROLA_DOC_SAIDA: TStringField;
+    qParametros_EstUSA_ESTOQUE_GERAL_CAD: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspDocEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

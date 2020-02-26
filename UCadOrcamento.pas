@@ -308,6 +308,7 @@ type
     ffrmCadObs_Aux: TfrmCadObs_Aux;
     ffrmMontaPed_TipoItem: TfrmMontaPed_TipoItem;
     vInclusao_Edicao: String; //I=Incluir   E=Editar
+    vCopiar : Boolean;
 
     procedure ItemClick(Sender:TObject);
     procedure prc_Inserir_Registro;
@@ -632,9 +633,11 @@ begin
   if (fDMCadPedido.cdsPedido.IsEmpty) or not(fDMCadPedido.cdsPedido.Active) or (fDMCadPedido.cdsPedidoID.AsInteger < 1) then
     exit;
 
-  if not fnc_Senha then
-    exit;
+  if not(vCopiar) then
+    if not(fnc_Senha) then
+      exit;
 
+  vCopiar := False;
   //06/09/2019
   SMDBGrid1.ClearFilter;
   //******************
@@ -1856,8 +1859,10 @@ procedure TfrmCadOrcamento.btnCopiarPedidoClick(Sender: TObject);
 var
   ffrmCadPedido_Copia: TfrmCadPedido_Copia;
 begin
+  vCopiar := False;
   if not(fDMCadPedido.cdsPedido_Consulta.Active) or (fDMCadPedido.cdsPedido_ConsultaID.AsInteger <= 0) then
     exit;
+
 
   fDMCadPedido.mSenha.EmptyDataSet;
   vInclusao_Edicao := '';
@@ -1880,6 +1885,7 @@ begin
     fDMCadPedido.cdsPedido.Edit;
     vInclusao_Edicao := 'C';
     RzPageControl1.ActivePage := TS_Cadastro;
+    vCopiar := True;
     btnAlterarClick(Sender);
   end;
   //15/07/2019

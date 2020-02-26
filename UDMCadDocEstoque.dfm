@@ -1977,7 +1977,9 @@ object DMCadDocEstoque: TDMCadDocEstoque
       
         'SELECT P.USA_LOCALIZACAO_LOTE, CONTROLA_DOC_CLIFORN, P.REQ_ENTRE' +
         'GUE_POR,'
-      'P.REQ_NUM_LOTE, P.REQ_NUM_PED, P.controla_doc_saida'
+      
+        'P.REQ_NUM_LOTE, P.REQ_NUM_PED, P.controla_doc_saida, USA_ESTOQUE' +
+        '_GERAL_CAD'
       'FROM PARAMETROS_EST P'
       '')
     SQLConnection = dmDatabase.scoDados
@@ -2010,6 +2012,11 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object qParametros_EstCONTROLA_DOC_SAIDA: TStringField
       FieldName = 'CONTROLA_DOC_SAIDA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_EstUSA_ESTOQUE_GERAL_CAD: TStringField
+      FieldName = 'USA_ESTOQUE_GERAL_CAD'
       FixedChar = True
       Size = 1
     end
