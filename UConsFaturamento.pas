@@ -1144,8 +1144,8 @@ end;
 
 procedure TfrmConsFaturamento.CheckBox2Click(Sender: TObject);
 begin
-  Label15.Visible             := CheckBox2.Checked;
-  ceVlrIcmsSubst.Visible      := CheckBox2.Checked;
+  Label15.Visible        := CheckBox2.Checked;
+  ceVlrIcmsSubst.Visible := CheckBox2.Checked;
 end;
 
 procedure TfrmConsFaturamento.prc_Consultar_Nota_UF;

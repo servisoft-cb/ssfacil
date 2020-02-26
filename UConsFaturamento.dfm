@@ -20,7 +20,7 @@ object frmConsFaturamento: TfrmConsFaturamento
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1349
+    Width = 1341
     Height = 89
     Align = alTop
     BevelOuter = bvNone
@@ -360,9 +360,9 @@ object frmConsFaturamento: TfrmConsFaturamento
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 110
-    Width = 1349
-    Height = 348
-    ActivePage = TS_Vendedor
+    Width = 1341
+    Height = 340
+    ActivePage = TS_Cliente
     ActivePageDefault = TS_Cliente
     Align = alClient
     BackgroundColor = clGray
@@ -375,7 +375,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     ParentBackgroundColor = False
     ParentFont = False
     TabColors.Shadow = clSilver
-    TabIndex = 9
+    TabIndex = 0
     TabOrder = 2
     TextColors.Selected = clBlue
     FixedDimension = 19
@@ -384,8 +384,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object RzPageControl3: TRzPageControl
         Left = 0
         Top = 0
-        Width = 1345
-        Height = 325
+        Width = 1337
+        Height = 317
         ActivePage = TS_Cliente_Acum
         ActivePageDefault = TS_Cliente_Acum
         Align = alClient
@@ -409,8 +409,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid1: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 302
+            Width = 1333
+            Height = 294
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsNotaFiscal_Cli
@@ -507,8 +507,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid12: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 302
+            Width = 1333
+            Height = 294
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsNotaFiscal_Cli_UF
@@ -619,8 +619,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid13: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 302
+            Width = 1333
+            Height = 294
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsNotaFiscal_Cli_Cid
@@ -739,8 +739,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid18: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 302
+            Width = 1333
+            Height = 294
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsNotaFiscal_Cli_Cid_Det
@@ -879,8 +879,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 25
-        Width = 1345
-        Height = 300
+        Width = 1337
+        Height = 292
         Align = alClient
         Ctl3D = False
         DataSource = DMConsFaturamento.dsNotaFiscal_CliProd
@@ -980,7 +980,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 1345
+        Width = 1337
         Height = 25
         Align = alTop
         Color = clSilver
@@ -1028,8 +1028,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object SMDBGrid3: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1345
-        Height = 325
+        Width = 1337
+        Height = 317
         Align = alClient
         Ctl3D = False
         DataSource = DMConsFaturamento.dsNotaFiscal_Prod
@@ -1126,8 +1126,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object SMDBGrid4: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1345
-        Height = 325
+        Width = 1337
+        Height = 317
         Align = alClient
         Ctl3D = False
         DataSource = DMConsFaturamento.dsNotaFiscal_DT
@@ -1218,8 +1218,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object RzPageControl4: TRzPageControl
         Left = 0
         Top = 0
-        Width = 1345
-        Height = 325
+        Width = 1337
+        Height = 317
         ActivePage = TS_UF_Acumulado
         ActivePageDefault = TS_UF_Acumulado
         Align = alClient
@@ -1231,8 +1231,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid7: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 302
+            Width = 1333
+            Height = 294
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsNotaFiscal_UF
@@ -1322,8 +1322,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid14: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 302
+            Width = 1333
+            Height = 294
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsProduto_UF
@@ -1447,8 +1447,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid15: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 302
+            Width = 1333
+            Height = 294
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsGrupo_UF
@@ -1557,8 +1557,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object RzPageControl5: TRzPageControl
         Left = 0
         Top = 28
-        Width = 1345
-        Height = 297
+        Width = 1337
+        Height = 289
         ActivePage = TS_PRODUTO_DET_Fat
         ActivePageDefault = TS_PRODUTO_DET_Fat
         Align = alClient
@@ -1570,8 +1570,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid5: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 274
+            Width = 1333
+            Height = 266
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsProduto_Det
@@ -1727,8 +1727,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid19: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 274
+            Width = 1333
+            Height = 266
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsProduto_Det_Geral
@@ -1924,7 +1924,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       object Panel10: TPanel
         Left = 0
         Top = 0
-        Width = 1345
+        Width = 1337
         Height = 28
         Align = alTop
         Color = clSilver
@@ -1961,8 +1961,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object SMDBGrid6: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1345
-        Height = 325
+        Width = 1337
+        Height = 317
         Align = alClient
         Ctl3D = False
         DataSource = DMConsFaturamento.dsNotaFiscal
@@ -2121,8 +2121,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object pg_CupomFiscal: TRzPageControl
         Left = 0
         Top = 0
-        Width = 1345
-        Height = 325
+        Width = 1337
+        Height = 317
         ActivePage = ts_CupomFiscalSintetico
         Align = alClient
         TabIndex = 0
@@ -2133,8 +2133,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid8: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 302
+            Width = 1333
+            Height = 294
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsCupomFiscal
@@ -2228,19 +2228,19 @@ object frmConsFaturamento: TfrmConsFaturamento
           object pnlGrid: TPanel
             Left = 0
             Top = 0
-            Width = 970
-            Height = 302
+            Width = 962
+            Height = 294
             Align = alClient
             TabOrder = 0
             object pnlTop: TPanel
               Left = 1
               Top = 1
-              Width = 968
+              Width = 960
               Height = 34
               Align = alTop
               TabOrder = 0
               DesignSize = (
-                968
+                960
                 34)
               object lblTipoGrafico: TLabel
                 Left = 8
@@ -2330,8 +2330,8 @@ object frmConsFaturamento: TfrmConsFaturamento
             object comboCupomFiscalAnalitico: TSMDBGrid
               Left = 1
               Top = 35
-              Width = 968
-              Height = 266
+              Width = 960
+              Height = 258
               Align = alClient
               DataSource = DMConsFaturamento.dsCupomFiscalAnalitico
               Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -2364,10 +2364,10 @@ object frmConsFaturamento: TfrmConsFaturamento
             end
           end
           object pnlGrafico: TPanel
-            Left = 970
+            Left = 962
             Top = 0
             Width = 371
-            Height = 302
+            Height = 294
             Align = alRight
             TabOrder = 1
             object DBChart1: TDBChart
@@ -2470,19 +2470,19 @@ object frmConsFaturamento: TfrmConsFaturamento
           object Panel7: TPanel
             Left = 0
             Top = 0
-            Width = 970
-            Height = 302
+            Width = 962
+            Height = 294
             Align = alClient
             TabOrder = 0
             object Panel8: TPanel
               Left = 1
               Top = 1
-              Width = 968
+              Width = 960
               Height = 34
               Align = alTop
               TabOrder = 0
               DesignSize = (
-                968
+                960
                 34)
               object Label14: TLabel
                 Left = 8
@@ -2535,8 +2535,8 @@ object frmConsFaturamento: TfrmConsFaturamento
             object SMDBGrid20: TSMDBGrid
               Left = 1
               Top = 35
-              Width = 968
-              Height = 266
+              Width = 960
+              Height = 258
               Align = alClient
               DataSource = DMConsFaturamento.dsCupomFiscalAnaliticoDia
               Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -2570,10 +2570,10 @@ object frmConsFaturamento: TfrmConsFaturamento
             end
           end
           object pnlGraficoDia: TPanel
-            Left = 970
+            Left = 962
             Top = 0
             Width = 371
-            Height = 302
+            Height = 294
             Align = alRight
             TabOrder = 1
             object DBChart2: TDBChart
@@ -2689,8 +2689,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object SMDBGrid17: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1345
-        Height = 325
+        Width = 1337
+        Height = 317
         Align = alClient
         Ctl3D = False
         DataSource = DMConsFaturamento.dsReciboNF
@@ -2780,8 +2780,8 @@ object frmConsFaturamento: TfrmConsFaturamento
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 25
-        Width = 1345
-        Height = 300
+        Width = 1337
+        Height = 292
         ActivePage = TS_Vendedor_Acum
         ActivePageDefault = TS_Vendedor_Acum
         Align = alClient
@@ -2805,8 +2805,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid10: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 277
+            Width = 1333
+            Height = 269
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsNotaFiscal_Vend
@@ -2913,8 +2913,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid9: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 277
+            Width = 1333
+            Height = 269
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsNotaFiscal_VendCli
@@ -3038,8 +3038,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid11: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 277
+            Width = 1333
+            Height = 269
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsNotaFiscal_VendProd
@@ -3164,8 +3164,8 @@ object frmConsFaturamento: TfrmConsFaturamento
           object SMDBGrid16: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1341
-            Height = 277
+            Width = 1333
+            Height = 269
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsVendCliProd
@@ -3325,7 +3325,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       object Panel6: TPanel
         Left = 0
         Top = 0
-        Width = 1345
+        Width = 1337
         Height = 25
         Align = alTop
         Color = clSilver
@@ -3352,8 +3352,8 @@ object frmConsFaturamento: TfrmConsFaturamento
   end
   object Panel3: TPanel
     Left = 0
-    Top = 458
-    Width = 1349
+    Top = 450
+    Width = 1341
     Height = 27
     Align = alBottom
     Color = 16769217
@@ -3458,7 +3458,7 @@ object frmConsFaturamento: TfrmConsFaturamento
   object Panel4: TPanel
     Left = 0
     Top = 89
-    Width = 1349
+    Width = 1341
     Height = 21
     Align = alTop
     BevelOuter = bvNone
@@ -3534,8 +3534,8 @@ object frmConsFaturamento: TfrmConsFaturamento
   end
   object Panel5: TPanel
     Left = 0
-    Top = 512
-    Width = 1349
+    Top = 504
+    Width = 1341
     Height = 25
     Align = alBottom
     Color = 16769217
@@ -3703,8 +3703,8 @@ object frmConsFaturamento: TfrmConsFaturamento
   end
   object Panel9: TPanel
     Left = 0
-    Top = 485
-    Width = 1349
+    Top = 477
+    Width = 1341
     Height = 27
     Align = alBottom
     Color = 16769217

@@ -125,7 +125,7 @@ type
     vComando: String;
 
     procedure prc_Consultar;
-    procedure prc_Le_cdsEstoque_Mov(Gerar_CC : Boolean);
+    procedure prc_Le_cdsEstoque_Mov(Gerar_CC: Boolean);
     procedure prc_Le_cdsEstoque_Mov_Res;
     procedure prc_Consultar_Acum;
     procedure prc_Consultar_Local;
@@ -149,8 +149,7 @@ type
     procedure prc_Chamar_Sel_Pessoa(Tipo: String);
   public
     { Public declarations }
-    vID_Cor_Loc : Integer;
-
+    vID_Cor_Loc: Integer;         
   end;
 
 var
@@ -186,8 +185,8 @@ end;
 procedure TfrmConsEstoque_Mov.FormShow(Sender: TObject);
 var
   i: Integer;
-  vDia, vMes, vAno : Word;
-  vData : TDateTime;
+  vDia, vMes, vAno: Word;
+  vData: TDateTime;
 begin
   vData := Date;
   vData := IncDay(vData,-20);
@@ -265,7 +264,7 @@ begin
   TS_Reserva.TabVisible := ((rgTipo.ItemIndex = 1) and (fDMConsEstoque.qParametros_EstUSA_RESERVA.AsString = 'S'));
 end;
 
-procedure TfrmConsEstoque_Mov.prc_Le_cdsEstoque_Mov(Gerar_CC : Boolean);
+procedure TfrmConsEstoque_Mov.prc_Le_cdsEstoque_Mov(Gerar_CC: Boolean);
 var
   vQtdEntrada, vQtdSaida, vSaldo: Real;
 begin
@@ -308,16 +307,16 @@ begin
         //06/09/2019
         if fDMConsEstoque.cdsEstoque_MovTIPO_ES.AsString = 'S' then
         begin
-          fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat                := fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat + fDMConsEstoque.cdsEstoque_MovQTD.AsFloat;
-          fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat            := fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat + (fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat);
+          fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat     := fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat + fDMConsEstoque.cdsEstoque_MovQTD.AsFloat;
+          fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat := fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat + (fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat);
         end
         else
         begin
-          fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat                := fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat + fDMConsEstoque.cdsEstoque_MovQTD.AsFloat;
-          fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat          := fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat + (fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat);
+          fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat       := fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat + fDMConsEstoque.cdsEstoque_MovQTD.AsFloat;
+          fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat := fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat + (fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat);
         end;
-        fDMConsEstoque.mEstoque_CentroCustoQSaldo.AsFloat              := fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat - fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat;
-        fDMConsEstoque.mEstoque_CentroCustoVlrSaldo.AsFloat            := fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat - fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat;
+        fDMConsEstoque.mEstoque_CentroCustoQSaldo.AsFloat       := fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat - fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat;
+        fDMConsEstoque.mEstoque_CentroCustoVlrSaldo.AsFloat     := fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat - fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat;
         //************
         fDMConsEstoque.mEstoque_CentroCusto.Post;
       //end;
@@ -335,7 +334,7 @@ end;
 
 procedure TfrmConsEstoque_Mov.btnConsultarClick(Sender: TObject);
 var
-  Form : TForm;
+  Form: TForm;
 begin
   SMDBGrid1.DisableScroll;
   if (trim(edtRef.Text) = '') and (ceIDProduto.AsInteger <= 0) and
@@ -435,6 +434,8 @@ begin
     vComando := vComando + ' AND EM.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
   if (ceIDPessoa.AsInteger > 0) AND (RzPageControl1.ActivePage <> TS_Reserva) then
     vComando := vComando + ' AND EM.ID_PESSOA = ' + IntToStr(ceIDPessoa.AsInteger);
+  if Trim(edtNome_Pessoa.Text) <> '' then
+    vComando := vComando + ' AND PES.NOME LIKE (''%' + (edtNome_Pessoa.Text) + '%'')';
   if Saldo_Ant then
     vComando := vComando + ' AND EM.DTMOVIMENTO < ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date))
   else
@@ -529,7 +530,7 @@ end;
 
 procedure TfrmConsEstoque_Mov.prc_Imprimir_Produto_Det;
 var
-  vArq : String;
+  vArq: String;
 begin
   if not(fDMConsEstoque.cdsEstoque_Mov.Active) then
   begin
@@ -557,7 +558,7 @@ begin
       fDMConsEstoque.frxReport1.Report.LoadFromFile(vArq)
     else
     begin
-      ShowMessage('Relatorio não localizado! ' + vArq);
+      ShowMessage('Relatório não localizado! ' + vArq);
       Exit;
     end;
     fDMConsEstoque.frxReport1.variables['Opcao_Imp'] := QuotedStr(fDMConsEstoque.vDescOpcao_Rel);
@@ -1261,8 +1262,8 @@ end;
 
 procedure TfrmConsEstoque_Mov.edtNome_PessoaExit(Sender: TObject);
 begin
-  if ceIDPessoa.AsInteger <= 0 then
-    edtNome_Pessoa.Clear;
+  if (ceIDPessoa.AsInteger > 0) and (Trim(edtNome_Pessoa.Text) <> '') then
+    ceIDPessoa.AsInteger := 0;
 end;
 
 procedure TfrmConsEstoque_Mov.SMDBGrid1GetCellParams(Sender: TObject;
