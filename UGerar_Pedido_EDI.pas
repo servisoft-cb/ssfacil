@@ -486,7 +486,7 @@ begin
   vIDAux       := 0;
   vID_Variacao := 0;
   if (fDMGerar_EDI.mAuxiliarTipoOperacao.AsString = 'V') or (fDMGerar_EDI.mAuxiliarTipoOperacao.AsString = 'E')
-    or (fDMGerar_EDI.mAuxiliarTipoOperacao.AsString = 'I') then
+    or (fDMGerar_EDI.mAuxiliarTipoOperacao.AsString = 'I') or (fDMGerar_EDI.mAuxiliarTipoOperacao.AsString = 'A') then
    // vIDAux :=fDMGerar_EDI.qParametrosID_OPERACAO_VENDA.AsInteger
     vIDAux := RxDBLookupCombo1.KeyValue
   else
