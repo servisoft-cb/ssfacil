@@ -10237,6 +10237,10 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsValeQTD_LANCAR_ESTOQUE: TFloatField
       FieldName = 'QTD_LANCAR_ESTOQUE'
     end
+    object cdsValeCALCULARICMSSOBREIPI: TStringField
+      FieldName = 'CALCULARICMSSOBREIPI'
+      Size = 1
+    end
   end
   object dspVale: TDataSetProvider
     DataSet = sdsVale
@@ -10253,9 +10257,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'TURADO, VI.NUMERO_OS, VI.NUMERO_OC,'#13#10'       VI.NUM_PEDIDO, VI.CO' +
       'MPLEMENTO_PROD, VI.QTD_PECA, VI.PERC_IPI, P.NOME NOME_PRODUTO, P' +
       '.REFERENCIA,'#13#10'       VI.ID_MOVESTOQUE, VI.VLR_DESCONTO, VI.QTD_L' +
-      'ANCAR_ESTOQUE'#13#10'from VALE V'#13#10'inner join VALE_ITENS VI on V.ID = V' +
-      'I.ID'#13#10'inner join PRODUTO P on VI.ID_PRODUTO = P.ID'#13#10'where VI.FAT' +
-      'URADO = '#39'N'#39'   '
+      'ANCAR_ESTOQUE, VI.calcularicmssobreipi'#13#10'from VALE V'#13#10'inner join ' +
+      'VALE_ITENS VI on V.ID = VI.ID'#13#10'inner join PRODUTO P on VI.ID_PRO' +
+      'DUTO = P.ID'#13#10'where VI.FATURADO = '#39'N'#39'   '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

@@ -17,7 +17,7 @@ object fRelVale: TfRelVale
   PixelsPerInch = 96
   TextHeight = 13
   object RLReport1: TRLReport
-    Left = 16
+    Left = 15
     Top = 8
     Width = 794
     Height = 1123
@@ -1376,9 +1376,9 @@ object fRelVale: TfRelVale
             ParentFont = False
           end
           object RLDraw2: TRLDraw
-            Left = 362
+            Left = 338
             Top = 1
-            Width = 17
+            Width = 15
             Height = 56
             Align = faHeight
             Angle = 90.000000000000000000
@@ -1387,16 +1387,17 @@ object fRelVale: TfRelVale
           object RLDraw5: TRLDraw
             Left = 24
             Top = 41
-            Width = 300
+            Width = 282
             Height = 3
             DrawKind = dkLine
           end
           object RLDBText27: TRLDBText
-            Left = 134
+            Left = 4
             Top = 43
-            Width = 80
+            Width = 340
             Height = 14
             Alignment = taCenter
+            AutoSize = False
             DataField = 'NOME_PESSOA'
             DataSource = DmCadVale.dsValeImp
             Font.Charset = DEFAULT_CHARSET
@@ -1420,7 +1421,7 @@ object fRelVale: TfRelVale
             ParentFont = False
           end
           object RLLabel18: TRLLabel
-            Left = 375
+            Left = 351
             Top = 2
             Width = 72
             Height = 11
@@ -1433,7 +1434,7 @@ object fRelVale: TfRelVale
             ParentFont = False
           end
           object RLDBText32: TRLDBText
-            Left = 375
+            Left = 351
             Top = 13
             Width = 72
             Height = 14
@@ -1448,7 +1449,7 @@ object fRelVale: TfRelVale
             ParentFont = False
           end
           object RLLabel25: TRLLabel
-            Left = 523
+            Left = 459
             Top = 2
             Width = 73
             Height = 11
@@ -1461,7 +1462,7 @@ object fRelVale: TfRelVale
             ParentFont = False
           end
           object RLDBText33: TRLDBText
-            Left = 523
+            Left = 459
             Top = 13
             Width = 73
             Height = 14
@@ -1530,6 +1531,34 @@ object fRelVale: TfRelVale
             Height = 14
             Alignment = taRightJustify
             DataField = 'VLR_ICMSSUBST'
+            DataSource = DmCadVale.dsValeImp
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -11
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLLabel39: TRLLabel
+            Left = 586
+            Top = 2
+            Width = 42
+            Height = 11
+            Caption = 'Valor IPI'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLDBText44: TRLDBText
+            Left = 584
+            Top = 13
+            Width = 44
+            Height = 14
+            Alignment = taRightJustify
+            DataField = 'VLR_IPI'
             DataSource = DmCadVale.dsValeImp
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack

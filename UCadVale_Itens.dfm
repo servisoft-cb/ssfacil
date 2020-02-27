@@ -2,7 +2,7 @@ object frmCadVale_Itens: TfrmCadVale_Itens
   Left = 262
   Top = 185
   Width = 715
-  Height = 429
+  Height = 459
   Caption = 'frmCadVale_Itens'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,7 +21,7 @@ object frmCadVale_Itens: TfrmCadVale_Itens
   TextHeight = 13
   object Panel3: TPanel
     Left = 0
-    Top = 364
+    Top = 394
     Width = 707
     Height = 34
     Align = alBottom
@@ -266,7 +266,7 @@ object frmCadVale_Itens: TfrmCadVale_Itens
     Left = 0
     Top = 117
     Width = 707
-    Height = 247
+    Height = 277
     ActivePage = TabSheet1
     ActivePageDefault = TabSheet1
     Align = alClient
@@ -311,7 +311,7 @@ object frmCadVale_Itens: TfrmCadVale_Itens
       end
       object Label2: TLabel
         Left = 94
-        Top = 203
+        Top = 219
         Width = 416
         Height = 13
         Caption = 
@@ -402,7 +402,7 @@ object frmCadVale_Itens: TfrmCadVale_Itens
       end
       object Label56: TLabel
         Left = 551
-        Top = 77
+        Top = 110
         Width = 41
         Height = 13
         Alignment = taRightJustify
@@ -416,6 +416,14 @@ object frmCadVale_Itens: TfrmCadVale_Itens
         Height = 13
         Alignment = taRightJustify
         Caption = 'N'#186' Ped. (OC):'
+      end
+      object Label14: TLabel
+        Left = 547
+        Top = 31
+        Width = 27
+        Height = 13
+        Alignment = taRightJustify
+        Caption = '% IPI:'
       end
       object DBEdit2: TDBEdit
         Left = 110
@@ -520,8 +528,8 @@ object frmCadVale_Itens: TfrmCadVale_Itens
         TabOrder = 3
       end
       object DBCheckBox2: TDBCheckBox
-        Left = 320
-        Top = 71
+        Left = 379
+        Top = 73
         Width = 110
         Height = 17
         Caption = 'Gerar Estoque'
@@ -535,7 +543,7 @@ object frmCadVale_Itens: TfrmCadVale_Itens
       end
       object DBEdit31: TDBEdit
         Left = 596
-        Top = 71
+        Top = 104
         Width = 85
         Height = 19
         TabStop = False
@@ -549,7 +557,7 @@ object frmCadVale_Itens: TfrmCadVale_Itens
       end
       object gbxDesconto: TRzGroupBox
         Left = 110
-        Top = 121
+        Top = 137
         Width = 187
         Height = 61
         BorderColor = clNavy
@@ -664,6 +672,32 @@ object frmCadVale_Itens: TfrmCadVale_Itens
         ParentCtl3D = False
         TabOrder = 7
         OnEnter = DBEdit4Enter
+      end
+      object DBEdit7: TDBEdit
+        Left = 576
+        Top = 23
+        Width = 69
+        Height = 21
+        Ctl3D = True
+        DataField = 'PERC_IPI'
+        DataSource = DmCadVale.dsValeItens
+        ParentCtl3D = False
+        TabOrder = 11
+        OnExit = DBEdit5Exit
+      end
+      object DBCheckBox1: TDBCheckBox
+        Left = 547
+        Top = 46
+        Width = 144
+        Height = 17
+        Caption = 'Soma IPI na Base ICMS'
+        Ctl3D = True
+        DataField = 'CALCULARICMSSOBREIPI'
+        DataSource = DmCadVale.dsValeItens
+        ParentCtl3D = False
+        TabOrder = 12
+        ValueChecked = 'S'
+        ValueUnchecked = 'N'
       end
     end
   end

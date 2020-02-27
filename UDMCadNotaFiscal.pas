@@ -3126,6 +3126,7 @@ type
     cdsFilialDESC_ICMS_PIS_COFINS: TStringField;
     qParametros_PedCONTROLAR_VLR_ENTRADA: TStringField;
     cdsNotaEntradaTAMANHO: TStringField;
+    cdsValeCALCULARICMSSOBREIPI: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

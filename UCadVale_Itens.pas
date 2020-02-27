@@ -57,6 +57,9 @@ type
     dbedtVlrProd: TDBEdit;
     Label9: TLabel;
     DBEdit4: TDBEdit;
+    Label14: TLabel;
+    DBEdit7: TDBEdit;
+    DBCheckBox1: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure DBEdit2Exit(Sender: TObject);
@@ -97,6 +100,7 @@ type
     vVlrProd_Ant: Real;
 
     vVlr_Total_Prod, vVlr_Total_Desc : Real;
+    vVlr_Total_IPI : Real;
 
     procedure prc_Buscar_Imposto(Auxiliar, Nome: String);
     procedure prc_Calcular_VlrItens;
@@ -199,6 +203,9 @@ begin
 
   vVlr_Total_Prod := StrToFloat(FormatFloat('0.00',fDMCadVale.cdsValeItensVLR_TOTAL.AsFloat));
   vVlr_Total_Desc := StrToFloat(FormatFloat('0.00',fDMCadVale.cdsValeItensVLR_DESCONTO.AsFloat));
+  vVlr_Total_IPI  := StrToFloat(FormatFloat('0.00',fDMCadVale.cdsValeItensVLR_IPI.AsFloat));
+
+  DBCheckBox1.Visible := (fDMCadVale.cdsFilialSIMPLES.AsString <> 'S');
 end;
 
 procedure TfrmCadVale_Itens.prc_Buscar_Imposto(Auxiliar, Nome: String);
@@ -245,6 +252,12 @@ begin
   else
     DBEdit2.Color := clWindow;
   //************
+
+  //27/02/2020
+  if fDMCadVale.cdsFilialCALCULAR_IPI.AsString = 'S' then
+    fDMCadVale.cdsValeItensPERC_IPI.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadVale.cdsProdutoPERC_IPI.AsFloat));
+  //******
+
 end;
 
 procedure TfrmCadVale_Itens.DBEdit2Exit(Sender: TObject);
@@ -280,6 +293,9 @@ begin
     vEditar := True
   else
     vEditar := False;
+  if fDMCadVale.cdsFilialSIMPLES.AsString = 'S' then
+    fDMCadVale.cdsValeItensCALCULARICMSSOBREIPI.AsString := 'N';
+  fDMCadVale.prc_Calcular_IPI;
   vFlagErro := False;
   if fDmCadVale.cdsValeItens.State in [dsEdit,dsInsert] then
     fDmCadVale.cdsValeItensNOME_PRODUTO.AsString := fDmCadVale.cdsProdutoNOME.AsString;
@@ -310,7 +326,9 @@ begin
     fDMCadVale.cdsValeVLR_DESCONTO.AsFloat := StrToFloat(FormatFloat('0.00',(fDMCadVale.cdsValeVLR_DESCONTO.AsFloat + fDMCadVale.cdsValeItensVLR_DESCONTO.AsFloat) - vVlr_Total_Desc));
     fDMCadVale.cdsValeVLR_PRODUTO.AsFloat  := StrToFloat(FormatFloat('0.00',(fDMCadVale.cdsValeVLR_PRODUTO.AsFloat + fDMCadVale.cdsValeItensVLR_TOTAL.AsFloat
                                             + fDMCadVale.cdsValeItensVLR_DESCONTO.AsFloat) - vVlr_Total_Prod));
-    fDMCadVale.cdsValeVLR_TOTAL.AsFloat  := StrToFloat(FormatFloat('0.00',(fDMCadVale.cdsValeVLR_TOTAL.AsFloat + fDMCadVale.cdsValeItensVLR_TOTAL.AsFloat) - vVlr_Total_Prod));
+    fDMCadVale.cdsValeVLR_TOTAL.AsFloat    := StrToFloat(FormatFloat('0.00',(fDMCadVale.cdsValeVLR_TOTAL.AsFloat
+                                            + fDMCadVale.cdsValeItensVLR_TOTAL.AsFloat + fDMCadVale.cdsValeVLR_IPI.AsFloat) - vVlr_Total_Prod - vVlr_Total_IPI));
+    fDMCadVale.cdsValeVLR_IPI.AsFloat      := StrToFloat(FormatFloat('0.00',(fDMCadVale.cdsValeVLR_IPI.AsFloat + fDMCadVale.cdsValeItensVLR_IPI.AsFloat)  - vVlr_Total_IPI));
 
     //Tamanho aqui
     if (fDmCadVale.cdsProdutoUSA_GRADE.AsString = 'S') and (fDmCadVale.qParametrosUSA_GRADE.AsString = 'S') then

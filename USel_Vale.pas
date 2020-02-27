@@ -177,6 +177,12 @@ begin
   fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VALE.AsInteger         := fDMCadNotaFiscal.cdsValeID.AsInteger;
   fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_VALE.AsInteger       := fDMCadNotaFiscal.cdsValeITEM.AsInteger;
   fDMCadNotaFiscal.cdsNotaFiscal_ItensNUM_VALE.AsInteger        := fDMCadNotaFiscal.cdsValeNUM_VALE.AsInteger;
+
+  //27/02/2020
+  fDMCadNotaFiscal.cdsNotaFiscal_ItensCALCULARICMSSOBREIPI.AsString := fDMCadNotaFiscal.cdsValeCALCULARICMSSOBREIPI.AsString;
+  //********************
+
+
   //09/01/2017
   //if fDMCadNotaFiscal.qParametros_FinCOPIAR_DESC_VALE.AsString = 'S' then
   //begin

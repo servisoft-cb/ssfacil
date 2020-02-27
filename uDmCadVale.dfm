@@ -66,6 +66,9 @@ object DmCadVale: TDmCadVale
     object sdsValeVLR_ICMSSUBST: TFloatField
       FieldName = 'VLR_ICMSSUBST'
     end
+    object sdsValeVLR_IPI: TFloatField
+      FieldName = 'VLR_IPI'
+    end
   end
   object dspVale: TDataSetProvider
     DataSet = sdsVale
@@ -80,7 +83,7 @@ object DmCadVale: TDmCadVale
     Params = <>
     ProviderName = 'dspVale'
     OnNewRecord = cdsValeNewRecord
-    Left = 144
+    Left = 143
     Top = 29
     object cdsValeID: TIntegerField
       FieldName = 'ID'
@@ -143,6 +146,9 @@ object DmCadVale: TDmCadVale
     end
     object cdsValeVLR_ICMSSUBST: TFloatField
       FieldName = 'VLR_ICMSSUBST'
+    end
+    object cdsValeVLR_IPI: TFloatField
+      FieldName = 'VLR_IPI'
     end
   end
   object dsVale: TDataSource
@@ -269,6 +275,10 @@ object DmCadVale: TDmCadVale
     object sdsValeItensVLR_DESCONTO: TFloatField
       FieldName = 'VLR_DESCONTO'
     end
+    object sdsValeItensCALCULARICMSSOBREIPI: TStringField
+      FieldName = 'CALCULARICMSSOBREIPI'
+      Size = 1
+    end
   end
   object cdsValeItens: TClientDataSet
     Aggregates = <>
@@ -382,6 +392,10 @@ object DmCadVale: TDmCadVale
     object cdsValeItensVLR_DESCONTO: TFloatField
       FieldName = 'VLR_DESCONTO'
       DisplayFormat = '0.00'
+    end
+    object cdsValeItensCALCULARICMSSOBREIPI: TStringField
+      FieldName = 'CALCULARICMSSOBREIPI'
+      Size = 1
     end
   end
   object dsValeItens: TDataSource
@@ -1226,14 +1240,15 @@ object DmCadVale: TDmCadVale
       '.ID_CONDPGTO, '#13#10'PE.IMP_OC_NOTA, PI.ID_VARIACAO, PI.QTD_LIBERADA,' +
       ' PI.QTD_PRODUZIDA, PE.TIPO_REG, PI.TAMANHO, PI.ID_MOVESTOQUE,'#13#10'P' +
       'I.QTD_PECA, PI.QTD_LANCAR_ESTOQUE, PI.VLR_ICMSSUBST, PI.VLR_DESC' +
-      'ONTORATEIO, PI.PERC_DESCONTO, PI.dtconferencia'#13#10'FROM PEDIDO PE'#13#10 +
-      'INNER JOIN PEDIDO_ITEM PI ON PE.ID = PI.ID'#13#10'INNER JOIN PESSOA CL' +
-      'I ON PE.ID_CLIENTE = CLI.CODIGO'#13#10'INNER JOIN PRODUTO PRO ON PI.ID' +
-      '_PRODUTO = PRO.ID'#13#10'WHERE PI.qtd_restante > 0'#13#10'      '#13#10
+      'ONTORATEIO, PI.PERC_DESCONTO, PI.dtconferencia,'#13#10'PI.calcularicms' +
+      'sobreipi'#13#10'FROM PEDIDO PE'#13#10'INNER JOIN PEDIDO_ITEM PI ON PE.ID = P' +
+      'I.ID'#13#10'INNER JOIN PESSOA CLI ON PE.ID_CLIENTE = CLI.CODIGO'#13#10'INNER' +
+      ' JOIN PRODUTO PRO ON PI.ID_PRODUTO = PRO.ID'#13#10'WHERE PI.qtd_restan' +
+      'te > 0'#13#10'      '#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 64
+    Left = 61
     Top = 499
     object sdsPedidoID: TIntegerField
       FieldName = 'ID'
@@ -1366,6 +1381,11 @@ object DmCadVale: TDmCadVale
     object sdsPedidoVLR_ICMSSUBST: TFloatField
       FieldName = 'VLR_ICMSSUBST'
     end
+    object sdsPedidoCALCULARICMSSOBREIPI: TStringField
+      FieldName = 'CALCULARICMSSOBREIPI'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -1378,7 +1398,7 @@ object DmCadVale: TDmCadVale
     Params = <>
     ProviderName = 'dspPedido'
     OnCalcFields = cdsPedidoCalcFields
-    Left = 145
+    Left = 146
     Top = 499
     object cdsPedidoID: TIntegerField
       Alignment = taCenter
@@ -1555,6 +1575,11 @@ object DmCadVale: TDmCadVale
     object cdsPedidoVLR_ICMSSUBST: TFloatField
       FieldName = 'VLR_ICMSSUBST'
     end
+    object cdsPedidoCALCULARICMSSOBREIPI: TStringField
+      FieldName = 'CALCULARICMSSOBREIPI'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsPedido: TDataSource
     DataSet = cdsPedido
@@ -1577,9 +1602,9 @@ object DmCadVale: TDmCadVale
       'CLIENTE, P.cidade CIDADE_CLIENTE, P.UF UF_CLIENTE,'#13#10'P.complement' +
       'o_end COMPLEMENTO_END_CLIENTE, P.cep CEP_CLIENTE, P.inscr_est IN' +
       'SCR_EST_CLIENTE,'#13#10'P.dddfone1 DDD_CLIENTE, P.telefone1 FONE_CLIEN' +
-      'TE, V.VLR_DESCONTO, V.VLR_ICMSSUBST'#13#10'FROM VALE V'#13#10'INNER JOIN PES' +
-      'SOA P ON (V.ID_CLIENTE = P.CODIGO)'#13#10'INNER JOIN FILIAL F ON V.fil' +
-      'ial = F.id'#13#10'WHERE V.ID = :ID'
+      'TE, V.VLR_DESCONTO, V.VLR_ICMSSUBST, V.VLR_IPI'#13#10'FROM VALE V'#13#10'INN' +
+      'ER JOIN PESSOA P ON (V.ID_CLIENTE = P.CODIGO)'#13#10'INNER JOIN FILIAL' +
+      ' F ON V.filial = F.id'#13#10'WHERE V.ID = :ID'
     MaxBlobSize = -1
     Params = <
       item
@@ -1746,6 +1771,11 @@ object DmCadVale: TDmCadVale
     end
     object cdsValeImpVLR_ICMSSUBST: TFloatField
       FieldName = 'VLR_ICMSSUBST'
+      DisplayFormat = '###,###,##0.00'
+    end
+    object cdsValeImpVLR_IPI: TFloatField
+      FieldName = 'VLR_IPI'
+      DisplayFormat = '###,###,##0.00'
     end
   end
   object dsValeImp: TDataSource

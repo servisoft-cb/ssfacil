@@ -119,6 +119,8 @@ type
     Label15: TLabel;
     Label19: TLabel;
     DBEdit5: TDBEdit;
+    Label20: TLabel;
+    DBEdit10: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);

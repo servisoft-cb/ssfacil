@@ -566,6 +566,13 @@ type
     sdsValeVLR_ICMSSUBST: TFloatField;
     cdsValeVLR_ICMSSUBST: TFloatField;
     cdsValeImpVLR_ICMSSUBST: TFloatField;
+    sdsValeItensCALCULARICMSSOBREIPI: TStringField;
+    cdsValeItensCALCULARICMSSOBREIPI: TStringField;
+    sdsValeVLR_IPI: TFloatField;
+    cdsValeVLR_IPI: TFloatField;
+    sdsPedidoCALCULARICMSSOBREIPI: TStringField;
+    cdsPedidoCALCULARICMSSOBREIPI: TStringField;
+    cdsValeImpVLR_IPI: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspValeUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -593,6 +600,8 @@ type
     function fnc_Existe_Num_Vale: Boolean;
 
     procedure prc_Calcular_Total;
+
+    procedure prc_Calcular_IPI;
   end;
 
 var
@@ -889,12 +898,15 @@ var
   vVlrTotal: Real;
   vVlrProduto, vVlrServico, vVlrICMS_ST: Real;
   vVlrDesconto: Real;
+  vVlrIPI: Real;
 begin
   vVlrTotal    := 0;
   vVlrProduto  := 0;
   vVlrServico  := 0;
   vVlrDesconto := 0;
   vVlrICMS_ST  := 0;
+  vVlrIPI      := 0;
+
   cdsValeItens.First;
   while not cdsValeItens.Eof do
   begin
@@ -902,22 +914,31 @@ begin
     vVlrProduto  := vVlrProduto + cdsValeItensVLR_TOTAL.AsFloat + cdsValeItensVLR_DESCONTO.AsFloat;
     vVlrDesconto := vVlrDesconto + cdsValeItensVLR_DESCONTO.AsFloat;
     vVlrICMS_ST  := vVlrICMS_ST + cdsValeItensVLR_ICMSSUBST.AsFloat;
+    vVlrIPI      := vVlrIPI     + cdsValeItensVLR_IPI.AsFloat;
     cdsValeItens.Next;
   end;
 
   cdsValeServico.First;
   while not cdsValeServico.Eof do
   begin
-    vVlrTotal := vVlrTotal + cdsValeServicoVLR_TOTAL.AsCurrency;
+    vVlrTotal   := vVlrTotal + cdsValeServicoVLR_TOTAL.AsCurrency;
     vVlrServico := vVlrServico + cdsValeServicoVLR_TOTAL.AsCurrency;
     cdsValeServico.Next;
   end;
 
-  cdsValeVLR_TOTAL.AsFloat    := StrToFloat(FormatFloat('0.00',vVlrTotal + vVlrICMS_ST));
+  cdsValeVLR_TOTAL.AsFloat    := StrToFloat(FormatFloat('0.00',vVlrTotal + vVlrICMS_ST + vVlrIPI));
   cdsValeVLR_PRODUTO.AsFloat  := StrToFloat(FormatFloat('0.00',vVlrProduto));
   cdsValeVLR_ICMSSUBST.AsFloat := StrToFloat(FormatFloat('0.00',vVlrICMS_ST));
   cdsValeVLR_SERVICO.AsFloat  := StrToFloat(FormatFloat('0.00',vVlrServico));
   cdsValeVLR_DESCONTO.AsFloat := StrToFloat(FormatFloat('0.00',vVlrDesconto));
+  cdsValeVLR_IPI.AsFloat      := StrToFloat(FormatFloat('0.00',vVlrIPI));
+end;
+
+procedure TDmCadVale.prc_Calcular_IPI;
+begin
+  cdsValeItensVLR_IPI.AsFloat := 0;
+  if StrToFloat(FormatFloat('0.00',cdsValeItensPERC_IPI.AsFloat)) > 0 then
+    cdsValeItensVLR_IPI.AsFloat := StrToFloat(FormatFloat('0.00',(cdsValeItensVLR_TOTAL.AsFloat * cdsValeItensPERC_IPI.AsFloat) / 100));
 end;
 
 end.

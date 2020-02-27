@@ -20,7 +20,7 @@ object frmSel_Vale: TfrmSel_Vale
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 774
+    Width = 782
     Height = 40
     Align = alTop
     Color = clMoneyGreen
@@ -120,8 +120,8 @@ object frmSel_Vale: TfrmSel_Vale
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 40
-    Width = 774
-    Height = 429
+    Width = 782
+    Height = 437
     Align = alClient
     Ctl3D = False
     DataSource = DMCadNotaFiscal.dsVale
@@ -151,7 +151,7 @@ object frmSel_Vale: TfrmSel_Vale
     WidthOfIndicator = 27
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 19
+    ColCount = 20
     RowCount = 2
     Columns = <
       item
@@ -292,12 +292,21 @@ object frmSel_Vale: TfrmSel_Vale
         Title.Alignment = taCenter
         Title.Caption = 'Filial'
         Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'CALCULARICMSSOBREIPI'
+        Title.Alignment = taCenter
+        Title.Caption = 'Somar IPI na Base do ICMS'
+        Width = 65
+        Visible = True
       end>
   end
   object Panel2: TPanel
     Left = 0
-    Top = 469
-    Width = 774
+    Top = 477
+    Width = 782
     Height = 37
     Align = alBottom
     Color = 8404992
