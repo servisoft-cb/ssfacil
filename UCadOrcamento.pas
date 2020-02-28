@@ -1606,7 +1606,8 @@ begin
     ffrmMontaPed_TipoItem := TfrmMontaPed_TipoItem.Create(self);
     ffrmMontaPed_TipoItem.fDMCadPedido := fDMCadPedido;
     ffrmMontaPed_TipoItem.ShowModal;
-    FreeAndNil(ffrmMontaPed_TipoItem);
+    if Assigned(ffrmMontaPed_TipoItem) then
+      FreeAndNil(ffrmMontaPed_TipoItem);
     btnCalcular_ValoresClick(Sender);
   end;
   if (Shift = [ssCtrl]) and (Key = 87) then

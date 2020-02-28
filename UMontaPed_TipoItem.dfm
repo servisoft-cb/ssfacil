@@ -1,6 +1,6 @@
 object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
-  Left = -1249
-  Top = 72
+  Left = 184
+  Top = 2
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmMontaPed_TipoItem'
@@ -357,7 +357,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object btnCopiar: TBitBtn
       Left = 6
-      Top = 7
+      Top = 8
       Width = 300
       Height = 28
       Caption = 'Copiar os Itens'

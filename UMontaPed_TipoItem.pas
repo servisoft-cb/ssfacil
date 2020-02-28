@@ -229,6 +229,7 @@ begin
     end;
   finally
     mArquivoImportado.EnableControls;
+    FreeAndNil(ffrmCadPedido_Itens);
   end;
   ShowMessage('Itens importados com sucesso!');
   Close;
