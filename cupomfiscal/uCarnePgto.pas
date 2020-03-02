@@ -104,7 +104,7 @@ var
 
 implementation
 
-uses DmdDatabase, uUtilPadrao;
+uses DmdDatabase, uUtilPadrao, uCarneRenegociacao;
 
 {$R *.dfm}
 

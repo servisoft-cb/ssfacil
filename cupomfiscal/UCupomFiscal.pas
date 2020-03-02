@@ -528,6 +528,9 @@ begin
       Exit;
     end;
 
+    if Copy(Edit1.Text,1,1) = '0' then
+      Edit1.Text := Copy(Edit1.Text,2,Length(Edit1.Text));
+
     prc_EnterCodigo;
 
     if (Trim(Edit1.Text) <> '') and (fDmCupomFiscal.cdsCupomParametrosUSA_COR_TAMANHO.AsString = 'S') then
