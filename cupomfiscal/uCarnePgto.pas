@@ -49,6 +49,7 @@ type
     btRecalcular: TNxButton;
     btTodas: TNxButton;
     CheckBox1: TCheckBox;
+    NxButton3: TNxButton;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -77,6 +78,7 @@ type
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure NxButton3Click(Sender: TObject);
   private
     { Private declarations }
     fDmPagamento: TDmPagamento;
@@ -930,6 +932,12 @@ procedure TfCarnePgto.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Shift = [ssCtrl]) and (Key = 87) then
      CheckBox1.Visible := not CheckBox1.Visible;
+end;
+
+procedure TfCarnePgto.NxButton3Click(Sender: TObject);
+begin
+  fCarneRenegociacao := TfCarneRenegociacao.Create(Self);
+  fCarneRenegociacao.ShowModal;
 end;
 
 end.
