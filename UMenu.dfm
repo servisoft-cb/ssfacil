@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 635
+    Height = 627
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -1036,10 +1036,6 @@ object fMenu: TfMenu
       object MovFinanceiro1: TMenuItem
         Caption = 'Mov. Financeiro (Cadastro de Entrada/Sa'#237'da de valores)'
         OnClick = MovFinanceiro1Click
-      end
-      object PagamentodeCarn1: TMenuItem
-        Caption = 'Pagamento de Carn'#234
-        OnClick = PagamentodeCarn1Click
       end
       object ransfernciaFinanceira1: TMenuItem
         Caption = 'Transfer'#234'ncia'

@@ -2132,14 +2132,14 @@ object dmCadProduto: TdmCadProduto
       'um(E2.QTD) AS Float) QTDGERAL'#13#10'        from ESTOQUE_ATUAL E2'#13#10'  ' +
       '      where E2.ID_PRODUTO = PRO.ID) QTD_ESTOQUE,'#13#10'PCUSTO.CONTADO' +
       'R CONT_POSSUIPRECO, PRO.DTCAD, LIN.NOME NOME_LINHA,'#13#10'coalesce(NC' +
-      'M.gerar_st,'#39'N'#39') GERAR_ST, PRO.MEDIDA'#13#10'from PRODUTO PRO'#13#10'left joi' +
-      'n TAB_NCM NCM on (PRO.ID_NCM = NCM.ID)'#13#10'left join MARCA on (PRO.' +
-      'ID_MARCA = MARCA.ID)'#13#10'left join GRUPO on (PRO.ID_GRUPO = GRUPO.I' +
-      'D)'#13#10'left join PRODUTO_VEICULO PV on (PRO.ID = PV.ID)'#13#10'left join ' +
-      'PRODUTO_LIVRO LI on (PRO.ID = LI.ID)  '#13#10'left join PESSOA FORN on' +
-      ' pro.id_fornecedor = forn.codigo'#13#10'LEFT JOIN vpossui_pcusto PCUST' +
-      'O ON PRO.ID = PCUSTO.ID'#13#10'left join LINHA LIN on (lin.id = pro.id' +
-      '_linha)'#13#10
+      'M.gerar_st,'#39'N'#39') GERAR_ST, PRO.MEDIDA, PRO.QTD_ESTOQUE_MIN'#13#10'from ' +
+      'PRODUTO PRO'#13#10'left join TAB_NCM NCM on (PRO.ID_NCM = NCM.ID)'#13#10'lef' +
+      't join MARCA on (PRO.ID_MARCA = MARCA.ID)'#13#10'left join GRUPO on (P' +
+      'RO.ID_GRUPO = GRUPO.ID)'#13#10'left join PRODUTO_VEICULO PV on (PRO.ID' +
+      ' = PV.ID)'#13#10'left join PRODUTO_LIVRO LI on (PRO.ID = LI.ID)  '#13#10'lef' +
+      't join PESSOA FORN on pro.id_fornecedor = forn.codigo'#13#10'LEFT JOIN' +
+      ' vpossui_pcusto PCUSTO ON PRO.ID = PCUSTO.ID'#13#10'left join LINHA LI' +
+      'N on (lin.id = pro.id_linha)'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -2425,6 +2425,9 @@ object dmCadProduto: TdmCadProduto
     end
     object cdsProduto_ConsultaMEDIDA: TStringField
       FieldName = 'MEDIDA'
+    end
+    object cdsProduto_ConsultaQTD_ESTOQUE_MIN: TFloatField
+      FieldName = 'QTD_ESTOQUE_MIN'
     end
   end
   object dsProduto_Consulta: TDataSource
@@ -6262,7 +6265,6 @@ object dmCadProduto: TdmCadProduto
     Top = 331
   end
   object cdsProcesso: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspProcesso'

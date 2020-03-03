@@ -668,7 +668,6 @@ uses
   UConsProduto_Pes in 'UConsProduto_Pes.pas' {frmConsProduto_Pes},
   UDMConsProduto in 'UDMConsProduto.pas' {DMConsProduto: TDataModule},
   uCopiar_Comb_Agrupado in 'uCopiar_Comb_Agrupado.pas' {frmCopiar_Comb_Agrupado},
-  uCarnePgto in 'cupomfiscal\uCarnePgto.pas' {fCarnePgto},
   uDmPagamento in 'cupomfiscal\uDmPagamento.pas' {dmPagamento: TDataModule},
   UCadSetor_Proc in 'UCadSetor_Proc.pas' {frmCadSetor_Proc},
   UDMCadAtelier_Fic in 'UDMCadAtelier_Fic.pas' {DMCadAtelier_Fic: TDataModule},
@@ -834,8 +833,7 @@ uses
   UConsPessoa_Produto in 'UConsPessoa_Produto.pas' {frmConsPessoa_Produto},
   UConsNCM_CFOP in 'UConsNCM_CFOP.pas' {frmConsNCM_CFOP},
   UDMConsNCM_CFOP in 'UDMConsNCM_CFOP.pas' {DMConsNCM_CFOP: TDataModule},
-  UAtualizaPreco_Mat in 'UAtualizaPreco_Mat.pas' {frmAtualizaPreco_Mat},
-  uCarneRenegociacao in 'cupomfiscal\uCarneRenegociacao.pas' {fCarneRenegociacao};
+  UAtualizaPreco_Mat in 'UAtualizaPreco_Mat.pas' {frmAtualizaPreco_Mat};
 
 {$R *.res}
 

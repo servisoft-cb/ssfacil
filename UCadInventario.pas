@@ -696,7 +696,7 @@ begin
   Form := TForm.Create(Application);
   uUtilPadrao.prc_Form_Aguarde(Form);
 
-  try                           s
+  try                           
     vIDAux := fDMCadInventario.cdsInventarioID.AsInteger;
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata    := True;

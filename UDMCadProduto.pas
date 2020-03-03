@@ -1981,6 +1981,7 @@ type
     cdsProdutoAplicacaoNOME_MARCA: TStringField;
     sdsProdutoCOD_BENEF: TStringField;
     cdsProdutoCOD_BENEF: TStringField;
+    cdsProduto_ConsultaQTD_ESTOQUE_MIN: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;

@@ -160,7 +160,7 @@ end;
 procedure TfrmCadInventario_Prod.SMDBGrid1TitleClick(Column: TColumn);
 var
   i: Integer;
-  ColunaOrdenada: String;                                                                          /
+  ColunaOrdenada: String;                                                                          
 begin
   ColunaOrdenada := Column.FieldName;
   fDMCadInventario.cdsProduto.IndexFieldNames := Column.FieldName;

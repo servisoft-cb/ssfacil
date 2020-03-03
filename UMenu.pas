@@ -301,7 +301,6 @@ type
     PlanoDRE1: TMenuItem;
     ConsultaFaturamento21: TMenuItem;
     ConsultaDRE1: TMenuItem;
-    PagamentodeCarn1: TMenuItem;
     AtelierADefinir1: TMenuItem;
     N47: TMenuItem;
     ProgramaodePedidos1: TMenuItem;
@@ -569,7 +568,6 @@ type
     procedure PlanoDRE1Click(Sender: TObject);
     procedure ConsultaFaturamento21Click(Sender: TObject);
     procedure ConsultaDRE1Click(Sender: TObject);
-    procedure PagamentodeCarn1Click(Sender: TObject);
     procedure AtelierADefinir1Click(Sender: TObject);
     procedure ProgramaodePedidos1Click(Sender: TObject);
     procedure FuncionrioResumido1Click(Sender: TObject);
@@ -674,14 +672,13 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   UConsProduto_Sem_Ped, UConsEstoque_Mov_Vei, UConsMaterial_Sem_Mov, UConsPedido_Proc, UCadRegra, UConsEstoque_Bal_Vei, uMenu1,
   uCadOS_Otica, UConsPedido_Senha, UCadRecNF, UEnviaEmailOBS, UConsEstoque_Medida, UManifesto, UCadAtividade, UCadGrupo_Pessoa,
   ULiberacao_Fat, USel_Produto, UConsPrazoMedio, UConferencia_Ped, UCadProcesso_Grupo, UCadPlano_Contabil, UConsMapaCompras,
-  UCadAgenda, uCadPlano_DRE, UConsFat, UConsDRE, uCarnePgto, UCadAtelier_Fic, UCadPedidoLoja, UProgramacaoPedidos, uCadPessoaRed,
+  UCadAgenda, uCadPlano_DRE, UConsFat, UConsDRE, UCadAtelier_Fic, UCadPedidoLoja, UProgramacaoPedidos, uCadPessoaRed,
   uCadFuncionario_Res, UConsAniversario, UExcluirPed, UConsLoteMat, UConsProduto_Custo, UConsFrete, UConsMaterial_Nec, UConsPedido_Orc,
   UConsEstoque_Res, UBaixaMaterialOP, uCadTipo_Material, UConsMatPrima, UConsMaterialOP, UConsMaterial_Nec_Rem, uBaixaPedidoProc,
   uConsPedidoProcMapa, UCadDocEntrada, UCadTipoMaquina, UConsComprasOrcamento, UConsReal_Projetado, UConsEstoque_Atual,
   UBaixaNFDevolvida, UConsEstoqueTerc, UAjuste_OperacaoNota, UConsNotas, uProdutoAtualizaPreco, uCadMovProdST, UCadPedWeb,
-  UConsProdSTRet, UDMCadPlanoMat, UGerar_PlanoMat, UAjusteEstoqueOP_Res, uCadRaca, uCadTipo_Animal,
-  UConsEstoque2, UComissaoVend, UConsProdutoNCM, UProg_Terc,
-  UConsPedido_Producao, UConsNCM_CFOP;
+  UConsProdSTRet, UDMCadPlanoMat, UGerar_PlanoMat, UAjusteEstoqueOP_Res, uCadRaca, uCadTipo_Animal, UConsEstoque2, UComissaoVend,
+  UConsProdutoNCM, UProg_Terc, UConsPedido_Producao, UConsNCM_CFOP;
 
 {$R *.dfm}
 
@@ -1944,11 +1941,6 @@ end;
 procedure TfMenu.ConsultaDRE1Click(Sender: TObject);
 begin
   OpenForm(TfrmConsDRE,wsMaximized);
-end;
-
-procedure TfMenu.PagamentodeCarn1Click(Sender: TObject);
-begin
-  OpenForm(TfCarnePgto,wsMaximized);
 end;
 
 procedure TfMenu.AtelierADefinir1Click(Sender: TObject);
