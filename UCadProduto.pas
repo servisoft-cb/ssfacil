@@ -1221,6 +1221,9 @@ begin
   if not vExcluir then
     exit;
 
+
+  SMDBGrid1.DisableScroll;
+
   vCont := SMDBGrid1.SelectedRows.Count;
   fDMCadProduto.cdsProduto_Consulta.First;
   while not fDMCadProduto.cdsProduto_Consulta.Eof do
@@ -1242,6 +1245,7 @@ begin
  ///prc_Excluir_Registro;
   btnExcluir.Enabled := False;
   btnConsultarClick(Sender);
+  SMDBGrid1.EnableScroll;
 end;
 
 procedure TfrmCadProduto.prc_Excluir_Registro;

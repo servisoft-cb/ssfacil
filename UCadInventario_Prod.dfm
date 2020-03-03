@@ -141,6 +141,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Grupo'
+            Width = 64
             Visible = True
           end>
       end

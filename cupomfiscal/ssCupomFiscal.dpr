@@ -95,7 +95,8 @@ uses
   UAltCFOPProd in '..\UAltCFOPProd.pas' {frmAltCFOPProd},
   uDmMySql in 'uDmMySql.pas' {DmMySql: TDataModule},
   UCadFechamento_Contagem2 in 'UCadFechamento_Contagem2.pas' {frmCadFechamento_Contagem2},
-  UCadFechamento2 in 'UCadFechamento2.pas' {frmCadFechamento2};
+  UCadFechamento2 in 'UCadFechamento2.pas' {frmCadFechamento2},
+  uCarneRenegociacao in 'uCarneRenegociacao.pas' {fCarneRenegociacao};
 
 {$R *.res}
 

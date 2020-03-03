@@ -5,8 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadInventario,
   DBGrids, ExtCtrls, StdCtrls, DB, RzTabs, DBCtrls, ToolEdit, UCBase, RxLookup, Mask, CurrEdit, RxDBComb, NxCollection,
-  RXDBCtrl, UCadInventario_Prod, SqlExpr, dbXPress, UDMEstoque, Variants,
-  Menus;
+  RXDBCtrl, UCadInventario_Prod, SqlExpr, dbXPress, UDMEstoque, Variants, Menus;
 
 type
   TfrmCadInventario = class(TForm)
@@ -133,8 +132,7 @@ var
 
 implementation
 
-uses DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, URelInventario,
-  UCadInventario_EstLote, ConvUtils;
+uses DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, URelInventario, UCadInventario_EstLote, ConvUtils;
 
 {$R *.dfm}
 
@@ -611,7 +609,7 @@ end;
 
 procedure TfrmCadInventario.btnLiberaGridClick(Sender: TObject);
 var
-  i : Integer;
+  i: Integer;
 begin
   for i := 1 to SMDBGrid2.ColCount - 2 do
   begin
@@ -672,15 +670,15 @@ procedure TfrmCadInventario.btnCopiarClick(Sender: TObject);
 var
   sds: TSQLDataSet;
   sds2: TSQLDataSet;
-  i : Integer;
-  vData : TDateTime;
-  vIDAux : Integer;
+  i: Integer;
+  vData: TDateTime;
+  vIDAux: Integer;
   Form: TForm;
 begin
   if not(fDMCadInventario.cdsInventario_Consulta.Active) or (fDMCadInventario.cdsInventario_Consulta.IsEmpty) then
     exit;
 
-  if MessageDlg('Deseja Copiar o Inventário Nº ' + fDMCadInventario.cdsInventario_ConsultaNUM_INVENTARIO.AsString + '?' ,mtConfirmation,[mbYes,mbNo],0) = mrNo then
+  if MessageDlg('Deseja copiar o inventário Nº ' + fDMCadInventario.cdsInventario_ConsultaNUM_INVENTARIO.AsString + '?' ,mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
 
   vData := Date;
@@ -698,8 +696,7 @@ begin
   Form := TForm.Create(Application);
   uUtilPadrao.prc_Form_Aguarde(Form);
 
-  try
-
+  try                           s
     vIDAux := fDMCadInventario.cdsInventarioID.AsInteger;
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata    := True;
@@ -746,8 +743,7 @@ begin
 
   fDMCadInventario.cdsInventario.ApplyUpdates(0);
 
-  prc_Consultar(vIDAux);
-
+  prc_Consultar(vIDAux);  
 end;
 
 end.

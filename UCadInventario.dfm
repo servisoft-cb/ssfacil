@@ -23,8 +23,8 @@ object frmCadInventario: TfrmCadInventario
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 894
-    Height = 601
+    Width = 886
+    Height = 593
     ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -41,9 +41,9 @@ object frmCadInventario: TfrmCadInventario
       Caption = 'Tela de Consulta'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 145
-        Width = 890
-        Height = 416
+        Top = 147
+        Width = 882
+        Height = 406
         Align = alClient
         Ctl3D = False
         DataSource = DMCadInventario.dsInventario_Consulta
@@ -141,16 +141,17 @@ object frmCadInventario: TfrmCadInventario
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 890
+        Width = 882
         Height = 32
         Align = alTop
         Color = clSilver
         TabOrder = 1
         object btnInserir: TNxButton
-          Left = 3
+          Left = 1
           Top = 1
           Width = 153
           Height = 30
+          Align = alLeft
           Caption = 'Inserir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -221,10 +222,11 @@ object frmCadInventario: TfrmCadInventario
           OnClick = btnInserirClick
         end
         object btnExcluir: TNxButton
-          Left = 156
+          Left = 307
           Top = 1
           Width = 153
           Height = 30
+          Align = alLeft
           Caption = 'Excluir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -295,10 +297,11 @@ object frmCadInventario: TfrmCadInventario
           OnClick = btnExcluirClick
         end
         object btnPesquisar: TNxButton
-          Left = 309
+          Left = 154
           Top = 1
           Width = 153
           Height = 30
+          Align = alLeft
           Caption = 'Pesquisar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -371,6 +374,7 @@ object frmCadInventario: TfrmCadInventario
           Top = 1
           Width = 153
           Height = 30
+          Align = alLeft
           Caption = 'Copiar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -441,8 +445,8 @@ object frmCadInventario: TfrmCadInventario
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 561
-        Width = 890
+        Top = 553
+        Width = 882
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -458,8 +462,8 @@ object frmCadInventario: TfrmCadInventario
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 890
-        Height = 113
+        Width = 882
+        Height = 115
         Align = alTop
         Color = clSilver
         TabOrder = 0
@@ -640,7 +644,7 @@ object frmCadInventario: TfrmCadInventario
         end
         object RxDBLookupCombo2: TRxDBLookupCombo
           Left = 88
-          Top = 91
+          Top = 92
           Width = 292
           Height = 21
           DropDownCount = 8
@@ -656,7 +660,7 @@ object frmCadInventario: TfrmCadInventario
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 890
+        Width = 882
         Height = 31
         Align = alTop
         Color = 8404992
@@ -885,7 +889,7 @@ object frmCadInventario: TfrmCadInventario
       object pnlCadastro: TPanel
         Left = 0
         Top = 31
-        Width = 890
+        Width = 882
         Height = 118
         Align = alTop
         Enabled = False
@@ -939,7 +943,7 @@ object frmCadInventario: TfrmCadInventario
           Caption = 'N'#186' Invent'#225'rio:'
         end
         object Label4: TLabel
-          Left = 55
+          Left = 56
           Top = 101
           Width = 71
           Height = 13
@@ -1086,7 +1090,7 @@ object frmCadInventario: TfrmCadInventario
         object pnlNota: TPanel
           Left = 1
           Top = 1
-          Width = 888
+          Width = 880
           Height = 24
           Align = alTop
           Color = clSilver
@@ -1157,8 +1161,8 @@ object frmCadInventario: TfrmCadInventario
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 149
-        Width = 890
-        Height = 429
+        Width = 882
+        Height = 421
         ActivePage = TabSheet1
         ActivePageDefault = TabSheet1
         Align = alClient
@@ -1170,17 +1174,18 @@ object frmCadInventario: TfrmCadInventario
           object Panel4: TPanel
             Left = 0
             Top = 0
-            Width = 886
-            Height = 33
+            Width = 878
+            Height = 29
             Align = alTop
             Color = clSilver
             Enabled = False
             TabOrder = 0
             object btnImp_Produto: TNxButton
-              Left = 2
-              Top = 2
+              Left = 1
+              Top = 1
               Width = 182
-              Height = 30
+              Height = 27
+              Align = alLeft
               Caption = 'Importar Produtos'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1252,10 +1257,11 @@ object frmCadInventario: TfrmCadInventario
               OnClick = btnImp_ProdutoClick
             end
             object btnExcluir_Prod: TNxButton
-              Left = 185
-              Top = 2
+              Left = 183
+              Top = 1
               Width = 185
-              Height = 30
+              Height = 27
+              Align = alLeft
               Caption = 'Excluir Selecionados'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1327,10 +1333,11 @@ object frmCadInventario: TfrmCadInventario
               OnClick = btnExcluir_ProdClick
             end
             object btnImp_EstoqueLote: TNxButton
-              Left = 370
-              Top = 2
+              Left = 368
+              Top = 1
               Width = 182
-              Height = 30
+              Height = 27
+              Align = alLeft
               Caption = 'Importar Estoque Lote'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1430,9 +1437,9 @@ object frmCadInventario: TfrmCadInventario
           end
           object SMDBGrid2: TSMDBGrid
             Left = 0
-            Top = 33
-            Width = 886
-            Height = 373
+            Top = 29
+            Width = 878
+            Height = 369
             Align = alClient
             Ctl3D = False
             DataSource = DMCadInventario.dsInventario_Itens
@@ -1506,7 +1513,6 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Cor'
-                Width = 64
                 Visible = True
               end
               item
@@ -1533,7 +1539,6 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Estoque'
-                Width = 64
                 Visible = True
               end
               item
@@ -1549,7 +1554,6 @@ object frmCadInventario: TfrmCadInventario
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = [fsBold]
-                Width = 64
                 Visible = True
               end
               item
@@ -1565,7 +1569,6 @@ object frmCadInventario: TfrmCadInventario
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = [fsBold]
-                Width = 64
                 Visible = True
               end
               item
@@ -1582,7 +1585,6 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Tipo Ajuste'
-                Width = 64
                 Visible = True
               end
               item
@@ -1599,7 +1601,6 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Mov Estoque'
-                Width = 64
                 Visible = True
               end
               item
