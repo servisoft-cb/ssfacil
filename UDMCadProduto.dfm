@@ -493,6 +493,10 @@ object dmCadProduto: TdmCadProduto
       FieldName = 'COD_BENEF'
       Size = 8
     end
+    object sdsProdutoTIPO_PRODUTO: TStringField
+      FieldName = 'TIPO_PRODUTO'
+      Size = 4
+    end
   end
   object dspProduto: TDataSetProvider
     DataSet = sdsProduto
@@ -1047,6 +1051,10 @@ object dmCadProduto: TdmCadProduto
     object cdsProdutoCOD_BENEF: TStringField
       FieldName = 'COD_BENEF'
       Size = 8
+    end
+    object cdsProdutoTIPO_PRODUTO: TStringField
+      FieldName = 'TIPO_PRODUTO'
+      Size = 4
     end
   end
   object dsProduto: TDataSource

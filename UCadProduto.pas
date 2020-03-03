@@ -815,6 +815,10 @@ type
     DBEdit163: TDBEdit;
     Excel1: TMenuItem;
     abeladePreo1: TMenuItem;
+    Label260: TLabel;
+    DBEdit164: TDBEdit;
+    Label261: TLabel;
+    RxDBComboBox13: TRxDBComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

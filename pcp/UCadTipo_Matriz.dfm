@@ -21,9 +21,9 @@ object frmCadTipo_Matriz: TfrmCadTipo_Matriz
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 716
-    Height = 449
-    ActivePage = TS_Consulta
+    Width = 724
+    Height = 456
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16759929
@@ -31,7 +31,7 @@ object frmCadTipo_Matriz: TfrmCadTipo_Matriz
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -39,8 +39,8 @@ object frmCadTipo_Matriz: TfrmCadTipo_Matriz
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 81
-        Width = 712
-        Height = 328
+        Width = 720
+        Height = 335
         Align = alClient
         Ctl3D = True
         DataSource = DMCadTipo_Matriz.dsTipo_Matriz
@@ -94,7 +94,7 @@ object frmCadTipo_Matriz: TfrmCadTipo_Matriz
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 712
+        Width = 720
         Height = 35
         Align = alTop
         Color = clSilver
@@ -322,8 +322,8 @@ object frmCadTipo_Matriz: TfrmCadTipo_Matriz
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 409
-        Width = 712
+        Top = 416
+        Width = 720
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -339,7 +339,7 @@ object frmCadTipo_Matriz: TfrmCadTipo_Matriz
       object pnlPesquisa: TPanel
         Left = 0
         Top = 35
-        Width = 712
+        Width = 720
         Height = 46
         Align = alTop
         Color = clSilver
@@ -440,7 +440,7 @@ object frmCadTipo_Matriz: TfrmCadTipo_Matriz
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 712
+        Width = 720
         Height = 37
         Align = alTop
         Color = 8404992
@@ -666,8 +666,8 @@ object frmCadTipo_Matriz: TfrmCadTipo_Matriz
       object pnlCadastro: TPanel
         Left = 0
         Top = 37
-        Width = 712
-        Height = 389
+        Width = 720
+        Height = 396
         Align = alClient
         Enabled = False
         TabOrder = 0

@@ -1982,6 +1982,8 @@ type
     sdsProdutoCOD_BENEF: TStringField;
     cdsProdutoCOD_BENEF: TStringField;
     cdsProduto_ConsultaQTD_ESTOQUE_MIN: TFloatField;
+    sdsProdutoTIPO_PRODUTO: TStringField;
+    cdsProdutoTIPO_PRODUTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
