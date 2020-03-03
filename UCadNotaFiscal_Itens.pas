@@ -371,6 +371,7 @@ type
     vSacolaSelecionada: Boolean;
     vPedAmbiente: Boolean;
     vBaseIcms_Cre, vVlrIcms_Cre: Real;
+    vBaseIPI_Cre, vVlrIPI_Cre : Real;
     vItem_Original: Integer;
 
     fDMCadNotaFiscal: TDMCadNotaFiscal;
@@ -1557,6 +1558,9 @@ begin
     begin
       fDMCadNotaFiscal.cdsNotaFiscalBASE_ICMS.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalBASE_ICMS.AsFloat - vBaseIcms_Cre));
       fDMCadNotaFiscal.cdsNotaFiscalVLR_ICMS.AsFloat  := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_ICMS.AsFloat - vVlrIcms_Cre));
+      //02/03/2020
+      fDMCadNotaFiscal.cdsNotaFiscalBASE_IPI.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalBASE_IPI.AsFloat - vBaseIPI_Cre));
+      fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat  := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat - vVlrIPI_Cre));
     end;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensNCM.AsString       := fDMCadNotaFiscal.cdsTab_NCMNCM.AsString;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensTIPO_NOTA.AsString := fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString;

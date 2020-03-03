@@ -1307,6 +1307,9 @@ begin
   DBEdit36.ReadOnly := True;
   DBEdit37.ReadOnly := True;
   DBEdit38.ReadOnly := True;
+  DBEdit72.ReadOnly := True;
+  DBEdit19.ReadOnly := True;
+
   vPreFat := False;
   fDMCadNotaFiscal.cdsNotaFiscal_Imp_Aux.Close;
   fDMCadNotaFiscal.cdsNotaFiscal_Imp_Aux.Open;
@@ -2240,7 +2243,7 @@ begin
   fDMCadNotaFiscal.cdsNotaFiscal_Itens.Edit;
   fDMCadNotaFiscal.vState_Item := 'E';
 
-  //03/07/2019 ajustado para filstrar por tabela de preço
+  //03/07/2019 ajustado para filtrar por tabela de preço
   if (fDMCadNotaFiscal.cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadNotaFiscal.cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'G') or
      (fDMCadNotaFiscal.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadNotaFiscal.qParametros_ProdMOSTRA_PROD_TPRECO.AsString = 'S') then
     fDMCadNotaFiscal.prc_Filtrar_Produto_Cliente(False);
@@ -2249,6 +2252,9 @@ begin
   ffrmCadNotaFiscal_Itens := TfrmCadNotaFiscal_Itens.Create(self);
   ffrmCadNotaFiscal_Itens.vBaseIcms_Cre := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensBASE_ICMS.AsFloat));
   ffrmCadNotaFiscal_Itens.vVlrIcms_Cre  := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_ICMS.AsFloat));
+  //02/03/2020
+  ffrmCadNotaFiscal_Itens.vBaseIPI_Cre  := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensBASE_IPI.AsFloat));
+  ffrmCadNotaFiscal_Itens.vVlrIPI_Cre   := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_IPI.AsFloat));
 
   SMDBGrid2.DisableScroll;  //movido para antes de abrir a tela de itens
 
@@ -3254,6 +3260,8 @@ begin
     DBEdit36.ReadOnly       := not(DBEdit36.ReadOnly);
     DBEdit37.ReadOnly       := not(DBEdit37.ReadOnly);
     DBEdit38.ReadOnly       := not(DBEdit38.ReadOnly);
+    DBEdit72.ReadOnly       := not(DBEdit72.ReadOnly);
+    DBEdit19.ReadOnly       := not(DBEdit19.ReadOnly);
   end
   else
   if (Shift = [ssCtrl]) and (Key = 72) then
