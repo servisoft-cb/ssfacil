@@ -184,7 +184,7 @@ object frmSel_Pedido: TfrmSel_Pedido
       TabOrder = 1
     end
     object btnPesquisar: TNxButton
-      Left = 273
+      Left = 274
       Top = 4
       Width = 153
       Height = 30

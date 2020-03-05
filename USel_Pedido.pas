@@ -73,6 +73,7 @@ type
   public
     { Public declarations }
 //    vCodCliente: Integer;
+    //vCodCliente: Integer;
     vTipo_RegPed: String;
     vTipo: String;
 
@@ -351,12 +352,15 @@ begin
     fDMCadVale.sdsPedido.CommandText := fDMCadVale.sdsPedido.CommandText + ' AND PE.TIPO_REG = ' + QuotedStr('P');
     if fDmCadVale.qParametrosUSA_APROVACAO_PED.AsString = 'S' then
       fDMCadVale.sdsPedido.CommandText := fDMCadVale.sdsPedido.CommandText + ' AND PE.APROVADO_PED = ' + QuotedStr('A');
-    if fDMCadNotaFiscal.vCodCliente > 0 then
+    if fDMCadVale.vCodCliente > 0 then
       fDMCadVale.sdsPedido.CommandText := fDMCadVale.sdsPedido.CommandText +
-                                          ' AND PE.ID_CLIENTE = ' + IntToStr(fDMCadNotaFiscal.vCodCliente);
+                                          ' AND PE.ID_CLIENTE = ' + IntToStr(fDMCadVale.vCodCliente);
     if fDmCadVale.qParametros_PedCONTROLAR_FILIAL_NA_COPIA_NOTA.AsString = 'S' then
       fDMCadVale.sdsPedido.CommandText := fDMCadVale.sdsPedido.CommandText + ' AND PE.FILIAL = ' + fDmCadVale.cdsValeFILIAL.AsString;
 
+    if trim(edtPedido.Text) <> '' then
+      fDMCadVale.sdsPedido.CommandText := fDMCadVale.sdsPedido.CommandText + ' AND PE.PEDIDO_CLIENTE = ' + QuotedStr(edtPedido.Text);
+      
     fDMCadVale.cdsPedido.Open;
     fDMCadVale.cdsPedido.First;
     while not fDMCadVale.cdsPedido.Eof do

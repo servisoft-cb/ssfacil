@@ -573,6 +573,8 @@ type
     sdsPedidoCALCULARICMSSOBREIPI: TStringField;
     cdsPedidoCALCULARICMSSOBREIPI: TStringField;
     cdsValeImpVLR_IPI: TFloatField;
+    qParametrosAPLICARDESCONTONOIPI: TStringField;
+    cdsPessoaCNPJ_CPF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspValeUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -938,7 +940,12 @@ procedure TDmCadVale.prc_Calcular_IPI;
 begin
   cdsValeItensVLR_IPI.AsFloat := 0;
   if StrToFloat(FormatFloat('0.00',cdsValeItensPERC_IPI.AsFloat)) > 0 then
-    cdsValeItensVLR_IPI.AsFloat := StrToFloat(FormatFloat('0.00',(cdsValeItensVLR_TOTAL.AsFloat * cdsValeItensPERC_IPI.AsFloat) / 100));
+  begin
+    if qParametrosAPLICARDESCONTONOIPI.AsString = 'S' then
+      cdsValeItensVLR_IPI.AsFloat := StrToFloat(FormatFloat('0.00',(cdsValeItensVLR_TOTAL.AsFloat * cdsValeItensPERC_IPI.AsFloat) / 100))
+    else
+      cdsValeItensVLR_IPI.AsFloat := StrToFloat(FormatFloat('0.00',((cdsValeItensVLR_TOTAL.AsFloat + cdsValeItensVLR_DESCONTO.AsFloat) * cdsValeItensPERC_IPI.AsFloat) / 100));
+  end;
 end;
 
 end.

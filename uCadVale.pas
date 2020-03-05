@@ -152,6 +152,8 @@ type
     procedure ListadosVales1Click(Sender: TObject);
     procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure RxDBLookupCombo2KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     vTipoNotaAnt: String;
@@ -186,7 +188,7 @@ var
 implementation
 
 uses DmdDatabase, rsDBUtils, uUtilPadrao, URelVale, UCadVale_Servicos,
-  UConsVale_Fat;
+  UConsVale_Fat, USel_Pessoa;
 
 {$R *.dfm}
 
@@ -839,6 +841,20 @@ begin
     ffrmConsVale_Fat.ShowModal;
     FreeAndNil(ffrmConsVale_Fat);
   end
+end;
+
+procedure TfrmCadVale.RxDBLookupCombo2KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_F2) then
+  begin
+    vCodPessoa_Pos := fDmCadVale.cdsValeID_CLIENTE.AsInteger;
+    frmSel_Pessoa := TfrmSel_Pessoa.Create(Self);
+    frmSel_Pessoa.vTipo_Pessoa := 'C';
+    frmSel_Pessoa.ShowModal;
+    fDmCadVale.cdsValeID_CLIENTE.AsInteger := vCodPessoa_Pos;
+    RxDBLookupCombo2.SetFocus;
+  end;
 end;
 
 end.

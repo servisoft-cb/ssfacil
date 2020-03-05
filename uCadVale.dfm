@@ -1079,12 +1079,14 @@ object frmCadVale: TfrmCadVale
             Width = 488
             Height = 21
             DropDownCount = 15
+            DropDownWidth = 700
             DataField = 'ID_CLIENTE'
             DataSource = DmCadVale.dsVale
             LookupField = 'CODIGO'
-            LookupDisplay = 'NOME'
+            LookupDisplay = 'NOME;CNPJ_CPF'
             LookupSource = DmCadVale.dsPessoa
             TabOrder = 3
+            OnKeyDown = RxDBLookupCombo2KeyDown
           end
           object DBEdit1: TDBEdit
             Left = 105
