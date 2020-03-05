@@ -580,12 +580,12 @@ object DmCadVale: TDmCadVale
     GetMetadata = False
     CommandText = 
       'SELECT CODIGO, NOME, FANTASIA, UF, ID_TAB_PRECO,'#13#10'PERC_COMISSAO,' +
-      ' ID_VENDEDOR'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39#13#10
+      ' ID_VENDEDOR, CNPJ_CPF'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 392
-    Top = 120
+    Top = 121
   end
   object dspPessoa: TDataSetProvider
     DataSet = sdsPessoa
@@ -598,7 +598,7 @@ object DmCadVale: TDmCadVale
     Params = <>
     ProviderName = 'dspPessoa'
     Left = 472
-    Top = 120
+    Top = 121
     object cdsPessoaCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Required = True
@@ -624,6 +624,9 @@ object DmCadVale: TDmCadVale
     end
     object cdsPessoaID_VENDEDOR: TIntegerField
       FieldName = 'ID_VENDEDOR'
+    end
+    object cdsPessoaCNPJ_CPF: TStringField
+      FieldName = 'CNPJ_CPF'
     end
   end
   object dsPessoa: TDataSource
@@ -1080,7 +1083,7 @@ object DmCadVale: TDmCadVale
       'WHERE ID = 1')
     SQLConnection = dmDatabase.scoDados
     Left = 56
-    Top = 368
+    Top = 369
     object qParametrosID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1160,6 +1163,11 @@ object DmCadVale: TDmCadVale
     end
     object qParametrosEMPRESA_AMBIENTES: TStringField
       FieldName = 'EMPRESA_AMBIENTES'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametrosAPLICARDESCONTONOIPI: TStringField
+      FieldName = 'APLICARDESCONTONOIPI'
       FixedChar = True
       Size = 1
     end
