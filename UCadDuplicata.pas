@@ -1070,8 +1070,7 @@ begin
   end;
   if fDMCadDuplicata.cdsDuplicata_ConsultaCANCELADA.AsString = 'S' then
   begin
-    AFont.Color := clRed;
-    AFont.Style := [fsBold];
+    AFont.Color := $00400080;
   end;
 end;
 

@@ -595,7 +595,7 @@ object fCarnePgto: TfCarnePgto
       ParentFont = False
     end
     object btExcluir: TNxButton
-      Left = 596
+      Left = 740
       Top = 1
       Width = 144
       Height = 26
@@ -633,7 +633,7 @@ object fCarnePgto: TfCarnePgto
       OnClick = btRecalcularClick
     end
     object NxButton3: TNxButton
-      Left = 740
+      Left = 596
       Top = 1
       Width = 144
       Height = 26

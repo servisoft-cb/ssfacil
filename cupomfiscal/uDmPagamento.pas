@@ -201,7 +201,26 @@ type
     cdsDuplicataID_TERMINAL: TIntegerField;
     cdsDuplicataUSUARIO: TStringField;
     cdsDuplicataCliDESCRICAO: TStringField;
+    dsCondPgto: TDataSource;
+    cdsCondPgto: TClientDataSet;
+    cdsCondPgtoID: TIntegerField;
+    cdsCondPgtoNOME: TStringField;
+    cdsCondPgtoTIPO: TStringField;
+    cdsCondPgtoTIPO_CONDICAO: TStringField;
+    cdsCondPgtoQTD_PARCELA: TIntegerField;
+    cdsCondPgtoENTRADA: TStringField;
+    cdsCondPgtoMOSTRAR_NFCE: TStringField;
+    dspCondPgto: TDataSetProvider;
+    sdsCondPgto: TSQLDataSet;
+    mNegociacao: TClientDataSet;
+    dsmNegociacao: TDataSource;
+    mNegociacaoPARCELA: TIntegerField;
+    mNegociacaoDATA: TDateField;
+    mNegociacaoVALOR: TCurrencyField;
+    sdsDuplicataCANCELADA: TStringField;
+    cdsDuplicataCANCELADA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
+    procedure cdsDuplicataNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -209,6 +228,7 @@ type
     ctCarnePgto: String;
     procedure prc_PosicionaCupom(vID: Integer);
     procedure prc_ImprimirRecibo(vVlrRec, vVlrTot, vVlrTroco: Currency; vCliente: String; vDtPgto: TDateTime);
+    procedure prc_InsereDuplicata(vDtVcto: TDateTime; vIdCliente, vParcela: Integer; vNomeCliente: String; vVlrParc: Currency);
     function fncCalculaTotal: Currency;
   end;
 
@@ -425,6 +445,44 @@ begin
   vLinha := vLinha + cAvanco;
 
   Printer.EndDoc;
+end;
+
+procedure TdmPagamento.cdsDuplicataNewRecord(DataSet: TDataSet);
+begin
+  cdsDuplicataVLR_DESCONTO.AsFloat     := 0;
+  cdsDuplicataVLR_DESPESAS.AsFloat     := 0;
+  cdsDuplicataVLR_JUROSPAGOS.AsFloat   := 0;
+  cdsDuplicataVLR_PAGO.AsFloat         := 0;
+  cdsDuplicataVLR_PARCELA.AsFloat      := 0;
+  cdsDuplicataVLR_RESTANTE.AsFloat     := 0;
+  cdsDuplicataNUMNOTA.AsInteger        := 0;
+  cdsDuplicataSERIE.AsString           := '';
+  cdsDuplicataCANCELADA.AsString       := 'N';
+end;
+
+procedure TdmPagamento.prc_InsereDuplicata(vDtVcto: TDateTime; vIdCliente, vParcela: Integer; vNomeCliente: String; vVlrParc: Currency);
+var
+  vAux: Integer;
+begin
+  vAux := dmDatabase.ProximaSequencia('DUPLICATA',0);
+  cdsDuplicata.Insert;
+  cdsDuplicataCANCELADA.AsString       := 'N';
+  cdsDuplicataDESCRICAO.AsString       := 'RENEGOCIAÇÃO DE VENCIMENTOS';
+  cdsDuplicataDTEMISSAO.AsDateTime     := Date;
+  cdsDuplicataDTVENCIMENTO.AsDateTime  := vDtVcto;
+  cdsDuplicataFILIAL.AsInteger         := vFilial;
+  cdsDuplicataID.AsInteger             := vAux;
+  cdsDuplicataID_PESSOA.AsInteger      := vIdCliente;
+  cdsDuplicataID_TERMINAL.AsInteger    := vTerminal;
+  cdsDuplicataNOME_CLI.AsString        := vNomeCliente;
+  cdsDuplicataPARCELA.AsInteger        := vParcela;
+  cdsDuplicataTIPO_ES.AsString         := 'E';
+  cdsDuplicataTIPO_LANCAMENTO.AsString := 'RNG';
+  cdsDuplicataUSUARIO.AsString         := vUsuario;
+  cdsDuplicataVLR_PARCELA.AsString     := FormatFloat('0.00',vVlrParc);
+  cdsDuplicataVLR_RESTANTE.AsString    := FormatFloat('0.00',vVlrParc);
+  cdsDuplicata.Post;
+  cdsDuplicata.ApplyUpdates(0);
 end;
 
 end.

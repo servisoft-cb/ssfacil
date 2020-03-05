@@ -3456,6 +3456,15 @@ object dmCupomFiscal: TdmCupomFiscal
     object sdsDuplicataUSUARIO: TStringField
       FieldName = 'USUARIO'
     end
+    object sdsDuplicataTIPO_MOV: TStringField
+      FieldName = 'TIPO_MOV'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsDuplicataCANCELADA: TStringField
+      FieldName = 'CANCELADA'
+      Size = 1
+    end
   end
   object dspDuplicata: TDataSetProvider
     DataSet = sdsDuplicata
@@ -3625,6 +3634,15 @@ object dmCupomFiscal: TdmCupomFiscal
     end
     object cdsDuplicataUSUARIO: TStringField
       FieldName = 'USUARIO'
+    end
+    object cdsDuplicataTIPO_MOV: TStringField
+      FieldName = 'TIPO_MOV'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsDuplicataCANCELADA: TStringField
+      FieldName = 'CANCELADA'
+      Size = 1
     end
   end
   object dsDuplicata_Mestre: TDataSource

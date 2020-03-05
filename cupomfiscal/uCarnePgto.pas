@@ -937,7 +937,25 @@ end;
 procedure TfCarnePgto.NxButton3Click(Sender: TObject);
 begin
   fCarneRenegociacao := TfCarneRenegociacao.Create(Self);
+  fCarneRenegociacao.fDmPagamento := fDmPagamento;
+  fcarneRenegociacao.CurrencyEdit1.Value := vIdCliente;
+  fcarneRenegociacao.CurrencyEdit2.Value := CurrencyEdit2.Value;
+  fcarneRenegociacao.Edit1.Text          := Edit1.Text;
   fCarneRenegociacao.ShowModal;
+
+  fDmPagamento.mSelecionadas.First;
+  while not fDmPagamento.mSelecionadas.IsEmpty do
+  begin
+    fDmPagamento.cdsDuplicata.Close;
+    fDmPagamento.sdsDuplicata.ParamByName('ID').AsInteger := fDmPagamento.mSelecionadasID.AsInteger;
+    fDmPagamento.cdsDuplicata.Open;
+    fDmPagamento.cdsDuplicata.Edit;
+    fDmPagamento.cdsDuplicataCANCELADA.AsString := 'S';
+    fDmPagamento.cdsDuplicata.Post;
+    fDmPagamento.cdsDuplicata.ApplyUpdates(0);
+    fDmPagamento.mSelecionadas.Delete;
+  end;
+  prcLimparCampos;
 end;
 
 end.

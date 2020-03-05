@@ -13,13 +13,13 @@ object dmPagamento: TdmPagamento
       'OTA, D.PARCELA, D.ID_CUPOM, ID_PESSOA, ID_CONTA, DTULTPAGAMENTO,' +
       ' VLR_PAGO, VLR_DESCONTO, VLR_JUROSPAGOS, VLR_DESPESAS, P.NOME NO' +
       'ME_CLI, D.TIPO_ES, D.FILIAL, D.DESCRICAO, D.SERIE, D.VLR_PARCELA' +
-      ', D.TIPO_LANCAMENTO, D.ID_TERMINAL, D.USUARIO'#13#10'FROM DUPLICATA D'#13 +
-      #10'INNER JOIN PESSOA P ON (D.ID_PESSOA = P.CODIGO)'#13#10'WHERE D.ID = :' +
-      'ID'
+      ', D.TIPO_LANCAMENTO, D.ID_TERMINAL, D.USUARIO, D.CANCELADA'#13#10'FROM' +
+      ' DUPLICATA D'#13#10'INNER JOIN PESSOA P ON (D.ID_PESSOA = P.CODIGO)'#13#10'W' +
+      'HERE D.ID = :ID'#13#10'AND COALESCE(D.CANCELADA,'#39'N'#39') <> '#39'S'#39
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftInteger
+        DataType = ftUnknown
         Name = 'ID'
         ParamType = ptInput
       end>
@@ -102,6 +102,10 @@ object dmPagamento: TdmPagamento
     object sdsDuplicataUSUARIO: TStringField
       FieldName = 'USUARIO'
     end
+    object sdsDuplicataCANCELADA: TStringField
+      FieldName = 'CANCELADA'
+      Size = 1
+    end
   end
   object dspDuplicata: TDataSetProvider
     DataSet = sdsDuplicata
@@ -112,6 +116,7 @@ object dmPagamento: TdmPagamento
     Aggregates = <>
     Params = <>
     ProviderName = 'dspDuplicata'
+    OnNewRecord = cdsDuplicataNewRecord
     Left = 112
     Top = 24
     object cdsDuplicataID: TIntegerField
@@ -190,6 +195,10 @@ object dmPagamento: TdmPagamento
     end
     object cdsDuplicataUSUARIO: TStringField
       FieldName = 'USUARIO'
+    end
+    object cdsDuplicataCANCELADA: TStringField
+      FieldName = 'CANCELADA'
+      Size = 1
     end
   end
   object dsDuplicata: TDataSource
@@ -1016,5 +1025,92 @@ object dmPagamento: TdmPagamento
     DataSet = sdsCarnePagamento
     Left = 488
     Top = 24
+  end
+  object dsCondPgto: TDataSource
+    DataSet = cdsCondPgto
+    Left = 456
+    Top = 192
+  end
+  object cdsCondPgto: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'NOME'
+    Params = <>
+    ProviderName = 'dspCondPgto'
+    Left = 424
+    Top = 192
+    object cdsCondPgtoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsCondPgtoNOME: TStringField
+      FieldName = 'NOME'
+      Size = 40
+    end
+    object cdsCondPgtoTIPO: TStringField
+      FieldName = 'TIPO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsCondPgtoTIPO_CONDICAO: TStringField
+      FieldName = 'TIPO_CONDICAO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsCondPgtoQTD_PARCELA: TIntegerField
+      FieldName = 'QTD_PARCELA'
+    end
+    object cdsCondPgtoENTRADA: TStringField
+      FieldName = 'ENTRADA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsCondPgtoMOSTRAR_NFCE: TStringField
+      FieldName = 'MOSTRAR_NFCE'
+      FixedChar = True
+      Size = 1
+    end
+  end
+  object dspCondPgto: TDataSetProvider
+    DataSet = sdsCondPgto
+    Left = 392
+    Top = 192
+  end
+  object sdsCondPgto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT *'#13#10'FROM CONDPGTO'#13#10'WHERE ENTRADA = '#39'N'#39#13#10'AND TIPO_CONDICAO ' +
+      '= '#39'F'#39
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 360
+    Top = 192
+  end
+  object mNegociacao: TClientDataSet
+    Active = True
+    Aggregates = <>
+    IndexFieldNames = 'PARCELA'
+    Params = <>
+    Left = 360
+    Top = 248
+    Data = {
+      590000009619E0BD010000001800000003000000000003000000590007504152
+      43454C410400010000000000044441544104000600000000000556414C4F5208
+      0004000000010007535542545950450200490006004D6F6E6579000000}
+    object mNegociacaoPARCELA: TIntegerField
+      FieldName = 'PARCELA'
+    end
+    object mNegociacaoDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object mNegociacaoVALOR: TCurrencyField
+      FieldName = 'VALOR'
+    end
+  end
+  object dsmNegociacao: TDataSource
+    DataSet = mNegociacao
+    Left = 392
+    Top = 248
   end
 end
