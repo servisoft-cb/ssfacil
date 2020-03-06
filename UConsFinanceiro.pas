@@ -319,7 +319,7 @@ begin
           end;
           if StrToFloat(FormatFloat('0.00',vVlr_Dup)) > 0 then
           begin
-            vCodigo := '10001B2'; //Faturamento a vista
+            vCodigo := '10001B2'; //Faturamento a Prazo
             vNome   := 'Faturamento a Prazo (Vales)';
             prc_Gravar_mFaturamento(vCodigo,vNome,vVlr_Dup);
           end;

@@ -1474,14 +1474,15 @@ object DMCadFinanceiro: TDMCadFinanceiro
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT sum(I.vlr_total) VLR_TOTAL,'#13#10'  (SELECT sum(I.vlr_total)'#13#10 +
-      '    FROM VALE V'#13#10'    INNER JOIN VALE_ITENS I'#13#10'    ON V.id = I.id' +
-      #13#10'    WHERE I.FATURADO = '#39'N'#39#13#10'      AND (V.FILIAL = :FILIAL or :' +
-      'FILIAL = 0)'#13#10'      AND V.DTEMISSAO >= :DTINICIAL'#13#10'      AND V.DT' +
-      'EMISSAO <= :DTFINAL ) VLR_PENDENTE'#13#10'FROM VALE V'#13#10'INNER JOIN VALE' +
-      '_ITENS I'#13#10'ON V.id = I.id'#13#10'WHERE (V.FILIAL = :FILIAL or :FILIAL =' +
-      ' 0)'#13#10'       AND V.DTEMISSAO >= :DTINICIAL'#13#10'       AND V.DTEMISSA' +
-      'O <= :DTFINAL'
+      'SELECT sum(I.vlr_total + coalesce(i.vlr_ipi,0) ) VLR_TOTAL,'#13#10'  (' +
+      'SELECT sum(I.vlr_total + coalesce(i.vlr_ipi,0) )'#13#10'    FROM VALE ' +
+      'V'#13#10'    INNER JOIN VALE_ITENS I'#13#10'    ON V.id = I.id'#13#10'    WHERE I.' +
+      'FATURADO = '#39'N'#39#13#10'      AND (V.FILIAL = :FILIAL or :FILIAL = 0)'#13#10' ' +
+      '     AND V.DTEMISSAO >= :DTINICIAL'#13#10'      AND V.DTEMISSAO <= :DT' +
+      'FINAL ) VLR_PENDENTE'#13#10'FROM VALE V'#13#10'INNER JOIN VALE_ITENS I'#13#10'ON V' +
+      '.id = I.id'#13#10'WHERE (V.FILIAL = :FILIAL or :FILIAL = 0)'#13#10'       AN' +
+      'D V.DTEMISSAO >= :DTINICIAL'#13#10'       AND V.DTEMISSAO <= :DTFINAL'#13 +
+      #10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -1760,7 +1761,7 @@ object DMCadFinanceiro: TDMCadFinanceiro
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT SUM(NI.vlr_total) VLR_TOTAL'
+      'SELECT SUM(NI.vlr_total + coalesce(ni.vlr_ipi,0)) VLR_TOTAL'
       'FROM NOTAFISCAL_ITENS NI'
       'WHERE NI.ID = :ID'
       '  AND NI.ID_VALE IS NOT NULL')
