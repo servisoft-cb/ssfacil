@@ -3127,6 +3127,7 @@ type
     qParametros_PedCONTROLAR_VLR_ENTRADA: TStringField;
     cdsNotaEntradaTAMANHO: TStringField;
     cdsValeCALCULARICMSSOBREIPI: TStringField;
+    cdsPedidoCALCULARICMSSOBREIPI: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

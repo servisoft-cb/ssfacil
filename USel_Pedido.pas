@@ -749,6 +749,9 @@ begin
     else
       vVlrAux := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat * fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat / 100));
     fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_IPI.AsFloat := StrToFloat(FormatFloat('0.00',vVlrAux));
+    //10/03/2020
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensCALCULARICMSSOBREIPI.AsString := fDMCadNotaFiscal.cdsPedidoCALCULARICMSSOBREIPI.AsString;
+    //***************
   end;
   //07/11/2018 foi incluido a opção Alterar_Nome_prod
   if (fDMCadNotaFiscal.qParametros_PedUSA_OPERACAO_SERV.AsString = 'S') or ((fDMCadNotaFiscal.qParametros_NFeALTERAR_NOME_PROD.AsString = 'S') and (vTipo = 'NTS'))  then
