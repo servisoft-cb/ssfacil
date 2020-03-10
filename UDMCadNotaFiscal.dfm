@@ -7968,14 +7968,15 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       ' NUM_OS_SERVICO, O.DTRECEBIMENTO, O.DT_AGENDA,'#13#10'       PIT.COMPR' +
       'IMENTO, PIT.LARGURA, PIT.ESPESSURA, PI.DRAWBACK, PE.TIPO_DESCONT' +
       'O, '#13#10'       PI.perc_desconto, PI.dtconferencia, PI.comprimento_v' +
-      'olume, pro.medida'#13#10'from PEDIDO PE'#13#10'inner join PEDIDO_ITEM pi on ' +
-      '(PE.ID = pi.ID)'#13#10'inner join PESSOA CLI on (PE.ID_CLIENTE = CLI.C' +
-      'ODIGO)'#13#10'inner join PRODUTO PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left' +
-      ' join COMBINACAO COMB on (pi.ID_COR = COMB.ID)'#13#10'left join GRUPO ' +
-      'GR on PRO.ID_GRUPO = GR.ID'#13#10'left join PESSOA_FISCAL PF on PE.ID_' +
-      'CLIENTE = PF.CODIGO'#13#10'left join ORDEMSERVICO O on pi.ID_OS_SERV =' +
-      ' O.ID'#13#10'left join PEDIDO_ITEM_TIPO PIT ON PI.ID = PIT.ID AND PI.I' +
-      'TEM = PIT.ITEM'#13#10'where pi.QTD_RESTANTE > 0'#13#10#13#10#13#10
+      'olume, pro.medida, PI.calcularicmssobreipi'#13#10'from PEDIDO PE'#13#10'inne' +
+      'r join PEDIDO_ITEM pi on (PE.ID = pi.ID)'#13#10'inner join PESSOA CLI ' +
+      'on (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'inner join PRODUTO PRO on (pi.I' +
+      'D_PRODUTO = PRO.ID)'#13#10'left join COMBINACAO COMB on (pi.ID_COR = C' +
+      'OMB.ID)'#13#10'left join GRUPO GR on PRO.ID_GRUPO = GR.ID'#13#10'left join P' +
+      'ESSOA_FISCAL PF on PE.ID_CLIENTE = PF.CODIGO'#13#10'left join ORDEMSER' +
+      'VICO O on pi.ID_OS_SERV = O.ID'#13#10'left join PEDIDO_ITEM_TIPO PIT O' +
+      'N PI.ID = PIT.ID AND PI.ITEM = PIT.ITEM'#13#10'where pi.QTD_RESTANTE >' +
+      ' 0'#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -8345,6 +8346,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsPedidoMEDIDA: TStringField
       FieldName = 'MEDIDA'
+    end
+    object cdsPedidoCALCULARICMSSOBREIPI: TStringField
+      FieldName = 'CALCULARICMSSOBREIPI'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPedido: TDataSource
