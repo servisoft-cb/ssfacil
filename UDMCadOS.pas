@@ -4,7 +4,7 @@ interface
 
 uses
   SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, LogTypes, frxClass, frxRich, frxDBSet, frxExportMail,
-  frxExportPDF, dbXPress;
+  frxExportPDF, dbXPress, frxExportBIFF;
 
 type
   TDMCadOS = class(TDataModule)
@@ -1031,6 +1031,7 @@ type
     cdsOS_Servico_IntIMPRIMIR_CONTRATO_MODELO: TStringField;
     sdsOSIMPRIME_CONTRATO_POR_ITEM: TStringField;
     cdsOSIMPRIME_CONTRATO_POR_ITEM: TStringField;
+    frxBIFFExport1: TfrxBIFFExport;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspOSUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

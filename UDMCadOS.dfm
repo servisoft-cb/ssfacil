@@ -2745,7 +2745,7 @@ object DMCadOS: TDMCadOS
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42054.579274733800000000
-    ReportOptions.LastChange = 43656.734378240740000000
+    ReportOptions.LastChange = 43900.366712731480000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 856
@@ -5000,5 +5000,19 @@ object DMCadOS: TDMCadOS
     DataSet = cdsServicoIntModContrato
     Left = 424
     Top = 216
+  end
+  object frxBIFFExport1: TfrxBIFFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    RowHeightScale = 1.000000000000000000
+    ChunkSize = 0
+    Inaccuracy = 10.000000000000000000
+    FitPages = False
+    Pictures = True
+    ParallelPages = 0
+    Left = 896
+    Top = 464
   end
 end
