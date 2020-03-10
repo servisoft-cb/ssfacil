@@ -89,7 +89,6 @@ object frmConsProdutoNCM: TfrmConsProdutoNCM
         FieldName = 'REFERENCIA'
         Title.Alignment = taCenter
         Title.Caption = 'Refer'#234'ncia'
-        Width = 64
         Visible = True
       end
       item
@@ -98,7 +97,6 @@ object frmConsProdutoNCM: TfrmConsProdutoNCM
         FieldName = 'UNIDADE'
         Title.Alignment = taCenter
         Title.Caption = 'Unid.'
-        Width = 64
         Visible = True
       end
       item
@@ -107,7 +105,6 @@ object frmConsProdutoNCM: TfrmConsProdutoNCM
         FieldName = 'ORIGEM_PROD'
         Title.Alignment = taCenter
         Title.Caption = 'Orig.'
-        Width = 64
         Visible = True
       end
       item
@@ -133,7 +130,6 @@ object frmConsProdutoNCM: TfrmConsProdutoNCM
         FieldName = 'COD_CST'
         Title.Alignment = taCenter
         Title.Caption = 'CST Prod.'
-        Width = 64
         Visible = True
       end
       item
@@ -178,7 +174,6 @@ object frmConsProdutoNCM: TfrmConsProdutoNCM
         FieldName = 'CST_NCM'
         Title.Alignment = taCenter
         Title.Caption = 'CST NCM'
-        Width = 64
         Visible = True
       end
       item
@@ -204,7 +199,6 @@ object frmConsProdutoNCM: TfrmConsProdutoNCM
         FieldName = 'NOME_GRUPO'
         Title.Alignment = taCenter
         Title.Caption = 'Grupo'
-        Width = 64
         Visible = True
       end
       item
@@ -213,7 +207,6 @@ object frmConsProdutoNCM: TfrmConsProdutoNCM
         FieldName = 'INATIVO'
         Title.Alignment = taCenter
         Title.Caption = 'Inativo'
-        Width = 64
         Visible = True
       end>
   end
@@ -345,6 +338,7 @@ object frmConsProdutoNCM: TfrmConsProdutoNCM
         'Material Consumo'
         'Imobilizado'
         'Semiacabado'
+        'Produto/Semiacabado'
         'Ambos')
     end
     object Edit1: TEdit

@@ -91,6 +91,7 @@ begin
     3 : vComando := vComando + ' AND PRO.TIPO_REG = ' + QuotedStr('C');
     4 : vComando := vComando + ' AND PRO.TIPO_REG = ' + QuotedStr('I');
     5 : vComando := vComando + ' AND PRO.TIPO_REG = ' + QuotedStr('S');
+    6 : vComando := vComando + ' AND (PRO.TIPO_REG = ' + QuotedStr('S') + ' OR PRO.TIPO_REG = ' + QuotedStr('P') + ')'; 
   end;
   if trim(Edit1.Text) <> '' then
     vComando := vComando + ' AND PRO.NOME LIKE ' + QuotedStr('%'+Edit1.Text+'%');

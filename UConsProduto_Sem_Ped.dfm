@@ -55,7 +55,7 @@ object frmConsProduto_Sem_Ped: TfrmConsProduto_Sem_Ped
       TabOrder = 0
     end
     object btnConsultar: TNxButton
-      Left = 463
+      Left = 462
       Top = 17
       Width = 182
       Height = 30
@@ -218,9 +218,9 @@ object frmConsProduto_Sem_Ped: TfrmConsProduto_Sem_Ped
     Top = 61
     Width = 898
     Height = 550
-    ActivePage = TS_Clientes
+    ActivePage = TS_Produto
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     FixedDimension = 19
     object TS_Produto: TRzTabSheet
@@ -292,7 +292,7 @@ object frmConsProduto_Sem_Ped: TfrmConsProduto_Sem_Ped
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Alignment = taCenter
-            Title.Caption = 'Dt. Ult'#237'mo Pedido'
+            Title.Caption = 'Dt. Ult'#237'mo Venda'
             Width = 98
             Visible = True
           end
@@ -300,7 +300,7 @@ object frmConsProduto_Sem_Ped: TfrmConsProduto_Sem_Ped
             Expanded = False
             FieldName = 'VLR_TOTAL'
             Title.Alignment = taCenter
-            Title.Caption = 'Vlr. '#218'lt. Pedido'
+            Title.Caption = 'Vlr. '#218'lt. Venda'
             Visible = True
           end>
       end
