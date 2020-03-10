@@ -1744,7 +1744,7 @@ begin
                                                    fDmCupomFiscal.cdsCupom_ItensID_COR_COMBINACO.AsInteger,'','N',0,0,0,0,0);
       end;
       //*********************
-      fDmCupomFiscal.cdsCupom_ItensID_MOVIMENTO.AsInteger := fDMMovimento.fnc_Gravar_Movimento(0,
+      fDmCupomFiscal.cdsCupom_ItensID_MOVIMENTO.AsInteger := fDMMovimento.fnc_Gravar_Movimento(fDmCupomFiscal.cdsCupom_ItensID_MOVIMENTO.AsInteger,
                                                    fDMCupomFiscal.cdsCupomFiscalFILIAL.AsInteger,
                                                    fDMCupomFiscal.cdsCupom_ItensITEM.AsInteger,
                                                    fDMCupomFiscal.cdsCupom_ItensID_PRODUTO.AsInteger,
