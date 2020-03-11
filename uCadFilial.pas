@@ -415,6 +415,8 @@ type
     Label152: TLabel;
     dbedtURLProducao: TDBEdit;
     DBCheckBox26: TDBCheckBox;
+    DBCheckBox27: TDBCheckBox;
+    btnVlr_Outras_Despesas: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -463,6 +465,7 @@ type
       Shift: TShiftState);
     procedure btnCopiar_FilialClick(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
+    procedure btnVlr_Outras_DespesasClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadFilial: TDMCadFilial;
@@ -1181,6 +1184,17 @@ begin
   if (fDMCadFilial.cdsFilial.State in [dsEdit,dsInsert]) and not(fDMCadFilial.cdsFilial_MDFe.State in [dsEdit,dsInsert]) then
     fDMCadFilial.cdsFilial_MDFe.Edit;
   fDMCadFilial.cdsFilial_MDFeEND_LOG.AsString := fnc_Abrir_OpenPicture;
+end;
+
+procedure TfrmCadFilial.btnVlr_Outras_DespesasClick(Sender: TObject);
+var
+  vMSGAux: String;
+begin
+  vMSGAux := '*** Serve para Empresas que Possuem mais de uma Filial cadastrada,' + #13
+           + '    uma Filial calcula IPI e a outra Não.' + #13
+           + '    Quando copiar um pedido de uma Filial que possue IPI para uma Filial que não possue, '
+           + '    o sistema vai zerar o campo do IPI e vai acrescentar no Vlr. Unitário o % do IPI';
+  MessageDlg(vMSGAux, mtInformation, [mbOk], 0);
 end;
 
 end.

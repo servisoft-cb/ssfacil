@@ -3736,6 +3736,9 @@ type
     cdsCloneItemMEDIDA: TStringField;
     qParametros_PedID_CFOP_PEDIDO: TIntegerField;
     qParametros_PedSENHA_EXCLUIR_ORC: TStringField;
+    sdsPedido_ItensVLR_UNITARIO_IPI: TFloatField;
+    cdsPedido_ItensVLR_UNITARIO_IPI: TFloatField;
+    cdsPedidoImp_ItensVLR_UNITARIO_IPI: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

@@ -131,6 +131,8 @@ type
     RLLabel39: TRLLabel;
     RLDBText43: TRLDBText;
     RLPDFFilter1: TRLPDFFilter;
+    RLLabel41: TRLLabel;
+    RLDBText44: TRLDBText;
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand7BeforePrint(Sender: TObject; var PrintIt: Boolean);
@@ -283,6 +285,7 @@ begin
 
   RLDBText16.Visible := vImpPreco;
   RLDBText23.Visible := vImpPreco;
+  RLDBText44.Visible := vImpPreco;
   RLDBText26.Visible := ((vImpPreco) and (vImp_Peso));
   if fDMCadPedido.qParametros_PedUSA_DTVALIDADE.AsString <> 'S' then
     RLDBText27.Visible := vImp_Peso;
@@ -322,6 +325,7 @@ procedure TfRelPedido_JW.RLBand3BeforePrint(Sender: TObject;
 begin
   RLLabel35.Visible := vImpPreco;
   RLLabel34.Visible := vImpPreco;
+  RLLabel41.Visible := vImpPreco;
   RLLabel27.Visible := ((vImpPreco) and (vImp_Peso));
   if fDMCadPedido.qParametros_PedUSA_DTVALIDADE.AsString <> 'S' then
     RLLabel28.Visible := vImp_Peso;

@@ -341,6 +341,7 @@ type
     mItensCOD_CBENEF: TStringField;
     mItensBASE_PIS: TFloatField;
     mItensBASE_COFINS: TFloatField;
+    mItensVLR_UNITARIO_IPI: TFloatField;
     procedure mItensNewRecord(DataSet: TDataSet);
     procedure mTamanhoNewRecord(DataSet: TDataSet);
   private

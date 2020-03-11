@@ -684,6 +684,8 @@ type
     cdsFilial_SoftwareHouseURL_HOMOLOGACAO: TStringField;
     sdsFilialDESC_ICMS_PIS_COFINS: TStringField;
     cdsFilialDESC_ICMS_PIS_COFINS: TStringField;
+    sdsFilialPEDIDO_PRECO_IPI: TStringField;
+    cdsFilialPEDIDO_PRECO_IPI: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsFilialNewRecord(DataSet: TDataSet);
     procedure cdsFilialBeforePost(DataSet: TDataSet);

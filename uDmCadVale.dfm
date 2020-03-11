@@ -642,156 +642,7 @@ object DmCadVale: TDmCadVale
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 392
-    Top = 72
-    object sdsFilialID: TIntegerField
-      FieldName = 'ID'
-      Required = True
-    end
-    object sdsFilialNOME: TStringField
-      FieldName = 'NOME'
-      Size = 60
-    end
-    object sdsFilialNOME_INTERNO: TStringField
-      FieldName = 'NOME_INTERNO'
-      Size = 30
-    end
-    object sdsFilialENDERECO: TStringField
-      FieldName = 'ENDERECO'
-      Size = 60
-    end
-    object sdsFilialCOMPLEMENTO_END: TStringField
-      FieldName = 'COMPLEMENTO_END'
-      Size = 60
-    end
-    object sdsFilialNUM_END: TStringField
-      FieldName = 'NUM_END'
-      Size = 15
-    end
-    object sdsFilialBAIRRO: TStringField
-      FieldName = 'BAIRRO'
-      Size = 30
-    end
-    object sdsFilialCEP: TStringField
-      FieldName = 'CEP'
-      Size = 9
-    end
-    object sdsFilialID_CIDADE: TIntegerField
-      FieldName = 'ID_CIDADE'
-    end
-    object sdsFilialCIDADE: TStringField
-      FieldName = 'CIDADE'
-      Size = 40
-    end
-    object sdsFilialUF: TStringField
-      FieldName = 'UF'
-      Size = 2
-    end
-    object sdsFilialDDD1: TIntegerField
-      FieldName = 'DDD1'
-    end
-    object sdsFilialFONE1: TStringField
-      FieldName = 'FONE1'
-      Size = 15
-    end
-    object sdsFilialDDD2: TIntegerField
-      FieldName = 'DDD2'
-    end
-    object sdsFilialFONE: TStringField
-      FieldName = 'FONE'
-      Size = 15
-    end
-    object sdsFilialDDDFAX: TIntegerField
-      FieldName = 'DDDFAX'
-    end
-    object sdsFilialFAX: TStringField
-      FieldName = 'FAX'
-      Size = 15
-    end
-    object sdsFilialPESSOA: TStringField
-      FieldName = 'PESSOA'
-      FixedChar = True
-      Size = 1
-    end
-    object sdsFilialCNPJ_CPF: TStringField
-      FieldName = 'CNPJ_CPF'
-      Size = 18
-    end
-    object sdsFilialINSCR_EST: TStringField
-      FieldName = 'INSCR_EST'
-      Size = 18
-    end
-    object sdsFilialSIMPLES: TStringField
-      FieldName = 'SIMPLES'
-      FixedChar = True
-      Size = 1
-    end
-    object sdsFilialENDLOGO: TStringField
-      FieldName = 'ENDLOGO'
-      Size = 250
-    end
-    object sdsFilialCALCULAR_IPI: TStringField
-      FieldName = 'CALCULAR_IPI'
-      FixedChar = True
-      Size = 1
-    end
-    object sdsFilialINATIVO: TStringField
-      FieldName = 'INATIVO'
-      FixedChar = True
-      Size = 1
-    end
-    object sdsFilialINSCMUNICIPAL: TStringField
-      FieldName = 'INSCMUNICIPAL'
-      Size = 18
-    end
-    object sdsFilialCNAE: TStringField
-      FieldName = 'CNAE'
-      Size = 7
-    end
-    object sdsFilialHOMEPAGE: TStringField
-      FieldName = 'HOMEPAGE'
-      Size = 250
-    end
-    object sdsFilialUSARICMSSIMPLES: TStringField
-      FieldName = 'USARICMSSIMPLES'
-      FixedChar = True
-      Size = 10
-    end
-    object sdsFilialID_REGIME_TRIB: TIntegerField
-      FieldName = 'ID_REGIME_TRIB'
-    end
-    object sdsFilialID_PIS: TIntegerField
-      FieldName = 'ID_PIS'
-    end
-    object sdsFilialID_COFINS: TIntegerField
-      FieldName = 'ID_COFINS'
-    end
-    object sdsFilialTIPO_PIS: TStringField
-      FieldName = 'TIPO_PIS'
-      Size = 2
-    end
-    object sdsFilialTIPO_COFINS: TStringField
-      FieldName = 'TIPO_COFINS'
-      Size = 2
-    end
-    object sdsFilialPERC_PIS: TFloatField
-      FieldName = 'PERC_PIS'
-    end
-    object sdsFilialPERC_COFINS: TFloatField
-      FieldName = 'PERC_COFINS'
-    end
-    object sdsFilialID_CSTICMS: TIntegerField
-      FieldName = 'ID_CSTICMS'
-    end
-    object sdsFilialID_CSTIPI: TIntegerField
-      FieldName = 'ID_CSTIPI'
-    end
-    object sdsFilialEMAIL_NFE: TStringField
-      FieldName = 'EMAIL_NFE'
-      Size = 200
-    end
-    object sdsFilialDTESTOQUE: TDateField
-      FieldName = 'DTESTOQUE'
-    end
+    Top = 73
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
@@ -803,7 +654,7 @@ object DmCadVale: TDmCadVale
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 472
+    Left = 471
     Top = 72
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
@@ -953,6 +804,11 @@ object DmCadVale: TDmCadVale
     end
     object cdsFilialDTESTOQUE: TDateField
       FieldName = 'DTESTOQUE'
+    end
+    object cdsFilialPEDIDO_PRECO_IPI: TStringField
+      FieldName = 'PEDIDO_PRECO_IPI'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsFilial: TDataSource
@@ -1249,14 +1105,14 @@ object DmCadVale: TDmCadVale
       ' PI.QTD_PRODUZIDA, PE.TIPO_REG, PI.TAMANHO, PI.ID_MOVESTOQUE,'#13#10'P' +
       'I.QTD_PECA, PI.QTD_LANCAR_ESTOQUE, PI.VLR_ICMSSUBST, PI.VLR_DESC' +
       'ONTORATEIO, PI.PERC_DESCONTO, PI.dtconferencia,'#13#10'PI.calcularicms' +
-      'sobreipi'#13#10'FROM PEDIDO PE'#13#10'INNER JOIN PEDIDO_ITEM PI ON PE.ID = P' +
-      'I.ID'#13#10'INNER JOIN PESSOA CLI ON PE.ID_CLIENTE = CLI.CODIGO'#13#10'INNER' +
-      ' JOIN PRODUTO PRO ON PI.ID_PRODUTO = PRO.ID'#13#10'WHERE PI.qtd_restan' +
-      'te > 0'#13#10'      '#13#10
+      'sobreipi, PI.vlr_unitario_ipi, PE.FILIAL'#13#10'FROM PEDIDO PE'#13#10'INNER ' +
+      'JOIN PEDIDO_ITEM PI ON PE.ID = PI.ID'#13#10'INNER JOIN PESSOA CLI ON P' +
+      'E.ID_CLIENTE = CLI.CODIGO'#13#10'INNER JOIN PRODUTO PRO ON PI.ID_PRODU' +
+      'TO = PRO.ID'#13#10'WHERE PI.qtd_restante > 0'#13#10'      '#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 61
+    Left = 60
     Top = 499
     object sdsPedidoID: TIntegerField
       FieldName = 'ID'
@@ -1394,6 +1250,12 @@ object DmCadVale: TDmCadVale
       FixedChar = True
       Size = 1
     end
+    object sdsPedidoVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
+    end
+    object sdsPedidoFILIAL: TIntegerField
+      FieldName = 'FILIAL'
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -1406,8 +1268,8 @@ object DmCadVale: TDmCadVale
     Params = <>
     ProviderName = 'dspPedido'
     OnCalcFields = cdsPedidoCalcFields
-    Left = 146
-    Top = 499
+    Left = 147
+    Top = 498
     object cdsPedidoID: TIntegerField
       Alignment = taCenter
       DisplayLabel = 'ID Pedido'
@@ -1587,6 +1449,12 @@ object DmCadVale: TDmCadVale
       FieldName = 'CALCULARICMSSOBREIPI'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedidoVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
+    end
+    object cdsPedidoFILIAL: TIntegerField
+      FieldName = 'FILIAL'
     end
   end
   object dsPedido: TDataSource

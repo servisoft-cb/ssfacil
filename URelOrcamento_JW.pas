@@ -126,6 +126,8 @@ type
     RLLabel32: TRLLabel;
     RLDBText41: TRLDBText;
     RLPDFFilter1: TRLPDFFilter;
+    RLLabel38: TRLLabel;
+    RLDBText42: TRLDBText;
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand7BeforePrint(Sender: TObject; var PrintIt: Boolean);
