@@ -916,7 +916,7 @@ var
   vArq: string;
 begin
   fDMCadOS.cdsOS.Close;
-  fDMCadOS.cdsOS.Filter := 'DTENCERRAMENTO IS NULL';
+  fDMCadOS.cdsOS.Filter := 'DTCONTRATO_FIN IS NULL';
   fDMCadOS.cdsOS.Filtered := True;
   fDMCadOS.cdsOS.Open;
 
