@@ -425,6 +425,11 @@ object DMCadFilial: TDMCadFilial
       FixedChar = True
       Size = 1
     end
+    object sdsFilialPEDIDO_PRECO_IPI: TStringField
+      FieldName = 'PEDIDO_PRECO_IPI'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
@@ -440,7 +445,7 @@ object DMCadFilial: TDMCadFilial
     ProviderName = 'dspFilial'
     BeforePost = cdsFilialBeforePost
     OnNewRecord = cdsFilialNewRecord
-    Left = 136
+    Left = 138
     Top = 32
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
@@ -879,6 +884,11 @@ object DMCadFilial: TDMCadFilial
     end
     object cdsFilialDESC_ICMS_PIS_COFINS: TStringField
       FieldName = 'DESC_ICMS_PIS_COFINS'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsFilialPEDIDO_PRECO_IPI: TStringField
+      FieldName = 'PEDIDO_PRECO_IPI'
       FixedChar = True
       Size = 1
     end

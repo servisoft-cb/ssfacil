@@ -977,9 +977,9 @@ object fRelPedido_JW: TfRelPedido_JW
           AutoSize = True
           BeforePrint = RLBand2BeforePrint
           object RLDBText21: TRLDBText
-            Left = 782
+            Left = 730
             Top = 2
-            Width = 62
+            Width = 59
             Height = 13
             Alignment = taCenter
             AutoSize = False
@@ -993,7 +993,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBText22: TRLDBText
-            Left = 584
+            Left = 531
             Top = 2
             Width = 48
             Height = 12
@@ -1016,9 +1016,9 @@ object fRelPedido_JW: TfRelPedido_JW
             DrawKind = dkLine
           end
           object RLDBText16: TRLDBText
-            Left = 845
+            Left = 791
             Top = 2
-            Width = 71
+            Width = 64
             Height = 12
             Alignment = taRightJustify
             AutoSize = False
@@ -1032,7 +1032,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBText23: TRLDBText
-            Left = 926
+            Left = 929
             Top = 2
             Width = 54
             Height = 12
@@ -1049,7 +1049,7 @@ object fRelPedido_JW: TfRelPedido_JW
           object RLDBMemo1: TRLDBMemo
             Left = 109
             Top = 2
-            Width = 348
+            Width = 289
             Height = 25
             AutoSize = False
             Behavior = [beSiteExpander]
@@ -1078,7 +1078,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBText26: TRLDBText
-            Left = 742
+            Left = 690
             Top = 2
             Width = 39
             Height = 12
@@ -1093,7 +1093,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBText27: TRLDBText
-            Left = 640
+            Left = 593
             Top = 2
             Width = 28
             Height = 12
@@ -1133,7 +1133,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBText29: TRLDBText
-            Left = 706
+            Left = 650
             Top = 2
             Width = 22
             Height = 12
@@ -1148,8 +1148,8 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBText41: TRLDBText
-            Left = 515
-            Top = 2
+            Left = 469
+            Top = 3
             Width = 62
             Height = 12
             Alignment = taCenter
@@ -1164,12 +1164,28 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBText42: TRLDBText
-            Left = 443
+            Left = 397
             Top = 2
             Width = 72
             Height = 12
             Alignment = taCenter
             DataField = 'COMPRIMENTO'
+            DataSource = DMCadPedido.dsPedidoImp_Itens
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
+          object RLDBText44: TRLDBText
+            Left = 862
+            Top = 2
+            Width = 64
+            Height = 12
+            Alignment = taRightJustify
+            AutoSize = False
+            DataField = 'VLR_UNITARIO_IPI'
             DataSource = DMCadPedido.dsPedidoImp_Itens
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
@@ -1424,7 +1440,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel34: TRLLabel
-            Left = 925
+            Left = 929
             Top = 37
             Width = 54
             Height = 11
@@ -1439,7 +1455,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel35: TRLLabel
-            Left = 862
+            Left = 798
             Top = 37
             Width = 54
             Height = 11
@@ -1453,7 +1469,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel36: TRLLabel
-            Left = 791
+            Left = 731
             Top = 37
             Width = 52
             Height = 11
@@ -1467,7 +1483,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel37: TRLLabel
-            Left = 580
+            Left = 530
             Top = 36
             Width = 46
             Height = 11
@@ -1494,7 +1510,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel27: TRLLabel
-            Left = 735
+            Left = 682
             Top = 37
             Width = 46
             Height = 11
@@ -1508,7 +1524,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel28: TRLLabel
-            Left = 641
+            Left = 594
             Top = 36
             Width = 26
             Height = 11
@@ -1522,7 +1538,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel29: TRLLabel
-            Left = 679
+            Left = 622
             Top = 37
             Width = 50
             Height = 11
@@ -1536,7 +1552,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel32: TRLLabel
-            Left = 535
+            Left = 485
             Top = 37
             Width = 24
             Height = 11
@@ -1550,11 +1566,25 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel38: TRLLabel
-            Left = 423
+            Left = 376
             Top = 34
             Width = 90
             Height = 11
             Caption = 'Comprimento (mm)'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLLabel41: TRLLabel
+            Left = 859
+            Top = 37
+            Width = 68
+            Height = 11
+            Alignment = taCenter
+            Caption = 'Pre'#231'o Com IPI'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
             Font.Height = -9

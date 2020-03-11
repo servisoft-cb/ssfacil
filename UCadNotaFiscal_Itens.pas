@@ -2405,8 +2405,8 @@ begin
              (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'ATUALIZA_PRECO_CUSTO')   and (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'Fabrica')  and
              (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'Item_Tam')   and (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'UNIDADE_PROD')  and
              (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'Caixinha')   and (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'TIPO_OS')  and
-             (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'CONV_UNIDADE') and (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'QTD_SOBRA_OC') then
-
+             (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'CONV_UNIDADE') and (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'QTD_SOBRA_OC') and
+             (fDMInformar_Tam.mItens.Fields[x].FieldName <> 'VLR_UNITARIO_IPI') then
             fDMCadNotaFiscal.cdsNotaFiscal_Itens.FieldByName(fDMInformar_Tam.mItens.Fields[x].FieldName).AsVariant := fDMInformar_Tam.mItens.Fields[x].Value;
         except
         end;

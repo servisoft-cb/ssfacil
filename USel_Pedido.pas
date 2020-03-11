@@ -735,8 +735,19 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat := StrToFloat(FormatFloat('0.00',00))
   else
   if fDMCadNotaFiscal.qParametros_NFeCOPIA_PED_IMPOSTO.AsString <> 'N' then //if incluido 05/04/2018 devido a MB usar uma filial para fazer o pedido e outra para a Nota
-    fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat := fDMCadNotaFiscal.cdsPedidoPERC_IPI.AsFloat;
+  begin
+    //Ver esse IF com a MB   10/03/2020
+    if (fDMCadNotaFiscal.cdsFilialCALCULAR_IPI.AsString = 'S') or (fDMCadNotaFiscal.cdsNotaFiscalFILIAL.AsInteger = fDMCadNotaFiscal.cdsPedidoFILIAL.AsInteger) then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat := fDMCadNotaFiscal.cdsPedidoPERC_IPI.AsFloat
+    else
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat := 0;
+  end;
   fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat := fDMCadNotaFiscal.cdsPedidoVLR_UNITARIO.AsFloat;
+  //10/03/2020
+  if (fDMCadNotaFiscal.cdsFilialPEDIDO_PRECO_IPI.AsString = 'S') and (StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsPedidoVLR_UNITARIO_IPI.AsFloat)) > 0) then
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsPedidoVLR_UNITARIO_IPI.AsFloat));
+  //**********************
+
   if fDMCadNotaFiscal.cdsParametrosARREDONDAR_5.AsString = 'B' then
     fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat := StrToCurr(FormatCurr('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat * fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat))
   else
@@ -1094,8 +1105,19 @@ begin
 
   fDMCadVale.cdsValeItensUNIDADE.AsString       := fDMCadVale.cdsPedidoUNIDADE.AsString;
   fDMCadVale.cdsValeItensQTD.AsFloat            := StrToFloat(FormatFloat('0.000000',fDMCadVale.cdsPedidoQTD_AFATURAR.AsFloat));
-  fDMCadVale.cdsValeItensPERC_IPI.AsFloat       := fDMCadVale.cdsPedidoPERC_IPI.AsFloat;
+  //10/03/2020  Foi incluido esse if para não gerar IPI quando na Filial estiver marcado para não gerar
+  if (fDMCadVale.cdsFilialCALCULAR_IPI.AsString = 'S') or (fDmCadVale.cdsPedidoFILIAL.AsInteger = fDmCadVale.cdsValeFILIAL.AsInteger)  then
+    fDMCadVale.cdsValeItensPERC_IPI.AsFloat := fDMCadVale.cdsPedidoPERC_IPI.AsFloat
+  else
+    fDMCadVale.cdsValeItensPERC_IPI.AsFloat := 0;
+  //***********************
+
   fDMCadVale.cdsValeItensVLR_UNITARIO.AsFloat   := fDMCadVale.cdsPedidoVLR_UNITARIO.AsFloat;
+  //10/03/2020
+  if (fDmCadVale.cdsFilialPEDIDO_PRECO_IPI.AsString = 'S') and (StrToFloat(FormatFloat('0.0000',fDmCadVale.cdsPedidoVLR_UNITARIO_IPI.AsFloat)) > 0) then
+    fDMCadVale.cdsValeItensVLR_UNITARIO.AsFloat   := StrToFloat(FormatFloat('0.0000',fDmCadVale.cdsPedidoVLR_UNITARIO_IPI.AsFloat));
+  //*******************
+
   fDmCadVale.cdsValeItensPERC_DESCONTO.AsFloat  := StrToFloat(FormatFloat('0.00###',fDmCadVale.cdsPedidoPERC_DESCONTO.AsFloat));
   fDmCadVale.cdsValeItensVLR_DESCONTO.AsFloat   := StrToFloat(FormatFloat('0.00',fDmCadVale.cdsPedidoVLR_DESCONTO.AsFloat + fDmCadVale.cdsPedidoVLR_DESCONTORATEIO.AsFloat));
   fDmCadVale.cdsValeItensVLR_ICMSSUBST.AsString := FormatFloat('0.00',fDmCadVale.cdsPedidoVLR_ICMSSUBST.AsFloat);

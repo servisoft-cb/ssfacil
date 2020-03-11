@@ -946,7 +946,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           Left = 0
           Top = 48
           Width = 1071
-          Height = 30
+          Height = 34
           BeforePrint = RLBand2BeforePrint
           object RLDraw7: TRLDraw
             Left = 0
@@ -969,10 +969,11 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             Stretch = True
           end
           object RLMemo3: TRLMemo
-            Left = 105
-            Top = 15
-            Width = 842
-            Height = 14
+            Left = 104
+            Top = 21
+            Width = 862
+            Height = 13
+            Align = faCenterBottom
             Behavior = [beSiteExpander]
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
@@ -982,9 +983,9 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText21: TRLDBText
-            Left = 779
+            Left = 727
             Top = 0
-            Width = 62
+            Width = 57
             Height = 13
             Alignment = taCenter
             AutoSize = False
@@ -998,7 +999,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText22: TRLDBText
-            Left = 562
+            Left = 510
             Top = 0
             Width = 48
             Height = 12
@@ -1013,9 +1014,9 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText16: TRLDBText
-            Left = 843
+            Left = 785
             Top = 0
-            Width = 73
+            Width = 68
             Height = 12
             Alignment = taRightJustify
             AutoSize = False
@@ -1046,8 +1047,8 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           object RLDBMemo1: TRLDBMemo
             Left = 98
             Top = 0
-            Width = 354
-            Height = 12
+            Width = 289
+            Height = 14
             Behavior = [beSiteExpander]
             DataField = 'NOMEPRODUTO'
             DataSource = DMCadPedido.dsPedidoImp_Itens
@@ -1074,7 +1075,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText26: TRLDBText
-            Left = 739
+            Left = 687
             Top = 0
             Width = 39
             Height = 12
@@ -1090,7 +1091,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             Visible = False
           end
           object RLDBText27: TRLDBText
-            Left = 634
+            Left = 582
             Top = 0
             Width = 28
             Height = 12
@@ -1105,7 +1106,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText29: TRLDBText
-            Left = 697
+            Left = 645
             Top = 0
             Width = 22
             Height = 12
@@ -1120,7 +1121,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText25: TRLDBText
-            Left = 504
+            Left = 452
             Top = 0
             Width = 58
             Height = 12
@@ -1136,9 +1137,9 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText33: TRLDBText
-            Left = 430
+            Left = 388
             Top = 0
-            Width = 72
+            Width = 63
             Height = 12
             Alignment = taCenter
             DataField = 'COMPRIMENTO'
@@ -1150,10 +1151,26 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             Font.Style = []
             ParentFont = False
           end
+          object RLDBText42: TRLDBText
+            Left = 855
+            Top = 0
+            Width = 68
+            Height = 12
+            Alignment = taRightJustify
+            AutoSize = False
+            DataField = 'VLR_UNITARIO_IPI'
+            DataSource = DMCadPedido.dsPedidoImp_Itens
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
         end
         object RLBand4: TRLBand
           Left = 0
-          Top = 96
+          Top = 100
           Width = 1071
           Height = 54
           BandType = btSummary
@@ -1296,7 +1313,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
         end
         object RLBand5: TRLBand
           Left = 0
-          Top = 78
+          Top = 82
           Width = 1071
           Height = 18
           BeforePrint = RLBand5BeforePrint
@@ -1381,7 +1398,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLLabel35: TRLLabel
-            Left = 862
+            Left = 798
             Top = 36
             Width = 54
             Height = 11
@@ -1395,7 +1412,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLLabel36: TRLLabel
-            Left = 785
+            Left = 730
             Top = 36
             Width = 52
             Height = 11
@@ -1409,7 +1426,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLLabel37: TRLLabel
-            Left = 562
+            Left = 510
             Top = 36
             Width = 46
             Height = 11
@@ -1436,7 +1453,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLLabel27: TRLLabel
-            Left = 732
+            Left = 680
             Top = 36
             Width = 46
             Height = 11
@@ -1451,7 +1468,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             Visible = False
           end
           object RLLabel28: TRLLabel
-            Left = 635
+            Left = 583
             Top = 36
             Width = 26
             Height = 11
@@ -1465,7 +1482,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLLabel29: TRLLabel
-            Left = 669
+            Left = 617
             Top = 36
             Width = 50
             Height = 11
@@ -1479,7 +1496,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLLabel14: TRLLabel
-            Left = 521
+            Left = 469
             Top = 36
             Width = 24
             Height = 11
@@ -1492,11 +1509,25 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLLabel30: TRLLabel
-            Left = 413
+            Left = 360
             Top = 36
             Width = 90
             Height = 11
             Caption = 'Comprimento (mm)'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLLabel38: TRLLabel
+            Left = 855
+            Top = 35
+            Width = 68
+            Height = 11
+            Alignment = taCenter
+            Caption = 'Pre'#231'o Com IPI'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
             Font.Height = -9

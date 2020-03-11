@@ -1215,6 +1215,13 @@ begin
     if (fDMCadPedido.qParametros_PedPEDIDO_COMERCIO.AsString = 'S') and (trim(fDMCadPedido.cdsProdutoMEDIDA.AsString) <> '')  then
       fDMCadPedido.cdsPedido_ItensMEDIDA.AsString := fDMCadPedido.cdsProdutoMEDIDA.AsString;
 
+    //10/03/2020   Calcular Preço Unitário do IPI
+    if fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat > 0 then
+      fDMCadPedido.cdsPedido_ItensVLR_UNITARIO_IPI.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat + ((fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat * fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat) / 100)))
+    else
+      fDMCadPedido.cdsPedido_ItensVLR_UNITARIO_IPI.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat));
+    //***************************
+
     //Sagga usava isso  10/08/2018
     {if (fDMCadPedido.qParametros_ProdGRAVAR_PRIMEIRO_MAT.AsString = 'S') then
     begin

@@ -690,6 +690,13 @@ begin
       fDMCadPedido.cdsPedido_ItensDTENTREGA.AsDateTime := fDMCadPedido.cdsPedidoDTENTREGA.AsDateTime;
     fDMCadPedido.cdsPedido_ItensNCM.AsString := fDMCadPedido.cdsTab_NCMNCM.AsString;
 
+    //10/03/2020   Calcular Preço Unitário do IPI
+    if fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat > 0 then
+      fDMCadPedido.cdsPedido_ItensVLR_UNITARIO_IPI.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat + ((fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat * fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat) / 100)))
+    else
+      fDMCadPedido.cdsPedido_ItensVLR_UNITARIO_IPI.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat));
+    //***************************
+
     fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat := fDMCadPedido.cdsPedido_ItensQTD.AsFloat;
 
     if fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger <= 0 then                                          

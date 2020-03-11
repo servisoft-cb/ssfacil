@@ -3128,6 +3128,9 @@ type
     cdsNotaEntradaTAMANHO: TStringField;
     cdsValeCALCULARICMSSOBREIPI: TStringField;
     cdsPedidoCALCULARICMSSOBREIPI: TStringField;
+    cdsFilialPEDIDO_PRECO_IPI: TStringField;
+    cdsPedidoVLR_UNITARIO_IPI: TFloatField;
+    cdsPedidoFILIAL: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

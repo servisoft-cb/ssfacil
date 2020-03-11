@@ -4954,6 +4954,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
+    object cdsFilialPEDIDO_PRECO_IPI: TStringField
+      FieldName = 'PEDIDO_PRECO_IPI'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsFilial: TDataSource
     DataSet = cdsFilial
@@ -7968,19 +7973,19 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       ' NUM_OS_SERVICO, O.DTRECEBIMENTO, O.DT_AGENDA,'#13#10'       PIT.COMPR' +
       'IMENTO, PIT.LARGURA, PIT.ESPESSURA, PI.DRAWBACK, PE.TIPO_DESCONT' +
       'O, '#13#10'       PI.perc_desconto, PI.dtconferencia, PI.comprimento_v' +
-      'olume, pro.medida, PI.calcularicmssobreipi'#13#10'from PEDIDO PE'#13#10'inne' +
-      'r join PEDIDO_ITEM pi on (PE.ID = pi.ID)'#13#10'inner join PESSOA CLI ' +
-      'on (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'inner join PRODUTO PRO on (pi.I' +
-      'D_PRODUTO = PRO.ID)'#13#10'left join COMBINACAO COMB on (pi.ID_COR = C' +
-      'OMB.ID)'#13#10'left join GRUPO GR on PRO.ID_GRUPO = GR.ID'#13#10'left join P' +
-      'ESSOA_FISCAL PF on PE.ID_CLIENTE = PF.CODIGO'#13#10'left join ORDEMSER' +
-      'VICO O on pi.ID_OS_SERV = O.ID'#13#10'left join PEDIDO_ITEM_TIPO PIT O' +
-      'N PI.ID = PIT.ID AND PI.ITEM = PIT.ITEM'#13#10'where pi.QTD_RESTANTE >' +
-      ' 0'#13#10#13#10#13#10
+      'olume, pro.medida, PI.calcularicmssobreipi, PI.vlr_unitario_ipi,' +
+      ' PE.FILIAL'#13#10'from PEDIDO PE'#13#10'inner join PEDIDO_ITEM pi on (PE.ID ' +
+      '= pi.ID)'#13#10'inner join PESSOA CLI on (PE.ID_CLIENTE = CLI.CODIGO)'#13 +
+      #10'inner join PRODUTO PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left join C' +
+      'OMBINACAO COMB on (pi.ID_COR = COMB.ID)'#13#10'left join GRUPO GR on P' +
+      'RO.ID_GRUPO = GR.ID'#13#10'left join PESSOA_FISCAL PF on PE.ID_CLIENTE' +
+      ' = PF.CODIGO'#13#10'left join ORDEMSERVICO O on pi.ID_OS_SERV = O.ID'#13#10 +
+      'left join PEDIDO_ITEM_TIPO PIT ON PI.ID = PIT.ID AND PI.ITEM = P' +
+      'IT.ITEM'#13#10'where pi.QTD_RESTANTE > 0'#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 416
+    Left = 415
     Top = 198
   end
   object dspPedido: TDataSetProvider
@@ -7994,7 +7999,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Params = <>
     ProviderName = 'dspPedido'
     OnCalcFields = cdsPedidoCalcFields
-    Left = 466
+    Left = 469
     Top = 198
     object cdsPedidoID: TIntegerField
       Alignment = taCenter
@@ -8351,6 +8356,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'CALCULARICMSSOBREIPI'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedidoVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
+    end
+    object cdsPedidoFILIAL: TIntegerField
+      FieldName = 'FILIAL'
     end
   end
   object dsPedido: TDataSource

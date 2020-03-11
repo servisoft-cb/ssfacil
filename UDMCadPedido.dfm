@@ -1585,6 +1585,7 @@ object DMCadPedido: TDMCadPedido
     Top = 297
   end
   object cdsTipoCobranca: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -1661,6 +1662,7 @@ object DMCadPedido: TDMCadPedido
     Top = 339
   end
   object cdsContas: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -3309,6 +3311,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'MEDIDA'
       ProviderFlags = []
     end
+    object sdsPedido_ItensVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
+    end
   end
   object cdsPedido_Itens: TClientDataSet
     Aggregates = <>
@@ -3954,6 +3959,9 @@ object DMCadPedido: TDMCadPedido
     object cdsPedido_ItensMEDIDA: TStringField
       FieldName = 'MEDIDA'
       ProviderFlags = []
+    end
+    object cdsPedido_ItensVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
     end
   end
   object dsPedido_Itens: TDataSource
@@ -5511,6 +5519,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedidoImp_ItensPRECO_COR_VIDRO: TFloatField
       FieldName = 'PRECO_COR_VIDRO'
+    end
+    object cdsPedidoImp_ItensVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
     end
   end
   object dsPedidoImp_Itens: TDataSource
