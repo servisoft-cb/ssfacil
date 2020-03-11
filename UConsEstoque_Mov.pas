@@ -159,8 +159,7 @@ var
 implementation
 
 uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, URelEstoqueMov_Prod, URelEstoqueMov_Prod2, URelEstoqueMov_Acum, USel_Produto,
-  USel_Pessoa, Math, USel_Grupo, UCadEstoque_Mov_Res, UAltEstoque_Mov,
-  DateUtils;
+  USel_Pessoa, Math, USel_Grupo, UCadEstoque_Mov_Res, UAltEstoque_Mov, DateUtils;
 
 {$R *.dfm}
 
@@ -435,7 +434,7 @@ begin
   if (ceIDPessoa.AsInteger > 0) AND (RzPageControl1.ActivePage <> TS_Reserva) then
     vComando := vComando + ' AND EM.ID_PESSOA = ' + IntToStr(ceIDPessoa.AsInteger);
   if Trim(edtNome_Pessoa.Text) <> '' then
-    vComando := vComando + ' AND PES.NOME LIKE (' + (edtNome_Pessoa.Text) + '%'')';
+    vComando := vComando + ' AND PES.NOME LIKE (''%' + (edtNome_Pessoa.Text) + '%'')';
   if Saldo_Ant then
     vComando := vComando + ' AND EM.DTMOVIMENTO < ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date))
   else
@@ -1223,9 +1222,9 @@ begin
   if vCodPessoa_Pos > 0 then
   begin
     ceIDPessoa.AsInteger := vCodPessoa_Pos;
-    ceIDPessoa.SetFocus;
     fDMConsEstoque.prc_Posiciona_Pesssoa(ceIDPessoa.AsInteger);
     edtNome_Pessoa.Text := fDMConsEstoque.qPessoaNOME.AsString;
+//    ceIDPessoa.SetFocus;
   end;
 end;
 
