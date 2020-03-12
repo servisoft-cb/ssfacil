@@ -2756,10 +2756,11 @@ begin
       sds.GetMetadata   := False;
       sds.CommandText := ' SELECT COUNT(PI.ID_PRODUTO) CONTADOR FROM PEDIDO_ITEM PI '
                        + ' WHERE PI.ID_PRODUTO = ' + IntToStr(cdsProdutoID.AsInteger)
-                       + '   AND PI.qtd_restante > 0 ';
+                       + '   AND PI.qtd_restante > 0 '
+                       + '   AND (PI.TIPO_REG = ' + QuotedStr('P') + ' OR PI.TIPO_REG = ' + QuotedStr('C') + ')';
       sds.Open;
       if (sds.FieldByName('CONTADOR').AsInteger > 0) then
-        vMsgErro := '*** Esse produto não pode ser inativado, possui Pedido(s) em aberto!';
+        vMsgErro := '*** Esse produto não pode ser inativado, possui Pedido(s)/OC(s) em aberto!';
 
     finally
       FreeAndNil(sds);
