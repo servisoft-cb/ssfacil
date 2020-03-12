@@ -1217,6 +1217,12 @@ begin
   prc_Busca_CFOPAtual;
   //********************
 
+  //11/03/2020    Combustível
+  fDMRecebeXML.mItensNotaANP_PRODUTO.AsString   := fDMRecebeXML.cdsDetalhecProdANP.AsString;
+  fDMRecebeXML.mItensNotaANP_UF_CONS.AsString   := fDMRecebeXML.cdsDetalheUFCons.AsString;
+  fDMRecebeXML.mItensNotaANP_DESCRICAO.AsString := fDMRecebeXML.cdsDetalhedescANP.AsString;
+  //********************
+
   fDMRecebeXML.mItensNota.Post;
 end;
 
@@ -2640,6 +2646,12 @@ begin
     //****************
 
     fDMRecebeXML.cdsNotaFiscal_ItensCOD_BARRA2.AsString := fDMRecebeXML.mItensNotaCodBarra2.AsString;
+
+    //11/03/2020
+    fDMRecebeXML.cdsNotaFiscal_ItensANP_PRODUTO.AsString := fDMRecebeXML.mItensNotaANP_PRODUTO.AsString;
+    fDMRecebeXML.cdsNotaFiscal_ItensANP_UF_CONS.AsString := fDMRecebeXML.mItensNotaANP_UF_CONS.AsString;
+    uUtilPadrao.prc_Gravar_CProd_ANP(fDMRecebeXML.mItensNotaANP_PRODUTO.AsString,fDMRecebeXML.mItensNotaANP_DESCRICAO.AsString);
+    //*************************
 
     fDMRecebeXML.cdsNotaFiscal_Itens.Post;
     Atualiza_Preco;

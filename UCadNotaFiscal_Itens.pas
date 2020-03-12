@@ -206,6 +206,7 @@ type
     dbckDraw: TDBCheckBox;
     Label69: TLabel;
     DBEdit43: TDBEdit;
+    NxButton1: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure DBEdit2Exit(Sender: TObject);
@@ -389,7 +390,7 @@ var
 implementation
 
 uses rsDBUtils, USel_Produto, uUtilPadrao, UMenu, uCalculo_NotaFiscal, USel_TabPreco, USel_Unidade, UDMUtil, DmdDatabase,
-  USel_EnqIPI, USel_CentroCusto, USel_ContaOrc, USel_CBenef;
+  USel_EnqIPI, USel_CentroCusto, USel_ContaOrc, USel_CBenef, Math;
 
 {$R *.dfm}
 
@@ -593,6 +594,7 @@ var
   vUsouICM: Boolean;
   //vID_EnqIPI: Integer;
   vCod_CBenef_Loc : String;
+  vGera_FCP : String;
 begin
   vID_ICMS := 0;
   vID_IPI  := 0;
@@ -610,6 +612,8 @@ begin
     MessageDlg('*** (prc_Move_Dados_Itens) ID CFOP  ' + fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsString + ', não encontrado! ' + #13 + '    Favor Verificar!' , mtError, [mbOk], 0);
     exit;
   end;
+  //Vai começar com S para não mexer nos que existem hoje    11/03/2020
+  vGera_FCP := 'S';
   if fDMCadNotaFiscal.vID_Variacao > 0 then
     fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger := fDMCadNotaFiscal.vID_Variacao;
   if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger > 0 then
@@ -621,6 +625,7 @@ begin
       //11/12/2019
       if trim(fDMCadNotaFiscal.cdsCFOP_VariacaoCOD_BENEF.AsString) <> '' then
         vCod_CBenef_Loc := fDMCadNotaFiscal.cdsCFOP_VariacaoCOD_BENEF.AsString;
+      vGera_FCP := fDMCadNotaFiscal.cdsCFOP_VariacaoCALCULAR_FCP.AsString;
     end
   end;
 
@@ -693,7 +698,11 @@ begin
   if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger > 0 then
   begin
     if fDMCadNotaFiscal.cdsCFOP_Variacao.Locate('ITEM',fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger,[loCaseInsensitive]) then
+    begin
       prc_Montar_Codigos_CST(True);
+      // 11/03/2020
+      vGera_FCP := fDMCadNotaFiscal.cdsCFOP_VariacaoCALCULAR_FCP.AsString;
+    end
   end
   else
     prc_Montar_Codigos_CST(False);
@@ -1272,8 +1281,17 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscal_ItensUNIDADE_TRIB.AsString := fDMCadNotaFiscal.cdsTab_NCMUNIDADE_TRIB.AsString;
   //***************
 
-  //4.00
-  if (fDMCadNotaFiscal.cdsUFPOSSUI_FCP.AsString = 'S')
+  //11/03/2020
+  if (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger > 0) and
+     ((fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger <> fDMCadNotaFiscal.cdsCFOP_VariacaoID.AsInteger) or (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger <> fDMCadNotaFiscal.cdsCFOP_VariacaoITEM.AsInteger)) then
+  begin
+    if fDMCadNotaFiscal.cdsCFOP_Variacao.Locate('ID;ITEM',VarArrayOf([fDMCadNotaFiscal.cdsCFOPID.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger]),[locaseinsensitive]) then
+      vGera_FCP := fDMCadNotaFiscal.cdsCFOP_VariacaoCALCULAR_FCP.AsString;
+  end;
+  //*********************
+
+  //4.00                 // (fDMCadNotaFiscal.cdsCFOP_VariacaoCALCULAR_FCP.AsString = 'S')   esse and foi incluido dia 11/03/2020 por variação
+  if (fDMCadNotaFiscal.cdsUFPOSSUI_FCP.AsString = 'S') and (vGera_FCP = 'S')
     and (((fDMCadNotaFiscal.cdsFilialSIMPLES.AsString = 'N') and (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS.AsFloat)) > 0))
     or ((fDMCadNotaFiscal.cdsFilialSIMPLES.AsString = 'S') and (fDMCadNotaFiscal.cdsCFOPGERAR_ICMS_SIMPLES.AsString = 'S'))
     or (fDMCadNotaFiscal.cdsCFOPCODCFOP.AsString = '5405')) then
@@ -1310,7 +1328,14 @@ begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_FCP_ST.AsFloat        := StrToFloat(FormatFloat('0.00',0));
       fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS_FCP_5405.AsFloat := StrToFloat(FormatFloat('0.00',0));
     end;
+  end
+  else
+  begin
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS_FCP.AsFloat      := StrToFloat(FormatFloat('0.00',0));
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_FCP_ST.AsFloat        := StrToFloat(FormatFloat('0.00',0));
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS_FCP_5405.AsFloat := StrToFloat(FormatFloat('0.00',0));
   end;
+
   //******
   //16/10/2018
   if (fDMCadNotaFiscal.cdsClienteTIPO_CONTRIBUINTE.AsInteger = 1) and (fDMCadNotaFiscal.cdsClienteTIPO_CONSUMIDOR.AsInteger = 1) and
@@ -2504,7 +2529,8 @@ begin
        (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'sdsNotaFiscal_Copia') and (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'VLR_IPI_DEVOL')  and
        (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'PERC_DEVOL')          and (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'BASE_IPI') and
        (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'PERC_BASE_RED_EFET')  and (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'VLR_BASE_EFET') and
-       (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'PERC_ICMS_EFET')      and (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'VLR_ICMS_EFET') then
+       (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'PERC_ICMS_EFET')      and (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'VLR_ICMS_EFET') and
+       (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'ANP_PRODUTO')         and (fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName <> 'ANP_UF_CONS') then
       fDMInformar_Tam.mItens.FieldByName(fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].FieldName).AsVariant := fDMCadNotaFiscal.cdsNotaFiscal_Itens.Fields[x].Value;
   end;
   fDMInformar_Tam.mItensItem_original.AsInteger        := fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM.AsInteger;

@@ -1232,6 +1232,13 @@ type
     mItensNFeBase_Pis: TFloatField;
     mItensNFeBase_Cofins: TFloatField;
     qParametros_NFeCONTROLAR_ENVIO_EMAIL: TStringField;
+    qCFOPCOMBUSTIVEL: TStringField;
+    mItensNFeANP_PRODUTO: TStringField;
+    mItensNFeANP_UF_CONS: TStringField;
+    mItensNFeANP_DESCRICAO: TStringField;
+    qTab_CProd_ANP: TSQLQuery;
+    qTab_CProd_ANPCODIGO: TStringField;
+    qTab_CProd_ANPDESCRICAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);

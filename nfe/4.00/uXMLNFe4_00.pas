@@ -1186,6 +1186,13 @@ begin
   if StrToFloat(FormatFloat('0.00',fDMNFe.mItensNFeVlrTributos.AsFloat)) > 0 then
     DetXML.Imposto.VTotTrib := Replace(FormatFloat('0.00',fDMNFe.mItensNFeVlrTributos.AsFloat),',','.');
 
+  if trim(fDMNFe.mItensNFeANP_PRODUTO.AsString) <> '' then
+  begin
+    DetXML.Prod.Comb.CProdANP := fDMNFe.mItensNFeANP_PRODUTO.AsString;
+    DetXML.Prod.Comb.DescANP  := fDMNFe.mItensNFeANP_DESCRICAO.AsString;
+    DetXML.Prod.Comb.UFCons   := fDMNFe.mItensNFeANP_UF_CONS.AsString;
+  end;
+
 {* N  ICMS Normal e ST }
   if StrToFloat(FormatFloat('0.0000',fDMNFe.mItensNFePercIcmsSubstInterno.AsFloat)) > 0 then
     vPerc_Interno := StrToFloat(FormatFloat('0.0000',fDMNFe.mItensNFePercIcmsSubstInterno.AsFloat))

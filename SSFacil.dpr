@@ -517,7 +517,7 @@ uses
   UDMMov_Atelier in 'pcp\UDMMov_Atelier.pas' {DMMov_Atelier: TDataModule},
   UMov_Atelier in 'pcp\UMov_Atelier.pas' {frmMov_Atelier},
   uCadOS_Transformador in 'uCadOS_Transformador.pas' {frmCadOS_Transformador},
-  UConsExtrato_Atelier in 'pcp\UConsExtrato_Atelier.pas' {frmConsExtrato_Atelier},
+  UConsExtrato_Atelier in 'pcp\UConsExtrato_Atelier.pas' {frmConsExtrato_Atelier: Unit1},
   UPagto_Atelier in 'pcp\UPagto_Atelier.pas' {frmPagto_Atelier},
   URelPedido_Cli in 'URelPedido_Cli.pas' {fRelPedido_Cli},
   UConsOrdProd_Ped in 'UConsOrdProd_Ped.pas' {frmConsOrdProd_Ped},
@@ -833,7 +833,9 @@ uses
   UConsPessoa_Produto in 'UConsPessoa_Produto.pas' {frmConsPessoa_Produto},
   UConsNCM_CFOP in 'UConsNCM_CFOP.pas' {frmConsNCM_CFOP},
   UDMConsNCM_CFOP in 'UDMConsNCM_CFOP.pas' {DMConsNCM_CFOP: TDataModule},
-  UAtualizaPreco_Mat in 'UAtualizaPreco_Mat.pas' {frmAtualizaPreco_Mat};
+  UAtualizaPreco_Mat in 'UAtualizaPreco_Mat.pas' {frmAtualizaPreco_Mat},
+  UANP_Produto in 'UANP_Produto.pas' {frmANP_Produto},
+  UDMANP_Produto in 'UDMANP_Produto.pas' {DMANP_Produto: TDataModule};
 
 {$R *.res}
 

@@ -727,7 +727,7 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         LookupField = 'ID'
         LookupDisplay = 'CODIGO;NOME'
         LookupSource = DMCadCFOP.dsTab_Cofins
-        TabOrder = 5
+        TabOrder = 7
         Visible = False
       end
       object RxDBLookupCombo2: TRxDBLookupCombo
@@ -742,7 +742,7 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         LookupField = 'ID'
         LookupDisplay = 'CODIGO;NOME'
         LookupSource = DMCadCFOP.dsTab_Pis
-        TabOrder = 6
+        TabOrder = 8
         Visible = False
       end
       object RxDBComboBox6: TRxDBComboBox
@@ -759,7 +759,7 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         Items.Strings = (
           'PERCENTUAL'
           'VALOR')
-        TabOrder = 7
+        TabOrder = 9
         Values.Strings = (
           'P'
           'V')
@@ -779,7 +779,7 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         Items.Strings = (
           'PERCENTUAL'
           'VALOR')
-        TabOrder = 8
+        TabOrder = 10
         Values.Strings = (
           'P'
           'V')
@@ -793,7 +793,7 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         CharCase = ecUpperCase
         DataField = 'PERC_COFINS'
         DataSource = DMCadCFOP.dsCFOP_Variacao
-        TabOrder = 9
+        TabOrder = 11
         Visible = False
       end
       object DBEdit20: TDBEdit
@@ -804,7 +804,7 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         CharCase = ecUpperCase
         DataField = 'PERC_PIS'
         DataSource = DMCadCFOP.dsCFOP_Variacao
-        TabOrder = 10
+        TabOrder = 12
         Visible = False
       end
       object DBEdit2: TDBEdit
@@ -815,7 +815,7 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         CharCase = ecUpperCase
         DataField = 'PERC_TRIBUTO'
         DataSource = DMCadCFOP.dsCFOP_Variacao
-        TabOrder = 11
+        TabOrder = 6
       end
       object DBEdit1: TDBEdit
         Left = 345
@@ -828,6 +828,18 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         TabOrder = 1
         OnExit = DBEdit1Exit
         OnKeyDown = DBEdit1KeyDown
+      end
+      object DBCheckBox7: TDBCheckBox
+        Left = 526
+        Top = 33
+        Width = 170
+        Height = 17
+        Caption = 'Calcular FCP'
+        DataField = 'CALCULAR_FCP'
+        DataSource = DMCadCFOP.dsCFOP_Variacao
+        TabOrder = 5
+        ValueChecked = 'S'
+        ValueUnchecked = 'N'
       end
     end
     object RzGroupBox4: TRzGroupBox
@@ -923,8 +935,8 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
       end
     end
     object RzGroupBox3: TRzGroupBox
-      Left = 666
-      Top = 158
+      Left = 655
+      Top = 102
       Width = 66
       Height = 61
       BorderColor = clMaroon

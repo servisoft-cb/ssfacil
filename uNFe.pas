@@ -4771,9 +4771,28 @@ begin
       if trim(Texto1) <> '' then
         fDMNFe.mItensNFeInfAdicionais.AsString := fDMNFe.mItensNFeInfAdicionais.AsString + '(' + Texto1 + ')';
     end;
-    //****************** 
+    //******************
+
+    //11/03/2020
+    if fDMCadNotaFiscal.cdsCFOPCOMBUSTIVEL.AsString = 'S' then
+    begin
+      fDMNFe.mItensNFeANP_PRODUTO.AsString   := fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PRODUTO.AsString;
+      fDMNFe.mItensNFeANP_UF_CONS.AsString   := fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_UF_CONS.AsString;
+      fDMNFe.qTab_CProd_ANP.Close;
+      fDMNFe.qTab_CProd_ANP.ParamByName('CODIGO').AsString := fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PRODUTO.AsString;
+      fDMNFe.qTab_CProd_ANP.Open;
+      fDMNFe.mItensNFeANP_DESCRICAO.AsString := fDMNFe.qTab_CProd_ANPDESCRICAO.AsString;
+    end
+    else
+    begin
+      fDMNFe.mItensNFeANP_PRODUTO.AsString   := '';
+      fDMNFe.mItensNFeANP_UF_CONS.AsString   := '';
+      fDMNFe.mItensNFeANP_DESCRICAO.AsString := '';
+    end;
+    //****************
 
     fDMNFe.mItensNFe.Post;
+    
     if fDMNFe.qParametrosENVIARNOTABENEF_NANFE.AsString = 'S' then
       Le_tNotaFiscalNDevolvida;
     //09/11/2015

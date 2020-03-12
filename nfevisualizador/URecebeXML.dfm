@@ -2259,7 +2259,7 @@ object frmRecebeXML: TfrmRecebeXML
           WidthOfIndicator = 11
           DefaultRowHeight = 17
           ScrollBars = ssHorizontal
-          ColCount = 40
+          ColCount = 43
           RowCount = 2
           Columns = <
             item
@@ -2562,6 +2562,31 @@ object frmRecebeXML: TfrmRecebeXML
               Title.Alignment = taCenter
               Title.Caption = 'Gravar Inf. Adic. No Nome do Produto'
               Width = 84
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'ANP_PRODUTO'
+              Title.Alignment = taCenter
+              Title.Caption = 'Cod. Produto ANP'
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'ANP_UF_CONS'
+              Title.Alignment = taCenter
+              Title.Caption = 'UF Consumo  ANP'
+              Width = 60
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'ANP_DESCRICAO'
+              Title.Alignment = taCenter
+              Title.Caption = 'Descri'#231#227'o (ANP)'
+              Width = 349
               Visible = True
             end>
         end
@@ -4397,55 +4422,46 @@ object frmRecebeXML: TfrmRecebeXML
           item
             Expanded = False
             FieldName = 'Id'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'tpAmb'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'verAplic'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'chNFe'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'dhRecbto'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'nProt'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'digVal'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'cStat'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'xMotivo'
-            Width = 64
             Visible = True
           end>
       end

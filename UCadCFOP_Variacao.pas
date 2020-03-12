@@ -68,6 +68,7 @@ type
     DBText1: TDBText;
     Label19: TLabel;
     DBEdit1: TDBEdit;
+    DBCheckBox7: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;

@@ -1,7 +1,6 @@
 object DMRecebeXML: TDMRecebeXML
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 1
   Top = 30
   Height = 654
   Width = 1366
@@ -163,8 +162,8 @@ object DMRecebeXML: TDMRecebeXML
   object XMLTransformProvider1: TXMLTransformProvider
     TransformRead.TransformationFile = 'C:\Delphi7\SSFacil\EXE\nfe_v2.00_ToDp.xtr'
     XMLDataFile = 
-      'C:\A\201902\NFe_01_S002_000002_431902889796950001465500200000000' +
-      '21603916441.xml'
+      'C:\Users\cleomar\Desktop\Devolu'#231#227'o Combust'#237'vel\NFe_TONGRAX COMER' +
+      'CIO DE LUBRIFICANTES LTDA_001_35013.xml'
     CacheData = True
     Left = 1211
     Top = 251
@@ -173,8 +172,8 @@ object DMRecebeXML: TDMRecebeXML
     Aggregates = <>
     Params = <>
     ProviderName = 'XMLTransformProvider1'
-    Left = 832
-    Top = 327
+    Left = 831
+    Top = 329
     object cdsCabecalhoversao: TStringField
       FieldName = 'versao'
       Required = True
@@ -1567,6 +1566,60 @@ object DMRecebeXML: TDMRecebeXML
     object cdsDetalheICMSSN900_vCredICMSSN: TFloatField
       FieldName = 'ICMSSN900_vCredICMSSN'
     end
+    object cdsDetalheCEST: TStringField
+      FieldName = 'CEST'
+      Size = 7
+    end
+    object cdsDetalheICMS60_vBCSTRet: TStringField
+      FieldName = 'ICMS60_vBCSTRet'
+      Size = 31
+    end
+    object cdsDetalheICMS60_pST: TStringField
+      FieldName = 'ICMS60_pST'
+      Size = 31
+    end
+    object cdsDetalheICMS60_vICMSSubstituto: TStringField
+      FieldName = 'ICMS60_vICMSSubstituto'
+      Size = 31
+    end
+    object cdsDetalheICMS60_vICMSSTRet: TStringField
+      FieldName = 'ICMS60_vICMSSTRet'
+      Size = 31
+    end
+    object cdsDetalheICMS60_vBCFCPSTRet: TStringField
+      FieldName = 'ICMS60_vBCFCPSTRet'
+      Size = 31
+    end
+    object cdsDetalheICMS60_pFCPSTRet: TStringField
+      FieldName = 'ICMS60_pFCPSTRet'
+      Size = 31
+    end
+    object cdsDetalheICMS60_vFCPSTRet: TStringField
+      FieldName = 'ICMS60_vFCPSTRet'
+      Size = 31
+    end
+    object cdsDetalheICMS60_pRedBCEfet: TStringField
+      FieldName = 'ICMS60_pRedBCEfet'
+      Size = 31
+    end
+    object cdsDetalheICMS60_vBCEfet: TStringField
+      FieldName = 'ICMS60_vBCEfet'
+      Size = 31
+    end
+    object cdsDetalheICMS60_pICMSEfet: TStringField
+      FieldName = 'ICMS60_pICMSEfet'
+      Size = 31
+    end
+    object cdsDetalheICMS60_vICMSEfet: TStringField
+      FieldName = 'ICMS60_vICMSEfet'
+      Size = 31
+    end
+    object cdsDetalheICMSST_vICMSSubstituto: TFloatField
+      FieldName = 'ICMSST_vICMSSubstituto'
+    end
+    object cdsDetalheICMSSN500_vICMSSubstituto: TFloatField
+      FieldName = 'ICMSSN500_vICMSSubstituto'
+    end
     object cdsDetalheclEnq: TStringField
       FieldName = 'clEnq'
       Size = 5
@@ -1766,59 +1819,9 @@ object DMRecebeXML: TDMRecebeXML
       FieldName = 'DI'
       UnNamed = True
     end
-    object cdsDetalheCEST: TStringField
-      FieldName = 'CEST'
-      Size = 7
-    end
-    object cdsDetalheICMS60_pST: TStringField
-      FieldName = 'ICMS60_pST'
-      Size = 31
-    end
-    object cdsDetalheICMS60_vBCFCPSTRet: TStringField
-      FieldName = 'ICMS60_vBCFCPSTRet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_pFCPSTRet: TStringField
-      FieldName = 'ICMS60_pFCPSTRet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_vFCPSTRet: TStringField
-      FieldName = 'ICMS60_vFCPSTRet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_pRedBCEfet: TStringField
-      FieldName = 'ICMS60_pRedBCEfet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_vBCEfet: TStringField
-      FieldName = 'ICMS60_vBCEfet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_pICMSEfet: TStringField
-      FieldName = 'ICMS60_pICMSEfet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_vICMSEfet: TStringField
-      FieldName = 'ICMS60_vICMSEfet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_vBCSTRet: TStringField
-      FieldName = 'ICMS60_vBCSTRet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_vICMSSTRet: TStringField
-      FieldName = 'ICMS60_vICMSSTRet'
-      Size = 31
-    end
-    object cdsDetalheICMS60_vICMSSubstituto: TStringField
-      FieldName = 'ICMS60_vICMSSubstituto'
-      Size = 31
-    end
-    object cdsDetalheICMSST_vICMSSubstituto: TFloatField
-      FieldName = 'ICMSST_vICMSSubstituto'
-    end
-    object cdsDetalheICMSSN500_vICMSSubstituto: TFloatField
-      FieldName = 'ICMSSN500_vICMSSubstituto'
+    object cdsDetalhedescANP: TStringField
+      FieldName = 'descANP'
+      Size = 95
     end
   end
   object dsDetalhe: TDataSource
@@ -1828,7 +1831,6 @@ object DMRecebeXML: TDMRecebeXML
   end
   object cdsDeclaracaoImportacao: TClientDataSet
     Aggregates = <>
-    DataSetField = cdsDetalheDI
     Params = <>
     Left = 832
     Top = 424
@@ -2458,6 +2460,21 @@ object DMRecebeXML: TDMRecebeXML
       item
         Name = 'Base_Cofins'
         DataType = ftFloat
+      end
+      item
+        Name = 'ANP_PRODUTO'
+        DataType = ftString
+        Size = 9
+      end
+      item
+        Name = 'ANP_UF_CONS'
+        DataType = ftString
+        Size = 2
+      end
+      item
+        Name = 'ANP_DESCRICAO'
+        DataType = ftString
+        Size = 100
       end>
     IndexDefs = <
       item
@@ -2471,10 +2488,10 @@ object DMRecebeXML: TDMRecebeXML
     StoreDefs = True
     BeforePost = mItensNotaBeforePost
     OnNewRecord = mItensNotaNewRecord
-    Left = 919
+    Left = 918
     Top = 232
     Data = {
-      A30C00009619E0BD010000001800000080000000000003000000A30C04497465
+      050D00009619E0BD010000001800000083000000000003000000050D04497465
       6D04000100000000000A436F6450726F6475746F010049000000010005574944
       5448020002003C0011436F6450726F6475746F496E7465726E6F040001000000
       000006436F64436F72040001000000000008436F644772616465040001000000
@@ -2574,8 +2591,11 @@ object DMRecebeXML: TDMRecebeXML
       0200020001000A49445F43464F504E434D04000100000000000C49445F43464F
       50417475616C040001000000000013566C725F49636D735F5375627374697475
       746F080004000000000008426173655F50697308000400000000000B42617365
-      5F436F66696E73080004000000000001000D44454641554C545F4F5244455202
-      00820000000000}
+      5F436F66696E7308000400000000000B414E505F50524F4455544F0100490000
+      0001000557494454480200020009000B414E505F55465F434F4E530100490000
+      0001000557494454480200020002000D414E505F44455343524943414F010049
+      000000010005574944544802000200640001000D44454641554C545F4F524445
+      520200820000000000}
     object mItensNotaItem: TIntegerField
       FieldName = 'Item'
     end
@@ -3053,6 +3073,18 @@ object DMRecebeXML: TDMRecebeXML
     end
     object mItensNotaBase_Cofins: TFloatField
       FieldName = 'Base_Cofins'
+    end
+    object mItensNotaANP_PRODUTO: TStringField
+      FieldName = 'ANP_PRODUTO'
+      Size = 9
+    end
+    object mItensNotaANP_UF_CONS: TStringField
+      FieldName = 'ANP_UF_CONS'
+      Size = 2
+    end
+    object mItensNotaANP_DESCRICAO: TStringField
+      FieldName = 'ANP_DESCRICAO'
+      Size = 100
     end
   end
   object dsmItensNota: TDataSource
@@ -6068,6 +6100,14 @@ object DMRecebeXML: TDMRecebeXML
     object sdsNotaFiscal_ItensBASE_COFINS: TFloatField
       FieldName = 'BASE_COFINS'
     end
+    object sdsNotaFiscal_ItensANP_PRODUTO: TStringField
+      FieldName = 'ANP_PRODUTO'
+      Size = 9
+    end
+    object sdsNotaFiscal_ItensANP_UF_CONS: TStringField
+      FieldName = 'ANP_UF_CONS'
+      Size = 2
+    end
   end
   object cdsNotaFiscal_Itens: TClientDataSet
     Aggregates = <>
@@ -6449,6 +6489,14 @@ object DMRecebeXML: TDMRecebeXML
     end
     object cdsNotaFiscal_ItensBASE_COFINS: TFloatField
       FieldName = 'BASE_COFINS'
+    end
+    object cdsNotaFiscal_ItensANP_PRODUTO: TStringField
+      FieldName = 'ANP_PRODUTO'
+      Size = 9
+    end
+    object cdsNotaFiscal_ItensANP_UF_CONS: TStringField
+      FieldName = 'ANP_UF_CONS'
+      Size = 2
     end
   end
   object dsNotaFiscal_Itens: TDataSource
@@ -7576,7 +7624,7 @@ object DMRecebeXML: TDMRecebeXML
     DataSetField = cdsDuplicatasdsDuplicata_Hist
     IndexFieldNames = 'ID;ITEM'
     Params = <>
-    Left = 424
+    Left = 423
     Top = 512
     object cdsDuplicata_HistID: TIntegerField
       FieldName = 'ID'

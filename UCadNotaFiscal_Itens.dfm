@@ -1413,6 +1413,13 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
             OnExit = DBEdit5Exit
           end
         end
+        object NxButton1: TNxButton
+          Left = 425
+          Top = 328
+          Width = 110
+          Caption = 'Combust'#237'vel ANP'
+          TabOrder = 18
+        end
       end
       object pnlNomeProduto: TPanel
         Left = 0

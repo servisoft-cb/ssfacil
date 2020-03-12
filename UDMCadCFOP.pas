@@ -431,6 +431,10 @@ type
     cdsCFOPDEPARA_COM_CST: TStringField;
     sdsCFOP_VariacaoCOD_BENEF: TStringField;
     cdsCFOP_VariacaoCOD_BENEF: TStringField;
+    sdsCFOP_VariacaoCALCULAR_FCP: TStringField;
+    cdsCFOP_VariacaoCALCULAR_FCP: TStringField;
+    sdsCFOPCOMBUSTIVEL: TStringField;
+    cdsCFOPCOMBUSTIVEL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsCFOPNewRecord(DataSet: TDataSet);
     procedure dspCFOPUpdateError(Sender: TObject;
@@ -787,6 +791,14 @@ procedure TDMCadCFOP.cdsCFOP_VariacaoBeforePost(DataSet: TDataSet);
 begin
   if cdsCFOP_VariacaoID_OBS_LEI.AsInteger <= 0 then
     cdsCFOP_VariacaoID_OBS_LEI.Clear;
+  if (cdsCFOP_VariacaoCALCULAR_FCP.AsString = 'S') or (cdsCFOP_VariacaoCALCULAR_FCP.AsString = 's') then
+    cdsCFOP_VariacaoCALCULAR_FCP.AsString := 'S'
+  else
+    cdsCFOP_VariacaoCALCULAR_FCP.AsString := 'N';
+  if (cdsCFOP_VariacaoCALCULAR_ST.AsString = 'S') or (cdsCFOP_VariacaoCALCULAR_ST.AsString = 's') then
+    cdsCFOP_VariacaoCALCULAR_ST.AsString := 'S'
+  else
+    cdsCFOP_VariacaoCALCULAR_ST.AsString := 'N';
 end;
 
 procedure TDMCadCFOP.mImpAuxAfterScroll(DataSet: TDataSet);

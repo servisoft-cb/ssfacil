@@ -150,7 +150,6 @@ object frmCadCFOP: TfrmCadCFOP
           item
             Expanded = False
             FieldName = 'NOME_INTERNO'
-            Width = 64
             Visible = True
           end>
       end
@@ -1276,6 +1275,20 @@ object frmCadCFOP: TfrmCadCFOP
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
+          object DBCheckBox27: TDBCheckBox
+            Left = 162
+            Top = 63
+            Width = 186
+            Height = 17
+            Caption = 'Combust'#237'vel'
+            Ctl3D = False
+            DataField = 'COMBUSTIVEL'
+            DataSource = DMCadCFOP.dsCFOP
+            ParentCtl3D = False
+            TabOrder = 12
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
+          end
         end
         object gbxFaturamento: TRzGroupBox
           Left = 385
@@ -2043,7 +2056,6 @@ object frmCadCFOP: TfrmCadCFOP
             Align = alClient
             DataSource = DMCadCFOP.dsCFOP_Variacao
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-            ReadOnly = True
             TabOrder = 1
             TitleFont.Charset = DEFAULT_CHARSET
             TitleFont.Color = clWindowText
@@ -2062,20 +2074,21 @@ object frmCadCFOP: TfrmCadCFOP
             GridStyle.EvenColor = clWindow
             TitleHeight.PixelCount = 24
             FooterColor = clBtnFace
-            ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+            ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
             OnGetCellParams = SMDBGrid2GetCellParams
             RegistryKey = 'Software\Scalabium'
             RegistrySection = 'SMDBGrid'
             WidthOfIndicator = 11
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 12
+            ColCount = 13
             RowCount = 2
             Columns = <
               item
                 Alignment = taCenter
                 Expanded = False
                 FieldName = 'ITEM'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Item'
                 Width = 30
@@ -2084,6 +2097,7 @@ object frmCadCFOP: TfrmCadCFOP
               item
                 Expanded = False
                 FieldName = 'NOME'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Descri'#231#227'o'
                 Width = 183
@@ -2092,6 +2106,7 @@ object frmCadCFOP: TfrmCadCFOP
               item
                 Expanded = False
                 FieldName = 'clDesc_Tipo_Empresa'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Tipo Empresa'
                 Width = 85
@@ -2100,6 +2115,7 @@ object frmCadCFOP: TfrmCadCFOP
               item
                 Expanded = False
                 FieldName = 'clDesc_Tipo_Cliente'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Cliente'
                 Width = 80
@@ -2108,6 +2124,7 @@ object frmCadCFOP: TfrmCadCFOP
               item
                 Expanded = False
                 FieldName = 'clDesc_Pessoa_Cliente'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Pessoa Cliente'
                 Width = 76
@@ -2116,6 +2133,7 @@ object frmCadCFOP: TfrmCadCFOP
               item
                 Expanded = False
                 FieldName = 'clDesc_Tipo_Consumidor'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Tipo Consumidor'
                 Width = 72
@@ -2126,6 +2144,7 @@ object frmCadCFOP: TfrmCadCFOP
                 Color = 16777170
                 Expanded = False
                 FieldName = 'COD_ICMS'
+                ReadOnly = True
                 Title.Caption = 'C'#243'd.  ICMS'
                 Title.Color = 16777170
                 Width = 46
@@ -2136,6 +2155,7 @@ object frmCadCFOP: TfrmCadCFOP
                 Color = 16777170
                 Expanded = False
                 FieldName = 'COD_IPI'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'C'#243'd. IPI'
                 Title.Color = 16777170
@@ -2146,6 +2166,7 @@ object frmCadCFOP: TfrmCadCFOP
                 Color = 16777170
                 Expanded = False
                 FieldName = 'COD_ENQ'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Enq. IPI'
                 Title.Color = 16777170
@@ -2156,6 +2177,7 @@ object frmCadCFOP: TfrmCadCFOP
                 Alignment = taCenter
                 Expanded = False
                 FieldName = 'CALCULAR_ST'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Calcular ST'
                 Visible = True
@@ -2163,9 +2185,20 @@ object frmCadCFOP: TfrmCadCFOP
               item
                 Expanded = False
                 FieldName = 'COD_BENEF'
+                ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'C'#243'd. Benef. Fiscal'
                 Width = 78
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'CALCULAR_FCP'
+                ReadOnly = True
+                Title.Alignment = taCenter
+                Title.Caption = 'Calcular FCP'
+                Width = 54
                 Visible = True
               end>
           end

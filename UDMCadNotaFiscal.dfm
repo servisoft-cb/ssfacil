@@ -1286,7 +1286,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 27
-    Top = 51
+    Top = 52
     object sdsNotaFiscal_ItensID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -1913,6 +1913,14 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object sdsNotaFiscal_ItensBASE_COFINS: TFloatField
       FieldName = 'BASE_COFINS'
+    end
+    object sdsNotaFiscal_ItensANP_PRODUTO: TStringField
+      FieldName = 'ANP_PRODUTO'
+      Size = 9
+    end
+    object sdsNotaFiscal_ItensANP_UF_CONS: TStringField
+      FieldName = 'ANP_UF_CONS'
+      Size = 2
     end
   end
   object cdsNotaFiscal_Itens: TClientDataSet
@@ -2576,6 +2584,14 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsNotaFiscal_ItensBASE_COFINS: TFloatField
       FieldName = 'BASE_COFINS'
       DisplayFormat = '0.00'
+    end
+    object cdsNotaFiscal_ItensANP_PRODUTO: TStringField
+      FieldName = 'ANP_PRODUTO'
+      Size = 9
+    end
+    object cdsNotaFiscal_ItensANP_UF_CONS: TStringField
+      FieldName = 'ANP_UF_CONS'
+      Size = 2
     end
   end
   object dsNotaFiscal_Itens: TDataSource
@@ -4206,11 +4222,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       '_pis_simp,'#13#10't.perc_pis_simp, t.perc_cofins_simp, t.tipo_pis_simp' +
       ', t.tipo_cofins_simp,'#13#10'T.NFEFINALIDADE, T.GERAR_CUSTO_MEDIO, T.D' +
       'EVOLUCAO, t.usa_unidade_trib, T.ALT_NCM_CUSTO, '#13#10'T.ENVIAR_BASE_S' +
-      'T, T.USA_NAO_CONTR_FISICA'#13#10'FROM TAB_CFOP T'
+      'T, T.USA_NAO_CONTR_FISICA, T.COMBUSTIVEL'#13#10'FROM TAB_CFOP T'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 417
+    Left = 416
     Top = 290
   end
   object dspCFOP: TDataSetProvider
@@ -4426,6 +4442,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsCFOPUSA_NAO_CONTR_FISICA: TStringField
       FieldName = 'USA_NAO_CONTR_FISICA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsCFOPCOMBUSTIVEL: TStringField
+      FieldName = 'COMBUSTIVEL'
       FixedChar = True
       Size = 1
     end
@@ -5085,6 +5106,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 311
   end
   object cdsTipoCobranca: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5165,6 +5187,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 358
   end
   object cdsContas: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -6201,7 +6224,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspTab_CSTICMS'
-    Left = 817
+    Left = 818
     Top = 5
     object cdsTab_CSTICMSID: TIntegerField
       FieldName = 'ID'
@@ -6242,8 +6265,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
   end
   object dsTab_CSTICMS: TDataSource
     DataSet = cdsTab_CSTICMS
-    Left = 841
-    Top = 4
+    Left = 839
+    Top = 3
   end
   object sdsTab_CSTIPI: TSQLDataSet
     NoMetadata = True
@@ -7719,28 +7742,34 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'COD_BENEF'
       Size = 8
     end
+    object qCFOP_VariacaoCALCULAR_FCP: TStringField
+      FieldName = 'CALCULAR_FCP'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsNotaEntrada: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT NT.SERIE, NT.NUMNOTA, NT.ID_CLIENTE, NT.ID, NI.ID_PRODUTO' +
-      ', NI.QTD, NI.QTDRESTANTE,'#13#10'NI.QTDDEVOLVIDA, NI.VLR_UNITARIO, NI.' +
-      'ID_CSTIPI, NI.ID_CSTICMS, NI.PERC_ICMS, NI.PERC_IPI, NI.NOME_PRO' +
-      'DUTO, NI.REFERENCIA,'#13#10'CFOP.CODCFOP, CFOP.BENEFICIAMENTO, NT.DTEM' +
-      'ISSAO, NT.DTSAIDAENTRADA, CLI.NOME NOMECLIENTE,'#13#10'NI.UNIDADE, NI.' +
-      'QTD_ADEVOLVER, NI.ID_NCM, NT.FILIAL, NI.ITEM,'#13#10'NT.NFECHAVEACESSO' +
-      ', CLI.CNPJ_CPF, NI.QTD_NOTAATUAL, NI.OBS_COMPLEMENTAR, NT.ID_CLI' +
-      'ENTETRIANG,'#13#10'TRI.NOME NOME_CLIENTETRIANG, NI.ID_CFOP, NI.NUM_LOT' +
-      'E_CONTROLE, NI.PERC_TRIBICMS,'#13#10'NI.ID_COR, COMB.NOME NOME_COR, NI' +
-      '.TAMANHO'#13#10'FROM NOTAFISCAL NT'#13#10'INNER JOIN NOTAFISCAL_ITENS NI'#13#10'ON' +
-      ' NT.ID = NI.ID'#13#10'INNER JOIN TAB_CFOP CFOP'#13#10'ON NI.ID_CFOP = CFOP.I' +
-      'D'#13#10'INNER JOIN PESSOA CLI'#13#10'ON NT.ID_CLIENTE = CLI.CODIGO'#13#10'inner j' +
-      'oin produto pro'#13#10'ON NI.ID_PRODUTO = PRO.ID'#13#10'LEFT JOIN PESSOA TRI' +
-      #13#10'ON NT.ID_CLIENTETRIANG = TRI.CODIGO'#13#10'LEFT JOIN COMBINACAO COMB' +
-      #13#10'ON NI.ID_COR = COMB.ID'#13#10'LEFT JOIN OPERACAO_NOTA O2'#13#10'ON NI.ID_O' +
-      'PERACAO_NOTA = O2.ID'#13#10'WHERE NT.TIPO_REG = :TIPO_REG'#13#10'  AND NI.QT' +
-      'DRESTANTE > 0'#13#10'  AND PRO.INATIVO = '#39'N'#39#13#10#13#10
+      'select NT.SERIE, NT.NUMNOTA, NT.ID_CLIENTE, NT.ID, NI.ID_PRODUTO' +
+      ', NI.QTD, NI.QTDRESTANTE, NI.QTDDEVOLVIDA,'#13#10'       NI.VLR_UNITAR' +
+      'IO, NI.ID_CSTIPI, NI.ID_CSTICMS, NI.PERC_ICMS, NI.PERC_IPI, NI.N' +
+      'OME_PRODUTO, NI.REFERENCIA,'#13#10'       CFOP.CODCFOP, CFOP.BENEFICIA' +
+      'MENTO, NT.DTEMISSAO, NT.DTSAIDAENTRADA, CLI.NOME NOMECLIENTE, NI' +
+      '.UNIDADE,'#13#10'       NI.QTD_ADEVOLVER, NI.ID_NCM, NT.FILIAL, NI.ITE' +
+      'M, NT.NFECHAVEACESSO, CLI.CNPJ_CPF, NI.QTD_NOTAATUAL,'#13#10'       NI' +
+      '.OBS_COMPLEMENTAR, NT.ID_CLIENTETRIANG, TRI.NOME NOME_CLIENTETRI' +
+      'ANG, NI.ID_CFOP, NI.NUM_LOTE_CONTROLE,'#13#10'       NI.PERC_TRIBICMS,' +
+      ' NI.ID_COR, COMB.NOME NOME_COR, NI.TAMANHO, NI.ANP_PRODUTO, NI.A' +
+      'NP_UF_CONS'#13#10'from NOTAFISCAL NT'#13#10'inner join NOTAFISCAL_ITENS NI o' +
+      'n NT.ID = NI.ID'#13#10'inner join TAB_CFOP CFOP on NI.ID_CFOP = CFOP.I' +
+      'D'#13#10'inner join PESSOA CLI on NT.ID_CLIENTE = CLI.CODIGO'#13#10'inner jo' +
+      'in PRODUTO PRO on NI.ID_PRODUTO = PRO.ID'#13#10'left join PESSOA TRI o' +
+      'n NT.ID_CLIENTETRIANG = TRI.CODIGO'#13#10'left join COMBINACAO COMB on' +
+      ' NI.ID_COR = COMB.ID'#13#10'left join OPERACAO_NOTA O2 on NI.ID_OPERAC' +
+      'AO_NOTA = O2.ID'#13#10'where NT.TIPO_REG = :TIPO_REG and'#13#10'      NI.QTD' +
+      'RESTANTE > 0 and'#13#10'      PRO.INATIVO = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -7749,7 +7778,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 417
+    Left = 415
     Top = 151
   end
   object dspNotaEntrada: TDataSetProvider
@@ -7895,6 +7924,14 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsNotaEntradaTAMANHO: TStringField
       FieldName = 'TAMANHO'
       Size = 10
+    end
+    object cdsNotaEntradaANP_PRODUTO: TStringField
+      FieldName = 'ANP_PRODUTO'
+      Size = 9
+    end
+    object cdsNotaEntradaANP_UF_CONS: TStringField
+      FieldName = 'ANP_UF_CONS'
+      Size = 2
     end
   end
   object dsNotaEntrada: TDataSource
@@ -8638,6 +8675,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'COD_BENEF'
       Size = 8
     end
+    object sdsCFOP_VariacaoCALCULAR_FCP: TStringField
+      FieldName = 'CALCULAR_FCP'
+      FixedChar = True
+      Size = 1
+    end
   end
   object cdsCFOP_Variacao: TClientDataSet
     Aggregates = <>
@@ -8756,6 +8798,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsCFOP_VariacaoCOD_BENEF: TStringField
       FieldName = 'COD_BENEF'
       Size = 8
+    end
+    object cdsCFOP_VariacaoCALCULAR_FCP: TStringField
+      FieldName = 'CALCULAR_FCP'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsCFOP_Variacao: TDataSource
@@ -11454,7 +11501,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'WHERE ID = :ID'
       '  AND UF = :UF')
     SQLConnection = dmDatabase.scoDados
-    Left = 1000
+    Left = 998
     Top = 138
     object qProduto_UFID: TIntegerField
       FieldName = 'ID'

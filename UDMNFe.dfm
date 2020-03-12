@@ -1909,6 +1909,21 @@ object DMNFe: TDMNFe
       item
         Name = 'Base_Cofins'
         DataType = ftFloat
+      end
+      item
+        Name = 'ANP_PRODUTO'
+        DataType = ftString
+        Size = 9
+      end
+      item
+        Name = 'ANP_UF_CONS'
+        DataType = ftString
+        Size = 2
+      end
+      item
+        Name = 'ANP_DESCRICAO'
+        DataType = ftString
+        Size = 100
       end>
     IndexDefs = <>
     IndexFieldNames = 'Filial;NumNota;ItemNota'
@@ -1919,7 +1934,7 @@ object DMNFe: TDMNFe
     Left = 225
     Top = 423
     Data = {
-      5B0A00009619E0BD01000000180000006D0000000000030000005B0A0646696C
+      BD0A00009619E0BD010000001800000070000000000003000000BD0A0646696C
       69616C0400010000000000074E756D4E6F74610400010000000000084974656D
       4E6F746104000100000000000A436F6450726F6475746F010049000000010005
       57494454480200020014000A436F644E61744F70657201004900000001000557
@@ -2001,7 +2016,11 @@ object DMNFe: TDMNFe
       657408000400000000000E506572635F49434D535F4566657408000400000000
       0012504552435F424153455F5245445F45464554080004000000000013566C72
       5F49636D735F5375627374697475746F080004000000000008426173655F5069
-      7308000400000000000B426173655F436F66696E7308000400000000000000}
+      7308000400000000000B426173655F436F66696E7308000400000000000B414E
+      505F50524F4455544F01004900000001000557494454480200020009000B414E
+      505F55465F434F4E5301004900000001000557494454480200020002000D414E
+      505F44455343524943414F010049000000010005574944544802000200640000
+      00}
     object mItensNFeFilial: TIntegerField
       FieldName = 'Filial'
     end
@@ -2364,6 +2383,18 @@ object DMNFe: TDMNFe
     end
     object mItensNFeBase_Cofins: TFloatField
       FieldName = 'Base_Cofins'
+    end
+    object mItensNFeANP_PRODUTO: TStringField
+      FieldName = 'ANP_PRODUTO'
+      Size = 9
+    end
+    object mItensNFeANP_UF_CONS: TStringField
+      FieldName = 'ANP_UF_CONS'
+      Size = 2
+    end
+    object mItensNFeANP_DESCRICAO: TStringField
+      FieldName = 'ANP_DESCRICAO'
+      Size = 100
     end
   end
   object mAuxDadosNFe: TClientDataSet
@@ -5113,7 +5144,7 @@ object DMNFe: TDMNFe
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT T.id, T.codcfop, T.copiarnotatriangular'
+      'SELECT T.id, T.codcfop, T.copiarnotatriangular, T.COMBUSTIVEL'
       'FROM TAB_CFOP T'
       'WHERE T.id = :ID')
     SQLConnection = dmDatabase.scoDados
@@ -5129,6 +5160,11 @@ object DMNFe: TDMNFe
     end
     object qCFOPCOPIARNOTATRIANGULAR: TStringField
       FieldName = 'COPIARNOTATRIANGULAR'
+      FixedChar = True
+      Size = 1
+    end
+    object qCFOPCOMBUSTIVEL: TStringField
+      FieldName = 'COMBUSTIVEL'
       FixedChar = True
       Size = 1
     end
@@ -6176,6 +6212,31 @@ object DMNFe: TDMNFe
     object qDrawObsCONTADOR: TIntegerField
       FieldName = 'CONTADOR'
       Required = True
+    end
+  end
+  object qTab_CProd_ANP: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftString
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select C.*'
+      'from TAB_CPROD_ANP C'
+      'where C.CODIGO = :CODIGO')
+    SQLConnection = dmDatabase.scoDados
+    Left = 420
+    Top = 486
+    object qTab_CProd_ANPCODIGO: TStringField
+      FieldName = 'CODIGO'
+      Required = True
+      Size = 9
+    end
+    object qTab_CProd_ANPDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 100
     end
   end
 end

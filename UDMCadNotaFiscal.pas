@@ -3131,6 +3131,16 @@ type
     cdsFilialPEDIDO_PRECO_IPI: TStringField;
     cdsPedidoVLR_UNITARIO_IPI: TFloatField;
     cdsPedidoFILIAL: TIntegerField;
+    qCFOP_VariacaoCALCULAR_FCP: TStringField;
+    sdsCFOP_VariacaoCALCULAR_FCP: TStringField;
+    cdsCFOP_VariacaoCALCULAR_FCP: TStringField;
+    sdsNotaFiscal_ItensANP_PRODUTO: TStringField;
+    sdsNotaFiscal_ItensANP_UF_CONS: TStringField;
+    cdsNotaFiscal_ItensANP_PRODUTO: TStringField;
+    cdsNotaFiscal_ItensANP_UF_CONS: TStringField;
+    cdsCFOPCOMBUSTIVEL: TStringField;
+    cdsNotaEntradaANP_PRODUTO: TStringField;
+    cdsNotaEntradaANP_UF_CONS: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

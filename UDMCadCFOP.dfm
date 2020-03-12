@@ -268,6 +268,11 @@ object DMCadCFOP: TDMCadCFOP
       FixedChar = True
       Size = 1
     end
+    object sdsCFOPCOMBUSTIVEL: TStringField
+      FieldName = 'COMBUSTIVEL'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspCFOP: TDataSetProvider
     DataSet = sdsCFOP
@@ -551,6 +556,11 @@ object DMCadCFOP: TDMCadCFOP
       FixedChar = True
       Size = 1
     end
+    object cdsCFOPCOMBUSTIVEL: TStringField
+      FieldName = 'COMBUSTIVEL'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsCFOP: TDataSource
     DataSet = cdsCFOP
@@ -723,7 +733,7 @@ object DMCadCFOP: TDMCadCFOP
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 56
-    Top = 168
+    Top = 169
     object sdsCFOP_VariacaoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -880,6 +890,11 @@ object DMCadCFOP: TDMCadCFOP
     object sdsCFOP_VariacaoCOD_BENEF: TStringField
       FieldName = 'COD_BENEF'
       Size = 8
+    end
+    object sdsCFOP_VariacaoCALCULAR_FCP: TStringField
+      FieldName = 'CALCULAR_FCP'
+      FixedChar = True
+      Size = 1
     end
   end
   object cdsCFOP_Variacao: TClientDataSet
@@ -1077,6 +1092,11 @@ object DMCadCFOP: TDMCadCFOP
     object cdsCFOP_VariacaoCOD_BENEF: TStringField
       FieldName = 'COD_BENEF'
       Size = 8
+    end
+    object cdsCFOP_VariacaoCALCULAR_FCP: TStringField
+      FieldName = 'CALCULAR_FCP'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsCFOP_Variacao: TDataSource

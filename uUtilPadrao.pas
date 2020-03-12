@@ -68,6 +68,8 @@ uses
 
   function fnc_Verifica_Tipo_Lote: String;
 
+  procedure prc_Gravar_CProd_ANP(Codigo, Descricao : String);
+
   function fnc_Converte_Horas(Hora: Real): Real;
   function fnc_Converte_Min_Dec(Hora: Real): Real;
   //function fnc_Soma_Data_Hora(Data: TDateTime ; Hora1: TTime ; Hora2, Total_HoraDia: Real): String;
@@ -2461,6 +2463,29 @@ begin
     FreeAndNil(sds);
   end;
 
+end;
+
+procedure prc_Gravar_CProd_ANP(Codigo, Descricao : String);
+var
+  sds: TSQLDataSet;
+begin
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'select T.CODIGO, T.DESCRICAO from TAB_CPROD_ANP T where T.CODIGO = :CODIGO ';
+    sds.ParamByName('CODIGO').AsString := Codigo;
+    sds.Open;
+    if sds.IsEmpty then
+    begin
+      sds.Close;
+      sds.CommandText   := 'INSERT INTO TAB_CPROD_ANP (CODIGO, DESCRICAO) VALUES (' + QuotedStr(Codigo) + ',' + QuotedStr(Descricao) +')';
+      sds.ExecSQL;
+    end;
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.

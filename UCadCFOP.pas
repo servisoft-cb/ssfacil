@@ -147,6 +147,7 @@ type
     DBCheckBox26: TDBCheckBox;
     btnCopiarCFOP: TNxButton;
     SpeedButton1: TSpeedButton;
+    DBCheckBox27: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -204,6 +205,8 @@ type
     procedure prc_Limpar_Edit_Consulta;
     procedure prc_Posiciona_CFOP;
     procedure prc_Gerar_mAuxItens;
+
+    procedure prc_Habilitar;
   public
     { Public declarations }
   end;
@@ -267,17 +270,8 @@ begin
     MessageDlg(fDMCadCFOP.vMsgErro, mtError, [mbOk], 0);
     exit;
   end;
-  TS_Consulta.TabEnabled    := not(TS_Consulta.TabEnabled);
+  prc_Habilitar;
   RzPageControl1.ActivePage := TS_Consulta;
-  pnlCadastro.Enabled       := not(pnlCadastro.Enabled);
-  btnConfirmar.Enabled      := not(btnConfirmar.Enabled);
-  btnAlterar.Enabled        := not(btnAlterar.Enabled);
-  DBMemo1.ReadOnly          := not(DBMemo1.ReadOnly);
-  DBMemo2.ReadOnly          := not(DBMemo2.ReadOnly);
-  DBMemo3.ReadOnly          := not(DBMemo3.ReadOnly);
-  Panel4.Enabled            := not(Panel4.Enabled);
-  Panel3.Enabled            := not(Panel3.Enabled);
-  Panel5.Enabled            := not(Panel5.Enabled);
   prc_Consultar;
   fDMCadCFOP.cdsCFOP_Consulta.Locate('ID',vIDAux,([Locaseinsensitive]));
 end;
@@ -288,18 +282,7 @@ begin
   if fDMCadCFOP.cdsCFOP.State in [dsBrowse] then
     exit;
   RzPageControl1.ActivePage := TS_Cadastro;
-
-  TS_Consulta.TabEnabled := False;
-  btnAlterar.Enabled     := False;
-  btnConfirmar.Enabled   := True;
-  pnlCadastro.Enabled    := True;
-  DBMemo1.ReadOnly       := False;
-  DBMemo2.ReadOnly       := False;
-  DBMemo3.ReadOnly       := False;
-  Panel4.Enabled         := True;
-  Panel3.Enabled         := True;
-  Panel5.Enabled         := True;
-
+  prc_Habilitar;
   DBEdit7.SetFocus;
   fDMCadCFOP.mAuxItens.EmptyDataSet;
 end;
@@ -356,17 +339,8 @@ begin
     exit;
 
   fDMCadCFOP.cdsCFOP.CancelUpdates;
-  TS_Consulta.TabEnabled    := True;
+  prc_Habilitar;
   RzPageControl1.ActivePage := TS_Consulta;
-  pnlCadastro.Enabled       := not(pnlCadastro.Enabled);
-  btnConfirmar.Enabled      := not(btnConfirmar.Enabled);
-  btnAlterar.Enabled        := not(btnAlterar.Enabled);
-  DBMemo1.ReadOnly          := True;
-  DBMemo2.ReadOnly          := True;
-  DBMemo3.ReadOnly          := True;
-  Panel4.Enabled            := False;
-  Panel3.Enabled            := False;
-  Panel5.Enabled            := False;
 end;
 
 procedure TfrmCadCFOP.SMDBGrid1DblClick(Sender: TObject);
@@ -382,17 +356,8 @@ begin
   fDMCadCFOP.cdsCFOP.Edit;
 
   prc_Gerar_mAuxItens;
+  prc_Habilitar;
 
-  TS_Consulta.TabEnabled := False;
-  btnAlterar.Enabled     := False;
-  btnConfirmar.Enabled   := True;
-  pnlCadastro.Enabled    := True;
-  DBMemo1.ReadOnly       := False;
-  DBMemo2.ReadOnly       := False;
-  DBMemo3.ReadOnly       := False;
-  Panel4.Enabled         := True;
-  Panel3.Enabled         := True;
-  Panel5.Enabled         := True;
 end;
 
 procedure TfrmCadCFOP.btnConfirmarClick(Sender: TObject);
@@ -914,6 +879,28 @@ procedure TfrmCadCFOP.SpeedButton1Click(Sender: TObject);
 begin
   MessageDlg('Empresa = É quando o Produto pertence a Empresa, e esta envio para o cliente beneficiar ' + #13 +
              'Terceiro = É quando o Produto é do Cliente, e este envio a Empresa para beneficiar' , mtInformation, [mbOk], 0);
+end;
+
+procedure TfrmCadCFOP.prc_Habilitar;
+var
+  i : Integer;
+begin
+  TS_Consulta.TabEnabled := not(TS_Consulta.TabEnabled);
+  btnAlterar.Enabled     := not(btnAlterar.Enabled);
+  btnConfirmar.Enabled   := not(btnConfirmar.Enabled);
+  pnlCadastro.Enabled    := not(pnlCadastro.Enabled);
+  DBMemo1.ReadOnly       := not(DBMemo1.ReadOnly);
+  DBMemo2.ReadOnly       := not(DBMemo2.ReadOnly);
+  DBMemo3.ReadOnly       := not(DBMemo3.ReadOnly);
+  Panel4.Enabled         := not(Panel4.Enabled);
+  Panel3.Enabled         := not(Panel3.Enabled);
+  Panel5.Enabled         := not(Panel5.Enabled);
+
+  for i := 1 to SMDBGrid2.ColCount - 2 do
+  begin
+    if (SMDBGrid2.Columns[i].FieldName = 'CALCULAR_ST') or (SMDBGrid2.Columns[i].FieldName = 'CALCULAR_FCP') then
+      SMDBGrid2.Columns[i].readonly := not(SMDBGrid2.Columns[i].readonly);
+  end;
 end;
 
 end.

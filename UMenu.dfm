@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 627
+    Height = 635
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -1307,6 +1307,10 @@ object fMenu: TfMenu
       object EDIConfigurao1: TMenuItem
         Caption = 'EDI Configura'#231#227'o'
         OnClick = EDIConfigurao1Click
+      end
+      object ProdutosANP1: TMenuItem
+        Caption = 'Produtos ANP'
+        OnClick = ProdutosANP1Click
       end
       object N14: TMenuItem
         Caption = '-'

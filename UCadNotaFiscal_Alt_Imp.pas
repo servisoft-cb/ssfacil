@@ -212,6 +212,11 @@ type
     Label90: TLabel;
     DBEdit73: TDBEdit;
     DBEdit74: TDBEdit;
+    RzGroupBox7: TRzGroupBox;
+    Label91: TLabel;
+    Label92: TLabel;
+    DBEdit75: TDBEdit;
+    DBEdit76: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);

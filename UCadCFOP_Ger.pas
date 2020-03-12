@@ -27,6 +27,8 @@ type
     RxDBLookupCombo1: TRxDBLookupCombo;
     Label2: TLabel;
     edtCBenef: TEdit;
+    ckFCP_Geral: TCheckBox;
+    ckFCP_Simples: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -120,13 +122,21 @@ begin
     end;
     if fDMCadCFOP.cdsCFOP_VariacaoTIPO_EMPRESA.AsString = 'G' then
     begin
-      fDMCadCFOP.cdsCFOP_VariacaoID_CSTICMS.AsInteger := RxDBLookupCombo4.KeyValue;
-      fDMCadCFOP.cdsCFOP_VariacaoCOD_BENEF.AsString   := edtCBenef.Text;
+      fDMCadCFOP.cdsCFOP_VariacaoID_CSTICMS.AsInteger  := RxDBLookupCombo4.KeyValue;
+      fDMCadCFOP.cdsCFOP_VariacaoCOD_BENEF.AsString    := edtCBenef.Text;
+      if ckFCP_Geral.Checked then
+        fDMCadCFOP.cdsCFOP_VariacaoCALCULAR_FCP.AsString := 'S'
+      else
+        fDMCadCFOP.cdsCFOP_VariacaoCALCULAR_FCP.AsString := 'N';
     end
     else
     begin
       fDMCadCFOP.cdsCFOP_VariacaoID_CSTICMS.AsInteger := RxDBLookupCombo1.KeyValue;
       fDMCadCFOP.cdsCFOP_VariacaoCOD_BENEF.AsString   := '';
+      if ckFCP_Simples.Checked then
+        fDMCadCFOP.cdsCFOP_VariacaoCALCULAR_FCP.AsString := 'S'
+      else
+        fDMCadCFOP.cdsCFOP_VariacaoCALCULAR_FCP.AsString := 'N';
     end;
     fDMCadCFOP.cdsCFOP_VariacaoID_CSTIPI.AsInteger  := RxDBLookupCombo5.KeyValue;
     if RxDBLookupCombo7.Text <> '' then
@@ -144,6 +154,7 @@ begin
     fDMCadCFOP.cdsCFOP_VariacaoCOD_IPI.AsString  := RxDBLookupCombo5.Text;
     if RxDBLookupCombo7.Text <> '' then
       fDMCadCFOP.cdsCFOP_VariacaoCOD_ENQ.AsString  := RxDBLookupCombo7.Text;
+
 
     fDMCadCFOP.cdsCFOP_Variacao.Post;
   end;

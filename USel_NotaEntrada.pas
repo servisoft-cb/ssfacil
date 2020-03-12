@@ -466,6 +466,15 @@ begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensNOME_COR_COMBINACAO.AsString := fDMCadNotaFiscal.cdsNotaEntradaNOME_COR.AsString;
     end;
     //*********************
+
+    //11/03/2020
+    if fDMCadNotaFiscal.cdsCFOPCOMBUSTIVEL.AsString = 'S' then
+    begin
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PRODUTO.AsString := fDMCadNotaFiscal.cdsNotaEntradaANP_PRODUTO.AsString;
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_UF_CONS.AsString := fDMCadNotaFiscal.cdsNotaEntradaANP_UF_CONS.AsString;
+    end;
+    //*********************
+
     if Tag = 50 then
     begin
       ffrmCadNotaEntrada_Itens.vNotaSelecionada   := True;

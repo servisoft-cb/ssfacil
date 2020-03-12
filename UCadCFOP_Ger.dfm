@@ -111,19 +111,19 @@ object frmCadCFOP_Ger: TfrmCadCFOP_Ger
     object RxDBLookupCombo5: TRxDBLookupCombo
       Left = 166
       Top = 60
-      Width = 345
+      Width = 301
       Height = 21
       DropDownCount = 8
       DropDownWidth = 500
       LookupField = 'ID'
       LookupDisplay = 'COD_IPI;NOME'
       LookupSource = DMCadCFOP.dsTab_CSTIPI
-      TabOrder = 3
+      TabOrder = 5
     end
     object RxDBLookupCombo4: TRxDBLookupCombo
       Left = 166
       Top = 16
-      Width = 345
+      Width = 301
       Height = 21
       DropDownCount = 8
       DropDownWidth = 700
@@ -135,35 +135,35 @@ object frmCadCFOP_Ger: TfrmCadCFOP_Ger
     object RxDBLookupCombo7: TRxDBLookupCombo
       Left = 166
       Top = 82
-      Width = 345
+      Width = 301
       Height = 21
       DropDownCount = 8
       DropDownWidth = 700
       LookupField = 'ID'
       LookupDisplay = 'CODIGO;DESCRICAO'
       LookupSource = DMCadCFOP.dsEnqIPI
-      TabOrder = 4
+      TabOrder = 6
       OnKeyDown = RxDBLookupCombo7KeyDown
     end
     object CheckBox1: TCheckBox
-      Left = 520
+      Left = 472
       Top = 80
       Width = 97
       Height = 17
       Caption = 'Calcular ST'
-      TabOrder = 5
+      TabOrder = 7
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
       Left = 166
       Top = 38
-      Width = 345
+      Width = 301
       Height = 21
       DropDownCount = 8
       DropDownWidth = 700
       LookupField = 'ID'
       LookupDisplay = 'COD_CST;PERCENTUAL;NOME'
       LookupSource = DMCadCFOP.dsTab_CSTICMS_Simples
-      TabOrder = 2
+      TabOrder = 3
     end
     object edtCBenef: TEdit
       Left = 662
@@ -172,9 +172,25 @@ object frmCadCFOP_Ger: TfrmCadCFOP_Ger
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 8
-      TabOrder = 1
+      TabOrder = 2
       OnExit = edtCBenefExit
       OnKeyDown = edtCBenefKeyDown
+    end
+    object ckFCP_Geral: TCheckBox
+      Left = 471
+      Top = 19
+      Width = 97
+      Height = 17
+      Caption = 'Calcular FCP'
+      TabOrder = 1
+    end
+    object ckFCP_Simples: TCheckBox
+      Left = 472
+      Top = 40
+      Width = 97
+      Height = 17
+      Caption = 'Calcular FCP'
+      TabOrder = 4
     end
   end
   object Panel3: TPanel
