@@ -53,6 +53,8 @@ type
     SpeedButton7: TSpeedButton;
     Label7: TLabel;
     RxDBComboBox3: TRxDBComboBox;
+    Label11: TLabel;
+    RxDBComboBox4: TRxDBComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1DblClick(Sender: TObject);
@@ -116,6 +118,8 @@ end;
 procedure TfrmCadGrupo.prc_Gravar_Registro;
 begin
   fDMCadGrupo.cdsGrupoNOME_AUX.AsString := fDMCadGrupo.cdsGrupoNOME.AsString;
+  if trim(RxDBComboBox4.Text) <> '' then
+    fDMCadGrupo.cdsGrupoDESC_LOCAL_IMPRESSAO.AsString := RxDBComboBox4.Text;
   if fDMCadGrupo.cdsGrupoNIVEL.AsInteger = 2 then
     fDMCadGrupo.cdsGrupoNOME_AUX.AsString := '   ' + fDMCadGrupo.cdsGrupoNOME.AsString;
   fDMCadGrupo.prc_Gravar;
@@ -183,6 +187,14 @@ begin
   end;
   Label7.Visible        := not(fDMCadGrupo.qParametrosEMPRESA_AMBIENTES.AsString = 'S');
   RxDBComboBox3.Visible := not(fDMCadGrupo.qParametrosEMPRESA_AMBIENTES.AsString = 'S');
+
+  for i := 0 to SMDBGrid1.ColCount - 2 do
+  begin
+    if SMDBGrid1.Columns[i].FieldName = 'DESC_LOCAL_IMPRESSAO' then
+      SMDBGrid1.Columns[i].Visible := (fDMCadGrupo.qParametros_GeralEMPRESA_RESTAURANTE.AsString = 'S');
+  end;
+  Label11.Visible       := (fDMCadGrupo.qParametros_GeralEMPRESA_RESTAURANTE.AsString = 'S');
+  RxDBComboBox4.Visible := (fDMCadGrupo.qParametros_GeralEMPRESA_RESTAURANTE.AsString = 'S');
 end;
 
 procedure TfrmCadGrupo.prc_Consultar;
@@ -258,6 +270,9 @@ begin
   
   fDMCadGrupo.cdsGrupo.Edit;
 
+  fDMCadGrupo.cdsSuperior.Close;
+  fDMCadGrupo.cdsSuperior.Open;
+
   TS_Consulta.TabEnabled := False;
   btnAlterar.Enabled     := False;
   btnConfirmar.Enabled   := True;
@@ -319,6 +334,8 @@ begin
   else
   begin
     fDMCadGrupo.cdsGrupoNIVEL.AsInteger := fDMCadGrupo.cdsSuperiorNIVEL.AsInteger + 1;
+    if trim(fDMCadGrupo.cdsSuperiorLOCAL_IMPRESSAO.AsString) <> '' then
+      fDMCadGrupo.cdsGrupoLOCAL_IMPRESSAO.AsString := fDMCadGrupo.cdsSuperiorLOCAL_IMPRESSAO.AsString;
   end;
 end;
 

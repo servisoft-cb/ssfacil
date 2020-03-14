@@ -68,6 +68,13 @@ type
     qParametros_Geral: TSQLQuery;
     qParametros_GeralEMPRESA_PET: TStringField;
     qParametros_GeralEMPRESA_CALCADOS: TStringField;
+    sdsGrupoLOCAL_IMPRESSAO: TStringField;
+    sdsGrupoDESC_LOCAL_IMPRESSAO: TStringField;
+    cdsGrupoLOCAL_IMPRESSAO: TStringField;
+    cdsGrupoDESC_LOCAL_IMPRESSAO: TStringField;
+    qParametros_GeralEMPRESA_RESTAURANTE: TStringField;
+    sdsSuperiorLOCAL_IMPRESSAO: TStringField;
+    cdsSuperiorLOCAL_IMPRESSAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspGrupoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

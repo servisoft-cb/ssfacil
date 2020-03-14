@@ -14,7 +14,10 @@ object DMCadGrupo: TDMCadGrupo
       '      WHEN 5 THEN '#39'        '#39' ||  NOME'#13#10'           WHEN 4 THEN '#39' ' +
       '     '#39' ||  NOME'#13#10'           WHEN 3 THEN '#39'    '#39' ||  NOME'#13#10'       ' +
       '    WHEN 2 THEN '#39'  '#39' ||  NOME'#13#10'           WHEN 1 THEN NOME'#13#10'    ' +
-      '       ELSE G.NOME'#13#10'           END AS NOME_AUX'#13#10'FROM GRUPO G'#13#10
+      '       ELSE G.NOME'#13#10'           END AS NOME_AUX, G.LOCAL_IMPRESSA' +
+      'O,'#13#10'CASE G.LOCAL_IMPRESSAO'#13#10'  WHEN '#39'C'#39' THEN '#39'Cozinha'#39#13#10'  WHEN '#39'P' +
+      #39' THEN '#39'Copa'#39#13#10'  else '#39#39#13#10'  end DESC_LOCAL_IMPRESSAO  '#13#10'  '#13#10'FROM' +
+      ' GRUPO G'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -63,11 +66,23 @@ object DMCadGrupo: TDMCadGrupo
     object sdsGrupoID_NCM: TIntegerField
       FieldName = 'ID_NCM'
     end
+    object sdsGrupoLOCAL_IMPRESSAO: TStringField
+      FieldName = 'LOCAL_IMPRESSAO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsGrupoDESC_LOCAL_IMPRESSAO: TStringField
+      FieldName = 'DESC_LOCAL_IMPRESSAO'
+      ProviderFlags = []
+      Required = True
+      FixedChar = True
+      Size = 7
+    end
   end
   object dspGrupo: TDataSetProvider
     DataSet = sdsGrupo
     UpdateMode = upWhereKeyOnly
-    Left = 128
+    Left = 129
     Top = 24
   end
   object cdsGrupo: TClientDataSet
@@ -77,7 +92,7 @@ object DMCadGrupo: TDMCadGrupo
     ProviderName = 'dspGrupo'
     OnNewRecord = cdsGrupoNewRecord
     Left = 184
-    Top = 24
+    Top = 26
     object cdsGrupoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -121,6 +136,18 @@ object DMCadGrupo: TDMCadGrupo
     object cdsGrupoID_NCM: TIntegerField
       FieldName = 'ID_NCM'
     end
+    object cdsGrupoLOCAL_IMPRESSAO: TStringField
+      FieldName = 'LOCAL_IMPRESSAO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsGrupoDESC_LOCAL_IMPRESSAO: TStringField
+      FieldName = 'DESC_LOCAL_IMPRESSAO'
+      ProviderFlags = []
+      Required = True
+      FixedChar = True
+      Size = 7
+    end
   end
   object dsGrupo: TDataSource
     DataSet = cdsGrupo
@@ -131,8 +158,8 @@ object DMCadGrupo: TDMCadGrupo
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT ID, CODIGO, NOME, NIVEL, COD_PRINCIPAL'#13#10'FROM GRUPO'#13#10'WHERE' +
-      ' TIPO = '#39'S'#39
+      'SELECT ID, CODIGO, NOME, NIVEL, COD_PRINCIPAL, LOCAL_IMPRESSAO'#13#10 +
+      'FROM GRUPO'#13#10'WHERE TIPO = '#39'S'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -154,6 +181,11 @@ object DMCadGrupo: TDMCadGrupo
     end
     object sdsSuperiorCOD_PRINCIPAL: TIntegerField
       FieldName = 'COD_PRINCIPAL'
+    end
+    object sdsSuperiorLOCAL_IMPRESSAO: TStringField
+      FieldName = 'LOCAL_IMPRESSAO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dspSuperior: TDataSetProvider
@@ -184,6 +216,11 @@ object DMCadGrupo: TDMCadGrupo
     end
     object cdsSuperiorCOD_PRINCIPAL: TIntegerField
       FieldName = 'COD_PRINCIPAL'
+    end
+    object cdsSuperiorLOCAL_IMPRESSAO: TStringField
+      FieldName = 'LOCAL_IMPRESSAO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsSuperior: TDataSource
@@ -303,7 +340,7 @@ object DMCadGrupo: TDMCadGrupo
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT EMPRESA_PET,  EMPRESA_CALCADOS'
+      'SELECT EMPRESA_PET,  EMPRESA_CALCADOS, EMPRESA_RESTAURANTE'
       'FROM PARAMETROS_GERAL')
     SQLConnection = dmDatabase.scoDados
     Left = 510
@@ -315,6 +352,11 @@ object DMCadGrupo: TDMCadGrupo
     end
     object qParametros_GeralEMPRESA_CALCADOS: TStringField
       FieldName = 'EMPRESA_CALCADOS'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_GeralEMPRESA_RESTAURANTE: TStringField
+      FieldName = 'EMPRESA_RESTAURANTE'
       FixedChar = True
       Size = 1
     end

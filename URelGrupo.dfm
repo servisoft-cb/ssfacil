@@ -126,6 +126,13 @@ object fRelGrupo: TfRelGrupo
         Height = 12
         Caption = 'Nome'
       end
+      object RLLabel4: TRLLabel
+        Left = 608
+        Top = 32
+        Width = 72
+        Height = 12
+        Caption = 'Local Impress'#227'o'
+      end
     end
     object RLSubDetail1: TRLSubDetail
       Left = 34
@@ -154,11 +161,25 @@ object fRelGrupo: TfRelGrupo
         end
         object RLDBMemo1: TRLDBMemo
           Left = 170
-          Top = 2
+          Top = 3
           Width = 409
           Height = 14
           Behavior = [beSiteExpander]
           DataField = 'NOME_AUX'
+          DataSource = DMCadGrupo.dsGrupo
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Courier New'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDBText1: TRLDBText
+          Left = 606
+          Top = 1
+          Width = 147
+          Height = 14
+          DataField = 'DESC_LOCAL_IMPRESSAO'
           DataSource = DMCadGrupo.dsGrupo
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack

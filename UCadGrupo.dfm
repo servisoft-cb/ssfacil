@@ -24,7 +24,7 @@ object frmCadGrupo: TfrmCadGrupo
     Top = 0
     Width = 681
     Height = 431
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = clSilver
@@ -32,7 +32,7 @@ object frmCadGrupo: TfrmCadGrupo
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -81,7 +81,7 @@ object frmCadGrupo: TfrmCadGrupo
         WidthOfIndicator = 11
         DefaultRowHeight = 16
         ScrollBars = ssHorizontal
-        ColCount = 3
+        ColCount = 4
         RowCount = 2
         Columns = <
           item
@@ -108,6 +108,14 @@ object frmCadGrupo: TfrmCadGrupo
             Title.Alignment = taCenter
             Title.Caption = 'Nome'
             Width = 361
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESC_LOCAL_IMPRESSAO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Local Impress'#227'o'
+            Width = 101
             Visible = True
           end>
       end
@@ -974,6 +982,14 @@ object frmCadGrupo: TfrmCadGrupo
           Alignment = taRightJustify
           Caption = 'Tipo Produto:'
         end
+        object Label11: TLabel
+          Left = 13
+          Top = 200
+          Width = 80
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Local Impress'#227'o:'
+        end
         object DBEdit4: TDBEdit
           Left = 428
           Top = 11
@@ -1124,6 +1140,24 @@ object frmCadGrupo: TfrmCadGrupo
           Values.Strings = (
             '1'
             '2')
+        end
+        object RxDBComboBox4: TRxDBComboBox
+          Left = 96
+          Top = 192
+          Width = 297
+          Height = 21
+          Style = csDropDownList
+          DataField = 'LOCAL_IMPRESSAO'
+          DataSource = DMCadGrupo.dsGrupo
+          EnableValues = True
+          ItemHeight = 13
+          Items.Strings = (
+            'Cozinha'
+            'Copa')
+          TabOrder = 10
+          Values.Strings = (
+            'C'
+            'P')
         end
       end
     end

@@ -21,6 +21,8 @@ type
     RLBand3: TRLBand;
     RLDBText2: TRLDBText;
     RLDBMemo1: TRLDBMemo;
+    RLDBText1: TRLDBText;
+    RLLabel4: TRLLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
@@ -64,6 +66,8 @@ procedure TfRelGrupo.RLReport1BeforePrint(Sender: TObject;
   var PrintIt: Boolean);
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadGrupo);
+  RLLabel4.Visible  := (fDMCadGrupo.qParametros_GeralEMPRESA_RESTAURANTE.AsString = 'S');
+  RLDBText1.Visible := (fDMCadGrupo.qParametros_GeralEMPRESA_RESTAURANTE.AsString = 'S');
 end;
 
 end.
