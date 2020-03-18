@@ -2537,8 +2537,8 @@ object DMCadPedido: TDMCadPedido
     GetMetadata = False
     CommandText = 
       'SELECT N.ID, N.NCM, N.NOME, N.PERC_RED_STRIB, N.GERAR_ST,'#13#10'N.USA' +
-      'R_MVA_UF_DESTINO, N.perc_ipi, N.id_cstipi, N.ID_CST_ICMS'#13#10'FROM T' +
-      'AB_NCM N'
+      'R_MVA_UF_DESTINO, N.perc_ipi, N.id_cstipi, N.ID_CST_ICMS, PERC_I' +
+      'CMS'#13#10'FROM TAB_NCM N'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -2590,6 +2590,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsTab_NCMID_CST_ICMS: TIntegerField
       FieldName = 'ID_CST_ICMS'
+    end
+    object cdsTab_NCMPERC_ICMS: TFloatField
+      FieldName = 'PERC_ICMS'
     end
   end
   object dsTab_NCM: TDataSource

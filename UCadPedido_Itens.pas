@@ -585,13 +585,16 @@ var
   vUsouICM: Boolean;
   vIDAux: Integer;
   vUsouRegraCli: Boolean;
+  vPerc_ICMS, vPerc_BRedICMS_NCM : Real;
 begin
-  vID_ICMS := 0;
-  vID_IPI  := 0;
+  vID_ICMS   := 0;
+  vID_IPI    := 0;
+  vPerc_ICMS := 0;
   vPerc_Icms_Suf   := 0;
   vPerc_Cofins_Suf := 0;
   vPerc_Pis_Suf    := 0;
   vPerc_IPI_Suf    := 0;
+  vPerc_BRedICMS_NCM := 0;
   //07/03/2015  para gravação do estoque dentro do pedido
   if fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P' then
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'S'
@@ -738,11 +741,22 @@ begin
     end;
   end;
 
+  //17/03/2020
+  if fDMCadPedido.cdsTab_NCMID.AsInteger <> fDMCadPedido.cdsPedido_ItensID_NCM.AsInteger then
+    fDMCadPedido.cdsTab_NCM.Locate('ID',fDMCadPedido.cdsPedido_ItensID_NCM.AsInteger,[loCaseInsensitive]);
+  if (fDMCadPedido.cdsTab_NCMID_CST_ICMS.AsInteger > 0) and (fDMCadPedido.cdsFilialSIMPLES.AsString <> 'S') and not(vUsouICM) then
+    vID_ICMS := fDMCadPedido.cdsTab_NCMID_CST_ICMS.AsInteger;
+  if (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsTab_NCMPERC_ICMS.AsFloat)) > 0 ) and (fDMCadPedido.cdsFilialSIMPLES.AsString <> 'S') then
+    vPerc_ICMS := fDMCadPedido.cdsTab_NCMPERC_ICMS.AsFloat;
+  if (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsTab_NCMPERC_RED_STRIB.AsFloat)) > 0 ) and (fDMCadPedido.cdsFilialSIMPLES.AsString <> 'S') then
+    vPerc_BRedICMS_NCM := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsTab_NCMPERC_RED_STRIB.AsFloat));
+  //*************************
+
   //IF incluido para verificar Suframa  09/11/2015
   if (StrToFloat(FormatFloat('0.00',vPerc_Icms_Suf)) > 0) and (fDMCadPedido.qPessoa_FiscalID_CST_ICMS_SUFRAMA.AsInteger > 0) then
     vID_ICMS := fDMCadPedido.qPessoa_FiscalID_CST_ICMS_SUFRAMA.AsInteger
   else
-  begin           
+  begin
     if not vUsouICM then
     begin
       vIDAux := fnc_Busca_NCM_CST;
@@ -752,8 +766,6 @@ begin
   end;
 
   //30/06/2017   Feito para a Ciex quando for para Revenda na Zona Franca de Manaus
-  if fDMCadPedido.cdsTab_NCMID.AsInteger <> fDMCadPedido.cdsPedido_ItensID_NCM.AsInteger then
-    fDMCadPedido.cdsTab_NCM.Locate('ID',fDMCadPedido.cdsPedido_ItensID_NCM.AsInteger,[loCaseInsensitive]);
   if (fDMCadPedido.qPessoa_FiscalID_CST_ICMS_SUFRAMA_ST.AsInteger > 0) and (fDMCadPedido.cdsTab_NCMGERAR_ST.AsString = 'S') and
      (fDMCadPedido.cdsClienteTIPO_CONSUMIDOR.AsInteger = 0) and
      ((fDMCadPedido.cdsCFOPCODCFOP.AsString = '6109') or (fDMCadPedido.cdsCFOPCODCFOP.AsString = '6110')) and
@@ -806,11 +818,16 @@ begin
     fDMCadPedido.cdsPedido_ItensPERC_TRIBICMS.AsFloat := fDMCadPedido.cdsTab_CSTICMSPERCENTUAL.AsFloat
   else
     fDMCadPedido.cdsPedido_ItensPERC_TRIBICMS.AsFloat := 0;
-  if (fDMCadPedido.cdsTab_CSTICMSCOD_CST.AsString <> '00') and (fDMCadPedido.cdsFilialSIMPLES.AsString <> 'S') and
-     (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsProdutoPERC_REDUCAOICMS.AsFloat)) > 0) then
+  if (fDMCadPedido.cdsTab_CSTICMSCOD_CST.AsString <> '00') and (fDMCadPedido.cdsFilialSIMPLES.AsString <> 'S') then
   begin
     if not vUsouRegraCli then
-      fDMCadPedido.cdsPedido_ItensPERC_TRIBICMS.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsProdutoPERC_REDUCAOICMS.AsFloat));
+    begin
+      if (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsProdutoPERC_REDUCAOICMS.AsFloat)) > 0) then
+        fDMCadPedido.cdsPedido_ItensPERC_TRIBICMS.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsProdutoPERC_REDUCAOICMS.AsFloat))
+      else
+      if (StrToFloat(FormatFloat('0.0000',vPerc_BRedICMS_NCM)) > 0) then
+        fDMCadPedido.cdsPedido_ItensPERC_TRIBICMS.AsFloat := StrToFloat(FormatFloat('0.0000',vPerc_BRedICMS_NCM));
+    end;
   end;
 
   if (fDMCadPedido.cdsFilialSIMPLES.AsString = 'S') or ((fDMCadPedido.cdsCFOPGERAR_ICMS.AsString <> 'S') and (fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger > 0)) then
@@ -835,6 +852,8 @@ begin
       else
         fDMCadPedido.cdsPedido_itensPERC_ICMS.AsFloat := fDMCadPedido.cdsUFPERC_ICMS.AsFloat;
     end;
+    if StrToFloat(FormatFloat('0.00',vPerc_ICMS)) > 0 then
+      fDMCadPedido.cdsPedido_ItensPERC_ICMS.AsFloat := vPerc_ICMS;
     fDMCadPedido.cdsTab_CSTICMS.Locate('ID',vID_ICMS,[loCaseInsensitive]);
     if (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsTab_CSTICMSPERCENTUAL.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsTab_CSTICMSPERC_DIFERIMENTO.AsFloat)) <= 0) then
       fDMCadPedido.cdsPedido_ItensPERC_ICMS.AsFloat := 0;
@@ -860,6 +879,8 @@ begin
       else
         fDMCadPedido.cdsPedido_itensPERC_ICMS.AsFloat := fDMCadPedido.cdsUFPERC_ICMS.AsFloat;
     end;
+    if StrToFloat(FormatFloat('0.00',vPerc_ICMS)) > 0 then
+      fDMCadPedido.cdsPedido_ItensPERC_ICMS.AsFloat := vPerc_ICMS;
     //07/12/2018
     fDMCadPedido.cdsTab_CSTICMS.Locate('ID',vID_ICMS,[loCaseInsensitive]);
     if (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsTab_CSTICMSPERCENTUAL.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsTab_CSTICMSPERC_DIFERIMENTO.AsFloat)) <= 0) then
@@ -2794,7 +2815,7 @@ begin
       fDMCadPedido.cdsCliente.Locate('CODIGO',fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,[loCaseInsensitive]);
     if fDMCadPedido.cdsCFOPID.AsInteger <> fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger then
       fDMCadPedido.cdsCFOP.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger,[loCaseInsensitive]);
-      
+
     if ((fDMCadPedido.cdsClienteUF.AsString <> 'EX') and (fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger <= 0))
        or ((fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger > 0) and
            ((copy(fDMCadPedido.cdsCFOPCODCFOP.AsString,1,1) = '5') or (copy(fDMCadPedido.cdsCFOPCODCFOP.AsString,1,1) = '6')) and

@@ -3739,6 +3739,7 @@ type
     sdsPedido_ItensVLR_UNITARIO_IPI: TFloatField;
     cdsPedido_ItensVLR_UNITARIO_IPI: TFloatField;
     cdsPedidoImp_ItensVLR_UNITARIO_IPI: TFloatField;
+    cdsTab_NCMPERC_ICMS: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

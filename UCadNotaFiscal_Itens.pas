@@ -595,8 +595,10 @@ var
   //vID_EnqIPI: Integer;
   vCod_CBenef_Loc : String;
   vGera_FCP : String;
+  vPerc_ICMS: Real;
 begin
-  vID_ICMS := 0;
+  vPerc_ICMS := 0;
+  vID_ICMS   := 0;
   vID_IPI  := 0;
   vPerc_Icms_Suf     := 0;
   vPerc_Cofins_Suf   := 0;
@@ -811,6 +813,10 @@ begin
       end;
       if StrToFloat(FormatFloat('0.0000',vPerc_BRedICMS_NCM)) > 0 then
         fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_TRIBICMS.AsFloat := StrToFloat(FormatFloat('0.0000',vPerc_BRedICMS_NCM));
+      //17/03/2020
+      if StrToFloat(FormatFloat('0.000',fDMCadNotaFiscal.cdsTab_NCMPERC_ICMS.AsFloat)) > 0 then
+        vPerc_ICMS := fDMCadNotaFiscal.cdsTab_NCMPERC_ICMS.AsFloat;
+      //*****************
     end;
   end;
 
@@ -903,7 +909,10 @@ begin
     prc_Buscar_Imposto('CST','IPI');
 
   if (fDMCadNotaFiscal.cdsFilialSIMPLES.AsString = 'S') or (fDMCadNotaFiscal.cdsCFOPGERAR_ICMS.AsString = 'N') then
-    fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS.AsFloat := 0
+  begin
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS.AsFloat := 0;
+    vPerc_ICMS := 0;
+  end
   else
   if fDMCadNotaFiscal.cdsCFOPGERAR_ICMS.AsString = 'S' then
   begin
@@ -925,7 +934,12 @@ begin
         fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS.AsFloat := fDMCadNotaFiscal.cdsUFPERC_ICMS.AsFloat;
     end;
     if (fDMCadNotaFiscal.cdsFilialUF.AsString = fDMCadNotaFiscal.cdsClienteUF.AsString) and (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsProdutoPERC_ICMS_NFCE.AsFloat)) > 0) then
-      fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsProdutoPERC_ICMS_NFCE.AsFloat));
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsProdutoPERC_ICMS_NFCE.AsFloat))
+    else
+    //17/03/2020
+    if StrToFloat(FormatFloat('0.000',vPerc_ICMS)) > 0 then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_ICMS.AsFloat := StrToFloat(FormatFloat('0.00',vPerc_ICMS));
+    //*************
     //24/07/2019
     //07/12/2018
     //if (StrToFloat(FormatFloat('0.000',fDMCadNotaFiscal.cdsTab_CSTICMSPERCENTUAL.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.000',fDMCadNotaFiscal.cdsTab_CSTICMSPERC_DIFERIMENTO.AsFloat)) <= 0) then
