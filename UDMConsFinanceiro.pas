@@ -371,6 +371,8 @@ type
     cdsDuplicata_CCustoagVlr_Saida: TAggregateField;
     cdsDuplicata_CCustoagVlr_Entrada_Dup: TAggregateField;
     cdsDuplicata_CCustoagVlr_Saida_Dup: TAggregateField;
+    qParametros_Usuario: TSQLQuery;
+    qParametros_UsuarioMOSTRAR_DUP_REC_PAG: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConta_OrcNewRecord(DataSet: TDataSet);
     procedure mDespesaNewRecord(DataSet: TDataSet);

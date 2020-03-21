@@ -24,7 +24,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
     Color = clSilver
     TabOrder = 0
     object Label2: TLabel
-      Left = 416
+      Left = 528
       Top = 52
       Width = 25
       Height = 13
@@ -32,14 +32,14 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       Caption = 'Final:'
     end
     object Label1: TLabel
-      Left = 241
+      Left = 353
       Top = 13
       Width = 23
       Height = 13
       Caption = 'Filial:'
     end
     object Label4: TLabel
-      Left = 184
+      Left = 296
       Top = 72
       Width = 81
       Height = 13
@@ -48,7 +48,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       Visible = False
     end
     object Label3: TLabel
-      Left = 174
+      Left = 286
       Top = 32
       Width = 91
       Height = 13
@@ -56,7 +56,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       Caption = 'Op'#231#227'o dos T'#237'tulos:'
     end
     object Label11: TLabel
-      Left = 197
+      Left = 309
       Top = 93
       Width = 68
       Height = 13
@@ -64,7 +64,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       Visible = False
     end
     object DateEdit1: TDateEdit
-      Left = 267
+      Left = 379
       Top = 44
       Width = 121
       Height = 21
@@ -74,7 +74,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       TabOrder = 3
     end
     object DateEdit2: TDateEdit
-      Left = 443
+      Left = 555
       Top = 44
       Width = 121
       Height = 21
@@ -84,7 +84,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       TabOrder = 4
     end
     object NxComboBox2: TNxComboBox
-      Left = 151
+      Left = 263
       Top = 46
       Width = 113
       Height = 21
@@ -104,7 +104,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
         'Data Pagamento:')
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
-      Left = 266
+      Left = 378
       Top = 4
       Width = 299
       Height = 21
@@ -117,7 +117,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       TabOrder = 1
     end
     object ComboBox2: TComboBox
-      Left = 266
+      Left = 378
       Top = 64
       Width = 121
       Height = 21
@@ -137,7 +137,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
         'Anal'#237'tica')
     end
     object ComboBox1: TComboBox
-      Left = 266
+      Left = 378
       Top = 24
       Width = 121
       Height = 21
@@ -158,7 +158,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
     end
     object btnConsultar: TNxButton
       Left = 266
-      Top = 105
+      Top = 106
       Width = 182
       Height = 30
       Caption = 'Efeturar Pesquisa'
@@ -303,7 +303,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
     object GroupBox1: TGroupBox
       Left = 1
       Top = 1
-      Width = 145
+      Width = 121
       Height = 135
       Align = alLeft
       Caption = ' Imprimir Detalhado '
@@ -311,15 +311,15 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       object CheckBox1: TCheckBox
         Left = 8
         Top = 24
-        Width = 121
+        Width = 107
         Height = 17
         Caption = 'T'#237'tulos'
         TabOrder = 0
       end
       object CheckBox2: TCheckBox
         Left = 8
-        Top = 52
-        Width = 121
+        Top = 53
+        Width = 107
         Height = 17
         Caption = 'Carteira Pedido'
         TabOrder = 1
@@ -327,14 +327,14 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       object CheckBox3: TCheckBox
         Left = 8
         Top = 80
-        Width = 121
+        Width = 107
         Height = 17
         Caption = 'OC Fornecedores'
         TabOrder = 2
       end
     end
     object comboCentroCusto: TRxDBLookupCombo
-      Left = 266
+      Left = 378
       Top = 84
       Width = 299
       Height = 21
@@ -365,6 +365,19 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       Transparent = True
       OnClick = btnExcelClick
     end
+    object RadioGroup1: TRadioGroup
+      Left = 122
+      Top = 1
+      Width = 129
+      Height = 135
+      Align = alLeft
+      Caption = ' Op'#231#227'o '
+      Items.Strings = (
+        'Ambos'
+        'Receitas'
+        'Despesas')
+      TabOrder = 11
+    end
   end
   object StaticText1: TStaticText
     Left = 0
@@ -386,10 +399,10 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
     Top = 137
     Width = 1161
     Height = 348
-    ActivePage = ts_Centro_Orcamento
+    ActivePage = TS_Resumido
     ActivePageDefault = TS_Resumido
     Align = alClient
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 2
     OnChange = RzPageControl1Change
     FixedDimension = 19

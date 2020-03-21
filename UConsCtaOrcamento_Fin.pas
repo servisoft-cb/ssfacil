@@ -47,6 +47,7 @@ type
     Label11: TLabel;
     comboCentroCusto: TRxDBLookupCombo;
     btnExcel: TNxButton;
+    RadioGroup1: TRadioGroup;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnConsultarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -140,7 +141,7 @@ begin
 
   fDMConsFinanceiro.vTotal_Desp := 0;
   fDMConsFinanceiro.vTotal_Rec := 0;
-   if RzPageControl1.ActivePage = TS_Resumido then
+  if RzPageControl1.ActivePage = TS_Resumido then
   begin
     fDMConsFinanceiro.mConta_Orc.EmptyDataSet;
     prc_Consultar;
@@ -204,6 +205,12 @@ begin
     1:
       vComando := vComando + ' AND DUP.VLR_RESTANTE > 0 ';
   end;
+
+  case RadioGroup1.ItemIndex of
+    1 : vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('E');
+    2 : vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('S');
+  end;
+
   fDMConsFinanceiro.sdsConsulta_Conta_Orc.CommandText := vComandoAux2 + vComando + vComandoAux;
   fDMConsFinanceiro.cdsConsulta_Conta_Orc.Open;
 end;
@@ -212,13 +219,24 @@ procedure TfrmConsCtaOrcamento_Fin.FormShow(Sender: TObject);
 begin
   fDMConsFinanceiro := TDMConsFinanceiro.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMConsFinanceiro);
+  fDMConsFinanceiro.qParametros_Usuario.Close;
+  fDMConsFinanceiro.qParametros_Usuario.ParamByName('USUARIO').AsString := vUsuario;
+  fDMConsFinanceiro.qParametros_Usuario.Open;
   if fDMConsFinanceiro.cdsFilial.RecordCount = 1 then
     RxDBLookupCombo1.KeyValue := fDMConsFinanceiro.cdsFilialID.AsInteger;
   DateEdit1.SetFocus;
   fDMConsFinanceiro.qParametros_Cta_Orc.Open;
   fDMConsFinanceiro.cdsCentroCusto.Close;
   fDMConsFinanceiro.cdsCentroCusto.Open;
-  prc_Carrega_Combo;  
+  prc_Carrega_Combo;
+  if fDMConsFinanceiro.qParametros_UsuarioMOSTRAR_DUP_REC_PAG.AsString = 'R' then
+    RadioGroup1.ItemIndex := 1
+  else
+  if fDMConsFinanceiro.qParametros_UsuarioMOSTRAR_DUP_REC_PAG.AsString = 'P' then
+    RadioGroup1.ItemIndex := 2
+  else
+    RadioGroup1.ItemIndex := 0;
+  RadioGroup1.Enabled := (RadioGroup1.ItemIndex = 0); 
 end;
 
 procedure TfrmConsCtaOrcamento_Fin.prc_Le_Consulta;
@@ -432,7 +450,8 @@ begin
   fDMConsFinanceiro.cdsPedido_Cli.First;
   while not fDMConsFinanceiro.cdsPedido_Cli.Eof do
   begin
-    if fDMConsFinanceiro.cdsPedido_CliTIPO_REG.AsString = 'P' then
+    vCod := 0;
+    if (fDMConsFinanceiro.cdsPedido_CliTIPO_REG.AsString = 'P') and ((RadioGroup1.ItemIndex = 0) or (RadioGroup1.ItemIndex = 1)) then
     begin
       vCod := 888100;
       vNome := '  CARTEIRA DE PEDIDOS';
@@ -442,7 +461,8 @@ begin
         vNome := vNome + '  (ATRASADOS)';
       end;
     end
-    else if fDMConsFinanceiro.cdsPedido_CliTIPO_REG.AsString = 'C' then
+    else
+    if (fDMConsFinanceiro.cdsPedido_CliTIPO_REG.AsString = 'C') and ((RadioGroup1.ItemIndex = 0) or (RadioGroup1.ItemIndex = 2)) then
     begin
       vCod := 889100;
       vNome := '  OC FORNECEDORES';
@@ -452,79 +472,88 @@ begin
         vNome := vNome + '  (ATRASADOS)';
       end;
     end;
-    if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
-      fDMConsFinanceiro.mConta_Orc.Edit
-    else
+    if vCod > 0 then
     begin
-      fDMConsFinanceiro.mConta_Orc.Insert;
-      fDMConsFinanceiro.mConta_OrcID.AsInteger := vCod;
-      fDMConsFinanceiro.mConta_OrcCodigo.AsString := IntToStr(vCod);
-      fDMConsFinanceiro.mConta_OrcNome.AsString := vNome;
-      if fDMConsFinanceiro.cdsPedido_CliTIPO_REG.AsString = 'P' then
-        fDMConsFinanceiro.mConta_OrcTipo_ES.AsString := 'V'
+      if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
+        fDMConsFinanceiro.mConta_Orc.Edit
       else
-        fDMConsFinanceiro.mConta_OrcTipo_ES.AsString := 'X';
+      begin
+        fDMConsFinanceiro.mConta_Orc.Insert;
+        fDMConsFinanceiro.mConta_OrcID.AsInteger := vCod;
+        fDMConsFinanceiro.mConta_OrcCodigo.AsString := IntToStr(vCod);
+        fDMConsFinanceiro.mConta_OrcNome.AsString := vNome;
+        if fDMConsFinanceiro.cdsPedido_CliTIPO_REG.AsString = 'P' then
+          fDMConsFinanceiro.mConta_OrcTipo_ES.AsString := 'V'
+        else
+          fDMConsFinanceiro.mConta_OrcTipo_ES.AsString := 'X';
+      end;
+      fDMConsFinanceiro.mConta_OrcVlr_Total.AsFloat := StrToFloat(FormatFloat('0.00', fDMConsFinanceiro.mConta_OrcVlr_Total.AsFloat + fDMConsFinanceiro.cdsPedido_CliVLR_RESTANTE.AsFloat));
+      fDMConsFinanceiro.mConta_OrcVlr_Pago.AsFloat := StrToFloat(FormatFloat('0.00', 0));
+      fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat := StrToFloat(FormatFloat('0.00', fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat + fDMConsFinanceiro.cdsPedido_CliVLR_RESTANTE.AsFloat));
+      fDMConsFinanceiro.mConta_OrcQtd_Restante.AsFloat := StrToFloat(FormatFloat('0.00', fDMConsFinanceiro.mConta_OrcQtd_Restante.AsFloat + fDMConsFinanceiro.cdsPedido_CliQTD_RESTANTE.AsFloat));
+      fDMConsFinanceiro.mConta_Orc.Post;
     end;
-    fDMConsFinanceiro.mConta_OrcVlr_Total.AsFloat := StrToFloat(FormatFloat('0.00', fDMConsFinanceiro.mConta_OrcVlr_Total.AsFloat + fDMConsFinanceiro.cdsPedido_CliVLR_RESTANTE.AsFloat));
-    fDMConsFinanceiro.mConta_OrcVlr_Pago.AsFloat := StrToFloat(FormatFloat('0.00', 0));
-    fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat := StrToFloat(FormatFloat('0.00', fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat + fDMConsFinanceiro.cdsPedido_CliVLR_RESTANTE.AsFloat));
-    fDMConsFinanceiro.mConta_OrcQtd_Restante.AsFloat := StrToFloat(FormatFloat('0.00', fDMConsFinanceiro.mConta_OrcQtd_Restante.AsFloat + fDMConsFinanceiro.cdsPedido_CliQTD_RESTANTE.AsFloat));
-    fDMConsFinanceiro.mConta_Orc.Post;
     fDMConsFinanceiro.cdsPedido_Cli.Next;
   end;
   //gravando o pedido
   vVlr_Restante := 0;
   vQtd_Restante := 0;
-  vCod := 888099;
-  if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
+  if (fDMConsFinanceiro.mConta_Orc.RecordCount > 0) and ((RadioGroup1.ItemIndex = 0) or (RadioGroup1.ItemIndex = 1)) then
   begin
-    vVlr_Restante := vVlr_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
-    vQtd_Restante := vQtd_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+    vCod := 888099;
+    if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
+    begin
+      vVlr_Restante := vVlr_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+      vQtd_Restante := vQtd_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+    end;
+    vCod := 888100;
+    if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
+    begin
+      vVlr_Restante := vVlr_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+      vQtd_Restante := vQtd_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+    end;
+    fDMConsFinanceiro.mConta_Orc.Insert;
+    fDMConsFinanceiro.mConta_OrcID.AsInteger := 888000;
+    fDMConsFinanceiro.mConta_OrcCodigo.AsString := '888000';
+    fDMConsFinanceiro.mConta_OrcNome.AsString := 'CARTEIRA DE PEDIDOS';
+    fDMConsFinanceiro.mConta_OrcVlr_Total.AsFloat := StrToFloat(FormatFloat('0.00', vVlr_Restante));
+    fDMConsFinanceiro.mConta_OrcVlr_Pago.AsFloat := StrToFloat(FormatFloat('0.00', 0));
+    fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat := StrToFloat(FormatFloat('0.00', vVlr_Restante));
+    fDMConsFinanceiro.mConta_OrcQtd_Restante.AsFloat := StrToFloat(FormatFloat('0.0000', vQtd_Restante));
+    fDMConsFinanceiro.mConta_OrcTipo_Conta.AsString := 'S';
+    fDMConsFinanceiro.mConta_OrcTipo_ES.AsString := 'V';
+    fDMConsFinanceiro.mConta_Orc.Post;
   end;
-  vCod := 888100;
-  if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
-  begin
-    vVlr_Restante := vVlr_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
-    vQtd_Restante := vQtd_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
-  end;
-  fDMConsFinanceiro.mConta_Orc.Insert;
-  fDMConsFinanceiro.mConta_OrcID.AsInteger := 888000;
-  fDMConsFinanceiro.mConta_OrcCodigo.AsString := '888000';
-  fDMConsFinanceiro.mConta_OrcNome.AsString := 'CARTEIRA DE PEDIDOS';
-  fDMConsFinanceiro.mConta_OrcVlr_Total.AsFloat := StrToFloat(FormatFloat('0.00', vVlr_Restante));
-  fDMConsFinanceiro.mConta_OrcVlr_Pago.AsFloat := StrToFloat(FormatFloat('0.00', 0));
-  fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat := StrToFloat(FormatFloat('0.00', vVlr_Restante));
-  fDMConsFinanceiro.mConta_OrcQtd_Restante.AsFloat := StrToFloat(FormatFloat('0.0000', vQtd_Restante));
-  fDMConsFinanceiro.mConta_OrcTipo_Conta.AsString := 'S';
-  fDMConsFinanceiro.mConta_OrcTipo_ES.AsString := 'V';
-  fDMConsFinanceiro.mConta_Orc.Post;
 
   //gravando a OC
-  vVlr_Restante := 0;
-  vQtd_Restante := 0;
-  vCod := 889099;
-  if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
+  if (fDMConsFinanceiro.mConta_Orc.RecordCount > 0) and ((RadioGroup1.ItemIndex = 0) or (RadioGroup1.ItemIndex = 2)) then
   begin
-    vVlr_Restante := vVlr_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
-    vQtd_Restante := vQtd_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+    vVlr_Restante := 0;
+    vQtd_Restante := 0;
+    vCod := 889099;
+    if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
+    begin
+      vVlr_Restante := vVlr_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+      vQtd_Restante := vQtd_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+    end;
+    vCod := 889100;
+    if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
+    begin
+      vVlr_Restante := vVlr_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+      vQtd_Restante := vQtd_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
+    end;
+    fDMConsFinanceiro.mConta_Orc.Insert;
+    fDMConsFinanceiro.mConta_OrcID.AsInteger := 889000;
+    fDMConsFinanceiro.mConta_OrcCodigo.AsString := '889000';
+    fDMConsFinanceiro.mConta_OrcNome.AsString := 'OC FORNECEDORES';
+    fDMConsFinanceiro.mConta_OrcVlr_Total.AsFloat := StrToFloat(FormatFloat('0.00', vVlr_Restante));
+    fDMConsFinanceiro.mConta_OrcVlr_Pago.AsFloat := StrToFloat(FormatFloat('0.00', 0));
+    fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat := StrToFloat(FormatFloat('0.00', vVlr_Restante));
+    fDMConsFinanceiro.mConta_OrcQtd_Restante.AsFloat := StrToFloat(FormatFloat('0.0000', vQtd_Restante));
+    fDMConsFinanceiro.mConta_OrcTipo_Conta.AsString := 'S';
+    fDMConsFinanceiro.mConta_OrcTipo_ES.AsString := 'X';
+    fDMConsFinanceiro.mConta_Orc.Post;
   end;
-  vCod := 889100;
-  if fDMConsFinanceiro.mConta_Orc.FindKey([vCod]) then
-  begin
-    vVlr_Restante := vVlr_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
-    vQtd_Restante := vQtd_Restante + fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat;
-  end;
-  fDMConsFinanceiro.mConta_Orc.Insert;
-  fDMConsFinanceiro.mConta_OrcID.AsInteger := 889000;
-  fDMConsFinanceiro.mConta_OrcCodigo.AsString := '889000';
-  fDMConsFinanceiro.mConta_OrcNome.AsString := 'OC FORNECEDORES';
-  fDMConsFinanceiro.mConta_OrcVlr_Total.AsFloat := StrToFloat(FormatFloat('0.00', vVlr_Restante));
-  fDMConsFinanceiro.mConta_OrcVlr_Pago.AsFloat := StrToFloat(FormatFloat('0.00', 0));
-  fDMConsFinanceiro.mConta_OrcVlr_Restante.AsFloat := StrToFloat(FormatFloat('0.00', vVlr_Restante));
-  fDMConsFinanceiro.mConta_OrcQtd_Restante.AsFloat := StrToFloat(FormatFloat('0.0000', vQtd_Restante));
-  fDMConsFinanceiro.mConta_OrcTipo_Conta.AsString := 'S';
-  fDMConsFinanceiro.mConta_OrcTipo_ES.AsString := 'X';
-  fDMConsFinanceiro.mConta_Orc.Post;
 end;
 
 procedure TfrmConsCtaOrcamento_Fin.SMDBGrid1DblClick(Sender: TObject);
@@ -666,11 +695,15 @@ begin
     vComando := vComando + ' AND DUP.DTVENCIMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date));
 
   case ComboBox1.ItemIndex of
-    0:
-      vComando := vComando + ' AND DUP.VLR_PAGO > 0 ';
-    1:
-      vComando := vComando + ' AND DUP.VLR_RESTANTE > 0 ';
+    0: vComando := vComando + ' AND DUP.VLR_PAGO > 0 ';
+    1: vComando := vComando + ' AND DUP.VLR_RESTANTE > 0 ';
   end;
+
+  case RadioGroup1.ItemIndex of
+    1 : vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('E');
+    2 : vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('S');
+  end;
+  
   Ordem := ' ORDER BY ORC.CODIGO, CC.CODIGO';
   fDMConsFinanceiro.sdsConsulta_Conta_Orc_CCus.CommandText := vComandoAux2 + vComando + vComandoAux + Ordem;
   fDMConsFinanceiro.cdsConsulta_Conta_Orc_CCus.Open;
@@ -753,6 +786,10 @@ begin
   case ComboBox1.ItemIndex of
     0: vComando := vComando + ' AND VD.VALOR_PAGO > 0 ';
     1: vComando := vComando + ' AND VD.VALOR_RESTANTE > 0 ';
+  end;
+  case RadioGroup1.ItemIndex of
+    1 : vComando := vComando + ' AND VD.VLR_ENTRADA > 0 ';
+    2 : vComando := vComando + ' AND VD.VLR_SAIDA > 0 ';
   end;
   fDMConsFinanceiro.sdsCCustoOrcamento.CommandText := vComandoAux2 + vComando + vComandoAux;
   fDMConsFinanceiro.sdsCCustoOrcamento.ParamByName('DTINICIAL').AsDate := DateEdit1.Date;

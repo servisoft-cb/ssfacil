@@ -3025,4 +3025,25 @@ object DMConsFinanceiro: TDMConsFinanceiro
     Left = 378
     Top = 527
   end
+  object qParametros_Usuario: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftString
+        Name = 'USUARIO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select P.MOSTRAR_DUP_REC_PAG'
+      'from PARAMETROS_USUARIO P'
+      'where P.USUARIO = :USUARIO')
+    SQLConnection = dmDatabase.scoDados
+    Left = 686
+    Top = 139
+    object qParametros_UsuarioMOSTRAR_DUP_REC_PAG: TStringField
+      FieldName = 'MOSTRAR_DUP_REC_PAG'
+      FixedChar = True
+      Size = 1
+    end
+  end
 end
