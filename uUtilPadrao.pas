@@ -220,6 +220,7 @@ var
   vMargemEsquerda : Double;
   vMargemDireita : Double;
   vLarguraBobina : Integer;
+  vID_Cupom_Pos : Integer;
 
 implementation
 
