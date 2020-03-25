@@ -147,7 +147,6 @@ type
     DBEdit8: TDBEdit;
     Label19: TLabel;
     DBEdit9: TDBEdit;
-    Label108: TLabel;
     Label113: TLabel;
     Edit9: TEdit;
     DBCheckBox6: TDBCheckBox;

@@ -1984,6 +1984,17 @@ type
     cdsProduto_ConsultaQTD_ESTOQUE_MIN: TFloatField;
     sdsProdutoTIPO_PRODUTO: TStringField;
     cdsProdutoTIPO_PRODUTO: TStringField;
+    sdsProduto_Adicional: TSQLDataSet;
+    sdsProduto_AdicionalID: TIntegerField;
+    sdsProduto_AdicionalITEM: TIntegerField;
+    sdsProduto_AdicionalID_PRODUTO: TIntegerField;
+    dspProduto_Adicional: TDataSetProvider;
+    cdsProduto_Adicional: TClientDataSet;
+    cdsProduto_AdicionalID: TIntegerField;
+    cdsProduto_AdicionalITEM: TIntegerField;
+    cdsProduto_AdicionalID_PRODUTO: TIntegerField;
+    dsProduto_Adicional: TDataSource;
+    cdsProduto_AdicionalclNome_Produto: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
@@ -2029,6 +2040,7 @@ type
       var TableName: String);
     procedure dspProduto_CombGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);
+    procedure cdsProduto_AdicionalCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     vID_Produto_Forn: Integer;
@@ -2308,7 +2320,7 @@ begin
           cdsProduto_Lote.Delete;
         cdsProduto_Lote.ApplyUpdates(0);
       end;
-    end;           
+    end;
     //*************
 
     if (qParametrosTIPO_COMISSAO_PROD.AsString = 'I') then
@@ -2328,6 +2340,8 @@ begin
         cdsProduto_Comissao_Vend.ApplyUpdates(0);
       end;
     end;
+    if cdsProduto_Adicional.Active then
+      cdsProduto_Adicional.ApplyUpdates(0);
     cdsProduto.Delete;
     cdsProduto.ApplyUpdates(0);
     dmDatabase.scoDados.Commit(ID);
@@ -3891,6 +3905,14 @@ begin
   cdsProdutoAplicacao.Insert;
   cdsProdutoAplicacaoID.AsInteger   := cdsProdutoID.AsInteger;
   cdsProdutoAplicacaoITEM.AsInteger := vItemAux + 1;
+end;
+
+procedure TdmCadProduto.cdsProduto_AdicionalCalcFields(DataSet: TDataSet);
+begin
+  qProd.Close;
+  qProd.ParamByName('ID').AsInteger := cdsProduto_AdicionalID_PRODUTO.AsInteger;
+  qProd.Open;
+  cdsProduto_AdicionalclNome_Produto.AsString := qProdNOME.AsString;
 end;
 
 end.

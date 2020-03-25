@@ -5847,8 +5847,8 @@ object dmCadProduto: TdmCadProduto
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 1118
-    Top = 72
+    Left = 991
+    Top = 159
     Data = {
       F00000009619E0BD010000001800000008000000000003000000F0000A49445F
       50726F6475746F04000100000000000D49445F436F6D62696E6163616F040001
@@ -5889,8 +5889,8 @@ object dmCadProduto: TdmCadProduto
   end
   object dsProduto_CBarra: TDataSource
     DataSet = mProduto_CBarra
-    Left = 1149
-    Top = 72
+    Left = 1022
+    Top = 159
   end
   object qProximoCbarra: TSQLQuery
     MaxBlobSize = -1
@@ -6761,8 +6761,8 @@ object dmCadProduto: TdmCadProduto
       'SELECT *'
       'FROM PARAMETROS_EST')
     SQLConnection = dmDatabase.scoDados
-    Left = 1095
-    Top = 132
+    Left = 1161
+    Top = 191
     object qParametros_EstID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -6892,8 +6892,8 @@ object dmCadProduto: TdmCadProduto
       'SELECT ID, USA_OPCAO_IMP_COD_CLI, GRAVAR_TAB_TAMANHO'
       'FROM PARAMETROS_NFE')
     SQLConnection = dmDatabase.scoDados
-    Left = 1139
-    Top = 133
+    Left = 1190
+    Top = 237
     object qParametros_NFeID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -10647,5 +10647,70 @@ object dmCadProduto: TdmCadProduto
     DataSet = cdsProdutoAplicacao
     Left = 1024
     Top = 2
+  end
+  object sdsProduto_Adicional: TSQLDataSet
+    CommandText = 'SELECT P.*'#13#10'FROM produto_adicional P'#13#10'WHERE P.ID = :ID'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 1021
+    Top = 70
+    object sdsProduto_AdicionalID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsProduto_AdicionalITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsProduto_AdicionalID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+  end
+  object dspProduto_Adicional: TDataSetProvider
+    DataSet = sdsProduto_Adicional
+    UpdateMode = upWhereKeyOnly
+    Left = 1057
+    Top = 71
+  end
+  object cdsProduto_Adicional: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspProduto_Adicional'
+    OnCalcFields = cdsProduto_AdicionalCalcFields
+    Left = 1097
+    Top = 70
+    object cdsProduto_AdicionalID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsProduto_AdicionalITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsProduto_AdicionalID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsProduto_AdicionalclNome_Produto: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'clNome_Produto'
+      ProviderFlags = []
+      Size = 100
+      Calculated = True
+    end
+  end
+  object dsProduto_Adicional: TDataSource
+    DataSet = cdsProduto_Adicional
+    Left = 1133
+    Top = 70
   end
 end
