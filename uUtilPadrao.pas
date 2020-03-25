@@ -128,8 +128,10 @@ uses
   function WinExecAndWait32(FileName: string; Visibility: Integer; Parametro : String): Longword;
 
   function fnc_Busca_Estoque_Data(Filial, ID_Local, ID_Produto, ID_Cor : Integer ; Tamanho : String ; Data : TDateTime) : Real;
+  procedure Informa(Texto:string) ;
 
 var
+  Enter,Esc,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,Q : Word;
   vCodProduto_Pos: Integer;
   vCodPessoa_Pos: Integer;
   vCodProcesso_Pos: Integer;
@@ -2488,5 +2490,11 @@ begin
     FreeAndNil(sds);
   end;
 end;
+
+procedure Informa(Texto:string) ;
+begin
+  Application.MessageBox(PChar(Texto), PChar(Application.Title), MB_SYSTEMMODAL + MB_Ok + MB_ICONINFORMATION + MB_SETFOREGROUND);
+end ;
+
 
 end.
