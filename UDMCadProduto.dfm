@@ -1567,6 +1567,7 @@ object dmCadProduto: TdmCadProduto
     end
     object sdsProduto_ConsumoNOME_POSICAO: TStringField
       FieldName = 'NOME_POSICAO'
+      ProviderFlags = []
       Size = 30
     end
   end
@@ -1657,17 +1658,20 @@ object dmCadProduto: TdmCadProduto
     object cdsProduto_ConsumoNOME_SETOR: TStringField
       FieldKind = fkCalculated
       FieldName = 'NOME_SETOR'
+      ProviderFlags = []
       Size = 40
       Calculated = True
     end
     object cdsProduto_ConsumoclPreco_Venda: TFloatField
       FieldKind = fkCalculated
       FieldName = 'clPreco_Venda'
+      ProviderFlags = []
       Calculated = True
     end
     object cdsProduto_ConsumoclTIPO_REG: TStringField
       FieldKind = fkCalculated
       FieldName = 'clTIPO_REG'
+      ProviderFlags = []
       Size = 1
       Calculated = True
     end
@@ -1687,11 +1691,13 @@ object dmCadProduto: TdmCadProduto
     object cdsProduto_ConsumoclUsa_Processo: TStringField
       FieldKind = fkCalculated
       FieldName = 'clUsa_Processo'
+      ProviderFlags = []
       Size = 1
       Calculated = True
     end
     object cdsProduto_ConsumoNOME_POSICAO: TStringField
       FieldName = 'NOME_POSICAO'
+      ProviderFlags = []
       Size = 30
     end
   end
@@ -8328,7 +8334,7 @@ object dmCadProduto: TdmCadProduto
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT P.ID, P.NOME, P.REFERENCIA, P.TIPO_REG'
+      'SELECT P.ID, P.NOME, P.REFERENCIA, P.TIPO_REG, P.PRECO_VENDA'
       'FROM PRODUTO P'
       'WHERE P.ID = :ID')
     SQLConnection = dmDatabase.scoDados
@@ -8349,6 +8355,9 @@ object dmCadProduto: TdmCadProduto
       FieldName = 'TIPO_REG'
       FixedChar = True
       Size = 1
+    end
+    object qProdPRECO_VENDA: TFloatField
+      FieldName = 'PRECO_VENDA'
     end
   end
   object sdsFichaTecnica: TSQLDataSet
@@ -10665,18 +10674,15 @@ object dmCadProduto: TdmCadProduto
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object sdsProduto_AdicionalITEM: TIntegerField
-      FieldName = 'ITEM'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
     object sdsProduto_AdicionalID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
   end
   object dspProduto_Adicional: TDataSetProvider
     DataSet = sdsProduto_Adicional
     UpdateMode = upWhereKeyOnly
+    OnGetTableName = dspProduto_AdicionalGetTableName
     Left = 1057
     Top = 71
   end
@@ -10685,6 +10691,7 @@ object dmCadProduto: TdmCadProduto
     Params = <>
     ProviderName = 'dspProduto_Adicional'
     OnCalcFields = cdsProduto_AdicionalCalcFields
+    OnNewRecord = cdsProduto_AdicionalNewRecord
     Left = 1097
     Top = 70
     object cdsProduto_AdicionalID: TIntegerField
@@ -10692,19 +10699,22 @@ object dmCadProduto: TdmCadProduto
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
-    object cdsProduto_AdicionalITEM: TIntegerField
-      FieldName = 'ITEM'
-      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
-      Required = True
-    end
     object cdsProduto_AdicionalID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
     end
     object cdsProduto_AdicionalclNome_Produto: TStringField
       FieldKind = fkCalculated
       FieldName = 'clNome_Produto'
       ProviderFlags = []
       Size = 100
+      Calculated = True
+    end
+    object cdsProduto_AdicionalclPreco_Venda: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'clPreco_Venda'
+      ProviderFlags = []
+      DisplayFormat = '0.00##'
       Calculated = True
     end
   end

@@ -68,3 +68,7 @@ URelPedido.ddp
 *.ddp
 *.dof
 cupomfiscal/ssCupomFiscal.dof
+UCadProduto_Forn__.pas
+UCadProduto_Forn__.dfm
+UCadPessoa___.pas
+UCadPessoa___.dfm
