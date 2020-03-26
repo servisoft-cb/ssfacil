@@ -64,6 +64,7 @@ uses
   function fnc_Calcula_Desc_Vendedor(fDMCadNotaFiscal: TDMCadNotaFiscal): Real;
   function fnc_Unidade_Conv(fDMCadNotaFiscal: TDMCadNotaFiscal): Real;
   function fnc_Buscar_Regra_CFOP(fDMCadNotaFiscal: TDMCadNotaFiscal; ID_CFOP: Integer): Integer;
+  function fnc_Buscar_CBenef_CSTICMS(fDMCadNotaFiscal: TDMCadNotaFiscal) : String;
 
 var
   vVlrCusto: Real;
@@ -115,7 +116,7 @@ var
   vID_PedAnt: Integer;
   sds: TSQLDataSet;
   vBaseComissao: Real;
-  vVlrBaseAux: Real;  
+  vVlrBaseAux: Real;
 begin
   fDMCadNotaFiscal.cdsNotaFiscal_Itens.First;
   if (fDMCadNotaFiscal.cdsNotaFiscal_Itens.IsEmpty) or (fDMCadNotaFiscal.cdsNotaFiscal_Itens.RecordCount <= 0) then
@@ -4414,6 +4415,46 @@ begin
       vVlrAux := vVlrAux + fDMCadNotaFiscal.cdsNotaFiscalVLR_COFINS.AsFloat;
       //(sds.FieldByName('desc_issqn').AsString = 'S') then
     Result := StrToFloat(FormatFloat('0.00',vVlrAux));
+  finally
+    FreeAndNil(sds);
+  end;
+end;
+
+function fnc_Buscar_CBenef_CSTICMS(fDMCadNotaFiscal: TDMCadNotaFiscal) : String;
+var
+  sds: TSQLDataSet;
+begin
+  Result := '';
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'SELECT CFOP.ID, '
+                       + '(SELECT TV.cod_benef  FROM tab_cfop_variacao TV WHERE TV.ID = :ID_CFOP AND TV.item = :ITEM) cod_benef_VAR, '
+                       + '(SELECT PROD.cod_benef  FROM PRODUTO PROD WHERE PROD.ID = :ID_PRODUTO) COD_BENEF_PROD, '
+                       + '(SELECT NCM.cod_benef  FROM TAB_NCM NCM WHERE NCM.ID = :ID_NCM) COD_BENEF_NCM, '
+                       + '(SELECT PF.cod_benef FROM pessoa_fiscal PF WHERE PF.CODIGO = :ID_PESSOA) COD_BENEF_PF, '
+                       + '(SELECT NCMCST.cod_benef FROM tab_ncm_cst NCMCST WHERE NCMCST.ID = :ID_NCM AND NCMCST.UF = :UF) COD_BENEF_NCMCST, '
+                       + '(SELECT PRODUF.cod_benef FROM PRODUTO_UF PRODUF WHERE PRODUF.ID = :ID_PRODUTO AND PRODUF.UF = :UF) COD_BENEF_PRODUF, '
+                       + '(SELECT ICMS.cod_benef FROM tab_csticms ICMS WHERE ICMS.ID = :ID_CSTICMS) COD_BENEF_CSTICMS '
+                       + 'FROM TAB_CFOP CFOP '
+                       + 'WHERE CFOP.id = :ID_CFOP ';
+    sds.ParamByName('ID_CFOP').AsInteger    := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger;
+    sds.ParamByName('ITEM').AsInteger       := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger;
+    sds.ParamByName('ID_PRODUTO').AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger;
+    sds.ParamByName('ID_NCM').AsInteger     := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_NCM.AsInteger;
+    sds.ParamByName('ID_PESSOA').AsInteger  := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger;
+    sds.ParamByName('UF').AsString          := fDMCadNotaFiscal.cdsClienteUF.AsString;
+    sds.ParamByName('ID_CSTICMS').AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CSTICMS.AsInteger;
+    sds.Open;
+
+    if (trim(sds.FieldByName('cod_benef_VAR').AsString) = '')     and (trim(sds.FieldByName('COD_BENEF_PROD').AsString) = '')   and
+       (trim(sds.FieldByName('COD_BENEF_NCM').AsString) = '')     and (trim(sds.FieldByName('COD_BENEF_PF').AsString) = '')     and
+       (trim(sds.FieldByName('COD_BENEF_NCMCST').AsString) = '')  and (trim(sds.FieldByName('COD_BENEF_PRODUF').AsString) = '') and
+       (trim(sds.FieldByName('COD_BENEF_CSTICMS').AsString) <> '') then
+      Result := sds.FieldByName('COD_BENEF_CSTICMS').AsString;
+
   finally
     FreeAndNil(sds);
   end;

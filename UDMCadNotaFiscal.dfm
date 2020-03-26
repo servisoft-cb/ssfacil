@@ -6262,6 +6262,10 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
+    object cdsTab_CSTICMSCOD_BENEF: TStringField
+      FieldName = 'COD_BENEF'
+      Size = 8
+    end
   end
   object dsTab_CSTICMS: TDataSource
     DataSet = cdsTab_CSTICMS

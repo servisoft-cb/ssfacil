@@ -817,7 +817,7 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         DataSource = DMCadCFOP.dsCFOP_Variacao
         TabOrder = 6
       end
-      object DBEdit1: TDBEdit
+      object dbedtCBenef: TDBEdit
         Left = 345
         Top = 16
         Width = 111
@@ -826,8 +826,8 @@ object frmCadCFOP_Variacao: TfrmCadCFOP_Variacao
         DataField = 'COD_BENEF'
         DataSource = DMCadCFOP.dsCFOP_Variacao
         TabOrder = 1
-        OnExit = DBEdit1Exit
-        OnKeyDown = DBEdit1KeyDown
+        OnExit = dbedtCBenefExit
+        OnKeyDown = dbedtCBenefKeyDown
       end
       object DBCheckBox7: TDBCheckBox
         Left = 526

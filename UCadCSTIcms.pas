@@ -51,6 +51,9 @@ type
     DBCheckBox2: TDBCheckBox;
     Label11: TLabel;
     RxDBComboBox2: TRxDBComboBox;
+    Label19: TLabel;
+    dbedtCBenef: TDBEdit;
+    Label12: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -67,6 +70,9 @@ type
     procedure btnPesquisarClick(Sender: TObject);
     procedure DBEdit1Exit(Sender: TObject);
     procedure RzPageControl1Change(Sender: TObject);
+    procedure dbedtCBenefExit(Sender: TObject);
+    procedure dbedtCBenefKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMCadCSTIcms: TDMCadCSTIcms;
@@ -88,7 +94,7 @@ var
 
 implementation
 
-uses DateUtils, DmdDatabase, rsDBUtils, UMenu;
+uses DateUtils, DmdDatabase, rsDBUtils, UMenu, USel_CBenef, uUtilPadrao;
 
 {$R *.dfm}
 
@@ -260,6 +266,30 @@ procedure TfrmCadCSTIcms.RzPageControl1Change(Sender: TObject);
 begin
   if RzPageControl1.ActivePage = TS_Cadastro then
     fDMCadCSTIcms.prc_Abrir_Desoneracao(fDMCadCSTIcms.cdsTab_CSTIcmsCOD_CST.AsString);
+end;
+
+procedure TfrmCadCSTIcms.dbedtCBenefExit(Sender: TObject);
+begin
+  if not fnc_Existe_CBenef(dbedtCBenef.Text) then
+  begin
+    MessageDlg('*** Código Benefício Fiscal não encontrado!', mtInformation, [mbOk], 0);
+    dbedtCBenef.SetFocus;
+  end;
+end;
+
+procedure TfrmCadCSTIcms.dbedtCBenefKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_F2) then
+  begin
+    vCod_CBenef   := dbedtCBenef.Text;
+    frmSel_CBenef := TfrmSel_CBenef.Create(Self);
+    frmSel_CBenef.vCod_CST := DBEdit1.Text; 
+    frmSel_CBenef.ShowModal;
+    if trim(vCod_CBenef) <> '' then
+      dbedtCBenef.Text := vCod_CBenef;
+    FreeAndNil(frmSel_CBenef);
+  end;
 end;
 
 end.
