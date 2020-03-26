@@ -1986,15 +1986,15 @@ type
     cdsProdutoTIPO_PRODUTO: TStringField;
     sdsProduto_Adicional: TSQLDataSet;
     sdsProduto_AdicionalID: TIntegerField;
-    sdsProduto_AdicionalITEM: TIntegerField;
     sdsProduto_AdicionalID_PRODUTO: TIntegerField;
     dspProduto_Adicional: TDataSetProvider;
     cdsProduto_Adicional: TClientDataSet;
     cdsProduto_AdicionalID: TIntegerField;
-    cdsProduto_AdicionalITEM: TIntegerField;
     cdsProduto_AdicionalID_PRODUTO: TIntegerField;
     dsProduto_Adicional: TDataSource;
     cdsProduto_AdicionalclNome_Produto: TStringField;
+    cdsProduto_AdicionalclPreco_Venda: TFloatField;
+    qProdPRECO_VENDA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
@@ -2041,6 +2041,9 @@ type
     procedure dspProduto_CombGetTableName(Sender: TObject;
       DataSet: TDataSet; var TableName: String);
     procedure cdsProduto_AdicionalCalcFields(DataSet: TDataSet);
+    procedure cdsProduto_AdicionalNewRecord(DataSet: TDataSet);
+    procedure dspProduto_AdicionalGetTableName(Sender: TObject;
+      DataSet: TDataSet; var TableName: String);
   private
     { Private declarations }
     vID_Produto_Forn: Integer;
@@ -3841,7 +3844,9 @@ procedure TdmCadProduto.dspProdutoGetTableName(Sender: TObject;
   DataSet: TDataSet; var TableName: String);
 begin
 //  if DataSet.Name = 'sdsProduto_Consumo' then
-//    TableName := 'PRODUTO_CONSUMO';
+    TableName := 'PRODUTO';
+  if DataSet.Name = 'sdsProduto_Consumo' then
+    TableName := 'PRODUTO_CONSUMO';
 end;
 
 procedure TdmCadProduto.dspProduto_CombGetTableName(Sender: TObject;
@@ -3913,6 +3918,18 @@ begin
   qProd.ParamByName('ID').AsInteger := cdsProduto_AdicionalID_PRODUTO.AsInteger;
   qProd.Open;
   cdsProduto_AdicionalclNome_Produto.AsString := qProdNOME.AsString;
+  cdsProduto_AdicionalclPreco_Venda.AsFloat   := qProdPRECO_VENDA.AsFloat;
+end;
+
+procedure TdmCadProduto.cdsProduto_AdicionalNewRecord(DataSet: TDataSet);
+begin
+  cdsProduto_AdicionalID.AsInteger := cdsProdutoID.AsInteger;
+end;
+
+procedure TdmCadProduto.dspProduto_AdicionalGetTableName(Sender: TObject;
+  DataSet: TDataSet; var TableName: String);
+begin
+    TableName := 'PRODUTO_ADICIONAL';
 end;
 
 end.
