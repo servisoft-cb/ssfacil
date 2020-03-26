@@ -74,7 +74,6 @@ object DMCadGrupo: TDMCadGrupo
     object sdsGrupoDESC_LOCAL_IMPRESSAO: TStringField
       FieldName = 'DESC_LOCAL_IMPRESSAO'
       ProviderFlags = []
-      Required = True
       FixedChar = True
       Size = 7
     end
@@ -144,7 +143,6 @@ object DMCadGrupo: TDMCadGrupo
     object cdsGrupoDESC_LOCAL_IMPRESSAO: TStringField
       FieldName = 'DESC_LOCAL_IMPRESSAO'
       ProviderFlags = []
-      Required = True
       FixedChar = True
       Size = 7
     end

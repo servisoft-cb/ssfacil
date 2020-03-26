@@ -961,8 +961,6 @@ begin
 
   if fDMCadProduto.qParametrosUSA_GRADE.AsString = 'S' then
     TS_Grade.TabVisible := ((RxDBComboBox7.ItemIndex < 2) or (RxDBComboBox7.ItemIndex = 5));
-  Label108.Visible          := ((RxDBComboBox7.ItemIndex = 1) and (fDMCadProduto.qParametrosINFORMAR_COR_MATERIAL_RZ.AsString = 'S'))
-                              or ((RxDBComboBox7.ItemIndex = 0) and (fDMCadProduto.qParametrosINFORMAR_COR_MATERIAL_RZ.AsString = 'P'));
 
   if (fDMCadProduto.qParametrosUSA_PRODUTO_LOCALIZACAO.AsString = 'N') or (RxDBComboBox7.ItemIndex = 2) or (RxDBComboBox7.ItemIndex = 4) then
   begin
