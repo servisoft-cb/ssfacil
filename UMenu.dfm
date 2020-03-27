@@ -381,6 +381,10 @@ object fMenu: TfMenu
           Caption = 'Plano DRE'
           OnClick = PlanoDRE1Click
         end
+        object MetasdeComissoFaixadeValores1: TMenuItem
+          Caption = 'Metas de Comiss'#227'o (Faixa de Valores)'
+          OnClick = MetasdeComissoFaixadeValores1Click
+        end
       end
       object N26: TMenuItem
         Caption = '-'
@@ -4401,6 +4405,12 @@ object fMenu: TfMenu
         CompName = 'btnCopiar'
         Caption = 'Copiar'
         GroupName = 'Invent'#225'rio'
+      end
+      item
+        FormName = 'frmCadMetas_Comissao'
+        CompName = 'btnDigitar'
+        Caption = 'Digitar Metas'
+        GroupName = 'Metas de Comiss'#227'o'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True
