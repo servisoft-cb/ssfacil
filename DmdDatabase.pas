@@ -64,6 +64,7 @@ type
     sqEmpresaCIDADE: TStringField;
     sqEmpresaNOME: TStringField;
     sqEmpresaFONE: TStringField;
+    scoServidor: TSQLConnection;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

@@ -368,4 +368,29 @@ object dmDatabase: TdmDatabase
       Size = 40
     end
   end
+  object scoServidor: TSQLConnection
+    ConnectionName = 'SSFacil_Servidor'
+    DriverName = 'Interbase'
+    GetDriverFunc = 'getSQLDriverINTERBASE'
+    KeepConnection = False
+    LibraryName = 'dbexpint.dll'
+    LoginPrompt = False
+    Params.Strings = (
+      'Database=D:\Fontes\$Servisoft\Bases\SSFacil\DSFerragens.FDB'
+      'RoleName=RoleName'
+      'User_Name=sysdba'
+      'Password=masterkey'
+      'ServerCharSet=WIN1252'
+      'SQLDialect=3'
+      'BlobSize=-1'
+      'CommitRetain=False'
+      'WaitOnLocks=True'
+      'ErrorResourceFile='
+      'LocaleCode=0000'
+      'Interbase TransIsolation=ReadCommited'
+      'Trim Char=False')
+    VendorLib = 'gds32.dll'
+    Left = 393
+    Top = 70
+  end
 end

@@ -173,7 +173,6 @@ var
   vHrEmissaoNFe: TDateTime;
   vUsa_Cor_Pos, vUsa_Preco_Cor_Pos: String;
   vExcluir_Cupom: Boolean = False;
-  vTipo_Dig_Cupom: String;
   vCodCombinacao_Pos: Integer;
   vCodCor_Pos: Integer;
   vNumOrd_Pos: Integer;
@@ -223,6 +222,7 @@ var
   vMargemDireita : Double;
   vLarguraBobina : Integer;
   vID_Cupom_Pos : Integer;
+  vSerie_Sel : String;
 
 implementation
 
