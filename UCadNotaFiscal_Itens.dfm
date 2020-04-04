@@ -494,7 +494,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
     Top = 172
     Width = 792
     Height = 418
-    ActivePage = TabSheet1
+    ActivePage = TabSheet2
     ActivePageDefault = TabSheet1
     Align = alClient
     BackgroundColor = clGray
@@ -504,7 +504,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
     ParentBackgroundColor = False
     ParentColor = False
     TabColors.Shadow = clGray
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TextColors.DisabledShadow = 8421440
     TextColors.Selected = clBlue
@@ -1469,7 +1469,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object Label17: TLabel
         Left = 29
-        Top = 48
+        Top = 50
         Width = 42
         Height = 13
         Alignment = taRightJustify
@@ -1477,7 +1477,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object Label18: TLabel
         Left = 14
-        Top = 71
+        Top = 73
         Width = 57
         Height = 13
         Alignment = taRightJustify
@@ -1541,7 +1541,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object Label26: TLabel
         Left = 18
-        Top = 94
+        Top = 96
         Width = 53
         Height = 13
         Alignment = taRightJustify
@@ -1549,7 +1549,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object Label27: TLabel
         Left = 31
-        Top = 117
+        Top = 119
         Width = 40
         Height = 13
         Alignment = taRightJustify
@@ -1645,7 +1645,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object Label59: TLabel
         Left = 11
-        Top = 140
+        Top = 142
         Width = 60
         Height = 13
         Alignment = taRightJustify
@@ -1684,7 +1684,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object RxDBLookupCombo8: TRxDBLookupCombo
         Left = 72
-        Top = 41
+        Top = 40
         Width = 225
         Height = 21
         DropDownCount = 8
@@ -1698,7 +1698,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object RxDBLookupCombo9: TRxDBLookupCombo
         Left = 72
-        Top = 64
+        Top = 63
         Width = 225
         Height = 21
         DropDownCount = 8
@@ -1802,7 +1802,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object RxDBLookupCombo11: TRxDBLookupCombo
         Left = 72
-        Top = 85
+        Top = 87
         Width = 225
         Height = 21
         DropDownCount = 8
@@ -1818,7 +1818,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object RxDBLookupCombo12: TRxDBLookupCombo
         Left = 72
-        Top = 109
+        Top = 110
         Width = 225
         Height = 21
         DropDownCount = 8
@@ -1925,7 +1925,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
       end
       object RxDBLookupCombo15: TRxDBLookupCombo
         Left = 72
-        Top = 132
+        Top = 134
         Width = 225
         Height = 21
         DropDownCount = 8

@@ -5604,7 +5604,7 @@ object DMCadPedido: TDMCadPedido
   object dspCFOP: TDataSetProvider
     DataSet = sdsCFOP
     Left = 608
-    Top = 3
+    Top = 2
   end
   object cdsCFOP: TClientDataSet
     Aggregates = <>
@@ -10790,9 +10790,10 @@ object DMCadPedido: TDMCadPedido
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
+    PrintOptions.PrintMode = pmSplit
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42032.577038136600000000
-    ReportOptions.LastChange = 43854.672464722200000000
+    ReportOptions.CreateDate = 42671.419546678200000000
+    ReportOptions.LastChange = 43880.443078807900000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint

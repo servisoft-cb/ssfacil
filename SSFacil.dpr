@@ -835,7 +835,9 @@ uses
   UDMConsNCM_CFOP in 'UDMConsNCM_CFOP.pas' {DMConsNCM_CFOP: TDataModule},
   UAtualizaPreco_Mat in 'UAtualizaPreco_Mat.pas' {frmAtualizaPreco_Mat},
   UANP_Produto in 'UANP_Produto.pas' {frmANP_Produto},
-  UDMANP_Produto in 'UDMANP_Produto.pas' {DMANP_Produto: TDataModule};
+  UDMANP_Produto in 'UDMANP_Produto.pas' {DMANP_Produto: TDataModule},
+  UCadMetas_Comissao in 'UCadMetas_Comissao.pas' {frmCadMetas_Comissao},
+  UDMCadMetas_Comissao in 'UDMCadMetas_Comissao.pas' {DMCadMetas_Comissao: TDataModule};
 
 {$R *.res}
 

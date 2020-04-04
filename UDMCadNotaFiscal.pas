@@ -3141,6 +3141,7 @@ type
     cdsCFOPCOMBUSTIVEL: TStringField;
     cdsNotaEntradaANP_PRODUTO: TStringField;
     cdsNotaEntradaANP_UF_CONS: TStringField;
+    cdsTab_CSTICMSCOD_BENEF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

@@ -45,6 +45,8 @@ type
     cdsTab_CSTIcmsCALCULA_FCP: TStringField;
     sdsTab_CSTIcmsTIPO_ICMS: TStringField;
     cdsTab_CSTIcmsTIPO_ICMS: TStringField;
+    sdsTab_CSTIcmsCOD_BENEF: TStringField;
+    cdsTab_CSTIcmsCOD_BENEF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspTab_CSTIcmsUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

@@ -23,7 +23,7 @@ object frmCadCSTIcms: TfrmCadCSTIcms
     Top = 0
     Width = 778
     Height = 482
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -31,7 +31,7 @@ object frmCadCSTIcms: TfrmCadCSTIcms
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -73,7 +73,7 @@ object frmCadCSTIcms: TfrmCadCSTIcms
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 6
+        ColCount = 7
         RowCount = 2
         Columns = <
           item
@@ -113,6 +113,14 @@ object frmCadCSTIcms: TfrmCadCSTIcms
             Alignment = taCenter
             Expanded = False
             FieldName = 'ID'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'COD_BENEF'
+            Title.Alignment = taCenter
+            Title.Caption = 'C'#243'd. Benef.'
+            Width = 97
             Visible = True
           end>
       end
@@ -804,6 +812,33 @@ object frmCadCSTIcms: TfrmCadCSTIcms
           Alignment = taRightJustify
           Caption = 'Tipo ICMS:'
         end
+        object Label19: TLabel
+          Left = 53
+          Top = 343
+          Width = 74
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'C.Benef. Fiscal:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Label12: TLabel
+          Left = 248
+          Top = 337
+          Width = 56
+          Height = 13
+          Caption = 'F2 Consulta'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
         object DBEdit1: TDBEdit
           Left = 132
           Top = 58
@@ -949,6 +984,18 @@ object frmCadCSTIcms: TfrmCadCSTIcms
             'I'
             'N'
             'D')
+        end
+        object dbedtCBenef: TDBEdit
+          Left = 131
+          Top = 335
+          Width = 111
+          Height = 21
+          CharCase = ecUpperCase
+          DataField = 'COD_BENEF'
+          DataSource = DMCadCSTIcms.dsTab_CSTIcms
+          TabOrder = 11
+          OnExit = dbedtCBenefExit
+          OnKeyDown = dbedtCBenefKeyDown
         end
       end
     end

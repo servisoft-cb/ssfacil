@@ -1094,7 +1094,9 @@ begin
         if fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '00' then
           vCod_CBenef_Loc := ''
         else
-        if trim(fDMCadNotaFiscal.qPessoa_FiscalCOD_BENEF.AsString) <> '' then
+        //26/03/2020
+        //if trim(fDMCadNotaFiscal.qPessoa_FiscalCOD_BENEF.AsString) <> '' then
+        if trim(fDMCadNotaFiscal.qPessoa_ProdICMSCOD_BENEF.AsString) <> '' then
           vCod_CBenef_Loc := fDMCadNotaFiscal.qPessoa_ProdICMSCOD_BENEF.AsString;
       end;
       vPerc_BRedICMS_NCM := 0;
@@ -1369,6 +1371,10 @@ begin
      (fDMCadNotaFiscal.qParametros_LoteOPCAO_ESTOQUE_SEMI.AsString = 'N') then
     fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N';
   //***************************
+
+  //26/03/2020
+  if (trim(vCod_CBenef_Loc) = '') and (fDMCadNotaFiscal.cdsTab_CSTICMS.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CSTICMS.AsInteger,[loCaseInsensitive])) then
+    vCod_CBenef_Loc := trim(fDMCadNotaFiscal.cdsTab_CSTICMSCOD_BENEF.AsString);
 
   //11/12/2019
   fDMCadNotaFiscal.cdsNotaFiscal_ItensCOD_CBENEF.AsString := vCod_CBenef_Loc;
@@ -2123,6 +2129,7 @@ end;
 procedure TfrmCadNotaFiscal_Itens.RxDBLookupCombo11Exit(Sender: TObject);
 var
   vIDAux: Integer;
+  vCodAux : String;
 begin
   vIDAux := 0;
   if RxDBLookupCombo11.Text <> '' then
@@ -2158,7 +2165,7 @@ begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensCOD_DESONERACAO.AsInteger := fDMCadNotaFiscal.cdsTab_CSTICMSCOD_DESONERACAO.AsInteger
     else
       fDMCadNotaFiscal.cdsNotaFiscal_ItensCOD_DESONERACAO.AsInteger := 0;
-    
+
   end;
   if fDMCadNotaFiscal.cdsFilialSIMPLES.AsString <> 'S' then
     DBEdit14.ReadOnly := (fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '00');
@@ -2167,12 +2174,21 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_DIFERIMENTO.AsFloat := StrToFloat(FormatFloat('0.00',100));
     fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_TRIBICMS.AsFloat    := StrToFloat(FormatFloat('0.00',0));
   end;
-    
+
   Label48.Visible  := ((fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '51') and (fDMCadNotaFiscal.cdsParametrosUSA_ICMSOPERACAO_CST51.AsString = 'S'));
   DBEdit26.Visible := ((fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '51') and (fDMCadNotaFiscal.cdsParametrosUSA_ICMSOPERACAO_CST51.AsString = 'S'));
   Label49.Visible  := ((fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '51') and (fDMCadNotaFiscal.cdsParametrosUSA_ICMSOPERACAO_CST51.AsString = 'S'));
   Label55.Visible   := (((fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '51') or ((fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '900')))  and (fDMCadNotaFiscal.cdsCFOPGERAR_ICMS.AsString = 'S'));
   DBEdit30.Visible  := (((fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '51') or ((fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '900')))  and (fDMCadNotaFiscal.cdsCFOPGERAR_ICMS.AsString = 'S'));
+
+  //26/03/2020
+  if vID_CSTICMAnt <> vIDAux then
+  begin
+    vCodAux := fnc_Buscar_CBenef_CSTICMS(fDMCadNotaFiscal);
+    if trim(vCodAux) <> '' then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensCOD_CBENEF.AsString := vCodAux;
+  end;
+  //*************************
 end;
 
 procedure TfrmCadNotaFiscal_Itens.RxDBLookupCombo1Exit(Sender: TObject);
