@@ -417,6 +417,7 @@ type
     DBCheckBox26: TDBCheckBox;
     DBCheckBox27: TDBCheckBox;
     btnVlr_Outras_Despesas: TNxButton;
+    lblBuscaFilial: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -466,6 +467,8 @@ type
     procedure btnCopiar_FilialClick(Sender: TObject);
     procedure BitBtn4Click(Sender: TObject);
     procedure btnVlr_Outras_DespesasClick(Sender: TObject);
+    procedure DBEdit4KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMCadFilial: TDMCadFilial;
@@ -494,7 +497,7 @@ var
 implementation
 
 uses DateUtils, DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, uCadFilialRelatorios,
-  USel_EnqIPI;
+  USel_EnqIPI, uSel_Filial_Servidor;
 
 {$R *.dfm}
 
@@ -556,7 +559,10 @@ begin
   prc_Habilitar_Campos;
   RzPageControl1.ActivePage := TS_Cadastro;
   RzPageControl2.ActivePage := TS_Dados;
-  DBEdit7.SetFocus;
+  if fDMCadFilial.qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S' then
+    DBEdit4.SetFocus
+  else
+    DBEdit7.SetFocus;
 end;
 
 procedure TfrmCadFilial.FormShow(Sender: TObject);
@@ -578,6 +584,8 @@ begin
   TS_Custo.TabVisible := (fDMCadFilial.qParametros_GeralUSA_CUSTO.AsString = 'S');
 
   TS_SMS.TabVisible   := (fDMCadFilial.qParametros_PedENVIA_SMS.AsString = 'S');
+
+  lblBuscaFilial.Visible := (fDMCadFilial.qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S');
 end;
 
 procedure TfrmCadFilial.prc_Consultar;
@@ -1195,6 +1203,18 @@ begin
            + '    Quando copiar um pedido de uma Filial que possue IPI para uma Filial que não possue, '
            + '    o sistema vai zerar o campo do IPI e vai acrescentar no Vlr. Unitário o % do IPI';
   MessageDlg(vMSGAux, mtInformation, [mbOk], 0);
+end;
+
+procedure TfrmCadFilial.DBEdit4KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_F2) and (fDMCadFilial.qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') then
+  begin
+    frmSel_Filial_Servidor := TfrmSel_Filial_Servidor.Create(Self);
+    frmSel_Filial_Servidor.fDMCadFilial := fDMCadFilial;
+    frmSel_Filial_Servidor.ShowModal;
+    FreeAndNil(frmSel_Filial_Servidor);
+  end;
 end;
 
 end.

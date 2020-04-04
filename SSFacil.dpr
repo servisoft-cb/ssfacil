@@ -837,7 +837,10 @@ uses
   UANP_Produto in 'UANP_Produto.pas' {frmANP_Produto},
   UDMANP_Produto in 'UDMANP_Produto.pas' {DMANP_Produto: TDataModule},
   UCadMetas_Comissao in 'UCadMetas_Comissao.pas' {frmCadMetas_Comissao},
-  UDMCadMetas_Comissao in 'UDMCadMetas_Comissao.pas' {DMCadMetas_Comissao: TDataModule};
+  UDMCadMetas_Comissao in 'UDMCadMetas_Comissao.pas' {DMCadMetas_Comissao: TDataModule},
+  uCupomTerminal in 'NFCe_Novo\uCupomTerminal.pas' {fCupomTerminal},
+  uDmCupomTerminal in 'NFCe_Novo\uDmCupomTerminal.pas' {dmCupomTerminal: TDataModule},
+  uSel_Filial_Servidor in 'uSel_Filial_Servidor.pas' {frmSel_Filial_Servidor};
 
 {$R *.res}
 

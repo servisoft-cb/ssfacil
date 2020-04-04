@@ -686,6 +686,15 @@ type
     cdsFilialDESC_ICMS_PIS_COFINS: TStringField;
     sdsFilialPEDIDO_PRECO_IPI: TStringField;
     cdsFilialPEDIDO_PRECO_IPI: TStringField;
+    qParametros_GeralUSA_NFCE_LOCAL: TStringField;
+    sdsFilialTOKEN_CEDENTE: TStringField;
+    sdsFilialID_CEDENTE: TIntegerField;
+    sdsFilialFORMA_TRABALHO: TStringField;
+    sdsFilialPERGUNTA_MESA: TStringField;
+    cdsFilialTOKEN_CEDENTE: TStringField;
+    cdsFilialID_CEDENTE: TIntegerField;
+    cdsFilialFORMA_TRABALHO: TStringField;
+    cdsFilialPERGUNTA_MESA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsFilialNewRecord(DataSet: TDataSet);
     procedure cdsFilialBeforePost(DataSet: TDataSet);

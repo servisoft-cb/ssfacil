@@ -3,7 +3,7 @@ object DMCadFilial: TDMCadFilial
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Left = 220
-  Top = 24
+  Top = 19
   Height = 709
   Width = 1045
   object sdsFilial: TSQLDataSet
@@ -427,6 +427,23 @@ object DMCadFilial: TDMCadFilial
     end
     object sdsFilialPEDIDO_PRECO_IPI: TStringField
       FieldName = 'PEDIDO_PRECO_IPI'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsFilialTOKEN_CEDENTE: TStringField
+      FieldName = 'TOKEN_CEDENTE'
+      Size = 40
+    end
+    object sdsFilialID_CEDENTE: TIntegerField
+      FieldName = 'ID_CEDENTE'
+    end
+    object sdsFilialFORMA_TRABALHO: TStringField
+      FieldName = 'FORMA_TRABALHO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsFilialPERGUNTA_MESA: TStringField
+      FieldName = 'PERGUNTA_MESA'
       FixedChar = True
       Size = 1
     end
@@ -889,6 +906,23 @@ object DMCadFilial: TDMCadFilial
     end
     object cdsFilialPEDIDO_PRECO_IPI: TStringField
       FieldName = 'PEDIDO_PRECO_IPI'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsFilialTOKEN_CEDENTE: TStringField
+      FieldName = 'TOKEN_CEDENTE'
+      Size = 40
+    end
+    object cdsFilialID_CEDENTE: TIntegerField
+      FieldName = 'ID_CEDENTE'
+    end
+    object cdsFilialFORMA_TRABALHO: TStringField
+      FieldName = 'FORMA_TRABALHO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsFilialPERGUNTA_MESA: TStringField
+      FieldName = 'PERGUNTA_MESA'
       FixedChar = True
       Size = 1
     end
@@ -2478,6 +2512,11 @@ object DMCadFilial: TDMCadFilial
     end
     object qParametros_GeralUSA_CUSTO: TStringField
       FieldName = 'USA_CUSTO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_GeralUSA_NFCE_LOCAL: TStringField
+      FieldName = 'USA_NFCE_LOCAL'
       FixedChar = True
       Size = 1
     end

@@ -1275,6 +1275,13 @@ object fMenu: TfMenu
       object rocarSenha1: TMenuItem
         Caption = 'Trocar Senha'
       end
+      object N57: TMenuItem
+        Caption = '-'
+      end
+      object erminaldoNFCe1: TMenuItem
+        Caption = 'Terminal do NFCe'
+        OnClick = erminaldoNFCe1Click
+      end
       object N9: TMenuItem
         Caption = '-'
       end

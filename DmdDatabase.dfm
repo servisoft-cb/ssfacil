@@ -29,7 +29,7 @@ object dmDatabase: TdmDatabase
       'Trim Char=False')
     VendorLib = 'gds32.dll'
     Left = 49
-    Top = 14
+    Top = 15
   end
   object Decoder64: TIdDecoderMIME
     FillChar = '='
@@ -376,7 +376,9 @@ object dmDatabase: TdmDatabase
     LibraryName = 'dbexpint.dll'
     LoginPrompt = False
     Params.Strings = (
-      'Database=D:\Fontes\$Servisoft\Bases\SSFacil\DSFerragens.FDB'
+      
+        'Database=localhost:D:\Fontes\$Servisoft\Bases\SSFacil\SLTextil_N' +
+        'ovo.FDB'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'
@@ -391,6 +393,6 @@ object dmDatabase: TdmDatabase
       'Trim Char=False')
     VendorLib = 'gds32.dll'
     Left = 393
-    Top = 70
+    Top = 71
   end
 end

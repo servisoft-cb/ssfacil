@@ -120,6 +120,7 @@ object frmCadFilial: TfrmCadFilial
             FieldName = 'FONE'
             Title.Alignment = taCenter
             Title.Caption = 'Fone'
+            Width = 64
             Visible = True
           end>
       end
@@ -706,10 +707,10 @@ object frmCadFilial: TfrmCadFilial
         Top = 31
         Width = 1090
         Height = 545
-        ActivePage = TS_Tributos
+        ActivePage = TS_Dados
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -900,6 +901,20 @@ object frmCadFilial: TfrmCadFilial
             Alignment = taRightJustify
             Caption = 'Fone 2 (DDD/N'#186'):'
           end
+          object lblBuscaFilial: TLabel
+            Left = 216
+            Top = 13
+            Width = 110
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'F2 Busca Filial Servidor'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMaroon
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+          end
           object DBEdit7: TDBEdit
             Left = 98
             Top = 32
@@ -945,6 +960,7 @@ object frmCadFilial: TfrmCadFilial
             DataSource = DMCadFilial.dsFilial
             ReadOnly = True
             TabOrder = 0
+            OnKeyDown = DBEdit4KeyDown
           end
           object DBEdit2: TDBEdit
             Left = 98
