@@ -1144,7 +1144,6 @@ var
 
 implementation
 
-//uses DmdDatabase, StdConvs, LogProvider, SysInit;
 uses DmdDatabase, uUtilPadrao, DateUtils, Math;
 
 {$R *.dfm}
@@ -1263,6 +1262,14 @@ var
   vIndices: string;
   aIndices: array of string;
 begin
+  if dmDatabase.fnc_Usa_NFCe_Local then
+  begin
+    for i := 0 to self.ComponentCount-1 do
+    begin
+      if self.Components[i] is TSQLDataSet then
+        TSQLDataSet(self.Components[i]).SQLConnection := dmDatabase.scoServidor;
+    end;
+  end;
   ctCommand             := sdsDuplicata.CommandText;
   ctDuplicata_Consulta  := sdsDuplicata_Consulta.CommandText;
   ctFinanceiro          := sdsFinanceiro.CommandText;

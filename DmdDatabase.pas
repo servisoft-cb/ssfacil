@@ -82,6 +82,9 @@ type
     function ProximaTabelaLoc(NomeTabela: String): Integer;
 
     procedure prc_UpdateError(Tabela: String; ukTipo: TUpdateKind; Emsg: EUpdateError);
+
+    function  fnc_Usa_NFCe_Local : Boolean;
+
   end;
 
 var
@@ -479,6 +482,30 @@ begin
       end;
     end;
 
+    if fnc_Usa_NFCe_Local then
+    begin
+      try
+        scoServidor.Params.Values['DRIVERNAME'] := 'INTERBASE';
+        scoServidor.Params.Values['SQLDIALECT'] := '3';
+        scoServidor.Params.Values['DATABASE']   := Config.ReadString('SSFacil_Servidor', 'DATABASE', '');
+        scoServidor.Params.Values['USER_NAME']  := Config.ReadString('SSFacil_Servidor', 'USERNAME', '');
+        scoServidor.Params.Values['PASSWORD']   := Decoder64.DecodeString(Config.ReadString('SSFacil_Servidor', 'PASSWORD', ''));
+        scoServidor.Connected := True;
+      except
+        on E: exception do
+        begin
+          raise Exception.Create('Erro ao conectar ao banco de dados do Servidor (NFCe Local):' + #13 +
+                                 'Mensagem: ' + E.Message + #13 +
+                                 'Classe: ' + E.ClassName + #13 + #13 +
+                                 'Dados da Conexao SSFacil Servidor (NFCe Local) ' + #13 +
+                                 'Banco de Dados: '  + scoServidor.Params.Values['Database'] + #13 +
+                                 'Usuário: '         + scoServidor.Params.Values['User_Name']);
+        end;
+      end;
+
+    end;
+
+
 //////////////////VERIFICA SE EMPRESA ESTÁ LIBERADA
       sqEmpresa.Open;
       if (sqEmpresaLIBERADO_ATE.IsNull) or (Trim(sqEmpresaLIBERADO_ATE.AsString) = '') then
@@ -745,6 +772,25 @@ begin
   cdsLogPessoaDTULTIMOACESSO.AsDateTime := Date;
   cdsLogPessoa.Post;
   cdsLogPessoa.ApplyUpdates(0);
+end;
+
+function TdmDatabase.fnc_Usa_NFCe_Local: Boolean;
+var
+  sds: TSQLDataSet;
+begin
+  Result := False;
+
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := scoDados;
+    sds.NoMetadata  := True;
+    sds.GetMetadata := False;
+    sds.CommandText := 'SELECT USA_NFCE_LOCAL FROM PARAMETROS_GERAL';
+    sds.Open;
+    result := (sds.FieldByName('USA_NFCE_LOCAL').AsString = 'S');
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.
