@@ -30,7 +30,9 @@ uses
   function fnc_Calcula_DigitoEAN13(Seq_Maxima, Sequencia: Integer; Cod_Principal: String): Integer;
   function fnc_Busca_Estoque2(Filial, ID_PRODUTO, ID_Cor: Integer; Tamanho: String; ID_Local: Integer; ID_Estoque: Integer = 0): Real;
   function fnc_Verificar_Local(Usa_Local_Estoque: String): Integer;
-  function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer): Real;
+  function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer ; Usa_Reserva : String = 'N'): Real;
+  function fnc_Buscar_Estoque_Rest(CodProduto, ID_Cor, Filial: Integer): Real; //Fepam vai usar
+
   function fnc_HorarioVerao: Boolean;
   
   function fnc_Buscar_Comissao_Prod(ID_Produto, ID_Cliente, ID_Vendedor: Integer): Real;
@@ -867,7 +869,7 @@ begin
     MessageDlg('*** Não existe um local do estoque marcado como principal!' , mtInformation, [mbOk], 0);
 end;
 
-function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer): Real;
+function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer; Usa_Reserva : String = 'N'): Real;
 var
   sds, sds2: TSQLDataSet;
 begin
@@ -883,7 +885,7 @@ begin
   sds2.GetMetadata   := False;
   try
     sds2.Close;
-    sds2.CommandText := 'select USA_ESTOQUE_GERAL_CAD from parametros_est ';
+    sds2.CommandText := 'select USA_ESTOQUE_GERAL_CAD from parametros_est';
     sds2.Open;
     if sds2.FieldByName('USA_ESTOQUE_GERAL_CAD').AsString = 'S' then
       Filial := 0;
@@ -908,6 +910,10 @@ begin
       sds.ParamByName('ID_LOCAL_ESTOQUE').AsInteger := ID_Local_Estoque;
     sds.Open;
     Result := StrToFloat(FormatFloat('0.0000',sds.FieldByName('QTD').AsFloat));
+
+    if Usa_Reserva = 'S' then
+      Result := StrToFloat(FormatFloat('0.0000',Result - fnc_Buscar_Estoque_Rest(CodProduto, ID_Cor, Filial)));
+      
   finally
     FreeAndNil(sds);
     FreeAndNil(sds2);
@@ -2496,5 +2502,51 @@ begin
   Application.MessageBox(PChar(Texto), PChar(Application.Title), MB_SYSTEMMODAL + MB_Ok + MB_ICONINFORMATION + MB_SETFOREGROUND);
 end ;
 
+function fnc_Buscar_Estoque_Rest(CodProduto, ID_Cor, Filial: Integer): Real; //Fepam vai usar
+var
+  sds, sds2: TSQLDataSet;
+begin
+  Result := StrToFloat(FormatFloat('0.0000',0));
+  sds := TSQLDataSet.Create(nil);
+  sds.SQLConnection := dmDatabase.scoDados;
+  sds.NoMetadata    := True;
+  sds.GetMetadata   := False;
+
+  sds2 := TSQLDataSet.Create(nil);
+  sds2.SQLConnection := dmDatabase.scoDados;
+  sds2.NoMetadata    := True;
+  sds2.GetMetadata   := False;
+  try
+    if Filial > 0 then
+    begin
+      sds2.Close;
+      sds2.CommandText := 'select USA_ESTOQUE_GERAL_CAD from parametros_est ';
+      sds2.Open;
+      if sds2.FieldByName('USA_ESTOQUE_GERAL_CAD').AsString = 'S' then
+        Filial := 0;
+    end;
+    if (Filial = 0) then
+      sds.CommandText := 'SELECT sum(QTD) QTD FROM ESTOQUE_RES WHERE '
+    else
+      sds.CommandText := 'SELECT QTD FROM ESTOQUE_RES WHERE FILIAL = :FILIAL AND ';
+    sds.CommandText := sds.CommandText  + ' ID_PRODUTO = :ID_PRODUTO ';
+    if ID_Cor > 0 then
+    begin
+      sds.CommandText := sds.CommandText + ' AND ID_COR = :ID_COR ';
+      sds.ParamByName('ID_COR').AsInteger := ID_Cor;
+    end
+    else
+      sds.CommandText := sds.CommandText + ' AND (ID_COR = 0 or ID_COR is NULL) ';
+    if Filial > 0 then
+      sds.ParamByName('FILIAL').AsInteger           := vFilial;
+    sds.ParamByName('ID_PRODUTO').AsInteger       := CodProduto;
+    sds.Open;
+    Result := StrToFloat(FormatFloat('0.0000',sds.FieldByName('QTD').AsFloat));
+  finally
+    FreeAndNil(sds);
+    FreeAndNil(sds2);
+  end;
+
+end;
 
 end.

@@ -393,6 +393,6 @@ object dmDatabase: TdmDatabase
       'Trim Char=False')
     VendorLib = 'gds32.dll'
     Left = 393
-    Top = 71
+    Top = 72
   end
 end

@@ -101,14 +101,14 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       OnClick = SpeedButton5Click
     end
     object Shape1: TShape
-      Left = 649
+      Left = 640
       Top = 69
-      Width = 113
+      Width = 129
       Height = 36
       Brush.Color = clMoneyGreen
     end
     object Label30: TLabel
-      Left = 660
+      Left = 652
       Top = 70
       Width = 86
       Height = 16
@@ -121,7 +121,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       ParentFont = False
     end
     object lblEstoque: TLabel
-      Left = 652
+      Left = 644
       Top = 89
       Width = 101
       Height = 13

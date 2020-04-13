@@ -3740,6 +3740,7 @@ type
     cdsPedido_ItensVLR_UNITARIO_IPI: TFloatField;
     cdsPedidoImp_ItensVLR_UNITARIO_IPI: TFloatField;
     cdsTab_NCMPERC_ICMS: TFloatField;
+    qParametros_PedUSA_RESERVA_EST: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

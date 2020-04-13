@@ -114,6 +114,8 @@ type
     dbVlr_Entrada: TDBEdit;
     Label20: TLabel;
     DBEdit2: TDBEdit;
+    Label21: TLabel;
+    DBEdit5: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);

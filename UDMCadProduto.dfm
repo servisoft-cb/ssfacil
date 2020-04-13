@@ -12,7 +12,7 @@ object dmCadProduto: TdmCadProduto
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 50
+    Left = 51
     object sdsProdutoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -516,7 +516,7 @@ object dmCadProduto: TdmCadProduto
     OnNewRecord = cdsProdutoNewRecord
     OnReconcileError = cdsProdutoReconcileError
     Left = 114
-    Top = 2
+    Top = 3
     object cdsProdutoID: TIntegerField
       Alignment = taCenter
       FieldName = 'ID'
@@ -6279,6 +6279,7 @@ object dmCadProduto: TdmCadProduto
     Top = 331
   end
   object cdsProcesso: TClientDataSet
+    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspProcesso'

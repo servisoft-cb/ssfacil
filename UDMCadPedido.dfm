@@ -15331,6 +15331,11 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'SENHA_EXCLUIR_ORC'
       Size = 10
     end
+    object qParametros_PedUSA_RESERVA_EST: TStringField
+      FieldName = 'USA_RESERVA_EST'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsMetas_Acum: TSQLDataSet
     CommandText = 

@@ -3844,9 +3844,11 @@ procedure TdmCadProduto.dspProdutoGetTableName(Sender: TObject;
   DataSet: TDataSet; var TableName: String);
 begin
 //  if DataSet.Name = 'sdsProduto_Consumo' then
-    TableName := 'PRODUTO';
+    //TableName := 'PRODUTO';
   if DataSet.Name = 'sdsProduto_Consumo' then
     TableName := 'PRODUTO_CONSUMO';
+  if DataSet.Name = 'sdsProduto' then
+    TableName := 'PRODUTO';
 end;
 
 procedure TdmCadProduto.dspProduto_CombGetTableName(Sender: TObject;

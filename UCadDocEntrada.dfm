@@ -21,8 +21,8 @@ object frmCadDocEntrada: TfrmCadDocEntrada
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 985
-    Height = 657
+    Width = 993
+    Height = 665
     ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -40,8 +40,8 @@ object frmCadDocEntrada: TfrmCadDocEntrada
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 119
-        Width = 981
-        Height = 498
+        Width = 989
+        Height = 506
         Align = alClient
         BorderStyle = bsNone
         Ctl3D = False
@@ -160,7 +160,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
       object pnlPesquisa: TPanel
         Left = 0
         Top = 33
-        Width = 981
+        Width = 989
         Height = 86
         Align = alTop
         Color = clSilver
@@ -360,8 +360,8 @@ object frmCadDocEntrada: TfrmCadDocEntrada
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 617
-        Width = 981
+        Top = 625
+        Width = 989
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -377,7 +377,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 981
+        Width = 989
         Height = 33
         Align = alTop
         Color = clSilver
@@ -612,7 +612,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 981
+        Width = 989
         Height = 33
         Align = alTop
         Color = 8404992
@@ -841,15 +841,15 @@ object frmCadDocEntrada: TfrmCadDocEntrada
       object pnlCadastro: TPanel
         Left = 0
         Top = 33
-        Width = 981
-        Height = 601
+        Width = 989
+        Height = 609
         Align = alClient
         Enabled = False
         TabOrder = 0
         object pnlNota: TPanel
           Left = 1
           Top = 1
-          Width = 979
+          Width = 987
           Height = 26
           Align = alTop
           Color = clSilver
@@ -903,14 +903,14 @@ object frmCadDocEntrada: TfrmCadDocEntrada
         object pnlCliente: TPanel
           Left = 1
           Top = 27
-          Width = 979
-          Height = 94
+          Width = 987
+          Height = 109
           Align = alTop
           BevelInner = bvLowered
           BevelOuter = bvLowered
           TabOrder = 0
           object lblTipo_Prazo: TLabel
-            Left = 598
+            Left = 614
             Top = 51
             Width = 55
             Height = 13
@@ -919,7 +919,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             Visible = False
           end
           object Label2: TLabel
-            Left = 443
+            Left = 459
             Top = 49
             Width = 141
             Height = 13
@@ -932,7 +932,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             ParentFont = False
           end
           object Label18: TLabel
-            Left = 13
+            Left = 29
             Top = 73
             Width = 56
             Height = 13
@@ -940,7 +940,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             Caption = 'Dt.Emiss'#227'o:'
           end
           object Label36: TLabel
-            Left = 265
+            Left = 281
             Top = 73
             Width = 54
             Height = 13
@@ -948,7 +948,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             Caption = 'Dt. Entrada'
           end
           object Label22: TLabel
-            Left = 14
+            Left = 30
             Top = 53
             Width = 57
             Height = 13
@@ -956,7 +956,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             Caption = 'Fornecedor:'
           end
           object SpeedButton1: TSpeedButton
-            Left = 413
+            Left = 429
             Top = 44
             Width = 23
             Height = 22
@@ -1006,7 +1006,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             OnClick = SpeedButton1Click
           end
           object Label1: TLabel
-            Left = 43
+            Left = 59
             Top = 33
             Width = 27
             Height = 13
@@ -1020,7 +1020,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             ParentFont = False
           end
           object Label3: TLabel
-            Left = 168
+            Left = 184
             Top = 33
             Width = 38
             Height = 13
@@ -1034,15 +1034,29 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             ParentFont = False
           end
           object Label7: TLabel
-            Left = 22
+            Left = 38
             Top = 14
             Width = 47
             Height = 13
             Alignment = taRightJustify
             Caption = 'Tipo Doc:'
           end
+          object Label21: TLabel
+            Left = 14
+            Top = 91
+            Width = 72
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Chave Acesso:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+          end
           object rxcbTipo_Prazo: TRxDBComboBox
-            Left = 656
+            Left = 672
             Top = 43
             Width = 68
             Height = 21
@@ -1058,7 +1072,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
               'A Vista'
               'Nenhum')
             ParentCtl3D = False
-            TabOrder = 6
+            TabOrder = 7
             Values.Strings = (
               'P'
               'V'
@@ -1066,7 +1080,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             Visible = False
           end
           object DBDateEdit1: TDBDateEdit
-            Left = 72
+            Left = 88
             Top = 65
             Width = 90
             Height = 21
@@ -1080,7 +1094,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             StartOfWeek = Sun
           end
           object DBDateEdit2: TDBDateEdit
-            Left = 322
+            Left = 338
             Top = 65
             Width = 90
             Height = 21
@@ -1094,7 +1108,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             StartOfWeek = Sun
           end
           object RxDBLookupCombo3: TRxDBLookupCombo
-            Left = 72
+            Left = 88
             Top = 45
             Width = 340
             Height = 21
@@ -1112,7 +1126,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             OnKeyDown = RxDBLookupCombo3KeyDown
           end
           object DBEdit3: TDBEdit
-            Left = 72
+            Left = 88
             Top = 27
             Width = 88
             Height = 19
@@ -1129,7 +1143,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             TabOrder = 1
           end
           object DBEdit4: TDBEdit
-            Left = 208
+            Left = 224
             Top = 27
             Width = 88
             Height = 19
@@ -1146,7 +1160,7 @@ object frmCadDocEntrada: TfrmCadDocEntrada
             TabOrder = 2
           end
           object RxDBComboBox1: TRxDBComboBox
-            Left = 72
+            Left = 88
             Top = 6
             Width = 226
             Height = 21
@@ -1166,17 +1180,34 @@ object frmCadDocEntrada: TfrmCadDocEntrada
               'NSE'
               'CTE')
           end
+          object DBEdit5: TDBEdit
+            Left = 88
+            Top = 85
+            Width = 429
+            Height = 19
+            Ctl3D = False
+            DataField = 'CHAVE_ACESSO'
+            DataSource = DMCadNotaServico.dsNotaServico
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentCtl3D = False
+            ParentFont = False
+            TabOrder = 6
+          end
         end
         object Panel7: TPanel
           Left = 1
-          Top = 121
-          Width = 979
-          Height = 479
+          Top = 136
+          Width = 987
+          Height = 472
           Align = alClient
           TabOrder = 1
           DesignSize = (
-            979
-            479)
+            987
+            472)
           object RzGroupBox2: TRzGroupBox
             Left = 10
             Top = 6
@@ -2369,8 +2400,8 @@ object frmCadDocEntrada: TfrmCadDocEntrada
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 657
-    Width = 985
+    Top = 665
+    Width = 993
     Height = 19
     Panels = <
       item
