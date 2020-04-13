@@ -5063,7 +5063,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             object btnGerarParcelas: TNxButton
               Left = 372
               Top = 105
-              Width = 26
+              Width = 23
               Height = 30
               Hint = 'Gerar autom'#225'tico os servi'#231'os'
               Enabled = False

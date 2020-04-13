@@ -7,7 +7,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
   object sdsNotaFiscal: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM NOTAFISCAL'#13#10#13#10#13#10#13#10#13#10
+    CommandText = 'SELECT *'#13#10'FROM NOTAFISCAL'#13#10#13#10#13#10#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -601,7 +601,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     ProviderName = 'dspNotaFiscal'
     BeforePost = cdsNotaFiscalBeforePost
     OnNewRecord = cdsNotaFiscalNewRecord
-    Left = 75
+    Left = 76
     Top = 9
     object cdsNotaFiscalID: TIntegerField
       FieldName = 'ID'
@@ -2886,9 +2886,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object sdsNotaFiscal_ParcDTVENCIMENTO: TDateField
       FieldName = 'DTVENCIMENTO'
     end
-    object sdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField
-      FieldName = 'VLR_VENCIMENTO'
-    end
     object sdsNotaFiscal_ParcID_TIPOCOBRANCA: TIntegerField
       FieldName = 'ID_TIPOCOBRANCA'
     end
@@ -2897,6 +2894,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object sdsNotaFiscal_ParcPERC_BASE_COMISSAO: TFloatField
       FieldName = 'PERC_BASE_COMISSAO'
+    end
+    object sdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField
+      FieldName = 'VLR_VENCIMENTO'
     end
   end
   object cdsNotaFiscal_Parc: TClientDataSet
@@ -2923,11 +2923,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       Alignment = taCenter
       DisplayLabel = 'Data Vencimento'
       FieldName = 'DTVENCIMENTO'
-    end
-    object cdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField
-      DisplayLabel = 'Valor Vencimento'
-      FieldName = 'VLR_VENCIMENTO'
-      DisplayFormat = '###,###,##0.00'
     end
     object cdsNotaFiscal_ParcID_TIPOCOBRANCA: TIntegerField
       Alignment = taCenter
@@ -2962,6 +2957,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       ProviderFlags = []
       Size = 40
       Lookup = True
+    end
+    object cdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField
+      FieldName = 'VLR_VENCIMENTO'
     end
   end
   object dsNotaFiscal_Parc: TDataSource

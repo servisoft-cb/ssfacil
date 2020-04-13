@@ -2534,10 +2534,10 @@ begin
     begin
       vVlrFrete := fDMCadNotaFiscal.cdsNotaFiscalVLR_FRETE.AsFloat;
       if fDMCadNotaFiscal.cdsCondPgtoFRETE.AsString = 'P' then
-        vVlrParc_Prim := vVlrParc_Prim + fDMCadNotaFiscal.cdsNotaFiscalVLR_FRETE.AsFloat
+        vVlrParc_Prim := StrToFloat(FormatFloat('0.00',vVlrParc_Prim + fDMCadNotaFiscal.cdsNotaFiscalVLR_FRETE.AsFloat))
       else
       if fDMCadNotaFiscal.cdsCondPgtoFRETE.AsString = 'U' then
-        vVlrParc_Ult := vVlrParc_Ult + fDMCadNotaFiscal.cdsNotaFiscalVLR_FRETE.AsFloat;
+        vVlrParc_Ult := StrToFloat(FormatFloat('0.00',vVlrParc_Ult + fDMCadNotaFiscal.cdsNotaFiscalVLR_FRETE.AsFloat));
     end;
     if fDMCadNotaFiscal.cdsCondPgtoIMPOSTOS.AsString = 'P' then
       vVlrParc_Prim := StrToFloat(FormatFloat('0.00',vVlrParc_Prim + fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat + fDMCadNotaFiscal.cdsNotaFiscalVLR_ICMSSUBST.AsFloat + fDMCadNotaFiscal.cdsNotaFiscalVLR_FCP_ST.AsFloat))

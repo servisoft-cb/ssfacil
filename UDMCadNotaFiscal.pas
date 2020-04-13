@@ -303,14 +303,12 @@ type
     sdsNotaFiscal_ParcID: TIntegerField;
     sdsNotaFiscal_ParcITEM: TIntegerField;
     sdsNotaFiscal_ParcDTVENCIMENTO: TDateField;
-    sdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField;
     sdsNotaFiscal_ParcID_TIPOCOBRANCA: TIntegerField;
     sdsNotaFiscal_ParcID_CONTA: TIntegerField;
     cdsNotaFiscalsdsNotaFiscal_Parc: TDataSetField;
     cdsNotaFiscal_ParcID: TIntegerField;
     cdsNotaFiscal_ParcITEM: TIntegerField;
     cdsNotaFiscal_ParcDTVENCIMENTO: TDateField;
-    cdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField;
     cdsNotaFiscal_ParcID_TIPOCOBRANCA: TIntegerField;
     cdsNotaFiscal_ParcID_CONTA: TIntegerField;
     sdsNotaFiscal_ReboqueID: TIntegerField;
@@ -3142,6 +3140,8 @@ type
     cdsNotaEntradaANP_PRODUTO: TStringField;
     cdsNotaEntradaANP_UF_CONS: TStringField;
     cdsTab_CSTICMSCOD_BENEF: TStringField;
+    sdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField;
+    cdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
@@ -4277,7 +4277,7 @@ begin
     cdsNotaFiscal_ParcDTVENCIMENTO.AsDateTime := fnc_Ajusta_DtVencimento(DayOfWeek(Data),Dia1,Dia2,qParametros_FinQTD_DIAS_MPAG.AsInteger,Data);
   //************
   
-  cdsNotaFiscal_ParcVLR_VENCIMENTO.AsFloat    := Valor;
+  cdsNotaFiscal_ParcVLR_VENCIMENTO.AsFloat    := StrToFloat(FormatFloat('0.00',Valor));
   if ID_TipoCobranca > 0 then
     cdsNotaFiscal_ParcID_TIPOCOBRANCA.AsInteger := ID_TipoCobranca;
   if ID_Conta > 0 then
