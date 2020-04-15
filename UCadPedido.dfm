@@ -25,7 +25,7 @@ object frmCadPedido: TfrmCadPedido
     Top = 0
     Width = 1097
     Height = 679
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -34,7 +34,7 @@ object frmCadPedido: TfrmCadPedido
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -2469,7 +2469,7 @@ object frmCadPedido: TfrmCadPedido
             WidthOfIndicator = 11
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 51
+            ColCount = 53
             RowCount = 2
             Columns = <
               item
@@ -2593,6 +2593,13 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'QTD'
                 Title.Alignment = taCenter
                 Width = 83
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD_ESTOQUE_RES'
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Reserva'
                 Visible = True
               end
               item
@@ -2827,6 +2834,13 @@ object frmCadPedido: TfrmCadPedido
                 Title.Alignment = taCenter
                 Title.Caption = 'Drawback'
                 Width = 64
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'ID_PEDIDO_RESERVA'
+                Title.Alignment = taCenter
+                Title.Caption = 'ID Ped. Reserva'
                 Visible = True
               end>
           end

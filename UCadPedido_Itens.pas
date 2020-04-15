@@ -248,6 +248,7 @@ type
     vVlrProd_Ant: Real;
     vPreco_Ori: Real;
     vUnidade_Ant: String;
+    //vQtd_Reserva : Real;
 
     vVlrTotal_Ant: Real;
     vPerc_IPI_Ant: Real;
@@ -297,7 +298,7 @@ var
 implementation
 
 uses rsDBUtils, USel_Produto, uUtilPadrao, UDMUtil, USel_TabPreco, UMenu, USel_Unidade, Math, USenha, uCalculo_Pedido,
-  UCadPedido_Itens_Serv, UCadPedido_ItensCli, uGrava_Pedido;
+  UCadPedido_Itens_Serv, UCadPedido_ItensCli, uGrava_Pedido, UQtdReserva;
 
 {$R *.dfm}
 
@@ -317,6 +318,12 @@ var
   vCODCFOP_Aux: String;
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadPedido);
+  //14/04/2020
+  //vQtd_Reserva := 0;
+  //if (fDMCadPedido.qParametros_PedUSA_RESERVA_EST.asstr = 'S') and (fDMCadPedido.cdsPedido_Itens.State in [dsEdit]) then
+  //  vQtd_Reserva := fDMCadPedido.cdsPedido_ItensQTD_ESTOQUE_RES.AsFloat;
+  //**************
+
   //fDMCadPedido.prc_Abrir_Produto;
   vPreco_Pos := 0;
   //Tamanhos
@@ -1312,6 +1319,26 @@ begin
     //***********
     if fDMCadPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S' then
       prc_Calcular_Lucratividade(fDMCadPedido,'V');
+
+    //14/04/2020
+    if (fDMCadPedido.qParametros_PedUSA_RESERVA_EST.AsString = 'S') and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_ESTOQUE_RES.AsFloat)) <= 0) then
+    begin
+      vQtdAux := StrToFloat(lblEstoque.Caption);
+      if (vQtdAux > 0) and (MessageDlg('Deseja fazer a reserva?',mtConfirmation,[mbYes,mbNo],0) <> mrYes) then
+        vQtdAux := StrToFloat(FormatFloat('0',0));
+      if StrToFloat(FormatFloat('0.0000',vQtdAux)) > 0 then
+      begin
+        frmQtdReserva := TfrmQtdReserva.Create(self);
+        frmQtdReserva.vQtdReserva         := -1;
+        frmQtdReserva.CurrencyEdit1.Value := vQtdAux;
+        frmQtdReserva.CurrencyEdit2.Value := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_ESTOQUE_RES.AsFloat));
+        frmQtdReserva.ShowModal;
+        if frmQtdReserva.vQtdReserva > 0 then
+          fDMCadPedido.cdsPedido_ItensQTD_ESTOQUE_RES.AsFloat := StrToFloat(FormatFloat('0.0000',frmQtdReserva.vQtdReserva));
+        FreeAndNil(frmQtdReserva);
+      end;  
+    end;
+    //********************
 
     fDMCadPedido.cdsPedido_Itens.Post;
 

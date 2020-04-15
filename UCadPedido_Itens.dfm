@@ -451,7 +451,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
     TabOrder = 5
     OnEnter = Panel2Enter
     object Label4: TLabel
-      Left = 52
+      Left = 53
       Top = 11
       Width = 58
       Height = 13
@@ -459,7 +459,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'Quantidade:'
     end
     object Label7: TLabel
-      Left = 56
+      Left = 57
       Top = 29
       Width = 54
       Height = 13
@@ -467,7 +467,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'Vlr.Unit'#225'rio:'
     end
     object Label8: TLabel
-      Left = 68
+      Left = 69
       Top = 87
       Width = 42
       Height = 13
@@ -475,7 +475,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'Vlr.Total:'
     end
     object Label13: TLabel
-      Left = 53
+      Left = 54
       Top = 49
       Width = 57
       Height = 13
@@ -483,7 +483,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'Dt. Entrega:'
     end
     object Label10: TLabel
-      Left = 37
+      Left = 38
       Top = 105
       Width = 73
       Height = 13
@@ -491,7 +491,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'OS / Remessa:'
     end
     object lblTamanho: TLabel
-      Left = 229
+      Left = 230
       Top = 11
       Width = 48
       Height = 13
@@ -500,7 +500,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Visible = False
     end
     object Label25: TLabel
-      Left = 69
+      Left = 70
       Top = 141
       Width = 41
       Height = 13
@@ -508,7 +508,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'Carimbo:'
     end
     object Label26: TLabel
-      Left = 44
+      Left = 45
       Top = 69
       Width = 66
       Height = 13
@@ -516,7 +516,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'Dt. Produ'#231#227'o:'
     end
     object Label28: TLabel
-      Left = 378
+      Left = 379
       Top = 105
       Width = 71
       Height = 13
@@ -524,7 +524,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'N'#186' Lote/Tal'#227'o:'
     end
     object Label33: TLabel
-      Left = 68
+      Left = 69
       Top = 179
       Width = 42
       Height = 13
@@ -538,7 +538,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       ParentFont = False
     end
     object Label48: TLabel
-      Left = 43
+      Left = 44
       Top = 197
       Width = 67
       Height = 13
@@ -546,7 +546,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'OBS Etiqueta:'
     end
     object Label23: TLabel
-      Left = 67
+      Left = 68
       Top = 159
       Width = 43
       Height = 13
@@ -554,7 +554,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'Caixinha:'
     end
     object Label24: TLabel
-      Left = 72
+      Left = 73
       Top = 123
       Width = 38
       Height = 13
@@ -562,7 +562,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Caption = 'F'#225'brica:'
     end
     object dbedtQtd: TDBEdit
-      Left = 111
+      Left = 112
       Top = 5
       Width = 115
       Height = 19
@@ -575,7 +575,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       OnExit = dbedtQtdExit
     end
     object DBDateEdit1: TDBDateEdit
-      Left = 111
+      Left = 112
       Top = 41
       Width = 115
       Height = 21
@@ -589,7 +589,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       OnExit = DBDateEdit1Exit
     end
     object DBEdit1: TDBEdit
-      Left = 111
+      Left = 112
       Top = 99
       Width = 226
       Height = 19
@@ -605,10 +605,10 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Top = 265
       Width = 771
       Height = 146
-      ActivePage = TabSheet1
+      ActivePage = TabSheet2
       ActivePageDefault = TabSheet1
       Align = alBottom
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 13
       FixedDimension = 19
       object TabSheet1: TRzTabSheet
@@ -1075,7 +1075,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       end
     end
     object btnTab_Preco: TBitBtn
-      Left = 450
+      Left = 451
       Top = 7
       Width = 100
       Height = 25
@@ -1119,7 +1119,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
         FFFFFFFFFF3F3F00404040FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
     end
     object btnGrade: TNxButton
-      Left = 226
+      Left = 227
       Top = 5
       Width = 142
       Height = 25
@@ -1256,7 +1256,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       end
       object Label29: TLabel
         Left = 12
-        Top = 223
+        Top = 215
         Width = 73
         Height = 13
         Alignment = taRightJustify
@@ -1333,7 +1333,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       end
       object Label32: TLabel
         Left = 26
-        Top = 240
+        Top = 232
         Width = 59
         Height = 13
         Caption = '% Comiss'#227'o:'
@@ -1420,7 +1420,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       end
       object DBEdit12: TDBEdit
         Left = 89
-        Top = 216
+        Top = 208
         Width = 82
         Height = 19
         DataField = 'ITEM_CLIENTE'
@@ -1459,7 +1459,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       end
       object DBEdit13: TDBEdit
         Left = 89
-        Top = 234
+        Top = 226
         Width = 82
         Height = 19
         DataField = 'PERC_COMISSAO'
@@ -1532,7 +1532,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       end
     end
     object dblcTamanho: TRxDBLookupCombo
-      Left = 278
+      Left = 279
       Top = 7
       Width = 115
       Height = 21
@@ -1548,7 +1548,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Visible = False
     end
     object DBEdit9: TDBEdit
-      Left = 111
+      Left = 112
       Top = 135
       Width = 435
       Height = 19
@@ -1560,7 +1560,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       TabOrder = 10
     end
     object DBDateEdit4: TDBDateEdit
-      Left = 111
+      Left = 112
       Top = 61
       Width = 115
       Height = 21
@@ -1573,7 +1573,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       StartOfWeek = Sun
     end
     object DBEdit11: TDBEdit
-      Left = 452
+      Left = 453
       Top = 99
       Width = 94
       Height = 19
@@ -1584,7 +1584,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       TabOrder = 9
     end
     object RxDBLookupCombo9: TRxDBLookupCombo
-      Left = 111
+      Left = 112
       Top = 171
       Width = 435
       Height = 21
@@ -1606,7 +1606,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       TabOrder = 12
     end
     object gbxDesconto: TRzGroupBox
-      Left = 362
+      Left = 363
       Top = 33
       Width = 187
       Height = 61
@@ -1711,7 +1711,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       end
     end
     object DBEdit24: TDBEdit
-      Left = 111
+      Left = 112
       Top = 191
       Width = 435
       Height = 19
@@ -1723,7 +1723,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       TabOrder = 16
     end
     object dbedtVlrTotal: TDBEdit
-      Left = 111
+      Left = 112
       Top = 81
       Width = 115
       Height = 19
@@ -1735,7 +1735,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       TabOrder = 17
     end
     object dbedtVlrUnitario: TDBEdit
-      Left = 111
+      Left = 112
       Top = 23
       Width = 115
       Height = 19
@@ -1747,7 +1747,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       OnExit = dbedtVlrUnitarioExit
     end
     object btnProdCliente: TNxButton
-      Left = 413
+      Left = 414
       Top = 216
       Width = 131
       Height = 25
@@ -1768,7 +1768,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       OnClick = btnProdClienteClick
     end
     object DBEdit6: TDBEdit
-      Left = 111
+      Left = 112
       Top = 153
       Width = 435
       Height = 19
@@ -1780,7 +1780,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       TabOrder = 11
     end
     object DBEdit8: TDBEdit
-      Left = 111
+      Left = 112
       Top = 117
       Width = 115
       Height = 19

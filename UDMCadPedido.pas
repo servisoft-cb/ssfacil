@@ -3741,6 +3741,11 @@ type
     cdsPedidoImp_ItensVLR_UNITARIO_IPI: TFloatField;
     cdsTab_NCMPERC_ICMS: TFloatField;
     qParametros_PedUSA_RESERVA_EST: TStringField;
+    sdsPedido_ItensID_PEDIDO_RESERVA: TIntegerField;
+    sdsPedido_ItensQTD_ESTOQUE_RES: TFloatField;
+    cdsPedido_ItensID_PEDIDO_RESERVA: TIntegerField;
+    cdsPedido_ItensQTD_ESTOQUE_RES: TFloatField;
+    sdsprc_Grava_Pedido_Res: TSQLDataSet;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -3829,7 +3834,6 @@ type
     //*********
 
     procedure prc_Localizar(ID: Integer);
-    //procedure prc_Inserir;  foi colocado para o UGrava_Pedido
 
     procedure prc_Inserir_Itens;
 
@@ -3873,23 +3877,6 @@ uses DmdDatabase, uUtilPadrao, LogProvider, uCalculo_Pedido, UDMAprovacao_Ped, S
 {$R *.dfm}
 
 { TDMCadCFOP}
-
-{procedure TDMCadPedido.prc_Inserir;
-var
-  vAux: Integer;
-  vNumAux: Integer;
-begin
-  if not cdsPedido.Active then
-    prc_Localizar(-1);
-  vAux := dmDatabase.ProximaSequencia('PEDIDO',0);
-
-  mSenha.EmptyDataSet;
-
-  cdsPedido.Insert;
-  cdsPedidoID.AsInteger         := vAux;
-  cdsPedidoFILIAL.AsInteger     := vFilial;
-  cdsPedidoDTEMISSAO.AsDateTime := Date;
-end;}
 
 procedure TDMCadPedido.prc_Localizar(ID: Integer); //-1 é para inclusão
 begin

@@ -656,6 +656,7 @@ var
   vAux: Real;
   vID_LocalAux: Integer;
 begin
+  vFilial := fDMCadPedido.cdsPedidoFILIAL.AsInteger;
   //Alerta valores em atraso 11/05/2015
   if (fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger <= 0) and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString <> 'S') then
   begin
@@ -720,6 +721,16 @@ begin
     MessageDlg(fDMCadPedido.vMSGErro, mtError, [mbOk], 0);
     Exit;
   end;
+  //15/04/2020
+  if fDMCadPedido.qParametros_PedUSA_RESERVA_EST.AsString = 'S' then
+  begin
+    fDMCadPedido.sdsprc_Grava_Pedido_Res.Close;
+    fDMCadPedido.sdsprc_Grava_Pedido_Res.ParamByName('P_ID_PEDIDO').AsInteger := vIDAux;
+    fDMCadPedido.sdsprc_Grava_Pedido_Res.ParamByName('P_FILIAL').AsInteger    := vFilial;
+    fDMCadPedido.sdsprc_Grava_Pedido_Res.ExecSQL;
+  end;
+  //***********************
+
   //23/06/2018 Supercrom
   if fDMCadPedido.qParametros_PedUSAR_COPIA_OS.AsString = 'S' then
   begin
@@ -905,6 +916,8 @@ begin
     end;
     if (SMDBGrid2.Columns[i].FieldName = 'FABRICA') then
       SMDBGrid2.Columns[i].Visible := (fDMCadPedido.qParametros_PedUSA_FABRICA.AsString = 'S');
+    if (SMDBGrid2.Columns[i].FieldName = 'QTD_ESTOQUE_RES') then
+      SMDBGrid2.Columns[i].Visible := (fDMCadPedido.qParametros_PedUSA_RESERVA_EST.AsString = 'S');
     if (SMDBGrid2.Columns[i].FieldName = 'DRAWBACK') then
       SMDBGrid2.Columns[i].Visible := (fDMCadPedido.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S');
     if (lblNaoMostrarPreco.Visible) then

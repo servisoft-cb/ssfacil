@@ -7,7 +7,7 @@ object DMCadPedido: TDMCadPedido
   object sdsPedido: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM PEDIDO'#13#10#13#10#13#10#13#10#13#10#13#10#13#10
+    CommandText = 'SELECT *'#13#10'FROM PEDIDO'#13#10#13#10#13#10#13#10#13#10#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -3317,6 +3317,12 @@ object DMCadPedido: TDMCadPedido
     object sdsPedido_ItensVLR_UNITARIO_IPI: TFloatField
       FieldName = 'VLR_UNITARIO_IPI'
     end
+    object sdsPedido_ItensID_PEDIDO_RESERVA: TIntegerField
+      FieldName = 'ID_PEDIDO_RESERVA'
+    end
+    object sdsPedido_ItensQTD_ESTOQUE_RES: TFloatField
+      FieldName = 'QTD_ESTOQUE_RES'
+    end
   end
   object cdsPedido_Itens: TClientDataSet
     Aggregates = <>
@@ -3965,6 +3971,12 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedido_ItensVLR_UNITARIO_IPI: TFloatField
       FieldName = 'VLR_UNITARIO_IPI'
+    end
+    object cdsPedido_ItensID_PEDIDO_RESERVA: TIntegerField
+      FieldName = 'ID_PEDIDO_RESERVA'
+    end
+    object cdsPedido_ItensQTD_ESTOQUE_RES: TFloatField
+      FieldName = 'QTD_ESTOQUE_RES'
     end
   end
   object dsPedido_Itens: TDataSource
@@ -19498,5 +19510,26 @@ object DMCadPedido: TDMCadPedido
     object cdsCloneItemMEDIDA: TStringField
       FieldName = 'MEDIDA'
     end
+  end
+  object sdsprc_Grava_Pedido_Res: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'PRC_GRAVA_PEDIDO_RES'
+    CommandType = ctStoredProc
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'P_ID_PEDIDO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'P_FILIAL'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 1151
+    Top = 22
   end
 end
