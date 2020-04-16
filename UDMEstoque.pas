@@ -137,6 +137,10 @@ type
     cdsProduto_CorID: TIntegerField;
     cdsProduto_CorID_COR_COMBINACAO: TIntegerField;
     cdsProduto_CorNOME_COMBINACAO: TStringField;
+    qParametros_EstUSA_PRODUTO_EST: TStringField;
+    qProdutoID_PRODUTO_EST: TIntegerField;
+    sdsEstoque_MovID_PRODUTO_ORIG: TIntegerField;
+    cdsEstoque_MovID_PRODUTO_ORIG: TIntegerField;
     procedure cdsEstoque_MovReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
@@ -240,6 +244,7 @@ function TDMEstoque.fnc_Gravar_Estoque(ID_Estoque, ID_Filial, ID_Local_Estoque, 
 var
   vAux: Integer;
   vQtdAux: Real;
+  ID_Produto_Orig : Integer;
 begin
   Result := 0;
 
@@ -255,6 +260,19 @@ begin
     vAux := dmDatabase.ProximaSequencia('ESTOQUE_MOV',0);
     if not(cdsEstoque_Mov.Active)  then
       prc_Abrir_Estoque_Mov(0);
+  end;
+
+  ID_Produto_Orig := 0;
+  if (qParametros_EstUSA_PRODUTO_EST.AsString = 'S') then
+  begin
+    qProduto.Close;
+    qProduto.ParamByName('ID').AsInteger := ID_Produto;
+    qProduto.Open;
+    if qProdutoID_PRODUTO_EST.AsInteger > 0 then
+    begin
+      ID_Produto_Orig := ID_Produto;
+      ID_Produto      := qProdutoID_PRODUTO_EST.AsInteger;
+    end;
   end;
 
   //08/07/2014  -  Foi incluido devido a quantidade com unidade diferente (quantidade pacote)
@@ -355,6 +373,11 @@ begin
       cdsEstoque_MovID_OPERACAO.AsInteger := ID_Operacao;
     //*******************************
 
+    if ID_Produto_Orig > 0 then
+      cdsEstoque_MovID_PRODUTO_ORIG.AsInteger := ID_Produto_Orig
+    else
+      cdsEstoque_MovID_PRODUTO_ORIG.Clear;
+
     cdsEstoque_Mov.Post;
     cdsEstoque_Mov.ApplyUpdates(0);
     Result := vAux;
@@ -412,6 +435,7 @@ var
   aIndices: array of string;
 begin
   ctqEstoque := qEstoque.SQL.Text;
+  qParametros_Est.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do

@@ -1995,6 +1995,9 @@ type
     cdsProduto_AdicionalclNome_Produto: TStringField;
     cdsProduto_AdicionalclPreco_Venda: TFloatField;
     qProdPRECO_VENDA: TFloatField;
+    sdsProdutoID_PRODUTO_EST: TIntegerField;
+    cdsProdutoID_PRODUTO_EST: TIntegerField;
+    qParametros_EstUSA_PRODUTO_EST: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;

@@ -819,6 +819,11 @@ type
     DBEdit164: TDBEdit;
     Label261: TLabel;
     RxDBComboBox13: TRxDBComboBox;
+    pnlProduto_Est: TPanel;
+    Label262: TLabel;
+    Label263: TLabel;
+    DBEdit165: TDBEdit;
+    edtProduto_Est: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -1042,6 +1047,9 @@ type
       Shift: TShiftState);
     procedure Excel1Click(Sender: TObject);
     procedure abeladePreo1Click(Sender: TObject);
+    procedure DBEdit165KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure DBEdit165Exit(Sender: TObject);
   private
     { Private declarations }
     fDMCadProduto: TDMCadProduto;
@@ -1149,6 +1157,8 @@ type
     procedure prcScroll(DataSet: TDataSet);
 
     procedure prc_CriaExcel(vDados: TDataSource);
+
+    function fnc_Mostra_Nome_Prod(ID : Integer) : String;    
 
   public
     { Public declarations }
@@ -1975,6 +1985,11 @@ begin
 
   dbckbCalcular_ST.Visible := (fDMCadProduto.qParametros_ProdCONTROLAR_PROD_ST.AsString = 'S');
 
+  edtProduto_Est.Text := '';
+  pnlProduto_Est.Visible := (fDMCadProduto.qParametros_EstUSA_PRODUTO_EST.AsString = 'S');
+  if (fDMCadProduto.qParametros_EstUSA_PRODUTO_EST.AsString = 'S') then
+    edtProduto_Est.Text := fnc_Mostra_Nome_Prod(fDMCadProduto.cdsProdutoID_PRODUTO_EST.AsInteger);
+
   prc_le_Grid(SMDBGrid1, Name, fDMCadProduto.qParametros_GeralENDGRIDS.AsString);
 end;
 
@@ -2502,6 +2517,10 @@ begin
     end
     else
       Label73.Caption := FormatFloat('###,###,##0.####',0);
+
+    edtProduto_Est.Text := '';
+    if (fDMCadProduto.qParametros_EstUSA_PRODUTO_EST.AsString = 'S') then
+      edtProduto_Est.Text := fnc_Mostra_Nome_Prod(fDMCadProduto.cdsProdutoID_PRODUTO_EST.AsInteger);
 
     prc_Consultar_Estoque_Lote(fDMCadProduto.cdsProdutoID.AsInteger);
     if (vEstoqueLoteTotal > 0) then
@@ -3248,6 +3267,7 @@ begin
   DBEdit59.ReadOnly          := not(DBEdit59.ReadOnly);
   RzGroupBox1.Enabled        := not(RzGroupBox1.Enabled);
   Panel11.Enabled            := not(Panel11.Enabled);
+  pnlProduto_Est.Enabled     := not(pnlProduto_Est.Enabled);
 
   btnConfirmar_Corrugado.Enabled := not(btnConfirmar_Corrugado.Enabled);
   btnAlterar_Corrugado.Enabled   := not(btnAlterar_Corrugado.Enabled);
@@ -6535,6 +6555,48 @@ begin
     Exit;
   end;
   fDMCadProduto.frxReport1.ShowReport;
+end;
+
+procedure TfrmCadProduto.DBEdit165KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_F2) and (fDMCadProduto.cdsProduto.State in [dsEdit,dsInsert]) then
+  begin
+    vCodProduto_Pos := fDMCadProduto.cdsProdutoID_PRODUTO_EST.AsInteger;
+    frmSel_Produto  := TfrmSel_Produto.Create(Self);
+    frmSel_Produto.vTipo_Prod := 'A';
+    frmSel_Produto.ShowModal;
+    fDMCadProduto.cdsProdutoID_PRODUTO_EST.AsInteger := vCodProduto_Pos;
+    edtProduto_Est.Text := fnc_Mostra_Nome_Prod(fDMCadProduto.cdsProdutoID_PRODUTO_EST.AsInteger);
+  end;
+
+end;
+
+function TfrmCadProduto.fnc_Mostra_Nome_Prod(ID: Integer): String;
+begin
+  Result := '';
+  if ID <= 0 then
+    exit;
+  fDMCadProduto.qProd.Close;
+  fDMCadProduto.qProd.ParamByName('ID').AsInteger := ID;
+  fDMCadProduto.qProd.Open;
+  Result := fDMCadProduto.qProdNOME.AsString;
+end;
+
+procedure TfrmCadProduto.DBEdit165Exit(Sender: TObject);
+begin
+  if fDMCadProduto.cdsProdutoID_PRODUTO_EST.AsInteger <= 0 then
+    edtProduto_Est.Clear
+  else
+  begin
+    edtProduto_Est.Text := fnc_Mostra_Nome_Prod(fDMCadProduto.cdsProdutoID_PRODUTO_EST.AsInteger);
+    if trim(edtProduto_Est.Text) = '' then
+    begin
+      MessageDlg('*** Produto não encontrado!', mtError, [mbOk], 0);
+      DBEdit165.SetFocus;
+      exit;
+    end;
+  end;
 end;
 
 end.

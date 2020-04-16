@@ -497,6 +497,9 @@ object dmCadProduto: TdmCadProduto
       FieldName = 'TIPO_PRODUTO'
       Size = 4
     end
+    object sdsProdutoID_PRODUTO_EST: TIntegerField
+      FieldName = 'ID_PRODUTO_EST'
+    end
   end
   object dspProduto: TDataSetProvider
     DataSet = sdsProduto
@@ -515,7 +518,7 @@ object dmCadProduto: TdmCadProduto
     OnCalcFields = cdsProdutoCalcFields
     OnNewRecord = cdsProdutoNewRecord
     OnReconcileError = cdsProdutoReconcileError
-    Left = 114
+    Left = 116
     Top = 3
     object cdsProdutoID: TIntegerField
       Alignment = taCenter
@@ -1055,6 +1058,9 @@ object dmCadProduto: TdmCadProduto
     object cdsProdutoTIPO_PRODUTO: TStringField
       FieldName = 'TIPO_PRODUTO'
       Size = 4
+    end
+    object cdsProdutoID_PRODUTO_EST: TIntegerField
+      FieldName = 'ID_PRODUTO_EST'
     end
   end
   object dsProduto: TDataSource
@@ -6779,6 +6785,11 @@ object dmCadProduto: TdmCadProduto
       FixedChar = True
       Size = 1
     end
+    object qParametros_EstUSA_PRODUTO_EST: TStringField
+      FieldName = 'USA_PRODUTO_EST'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qCest: TSQLQuery
     MaxBlobSize = -1
@@ -6923,7 +6934,7 @@ object dmCadProduto: TdmCadProduto
       'SELECT *'
       'FROM PARAMETROS_PROD')
     SQLConnection = dmDatabase.scoDados
-    Left = 1130
+    Left = 1132
     Top = 360
     object qParametros_ProdUSA_PRODUTO_FILIAL: TStringField
       FieldName = 'USA_PRODUTO_FILIAL'

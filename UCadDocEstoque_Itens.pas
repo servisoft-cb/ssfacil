@@ -203,6 +203,13 @@ begin
       exit;
 
   fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsFloat := fDMCadDocEstoque.cdsProdutoPRECO_CUSTO.AsFloat;
+  if fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString = 'S' then
+  begin
+    if (fDMCadDocEstoque.qParametros_EstUSA_PRECO_VENDA_SAIDA.AsString = 'A') or
+       ((fDMCadDocEstoque.qParametros_EstUSA_PRECO_VENDA_SAIDA.AsString = 'P') and ((fDMCadDocEstoque.cdsProdutoTIPO_REG.AsString = 'P') or (fDMCadDocEstoque.cdsProdutoTIPO_REG.AsString = 'S'))) or
+       ((fDMCadDocEstoque.qParametros_EstUSA_PRECO_VENDA_SAIDA.AsString = 'M') and (fDMCadDocEstoque.cdsProdutoTIPO_REG.AsString = 'M')) then
+      fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsFloat := fDMCadDocEstoque.cdsProdutoPRECO_VENDA.AsFloat;
+  end;
 
   fDMCadDocEstoque.cdsDocEstoque_ItensUNIDADE.AsString     := fDMCadDocEstoque.cdsProdutoUNIDADE.AsString;
 
@@ -262,6 +269,9 @@ begin
     vEditar := False;
 
   vFlagErro := False;
+
+  if StrToFloat(FormatFloat('0.0000',fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsFloat)) <= 0 then
+    fDMCadDocEstoque.cdsDocEstoque_ItensGERAR_CUSTO.AsString := 'N';
 
   //Controle do estoque  14/06/2016
   if (fDMCadDocEstoque.qParametrosCONTROLAR_ESTOQUE_SAIDA.AsString = 'S') and (fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString = 'S') then
@@ -372,7 +382,8 @@ begin
   if (StrToFloat(FormatFloat('0.00000',fDMCadDocEstoque.cdsDocEstoque_ItensQTD.AsFloat)) <= 0) then
     vMsgErro := vMsgErro + #13 + '*** Quantidade não informada!';
 
-  if (StrToFloat(FormatFloat('0.0000',fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsFloat)) <= 0) and (fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString = 'E') then
+  if (trim(fDMCadDocEstoque.qParametros_EstACEITAR_DOC_SEM_VLR.AsString) <> 'S') and
+     (StrToFloat(FormatFloat('0.0000',fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsFloat)) <= 0) and (fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString = 'E') then
     vMsgErro := vMsgErro + #13 + '*** Valor não informado!';
   //Aqui tamanho
   if not(ckPermiteGrade.Visible) or ((ckPermiteGrade.Visible) and not(ckPermiteGrade.Checked)) then

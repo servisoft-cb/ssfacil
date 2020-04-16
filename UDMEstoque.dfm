@@ -142,6 +142,9 @@ object DMEstoque: TDMEstoque
     object sdsEstoque_MovESPESSURA: TFloatField
       FieldName = 'ESPESSURA'
     end
+    object sdsEstoque_MovID_PRODUTO_ORIG: TIntegerField
+      FieldName = 'ID_PRODUTO_ORIG'
+    end
   end
   object dspEstoque_Mov: TDataSetProvider
     DataSet = sdsEstoque_Mov
@@ -280,6 +283,9 @@ object DMEstoque: TDMEstoque
     object cdsEstoque_MovESPESSURA: TFloatField
       FieldName = 'ESPESSURA'
     end
+    object cdsEstoque_MovID_PRODUTO_ORIG: TIntegerField
+      FieldName = 'ID_PRODUTO_ORIG'
+    end
   end
   object dsEstoque_Mov: TDataSource
     DataSet = cdsEstoque_Mov
@@ -316,7 +322,7 @@ object DMEstoque: TDMEstoque
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT UNIDADE'
+      'SELECT UNIDADE, ID_PRODUTO_EST'
       'FROM PRODUTO'
       'WHERE ID = :ID')
     SQLConnection = dmDatabase.scoDados
@@ -325,6 +331,9 @@ object DMEstoque: TDMEstoque
     object qProdutoUNIDADE: TStringField
       FieldName = 'UNIDADE'
       Size = 3
+    end
+    object qProdutoID_PRODUTO_EST: TIntegerField
+      FieldName = 'ID_PRODUTO_EST'
     end
   end
   object qEstoqueAtual: TSQLQuery
@@ -421,14 +430,19 @@ object DMEstoque: TDMEstoque
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT USA_ESTOQUE_GERAL_CAD'
+      'SELECT USA_ESTOQUE_GERAL_CAD, USA_PRODUTO_EST'
       'FROM PARAMETROS_EST P'
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 358
-    Top = 48
+    Top = 47
     object qParametros_EstUSA_ESTOQUE_GERAL_CAD: TStringField
       FieldName = 'USA_ESTOQUE_GERAL_CAD'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_EstUSA_PRODUTO_EST: TStringField
+      FieldName = 'USA_PRODUTO_EST'
       FixedChar = True
       Size = 1
     end
