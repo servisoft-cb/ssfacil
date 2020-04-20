@@ -30,7 +30,7 @@ uses
   function fnc_Calcula_DigitoEAN13(Seq_Maxima, Sequencia: Integer; Cod_Principal: String): Integer;
   function fnc_Busca_Estoque2(Filial, ID_PRODUTO, ID_Cor: Integer; Tamanho: String; ID_Local: Integer; ID_Estoque: Integer = 0): Real;
   function fnc_Verificar_Local(Usa_Local_Estoque: String): Integer;
-  function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer ; Usa_Reserva : String = 'N'): Real;
+  function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer ; Usa_Reserva: String = 'N'): Real;
   //function fnc_Buscar_Pedido_Res(CodProduto, ID_Cor, Filial: Integer): Real; //Fepam vai usar
   function fnc_Buscar_Estoque_Res(CodProduto, ID_Cor, Filial: Integer): Real; //Fepam vai usar
 
@@ -63,7 +63,7 @@ uses
   procedure prc_Preencher_Excel2(planilha: Variant;  vDados: TDataSource; Grid :TSMDBGrid);
   function fnc_Max_Codigo(Tabela,Campo: String):Integer;
 
-  function fnc_Ajusta_DtVencimento(Dia_Vecto,Dia1,Dia2,QDias_MPag: Integer ; DtVecto: TDateTime) : TDateTime;
+  function fnc_Ajusta_DtVencimento(Dia_Vecto,Dia1,Dia2,QDias_MPag: Integer ; DtVecto: TDateTime): TDateTime;
 
   function fnc_Busca_CodProduto_Cliente(ID_Produto, ID_Fornecedor, ID_Cor: Integer; Tamanho, Tamanho_Cli: String): String;
   function fnc_Busca_Tam_Material(ID_Produto: Integer; Tamanho: String): String; // aqui pesquisa pelo Produto_Gradenum
@@ -71,7 +71,7 @@ uses
 
   function fnc_Verifica_Tipo_Lote: String;
 
-  procedure prc_Gravar_CProd_ANP(Codigo, Descricao : String);
+  procedure prc_Gravar_CProd_ANP(Codigo, Descricao: String);
 
   function fnc_Converte_Horas(Hora: Real): Real;
   function fnc_Converte_Min_Dec(Hora: Real): Real;
@@ -79,7 +79,7 @@ uses
   function fnc_Diferenca_Horas2(Inicio, Fim: TTime): Real;
   function fnc_Calcula_Intervalo(HrInicial,HrFinal: TTime): Real;
 
-  function fnc_UF_Possui_ST(ID_NCM : Integer ; UF : String) : String;  
+  function fnc_UF_Possui_ST(ID_NCM: Integer ; UF: String): String;  
 
   procedure prc_Soma_Data_Hora_Res(Data: TDateTime ; Hora1: TTime ; Hora2, Total_HoraDia: Real);
 
@@ -88,7 +88,7 @@ uses
 
   function fnc_Estoque_Tipo_Mat(ID_Produto: Integer ; Tipo_ES: string): string;  //E= Entrada  S= Saida
 
-  function fnc_Cliente_Fil_Fat(ID_Cliente , ID_Filial : Integer): Boolean;
+  function fnc_Cliente_Fil_Fat(ID_Cliente , ID_Filial: Integer): Boolean;
 
   function fnc_CNPJCFP_FilialNFeConfig: String;
 
@@ -96,7 +96,7 @@ uses
   function fnc_Somar_Edit(Valores: string): Double;
   function fnc_Verificar_CFOP_Config(ID_CFOP, ID_CSTICMS: Integer): Boolean;
 
-  function fnc_existe_Drawback(ID_Cliente, ID_Produto : Integer) : Boolean;
+  function fnc_existe_Drawback(ID_Cliente, ID_Produto: Integer): Boolean;
 
   //procedure prc_Enviar_Email_Proc(MSG: String);
 
@@ -122,19 +122,19 @@ uses
     AChave -> Chave utilizada para gerar o serial
   }
   procedure addLog(Erro: string; Arquivo: string = '');
-  procedure prc_Form_Aguarde(Form : TForm); overload;
-  procedure prc_Form_Aguarde(Form : TForm; Mensagem : String); overload;
+  procedure prc_Form_Aguarde(Form: TForm); overload;
+  procedure prc_Form_Aguarde(Form: TForm; Mensagem: String); overload;
 
-  function fnc_Selecionar_Filial : Integer;
+  function fnc_Selecionar_Filial: Integer;
 
-  function fnc_Existe_CBenef(Codigo : String) : Boolean;
-  function WinExecAndWait32(FileName: string; Visibility: Integer; Parametro : String): Longword;
+  function fnc_Existe_CBenef(Codigo: String): Boolean;
+  function WinExecAndWait32(FileName: string; Visibility: Integer; Parametro: String): Longword;
 
-  function fnc_Busca_Estoque_Data(Filial, ID_Local, ID_Produto, ID_Cor : Integer ; Tamanho : String ; Data : TDateTime) : Real;
+  function fnc_Busca_Estoque_Data(Filial, ID_Local, ID_Produto, ID_Cor: Integer ; Tamanho: String ; Data: TDateTime): Real;
   procedure Informa(Texto:string) ;
 
 var
-  Enter,Esc,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,Q : Word;
+  Enter,Esc,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,Q: Word;
   vCodProduto_Pos: Integer;
   vCodPessoa_Pos: Integer;
   vCodProcesso_Pos: Integer;
@@ -165,7 +165,7 @@ var
   vUsuario: String;
   vTerminal: Integer; //terminal PDV Cupom
   vPorta: String;
-  vModeloImpressora : string;
+  vModeloImpressora: string;
   vLocalEstoque: Integer; //para Cupom fiscal
   vBalanca: String;
   vPortaBalanca: String;
@@ -215,17 +215,19 @@ var
   vDtHora_Res: String;
   vPrimeira_Hora: TTime;
   vPrimeira_Data: TDate;
-  vDocumentoClienteVenda : String; //Cupom - SSNFCe
-  vCpfOK : Boolean; //Cupom - SSNFCe
-  vCod_CBenef : String;
+  vDocumentoClienteVenda: String; //Cupom - SSNFCe
+  vCpfOK: Boolean; //Cupom - SSNFCe
+  vCod_CBenef: String;
   vConfirma_Fechamento: Boolean;
-  vMargemSuperior : Double;
-  vMargemInferior : Double;
-  vMargemEsquerda : Double;
-  vMargemDireita : Double;
-  vLarguraBobina : Integer;
-  vID_Cupom_Pos : Integer;
-  vSerie_Sel : String;
+  vMargemSuperior: Double;
+  vMargemInferior: Double;
+  vMargemEsquerda: Double;
+  vMargemDireita: Double;
+  vLarguraBobina: Integer;
+  vID_Cupom_Pos: Integer;
+  vSerie_Sel: String;
+  vTipo_Dig_Cupom: String;
+
 
 implementation
 
@@ -870,7 +872,7 @@ begin
     MessageDlg('*** Não existe um local do estoque marcado como principal!' , mtInformation, [mbOk], 0);
 end;
 
-function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer; Usa_Reserva : String = 'N'): Real;
+function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer; Usa_Reserva: String = 'N'): Real;
 var
   sds, sds2: TSQLDataSet;
 begin
@@ -1647,7 +1649,7 @@ begin
 
 end;
 
-function fnc_Ajusta_DtVencimento(Dia_Vecto,Dia1,Dia2,QDias_MPag: Integer ; DtVecto: TDateTime) : TDateTime;
+function fnc_Ajusta_DtVencimento(Dia_Vecto,Dia1,Dia2,QDias_MPag: Integer ; DtVecto: TDateTime): TDateTime;
 var
   vAux: Integer;
 begin
@@ -1891,7 +1893,7 @@ begin
   Result := DateToStr(Data) + 'H' + FormatFloat('00.00',vAux);
 end;}
 
-function fnc_Cliente_Fil_Fat(ID_Cliente , ID_Filial : Integer): Boolean;
+function fnc_Cliente_Fil_Fat(ID_Cliente , ID_Filial: Integer): Boolean;
 var
   sds: TSQLDataSet;
 begin
@@ -2235,7 +2237,7 @@ begin
   end;
 end;
 
-function fnc_UF_Possui_ST(ID_NCM : Integer ; UF : String) : String;
+function fnc_UF_Possui_ST(ID_NCM: Integer ; UF: String): String;
 var
   sds: TSQLDataSet;
 begin
@@ -2257,7 +2259,7 @@ begin
   end;
 end;
 
-function fnc_existe_Drawback(ID_Cliente, ID_Produto : Integer) : Boolean;
+function fnc_existe_Drawback(ID_Cliente, ID_Produto: Integer): Boolean;
 var
   sds: TSQLDataSet;
 begin
@@ -2280,7 +2282,7 @@ begin
   end;
 end;
 
-procedure prc_Form_Aguarde(Form : TForm); overload;
+procedure prc_Form_Aguarde(Form: TForm); overload;
 var
   MSG: Tlabel;
   Borda: TShape;
@@ -2313,7 +2315,7 @@ begin
 
 end;
 
-procedure prc_Form_Aguarde(Form : TForm; Mensagem : String); overload;
+procedure prc_Form_Aguarde(Form: TForm; Mensagem: String); overload;
 var
   MSG: Tlabel;
   Borda: TShape;
@@ -2343,7 +2345,7 @@ begin
   Form.Update;
 end;
 
-function fnc_Selecionar_Filial : Integer;
+function fnc_Selecionar_Filial: Integer;
 var
   sds: TSQLDataSet;
   ffrmEscolhe_Filial: TfrmEscolhe_Filial;
@@ -2382,7 +2384,7 @@ begin
 
 end;
 
-function fnc_Existe_CBenef(Codigo : String) : Boolean;
+function fnc_Existe_CBenef(Codigo: String): Boolean;
 var
   sds: TSQLDataSet;
 begin
@@ -2408,7 +2410,7 @@ begin
 end;
 
 function WinExecAndWait32(FileName: string;
-  Visibility: Integer; Parametro : String): Longword;
+  Visibility: Integer; Parametro: String): Longword;
 var { by Pat Ritchey }
   zAppName: array[0..512] of Char;
   zCurDir: array[0..255] of Char;
@@ -2446,7 +2448,7 @@ begin
   end;
 end;
 
-function fnc_Busca_Estoque_Data(Filial, ID_Local, ID_Produto, ID_Cor : Integer ; Tamanho : String ; Data : TDateTime) : Real;
+function fnc_Busca_Estoque_Data(Filial, ID_Local, ID_Produto, ID_Cor: Integer ; Tamanho: String ; Data: TDateTime): Real;
 var
   sds: TSQLDataSet;
 begin
@@ -2479,7 +2481,7 @@ begin
 
 end;
 
-procedure prc_Gravar_CProd_ANP(Codigo, Descricao : String);
+procedure prc_Gravar_CProd_ANP(Codigo, Descricao: String);
 var
   sds: TSQLDataSet;
 begin
