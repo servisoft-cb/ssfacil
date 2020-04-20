@@ -82,6 +82,14 @@ type
     Etiquetas1: TMenuItem;
     EtiquetaEstoque1: TMenuItem;
     btnCopiarDoc: TNxButton;
+    pnlTransferencia_Filial: TPanel;
+    Label11: TLabel;
+    Label13: TLabel;
+    Label14: TLabel;
+    DBDateEdit3: TDBDateEdit;
+    DBEdit2: TDBEdit;
+    lblBuscaFilial: TLabel;
+    RxDBLookupCombo6: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -139,7 +147,7 @@ type
     procedure prc_Abrir_Pessoa(Tipo: String); //E=Fornecedor  S=Cliente
 
     procedure prc_Calcular_Total;
-    function fnc_Gravar_Estoque(ID_Local_Estoque, ID_Mov_Estoque: Integer ; Tipo_ES: String): Integer;
+    function fnc_Gravar_Estoque(ID_Local_Estoque, ID_Mov_Estoque: Integer ; Tipo_ES: String ; Filial : Integer): Integer;
 
     procedure prc_Opcao_Tela;
 
@@ -226,13 +234,18 @@ begin
     while not fDMCadDocEstoque.cdsDocEstoque_Itens.Eof do
     begin
       fDMCadDocEstoque.cdsDocEstoque_Itens.Edit;
-      vID_Estoque := fnc_Gravar_Estoque(fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger,fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE.AsInteger,fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString);
+      vID_Estoque := fnc_Gravar_Estoque(fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger,
+                     fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE.AsInteger,fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString,fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger);
       fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE.AsInteger := vID_Estoque;
-      if fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'T' then
+      if (fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'T') then
       begin
-        vID_Estoque := fnc_Gravar_Estoque(fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_DESTINO.AsInteger,fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE_DESTINO.AsInteger,'E');
+        if (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') then
+          vID_Estoque := fnc_Gravar_Estoque(fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_DESTINO.AsInteger,fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE_DESTINO.AsInteger,'E',fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger)
+        else
+          vID_Estoque := fnc_Gravar_Estoque(fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_DESTINO.AsInteger,fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE_DESTINO.AsInteger,'E',fDMCadDocEstoque.cdsDocEstoqueFILIAL_DESTINO.AsInteger);
         fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE_DESTINO.AsInteger := vID_Estoque;
       end;
+      
       fDMCadDocEstoque.cdsDocEstoque_ItensTIPO_ES.AsString := fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString;
 
       fDMCadDocEstoque.cdsDocEstoque_Itens.Post;
@@ -325,7 +338,7 @@ begin
       SMDBGrid2.Columns[i].Visible := False;
   end;
 
-  pnlTipo.Visible := (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
+  pnlTipo.Visible := ((fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') or (fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString = 'S'));
   Label10.Visible := (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
   RxDBLookupCombo5.Visible := (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
   SpeedButton3.Visible     := (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
@@ -334,6 +347,14 @@ begin
   else
     pnlTransferencia.Visible := True;
   pnlObs.Visible := True;
+
+  for i := 1 to SMDBGrid1.ColCount - 2 do
+  begin
+    if ((SMDBGrid1.Columns[i].FieldName = 'FILIAL_DESTINO') or
+       (SMDBGrid1.Columns[i].FieldName = 'NOME_FILIAL') or
+       (SMDBGrid1.Columns[i].FieldName = 'NOME_FILIAL_DEST')) and (trim(fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString) <> 'S')  then
+      SMDBGrid1.Columns[i].Visible := False;
+  end;
 end;
 
 procedure TfrmCadDocEstoque.prc_Consultar(ID: Integer);
@@ -604,8 +625,10 @@ end;
 
 procedure TfrmCadDocEstoque.prc_Opcao_Tela;
 begin
-  pnlDocumento.Visible     := fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'D';
-  pnlTransferencia.Visible := fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'T';
+  pnlDocumento.Visible            := fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'D';
+  pnlTransferencia.Visible        := (fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'T') and (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
+  pnlTransferencia_Filial.Visible := (fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'T') and (fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString = 'S');
+  
   pnlObs.Visible           := True;
 end;
 
@@ -613,13 +636,14 @@ procedure TfrmCadDocEstoque.rxcbTipo_RegChange(Sender: TObject);
 begin
   pnlObs.Visible           := False;
   pnlDocumento.Visible     := (rxcbTipo_Reg.ItemIndex = 0) or (rxcbTipo_Reg.ItemIndex = 2);
-  pnlTransferencia.Visible := (rxcbTipo_Reg.ItemIndex = 1);
+  pnlTransferencia.Visible        := (rxcbTipo_Reg.ItemIndex = 1) and (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
+  pnlTransferencia_Filial.Visible := (rxcbTipo_Reg.ItemIndex = 1) and (fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString = 'S');
   pnlObs.Visible           := True;
   Label1.Visible           := (rxcbTipo_Reg.ItemIndex = 0);
   RxDBLookupCombo2.Visible := (rxcbTipo_Reg.ItemIndex = 0);
 end;
 
-function TfrmCadDocEstoque.fnc_Gravar_Estoque(ID_Local_Estoque, ID_Mov_Estoque: Integer ; Tipo_ES: String): Integer;
+function TfrmCadDocEstoque.fnc_Gravar_Estoque(ID_Local_Estoque, ID_Mov_Estoque: Integer ; Tipo_ES: String ; Filial : Integer): Integer;
 var
   vTipoAux: String;
 begin
@@ -631,7 +655,7 @@ begin
   else
     vTipoAux := 'DPR';
   Result := fDMEstoque.fnc_Gravar_Estoque(ID_Mov_Estoque,
-                                          fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger,
+                                          Filial,
                                           ID_Local_Estoque,
                                           fDMCadDocEstoque.cdsDocEstoque_ItensID_PRODUTO.AsInteger,
                                           fDMCadDocEstoque.cdsDocEstoqueID.AsInteger,fDMCadDocEstoque.cdsDocEstoqueID_PESSOA.AsInteger,0,

@@ -13,7 +13,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 128
-    Top = 4
+    Top = 5
     object sdsDocEstoqueID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -72,6 +72,9 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object sdsDocEstoqueNUM_PEDIDO: TIntegerField
       FieldName = 'NUM_PEDIDO'
     end
+    object sdsDocEstoqueFILIAL_DESTINO: TIntegerField
+      FieldName = 'FILIAL_DESTINO'
+    end
   end
   object dspDocEstoque: TDataSetProvider
     DataSet = sdsDocEstoque
@@ -86,7 +89,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
     Params = <>
     ProviderName = 'dspDocEstoque'
     OnNewRecord = cdsDocEstoqueNewRecord
-    Left = 264
+    Left = 259
     Top = 5
     object cdsDocEstoqueID: TIntegerField
       FieldName = 'ID'
@@ -153,6 +156,9 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object cdsDocEstoqueNUM_PEDIDO: TIntegerField
       FieldName = 'NUM_PEDIDO'
+    end
+    object cdsDocEstoqueFILIAL_DESTINO: TIntegerField
+      FieldName = 'FILIAL_DESTINO'
     end
   end
   object dsDocEstoque: TDataSource
@@ -277,7 +283,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
     Params = <>
     OnCalcFields = cdsDocEstoque_ItensCalcFields
     OnNewRecord = cdsDocEstoque_ItensNewRecord
-    Left = 192
+    Left = 193
     Top = 88
     object cdsDocEstoque_ItensID: TIntegerField
       FieldName = 'ID'
@@ -412,22 +418,24 @@ object DMCadDocEstoque: TDMCadDocEstoque
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT DC.* , PES.NOME NOME_PESSOA, PES.endereco endereco_Cli, p' +
-      'es.num_end Num_End_Cli, pes.bairro Bairro_Cli,'#13#10' Pes.cidade Cida' +
-      'de_Cli, pes.uf uf_Cliente, pes.cnpj_cpf CNPJ_CPF_Cli,'#13#10'FIL.ender' +
-      'eco Endereco_Filial, FIL.cnpj_cpf CNPJ_CPF_Filial, FIL.nome NOME' +
-      '_Filial, FIL.num_end Num_End_Filial, FIL.bairro Bairro_Filial,'#13#10 +
-      'FIL.cidade Cidade_Filial, FIL.uf UF_Filial, FIL.cep Cep_Filial, ' +
-      'FN.NOME NOME_FUNCIONARIO, fentr.nome NOME_FUNCIONARIO_ENTR'#13#10'FROM' +
-      ' DOCESTOQUE DC'#13#10'INNER JOIN FILIAL FIL'#13#10'ON DC.FILIAL = FIL.ID'#13#10'LE' +
-      'FT JOIN PESSOA PES'#13#10'ON DC.ID_PESSOA = PES.CODIGO'#13#10'LEFT JOIN FUNC' +
-      'IONARIO FN'#13#10'ON DC.ID_FUNCIONARIO = FN.CODIGO'#13#10'left join funciona' +
-      'rio fentr'#13#10'on dc.id_funcionario = fentr.codigo'#13#10
+      'select DC.*, PES.NOME NOME_PESSOA, PES.ENDERECO ENDERECO_CLI, PE' +
+      'S.NUM_END NUM_END_CLI, PES.BAIRRO BAIRRO_CLI,'#13#10'       PES.CIDADE' +
+      ' CIDADE_CLI, PES.UF UF_CLIENTE, PES.CNPJ_CPF CNPJ_CPF_CLI, FIL.E' +
+      'NDERECO ENDERECO_FILIAL,'#13#10'       FIL.CNPJ_CPF CNPJ_CPF_FILIAL, F' +
+      'IL.NOME NOME_FILIAL, FIL.NUM_END NUM_END_FILIAL, FIL.BAIRRO BAIR' +
+      'RO_FILIAL,'#13#10'       FIL.CIDADE CIDADE_FILIAL, FIL.UF UF_FILIAL, F' +
+      'IL.CEP CEP_FILIAL, FN.NOME NOME_FUNCIONARIO,'#13#10'       FENTR.NOME ' +
+      'NOME_FUNCIONARIO_ENTR, FDEST.NOME_INTERNO NOME_FILIAL_DEST'#13#10'from' +
+      ' DOCESTOQUE DC'#13#10'inner join FILIAL FIL on DC.FILIAL = FIL.ID'#13#10'lef' +
+      't join PESSOA PES on DC.ID_PESSOA = PES.CODIGO'#13#10'left join FUNCIO' +
+      'NARIO FN on DC.ID_FUNCIONARIO = FN.CODIGO'#13#10'left join FUNCIONARIO' +
+      ' FENTR on DC.ID_FUNCIONARIO = FENTR.CODIGO'#13#10'left join FILIAL FDE' +
+      'ST on DC.FILIAL_DESTINO = FDEST.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 472
-    Top = 8
+    Top = 9
   end
   object dspDocEstoque_Consulta: TDataSetProvider
     DataSet = sdsDocEstoque_Consulta
@@ -557,6 +565,13 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object cdsDocEstoque_ConsultaNOME_FUNCIONARIO_ENTR: TStringField
       FieldName = 'NOME_FUNCIONARIO_ENTR'
       Size = 50
+    end
+    object cdsDocEstoque_ConsultaFILIAL_DESTINO: TIntegerField
+      FieldName = 'FILIAL_DESTINO'
+    end
+    object cdsDocEstoque_ConsultaNOME_FILIAL_DEST: TStringField
+      FieldName = 'NOME_FILIAL_DEST'
+      Size = 30
     end
   end
   object dsDocEstoque_Consulta: TDataSource
@@ -1486,7 +1501,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
       'WHERE P.ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 344
-    Top = 448
+    Top = 449
     object qProdutoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1980,7 +1995,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
       
         'P.REQ_NUM_LOTE, P.REQ_NUM_PED, P.controla_doc_saida, USA_ESTOQUE' +
         '_GERAL_CAD,'
-      'P.ACEITAR_DOC_SEM_VLR, USA_PRECO_VENDA_SAIDA'
+      'P.ACEITAR_DOC_SEM_VLR, USA_PRECO_VENDA_SAIDA, USA_TRANSF_FILIAL'
       'FROM PARAMETROS_EST P'
       '')
     SQLConnection = dmDatabase.scoDados
@@ -2028,6 +2043,11 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object qParametros_EstUSA_PRECO_VENDA_SAIDA: TStringField
       FieldName = 'USA_PRECO_VENDA_SAIDA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_EstUSA_TRANSF_FILIAL: TStringField
+      FieldName = 'USA_TRANSF_FILIAL'
       FixedChar = True
       Size = 1
     end

@@ -707,10 +707,10 @@ object frmCadFilial: TfrmCadFilial
         Top = 31
         Width = 1090
         Height = 545
-        ActivePage = TabSheet2
+        ActivePage = TS_Dados
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 11
+        TabIndex = 0
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19

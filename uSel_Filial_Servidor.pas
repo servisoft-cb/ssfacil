@@ -146,6 +146,7 @@ type
   public
     { Public declarations }
     fDMCadFilial: TDMCadFilial;
+    vCopiar : Boolean;
     
   end;
 
@@ -210,7 +211,12 @@ end;
 procedure TfrmSel_Filial_Servidor.SMDBGrid1DblClick(Sender: TObject);
 begin
   if cdsFilialID.AsInteger > 0 then
-    prc_Copiar_Filial;
+  begin
+    if vCopiar then
+      prc_Copiar_Filial
+    else
+      vFilial_Destino := cdsFilialID.AsInteger;
+  end;
   Close;
 end;
 

@@ -76,20 +76,23 @@ object frmCadDocEstoque: TfrmCadDocEstoque
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 8
+        ColCount = 11
         RowCount = 2
         Columns = <
           item
+            Alignment = taCenter
             Expanded = False
             FieldName = 'ID'
-            Width = 82
+            Width = 50
             Visible = True
           end
           item
+            Alignment = taCenter
             Expanded = False
             FieldName = 'TIPO_REG'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Reg.'
+            Width = 37
             Visible = True
           end
           item
@@ -97,31 +100,61 @@ object frmCadDocEstoque: TfrmCadDocEstoque
             FieldName = 'NOME_PESSOA'
             Title.Alignment = taCenter
             Title.Caption = 'Nome Cliente/Fornecedor'
-            Width = 335
+            Width = 241
             Visible = True
           end
           item
+            Alignment = taCenter
             Expanded = False
             FieldName = 'DTMOVIMENTO'
             Width = 89
             Visible = True
           end
           item
+            Alignment = taCenter
             Expanded = False
             FieldName = 'FILIAL'
-            Width = 76
+            Width = 31
             Visible = True
           end
           item
+            Alignment = taCenter
             Expanded = False
             FieldName = 'TIPO_ES'
-            Width = 87
+            Title.Alignment = taCenter
+            Title.Caption = 'Entrada / Sa'#237'da'
+            Width = 48
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VLR_TOTAL'
             Width = 74
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'FILIAL_DESTINO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Filial Destino'
+            Width = 43
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_FILIAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'Filial Origem'
+            Width = 207
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_FILIAL_DEST'
+            Title.Alignment = taCenter
+            Title.Caption = 'Filial Destino'
+            Width = 191
             Visible = True
           end>
       end
@@ -683,7 +716,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
         Height = 30
         Align = alTop
         Color = 8404992
-        TabOrder = 4
+        TabOrder = 5
         object btnAlterar: TNxButton
           Left = 1
           Top = 1
@@ -907,9 +940,9 @@ object frmCadDocEstoque: TfrmCadDocEstoque
       end
       object RzPageControl2: TRzPageControl
         Left = 0
-        Top = 311
+        Top = 339
         Width = 933
-        Height = 304
+        Height = 276
         ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
@@ -919,7 +952,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
         TabIndex = 0
-        TabOrder = 5
+        TabOrder = 6
         FixedDimension = 19
         object RzTabSheet1: TRzTabSheet
           Caption = 'Itens'
@@ -927,7 +960,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
             Left = 0
             Top = 30
             Width = 929
-            Height = 251
+            Height = 223
             Align = alClient
             DataSource = DMCadDocEstoque.dsDocEstoque_Itens
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -1036,7 +1069,6 @@ object frmCadDocEstoque: TfrmCadDocEstoque
               item
                 Expanded = False
                 FieldName = 'ID_MOVESTOQUE'
-                Width = 64
                 Visible = True
               end
               item
@@ -1292,16 +1324,16 @@ object frmCadDocEstoque: TfrmCadDocEstoque
       end
       object pnlObs: TPanel
         Left = 0
-        Top = 234
+        Top = 282
         Width = 933
-        Height = 77
+        Height = 57
         Align = alTop
         Enabled = False
-        TabOrder = 3
+        TabOrder = 4
         Visible = False
         object Label2: TLabel
-          Left = 82
-          Top = 46
+          Left = 75
+          Top = 17
           Width = 22
           Height = 13
           Alignment = taRightJustify
@@ -1311,7 +1343,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
           Left = 105
           Top = 2
           Width = 632
-          Height = 69
+          Height = 52
           DataField = 'OBS'
           DataSource = DMCadDocEstoque.dsDocEstoque
           ScrollBars = ssVertical
@@ -1320,7 +1352,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
       end
       object pnlTransferencia: TPanel
         Left = 0
-        Top = 162
+        Top = 161
         Width = 933
         Height = 72
         Align = alTop
@@ -1464,7 +1496,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
         Left = 0
         Top = 88
         Width = 933
-        Height = 74
+        Height = 73
         Align = alTop
         Enabled = False
         TabOrder = 1
@@ -1727,7 +1759,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
         Align = alTop
         Color = clSilver
         Enabled = False
-        TabOrder = 6
+        TabOrder = 7
         object Label16: TLabel
           Left = 248
           Top = 14
@@ -1769,6 +1801,90 @@ object frmCadDocEstoque: TfrmCadDocEstoque
           DataField = 'ID'
           DataSource = DMCadDocEstoque.dsDocEstoque
           TabOrder = 0
+        end
+      end
+      object pnlTransferencia_Filial: TPanel
+        Left = 0
+        Top = 233
+        Width = 933
+        Height = 49
+        Align = alTop
+        TabOrder = 3
+        Visible = False
+        object Label11: TLabel
+          Left = 78
+          Top = 11
+          Width = 26
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Data:'
+        end
+        object Label13: TLabel
+          Left = 695
+          Top = 11
+          Width = 45
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Vlr. Total:'
+        end
+        object Label14: TLabel
+          Left = 42
+          Top = 33
+          Width = 62
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Filial Destino:'
+        end
+        object lblBuscaFilial: TLabel
+          Left = 207
+          Top = 6
+          Width = 110
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'F2 Busca Filial Servidor'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
+        object DBDateEdit3: TDBDateEdit
+          Left = 105
+          Top = 4
+          Width = 90
+          Height = 21
+          DataField = 'DTMOVIMENTO'
+          DataSource = DMCadDocEstoque.dsDocEstoque
+          NumGlyphs = 2
+          TabOrder = 0
+        end
+        object DBEdit2: TDBEdit
+          Left = 744
+          Top = 3
+          Width = 150
+          Height = 21
+          TabStop = False
+          CharCase = ecUpperCase
+          Color = clSilver
+          DataField = 'VLR_TOTAL'
+          DataSource = DMCadDocEstoque.dsDocEstoque
+          MaxLength = 18
+          ReadOnly = True
+          TabOrder = 1
+        end
+        object RxDBLookupCombo6: TRxDBLookupCombo
+          Left = 105
+          Top = 26
+          Width = 488
+          Height = 21
+          DropDownCount = 15
+          DataField = 'FILIAL_DESTINO'
+          DataSource = DMCadDocEstoque.dsDocEstoque
+          LookupField = 'ID'
+          LookupDisplay = 'NOME_INTERNO;CNPJ_CPF'
+          LookupSource = DMCadDocEstoque.dsFilial
+          TabOrder = 2
         end
       end
     end

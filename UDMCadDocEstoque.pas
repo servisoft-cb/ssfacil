@@ -428,6 +428,11 @@ type
     qParametros_EstUSA_ESTOQUE_GERAL_CAD: TStringField;
     qParametros_EstACEITAR_DOC_SEM_VLR: TStringField;
     qParametros_EstUSA_PRECO_VENDA_SAIDA: TStringField;
+    qParametros_EstUSA_TRANSF_FILIAL: TStringField;
+    sdsDocEstoqueFILIAL_DESTINO: TIntegerField;
+    cdsDocEstoqueFILIAL_DESTINO: TIntegerField;
+    cdsDocEstoque_ConsultaFILIAL_DESTINO: TIntegerField;
+    cdsDocEstoque_ConsultaNOME_FILIAL_DEST: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspDocEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -500,14 +505,25 @@ begin
     cdsDocEstoqueID_LOCAL_DESTINO.Clear;
   if (cdsDocEstoqueTIPO_REG.AsString = 'D') and (qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') and (cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger <= 0) then
     vMsgErro := vMsgErro + #13 + '*** Local do estoque não informado!';
-  if (cdsDocEstoqueTIPO_REG.AsString = 'T') and (cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger = cdsDocEstoqueID_LOCAL_DESTINO.AsInteger) then
-    vMsgErro := vMsgErro + #13 + '*** Local de Origem e Destino estão iguais!';
-  if (cdsDocEstoqueTIPO_REG.AsString = 'T') and (cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger <= 0) then
-    vMsgErro := vMsgErro + #13 + '*** Local de Origem não informado!';
-  if (cdsDocEstoqueTIPO_REG.AsString = 'T') and (cdsDocEstoqueID_LOCAL_DESTINO.AsInteger <= 0) then
-    vMsgErro := vMsgErro + #13 + '*** Local de Destino não informado!';
-  if (cdsDocEstoqueTIPO_REG.AsString <> 'T') and (cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger <= 0) then
-    vMsgErro := vMsgErro + #13 + '*** Local de Estoque não informado!';
+  if (qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') then
+  begin
+    if (cdsDocEstoqueTIPO_REG.AsString = 'T') and (cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger = cdsDocEstoqueID_LOCAL_DESTINO.AsInteger) then
+      vMsgErro := vMsgErro + #13 + '*** Local de Origem e Destino estão iguais!';
+    if (cdsDocEstoqueTIPO_REG.AsString = 'T') and (cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger <= 0) then
+      vMsgErro := vMsgErro + #13 + '*** Local de Origem não informado!';
+    if (cdsDocEstoqueTIPO_REG.AsString = 'T') and (cdsDocEstoqueID_LOCAL_DESTINO.AsInteger <= 0) then
+      vMsgErro := vMsgErro + #13 + '*** Local de Destino não informado!';
+    if (cdsDocEstoqueTIPO_REG.AsString <> 'T') and (cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger <= 0) then
+      vMsgErro := vMsgErro + #13 + '*** Local de Estoque não informado!';
+  end
+  else
+  if (qParametros_EstUSA_TRANSF_FILIAL.AsString = 'S') and (cdsDocEstoqueTIPO_REG.AsString = 'T') then
+  begin
+    if cdsDocEstoqueFILIAL.AsInteger = cdsDocEstoqueFILIAL_DESTINO.AsInteger then
+      vMsgErro := vMsgErro + #13 + '*** Filial Origem e Destino estão iguais!';
+    if cdsDocEstoqueFILIAL_DESTINO.AsInteger <= 0 then
+      vMsgErro := vMsgErro + #13 + '*** Filial Destino não informada!';
+  end;
 
   if trim(vMsgErro) <> '' then
     exit;

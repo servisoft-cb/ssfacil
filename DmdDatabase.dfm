@@ -29,7 +29,7 @@ object dmDatabase: TdmDatabase
       'Trim Char=False')
     VendorLib = 'gds32.dll'
     Left = 47
-    Top = 15
+    Top = 16
   end
   object Decoder64: TIdDecoderMIME
     FillChar = '='
@@ -392,7 +392,7 @@ object dmDatabase: TdmDatabase
       'Interbase TransIsolation=ReadCommited'
       'Trim Char=False')
     VendorLib = 'gds32.dll'
-    Left = 395
+    Left = 394
     Top = 73
   end
 end
