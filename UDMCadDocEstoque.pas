@@ -433,6 +433,22 @@ type
     cdsDocEstoqueFILIAL_DESTINO: TIntegerField;
     cdsDocEstoque_ConsultaFILIAL_DESTINO: TIntegerField;
     cdsDocEstoque_ConsultaNOME_FILIAL_DEST: TStringField;
+    frxDocEstoque_Imp: TfrxDBDataset;
+    frxDocEstoque_Imp_Itens: TfrxDBDataset;
+    cdsDocEstoque_ImpFILIAL_DESTINO: TIntegerField;
+    cdsDocEstoque_ImpNOME_FILIAL_DESTINO: TStringField;
+    sdsDocEstoqueUSUARIO: TStringField;
+    sdsDocEstoqueDTUSUARIO: TDateField;
+    sdsDocEstoqueHRUSUARIO: TTimeField;
+    cdsDocEstoqueUSUARIO: TStringField;
+    cdsDocEstoqueDTUSUARIO: TDateField;
+    cdsDocEstoqueHRUSUARIO: TTimeField;
+    cdsDocEstoque_ImpUSUARIO: TStringField;
+    cdsDocEstoque_ImpDTUSUARIO: TDateField;
+    cdsDocEstoque_ImpHRUSUARIO: TTimeField;
+    cdsDocEstoque_ConsultaUSUARIO: TStringField;
+    cdsDocEstoque_ConsultaDTUSUARIO: TDateField;
+    cdsDocEstoque_ConsultaHRUSUARIO: TTimeField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspDocEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -667,6 +683,9 @@ end;
 procedure TDMCadDocEstoque.cdsDocEstoqueNewRecord(DataSet: TDataSet);
 begin
   cdsDocEstoqueINF_CODBARRA.AsString := 'N';
+  cdsDocEstoqueUSUARIO.AsString      := vUsuario;
+  cdsDocEstoqueDTUSUARIO.AsDateTime  := Date;
+  cdsDocEstoqueHRUSUARIO.AsDateTime  := Now;
 end;
 
 end.

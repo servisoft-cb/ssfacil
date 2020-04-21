@@ -151,6 +151,8 @@ type
 
     procedure prc_Opcao_Tela;
 
+    procedure prc_Imprime_Transferencia;
+
   public
     { Public declarations }
   end;
@@ -701,11 +703,16 @@ begin
   fDMCadDocEstoque.sdsDocEstoque_Imp_Itens.ParamByName('ID').AsInteger := fDMCadDocEstoque.cdsDocEstoque_ConsultaID.AsInteger;
   fDMCadDocEstoque.cdsDocEstoque_Imp_Itens.Open;
 
-  fRelDocEstoque := TfRelDocEstoque.Create(Self);
-  fRelDocEstoque.fDMCadDocEstoque := fDMCadDocEstoque;
-  fRelDocEstoque.RLReport1.PreviewModal;
-  fRelDocEstoque.RLReport1.Free;
-  FreeAndNil(fRelDocEstoque);
+  if fDMCadDocEstoque.cdsDocEstoque_ImpTIPO_REG.AsString = 'T' then
+    prc_Imprime_Transferencia
+  else
+  begin
+    fRelDocEstoque := TfRelDocEstoque.Create(Self);
+    fRelDocEstoque.fDMCadDocEstoque := fDMCadDocEstoque;
+    fRelDocEstoque.RLReport1.PreviewModal;
+    fRelDocEstoque.RLReport1.Free;
+    FreeAndNil(fRelDocEstoque);
+  end;
 end;
 
 procedure TfrmCadDocEstoque.Etiquetas1Click(Sender: TObject);
@@ -852,6 +859,24 @@ procedure TfrmCadDocEstoque.rxcbTipo_ESKeyDown(Sender: TObject;
 begin
   if (Key = 27) then
     rxcbTipo_ES.ItemIndex := -1;
+end;
+
+procedure TfrmCadDocEstoque.prc_Imprime_Transferencia;
+var
+  vArq: String;
+begin
+  if fDMCadDocEstoque.cdsDocEstoque_Imp.IsEmpty then
+    exit;
+                      
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\DocEstoque_Transf.fr3';
+  if FileExists(vArq) then
+    fDMCadDocEstoque.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    MessageDlg('Relatório não localizado!', mtInformation, [mbOk], 0);
+    Exit;
+  end;
+  fDMCadDocEstoque.frxReport1.ShowReport;
 end;
 
 end.

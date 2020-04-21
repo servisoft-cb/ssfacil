@@ -1,8 +1,8 @@
 object DMCadDocEstoque: TDMCadDocEstoque
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 163
-  Top = 21
+  Left = 264
+  Top = 14
   Height = 649
   Width = 1001
   object sdsDocEstoque: TSQLDataSet
@@ -74,6 +74,16 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object sdsDocEstoqueFILIAL_DESTINO: TIntegerField
       FieldName = 'FILIAL_DESTINO'
+    end
+    object sdsDocEstoqueUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object sdsDocEstoqueDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object sdsDocEstoqueHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
     end
   end
   object dspDocEstoque: TDataSetProvider
@@ -159,6 +169,16 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object cdsDocEstoqueFILIAL_DESTINO: TIntegerField
       FieldName = 'FILIAL_DESTINO'
+    end
+    object cdsDocEstoqueUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsDocEstoqueDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object cdsDocEstoqueHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
     end
   end
   object dsDocEstoque: TDataSource
@@ -572,6 +592,16 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object cdsDocEstoque_ConsultaNOME_FILIAL_DEST: TStringField
       FieldName = 'NOME_FILIAL_DEST'
       Size = 30
+    end
+    object cdsDocEstoque_ConsultaUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsDocEstoque_ConsultaDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object cdsDocEstoque_ConsultaHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
     end
   end
   object dsDocEstoque_Consulta: TDataSource
@@ -997,18 +1027,20 @@ object DMCadDocEstoque: TDMCadDocEstoque
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT DC.* , PES.NOME NOME_PESSOA, PES.endereco endereco_Cli, p' +
-      'es.num_end Num_End_Cli, pes.bairro Bairro_Cli,'#13#10' Pes.cidade Cida' +
-      'de_Cli, pes.uf uf_Cli, pes.cnpj_cpf CNPJ_CPF_Cli, pes.dddfone1 D' +
-      'DD_CLI, PES.telefone1 Fone_Cli, '#13#10'PES.CEP CEP_CLI,  PES.inscr_es' +
-      't INSCR_EST_CLI, PES.EMAIL_COMPRAS,'#13#10'FIL.endereco Endereco_Filia' +
-      'l, FIL.cnpj_cpf CNPJ_CPF_Filial, FIL.nome NOME_Filial, FIL.num_e' +
-      'nd Num_End_Filial, FIL.bairro Bairro_Filial,'#13#10'FIL.cidade Cidade_' +
-      'Filial, FIL.uf UF_Filial, FIL.cep Cep_Filial, FIL.ddd1 DDD_FILIA' +
-      'L, FIL.fone1 FONE_FILIAL, FUN.NOME NOME_FUNCIONARIO'#13#10'FROM DOCEST' +
-      'OQUE DC'#13#10'INNER JOIN FILIAL FIL'#13#10'ON DC.FILIAL = FIL.ID'#13#10'LEFT JOIN' +
-      ' PESSOA PES'#13#10'ON DC.ID_PESSOA = PES.CODIGO'#13#10'LEFT JOIN FUNCIONARIO' +
-      ' FUN'#13#10'ON DC.ID_FUNCIONARIO = FUN.CODIGO'#13#10'WHERE DC.ID = :ID'#13#10
+      'select DC.*, PES.NOME NOME_PESSOA, PES.ENDERECO ENDERECO_CLI, PE' +
+      'S.NUM_END NUM_END_CLI, PES.BAIRRO BAIRRO_CLI,'#13#10'       PES.CIDADE' +
+      ' CIDADE_CLI, PES.UF UF_CLI, PES.CNPJ_CPF CNPJ_CPF_CLI, PES.DDDFO' +
+      'NE1 DDD_CLI, PES.TELEFONE1 FONE_CLI,'#13#10'       PES.CEP CEP_CLI, PE' +
+      'S.INSCR_EST INSCR_EST_CLI, PES.EMAIL_COMPRAS, FIL.ENDERECO ENDER' +
+      'ECO_FILIAL,'#13#10'       FIL.CNPJ_CPF CNPJ_CPF_FILIAL, FIL.NOME NOME_' +
+      'FILIAL, FIL.NUM_END NUM_END_FILIAL, FIL.BAIRRO BAIRRO_FILIAL,'#13#10' ' +
+      '      FIL.CIDADE CIDADE_FILIAL, FIL.UF UF_FILIAL, FIL.CEP CEP_FI' +
+      'LIAL, FIL.DDD1 DDD_FILIAL, FIL.FONE1 FONE_FILIAL,'#13#10'       FUN.NO' +
+      'ME NOME_FUNCIONARIO, FDEST.NOME_INTERNO NOME_FILIAL_DESTINO'#13#10'fro' +
+      'm DOCESTOQUE DC'#13#10'inner join FILIAL FIL on DC.FILIAL = FIL.ID'#13#10'le' +
+      'ft join PESSOA PES on DC.ID_PESSOA = PES.CODIGO'#13#10'left join FUNCI' +
+      'ONARIO FUN on DC.ID_FUNCIONARIO = FUN.CODIGO'#13#10'left join FILIAL F' +
+      'DEST on DC.FILIAL_DESTINO = FDEST.ID'#13#10'where DC.ID = :ID   '
     MaxBlobSize = -1
     Params = <
       item
@@ -1155,6 +1187,23 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object cdsDocEstoque_ImpEMAIL_COMPRAS: TStringField
       FieldName = 'EMAIL_COMPRAS'
       Size = 200
+    end
+    object cdsDocEstoque_ImpFILIAL_DESTINO: TIntegerField
+      FieldName = 'FILIAL_DESTINO'
+    end
+    object cdsDocEstoque_ImpNOME_FILIAL_DESTINO: TStringField
+      FieldName = 'NOME_FILIAL_DESTINO'
+      Size = 30
+    end
+    object cdsDocEstoque_ImpUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsDocEstoque_ImpDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object cdsDocEstoque_ImpHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
     end
   end
   object dsDocEstoque_Imp: TDataSource
@@ -1699,7 +1748,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41928.578144409700000000
-    ReportOptions.LastChange = 43380.783411990740000000
+    ReportOptions.LastChange = 43942.715009004630000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -2187,5 +2236,77 @@ object DMCadDocEstoque: TDMCadDocEstoque
       Required = True
       Size = 30
     end
+  end
+  object frxDocEstoque_Imp: TfrxDBDataset
+    UserName = 'frxDocEstoque_Imp'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'DTMOVIMENTO=DTMOVIMENTO'
+      'FILIAL=FILIAL'
+      'VLR_TOTAL=VLR_TOTAL'
+      'TIPO_ES=TIPO_ES'
+      'ID_PESSOA=ID_PESSOA'
+      'OBS=OBS'
+      'NOME_PESSOA=NOME_PESSOA'
+      'ENDERECO_CLI=ENDERECO_CLI'
+      'NUM_END_CLI=NUM_END_CLI'
+      'BAIRRO_CLI=BAIRRO_CLI'
+      'CIDADE_CLI=CIDADE_CLI'
+      'UF_CLI=UF_CLI'
+      'CNPJ_CPF_CLI=CNPJ_CPF_CLI'
+      'DDD_CLI=DDD_CLI'
+      'FONE_CLI=FONE_CLI'
+      'CEP_CLI=CEP_CLI'
+      'ENDERECO_FILIAL=ENDERECO_FILIAL'
+      'CNPJ_CPF_FILIAL=CNPJ_CPF_FILIAL'
+      'NOME_FILIAL=NOME_FILIAL'
+      'NUM_END_FILIAL=NUM_END_FILIAL'
+      'BAIRRO_FILIAL=BAIRRO_FILIAL'
+      'CIDADE_FILIAL=CIDADE_FILIAL'
+      'UF_FILIAL=UF_FILIAL'
+      'CEP_FILIAL=CEP_FILIAL'
+      'DDD_FILIAL=DDD_FILIAL'
+      'FONE_FILIAL=FONE_FILIAL'
+      'INSCR_EST_CLI=INSCR_EST_CLI'
+      'ID_FUNCIONARIO=ID_FUNCIONARIO'
+      'TIPO_REG=TIPO_REG'
+      'NOME_FUNCIONARIO=NOME_FUNCIONARIO'
+      'EMAIL_COMPRAS=EMAIL_COMPRAS'
+      'FILIAL_DESTINO=FILIAL_DESTINO'
+      'NOME_FILIAL_DESTINO=NOME_FILIAL_DESTINO'
+      'USUARIO=USUARIO'
+      'DTUSUARIO=DTUSUARIO'
+      'HRUSUARIO=HRUSUARIO')
+    DataSource = dsDocEstoque_Imp
+    BCDToCurrency = False
+    Left = 92
+    Top = 388
+  end
+  object frxDocEstoque_Imp_Itens: TfrxDBDataset
+    UserName = 'frxDocEstoque_Imp_Itens'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'ITEM=ITEM'
+      'ID_PRODUTO=ID_PRODUTO'
+      'QTD=QTD'
+      'VLR_UNITARIO=VLR_UNITARIO'
+      'VLR_TOTAL=VLR_TOTAL'
+      'PERC_IPI=PERC_IPI'
+      'ID_MOVESTOQUE=ID_MOVESTOQUE'
+      'MOTIVO=MOTIVO'
+      'UNIDADE=UNIDADE'
+      'NOME_PRODUTO=NOME_PRODUTO'
+      'REFERENCIA=REFERENCIA'
+      'ID_CENTROCUSTO=ID_CENTROCUSTO'
+      'NOME_CENTROCUSTO=NOME_CENTROCUSTO'
+      'COD_CENTROCUSTO=COD_CENTROCUSTO'
+      'TAMANHO=TAMANHO'
+      'NUM_LOTE_CONTROLE=NUM_LOTE_CONTROLE')
+    DataSource = dsDocEstoque_Imp_Itens
+    BCDToCurrency = False
+    Left = 133
+    Top = 388
   end
 end

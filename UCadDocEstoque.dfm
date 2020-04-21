@@ -25,7 +25,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
     Top = 0
     Width = 937
     Height = 638
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -76,7 +76,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 11
+        ColCount = 14
         RowCount = 2
         Columns = <
           item
@@ -133,6 +133,14 @@ object frmCadDocEstoque: TfrmCadDocEstoque
             Visible = True
           end
           item
+            Expanded = False
+            FieldName = 'NOME_FILIAL'
+            Title.Alignment = taCenter
+            Title.Caption = 'Filial Origem'
+            Width = 229
+            Visible = True
+          end
+          item
             Alignment = taCenter
             Expanded = False
             FieldName = 'FILIAL_DESTINO'
@@ -143,18 +151,31 @@ object frmCadDocEstoque: TfrmCadDocEstoque
           end
           item
             Expanded = False
-            FieldName = 'NOME_FILIAL'
-            Title.Alignment = taCenter
-            Title.Caption = 'Filial Origem'
-            Width = 207
-            Visible = True
-          end
-          item
-            Expanded = False
             FieldName = 'NOME_FILIAL_DEST'
             Title.Alignment = taCenter
             Title.Caption = 'Filial Destino'
             Width = 191
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'USUARIO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Usu'#225'rio'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DTUSUARIO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Dt. Cadastro'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'HRUSUARIO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Hr. Cadastro'
             Visible = True
           end>
       end
@@ -1069,6 +1090,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
               item
                 Expanded = False
                 FieldName = 'ID_MOVESTOQUE'
+                Width = 64
                 Visible = True
               end
               item
