@@ -3,6 +3,7 @@ object fCarneRenegociacao: TfCarneRenegociacao
   Top = 156
   Width = 611
   Height = 410
+  BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'fCarneRenegociacao'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
