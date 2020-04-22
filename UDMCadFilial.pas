@@ -785,9 +785,12 @@ begin
   cdsFilial_Custo.First;
   if not cdsFilial_Custo.IsEmpty then
     cdsFilial_Custo.Delete;
-  cdsFilial_Certificados.First;
-  if not cdsFilial_Certificados.IsEmpty then
-    cdsFilial_Certificados.Delete;
+  if (cdsFilial_Certificados.Active) then
+  begin
+    cdsFilial_Certificados.First;
+    if not(cdsFilial_Certificados.IsEmpty) then
+      cdsFilial_Certificados.Delete;
+  end;
   cdsFilial_SoftwareHouse.First;
   if not cdsFilial_SoftwareHouse.IsEmpty then
     cdsFilial_SoftwareHouse.Delete;

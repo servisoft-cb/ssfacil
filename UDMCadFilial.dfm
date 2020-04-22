@@ -463,7 +463,7 @@ object DMCadFilial: TDMCadFilial
     BeforePost = cdsFilialBeforePost
     OnNewRecord = cdsFilialNewRecord
     Left = 138
-    Top = 32
+    Top = 33
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2843,7 +2843,7 @@ object DMCadFilial: TDMCadFilial
     DataSetField = cdsFilialsdsFilial_Custo
     IndexFieldNames = 'ID'
     Params = <>
-    Left = 136
+    Left = 138
     Top = 408
     object cdsFilial_CustoID: TIntegerField
       FieldName = 'ID'
@@ -2942,6 +2942,7 @@ object DMCadFilial: TDMCadFilial
     Top = 456
     object sdsFilial_SMSID: TIntegerField
       FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object sdsFilial_SMSLOGIN: TStringField
@@ -2962,12 +2963,14 @@ object DMCadFilial: TDMCadFilial
   end
   object cdsFilial_SMS: TClientDataSet
     Aggregates = <>
+    DataSetField = cdsFilialsdsFilial_SMS
     IndexFieldNames = 'ID'
     Params = <>
-    Left = 136
-    Top = 456
+    Left = 138
+    Top = 457
     object cdsFilial_SMSID: TIntegerField
       FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsFilial_SMSLOGIN: TStringField
