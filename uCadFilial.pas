@@ -1212,6 +1212,7 @@ begin
   begin
     frmSel_Filial_Servidor := TfrmSel_Filial_Servidor.Create(Self);
     frmSel_Filial_Servidor.fDMCadFilial := fDMCadFilial;
+    frmSel_Filial_Servidor.vCopiar      := True;
     frmSel_Filial_Servidor.ShowModal;
     FreeAndNil(frmSel_Filial_Servidor);
   end;

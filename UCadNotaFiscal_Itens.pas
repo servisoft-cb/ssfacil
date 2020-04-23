@@ -1807,6 +1807,8 @@ begin
   //Verificação de erros para não deixar gravar o item
   Result := True;
   vMsgErro := '';
+  if fDMCadNotaFiscal.cdsNotaFiscal_Itens.RecordCount > 990 then
+    vMsgErro := vMsgErro + #13 + '*** Máximo de itens permitido é 990!';
   if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger > 0 then
   begin
     if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger <> fDMCadNotaFiscal.cdsCFOPID.AsInteger then

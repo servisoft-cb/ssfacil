@@ -1,8 +1,8 @@
 object DMCadDocEstoque: TDMCadDocEstoque
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 163
-  Top = 21
+  Left = 264
+  Top = 14
   Height = 649
   Width = 1001
   object sdsDocEstoque: TSQLDataSet
@@ -13,7 +13,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 128
-    Top = 4
+    Top = 5
     object sdsDocEstoqueID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -72,6 +72,19 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object sdsDocEstoqueNUM_PEDIDO: TIntegerField
       FieldName = 'NUM_PEDIDO'
     end
+    object sdsDocEstoqueFILIAL_DESTINO: TIntegerField
+      FieldName = 'FILIAL_DESTINO'
+    end
+    object sdsDocEstoqueUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object sdsDocEstoqueDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object sdsDocEstoqueHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
+    end
   end
   object dspDocEstoque: TDataSetProvider
     DataSet = sdsDocEstoque
@@ -86,7 +99,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
     Params = <>
     ProviderName = 'dspDocEstoque'
     OnNewRecord = cdsDocEstoqueNewRecord
-    Left = 264
+    Left = 259
     Top = 5
     object cdsDocEstoqueID: TIntegerField
       FieldName = 'ID'
@@ -153,6 +166,19 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object cdsDocEstoqueNUM_PEDIDO: TIntegerField
       FieldName = 'NUM_PEDIDO'
+    end
+    object cdsDocEstoqueFILIAL_DESTINO: TIntegerField
+      FieldName = 'FILIAL_DESTINO'
+    end
+    object cdsDocEstoqueUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsDocEstoqueDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object cdsDocEstoqueHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
     end
   end
   object dsDocEstoque: TDataSource
@@ -277,7 +303,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
     Params = <>
     OnCalcFields = cdsDocEstoque_ItensCalcFields
     OnNewRecord = cdsDocEstoque_ItensNewRecord
-    Left = 192
+    Left = 193
     Top = 88
     object cdsDocEstoque_ItensID: TIntegerField
       FieldName = 'ID'
@@ -412,22 +438,24 @@ object DMCadDocEstoque: TDMCadDocEstoque
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT DC.* , PES.NOME NOME_PESSOA, PES.endereco endereco_Cli, p' +
-      'es.num_end Num_End_Cli, pes.bairro Bairro_Cli,'#13#10' Pes.cidade Cida' +
-      'de_Cli, pes.uf uf_Cliente, pes.cnpj_cpf CNPJ_CPF_Cli,'#13#10'FIL.ender' +
-      'eco Endereco_Filial, FIL.cnpj_cpf CNPJ_CPF_Filial, FIL.nome NOME' +
-      '_Filial, FIL.num_end Num_End_Filial, FIL.bairro Bairro_Filial,'#13#10 +
-      'FIL.cidade Cidade_Filial, FIL.uf UF_Filial, FIL.cep Cep_Filial, ' +
-      'FN.NOME NOME_FUNCIONARIO, fentr.nome NOME_FUNCIONARIO_ENTR'#13#10'FROM' +
-      ' DOCESTOQUE DC'#13#10'INNER JOIN FILIAL FIL'#13#10'ON DC.FILIAL = FIL.ID'#13#10'LE' +
-      'FT JOIN PESSOA PES'#13#10'ON DC.ID_PESSOA = PES.CODIGO'#13#10'LEFT JOIN FUNC' +
-      'IONARIO FN'#13#10'ON DC.ID_FUNCIONARIO = FN.CODIGO'#13#10'left join funciona' +
-      'rio fentr'#13#10'on dc.id_funcionario = fentr.codigo'#13#10
+      'select DC.*, PES.NOME NOME_PESSOA, PES.ENDERECO ENDERECO_CLI, PE' +
+      'S.NUM_END NUM_END_CLI, PES.BAIRRO BAIRRO_CLI,'#13#10'       PES.CIDADE' +
+      ' CIDADE_CLI, PES.UF UF_CLIENTE, PES.CNPJ_CPF CNPJ_CPF_CLI, FIL.E' +
+      'NDERECO ENDERECO_FILIAL,'#13#10'       FIL.CNPJ_CPF CNPJ_CPF_FILIAL, F' +
+      'IL.NOME NOME_FILIAL, FIL.NUM_END NUM_END_FILIAL, FIL.BAIRRO BAIR' +
+      'RO_FILIAL,'#13#10'       FIL.CIDADE CIDADE_FILIAL, FIL.UF UF_FILIAL, F' +
+      'IL.CEP CEP_FILIAL, FN.NOME NOME_FUNCIONARIO,'#13#10'       FENTR.NOME ' +
+      'NOME_FUNCIONARIO_ENTR, FDEST.NOME_INTERNO NOME_FILIAL_DEST'#13#10'from' +
+      ' DOCESTOQUE DC'#13#10'inner join FILIAL FIL on DC.FILIAL = FIL.ID'#13#10'lef' +
+      't join PESSOA PES on DC.ID_PESSOA = PES.CODIGO'#13#10'left join FUNCIO' +
+      'NARIO FN on DC.ID_FUNCIONARIO = FN.CODIGO'#13#10'left join FUNCIONARIO' +
+      ' FENTR on DC.ID_FUNCIONARIO = FENTR.CODIGO'#13#10'left join FILIAL FDE' +
+      'ST on DC.FILIAL_DESTINO = FDEST.ID'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 472
-    Top = 8
+    Top = 9
   end
   object dspDocEstoque_Consulta: TDataSetProvider
     DataSet = sdsDocEstoque_Consulta
@@ -557,6 +585,23 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object cdsDocEstoque_ConsultaNOME_FUNCIONARIO_ENTR: TStringField
       FieldName = 'NOME_FUNCIONARIO_ENTR'
       Size = 50
+    end
+    object cdsDocEstoque_ConsultaFILIAL_DESTINO: TIntegerField
+      FieldName = 'FILIAL_DESTINO'
+    end
+    object cdsDocEstoque_ConsultaNOME_FILIAL_DEST: TStringField
+      FieldName = 'NOME_FILIAL_DEST'
+      Size = 30
+    end
+    object cdsDocEstoque_ConsultaUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsDocEstoque_ConsultaDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object cdsDocEstoque_ConsultaHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
     end
   end
   object dsDocEstoque_Consulta: TDataSource
@@ -982,18 +1027,20 @@ object DMCadDocEstoque: TDMCadDocEstoque
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT DC.* , PES.NOME NOME_PESSOA, PES.endereco endereco_Cli, p' +
-      'es.num_end Num_End_Cli, pes.bairro Bairro_Cli,'#13#10' Pes.cidade Cida' +
-      'de_Cli, pes.uf uf_Cli, pes.cnpj_cpf CNPJ_CPF_Cli, pes.dddfone1 D' +
-      'DD_CLI, PES.telefone1 Fone_Cli, '#13#10'PES.CEP CEP_CLI,  PES.inscr_es' +
-      't INSCR_EST_CLI, PES.EMAIL_COMPRAS,'#13#10'FIL.endereco Endereco_Filia' +
-      'l, FIL.cnpj_cpf CNPJ_CPF_Filial, FIL.nome NOME_Filial, FIL.num_e' +
-      'nd Num_End_Filial, FIL.bairro Bairro_Filial,'#13#10'FIL.cidade Cidade_' +
-      'Filial, FIL.uf UF_Filial, FIL.cep Cep_Filial, FIL.ddd1 DDD_FILIA' +
-      'L, FIL.fone1 FONE_FILIAL, FUN.NOME NOME_FUNCIONARIO'#13#10'FROM DOCEST' +
-      'OQUE DC'#13#10'INNER JOIN FILIAL FIL'#13#10'ON DC.FILIAL = FIL.ID'#13#10'LEFT JOIN' +
-      ' PESSOA PES'#13#10'ON DC.ID_PESSOA = PES.CODIGO'#13#10'LEFT JOIN FUNCIONARIO' +
-      ' FUN'#13#10'ON DC.ID_FUNCIONARIO = FUN.CODIGO'#13#10'WHERE DC.ID = :ID'#13#10
+      'select DC.*, PES.NOME NOME_PESSOA, PES.ENDERECO ENDERECO_CLI, PE' +
+      'S.NUM_END NUM_END_CLI, PES.BAIRRO BAIRRO_CLI,'#13#10'       PES.CIDADE' +
+      ' CIDADE_CLI, PES.UF UF_CLI, PES.CNPJ_CPF CNPJ_CPF_CLI, PES.DDDFO' +
+      'NE1 DDD_CLI, PES.TELEFONE1 FONE_CLI,'#13#10'       PES.CEP CEP_CLI, PE' +
+      'S.INSCR_EST INSCR_EST_CLI, PES.EMAIL_COMPRAS, FIL.ENDERECO ENDER' +
+      'ECO_FILIAL,'#13#10'       FIL.CNPJ_CPF CNPJ_CPF_FILIAL, FIL.NOME NOME_' +
+      'FILIAL, FIL.NUM_END NUM_END_FILIAL, FIL.BAIRRO BAIRRO_FILIAL,'#13#10' ' +
+      '      FIL.CIDADE CIDADE_FILIAL, FIL.UF UF_FILIAL, FIL.CEP CEP_FI' +
+      'LIAL, FIL.DDD1 DDD_FILIAL, FIL.FONE1 FONE_FILIAL,'#13#10'       FUN.NO' +
+      'ME NOME_FUNCIONARIO, FDEST.NOME_INTERNO NOME_FILIAL_DESTINO'#13#10'fro' +
+      'm DOCESTOQUE DC'#13#10'inner join FILIAL FIL on DC.FILIAL = FIL.ID'#13#10'le' +
+      'ft join PESSOA PES on DC.ID_PESSOA = PES.CODIGO'#13#10'left join FUNCI' +
+      'ONARIO FUN on DC.ID_FUNCIONARIO = FUN.CODIGO'#13#10'left join FILIAL F' +
+      'DEST on DC.FILIAL_DESTINO = FDEST.ID'#13#10'where DC.ID = :ID   '
     MaxBlobSize = -1
     Params = <
       item
@@ -1140,6 +1187,23 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object cdsDocEstoque_ImpEMAIL_COMPRAS: TStringField
       FieldName = 'EMAIL_COMPRAS'
       Size = 200
+    end
+    object cdsDocEstoque_ImpFILIAL_DESTINO: TIntegerField
+      FieldName = 'FILIAL_DESTINO'
+    end
+    object cdsDocEstoque_ImpNOME_FILIAL_DESTINO: TStringField
+      FieldName = 'NOME_FILIAL_DESTINO'
+      Size = 30
+    end
+    object cdsDocEstoque_ImpUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsDocEstoque_ImpDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object cdsDocEstoque_ImpHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
     end
   end
   object dsDocEstoque_Imp: TDataSource
@@ -1486,7 +1550,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
       'WHERE P.ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 344
-    Top = 448
+    Top = 449
     object qProdutoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1684,7 +1748,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41928.578144409700000000
-    ReportOptions.LastChange = 43380.783411990740000000
+    ReportOptions.LastChange = 43942.715009004630000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1980,7 +2044,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
       
         'P.REQ_NUM_LOTE, P.REQ_NUM_PED, P.controla_doc_saida, USA_ESTOQUE' +
         '_GERAL_CAD,'
-      'P.ACEITAR_DOC_SEM_VLR, USA_PRECO_VENDA_SAIDA'
+      'P.ACEITAR_DOC_SEM_VLR, USA_PRECO_VENDA_SAIDA, USA_TRANSF_FILIAL'
       'FROM PARAMETROS_EST P'
       '')
     SQLConnection = dmDatabase.scoDados
@@ -2028,6 +2092,11 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object qParametros_EstUSA_PRECO_VENDA_SAIDA: TStringField
       FieldName = 'USA_PRECO_VENDA_SAIDA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_EstUSA_TRANSF_FILIAL: TStringField
+      FieldName = 'USA_TRANSF_FILIAL'
       FixedChar = True
       Size = 1
     end
@@ -2167,5 +2236,77 @@ object DMCadDocEstoque: TDMCadDocEstoque
       Required = True
       Size = 30
     end
+  end
+  object frxDocEstoque_Imp: TfrxDBDataset
+    UserName = 'frxDocEstoque_Imp'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'DTMOVIMENTO=DTMOVIMENTO'
+      'FILIAL=FILIAL'
+      'VLR_TOTAL=VLR_TOTAL'
+      'TIPO_ES=TIPO_ES'
+      'ID_PESSOA=ID_PESSOA'
+      'OBS=OBS'
+      'NOME_PESSOA=NOME_PESSOA'
+      'ENDERECO_CLI=ENDERECO_CLI'
+      'NUM_END_CLI=NUM_END_CLI'
+      'BAIRRO_CLI=BAIRRO_CLI'
+      'CIDADE_CLI=CIDADE_CLI'
+      'UF_CLI=UF_CLI'
+      'CNPJ_CPF_CLI=CNPJ_CPF_CLI'
+      'DDD_CLI=DDD_CLI'
+      'FONE_CLI=FONE_CLI'
+      'CEP_CLI=CEP_CLI'
+      'ENDERECO_FILIAL=ENDERECO_FILIAL'
+      'CNPJ_CPF_FILIAL=CNPJ_CPF_FILIAL'
+      'NOME_FILIAL=NOME_FILIAL'
+      'NUM_END_FILIAL=NUM_END_FILIAL'
+      'BAIRRO_FILIAL=BAIRRO_FILIAL'
+      'CIDADE_FILIAL=CIDADE_FILIAL'
+      'UF_FILIAL=UF_FILIAL'
+      'CEP_FILIAL=CEP_FILIAL'
+      'DDD_FILIAL=DDD_FILIAL'
+      'FONE_FILIAL=FONE_FILIAL'
+      'INSCR_EST_CLI=INSCR_EST_CLI'
+      'ID_FUNCIONARIO=ID_FUNCIONARIO'
+      'TIPO_REG=TIPO_REG'
+      'NOME_FUNCIONARIO=NOME_FUNCIONARIO'
+      'EMAIL_COMPRAS=EMAIL_COMPRAS'
+      'FILIAL_DESTINO=FILIAL_DESTINO'
+      'NOME_FILIAL_DESTINO=NOME_FILIAL_DESTINO'
+      'USUARIO=USUARIO'
+      'DTUSUARIO=DTUSUARIO'
+      'HRUSUARIO=HRUSUARIO')
+    DataSource = dsDocEstoque_Imp
+    BCDToCurrency = False
+    Left = 92
+    Top = 388
+  end
+  object frxDocEstoque_Imp_Itens: TfrxDBDataset
+    UserName = 'frxDocEstoque_Imp_Itens'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'ITEM=ITEM'
+      'ID_PRODUTO=ID_PRODUTO'
+      'QTD=QTD'
+      'VLR_UNITARIO=VLR_UNITARIO'
+      'VLR_TOTAL=VLR_TOTAL'
+      'PERC_IPI=PERC_IPI'
+      'ID_MOVESTOQUE=ID_MOVESTOQUE'
+      'MOTIVO=MOTIVO'
+      'UNIDADE=UNIDADE'
+      'NOME_PRODUTO=NOME_PRODUTO'
+      'REFERENCIA=REFERENCIA'
+      'ID_CENTROCUSTO=ID_CENTROCUSTO'
+      'NOME_CENTROCUSTO=NOME_CENTROCUSTO'
+      'COD_CENTROCUSTO=COD_CENTROCUSTO'
+      'TAMANHO=TAMANHO'
+      'NUM_LOTE_CONTROLE=NUM_LOTE_CONTROLE')
+    DataSource = dsDocEstoque_Imp_Itens
+    BCDToCurrency = False
+    Left = 133
+    Top = 388
   end
 end

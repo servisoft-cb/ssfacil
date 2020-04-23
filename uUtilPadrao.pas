@@ -145,7 +145,7 @@ var
   vID_ContaOrcamento_Sup_Pos: Integer;
   vTipo_RD_Pos: String; //Receita ou Despesa das contas de orçamento
   vID_Plano_Contas_Pos: Integer;
-  vFilial: Integer;
+  vFilial, vFilial_Destino: Integer;
   vFilial_Nome: String;
   vEmail_Fortes, vEmail_Assunto_Fortes: String;
   vEmail_Fortes_Corpo: String;
