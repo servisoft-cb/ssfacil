@@ -842,7 +842,8 @@ uses
   uDmCupomTerminal in 'NFCe_Novo\uDmCupomTerminal.pas' {dmCupomTerminal: TDataModule},
   uSel_Filial_Servidor in 'uSel_Filial_Servidor.pas' {frmSel_Filial_Servidor},
   UDMPedido_Reserva in 'UDMPedido_Reserva.pas' {DMPedido_Reserva: TDataModule},
-  UQtdReserva in 'UQtdReserva.pas' {frmQtdReserva};
+  UQtdReserva in 'UQtdReserva.pas' {frmQtdReserva},
+  uPessoa in 'Classes\uPessoa.pas';
 
 {$R *.res}
 

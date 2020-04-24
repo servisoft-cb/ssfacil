@@ -387,6 +387,7 @@ type
       Shift: TShiftState);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure prc_Consulta_Receita;
   private
     { Private declarations }
     fDMCadPessoa: TDMCadPessoa;
@@ -424,7 +425,7 @@ implementation
 
 uses
   UMenu, DmdDatabase, rsDBUtils, uUtilPadrao, uNFeComandos, URelPessoa, USel_ContaOrc, USel_EnqIPI, USel_Atividade,
-  UCadPessoa_Animal, USel_PessoaPet;
+  UCadPessoa_Animal, USel_PessoaPet, uPessoa;
 
 {$R *.dfm}
 
@@ -1001,25 +1002,7 @@ begin
       RxDBLookupCombo1.SetFocus;
       exit;
     end;
-
-  if fDMCadPessoa.cdsPessoaPESSOA.AsString = 'F' then
-  begin
-    prc_ShellExecute('ConsultaCPF.exe')
-  end
-  else
-  begin
-    Caminho := ExtractFilePath(Application.ExeName) + 'ConsultaCNPJ.exe'; //+ Edit1.Text;
-    WinExecAndWait32(Caminho,1,fDMCadPessoa.cdsPessoaCNPJ_CPF.AsString);
-    prc_Preenche_Dados;
-    //Essa função foi substituida para rotina acima em 15/01/2020 - Russimar
-
-   {ffrmConsCNPJ_ACBR := TfrmConsCNPJ_ACBR.Create(self);
-    ffrmConsCNPJ_ACBR.fDMCadPessoa := fDMCadPessoa;
-    ffrmConsCNPJ_ACBR.EditCNPJ.Text := fDMCadPessoa.cdsPessoaCNPJ_CPF.AsString;
-    ffrmConsCNPJ_ACBR.ShowModal;
-    FreeAndNil(ffrmConsCNPJ_ACBR);}
-
-  end;
+  prc_Consulta_Receita;
 end;
 
 procedure TfrmCadPessoaRed.RxDBLookupCombo17Enter(Sender: TObject);
@@ -1757,6 +1740,65 @@ begin
     FreeAndNil(Retorno);
   end;
 
+end;
+
+procedure TfrmCadPessoaRed.prc_Consulta_Receita;
+const
+  C_Dll : string = 'ConsultaCNPJ.dll';
+var
+  aPessoa : TPessoa;
+  FHandle : THandle;
+  FRoutine : function (const CNPJ: WideString) : TPessoa;
+  aCNPJ : String;
+begin
+  if fDMCadPessoa.cdsPessoaPESSOA.AsString = 'F' then
+    prc_ShellExecute('ConsultaCPF.exe')
+  else
+  begin
+    FHandle := LoadLibrary(PAnsiChar(C_Dll));
+    try
+      FRoutine := GetProcAddress(FHandle, 'ConsultarCNPJ');
+      if (Assigned(FRoutine)) then
+      begin
+        try
+          aPessoa := TPessoa.create;
+          aCNPJ := DBEdit6.Text;
+          aPessoa := FRoutine(aCNPJ);
+          if aPessoa.RazaoSocial <> EmptyStr then
+          begin
+            with fDMCadPessoa do
+            begin
+              cdsPessoaNOME.AsString := aPessoa.RazaoSocial;
+              if copy(aPessoa.Fantasia[5],1,2) <> '**' then
+                cdsPessoaFANTASIA.AsString := aPessoa.Fantasia
+              else
+                cdsPessoaFANTASIA.AsString := aPessoa.RazaoSocial;
+              cdsPessoaENDERECO.AsString := aPessoa.Endereco;
+              cdsPessoaNUM_END.AsString  := aPessoa.Numero;
+              if copy(aPessoa.Complemento,1,2) <> '**' then
+                cdsPessoaCOMPLEMENTO_END.AsString := aPessoa.Complemento;
+              if copy(aPessoa.Bairro,1,2) <> '**' then
+                cdsPessoaBAIRRO.AsString      := aPessoa.Bairro;
+              cdsPessoaCEP.AsString           := aPessoa.CEP;
+              cdsPessoaUF.AsString            := aPessoa.UF;
+              prc_Abrir_Cidade(cdsPessoaUF.AsString);
+              if cdsCidade.Locate('NOME',aPessoa.Cidade,([Locaseinsensitive])) then
+              begin
+                cdsPessoaID_CIDADE.AsInteger := cdsCidadeID.AsInteger;
+                cdsPessoaCIDADE.AsString     := cdsCidadeNOME.AsString;
+              end;
+              cdsPessoaID_PAIS.AsInteger := 1;
+            end;
+          end;
+        except
+          on E : Exception do
+            FreeLibrary(FHandle);
+        end;
+      end;
+    finally
+      FreeLibrary(FHandle);
+    end;
+  end;
 end;
 
 end.

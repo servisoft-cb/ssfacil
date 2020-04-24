@@ -293,6 +293,7 @@ type
     procedure btnCopiarPedidoClick(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
+    procedure RxDBLookupCombo6Exit(Sender: TObject);
   private
     { Private declarations }
     vVlrFreteAnt: Real;
@@ -1946,6 +1947,25 @@ begin
     exit;
   end;
   Result := True;
+end;
+
+procedure TfrmCadOrcamento.RxDBLookupCombo6Exit(Sender: TObject);
+begin
+  if fDMCadPedido.cdsClienteCODIGO.AsInteger <> fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger then
+    fDMCadPedido.cdsCliente.Locate('CODIGO',fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,[loCaseInsensitive]);
+  if (fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger > 0) then
+  begin
+    if (fDMCadPedido.cdsClienteID_VENDEDOR.AsInteger > 0) and
+       (fDMCadPedido.cdsClienteID_VENDEDOR.AsInteger = fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger) and
+       (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsClientePERC_COMISSAO.AsFloat)) > 0) then
+      fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat:= StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsClientePERC_COMISSAO.AsFloat))
+    else
+    begin
+      if (fDMCadPedido.cdsVendedorCODIGO.AsInteger <> fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger) then
+        fDMCadPedido.cdsVendedor.Locate('CODIGO',fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger,[loCaseInsensitive]);
+      fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsVendedorPERC_COMISSAO_VEND.AsFloat));
+    end;
+  end;
 end;
 
 end.
