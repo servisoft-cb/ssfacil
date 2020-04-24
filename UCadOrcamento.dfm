@@ -25,7 +25,7 @@ object frmCadOrcamento: TfrmCadOrcamento
     Top = 0
     Width = 1008
     Height = 677
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadOrcamento: TfrmCadOrcamento
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -1882,7 +1882,7 @@ object frmCadOrcamento: TfrmCadOrcamento
           end
           object RxDBLookupCombo3: TRxDBLookupCombo
             Left = 81
-            Top = 21
+            Top = 22
             Width = 359
             Height = 21
             DropDownCount = 15
@@ -1977,6 +1977,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             ParentCtl3D = False
             ParentFont = False
             TabOrder = 13
+            OnExit = RxDBLookupCombo6Exit
           end
           object DBEdit12: TDBEdit
             Left = 525
