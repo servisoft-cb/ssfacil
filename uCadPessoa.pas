@@ -768,7 +768,7 @@ implementation
 
 uses
   UMenu, DmdDatabase, rsDBUtils, uUtilPadrao, uNFeComandos, URelPessoa, USel_ContaOrc, USel_EnqIPI, USel_Atividade, UVendedor_Config,
-  UCadPessoa_ProdICMS, USel_CBenef, uUtilCliente;
+  UCadPessoa_ProdICMS, USel_CBenef, uUtilCliente, uPessoa;
 
 {$R *.dfm}
 
@@ -2800,7 +2800,6 @@ begin
   finally
     FreeAndNil(Retorno);
   end;
-
 end;
 
 procedure TfrmCadPessoa.prc_Consulta_Sefaz;
@@ -2879,16 +2878,61 @@ begin
 end;
 
 procedure TfrmCadPessoa.prc_Consulta_Receita;
+const
+  C_Dll : string = 'ConsultaCNPJ.dll';
 var
-  Caminho : String;
+  aPessoa : TPessoa;
+  FHandle : THandle;
+  FRoutine : function (const CNPJ: WideString) : TPessoa;
+  aCNPJ : String;
 begin
   if fDMCadPessoa.cdsPessoaPESSOA.AsString = 'F' then
     prc_ShellExecute('ConsultaCPF.exe')
   else
   begin
-    Caminho := ExtractFilePath(Application.ExeName) + 'ConsultaCNPJ.exe'; //+ Edit1.Text;
-    WinExecAndWait32(Caminho,1,fDMCadPessoa.cdsPessoaCNPJ_CPF.AsString);
-    prc_Preenche_Dados;
+    FHandle := LoadLibrary(PAnsiChar(C_Dll));
+    try
+      FRoutine := GetProcAddress(FHandle, 'ConsultarCNPJ');
+      if (Assigned(FRoutine)) then
+      begin
+        try
+          aPessoa := TPessoa.create;
+          aCNPJ := DBEdit6.Text;
+          aPessoa := FRoutine(aCNPJ);
+          if aPessoa.RazaoSocial <> EmptyStr then
+          begin
+            with fDMCadPessoa do
+            begin
+              cdsPessoaNOME.AsString := aPessoa.RazaoSocial;
+              if copy(aPessoa.Fantasia[5],1,2) <> '**' then
+                cdsPessoaFANTASIA.AsString := aPessoa.Fantasia
+              else
+                cdsPessoaFANTASIA.AsString := aPessoa.RazaoSocial;
+              cdsPessoaENDERECO.AsString := aPessoa.Endereco;
+              cdsPessoaNUM_END.AsString  := aPessoa.Numero;
+              if copy(aPessoa.Complemento,1,2) <> '**' then
+                cdsPessoaCOMPLEMENTO_END.AsString := aPessoa.Complemento;
+              if copy(aPessoa.Bairro,1,2) <> '**' then
+                cdsPessoaBAIRRO.AsString      := aPessoa.Bairro;
+              cdsPessoaCEP.AsString           := aPessoa.CEP;
+              cdsPessoaUF.AsString            := aPessoa.UF;
+              prc_Abrir_Cidade(cdsPessoaUF.AsString);
+              if cdsCidade.Locate('NOME',aPessoa.Cidade,([Locaseinsensitive])) then
+              begin
+                cdsPessoaID_CIDADE.AsInteger := cdsCidadeID.AsInteger;
+                cdsPessoaCIDADE.AsString     := cdsCidadeNOME.AsString;
+              end;
+              cdsPessoaID_PAIS.AsInteger := 1;
+            end;
+          end;
+        except
+          on E : Exception do
+            FreeLibrary(FHandle);
+        end;
+      end;
+    finally
+      FreeLibrary(FHandle);
+    end;
   end;
 end;
 
