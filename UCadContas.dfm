@@ -23,7 +23,7 @@ object frmCadContas: TfrmCadContas
     Top = 0
     Width = 833
     Height = 556
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -31,7 +31,7 @@ object frmCadContas: TfrmCadContas
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -769,10 +769,10 @@ object frmCadContas: TfrmCadContas
         Top = 30
         Width = 829
         Height = 503
-        ActivePage = TabSheet8
+        ActivePage = TS_Dados
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 1
         FixedDimension = 19
         object TS_Dados: TRzTabSheet
@@ -1494,13 +1494,13 @@ object frmCadContas: TfrmCadContas
             Top = 0
             Width = 825
             Height = 480
-            ActivePage = ts_BancoBrasil
+            ActivePage = TabSheet1
             ActivePageDefault = TabSheet1
             Align = alClient
             UseColoredTabs = True
             Enabled = False
             ParentColor = False
-            TabIndex = 3
+            TabIndex = 0
             TabOrder = 0
             FixedDimension = 19
             object TabSheet1: TRzTabSheet
@@ -4649,6 +4649,21 @@ object frmCadContas: TfrmCadContas
                 Alignment = taRightJustify
                 Caption = 'Controlar quem vai emitir boleto:'
               end
+              object Label190: TLabel
+                Left = 115
+                Top = 398
+                Width = 58
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Modalidade:'
+              end
+              object Label191: TLabel
+                Left = 256
+                Top = 392
+                Width = 58
+                Height = 13
+                Caption = 'Padr'#227'o = 01'
+              end
               object DBEdit76: TDBEdit
                 Left = 175
                 Top = 211
@@ -4659,7 +4674,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 0
+                TabOrder = 10
               end
               object DBEdit77: TDBEdit
                 Left = 175
@@ -4671,7 +4686,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 1
+                TabOrder = 11
               end
               object RxDBComboBox36: TRxDBComboBox
                 Left = 175
@@ -4689,7 +4704,7 @@ object frmCadContas: TfrmCadContas
                   '1 = Taxa Mensal')
                 ParentShowHint = False
                 ShowHint = True
-                TabOrder = 2
+                TabOrder = 19
                 Values.Strings = (
                   '0'
                   '1')
@@ -4705,7 +4720,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = True
-                TabOrder = 3
+                TabOrder = 0
               end
               object DBEdit79: TDBEdit
                 Left = 174
@@ -4717,7 +4732,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = True
-                TabOrder = 4
+                TabOrder = 1
               end
               object RxDBComboBox41: TRxDBComboBox
                 Left = 175
@@ -4735,7 +4750,7 @@ object frmCadContas: TfrmCadContas
                   'N'#227'o')
                 ParentShowHint = False
                 ShowHint = True
-                TabOrder = 5
+                TabOrder = 2
                 Values.Strings = (
                   'A'
                   'N')
@@ -4755,7 +4770,7 @@ object frmCadContas: TfrmCadContas
                   'N'#227'o')
                 ParentShowHint = False
                 ShowHint = True
-                TabOrder = 6
+                TabOrder = 3
                 Values.Strings = (
                   'S'
                   'N')
@@ -4774,7 +4789,7 @@ object frmCadContas: TfrmCadContas
                 LookupSource = DMCadContas.dsOcorrencia
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 7
+                TabOrder = 4
               end
               object RxDBLookupCombo40: TRxDBLookupCombo
                 Left = 175
@@ -4790,7 +4805,7 @@ object frmCadContas: TfrmCadContas
                 LookupSource = DMCadContas.dsEspecie
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 8
+                TabOrder = 5
               end
               object RxDBLookupCombo41: TRxDBLookupCombo
                 Left = 175
@@ -4806,7 +4821,7 @@ object frmCadContas: TfrmCadContas
                 LookupSource = DMCadContas.dsCarteira
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 9
+                TabOrder = 6
               end
               object RxDBLookupCombo42: TRxDBLookupCombo
                 Left = 175
@@ -4822,7 +4837,7 @@ object frmCadContas: TfrmCadContas
                 LookupSource = DMCadContas.dsInstrucao
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 10
+                TabOrder = 7
               end
               object RxDBLookupCombo43: TRxDBLookupCombo
                 Left = 175
@@ -4838,7 +4853,7 @@ object frmCadContas: TfrmCadContas
                 LookupSource = DMCadContas.dsInstrucao
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 11
+                TabOrder = 8
               end
               object DBEdit80: TDBEdit
                 Left = 175
@@ -4850,7 +4865,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 12
+                TabOrder = 9
               end
               object DBEdit81: TDBEdit
                 Left = 175
@@ -4862,7 +4877,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 13
+                TabOrder = 12
               end
               object DBDateEdit10: TDBDateEdit
                 Left = 421
@@ -4874,7 +4889,7 @@ object frmCadContas: TfrmCadContas
                 NumGlyphs = 2
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 14
+                TabOrder = 13
               end
               object DBEdit82: TDBEdit
                 Left = 175
@@ -4886,7 +4901,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 15
+                TabOrder = 14
               end
               object DBEdit83: TDBEdit
                 Left = 175
@@ -4898,7 +4913,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 16
+                TabOrder = 15
               end
               object DBEdit84: TDBEdit
                 Left = 421
@@ -4910,7 +4925,7 @@ object frmCadContas: TfrmCadContas
                 DataSource = DMCadContas.dsContas
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 17
+                TabOrder = 16
               end
               object RxDBComboBox43: TRxDBComboBox
                 Left = 175
@@ -4931,7 +4946,7 @@ object frmCadContas: TfrmCadContas
                   'HSBC (CNAB 400))')
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 18
+                TabOrder = 17
                 Values.Strings = (
                   'BANRISUL400'
                   'BRASIL400'
@@ -4956,10 +4971,20 @@ object frmCadContas: TfrmCadContas
                   'N'#227'o')
                 ParentShowHint = False
                 ShowHint = False
-                TabOrder = 19
+                TabOrder = 18
                 Values.Strings = (
                   'S'
                   'N')
+              end
+              object DBEdit86: TDBEdit
+                Left = 175
+                Top = 390
+                Width = 69
+                Height = 21
+                CharCase = ecUpperCase
+                DataField = 'VARIACAO_CARTEIRA'
+                DataSource = DMCadContas.dsContas
+                TabOrder = 20
               end
             end
             object TabSheet5: TRzTabSheet
