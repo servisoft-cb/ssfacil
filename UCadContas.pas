@@ -431,6 +431,9 @@ type
     RxDBComboBox44: TRxDBComboBox;
     Label189: TLabel;
     DBEdit85: TDBEdit;
+    Label190: TLabel;
+    DBEdit86: TDBEdit;
+    Label191: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
