@@ -20,8 +20,8 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
   TextHeight = 13
   object Panel3: TPanel
     Left = 0
-    Top = 399
-    Width = 738
+    Top = 391
+    Width = 730
     Height = 34
     Align = alBottom
     Color = 8404992
@@ -60,8 +60,8 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
   object Panel2: TPanel
     Left = 0
     Top = 96
-    Width = 738
-    Height = 303
+    Width = 730
+    Height = 295
     Align = alClient
     Color = clMoneyGreen
     TabOrder = 0
@@ -280,7 +280,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     object Panel1: TPanel
       Left = 1
       Top = 1
-      Width = 736
+      Width = 728
       Height = 46
       Align = alTop
       BevelOuter = bvNone
@@ -441,6 +441,8 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
         LookupSource = DMCadDuplicata.dsContas
         ParentCtl3D = False
         TabOrder = 0
+        OnEnter = RxDBLookupCombo3Enter
+        OnExit = RxDBLookupCombo3Exit
       end
       object RxDBLookupCombo1: TRxDBLookupCombo
         Left = 121
@@ -578,7 +580,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
   object Panel4: TPanel
     Left = 0
     Top = 0
-    Width = 738
+    Width = 730
     Height = 96
     Align = alTop
     Color = clSilver

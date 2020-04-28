@@ -97,6 +97,8 @@ type
     procedure ceTaxaBancariaExit(Sender: TObject);
     procedure ceTaxaBancariaKeyPress(Sender: TObject; var Key: Char);
     procedure ceMultaExit(Sender: TObject);
+    procedure RxDBLookupCombo3Enter(Sender: TObject);
+    procedure RxDBLookupCombo3Exit(Sender: TObject);
   private
     { Private declarations }
     ffrmCadContas: TfrmCadContas;
@@ -470,6 +472,19 @@ end;
 procedure TfrmCadDuplicata_Pag.ceMultaExit(Sender: TObject);
 begin
   prc_Calcular_Total;
+end;
+
+procedure TfrmCadDuplicata_Pag.RxDBLookupCombo3Enter(Sender: TObject);
+begin
+  fDMCadDuplicata.cdsContas.Filtered := False;
+  fDMCadDuplicata.cdsContas.Filter   := 'INATIVO <> ''S''';
+  fDMCadDuplicata.cdsContas.Filtered := True;
+end;
+
+procedure TfrmCadDuplicata_Pag.RxDBLookupCombo3Exit(Sender: TObject);
+begin
+  fDMCadDuplicata.cdsContas.Filtered := False;
+  fDMCadDuplicata.cdsContas.Filter   := '';
 end;
 
 end.

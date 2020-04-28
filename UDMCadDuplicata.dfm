@@ -1,7 +1,7 @@
 object DMCadDuplicata: TDMCadDuplicata
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 306
+  Left = 149
   Top = 20
   Height = 687
   Width = 1209
@@ -1082,7 +1082,7 @@ object DMCadDuplicata: TDMCadDuplicata
     GetMetadata = False
     CommandText = 
       'SELECT ID, NOME, TIPO_CONTA, ID_BANCO, FILIAL, NUMCONTA, AGENCIA' +
-      #13#10'FROM CONTAS'#13#10
+      ', INATIVO'#13#10'FROM CONTAS'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1127,6 +1127,11 @@ object DMCadDuplicata: TDMCadDuplicata
     object cdsContasAGENCIA: TStringField
       FieldName = 'AGENCIA'
       Size = 5
+    end
+    object cdsContasINATIVO: TStringField
+      FieldName = 'INATIVO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsContas: TDataSource

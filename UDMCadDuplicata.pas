@@ -1050,6 +1050,7 @@ type
     cdsDupCCustoNOME_CCUSTO: TStringField;
     sdsDuplicataUSUARIO: TStringField;
     cdsDuplicataUSUARIO: TStringField;
+    cdsContasINATIVO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
