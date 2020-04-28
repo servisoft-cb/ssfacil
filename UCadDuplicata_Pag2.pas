@@ -161,6 +161,7 @@ begin
   end;
   Label1.Visible  := (fDMCadDuplicata.qParametros_FinMOSTRAR_VLR_MULTA_DUP.AsString = 'S');
   ceMulta.Visible := (fDMCadDuplicata.qParametros_FinMOSTRAR_VLR_MULTA_DUP.AsString = 'S');
+  
 end;
 
 procedure TfrmCadDuplicata_Pag2.BitBtn1Click(Sender: TObject);

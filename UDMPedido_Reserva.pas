@@ -62,7 +62,7 @@ begin
   prc_localizar(ID);
   if cdsPedido_Reserva.IsEmpty then
   begin
-    ID := dmDatabase.ProximaSequencia('PEDIDO',0);
+    ID := dmDatabase.ProximaSequencia('PEDIDO_RESERVA',0);
     ID := ID + 1;
     cdsPedido_Reserva.Insert;
     cdsPedido_ReservaID.AsInteger := ID;
@@ -71,15 +71,24 @@ begin
     cdsPedido_Reserva.Edit;
   if ID_Cor <= 0 then
     ID_Cor := 0;
-  cdsPedido_ReservaID_PEDIDO.AsInteger := ID_Pedido;
-  cdsPedido_ReservaITEM_PEDIDO.AsInteger := Item_Pedido;
-  cdsPedido_ReservaID_PRODUTO.AsInteger := ID_Produto;
-  cdsPedido_ReservaID_COR.AsInteger     := ID_Cor;
-  cdsPedido_ReservaQTD.AsFloat          := StrToFloat(FormatFloat('0.0000',Qtd));
-  cdsPedido_ReservaID_LOTE.AsInteger    := ID_Lote;
-  cdsPedido_ReservaFILIAL.AsInteger     := Filial;
-  cdsPedido_ReservaTIPO_ES.AsString     := Tipo_ES;
-  cdsPedido_ReservaDATA.AsDateTime      := Data;
+  if ID_Pedido > 0 then
+    cdsPedido_ReservaID_PEDIDO.AsInteger   := ID_Pedido
+  else
+    cdsPedido_ReservaID_PEDIDO.Clear;
+  if Item_Pedido > 0 then
+    cdsPedido_ReservaITEM_PEDIDO.AsInteger := Item_Pedido
+  else
+    cdsPedido_ReservaITEM_PEDIDO.Clear;
+  cdsPedido_ReservaID_PRODUTO.AsInteger  := ID_Produto;
+  cdsPedido_ReservaID_COR.AsInteger      := ID_Cor;
+  cdsPedido_ReservaQTD.AsFloat           := StrToFloat(FormatFloat('0.0000',Qtd));
+  if ID_Lote > 0 then
+    cdsPedido_ReservaID_LOTE.AsInteger     := ID_Lote
+  else
+    cdsPedido_ReservaID_LOTE.Clear;
+  cdsPedido_ReservaFILIAL.AsInteger      := Filial;
+  cdsPedido_ReservaTIPO_ES.AsString      := Tipo_ES;
+  cdsPedido_ReservaDATA.AsDateTime       := Data;
   if Tipo_ES = 'S' then
     cdsPedido_ReservaQTD2.AsFloat := StrToFloat(FormatFloat('0.0000',Qtd * -1))
   else

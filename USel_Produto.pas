@@ -393,9 +393,12 @@ procedure TfrmSel_Produto.FormShow(Sender: TObject);
 var
   i: Integer;
   vMostra_Prom: String;
+  vUsa_NFCe_Local : Boolean;
 begin
   if Tag = 1 then
     oDBUtils.SetDataSourceProperties(Self, fDMSel_Produto);
+  vUsa_NFCe_Local := dmDatabase.fnc_Usa_NFCe_Local;
+
   qFilial.Close;
   qFilial.Open;
   qParametros.Close;
@@ -443,6 +446,12 @@ begin
         if SMDBGrid1.Columns[i].FieldName = 'QTDGERAL' then
           SMDBGrid1.Columns[i].Visible := False;
       end;
+      if vUsa_NFCe_Local then
+      begin
+        if (SMDBGrid1.Columns[i].FieldName = 'QTDGERAL') or (SMDBGrid1.Columns[i].FieldName = 'QTD') then
+          SMDBGrid1.Columns[i].Visible := False;
+      end;
+      
       if (trim(qParametrosMOSTRAR_MARCAR_PROD.AsString) <> 'S') and (SMDBGrid1.Columns[i].FieldName = 'NOME_MARCA') then
         SMDBGrid1.Columns[i].Visible := False;
       if (SMDBGrid1.Columns[i].FieldName = 'MEDIDA') then
