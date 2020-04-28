@@ -1121,6 +1121,7 @@ begin
   ffrmCadDuplicata_Pag.fDMCadDuplicata := fDMCadDuplicata;
   ffrmCadDuplicata_Pag.ShowModal;
   FreeAndNil(ffrmCadDuplicata_Pag);}
+  fDMCadDuplicata.cdsDuplicata.Edit;
   ffrmCadDuplicata_Pag2 := TfrmCadDuplicata_Pag2.Create(self);
   ffrmCadDuplicata_Pag2.fDMCadDuplicata := fDMCadDuplicata;
   ffrmCadDuplicata_Pag2.ShowModal;
