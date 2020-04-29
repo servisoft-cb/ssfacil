@@ -678,7 +678,7 @@ begin
                                           fDMCadDocEstoque.cdsDocEstoque_ItensCOMPRIMENTO.AsFloat,
                                           fDMCadDocEstoque.cdsDocEstoque_ItensLARGURA.AsFloat,
                                           fDMCadDocEstoque.cdsDocEstoque_ItensESPESSURA.AsFloat,
-                                          0);
+                                          0,0,0); //29/04/2020
 end;
 
 procedure TfrmCadDocEstoque.rxcbTipo_RegExit(Sender: TObject);

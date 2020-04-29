@@ -542,6 +542,7 @@ object frmConsEstoque_Bal: TfrmConsEstoque_Bal
             FieldName = 'DESC_TIPO_REG'
             Title.Alignment = taCenter
             Title.Caption = 'Reg. no Sistema'
+            Width = 64
             Visible = True
           end>
       end

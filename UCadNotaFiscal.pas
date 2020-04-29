@@ -2962,7 +2962,9 @@ begin
                                                              fDMCadNotaFiscal.cdsNotaFiscal_ItensCOMPRIMENTO.AsFloat,
                                                              fDMCadNotaFiscal.cdsNotaFiscal_ItensLARGURA.AsFloat,
                                                              fDMCadNotaFiscal.cdsNotaFiscal_ItensESPESSURA.AsFloat,
-                                                             fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger); //14/01/2019 incluída a operação
+                                                             fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger, //14/01/2019 incluída a operação
+                                                             fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger,
+                                                             fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsInteger); //ID_Pedido  29/04/2020  para a Fepam
 
                 fDMCadNotaFiscal.cdsNotaFiscal_Itens.Edit;
                 fDMCadNotaFiscal.cdsNotaFiscal_ItensID_MOVESTOQUE.AsInteger := vID_Estoque;
@@ -4922,7 +4924,10 @@ begin
                                           fDMCadNotaFiscal.cdsNotaFiscal_ItensCOMPRIMENTO.AsFloat,
                                           fDMCadNotaFiscal.cdsNotaFiscal_ItensLARGURA.AsFloat,
                                           fDMCadNotaFiscal.cdsNotaFiscal_ItensESPESSURA.AsFloat,
-                                          fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger);
+                                          fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger,
+                                          fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger,
+                                          fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsInteger); //ID_Pedido  29/04/2020  para a Fepam
+
 end;
 
 procedure TfrmCadNotaFiscal.prc_scroll_Itens(DataSet: TDataSet);

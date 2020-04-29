@@ -526,7 +526,7 @@ begin
                                                    0,0,'',fDMCadInventario.cdsInventario_ItensID_COR.AsInteger,
                                                    fDMCadInventario.cdsInventario_ItensNUM_LOTE_CONTROLE.AsString,
                                                    vGerar_Custo,
-                                                   fDMCadInventario.cdsInventario_ItensVLR_UNITARIO.AsFloat,0,0,0,0,);
+                                                   fDMCadInventario.cdsInventario_ItensVLR_UNITARIO.AsFloat,0,0,0,0,0,0); //29/04/2020
       fDMCadInventario.cdsInventario_Itens.Edit;
       fDMCadInventario.cdsInventario_ItensID_MOVESTOQUE.AsInteger := vID_Estoque;
       fDMCadInventario.cdsInventario_ItensQTD_AJUSTE.AsFloat      := vQtd;

@@ -2754,7 +2754,7 @@ begin
                                                fDMRecebeXML.cdsNotaFiscal_ItensComprimento.AsFloat,
                                                fDMRecebeXML.cdsNotaFiscal_ItensLargura.AsFloat,
                                                fDMRecebeXML.cdsNotaFiscal_ItensEspessura.AsFloat,
-                                               fDMRecebeXML.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger);
+                                               fDMRecebeXML.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger,0,0);
 
   lbStatusEstoque.Color   := clMoneyGreen;
   lbStatusEstoque.Caption := 'Gerou o estoque dos itens';

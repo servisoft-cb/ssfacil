@@ -1730,7 +1730,7 @@ begin
                                                fDMCadNotaFiscal.cdsNotaFiscal_ItensCOMPRIMENTO.AsFloat,
                                                fDMCadNotaFiscal.cdsNotaFiscal_ItensLARGURA.AsFloat,
                                                fDMCadNotaFiscal.cdsNotaFiscal_ItensESPESSURA.AsFloat,
-                                               fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger); //14/01/2019
+                                               fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger,0,0); //29/04/2020
 
 end;
 

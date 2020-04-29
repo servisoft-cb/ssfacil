@@ -256,7 +256,7 @@ begin
                                                  fDMCadPedido.cdsPedido_ItensID_COR.AsInteger,
                                                  fDMCadPedido.cdsPedido_ItensNUM_LOTE_CONTROLE.AsString,'N',
                                                  fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,0,0,0,
-                                                 0); //ver aqui sobre Lote Controle  04/11/2015
+                                                 0,0,0); //29/04/2020
 
     fDMCadPedido.cdsPedido_Cancelado.Edit;
     fDMCadPedido.cdsPedido_CanceladoID_MOVESTOQUE.AsInteger := vID_Estoque;

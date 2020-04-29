@@ -145,6 +145,12 @@ object DMEstoque: TDMEstoque
     object sdsEstoque_MovID_PRODUTO_ORIG: TIntegerField
       FieldName = 'ID_PRODUTO_ORIG'
     end
+    object sdsEstoque_MovID_PEDIDO: TIntegerField
+      FieldName = 'ID_PEDIDO'
+    end
+    object sdsEstoque_MovITEM_PEDIDO: TIntegerField
+      FieldName = 'ITEM_PEDIDO'
+    end
   end
   object dspEstoque_Mov: TDataSetProvider
     DataSet = sdsEstoque_Mov
@@ -285,6 +291,12 @@ object DMEstoque: TDMEstoque
     end
     object cdsEstoque_MovID_PRODUTO_ORIG: TIntegerField
       FieldName = 'ID_PRODUTO_ORIG'
+    end
+    object cdsEstoque_MovID_PEDIDO: TIntegerField
+      FieldName = 'ID_PEDIDO'
+    end
+    object cdsEstoque_MovITEM_PEDIDO: TIntegerField
+      FieldName = 'ITEM_PEDIDO'
     end
   end
   object dsEstoque_Mov: TDataSource
@@ -434,8 +446,8 @@ object DMEstoque: TDMEstoque
       'FROM PARAMETROS_EST P'
       '')
     SQLConnection = dmDatabase.scoDados
-    Left = 358
-    Top = 47
+    Left = 383
+    Top = 48
     object qParametros_EstUSA_ESTOQUE_GERAL_CAD: TStringField
       FieldName = 'USA_ESTOQUE_GERAL_CAD'
       FixedChar = True
@@ -632,5 +644,21 @@ object DMEstoque: TDMEstoque
     DataSet = cdsProduto_Cor
     Left = 450
     Top = 344
+  end
+  object qParametros_Ped: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT USA_RESERVA_EST'
+      'FROM PARAMETROS_PED'
+      '')
+    SQLConnection = dmDatabase.scoDados
+    Left = 484
+    Top = 50
+    object qParametros_PedUSA_RESERVA_EST: TStringField
+      FieldName = 'USA_RESERVA_EST'
+      FixedChar = True
+      Size = 1
+    end
   end
 end

@@ -141,6 +141,12 @@ type
     qProdutoID_PRODUTO_EST: TIntegerField;
     sdsEstoque_MovID_PRODUTO_ORIG: TIntegerField;
     cdsEstoque_MovID_PRODUTO_ORIG: TIntegerField;
+    sdsEstoque_MovID_PEDIDO: TIntegerField;
+    sdsEstoque_MovITEM_PEDIDO: TIntegerField;
+    cdsEstoque_MovID_PEDIDO: TIntegerField;
+    cdsEstoque_MovITEM_PEDIDO: TIntegerField;
+    qParametros_Ped: TSQLQuery;
+    qParametros_PedUSA_RESERVA_EST: TStringField;
     procedure cdsEstoque_MovReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
@@ -160,7 +166,7 @@ type
                        //ID_COR: Integer = 0): Integer;
                        Vlr_Unitario_Orig,Vlr_Desconto_Orig: Real; Qtd_Pacote: Real; Unidade_Interna: String;
                        ID_COR: Integer; Num_Lote_Controle, Gerar_Custo: String; Preco_Custo_Total, Comprimento, Largura, Espessura: Real;
-                       ID_Operacao: Integer): Integer;
+                       ID_Operacao: Integer ; ID_Pedido, Item_Pedido : Integer): Integer;
 
     //Tirado 10/07/2019  esta usando a do uUtilPadrao
     //function fnc_Buscar_Estoque_DM(CodProduto: Integer; ID_Local_Estoque: Integer; ID_Cor: Integer): Real;
@@ -240,7 +246,7 @@ function TDMEstoque.fnc_Gravar_Estoque(ID_Estoque, ID_Filial, ID_Local_Estoque, 
   Perc_ICMS, Perc_IPI, Vlr_Desconto, Perc_Trib, Vlr_Frete, Qtd_Orig,
   Vlr_Unitario_Orig, Vlr_Desconto_Orig: Real; Qtd_Pacote: Real;
   Unidade_Interna: String; ID_COR: Integer; Num_Lote_Controle, Gerar_Custo: String; Preco_Custo_Total, Comprimento, Largura, Espessura: Real;
-  ID_Operacao: Integer): Integer;
+  ID_Operacao: Integer ; ID_Pedido, Item_Pedido : Integer): Integer;
 var
   vAux: Integer;
   vQtdAux: Real;
@@ -378,6 +384,17 @@ begin
     else
       cdsEstoque_MovID_PRODUTO_ORIG.Clear;
 
+    if (ID_Pedido <= 0) or (trim(qParametros_PedUSA_RESERVA_EST.AsString) <> 'S') then
+    begin
+      cdsEstoque_MovID_PEDIDO.Clear;
+      cdsEstoque_MovITEM_PEDIDO.Clear;
+    end
+    else
+    begin
+      cdsEstoque_MovID_PEDIDO.AsInteger := ID_Pedido;
+      cdsEstoque_MovITEM_PEDIDO.AsInteger := Item_Pedido;
+    end;
+
     cdsEstoque_Mov.Post;
     cdsEstoque_Mov.ApplyUpdates(0);
     Result := vAux;
@@ -436,6 +453,7 @@ var
 begin
   ctqEstoque := qEstoque.SQL.Text;
   qParametros_Est.Open;
+  qParametros_Ped.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do

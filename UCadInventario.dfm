@@ -23,9 +23,9 @@ object frmCadInventario: TfrmCadInventario
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 886
-    Height = 593
-    ActivePage = TS_Cadastro
+    Width = 894
+    Height = 601
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadInventario: TfrmCadInventario
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -42,8 +42,8 @@ object frmCadInventario: TfrmCadInventario
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 147
-        Width = 882
-        Height = 406
+        Width = 890
+        Height = 414
         Align = alClient
         Ctl3D = False
         DataSource = DMCadInventario.dsInventario_Consulta
@@ -141,7 +141,7 @@ object frmCadInventario: TfrmCadInventario
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 882
+        Width = 890
         Height = 32
         Align = alTop
         Color = clSilver
@@ -445,8 +445,8 @@ object frmCadInventario: TfrmCadInventario
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 553
-        Width = 882
+        Top = 561
+        Width = 890
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -462,7 +462,7 @@ object frmCadInventario: TfrmCadInventario
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 882
+        Width = 890
         Height = 115
         Align = alTop
         Color = clSilver
@@ -660,7 +660,7 @@ object frmCadInventario: TfrmCadInventario
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 882
+        Width = 890
         Height = 31
         Align = alTop
         Color = 8404992
@@ -889,7 +889,7 @@ object frmCadInventario: TfrmCadInventario
       object pnlCadastro: TPanel
         Left = 0
         Top = 31
-        Width = 882
+        Width = 890
         Height = 118
         Align = alTop
         Enabled = False
@@ -1090,7 +1090,7 @@ object frmCadInventario: TfrmCadInventario
         object pnlNota: TPanel
           Left = 1
           Top = 1
-          Width = 880
+          Width = 888
           Height = 24
           Align = alTop
           Color = clSilver
@@ -1161,8 +1161,8 @@ object frmCadInventario: TfrmCadInventario
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 149
-        Width = 882
-        Height = 421
+        Width = 890
+        Height = 429
         ActivePage = TabSheet1
         ActivePageDefault = TabSheet1
         Align = alClient
@@ -1174,7 +1174,7 @@ object frmCadInventario: TfrmCadInventario
           object Panel4: TPanel
             Left = 0
             Top = 0
-            Width = 878
+            Width = 886
             Height = 29
             Align = alTop
             Color = clSilver
@@ -1438,8 +1438,8 @@ object frmCadInventario: TfrmCadInventario
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 29
-            Width = 878
-            Height = 369
+            Width = 886
+            Height = 377
             Align = alClient
             Ctl3D = False
             DataSource = DMCadInventario.dsInventario_Itens
@@ -1513,6 +1513,7 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Cor'
+                Width = 64
                 Visible = True
               end
               item
@@ -1539,6 +1540,7 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Estoque'
+                Width = 64
                 Visible = True
               end
               item
@@ -1554,6 +1556,7 @@ object frmCadInventario: TfrmCadInventario
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = [fsBold]
+                Width = 64
                 Visible = True
               end
               item
@@ -1569,6 +1572,7 @@ object frmCadInventario: TfrmCadInventario
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = [fsBold]
+                Width = 64
                 Visible = True
               end
               item
@@ -1585,6 +1589,7 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Tipo Ajuste'
+                Width = 64
                 Visible = True
               end
               item
@@ -1601,6 +1606,7 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Mov Estoque'
+                Width = 64
                 Visible = True
               end
               item
