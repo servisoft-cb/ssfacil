@@ -22,12 +22,12 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
     Left = 0
     Top = 0
     Width = 926
-    Height = 64
+    Height = 67
     Align = alTop
     Color = clSilver
     TabOrder = 0
     object Label1: TLabel
-      Left = 55
+      Left = 191
       Top = 31
       Width = 55
       Height = 13
@@ -35,7 +35,7 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
       Caption = 'Refer'#234'ncia:'
     end
     object Label2: TLabel
-      Left = 87
+      Left = 223
       Top = 11
       Width = 23
       Height = 13
@@ -43,22 +43,22 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
       Caption = 'Filial:'
     end
     object Label5: TLabel
-      Left = 352
+      Left = 488
       Top = 31
       Width = 54
       Height = 13
       Caption = 'ID Produto:'
     end
     object Label3: TLabel
-      Left = 39
+      Left = 175
       Top = 51
       Width = 71
       Height = 13
       Alignment = taRightJustify
-      Caption = 'Nome Material:'
+      Caption = 'Nome Produto:'
     end
     object edtRef: TEdit
-      Left = 112
+      Left = 248
       Top = 23
       Width = 182
       Height = 19
@@ -69,7 +69,7 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
       OnKeyDown = edtRefKeyDown
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
-      Left = 112
+      Left = 248
       Top = 3
       Width = 361
       Height = 21
@@ -82,7 +82,7 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
       TabOrder = 0
     end
     object ceIDProduto: TCurrencyEdit
-      Left = 408
+      Left = 544
       Top = 23
       Width = 65
       Height = 21
@@ -95,7 +95,7 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
       OnKeyDown = ceIDProdutoKeyDown
     end
     object Edit1: TEdit
-      Left = 112
+      Left = 248
       Top = 43
       Width = 361
       Height = 19
@@ -105,12 +105,26 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
       TabOrder = 3
       OnKeyDown = edtRefKeyDown
     end
+    object RadioGroup1: TRadioGroup
+      Left = 1
+      Top = 1
+      Width = 97
+      Height = 65
+      Align = alLeft
+      Caption = ' Op'#231#227'o '
+      ItemIndex = 1
+      Items.Strings = (
+        'Ambos'
+        'Somente com Saldo'
+        'Zerados')
+      TabOrder = 4
+    end
   end
   object RzPageControl1: TRzPageControl
     Left = 0
-    Top = 64
+    Top = 67
     Width = 926
-    Height = 454
+    Height = 451
     ActivePage = TS_Geral
     ActivePageDefault = TS_Geral
     Align = alClient
@@ -118,7 +132,7 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
     TabOrder = 1
     FixedDimension = 19
     object TS_Geral: TRzTabSheet
-      Caption = 'Geral'
+      Caption = 'Por Produto'
       object Panel2: TPanel
         Left = 0
         Top = 0
@@ -276,7 +290,7 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
         Left = 0
         Top = 34
         Width = 922
-        Height = 397
+        Height = 394
         Align = alClient
         Ctl3D = False
         DataSource = DMConsEstoque.dsEstoque_Res
@@ -558,7 +572,7 @@ object frmConsEstoque_Res: TfrmConsEstoque_Res
         Left = 0
         Top = 34
         Width = 922
-        Height = 397
+        Height = 394
         Align = alClient
         Ctl3D = False
         DataSource = DMConsEstoque.dsEstoque_Res_Ord

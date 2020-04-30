@@ -114,8 +114,8 @@ object fMenu: TfMenu
     end
   end
   object MainMenu1: TMainMenu
-    Left = 651
-    Top = 408
+    Left = 652
+    Top = 409
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 0
@@ -548,6 +548,13 @@ object fMenu: TfMenu
       object Inventrio1: TMenuItem
         Caption = 'Digita'#231#227'o do Invent'#225'rio'
         OnClick = Inventrio1Click
+      end
+      object N58: TMenuItem
+        Caption = '-'
+      end
+      object ConsultaProdutosPedidosReservadeEstoque1: TMenuItem
+        Caption = 'Consulta Produtos / Pedidos Reserva de Estoque'
+        OnClick = ConsultaProdutosPedidosReservadeEstoque1Click
       end
       object N5: TMenuItem
         Caption = '-'

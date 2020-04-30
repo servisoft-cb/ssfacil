@@ -366,6 +366,8 @@ type
     MetasdeComissoFaixadeValores1: TMenuItem;
     N57: TMenuItem;
     erminaldoNFCe1: TMenuItem;
+    N58: TMenuItem;
+    ConsultaProdutosPedidosReservadeEstoque1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);
@@ -625,6 +627,8 @@ type
     procedure ProdutosANP1Click(Sender: TObject);
     procedure MetasdeComissoFaixadeValores1Click(Sender: TObject);
     procedure erminaldoNFCe1Click(Sender: TObject);
+    procedure ConsultaProdutosPedidosReservadeEstoque1Click(
+      Sender: TObject);
   private
     { Private declarations }
     vPedLoja: Boolean;
@@ -686,7 +690,7 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   UBaixaNFDevolvida, UConsEstoqueTerc, UAjuste_OperacaoNota, UConsNotas, uProdutoAtualizaPreco, uCadMovProdST, UCadPedWeb,
   UConsProdSTRet, UDMCadPlanoMat, UGerar_PlanoMat, UAjusteEstoqueOP_Res, uCadRaca, uCadTipo_Animal, UConsEstoque2, UComissaoVend,
   UConsProdutoNCM, UProg_Terc, UConsPedido_Producao, UConsNCM_CFOP,
-  UANP_Produto, UCadMetas_Comissao, uCupomTerminal;
+  UANP_Produto, UCadMetas_Comissao, uCupomTerminal, UConsPedido_Res;
 
 {$R *.dfm}
 
@@ -2224,6 +2228,12 @@ end;
 procedure TfMenu.erminaldoNFCe1Click(Sender: TObject);
 begin
   OpenForm(TfCupomTerminal,wsMaximized);
+end;
+
+procedure TfMenu.ConsultaProdutosPedidosReservadeEstoque1Click(
+  Sender: TObject);
+begin
+  OpenForm(TfrmConsPedido_Res,wsMaximized);
 end;
 
 initialization

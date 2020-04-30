@@ -706,6 +706,8 @@ type
     cdsEstoque_AtualQTD_SUB_SALDO: TFloatField;
     cdsEstoque_AtualQTD_SALDO_FINAL: TFloatField;
     cdsBalancoDESC_TIPO_REG: TStringField;
+    qParametros_Ped: TSQLQuery;
+    qParametros_PedUSA_RESERVA_EST: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -793,6 +795,7 @@ begin
   qParametros_Prod.Open;
   qParametros_Geral.Open;
   qParametros_NTE.Open;
+  qParametros_Ped.Open;
   //prc_Abrir_Produto('N');
 end;
 

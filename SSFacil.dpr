@@ -843,7 +843,9 @@ uses
   uSel_Filial_Servidor in 'uSel_Filial_Servidor.pas' {frmSel_Filial_Servidor},
   UDMPedido_Reserva in 'UDMPedido_Reserva.pas' {DMPedido_Reserva: TDataModule},
   UQtdReserva in 'UQtdReserva.pas' {frmQtdReserva},
-  uPessoa in 'Classes\uPessoa.pas';
+  uPessoa in 'Classes\uPessoa.pas',
+  UDMConsPedidoRes in 'UDMConsPedidoRes.pas' {DMConsPedidoRes: TDataModule},
+  UConsPedido_Res in 'UConsPedido_Res.pas' {frmConsPedido_Res};
 
 {$R *.res}
 

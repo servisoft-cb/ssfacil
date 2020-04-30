@@ -4529,4 +4529,20 @@ object DMConsEstoque: TDMConsEstoque
       Size = 1
     end
   end
+  object qParametros_Ped: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT USA_RESERVA_EST'
+      'FROM PARAMETROS_PED'
+      '')
+    SQLConnection = dmDatabase.scoDados
+    Left = 1012
+    Top = 168
+    object qParametros_PedUSA_RESERVA_EST: TStringField
+      FieldName = 'USA_RESERVA_EST'
+      FixedChar = True
+      Size = 1
+    end
+  end
 end

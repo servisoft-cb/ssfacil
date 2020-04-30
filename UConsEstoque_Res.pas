@@ -34,6 +34,7 @@ type
     CurrencyEdit1: TCurrencyEdit;
     CurrencyEdit2: TCurrencyEdit;
     Label6: TLabel;
+    RadioGroup1: TRadioGroup;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -81,6 +82,10 @@ begin
   end;
   if RxDBLookupCombo1.Text <> '' then
     fDMConsEstoque.sdsEstoque_Res.CommandText := fDMConsEstoque.sdsEstoque_Res.CommandText + ' AND E.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
+  case RadioGroup1.ItemIndex of
+    1 : fDMConsEstoque.sdsEstoque_Res.CommandText := fDMConsEstoque.sdsEstoque_Res.CommandText + ' AND E.QTD > 0 ';
+    2 : fDMConsEstoque.sdsEstoque_Res.CommandText := fDMConsEstoque.sdsEstoque_Res.CommandText + ' AND E.QTD <= 0 ';
+  end;  
   fDMConsEstoque.cdsEstoque_Res.Open;
 end;
 
