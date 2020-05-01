@@ -123,34 +123,52 @@ object fMenu: TfMenu
         Caption = 'Empresa (Filial)'
         OnClick = EmpresaFiliais1Click
       end
-      object Contabilista1: TMenuItem
-        Caption = 'Contabilista'
-        OnClick = Contabilista1Click
-      end
-      object N36: TMenuItem
-        Caption = '-'
-      end
       object ConfiguraoEmail1: TMenuItem
         Caption = 'Configura'#231#227'o Email'
         OnClick = ConfiguraoEmail1Click
-      end
-      object N2: TMenuItem
-        Caption = '-'
       end
       object Parmetros1: TMenuItem
         Caption = 'Par'#226'metros'
         OnClick = Parmetros1Click
       end
-      object N3: TMenuItem
+      object N39: TMenuItem
         Caption = '-'
       end
-      object CFOPNaturezadeOperao1: TMenuItem
-        Caption = 'CFOP (Natureza de Opera'#231#227'o)'
-        OnClick = CFOPNaturezadeOperao1Click
+      object Cadastros1: TMenuItem
+        Caption = 'Cadastros'
+        object Contabilista1: TMenuItem
+          Caption = 'Contabilista'
+          OnClick = Contabilista1Click
+        end
+        object CFOPNaturezadeOperao1: TMenuItem
+          Caption = 'CFOP (Natureza de Opera'#231#227'o)'
+          OnClick = CFOPNaturezadeOperao1Click
+        end
+        object CondiodePagamento2: TMenuItem
+          Caption = 'Condi'#231#227'o de Pagamento'
+          OnClick = CondiodePagamento2Click
+        end
+        object CNAE1: TMenuItem
+          Caption = 'CNAE'
+          OnClick = CNAE1Click
+        end
+        object Ferados1: TMenuItem
+          Caption = 'Feriados'
+          OnClick = Ferados1Click
+        end
+        object FeriadoNacional1: TMenuItem
+          Caption = 'Feriado Nacional'
+        end
+        object ObservaoAuxiliar1: TMenuItem
+          Caption = 'Observa'#231#227'o Auxiliar'
+        end
+        object Setores1: TMenuItem
+          Caption = 'Setores'
+          OnClick = Setores1Click
+        end
       end
-      object CondiodePagamento2: TMenuItem
-        Caption = 'Condi'#231#227'o de Pagamento'
-        OnClick = CondiodePagamento2Click
+      object N3: TMenuItem
+        Caption = '-'
       end
       object CidadeUFPais1: TMenuItem
         Caption = 'Cidade/UF/Pais'
@@ -166,22 +184,6 @@ object fMenu: TfMenu
           Caption = 'Pa'#237'ses'
           OnClick = Pais1Click
         end
-      end
-      object CNAE1: TMenuItem
-        Caption = 'CNAE'
-        OnClick = CNAE1Click
-      end
-      object Ferados1: TMenuItem
-        Caption = 'Feriados'
-        OnClick = Ferados1Click
-      end
-      object FeriadoFixo1: TMenuItem
-        Caption = 'Feriado Nacional'
-        OnClick = FeriadoFixo1Click
-      end
-      object ObservaoAuxiliar1: TMenuItem
-        Caption = 'Observa'#231#227'o Auxiliar'
-        OnClick = ObservaoAuxiliar1Click
       end
       object Pessoa1: TMenuItem
         Caption = 'Pessoas'
@@ -203,9 +205,6 @@ object fMenu: TfMenu
           Caption = 'Relat'#243'rio Aniversariantes'
           OnClick = RelatrioAniversariantes1Click
         end
-      end
-      object N34: TMenuItem
-        Caption = '-'
       end
       object ProdutoUnidadeNCM1: TMenuItem
         Caption = 'Produto/Unidade/NCM'
@@ -290,9 +289,6 @@ object fMenu: TfMenu
           OnClick = ComissodoProdutoPorVendedorCadastro1Click
         end
       end
-      object N25: TMenuItem
-        Caption = '-'
-      end
       object Produo1: TMenuItem
         Caption = 'Produ'#231#227'o'
         object GradeConfiguraoQtde1: TMenuItem
@@ -331,9 +327,6 @@ object fMenu: TfMenu
           Caption = 'Tipo de M'#225'quina'
           OnClick = ipoMquina1Click
         end
-      end
-      object N32: TMenuItem
-        Caption = '-'
       end
       object Financeiro2: TMenuItem
         Caption = 'Financeiro'
@@ -386,9 +379,6 @@ object fMenu: TfMenu
           OnClick = MetasdeComissoFaixadeValores1Click
         end
       end
-      object N26: TMenuItem
-        Caption = '-'
-      end
       object Servios2: TMenuItem
         Caption = 'Servi'#231'os'
         object CadastroAtividadeMunicipio1: TMenuItem
@@ -412,9 +402,6 @@ object fMenu: TfMenu
           OnClick = ProvedorNFSe1Click
         end
       end
-      object N12: TMenuItem
-        Caption = '-'
-      end
       object Funcionrio1: TMenuItem
         Caption = 'Funcion'#225'rio'
         object FuncionarioCompleto1: TMenuItem
@@ -425,13 +412,6 @@ object fMenu: TfMenu
           Caption = 'Funcion'#225'rio Resumido'
           OnClick = FuncionrioResumido1Click
         end
-      end
-      object Setores1: TMenuItem
-        Caption = 'Setores'
-        OnClick = Setores1Click
-      end
-      object N33: TMenuItem
-        Caption = '-'
       end
       object abeladePreo1: TMenuItem
         Caption = 'Tabela de Pre'#231'o'
@@ -447,9 +427,6 @@ object fMenu: TfMenu
           Caption = 'Consulta Nova'
           OnClick = ConsultaNova1Click
         end
-      end
-      object N13: TMenuItem
-        Caption = '-'
       end
       object abelaImpostos1: TMenuItem
         Caption = 'Tabela Impostos / Lei'
@@ -498,15 +475,9 @@ object fMenu: TfMenu
           OnClick = abelaSimplesFaixaicms1Click
         end
       end
-      object N4: TMenuItem
-        Caption = '-'
-      end
       object Agenda1: TMenuItem
         Caption = 'Agenda'
         OnClick = Agenda1Click
-      end
-      object N55: TMenuItem
-        Caption = '-'
       end
       object Animal1: TMenuItem
         Caption = 'Pet'
@@ -549,80 +520,63 @@ object fMenu: TfMenu
         Caption = 'Digita'#231#227'o do Invent'#225'rio'
         OnClick = Inventrio1Click
       end
+      object N16: TMenuItem
+        Caption = '-'
+      end
+      object Consultas3: TMenuItem
+        Caption = 'Consultas'
+        object ConsultaProdutosPedidosReservadeEstoque1: TMenuItem
+          Caption = 'Consulta Produtos / Pedidos Reserva de Estoque'
+        end
+        object N5: TMenuItem
+          Caption = '-'
+        end
+        object ConsultaEstoque1: TMenuItem
+          Caption = 'Consulta Estoque'
+        end
+        object ConsultaEstoqueDeTerceirosEmTerceiros1: TMenuItem
+          Caption = 'Consulta Estoque / De Terceiros / Em Terceiros'
+        end
+        object ConsultaEstoqueClienteExtrato1: TMenuItem
+          Caption = 'Consulta Estoque (Cliente Extrato)'
+        end
+        object ConsultaEstoqueMovimento1: TMenuItem
+          Caption = 'Consulta Estoque (Movimento)'
+        end
+        object ConsultaEstoqueLoteControle1: TMenuItem
+          Caption = 'Consulta Estoque (Lote Controle)'
+        end
+        object ConsultaEstoqueVeculoMovimento1: TMenuItem
+          Caption = 'Consulta Estoque Ve'#237'culo (Movimento)'
+        end
+        object ConsultaMaterialSemiAcabadoSemMovimentao1: TMenuItem
+          Caption = 'Consulta Material/Semi Acabado Sem Movimenta'#231#227'o'
+        end
+        object ConsultaEstoqueMedidaLoteControle1: TMenuItem
+          Caption = 'Consulta Estoque Medida/Lote Controle'
+        end
+        object ConsultaEstoqueReserva1: TMenuItem
+          Caption = 'Consulta Estoque Reserva'
+        end
+        object ConsultaEstoquedeTerceiroeEmTerceiro1: TMenuItem
+          Caption = 'Consulta Estoque de Terceiro e Em Terceiro'
+        end
+        object ConsultaEstoqueDimenses1: TMenuItem
+          Caption = 'Consulta Estoque (Dimens'#245'es)'
+        end
+        object ConsultaMaterialParaComprasPedidoxRemessa1: TMenuItem
+          Caption = 'Consulta Material Para Compras (Pedido x Remessa)'
+        end
+        object ConsultarMateriaPrimanoProduto1: TMenuItem
+          Caption = 'Consultar Materia Prima no Produto'
+        end
+      end
       object N58: TMenuItem
         Caption = '-'
-      end
-      object ConsultaProdutosPedidosReservadeEstoque1: TMenuItem
-        Caption = 'Consulta Produtos / Pedidos Reserva de Estoque'
-        OnClick = ConsultaProdutosPedidosReservadeEstoque1Click
-      end
-      object N5: TMenuItem
-        Caption = '-'
-      end
-      object ConsultaEstoque1: TMenuItem
-        Caption = 'Consulta Estoque'
-        OnClick = ConsultaEstoque1Click
-      end
-      object ConsultaEstoqueAtual1: TMenuItem
-        Caption = 'Consulta Estoque / De Terceiros / Em Terceiros'
-        OnClick = ConsultaEstoqueAtual1Click
-      end
-      object ConsultaEstoqueClienteExtrato1: TMenuItem
-        Caption = 'Consulta Estoque (Cliente Extrato)'
-        OnClick = ConsultaEstoqueClienteExtrato1Click
-      end
-      object ConsultaEstoqueMovimentoPorProduto1: TMenuItem
-        Caption = 'Consulta Estoque (Movimento)'
-        OnClick = ConsultaEstoqueMovimentoPorProduto1Click
-      end
-      object ConsultaEstoqueLoteControle1: TMenuItem
-        Caption = 'Consulta Estoque (Lote Controle)'
-        OnClick = ConsultaEstoqueLoteControle1Click
-      end
-      object ConsultaEstoqueVeculoMovimento1: TMenuItem
-        Caption = 'Consulta Estoque Ve'#237'culo (Movimento)'
-        OnClick = ConsultaEstoqueVeculoMovimento1Click
-      end
-      object ConsultaMaterialSemiAcabadoSemMovimentao1: TMenuItem
-        Caption = 'Consulta Material/Semi Acabado Sem Movimenta'#231#227'o'
-        OnClick = ConsultaMaterialSemiAcabadoSemMovimentao1Click
-      end
-      object ConsultaEstoqueMedidaLoteControle1: TMenuItem
-        Caption = 'Consulta Estoque Medida/Lote Controle'
-        OnClick = ConsultaEstoqueMedidaLoteControle1Click
-      end
-      object ConsultaEstoqueReserva1: TMenuItem
-        Caption = 'Consulta Estoque Reserva'
-        OnClick = ConsultaEstoqueReserva1Click
-      end
-      object ConsultaEstoquedeTerceiroeEmTerceiro1: TMenuItem
-        Caption = 'Consulta Estoque de Terceiro e Em Terceiro'
-        OnClick = ConsultaEstoquedeTerceiroeEmTerceiro1Click
-      end
-      object ConsultaEstoqueDimenses1: TMenuItem
-        Caption = 'Consulta Estoque (Dimens'#245'es)'
-        OnClick = ConsultaEstoqueDimenses1Click
-      end
-      object N49: TMenuItem
-        Caption = '-'
-      end
-      object ConsultaMaterialParaCompras1: TMenuItem
-        Caption = 'Consulta Material Para Compras (Pedido x Remessa)'
-        OnClick = ConsultaMaterialParaCompras1Click
       end
       object LevantamentodeMateriais1: TMenuItem
         Caption = 'Levantamento de Materiais'
         OnClick = LevantamentodeMateriais1Click
-      end
-      object N50: TMenuItem
-        Caption = '-'
-      end
-      object ConsultarMateriaPrimanoProduto1: TMenuItem
-        Caption = 'Consultar Materia Prima no Produto'
-        OnClick = ConsultarMateriaPrimanoProduto1Click
-      end
-      object N53: TMenuItem
-        Caption = '-'
       end
       object AjusteOperaoNasNotas1: TMenuItem
         Caption = 'Ajuste Opera'#231#227'o Nas Notas'
@@ -644,49 +598,49 @@ object fMenu: TfMenu
         Caption = 'Ordem de Compra'
         OnClick = OrdemdeCompra1Click
       end
+      object N21: TMenuItem
+        Caption = '-'
+      end
+      object Consultas2: TMenuItem
+        Caption = 'Consultas'
+        object ConsultaMapadeCompra1: TMenuItem
+          Caption = 'Consulta Mapa de Compra'
+        end
+        object ConsultaNotasdeBeneficiamentoEstoqueDeTerceirosManual1: TMenuItem
+          Caption = 'Consulta Notas de Beneficiamento / Estoque De Terceiros (Manual)'
+        end
+        object ConsultaPedidoxMateriaisTerceiros1: TMenuItem
+          Caption = 'Consulta Pedido x Materiais Terceiros'
+        end
+        object ConsultaNotas1: TMenuItem
+          Caption = 'Consulta Notas'
+        end
+        object ConsultaComprasNotas1: TMenuItem
+          Caption = 'Consulta Compras (Notas)'
+        end
+        object ConsultaOrdemdeCompra1: TMenuItem
+          Caption = 'Consulta Ordem de Compra'
+        end
+        object ConsultaComprasServioContaOramento1: TMenuItem
+          Caption = 'Consulta Compras/Servi'#231'o Conta Or'#231'amento'
+        end
+        object ConsultaMateriaisPorOrdemdeProduo1: TMenuItem
+          Caption = 'Consulta Materiais Por Ordem de Produ'#231#227'o'
+        end
+        object ConsultaProdutosST1: TMenuItem
+          Caption = 'Consulta Produtos ST'
+        end
+      end
+      object BaixasManuais2: TMenuItem
+        Caption = 'Baixas Manuais'
+        object BaixaOrdemdeCompraManual1: TMenuItem
+          Caption = 'Baixa Ordem de Compra Manual'
+        end
+        object BaixaNotadeBeneficiamentoEstoqueDeTerceiro1: TMenuItem
+          Caption = 'Baixa Nota de Beneficiamento / Estoque De Terceiro'
+        end
+      end
       object N7: TMenuItem
-        Caption = '-'
-      end
-      object BaixaOrdemdeCompraManual1: TMenuItem
-        Caption = 'Baixa Ordem de Compra Manual'
-        OnClick = BaixaOrdemdeCompraManual1Click
-      end
-      object BaixaNotadeBeneficiamento1: TMenuItem
-        Caption = 'Baixa Nota de Beneficiamento / Estoque De Terceiro'
-        OnClick = BaixaNotadeBeneficiamento1Click
-      end
-      object N16: TMenuItem
-        Caption = '-'
-      end
-      object ConsultaMapadeCompra1: TMenuItem
-        Caption = 'Consulta Mapa de Compra'
-        OnClick = ConsultaMapadeCompra1Click
-      end
-      object ConsultaNotasdeBeneficiamento1: TMenuItem
-        Caption = 'Consulta Notas de Beneficiamento / Estoque De Terceiros (Manual)'
-        OnClick = ConsultaNotasdeBeneficiamento1Click
-      end
-      object ConsultaMateriaisTerceiros1: TMenuItem
-        Caption = 'Consulta Pedido x Materiais Terceiros'
-        OnClick = ConsultaMateriaisTerceiros1Click
-      end
-      object ConsultaNotas1: TMenuItem
-        Caption = 'Consulta Notas'
-        OnClick = ConsultaNotas1Click
-      end
-      object ConsultaCompras1: TMenuItem
-        Caption = 'Consulta Compras (Notas)'
-        OnClick = ConsultaCompras1Click
-      end
-      object ConsultaOrdemdeCompra1: TMenuItem
-        Caption = 'Consulta Ordem de Compra'
-        OnClick = ConsultaOrdemdeCompra1Click
-      end
-      object ConsultaComprasServioCtaOramento1: TMenuItem
-        Caption = 'Consulta Compras/Servi'#231'o Conta Or'#231'amento'
-        OnClick = ConsultaComprasServioCtaOramento1Click
-      end
-      object N39: TMenuItem
         Caption = '-'
       end
       object GerarPlanodeMateriais1: TMenuItem
@@ -697,20 +651,12 @@ object fMenu: TfMenu
         Caption = 'Necessidade de Compras - Novo'
         OnClick = NecessidadedeComprasNovo1Click
       end
-      object ConsultaMateriaisPorLote1: TMenuItem
-        Caption = 'Consulta Materiais Por Ordem de Produ'#231#227'o'
-        OnClick = ConsultaMateriaisPorLote1Click
-      end
       object N54: TMenuItem
         Caption = '-'
       end
       object MovimentoProdutoST1: TMenuItem
         Caption = 'Movimento Produto ST'
         OnClick = MovimentoProdutoST1Click
-      end
-      object ConsultaProdutosST1: TMenuItem
-        Caption = 'Consulta Produtos ST'
-        OnClick = ConsultaProdutosST1Click
       end
       object N10: TMenuItem
         Caption = '-'
@@ -724,6 +670,10 @@ object fMenu: TfMenu
       AutoLineReduction = maAutomatic
       Caption = 'Faturamento'
       ImageIndex = 3
+      object AprovaodePedidos1: TMenuItem
+        Caption = 'Aprova'#231#227'o de Pedidos'
+        OnClick = AprovaodePedidos1Click
+      end
       object LiberarPedidosparaofaturamento1: TMenuItem
         Caption = 'Liberar Pedidos para o faturamento (Terceiro)'
         OnClick = LiberarPedidosparaofaturamento1Click
@@ -731,10 +681,6 @@ object fMenu: TfMenu
       object PedidosLiberadosParaFaturamento1: TMenuItem
         Caption = 'Pedidos Liberados Para Faturamento'
         OnClick = PedidosLiberadosParaFaturamento1Click
-      end
-      object AprovaodePedidos1: TMenuItem
-        Caption = 'Aprova'#231#227'o de Pedidos'
-        OnClick = AprovaodePedidos1Click
       end
       object Clientes1: TMenuItem
         Caption = 'Confer'#234'ncia/Libera'#231#227'o Faturamento de Pedidos'
@@ -744,16 +690,111 @@ object fMenu: TfMenu
         Caption = 'Confer'#234'ncia Simples (sem controle do faturamento)'
         OnClick = ConfernciaSimplesSemcontroledofaturamento1Click
       end
+      object N47: TMenuItem
+        Caption = '-'
+      end
+      object Oramento1: TMenuItem
+        Caption = 'Or'#231'amento'
+        OnClick = Oramento1Click
+      end
+      object PedidoComercial1: TMenuItem
+        Caption = 'Pedido Venda'
+        OnClick = PedidoComercial1Click
+      end
+      object PedidoSimples1: TMenuItem
+        Caption = 'Pedido Simples'
+        OnClick = PedidoSimples1Click
+      end
+      object PedidoWeb1: TMenuItem
+        Caption = 'Pedido Web'
+        OnClick = PedidoWeb1Click
+      end
+      object ExcluirPedidos1: TMenuItem
+        Caption = 'Excluir Pedidos'
+        OnClick = ExcluirPedidos1Click
+      end
+      object N59: TMenuItem
+        Caption = '-'
+      end
+      object ConsultasRelatrios1: TMenuItem
+        Caption = 'Consultas / Relat'#243'rios'
+        object ConsultaNotasdeBeneficiamentoEstoqueemTerceiro1: TMenuItem
+          Caption = 'Consulta Notas de Beneficiamento / Estoque Em Terceiro'
+          OnClick = ConsultaNotasdeBeneficiamentoEstoqueemTerceiro1Click
+        end
+        object ConsultaPedidoPorDatadeFaturamento1: TMenuItem
+          Caption = 'Consulta Pedido Por Data de Faturamento'
+          OnClick = ConsultaPedidoPorDatadeFaturamento1Click
+        end
+        object ConsultaPedido1: TMenuItem
+          Caption = 'Consulta Pedido'
+        end
+        object ConsultaPedidoOramento1: TMenuItem
+          Caption = 'Consulta Pedido/Or'#231'amento'
+          OnClick = ConsultaPedidoOramento1Click
+        end
+        object ConsultaPedidosAlteradosporSenha1: TMenuItem
+          Caption = 'Consulta Pedidos Alterados por Senha'
+        end
+        object ConsultasNotas1: TMenuItem
+          Caption = 'Consultas Notas'
+        end
+        object ConsultaFaturamentoDetalhado1: TMenuItem
+          Caption = 'Consulta Faturamento (Detalhado)'
+        end
+        object ConsultaFaturamento21: TMenuItem
+          Caption = 'Consulta Faturamento 2'
+        end
+        object ConsultaNotaCanceladaDenegada1: TMenuItem
+          Caption = 'Consulta Nota Cancelada/Denegada'
+        end
+        object ConsultaNotasEntradaSada1: TMenuItem
+          Caption = 'Consulta Notas (Entrada/Sa'#237'da)'
+        end
+        object ConsultaProdutosClientesSemVendasPedidosnoPerodo1: TMenuItem
+          Caption = 'Consulta Produtos/Clientes Sem Vendas(Pedidos) no Per'#237'odo'
+        end
+        object ConsultaPedidoProcesso1: TMenuItem
+          Caption = 'Consulta Pedido Processo'
+        end
+        object ConsultaFreteCIFFOB1: TMenuItem
+          Caption = 'Consulta Frete (CIF/FOB)'
+        end
+        object ConsultaPedidoItensProcessosProduo1: TMenuItem
+          Caption = 'Consulta Pedido Itens Processos (Produ'#231#227'o)'
+        end
+        object ConsultaNCMCFOP1: TMenuItem
+          Caption = 'Consulta NCM/CFOP'
+          OnClick = ConsultaNCMCFOP1Click
+        end
+        object ManifestodeCargaRomaneiodeEndereo1: TMenuItem
+          Caption = 'Manifesto de Carga/Romaneio de Endere'#231'o'
+        end
+        object Minuta1: TMenuItem
+          Caption = 'Minuta'
+        end
+      end
       object N38: TMenuItem
+        Caption = '-'
+      end
+      object BaixasManuais1: TMenuItem
+        Caption = 'Baixas Manuais'
+        object BaixaNotasdeBeneficiamentoEstoqueEmTerceiroManual1: TMenuItem
+          Caption = 'Baixa Notas de Beneficiamento / Estoque Em Terceiro (Manual)'
+        end
+        object BaixaProduo1: TMenuItem
+          Caption = 'Baixa Produ'#231#227'o'
+        end
+        object BaixaPedidoManualFaturamento1: TMenuItem
+          Caption = 'Baixa Pedido Manual (Faturamento)'
+        end
+      end
+      object N11: TMenuItem
         Caption = '-'
       end
       object NotaFiscalNFe1: TMenuItem
         Caption = 'Nota Fiscal NFe'
         OnClick = NotaFiscalNFe1Click
-      end
-      object PedidoComercial1: TMenuItem
-        Caption = 'Pedido Venda'
-        OnClick = PedidoComercial1Click
       end
       object NFeOpes1: TMenuItem
         Caption = 'NFe (Op'#231#245'es)'
@@ -786,107 +827,11 @@ object fMenu: TfMenu
         Caption = 'Recibo NF'
         OnClick = ReciboNF1Click
       end
-      object PedidoWeb1: TMenuItem
-        Caption = 'Pedido Web'
-        OnClick = PedidoWeb1Click
-      end
-      object PedidoSimples1: TMenuItem
-        Caption = 'Pedido Simples'
-        OnClick = PedidoSimples1Click
-      end
-      object N52: TMenuItem
-        Caption = '-'
-      end
-      object ConsultaNotasdeBeneficiamentoEstoqueemTerceiro1: TMenuItem
-        Caption = 'Consulta Notas de Beneficiamento / Estoque Em Terceiro'
-        OnClick = ConsultaNotasdeBeneficiamentoEstoqueemTerceiro1Click
-      end
-      object BaixaNotasdeBeneficiamentoEstoqueEmTerceiro1: TMenuItem
-        Caption = 'Baixa Notas de Beneficiamento / Estoque Em Terceiro (Manual)'
-        OnClick = BaixaNotasdeBeneficiamentoEstoqueEmTerceiro1Click
-      end
-      object N11: TMenuItem
-        Caption = '-'
-      end
-      object Oramento1: TMenuItem
-        Caption = 'Or'#231'amento'
-        OnClick = Oramento1Click
-      end
-      object ConsultaPedido1: TMenuItem
-        Caption = 'Consulta Pedido'
-        OnClick = ConsultaPedido1Click
-      end
-      object ConsultaPedidoOramento1: TMenuItem
-        Caption = 'Consulta Pedido/Or'#231'amento'
-        OnClick = ConsultaPedidoOramento1Click
-      end
-      object ConsultaPedidoPorDatadeFaturamento1: TMenuItem
-        Caption = 'Consulta Pedido Por Data de Faturamento'
-        OnClick = ConsultaPedidoPorDatadeFaturamento1Click
-      end
-      object ConsultaPedidosAlteradosporSenha1: TMenuItem
-        Caption = 'Consulta Pedidos Alterados por Senha'
-        OnClick = ConsultaPedidosAlteradosporSenha1Click
-      end
-      object N21: TMenuItem
-        Caption = '-'
-      end
-      object BaixaProduo1: TMenuItem
-        Caption = 'Baixa Produ'#231#227'o'
-        OnClick = BaixaProduo1Click
-      end
-      object BaixaPedidoManual1: TMenuItem
-        Caption = 'Baixa Pedido Manual (Faturamento)'
-        OnClick = BaixaPedidoManual1Click
-      end
       object Vale1: TMenuItem
         Caption = 'Vale'
         OnClick = Vale1Click
       end
-      object ExcluirPedidos1: TMenuItem
-        Caption = 'Excluir Pedidos'
-        OnClick = ExcluirPedidos1Click
-      end
       object N6: TMenuItem
-        Caption = '-'
-      end
-      object ConsultasNotas1: TMenuItem
-        Caption = 'Consultas Notas'
-        OnClick = ConsultasNotas1Click
-      end
-      object ConsultaFaturamento1: TMenuItem
-        Caption = 'Consulta Faturamento (Detalhado)'
-        OnClick = ConsultaFaturamento1Click
-      end
-      object ConsultaFaturamento21: TMenuItem
-        Caption = 'Consulta Faturamento 2'
-        OnClick = ConsultaFaturamento21Click
-      end
-      object ConsultaNotaCanceladaDenegada1: TMenuItem
-        Caption = 'Consulta Nota Cancelada/Denegada'
-        OnClick = ConsultaNotaCanceladaDenegada1Click
-      end
-      object ConsultaNotasEntradaSada1: TMenuItem
-        Caption = 'Consulta Notas (Entrada/Sa'#237'da)'
-        OnClick = ConsultaNotasEntradaSada1Click
-      end
-      object ConsultaProdutosSemVendasPedidosnoPerodo1: TMenuItem
-        Caption = 'Consulta Produtos/Clientes Sem Vendas(Pedidos) no Per'#237'odo'
-        OnClick = ConsultaProdutosSemVendasPedidosnoPerodo1Click
-      end
-      object ConsultaPedidoProcesso1: TMenuItem
-        Caption = 'Consulta Pedido Processo'
-        OnClick = ConsultaPedidoProcesso1Click
-      end
-      object ConsultaFrete1: TMenuItem
-        Caption = 'Consulta Frete (CIF/FOB)'
-        OnClick = ConsultaFrete1Click
-      end
-      object ConsultaPedidoItensProcessosProduo1: TMenuItem
-        Caption = 'Consulta Pedido Itens Processos (Produ'#231#227'o)'
-        OnClick = ConsultaPedidoItensProcessosProduo1Click
-      end
-      object N47: TMenuItem
         Caption = '-'
       end
       object ProgramaodePedidos1: TMenuItem
@@ -907,17 +852,6 @@ object fMenu: TfMenu
       object N42: TMenuItem
         Caption = '-'
       end
-      object ManifestodeCargaRomaneiodeEndereo1: TMenuItem
-        Caption = 'Manifesto de Carga/Romaneio de Endere'#231'o'
-        OnClick = ManifestodeCargaRomaneiodeEndereo1Click
-      end
-      object Minuta1: TMenuItem
-        Caption = 'Minuta'
-        OnClick = Minuta1Click
-      end
-      object N46: TMenuItem
-        Caption = '-'
-      end
       object SPEDBlocoH1: TMenuItem
         Caption = 'SPED Bloco H / K'
         OnClick = SPEDBlocoH1Click
@@ -925,10 +859,6 @@ object fMenu: TfMenu
       object GerarFCI1: TMenuItem
         Caption = 'FCI'
         OnClick = GerarFCI1Click
-      end
-      object ConsultaNCMCFOP1: TMenuItem
-        Caption = 'Consulta NCM/CFOP'
-        OnClick = ConsultaNCMCFOP1Click
       end
     end
     object Servios1: TMenuItem
@@ -1115,11 +1045,11 @@ object fMenu: TfMenu
       object CobranaEletrnica1: TMenuItem
         Caption = 'Cobran'#231'a Eletr'#244'nica'
         object RemessaNovo1: TMenuItem
-          Caption = 'Remessa Novo (Acbr)'
+          Caption = 'Remessa'
           OnClick = RemessaNovo1Click
         end
         object RetornoNovoAcbr1: TMenuItem
-          Caption = 'Retorno Novo (Acbr)'
+          Caption = 'Retorno'
           OnClick = RetornoNovoAcbr1Click
         end
         object N30: TMenuItem

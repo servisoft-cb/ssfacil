@@ -133,6 +133,8 @@ uses
   function fnc_Busca_Estoque_Data(Filial, ID_Local, ID_Produto, ID_Cor: Integer ; Tamanho: String ; Data: TDateTime): Real;
   procedure Informa(Texto:string) ;
 
+  function fnc_Cliente_Estoque(ID_Pedido : Integer) : String;
+
 var
   Enter,Esc,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,Q: Word;
   vCodProduto_Pos: Integer;
@@ -2603,5 +2605,27 @@ begin
   end;
 
 end;}
+
+function fnc_Cliente_Estoque(ID_Pedido : Integer) : String;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 'N';
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'select coalesce(CLI.CLIENTE_ESTOQUE,' + QuotedStr('N') + ')  CLIENTE_ESTOQUE '
+                       + 'from PEDIDO P '
+                       + 'inner join PESSOA CLI on P.ID_CLIENTE = CLI.CODIGO '
+                       + 'WHERE P.ID = :ID ';
+    sds.ParamByName('ID').AsInteger := ID_Pedido;
+    sds.Open;
+    Result := sds.FieldByName('CLIENTE_ESTOQUE').AsString;
+  finally
+    FreeAndNil(sds);
+  end;
+end;
 
 end.
