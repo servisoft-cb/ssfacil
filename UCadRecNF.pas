@@ -1801,8 +1801,9 @@ begin
                                                vVlrAux,
                                                vDescAux,fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_PACOTE.AsFloat,'',
                                                fDMCadNotaFiscal.cdsNotaFiscal_ItensID_COR.AsInteger,
-                                               fDMCadNotaFiscal.cdsNotaFiscal_ItensNUM_LOTE_CONTROLE.AsString,'N',0,0,0,0,0,0,0); //29/04/2020 
-
+                                               fDMCadNotaFiscal.cdsNotaFiscal_ItensNUM_LOTE_CONTROLE.AsString,'N',0,0,0,0,0,
+                                               fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger,
+                                               fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsInteger); //29/04/2020
 end;
 
 function TfrmCadRecNF.fnc_Busca_Cond_AVista: Integer;

@@ -288,7 +288,9 @@ begin
                                                      //fDmCadVale.cdsValeItensQTD.AsFloat,  11/09/2015
                                                      vQtdAux,
                                                      //fDmCadVale.cdsValeItensVLR_UNITARIO.AsFloat,0); 11/09/2015
-                                                     vVlrAux,0,0,'',0,'','N',vVlrAux,0,0,0,0,0,0); //29/04/2020 
+                                                     vVlrAux,0,0,'',0,'','N',vVlrAux,0,0,0,0,
+                                                     fDmCadVale.cdsValeItensID_PEDIDO.AsInteger,
+                                                     fDmCadVale.cdsValeItensITEM_PEDIDO.AsInteger); //29/04/2020
                                                      //aqui a cor ainda é com ZERO 
       end
       else

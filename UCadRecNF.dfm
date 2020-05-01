@@ -178,6 +178,7 @@ object frmCadRecNF: TfrmCadRecNF
             FieldName = 'TIPO_PRAZO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Prazo'
+            Width = 64
             Visible = True
           end
           item
@@ -213,6 +214,7 @@ object frmCadRecNF: TfrmCadRecNF
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
+            Width = 64
             Visible = True
           end>
       end
@@ -1583,6 +1585,7 @@ object frmCadRecNF: TfrmCadRecNF
               item
                 Expanded = False
                 FieldName = 'UNIDADE'
+                Width = 64
                 Visible = True
               end
               item
