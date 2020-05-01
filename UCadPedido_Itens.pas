@@ -1276,7 +1276,6 @@ begin
         exit;
     end;
 
-    //10/01/2019
     if fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger <> fDMCadPedido.cdsClienteCODIGO.AsInteger then
       fDMCadPedido.cdsCliente.Locate('CODIGO',fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,[loCaseInsensitive]);
     if (fDMCadPedido.cdsClienteIPI_PAGO_FILIAL.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat)) > 0) then
@@ -1286,7 +1285,6 @@ begin
          (vCodProdutoAnt <> fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger) or (vState = 'I')) then
         prc_Calcula_IPI_Pago_Empresa;
     end;
-    //******************
 
     if fDMCadPedido.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S' then
       fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString := fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString + ' TAM. ' + fDMCadPedido.cdsPedido_ItensTAMANHO.AsString
@@ -1321,7 +1319,8 @@ begin
       prc_Calcular_Lucratividade(fDMCadPedido,'V');
 
     //14/04/2020
-    if (fDMCadPedido.qParametros_PedUSA_RESERVA_EST.AsString = 'S') and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_ESTOQUE_RES.AsFloat)) <= 0) then
+    if (fDMCadPedido.qParametros_PedUSA_RESERVA_EST.AsString = 'S') and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_ESTOQUE_RES.AsFloat)) <= 0)
+      and (trim(fDMCadPedido.cdsClienteCLIENTE_ESTOQUE.AsString) <> 'S') then
     begin
       vQtdAux := StrToFloat(lblEstoque.Caption);
       if (vQtdAux > 0) and (MessageDlg('Deseja fazer a reserva?',mtConfirmation,[mbYes,mbNo],0) <> mrYes) then

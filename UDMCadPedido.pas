@@ -3746,6 +3746,7 @@ type
     cdsPedido_ItensID_PEDIDO_RESERVA: TIntegerField;
     cdsPedido_ItensQTD_ESTOQUE_RES: TFloatField;
     sdsprc_Grava_Pedido_Res: TSQLDataSet;
+    cdsClienteCLIENTE_ESTOQUE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

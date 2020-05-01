@@ -9386,10 +9386,10 @@ object DMCadPedido: TDMCadPedido
       'O, PES.EMAIL_COMPRAS,'#13#10'       PES.CARIMBO, PES.ORGAO_PUBLICO, PE' +
       'S.VLR_LIMITE_COMPRA, PES.TIPO_CONSUMIDOR, PES.TIPO_CONTRIBUINTE,' +
       ' USUARIO_LOG,'#13#10'       PES.INSC_SUFRAMA, PES.DDDCELULAR, PES.CELU' +
-      'LAR, PES.ID_GRUPO, PES.IMP_COR_CLIENTE,'#13#10'       PES.MOSTRAR_AVIS' +
-      'O,PES.OBS_AVISO, IPI_PAGO_FILIAL,  PES.IMP_ETIQUETA_ROT,  PES.ID' +
-      '_VENDEDOR_INT,'#13#10'PES.id_tipocobranca, PES.id_contaboleto'#13#10'from PE' +
-      'SSOA PES'#13#10
+      'LAR, PES.ID_GRUPO, PES.IMP_COR_CLIENTE, PES.MOSTRAR_AVISO,'#13#10'    ' +
+      '   PES.OBS_AVISO, IPI_PAGO_FILIAL, PES.IMP_ETIQUETA_ROT, PES.ID_' +
+      'VENDEDOR_INT, PES.ID_TIPOCOBRANCA,'#13#10'       PES.ID_CONTABOLETO, P' +
+      'ES.CLIENTE_ESTOQUE'#13#10'from PESSOA PES  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -9406,7 +9406,7 @@ object DMCadPedido: TDMCadPedido
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspCliente'
-    Left = 344
+    Left = 346
     Top = 3
     object cdsClienteCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -9549,6 +9549,11 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsClienteID_CONTABOLETO: TIntegerField
       FieldName = 'ID_CONTABOLETO'
+    end
+    object cdsClienteCLIENTE_ESTOQUE: TStringField
+      FieldName = 'CLIENTE_ESTOQUE'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsCliente: TDataSource

@@ -605,10 +605,10 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Top = 265
       Width = 771
       Height = 146
-      ActivePage = TabSheet2
+      ActivePage = TabSheet1
       ActivePageDefault = TabSheet1
       Align = alBottom
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 13
       FixedDimension = 19
       object TabSheet1: TRzTabSheet
