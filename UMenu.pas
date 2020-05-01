@@ -128,8 +128,6 @@ type
     estarnossonmero1: TMenuItem;
     Requisio1: TMenuItem;
     GerarMovimentoNotasFiscaisServio1: TMenuItem;
-    N20: TMenuItem;
-    ConsultaNotasServio1: TMenuItem;
     amanho1: TMenuItem;
     Grade1: TMenuItem;
     OperaodaNota1: TMenuItem;
@@ -137,7 +135,6 @@ type
     PCP1: TMenuItem;
     GerarLote1: TMenuItem;
     BaixaLoteTalo1: TMenuItem;
-    Contrato1: TMenuItem;
     N8: TMenuItem;
     N9: TMenuItem;
     tbOServico: TToolButton;
@@ -149,7 +146,6 @@ type
     Inventrio1: TMenuItem;
     BalanoEstoque1: TMenuItem;
     OrdemdeServio1: TMenuItem;
-    N24: TMenuItem;
     OrdemdeServioBaixa1: TMenuItem;
     OrdemdeServioConsulta1: TMenuItem;
     Mquinas1: TMenuItem;
@@ -160,7 +156,6 @@ type
     Consultas1: TMenuItem;
     Saldodecontas1: TMenuItem;
     SaldoporFormadePagamento1: TMenuItem;
-    ContratoServio1: TMenuItem;
     CNAE1: TMenuItem;
     ContasPagarReceberPagamentos1: TMenuItem;
     abIBPT1: TMenuItem;
@@ -181,7 +176,6 @@ type
     GerarXML1: TMenuItem;
     RtuloSemGrade1: TMenuItem;
     OrdemdeServioSimples1: TMenuItem;
-    N29: TMenuItem;
     ParmetrosOSSimples1: TMenuItem;
     RemessaNovo1: TMenuItem;
     RetornoNovoAcbr1: TMenuItem;
@@ -198,18 +192,15 @@ type
     ConfiguraoEmail1: TMenuItem;
     EtiquetaIndividual1: TMenuItem;
     EtiquetaRtulo1: TMenuItem;
-    N37: TMenuItem;
     Recibo1: TMenuItem;
     Cores1: TMenuItem;
     PedidosLiberadosParaFaturamento1: TMenuItem;
     N38: TMenuItem;
-    ConsultaPeas1: TMenuItem;
     MatrizdePreo1: TMenuItem;
     ConsultaComissoPedido1: TMenuItem;
     Linha1: TMenuItem;
     ConsultaDespesas1: TMenuItem;
     CdigoBarra1: TMenuItem;
-    N40: TMenuItem;
     MovimentoServioExtra1: TMenuItem;
     GradeConfiguraoQtde1: TMenuItem;
     Combinao1: TMenuItem;
@@ -232,7 +223,6 @@ type
     MetasdeVendas1: TMenuItem;
     ConsultasMetasPedidos1: TMenuItem;
     N45: TMenuItem;
-    AjustePreoContrato1: TMenuItem;
     Cadastro3: TMenuItem;
     GrupoPessoa1: TMenuItem;
     RtuloPorGrade1: TMenuItem;
@@ -359,6 +349,14 @@ type
     N39: TMenuItem;
     FeriadoNacional1: TMenuItem;
     ObservaoAuxiliar1: TMenuItem;
+    N2: TMenuItem;
+    Consultas4: TMenuItem;
+    ConsultaPeasusadasnaOS1: TMenuItem;
+    ConsultaNotasServio1: TMenuItem;
+    N12: TMenuItem;
+    AjustePreoContrato1: TMenuItem;
+    ContratodeServioMensal1: TMenuItem;
+    ContratodeServioparaEvento1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);

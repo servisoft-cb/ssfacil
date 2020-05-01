@@ -114,7 +114,7 @@ object fMenu: TfMenu
     end
   end
   object MainMenu1: TMainMenu
-    Left = 652
+    Left = 654
     Top = 409
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
@@ -871,12 +871,9 @@ object fMenu: TfMenu
         Caption = 'Ordem de Servi'#231'o (Baixa)'
         OnClick = OrdemdeServioBaixa1Click
       end
-      object OrdemdeServioConsulta1: TMenuItem
-        Caption = 'Ordem de Servi'#231'o (Consulta)'
-        OnClick = OrdemdeServioConsulta1Click
-      end
-      object N24: TMenuItem
-        Caption = '-'
+      object OrdemServiotica1: TMenuItem
+        Caption = 'Ordem Servi'#231'o '#211'tica'
+        OnClick = OrdemServiotica1Click
       end
       object ParmetrosOSSimples1: TMenuItem
         Caption = 'Par'#226'metros OS Simples'
@@ -886,60 +883,54 @@ object fMenu: TfMenu
         Caption = 'Ordem de Servi'#231'o Simples (Evento)'
         OnClick = OrdemdeServioSimples1Click
       end
-      object OrdemServiotica1: TMenuItem
-        Caption = 'Ordem Servi'#231'o '#211'tica'
-        OnClick = OrdemServiotica1Click
-      end
-      object N29: TMenuItem
+      object N12: TMenuItem
         Caption = '-'
       end
       object AjustePreoContrato1: TMenuItem
         Caption = 'Ajuste Pre'#231'o Contrato'
-        OnClick = AjustePreoContrato1Click
       end
-      object ContratoServio1: TMenuItem
-        Caption = 'Contrato de Servi'#231'o para Evento'
-        OnClick = ContratoServio1Click
-      end
-      object Contrato1: TMenuItem
+      object ContratodeServioMensal1: TMenuItem
         Caption = 'Contrato de Servi'#231'o Mensal'
-        OnClick = Contrato1Click
+      end
+      object ContratodeServioparaEvento1: TMenuItem
+        Caption = 'Contrato de Servi'#231'o para Evento'
+      end
+      object N2: TMenuItem
+        Caption = '-'
       end
       object GerarNotaServio1: TMenuItem
         Caption = 'Gerar Nota de Servi'#231'o Mensal'
         OnClick = GerarNotaServio1Click
       end
-      object N40: TMenuItem
-        Caption = '-'
-      end
-      object MovimentoServioExtra1: TMenuItem
-        Caption = 'Movimento Servi'#231'o Extra'
-        OnClick = MovimentoServioExtra1Click
-      end
-      object N37: TMenuItem
-        Caption = '-'
+      object NotaServio1: TMenuItem
+        Caption = 'Nota Servi'#231'o'
+        OnClick = NotaServio1Click
       end
       object Recibo1: TMenuItem
         Caption = 'Recibo'
         OnClick = Recibo1Click
       end
+      object MovimentoServioExtra1: TMenuItem
+        Caption = 'Movimento Servi'#231'o Extra'
+        OnClick = MovimentoServioExtra1Click
+      end
       object N17: TMenuItem
         Caption = '-'
       end
-      object NotaServio1: TMenuItem
-        Caption = 'Nota Servi'#231'o'
-        OnClick = NotaServio1Click
-      end
-      object N20: TMenuItem
-        Caption = '-'
-      end
-      object ConsultaPeas1: TMenuItem
-        Caption = 'Consulta Pe'#231'as usadas na OS'
-        OnClick = ConsultaPeas1Click
-      end
-      object ConsultaNotasServio1: TMenuItem
-        Caption = 'Consulta Notas Servi'#231'o'
-        OnClick = ConsultaNotasServio1Click
+      object Consultas4: TMenuItem
+        Caption = 'Consultas'
+        object ConsultaPeasusadasnaOS1: TMenuItem
+          Caption = 'Consulta Pe'#231'as usadas na OS'
+        end
+        object ConsultaNotasServio1: TMenuItem
+          Caption = 'Consulta Notas Servi'#231'o'
+        end
+        object OrdemdeServioConsulta1: TMenuItem
+          Caption = 'Ordem de Servi'#231'o (Consulta)'
+          OnClick = OrdemdeServioConsulta1Click
+        end
+        object TMenuItem
+        end
       end
     end
     object Comisso1: TMenuItem
