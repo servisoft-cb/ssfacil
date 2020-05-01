@@ -419,6 +419,11 @@ object DMCadPedido: TDMCadPedido
     object sdsPedidoID_VENDEDOR_INT: TIntegerField
       FieldName = 'ID_VENDEDOR_INT'
     end
+    object sdsPedidoCONTROLA_RESERVA: TStringField
+      FieldName = 'CONTROLA_RESERVA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -435,7 +440,7 @@ object DMCadPedido: TDMCadPedido
     BeforePost = cdsPedidoBeforePost
     OnNewRecord = cdsPedidoNewRecord
     Left = 55
-    Top = 3
+    Top = 4
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -887,6 +892,11 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedidoID_VENDEDOR_INT: TIntegerField
       FieldName = 'ID_VENDEDOR_INT'
+    end
+    object cdsPedidoCONTROLA_RESERVA: TStringField
+      FieldName = 'CONTROLA_RESERVA'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPedido: TDataSource

@@ -63,7 +63,6 @@ begin
   if cdsPedido_Reserva.IsEmpty then
   begin
     ID := dmDatabase.ProximaSequencia('PEDIDO_RESERVA',0);
-    ID := ID + 1;
     cdsPedido_Reserva.Insert;
     cdsPedido_ReservaID.AsInteger := ID;
   end

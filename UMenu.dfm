@@ -115,7 +115,7 @@ object fMenu: TfMenu
   end
   object MainMenu1: TMainMenu
     Left = 654
-    Top = 409
+    Top = 410
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 0
@@ -527,21 +527,26 @@ object fMenu: TfMenu
         Caption = 'Consultas'
         object ConsultaProdutosPedidosReservadeEstoque1: TMenuItem
           Caption = 'Consulta Produtos / Pedidos Reserva de Estoque'
+          OnClick = ConsultaProdutosPedidosReservadeEstoque1Click
         end
         object N5: TMenuItem
           Caption = '-'
         end
         object ConsultaEstoque1: TMenuItem
           Caption = 'Consulta Estoque'
+          OnClick = ConsultaEstoque1Click
         end
         object ConsultaEstoqueDeTerceirosEmTerceiros1: TMenuItem
           Caption = 'Consulta Estoque / De Terceiros / Em Terceiros'
+          OnClick = ConsultaEstoqueDeTerceirosEmTerceiros1Click
         end
         object ConsultaEstoqueClienteExtrato1: TMenuItem
           Caption = 'Consulta Estoque (Cliente Extrato)'
+          OnClick = ConsultaEstoqueClienteExtrato1Click
         end
         object ConsultaEstoqueMovimento1: TMenuItem
           Caption = 'Consulta Estoque (Movimento)'
+          OnClick = ConsultaEstoqueMovimento1Click
         end
         object ConsultaEstoqueLoteControle1: TMenuItem
           Caption = 'Consulta Estoque (Lote Controle)'
@@ -728,6 +733,7 @@ object fMenu: TfMenu
         end
         object ConsultaPedido1: TMenuItem
           Caption = 'Consulta Pedido'
+          OnClick = ConsultaPedido1Click
         end
         object ConsultaPedidoOramento1: TMenuItem
           Caption = 'Consulta Pedido/Or'#231'amento'

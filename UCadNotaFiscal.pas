@@ -2846,6 +2846,7 @@ var
   vGravar: Boolean;
   vGeraCusto: String;
   vFlag: Boolean;
+  vID_PedidoAux, vItem_Aux : Integer;
 begin
   if not fDMCadNotaFiscal.cdsNotaFiscal_Consulta.Active then
   begin

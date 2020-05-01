@@ -68,7 +68,7 @@ procedure TfrmConsPedido_Res.prc_ConsProduto_Ped;
 var
   vComando : String;
 begin
-  vComando := ' WHERE 0 = 0';
+  vComando := '';
   if CurrencyEdit1.AsInteger > 0 then
     vComando := vComando + ' AND NUM_PEDIDO = ' + IntToStr(CurrencyEdit1.AsInteger);
   if trim(Edit1.Text) <> '' then

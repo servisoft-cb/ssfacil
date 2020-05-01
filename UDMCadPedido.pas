@@ -3747,6 +3747,8 @@ type
     cdsPedido_ItensQTD_ESTOQUE_RES: TFloatField;
     sdsprc_Grava_Pedido_Res: TSQLDataSet;
     cdsClienteCLIENTE_ESTOQUE: TStringField;
+    sdsPedidoCONTROLA_RESERVA: TStringField;
+    cdsPedidoCONTROLA_RESERVA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -4129,6 +4131,7 @@ begin
   cdsPedidoQTD_LIBERADA.AsFloat      := 0;
   cdsPedidoVLR_DESCONTO_ITEM.AsFloat := 0;
   cdsPedidoNGR.AsString              := 'N';
+  cdsPedidoCONTROLA_RESERVA.AsString := qParametros_PedUSA_RESERVA_EST.AsString;
 end;
 
 procedure TDMCadPedido.cdsPedidoBeforePost(DataSet: TDataSet);

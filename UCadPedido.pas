@@ -722,7 +722,8 @@ begin
     Exit;
   end;
   //15/04/2020
-  if fDMCadPedido.qParametros_PedUSA_RESERVA_EST.AsString = 'S' then
+  //if fDMCadPedido.qParametros_PedUSA_RESERVA_EST.AsString = 'S' then
+  if fDMCadPedido.cdsPedidoCONTROLA_RESERVA.AsString = 'S' then
   begin
     fDMCadPedido.sdsprc_Grava_Pedido_Res.Close;
     fDMCadPedido.sdsprc_Grava_Pedido_Res.ParamByName('P_ID_PEDIDO').AsInteger := vIDAux;

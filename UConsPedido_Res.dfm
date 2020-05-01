@@ -268,7 +268,7 @@ object frmConsPedido_Res: TfrmConsPedido_Res
             Title.Alignment = taCenter
             Title.Caption = 'Nome Produto'
             Title.Color = 11796403
-            Width = 340
+            Width = 400
             Visible = True
           end
           item
@@ -305,6 +305,7 @@ object frmConsPedido_Res: TfrmConsPedido_Res
             Title.Alignment = taCenter
             Title.Caption = 'Nome Cliente'
             Title.Color = 11796403
+            Width = 300
             Visible = True
           end>
       end

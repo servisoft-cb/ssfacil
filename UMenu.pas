@@ -389,7 +389,6 @@ type
     procedure RegraEmpresa1Click(Sender: TObject);
     procedure ConsultaEstoque1Click(Sender: TObject);
     procedure DocumentoAjusteEstoque1Click(Sender: TObject);
-    procedure ConsultaEstoqueMovimentoPorProduto1Click(Sender: TObject);
     procedure Duplicatas1Click(Sender: TObject);
     procedure ConsultaNotasdeBeneficiamento1Click(Sender: TObject);
     procedure ConsultaPedido1Click(Sender: TObject);
@@ -589,7 +588,6 @@ type
     procedure ConsultaRealizadoComprasxProjetadoFaturado1Click(
       Sender: TObject);
     procedure FuncionarioCompleto1Click(Sender: TObject);
-    procedure ConsultaEstoqueAtual1Click(Sender: TObject);
     procedure BaixaNotadeBeneficiamento1Click(Sender: TObject);
     procedure ConsultaNotasdeBeneficiamentoEstoqueemTerceiro1Click(
       Sender: TObject);
@@ -618,6 +616,8 @@ type
     procedure erminaldoNFCe1Click(Sender: TObject);
     procedure ConsultaProdutosPedidosReservadeEstoque1Click(
       Sender: TObject);
+    procedure ConsultaEstoqueDeTerceirosEmTerceiros1Click(Sender: TObject);
+    procedure ConsultaEstoqueMovimento1Click(Sender: TObject);
   private
     { Private declarations }
     vPedLoja: Boolean;
@@ -926,11 +926,6 @@ end;
 procedure TfMenu.DocumentoAjusteEstoque1Click(Sender: TObject);
 begin
   OpenForm(TfrmCadDocEstoque,wsMaximized);
-end;
-
-procedure TfMenu.ConsultaEstoqueMovimentoPorProduto1Click(Sender: TObject);
-begin
-  OpenForm(TfrmConsEstoque_Mov,wsMaximized);
 end;
 
 procedure TfMenu.Duplicatas1Click(Sender: TObject);
@@ -2085,11 +2080,6 @@ begin
   OpenForm(TfrmCadFuncionario,wsMaximized);
 end;
 
-procedure TfMenu.ConsultaEstoqueAtual1Click(Sender: TObject);
-begin
-  OpenForm(TfrmConsEstoque_Atual,wsMaximized);
-end;
-
 procedure TfMenu.BaixaNotadeBeneficiamento1Click(Sender: TObject);
 begin
   vTipo_ConsNotaBeneficiamento := 'F';
@@ -2223,6 +2213,17 @@ procedure TfMenu.ConsultaProdutosPedidosReservadeEstoque1Click(
   Sender: TObject);
 begin
   OpenForm(TfrmConsPedido_Res,wsMaximized);
+end;
+
+procedure TfMenu.ConsultaEstoqueDeTerceirosEmTerceiros1Click(
+  Sender: TObject);
+begin
+  OpenForm(TfrmConsEstoque_Atual,wsMaximized);
+end;
+
+procedure TfMenu.ConsultaEstoqueMovimento1Click(Sender: TObject);
+begin
+  OpenForm(TfrmConsEstoque_Mov,wsMaximized);
 end;
 
 initialization
