@@ -52,6 +52,7 @@ type
   public
     { Public declarations }
     vTipo_Pessoa : String;
+    vFilial_Vend : Integer;
 
   end;
 
@@ -97,6 +98,8 @@ begin
   if trim(Edit1.Text) <> '' then
     sdsPessoa.CommandText := sdsPessoa.CommandText + ' AND ((NOME LIKE ' + QuotedStr('%'+Edit1.Text+'%') + ')' +
                                                    ' OR (FANTASIA LIKE ' + QuotedStr('%'+Edit1.Text+'%') + '))';
+  if (vTipo_Pessoa = 'V') and (vFilial_Vend > 0) then
+    sdsPessoa.CommandText := sdsPessoa.CommandText + ' AND FILIAL = ' + IntToStr(vFilial_Vend);
   cdsPessoa.Open;
 end;
 
@@ -130,6 +133,7 @@ end;
 procedure TfrmSel_Pessoa.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+  vFilial_Vend := 0;
   Action := Cafree;
 end;
 
