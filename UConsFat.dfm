@@ -90,7 +90,7 @@ object frmConsFat: TfrmConsFat
       DropDownCount = 8
       Ctl3D = False
       LookupField = 'ID'
-      LookupDisplay = 'NOME_INTERNO'
+      LookupDisplay = 'ID;NOME_INTERNO'
       LookupSource = DMConsFat.dsFilial
       ParentCtl3D = False
       TabOrder = 0
@@ -908,9 +908,9 @@ object frmConsFat: TfrmConsFat
       Top = 1
       Width = 1030
       Height = 505
-      ActivePage = ts_Data
+      ActivePage = ts_Geral
       Align = alClient
-      TabIndex = 2
+      TabIndex = 0
       TabOrder = 0
       FixedDimension = 19
       object ts_Geral: TRzTabSheet
@@ -951,9 +951,18 @@ object frmConsFat: TfrmConsFat
           WidthOfIndicator = 11
           DefaultRowHeight = 17
           ScrollBars = ssHorizontal
-          ColCount = 33
+          ColCount = 34
           RowCount = 2
           Columns = <
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'FILIAL'
+              Title.Alignment = taCenter
+              Title.Caption = 'Filial'
+              Width = 39
+              Visible = True
+            end
             item
               Expanded = False
               FieldName = 'DTEMISSAO'
@@ -967,6 +976,14 @@ object frmConsFat: TfrmConsFat
               Title.Alignment = taCenter
               Title.Caption = 'UF'
               Width = 34
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'SERIE'
+              Title.Alignment = taCenter
+              Title.Caption = 'S'#233'rie'
               Visible = True
             end
             item
@@ -1143,6 +1160,7 @@ object frmConsFat: TfrmConsFat
               FieldName = 'VLR_ISSQN_RETIDO'
               Title.Alignment = taCenter
               Title.Caption = 'Vlr. ISSQN Retido'
+              Width = 64
               Visible = True
             end
             item
@@ -1159,15 +1177,6 @@ object frmConsFat: TfrmConsFat
               Title.Alignment = taCenter
               Title.Caption = 'Tipo Reg'
               Width = 64
-              Visible = True
-            end
-            item
-              Alignment = taCenter
-              Expanded = False
-              FieldName = 'FILIAL'
-              Title.Alignment = taCenter
-              Title.Caption = 'Filial'
-              Width = 39
               Visible = True
             end
             item

@@ -28,7 +28,7 @@ object DMConsFat: TDMConsFat
     Params = <>
     ProviderName = 'dspFatAcum'
     Left = 160
-    Top = 48
+    Top = 49
     object cdsFatAcumTIPO_MOV: TStringField
       FieldName = 'TIPO_MOV'
       Size = 3
@@ -170,6 +170,13 @@ object DMConsFat: TDMConsFat
     object cdsFatAcumVLR_ISSQN_RETIDO: TFloatField
       FieldName = 'VLR_ISSQN_RETIDO'
       DisplayFormat = '0.00'
+    end
+    object cdsFatAcumTERMINAL: TIntegerField
+      FieldName = 'TERMINAL'
+    end
+    object cdsFatAcumSERIE: TStringField
+      FieldName = 'SERIE'
+      Size = 3
     end
   end
   object dsFatAcum: TDataSource

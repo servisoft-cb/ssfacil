@@ -123,7 +123,7 @@ object frmGerarMovimento: TfrmGerarMovimento
     TabOrder = 3
   end
   object btnCupomFiscal: TNxButton
-    Left = 20
+    Left = 21
     Top = 172
     Width = 245
     Height = 30
@@ -278,6 +278,15 @@ object frmGerarMovimento: TfrmGerarMovimento
     object sdsCupomFiscalVLR_TRIBUTO: TFloatField
       FieldName = 'VLR_TRIBUTO'
     end
+    object sdsCupomFiscalSERIE: TStringField
+      FieldName = 'SERIE'
+      Size = 3
+    end
+    object sdsCupomFiscalNFEDENEGADA: TStringField
+      FieldName = 'NFEDENEGADA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspCupomFiscal: TDataSetProvider
     DataSet = sdsCupomFiscal
@@ -383,6 +392,15 @@ object frmGerarMovimento: TfrmGerarMovimento
     object cdsCupomFiscalsdsCupomFiscal_Itens: TDataSetField
       FieldName = 'sdsCupomFiscal_Itens'
     end
+    object cdsCupomFiscalSERIE: TStringField
+      FieldName = 'SERIE'
+      Size = 3
+    end
+    object cdsCupomFiscalNFEDENEGADA: TStringField
+      FieldName = 'NFEDENEGADA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsmCupomFiscal: TDataSource
     DataSet = sdsCupomFiscal
@@ -405,7 +423,7 @@ object frmGerarMovimento: TfrmGerarMovimento
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 600
+    Left = 599
     Top = 128
     object sdsCupomFiscal_ItensID: TIntegerField
       FieldName = 'ID'
@@ -486,6 +504,9 @@ object frmGerarMovimento: TfrmGerarMovimento
       FieldName = 'ORIGEM_PROD'
       FixedChar = True
       Size = 1
+    end
+    object sdsCupomFiscal_ItensID_COR_COMBINACO: TIntegerField
+      FieldName = 'ID_COR_COMBINACO'
     end
   end
   object cdsCupomFiscal_Itens: TClientDataSet
@@ -580,6 +601,9 @@ object frmGerarMovimento: TfrmGerarMovimento
       FieldName = 'ORIGEM_PROD'
       FixedChar = True
       Size = 1
+    end
+    object cdsCupomFiscal_ItensID_COR_COMBINACO: TIntegerField
+      FieldName = 'ID_COR_COMBINACO'
     end
   end
   object qFilial: TSQLQuery

@@ -178,6 +178,8 @@ type
     cdsConsClienteVLR_ISSQN_RETIDO: TFloatField;
     cdsConsDataVLR_ISSQN: TFloatField;
     cdsConsDataVLR_ISSQN_RETIDO: TFloatField;
+    cdsFatAcumTERMINAL: TIntegerField;
+    cdsFatAcumSERIE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxReport1BeforePrint(Sender: TfrxReportComponent);
     procedure cdsComprasServicosCalcFields(DataSet: TDataSet);

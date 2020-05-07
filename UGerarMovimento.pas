@@ -381,6 +381,12 @@ type
     cdsNotaVLR_AFRMM: TFloatField;
     cdsNotaGEROU_MDFE: TStringField;
     cdsNotaQTD_TOTAL_PRODUTOS: TFloatField;
+    sdsCupomFiscalSERIE: TStringField;
+    cdsCupomFiscalSERIE: TStringField;
+    sdsCupomFiscalNFEDENEGADA: TStringField;
+    cdsCupomFiscalNFEDENEGADA: TStringField;
+    sdsCupomFiscal_ItensID_COR_COMBINACO: TIntegerField;
+    cdsCupomFiscal_ItensID_COR_COMBINACO: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
@@ -853,8 +859,9 @@ begin
                                                      cdsCupomFiscal_ItensID_CFOP.AsInteger,
                                                      cdsCupomFiscalID_CLIENTE.AsInteger,
                                                      0,
-                                                     cdsCupomFiscalNUMCUPOM.AsInteger,0,'CFI',
-                                                     'CFI',//Série
+                                                     cdsCupomFiscalNUMCUPOM.AsInteger,0,
+                                                     'CFI',
+                                                     cdsCupomFiscalSERIE.AsString,//Série
                                                      'S','CFI',
                                                      cdsCupomFiscal_ItensVLR_UNITARIO.AsFloat,
                                                      cdsCupomFiscal_ItensVLR_TOTAL.AsFloat,
@@ -881,7 +888,7 @@ begin
                                                      0,
                                                      0,0,0,0,
                                                      cdsCupomFiscal_ItensCANCELADO.AsString,
-                                                     '',
+                                                     cdsCupomFiscalNFEDENEGADA.AsString,
                                                      cdsCupomFiscal_ItensUNIDADE.AsString,
                                                      '',
                                                      qProdutoNOME.AsString,
@@ -891,10 +898,12 @@ begin
                                                      cdsCupomFiscal_ItensTAMANHO.AsString,
                                                      '',
                                                      cdsCupomFiscalID_CONDPGTO.AsInteger,0,
-                                                     cdsCupomFiscalID_VENDEDOR.AsInteger,0,
+                                                     cdsCupomFiscalID_VENDEDOR.AsInteger,
+                                                     cdsCupomFiscal_ItensID_COR_COMBINACO.AsInteger,
                                                      cdsCupomFiscalPERC_VENDEDOR.AsFloat,0,0,
                                                      cdsCupomFiscalTERMINAL_ID.AsInteger,0,'N',
                                                      0,0,0,0,0,0,0,0,0,0);
+
       end;
       if (cdsCupomFiscal_ItensID_MOVIMENTO.AsInteger <> vID_Mov) then
       begin
