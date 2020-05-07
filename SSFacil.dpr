@@ -845,7 +845,9 @@ uses
   UQtdReserva in 'UQtdReserva.pas' {frmQtdReserva},
   uPessoa in 'Classes\uPessoa.pas',
   UDMConsPedidoRes in 'UDMConsPedidoRes.pas' {DMConsPedidoRes: TDataModule},
-  UConsPedido_Res in 'UConsPedido_Res.pas' {frmConsPedido_Res};
+  UConsPedido_Res in 'UConsPedido_Res.pas' {frmConsPedido_Res},
+  UDMComissao in 'UDMComissao.pas' {DMComissao: TDataModule},
+  uConsComissao_Metas in 'uConsComissao_Metas.pas' {frmConsComissao_Metas};
 
 {$R *.res}
 
