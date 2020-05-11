@@ -45,6 +45,9 @@ implementation
 
 {$R *.dfm}
 
+uses
+  uUtilPadrao;
+
 procedure TfCarneRenegociacao.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
@@ -52,21 +55,50 @@ begin
 end;
 
 procedure TfCarneRenegociacao.btConfirmarClick(Sender: TObject);
+var
+  vArq: string;
 begin
   if fDmPagamento.mNegociacao.IsEmpty then
     Exit;
 
+  fDmPagamento.cdsRenegociacao.Insert;
+  fDmPagamento.cdsRenegociacaoUSUARIO.AsString      := vUsuario;
+  fDmPagamento.cdsRenegociacaoID_CONDPGTO.AsInteger := RxDBLookupCombo1.KeyValue;
+  fDmPagamento.cdsRenegociacaoID_PESSOA.AsInteger   := CurrencyEdit1.AsInteger;
+  fDmPagamento.cdsRenegociacaoNOME.AsString         := Edit1.Text;
+  fDmPagamento.cdsRenegociacaoDATA.AsDateTime       := Date;
+
+  fDmPagamento.cdsRenegociacao.Post;
+  fDmPagamento.cdsRenegociacao.ApplyUpdates(0);
+
   fDmPagamento.mNegociacao.First;
   while not fDmPagamento.mNegociacao.IsEmpty do
   begin
+    fDmPagamento.cdsRenegociacaoParc.Insert;
+    fDmPagamento.cdsRenegociacaoParcDATA.AsDateTime  := fDmPagamento.mNegociacaoDATA.AsDateTime;
+    fDmPagamento.cdsRenegociacaoParcID.AsInteger     := fDmPagamento.cdsRenegociacaoID.AsInteger;
+    fDmPagamento.cdsRenegociacaoParcPARC.AsInteger   := fDmPagamento.mNegociacaoPARCELA.AsInteger;
+    fDmPagamento.cdsRenegociacaoParcVALOR.AsCurrency := fDmPagamento.mNegociacaoVALOR.AsCurrency;     
     fDmPagamento.prc_InsereDuplicata(fDmPagamento.mNegociacaoDATA.AsDateTime,CurrencyEdit1.AsInteger,
                                      fDmPagamento.mNegociacaoPARCELA.AsInteger,Edit1.Text,fDmPagamento.mNegociacaoVALOR.AsFloat);
+    fDmPagamento.cdsRenegociacaoParcID_DUPLICATA.AsInteger := fDmPagamento.cdsDuplicataID.AsInteger;
+    fDmPagamento.cdsRenegociacaoParc.Post;
+    fDmPagamento.cdsRenegociacaoParc.ApplyUpdates(0);
     fDmPagamento.mNegociacao.Delete;
   end;
+  fDmPagamento.vGerou := True;
 
-    if MessageDlg('Deseja imprimir carnê?',mtConfirmation,[mbNo,mbOK],0) = mrOk then
+  if MessageDlg('Deseja imprimir carnê?',mtConfirmation,[mbNo,mbOK],0) = mrOk then
   begin
+    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\CarneNegociacao.fr3';
 
+    if FileExists(vArq) then
+    begin
+      fDmPagamento.frxReport1.Report.LoadFromFile(vArq);
+      fDmPagamento.frxReport1.ShowReport
+    end
+    else
+      ShowMessage('Relatório não localizado! ' + vArq);
   end;
   Close;
 end;
@@ -113,6 +145,9 @@ end;
 procedure TfCarneRenegociacao.FormShow(Sender: TObject);
 begin
   fDmPagamento.cdsCondPgto.Open;
+  fDmPagamento.cdsRenegociacao.Open;
+  fDmPagamento.cdsRenegociacaoParc.Open;
+  fDmPagamento.vGerou := False;
 end;
 
 end.

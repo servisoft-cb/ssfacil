@@ -3,7 +3,7 @@ unit uDmPagamento;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Graphics, Printers, Dialogs;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Graphics, Printers, Dialogs, frxClass, frxDBSet;
 
 type
   TdmPagamento = class(TDataModule)
@@ -219,13 +219,52 @@ type
     mNegociacaoVALOR: TCurrencyField;
     sdsDuplicataCANCELADA: TStringField;
     cdsDuplicataCANCELADA: TStringField;
+    dsRenegociacao: TDataSource;
+    cdsRenegociacao: TClientDataSet;
+    dspRenegociacao: TDataSetProvider;
+    sdsRenegociacao: TSQLDataSet;
+    dsRenegociacaoParc: TDataSource;
+    cdsRenegociacaoParc: TClientDataSet;
+    dspRenegociacaoParc: TDataSetProvider;
+    sdsRenegociacaoParc: TSQLDataSet;
+    sdsRenegociacaoID: TIntegerField;
+    sdsRenegociacaoDATA: TDateField;
+    sdsRenegociacaoID_PESSOA: TIntegerField;
+    sdsRenegociacaoVALOR: TFloatField;
+    sdsRenegociacaoID_CONDPGTO: TIntegerField;
+    cdsRenegociacaoID: TIntegerField;
+    cdsRenegociacaoDATA: TDateField;
+    cdsRenegociacaoID_PESSOA: TIntegerField;
+    cdsRenegociacaoVALOR: TFloatField;
+    cdsRenegociacaoID_CONDPGTO: TIntegerField;
+    sdsRenegociacaoUSUARIO: TStringField;
+    cdsRenegociacaoUSUARIO: TStringField;
+    frxReport1: TfrxReport;
+    frxDBDataset1: TfrxDBDataset;
+    cdsRenegociacaoParcID: TIntegerField;
+    cdsRenegociacaoParcPARC: TIntegerField;
+    cdsRenegociacaoParcDATA: TDateField;
+    cdsRenegociacaoParcVALOR: TFloatField;
+    sdsRenegociacaoParcID: TIntegerField;
+    sdsRenegociacaoParcPARC: TIntegerField;
+    sdsRenegociacaoParcDATA: TDateField;
+    sdsRenegociacaoParcVALOR: TFloatField;
+    sdsRenegociacaoParcID_DUPLICATA: TIntegerField;
+    cdsRenegociacaoParcID_DUPLICATA: TIntegerField;
+    frxDBDataset2: TfrxDBDataset;
+    frxDBDataset3: TfrxDBDataset;
+    sdsRenegociacaoNOME: TStringField;
+    cdsRenegociacaoNOME: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
+    procedure cdsRenegociacaoAfterScroll(DataSet: TDataSet);
+    procedure cdsRenegociacaoNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
     { Public declarations }
     ctCarnePgto: String;
+    vGerou: Boolean;
     procedure prc_PosicionaCupom(vID: Integer);
     procedure prc_ImprimirRecibo(vVlrRec, vVlrTot, vVlrTroco: Currency; vCliente: String; vDtPgto: TDateTime);
     procedure prc_InsereDuplicata(vDtVcto: TDateTime; vIdCliente, vParcela: Integer; vNomeCliente: String; vVlrParc: Currency);
@@ -453,7 +492,7 @@ begin
   cdsDuplicataVLR_DESPESAS.AsFloat     := 0;
   cdsDuplicataVLR_JUROSPAGOS.AsFloat   := 0;
   cdsDuplicataVLR_PAGO.AsFloat         := 0;
-  cdsDuplicataVLR_PARCELA.AsFloat      := 0;
+  cdsDuplicataVLR_PARCELA.AsFloat       := 0;
   cdsDuplicataVLR_RESTANTE.AsFloat     := 0;
   cdsDuplicataNUMNOTA.AsInteger        := 0;
   cdsDuplicataSERIE.AsString           := '';
@@ -478,11 +517,30 @@ begin
   cdsDuplicataPARCELA.AsInteger        := vParcela;
   cdsDuplicataTIPO_ES.AsString         := 'E';
   cdsDuplicataTIPO_LANCAMENTO.AsString := 'RNG';
+  cdsDuplicataSERIE.AsString           := 'RNG';
   cdsDuplicataUSUARIO.AsString         := vUsuario;
   cdsDuplicataVLR_PARCELA.AsString     := FormatFloat('0.00',vVlrParc);
   cdsDuplicataVLR_RESTANTE.AsString    := FormatFloat('0.00',vVlrParc);
+  cdsDuplicataCANCELADA.AsString       := 'N';
+  cdsDuplicataNUMNOTA.AsInteger        := 0;
+
   cdsDuplicata.Post;
   cdsDuplicata.ApplyUpdates(0);
+end;
+
+procedure TdmPagamento.cdsRenegociacaoAfterScroll(DataSet: TDataSet);
+begin
+  cdsRenegociacaoParc.Close;
+  sdsRenegociacaoParc.ParamByName('ID').AsInteger := cdsRenegociacaoID.AsInteger;
+  cdsRenegociacaoParc.Open;
+end;
+
+procedure TdmPagamento.cdsRenegociacaoNewRecord(DataSet: TDataSet);
+var
+  vAux: Integer;
+begin
+  vAux := dmDatabase.ProximaSequencia('RENEGOCIACAO',0);
+  cdsRenegociacaoID.AsInteger := vAux;
 end;
 
 end.

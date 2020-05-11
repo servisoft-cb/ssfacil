@@ -97,7 +97,6 @@ type
     procedure prcPgtoNovo;
   public
     { Public declarations }
-    vGerou: Boolean;
   end;
 
 var
@@ -945,7 +944,7 @@ begin
   fcarneRenegociacao.Edit1.Text          := Edit1.Text;
   fCarneRenegociacao.ShowModal;
 
-  if not vGerou then
+  if fDmPagamento.vGerou then
   begin
     fDmPagamento.mSelecionadas.First;
     while not fDmPagamento.mSelecionadas.IsEmpty do

@@ -228,6 +228,7 @@ object fCarneRenegociacao: TfCarneRenegociacao
       Font.Style = []
       NumGlyphs = 2
       ParentFont = False
+      StartOfWeek = Sun
       TabOrder = 4
     end
   end
