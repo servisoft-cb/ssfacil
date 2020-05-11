@@ -166,7 +166,7 @@ type
                        //ID_COR: Integer = 0): Integer;
                        Vlr_Unitario_Orig,Vlr_Desconto_Orig: Real; Qtd_Pacote: Real; Unidade_Interna: String;
                        ID_COR: Integer; Num_Lote_Controle, Gerar_Custo: String; Preco_Custo_Total, Comprimento, Largura, Espessura: Real;
-                       ID_Operacao: Integer ; ID_Pedido, Item_Pedido : Integer): Integer;
+                       ID_Operacao: Integer; ID_Pedido, Item_Pedido: Integer): Integer;
 
     //Tirado 10/07/2019  esta usando a do uUtilPadrao
     //function fnc_Buscar_Estoque_DM(CodProduto: Integer; ID_Local_Estoque: Integer; ID_Cor: Integer): Real;
@@ -177,7 +177,7 @@ type
 
     procedure prc_Localizar(ID: Integer);
 
-    procedure prc_Gravar_Estoque_Local(ID_Produto, ID_Cor : Integer ; Localizacao, Tipo_ES : String ; Qtd : Real);
+    procedure prc_Gravar_Estoque_Local(ID_Produto, ID_Cor: Integer; Localizacao, Tipo_ES: String; Qtd: Real);
 
   end;
 
@@ -250,7 +250,7 @@ function TDMEstoque.fnc_Gravar_Estoque(ID_Estoque, ID_Filial, ID_Local_Estoque, 
 var
   vAux: Integer;
   vQtdAux: Real;
-  ID_Produto_Orig : Integer;
+  ID_Produto_Orig: Integer;
 begin
   Result := 0;
 
@@ -553,7 +553,7 @@ begin
 end;
 
 procedure TDMEstoque.prc_Gravar_Estoque_Local(ID_Produto, ID_Cor: Integer;
-  Localizacao, Tipo_ES : String; Qtd: Real);
+  Localizacao, Tipo_ES: String; Qtd: Real);
 begin
   cdsEstoque_Local.Close;
   sdsEstoque_Local.ParamByName('ID_PRODUTO').AsInteger := ID_Produto;
