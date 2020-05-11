@@ -2681,6 +2681,11 @@ object dmCupomFiscal: TdmCupomFiscal
       FixedChar = True
       Size = 1
     end
+    object cdsTipoCobrancaPADRAO_NFC: TStringField
+      FieldName = 'PADRAO_NFC'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsTipoCobranca: TDataSource
     DataSet = cdsTipoCobranca

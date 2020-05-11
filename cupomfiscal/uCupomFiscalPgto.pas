@@ -954,7 +954,7 @@ begin
   ceFormaPgto.AsInteger := RxDBLookupCombo3.KeyValue;
 
   vPercJuros := 0;
-  Label17.Visible       := False;
+  Label17.Visible := False;
   ceJuros.Visible := False;
   if fDmCupomFiscal.cdsTipoCobrancaPERC_JUROS.AsFloat > 0 then
   begin
@@ -999,7 +999,10 @@ begin
     2: begin
          Label10.Visible := True;
          cbNFCe.Visible  := True;
-         cbNFCe.ItemIndex := 1;
+         if fDmCupomFiscal.cdsTipoCobrancaPADRAO_NFC.AsString = 'S' then
+           cbNFCe.ItemIndex := 1
+         else
+           cbNFCe.ItemIndex := 0;
        end;
   end;
 

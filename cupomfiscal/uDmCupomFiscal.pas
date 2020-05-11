@@ -1554,6 +1554,9 @@ type
     cdsCupomParametrosESTOQUE_CUPOM: TStringField;
     sdsCupom_ItensVLR_ICMS_SUBSTITUTO: TFloatField;
     cdsCupom_ItensVLR_ICMS_SUBSTITUTO: TFloatField;
+    cdsTipoCobrancaPADRAO_NFC: TStringField;
+    sdsDuplicataCANCELADA: TStringField;
+    cdsDuplicataCANCELADA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mCupomBeforeDelete(DataSet: TDataSet);
     procedure cdsPedidoCalcFields(DataSet: TDataSet);
@@ -1947,6 +1950,7 @@ begin
   cdsDuplicataVLR_COMISSAO.AsFloat    := StrToFloat(FormatFloat('0.00',0));
   cdsDuplicataPERC_COMISSAO.AsFloat   := StrToFloat(FormatFloat('0.00',cdsCupomFiscalPERC_VENDEDOR.AsFloat));
   cdsDuplicataPERC_COMISSAO.AsFloat   := StrToFloat(FormatFloat('0.00',0));
+  cdsDuplicataCANCELADA.ASString      := 'N';
   cdsDuplicataDTULTPAGAMENTO.Clear;
   cdsDuplicataID_PESSOA.AsInteger     := cdsCupomFiscalID_CLIENTE.AsInteger;
   if cdsCupomFiscalID_VENDEDOR.AsInteger > 0 then

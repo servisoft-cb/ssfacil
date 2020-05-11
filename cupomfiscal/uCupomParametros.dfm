@@ -23,7 +23,7 @@ object fCupomParametros: TfCupomParametros
   object Panel3: TPanel
     Left = 0
     Top = 0
-    Width = 873
+    Width = 865
     Height = 35
     Align = alTop
     Color = 8404992
@@ -79,8 +79,8 @@ object fCupomParametros: TfCupomParametros
   object PageControl1: TPageControl
     Left = 0
     Top = 35
-    Width = 873
-    Height = 566
+    Width = 865
+    Height = 558
     ActivePage = TabSheet1
     Align = alClient
     TabOrder = 1
@@ -89,8 +89,8 @@ object fCupomParametros: TfCupomParametros
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 865
-        Height = 538
+        Width = 857
+        Height = 530
         Align = alClient
         Enabled = False
         TabOrder = 0
@@ -1870,8 +1870,8 @@ object fCupomParametros: TfCupomParametros
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 865
-        Height = 538
+        Width = 857
+        Height = 530
         Align = alClient
         TabOrder = 0
         object Label15: TLabel
