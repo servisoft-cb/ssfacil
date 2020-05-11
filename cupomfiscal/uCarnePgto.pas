@@ -848,6 +848,7 @@ begin
   fDmPagamento.cdsDuplicataNUMNOTA.AsInteger        := 0;
   fDmPagamento.cdsDuplicataSERIE.AsString           := 'CNF';
   fDmPagamento.cdsDuplicataDTVENCIMENTO.AsDateTime  := Date;
+  fDmPagamento.cdsDuplicataCANCELADA.AsString       := 'N';
   fDmPagamento.cdsDuplicataVLR_PARCELA.AsFloat      := StrToFloat(FormatFloat('0.00',vValor));
   fDmPagamento.cdsDuplicataVLR_RESTANTE.AsFloat     := StrToFloat(FormatFloat('0.00',vValor));
   fDmPagamento.cdsDuplicataVLR_PAGO.AsFloat         := StrToFloat(FormatFloat('0.00',0));

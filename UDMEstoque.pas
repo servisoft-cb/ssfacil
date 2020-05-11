@@ -178,7 +178,6 @@ type
     procedure prc_Localizar(ID: Integer);
 
     procedure prc_Gravar_Estoque_Local(ID_Produto, ID_Cor: Integer; Localizacao, Tipo_ES: String; Qtd: Real);
-
   end;
 
 var

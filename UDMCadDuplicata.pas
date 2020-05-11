@@ -1171,6 +1171,7 @@ begin
   cdsDuplicataBOLETO_IMP.AsString         := 'N';
   cdsDuplicataINSTRUCAO_PROTESTO.AsString := 'N';
   cdsDuplicataVLR_PAGO.AsFloat            := 0;
+  cdsDuplicataCANCELADA.AsString          := 'N';
     //12/07/2016
   if vTerminal <= 0 then
     cdsDuplicataID_TERMINAL.Clear
