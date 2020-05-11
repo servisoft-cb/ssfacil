@@ -97,6 +97,7 @@ type
     procedure prcPgtoNovo;
   public
     { Public declarations }
+    vGerou: Boolean;
   end;
 
 var
@@ -944,19 +945,22 @@ begin
   fcarneRenegociacao.Edit1.Text          := Edit1.Text;
   fCarneRenegociacao.ShowModal;
 
-  fDmPagamento.mSelecionadas.First;
-  while not fDmPagamento.mSelecionadas.IsEmpty do
+  if not vGerou then
   begin
-    fDmPagamento.cdsDuplicata.Close;
-    fDmPagamento.sdsDuplicata.ParamByName('ID').AsInteger := fDmPagamento.mSelecionadasID.AsInteger;
-    fDmPagamento.cdsDuplicata.Open;
-    fDmPagamento.cdsDuplicata.Edit;
-    fDmPagamento.cdsDuplicataCANCELADA.AsString := 'S';
-    fDmPagamento.cdsDuplicata.Post;
-    fDmPagamento.cdsDuplicata.ApplyUpdates(0);
-    fDmPagamento.mSelecionadas.Delete;
+    fDmPagamento.mSelecionadas.First;
+    while not fDmPagamento.mSelecionadas.IsEmpty do
+    begin
+      fDmPagamento.cdsDuplicata.Close;
+      fDmPagamento.sdsDuplicata.ParamByName('ID').AsInteger := fDmPagamento.mSelecionadasID.AsInteger;
+      fDmPagamento.cdsDuplicata.Open;
+      fDmPagamento.cdsDuplicata.Edit;
+      fDmPagamento.cdsDuplicataCANCELADA.AsString := 'S';
+      fDmPagamento.cdsDuplicata.Post;
+      fDmPagamento.cdsDuplicata.ApplyUpdates(0);
+      fDmPagamento.mSelecionadas.Delete;
+    end;
+    prcLimparCampos;
   end;
-  prcLimparCampos;
 end;
 
 end.

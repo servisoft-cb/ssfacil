@@ -824,6 +824,9 @@ type
     Label263: TLabel;
     DBEdit165: TDBEdit;
     edtProduto_Est: TEdit;
+    Label264: TLabel;
+    DBEdit166: TDBEdit;
+    Label265: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

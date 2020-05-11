@@ -500,6 +500,9 @@ object dmCadProduto: TdmCadProduto
     object sdsProdutoID_PRODUTO_EST: TIntegerField
       FieldName = 'ID_PRODUTO_EST'
     end
+    object sdsProdutoINDEXADOR_PRECO: TFloatField
+      FieldName = 'INDEXADOR_PRECO'
+    end
   end
   object dspProduto: TDataSetProvider
     DataSet = sdsProduto
@@ -1061,6 +1064,9 @@ object dmCadProduto: TdmCadProduto
     end
     object cdsProdutoID_PRODUTO_EST: TIntegerField
       FieldName = 'ID_PRODUTO_EST'
+    end
+    object cdsProdutoINDEXADOR_PRECO: TFloatField
+      FieldName = 'INDEXADOR_PRECO'
     end
   end
   object dsProduto: TDataSource

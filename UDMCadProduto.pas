@@ -1998,6 +1998,8 @@ type
     sdsProdutoID_PRODUTO_EST: TIntegerField;
     cdsProdutoID_PRODUTO_EST: TIntegerField;
     qParametros_EstUSA_PRODUTO_EST: TStringField;
+    sdsProdutoINDEXADOR_PRECO: TFloatField;
+    cdsProdutoINDEXADOR_PRECO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
