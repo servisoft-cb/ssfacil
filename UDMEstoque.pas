@@ -246,7 +246,7 @@ function TDMEstoque.fnc_Gravar_Estoque(ID_Estoque, ID_Filial, ID_Local_Estoque, 
   Perc_ICMS, Perc_IPI, Vlr_Desconto, Perc_Trib, Vlr_Frete, Qtd_Orig,
   Vlr_Unitario_Orig, Vlr_Desconto_Orig: Real; Qtd_Pacote: Real;
   Unidade_Interna: String; ID_COR: Integer; Num_Lote_Controle, Gerar_Custo: String; Preco_Custo_Total, Comprimento, Largura, Espessura: Real;
-  ID_Operacao: Integer ; ID_Pedido, Item_Pedido : Integer): Integer;
+  ID_Operacao: Integer; ID_Pedido, Item_Pedido: Integer): Integer;
 var
   vAux: Integer;
   vQtdAux: Real;
