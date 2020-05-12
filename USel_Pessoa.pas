@@ -110,6 +110,7 @@ begin
   begin
     vCodPessoa_Pos := cdsPessoaCODIGO.AsInteger;
     Close;
+    ModalResult := mrOk;
   end;
 end;
 
@@ -117,6 +118,7 @@ procedure TfrmSel_Pessoa.SMDBGrid1DblClick(Sender: TObject);
 begin
   vCodPessoa_Pos := cdsPessoaCODIGO.AsInteger;
   Close;
+  ModalResult := mrOk;
 end;
 
 procedure TfrmSel_Pessoa.Edit1KeyDown(Sender: TObject; var Key: Word;
@@ -141,7 +143,10 @@ procedure TfrmSel_Pessoa.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = 27 then
+  begin
     Close;
+    ModalResult := mrCancel;
+  end;
 end;
 
 procedure TfrmSel_Pessoa.FormShow(Sender: TObject);
