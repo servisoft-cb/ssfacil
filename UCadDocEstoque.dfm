@@ -25,7 +25,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
     Top = 0
     Width = 937
     Height = 638
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -330,6 +330,16 @@ object frmCadDocEstoque: TfrmCadDocEstoque
           TabOrder = 4
           Transparent = True
           OnClick = btnConsultarClick
+        end
+        object btnAjustarEstoque: TBitBtn
+          Left = 717
+          Top = 35
+          Width = 100
+          Height = 25
+          Caption = 'Ajusta Estoque'
+          TabOrder = 5
+          Visible = False
+          OnClick = btnAjustarEstoqueClick
         end
       end
       object StaticText1: TStaticText
@@ -1090,6 +1100,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
               item
                 Expanded = False
                 FieldName = 'ID_MOVESTOQUE'
+                Width = 64
                 Visible = True
               end
               item

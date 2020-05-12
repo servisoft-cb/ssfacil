@@ -90,6 +90,7 @@ type
     DBEdit2: TDBEdit;
     lblBuscaFilial: TLabel;
     RxDBLookupCombo6: TRxDBLookupCombo;
+    btnAjustarEstoque: TBitBtn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -121,6 +122,7 @@ type
     procedure btnCopiarDocClick(Sender: TObject);
     procedure rxcbTipo_ESKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnAjustarEstoqueClick(Sender: TObject);
   private
     { Private declarations }
     vTipo_Reg: String;
@@ -827,7 +829,10 @@ begin
     frmConsEstRed := TfrmConsEstRed.Create(Self);
     frmConsEstRed.ShowModal;
     FreeAndNil(frmConsEstRed);
-  end;
+  end
+  else
+  if (Shift = [ssCtrl]) and (Key = 87) then
+    btnAjustarEstoque.Visible := not(btnAjustarEstoque.Visible);
 end;
 
 procedure TfrmCadDocEstoque.btnCopiarDocClick(Sender: TObject);
@@ -877,6 +882,43 @@ begin
     Exit;
   end;
   fDMCadDocEstoque.frxReport1.ShowReport;
+end;
+
+procedure TfrmCadDocEstoque.btnAjustarEstoqueClick(Sender: TObject);
+var
+  vID_Estoque : Integer;
+begin
+  if MessageDlg('Deseja ajustar estoque?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+    exit;
+
+  fDMCadDocEstoque.cdsDocEstoque_Consulta.First;
+  while not fDMCadDocEstoque.cdsDocEstoque_Consulta.Eof do
+  begin
+    prc_Posiciona_DocEstoque;
+    fDMCadDocEstoque.cdsDocEstoque_Itens.First;
+    while not fDMCadDocEstoque.cdsDocEstoque_Itens.Eof do
+    begin
+      fDMCadDocEstoque.cdsDocEstoque_Itens.Edit;
+      vID_Estoque := fnc_Gravar_Estoque(fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger,
+                     fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE.AsInteger,fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString,fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger);
+      fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE.AsInteger := vID_Estoque;
+      if (fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'T') then
+      begin
+        if (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') then
+          vID_Estoque := fnc_Gravar_Estoque(fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_DESTINO.AsInteger,fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE_DESTINO.AsInteger,'E',fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger)
+        else
+          vID_Estoque := fnc_Gravar_Estoque(fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_DESTINO.AsInteger,fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE_DESTINO.AsInteger,'E',fDMCadDocEstoque.cdsDocEstoqueFILIAL_DESTINO.AsInteger);
+        fDMCadDocEstoque.cdsDocEstoque_ItensID_MOVESTOQUE_DESTINO.AsInteger := vID_Estoque;
+      end;
+      fDMCadDocEstoque.cdsDocEstoque_Itens.Post;
+      fDMCadDocEstoque.cdsDocEstoque_Itens.Next;
+    end;
+
+    fDMCadDocEstoque.cdsDocEstoque_Consulta.Next;
+  end;
+  fDMCadDocEstoque.cdsDocEstoque_Itens.ApplyUpdates(0);
+
+  MessageDlg('*** Ajuste Concluído!' , mtConfirmation, [mbOk], 0);
 end;
 
 end.
