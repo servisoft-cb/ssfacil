@@ -455,6 +455,12 @@ begin
     MessageDlg('*** Título pago com cheque. Para excluir, entrar no cadastro de cheques.', mtInformation, [mbOk], 0);
     exit;
   end;
+  if fDMCadDuplicata.cdsDuplicata_ConsultaCANCELADA.AsString = 'S' then
+  begin
+    MessageDlg('*** Fatura cancelada!', mtError, [mbOk], 0);
+    Exit;
+  end;
+
   prc_Excluir_Registro;
   btnConsultarClick(Sender);
 end;
@@ -858,13 +864,18 @@ begin
     exit;
   if (fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat > 0) or (fDMCadDuplicata.cdsDuplicataVLR_DEVOLUCAO.AsFloat > 0) then
   begin
-    ShowMessage('*** Duplicata não pode ser alterada pois consta pagamento/devolução!');
+    ShowMessage('*** Fatura não pode ser alterada pois consta pagamento/devolução!');
     exit;
   end;
   if fDMCadDuplicata.cdsDuplicataTIPO_MOV.AsString = 'H' then
   begin
     MessageDlg('*** Este registro é de cheque. Para alterar, entrar na opção Financeiro/Cheque!', mtError, [mbOk], 0);
     exit;
+  end;
+  if fDMCadDuplicata.cdsDuplicataCANCELADA.AsString = 'S' then
+  begin
+    ShowMessage('Fatura cancelada!');
+    Exit;
   end;
 
   fDMCadDuplicata.cdsDuplicata.Edit;
@@ -1071,6 +1082,7 @@ begin
   if fDMCadDuplicata.cdsDuplicata_ConsultaCANCELADA.AsString = 'S' then
   begin
     AFont.Color := $00400080;
+    Background  := $00E5E5E5;
   end;
 end;
 
@@ -1108,7 +1120,12 @@ begin
     MessageDlg('*** Título não aprovado!', mtError, [mbOk], 0);
     exit;
   end;
-  
+  if fDMCadDuplicata.cdsDuplicata_ConsultaCANCELADA.AsString = 'S' then
+  begin
+    MessageDlg('*** Fatura cancelada!', mtError, [mbOk], 0);
+    Exit;
+  end;
+
   fDMCadDuplicata.vID_Cheque := 0;
   //03/01/2018
   fDMCadDuplicata.mCheque.EmptyDataSet;
@@ -1220,6 +1237,12 @@ begin
   fDMCadDuplicata.cdsDuplicata_Consulta.First;
   while not fDMCadDuplicata.cdsDuplicata_Consulta.Eof do
   begin
+    if fDMCadDuplicata.cdsDuplicata_ConsultaCANCELADA.AsString = 'S' then
+    begin
+      fDMCadDuplicata.cdsDuplicata_Consulta.Next;
+      Continue;
+    end;
+    
     if fDMCadDuplicata.cdsDuplicata_ConsultaTIPO_ES.AsString = 'E' then
     begin
       fDMCadDuplicata.vCReceber_Tot := fDMCadDuplicata.vCReceber_Tot + fDMCadDuplicata.cdsDuplicata_ConsultaVLR_PARCELA.AsFloat;
@@ -1713,9 +1736,28 @@ begin
     SMDBGrid1.EnableScroll;
     if not vFlag then
     begin
-      MessageDlg('*** Foi seleciondo título sem a aprovação!', mtInformation, [mbOk], 0);
+      MessageDlg('*** Foi selecionda fatura sem aprovação!', mtInformation, [mbOk], 0);
       exit;
     end;
+  end;
+
+  vFlag := True;
+  SMDBGrid1.DisableScroll;
+  fDMCadDuplicata.cdsDuplicata_Consulta.First;
+  while not fDMCadDuplicata.cdsDuplicata_Consulta.Eof do
+  begin
+    if (fDMCadDuplicata.cdsDuplicata_ConsultaCANCELADA.AsString = 'S') then
+    begin
+      vFlag := False;
+      fDMCadDuplicata.cdsDuplicata_Consulta.Last;
+    end;
+    fDMCadDuplicata.cdsDuplicata_Consulta.Next;
+  end;
+  SMDBGrid1.EnableScroll;
+  if not vFlag then
+  begin
+    MessageDlg('*** Foi selecionda fatura cancelada!', mtInformation, [mbOk], 0);
+    exit;
   end;
 
   fDMCadDuplicata.mCheque.EmptyDataSet;
