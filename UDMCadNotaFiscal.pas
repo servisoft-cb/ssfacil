@@ -3142,6 +3142,7 @@ type
     cdsTab_CSTICMSCOD_BENEF: TStringField;
     sdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField;
     cdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField;
+    cdsFilialUSA_RESPTECNICO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

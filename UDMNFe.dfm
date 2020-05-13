@@ -6239,4 +6239,38 @@ object DMNFe: TDMNFe
       Size = 100
     end
   end
+  object qSoftWareHouse: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select *'
+      'from SOFTWAREHOUSE  ')
+    SQLConnection = dmDatabase.scoDados
+    Left = 679
+    Top = 508
+    object qSoftWareHouseID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qSoftWareHouseNOME: TStringField
+      FieldName = 'NOME'
+      Size = 60
+    end
+    object qSoftWareHouseNOME_RESPONSAVEL: TStringField
+      FieldName = 'NOME_RESPONSAVEL'
+      Size = 60
+    end
+    object qSoftWareHouseCNPJ: TStringField
+      FieldName = 'CNPJ'
+      Size = 18
+    end
+    object qSoftWareHouseEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 200
+    end
+    object qSoftWareHouseFONE: TStringField
+      FieldName = 'FONE'
+      Size = 15
+    end
+  end
 end

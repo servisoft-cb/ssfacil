@@ -58,6 +58,7 @@ var
   DetDIXML : IXMLDI;
   DetADIXML : IXMLAdi;
   detPag: IXMLDetPag;
+  detRespTec: IXMLTInfRespTec;
 
   DetExport    : IXMLDetExport;
 
@@ -1011,6 +1012,21 @@ begin
   end;
 {* ZB  Informações de Compras }
   //Não implementado
+
+{* ZD  Responsável Técnico }   //12/05/2020
+  if fDMCadNotaFiscal.cdsFilialUSA_RESPTECNICO.AsString = 'S' then
+  begin
+    fDMNFe.qSoftWareHouse.Close;
+    fDMNFe.qSoftWareHouse.Open;
+
+    NfeXML.InfNFe.InfRespTec.CNPJ     := Monta_Numero(fDMNFe.qSoftWareHouseCNPJ.AsString,0);
+    NfeXML.InfNFe.InfRespTec.XContato := TirarAcento(fDMNFe.qSoftWareHouseNOME_RESPONSAVEL.AsString);
+    NfeXML.InfNFe.InfRespTec.Email    := fDMNFe.qSoftWareHouseEMAIL.AsString;
+    NfeXML.InfNFe.InfRespTec.Fone     := Monta_Numero(fDMNFe.qSoftWareHouseFONE.AsString,0);
+
+    //function Get_IdCSRT: WideString;
+    //function Get_HashCSRT: WideString;
+  end;
 end;
 
 procedure prc_Monta_Detalhe(fDMCadNotaFiscal: TDMCadNotaFiscal ; fDMNFe : TDMNFe);
