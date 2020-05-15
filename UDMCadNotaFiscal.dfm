@@ -4978,6 +4978,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
+    object cdsFilialUSA_RESPTECNICO: TStringField
+      FieldName = 'USA_RESPTECNICO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsFilial: TDataSource
     DataSet = cdsFilial

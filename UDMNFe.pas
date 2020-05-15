@@ -1239,6 +1239,13 @@ type
     qTab_CProd_ANP: TSQLQuery;
     qTab_CProd_ANPCODIGO: TStringField;
     qTab_CProd_ANPDESCRICAO: TStringField;
+    qSoftWareHouse: TSQLQuery;
+    qSoftWareHouseID: TIntegerField;
+    qSoftWareHouseNOME: TStringField;
+    qSoftWareHouseNOME_RESPONSAVEL: TStringField;
+    qSoftWareHouseCNPJ: TStringField;
+    qSoftWareHouseEMAIL: TStringField;
+    qSoftWareHouseFONE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);

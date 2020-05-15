@@ -1,8 +1,8 @@
 object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
-  Left = 277
-  Top = 168
+  Left = 253
+  Top = 144
   Width = 746
-  Height = 464
+  Height = 478
   Caption = 'Pagamento Duplicata'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,8 +20,8 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
   TextHeight = 13
   object Panel3: TPanel
     Left = 0
-    Top = 391
-    Width = 730
+    Top = 413
+    Width = 738
     Height = 34
     Align = alBottom
     Color = 8404992
@@ -60,8 +60,8 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
   object Panel2: TPanel
     Left = 0
     Top = 96
-    Width = 730
-    Height = 295
+    Width = 738
+    Height = 317
     Align = alClient
     Color = clMoneyGreen
     TabOrder = 0
@@ -83,7 +83,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object Label9: TLabel
       Left = 75
-      Top = 274
+      Top = 294
       Width = 44
       Height = 13
       Alignment = taRightJustify
@@ -99,7 +99,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object Label2: TLabel
       Left = 43
-      Top = 157
+      Top = 177
       Width = 78
       Height = 13
       Alignment = taRightJustify
@@ -142,7 +142,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object Label22: TLabel
       Left = 63
-      Top = 204
+      Top = 224
       Width = 59
       Height = 13
       Alignment = taRightJustify
@@ -166,7 +166,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object Label24: TLabel
       Left = 192
-      Top = 202
+      Top = 222
       Width = 26
       Height = 13
       Alignment = taRightJustify
@@ -182,7 +182,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object Label25: TLabel
       Left = 37
-      Top = 177
+      Top = 197
       Width = 84
       Height = 13
       Alignment = taRightJustify
@@ -190,11 +190,19 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object Label1: TLabel
       Left = 74
-      Top = 137
+      Top = 157
       Width = 47
       Height = 13
       Alignment = taRightJustify
       Caption = 'Vlr. Multa:'
+    end
+    object Label26: TLabel
+      Left = 35
+      Top = 137
+      Width = 86
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Vlr. Adiantamento:'
     end
     object cePagamento: TCurrencyEdit
       Left = 122
@@ -225,7 +233,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object ceDespesas: TCurrencyEdit
       Left = 122
-      Top = 149
+      Top = 169
       Width = 100
       Height = 21
       AutoSize = False
@@ -246,7 +254,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object Edit1: TEdit
       Left = 122
-      Top = 266
+      Top = 286
       Width = 489
       Height = 21
       MaxLength = 70
@@ -280,7 +288,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     object Panel1: TPanel
       Left = 1
       Top = 1
-      Width = 728
+      Width = 736
       Height = 46
       Align = alTop
       BevelOuter = bvNone
@@ -461,7 +469,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object gbxCheque: TRzGroupBox
       Left = 124
-      Top = 227
+      Top = 247
       Width = 309
       Height = 37
       BorderColor = clNavy
@@ -552,7 +560,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object ceTaxaBancaria: TCurrencyEdit
       Left = 122
-      Top = 169
+      Top = 189
       Width = 100
       Height = 21
       AutoSize = False
@@ -565,7 +573,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object ceMulta: TCurrencyEdit
       Left = 122
-      Top = 129
+      Top = 149
       Width = 100
       Height = 21
       AutoSize = False
@@ -576,11 +584,24 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
       OnExit = ceMultaExit
       OnKeyPress = ceJurosKeyPress
     end
+    object ceAdto: TCurrencyEdit
+      Left = 122
+      Top = 129
+      Width = 100
+      Height = 21
+      AutoSize = False
+      Ctl3D = False
+      DisplayFormat = '0.00'
+      ParentCtl3D = False
+      TabOrder = 12
+      OnExit = ceAdtoExit
+      OnKeyPress = ceJurosKeyPress
+    end
   end
   object Panel4: TPanel
     Left = 0
     Top = 0
-    Width = 730
+    Width = 738
     Height = 96
     Align = alTop
     Color = clSilver

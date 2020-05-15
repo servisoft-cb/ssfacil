@@ -1051,6 +1051,9 @@ type
     sdsDuplicataUSUARIO: TStringField;
     cdsDuplicataUSUARIO: TStringField;
     cdsContasINATIVO: TStringField;
+    qParametros_FinUSA_ADTO: TStringField;
+    sdsDuplicataVLR_ADTO: TFloatField;
+    cdsDuplicataVLR_ADTO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
