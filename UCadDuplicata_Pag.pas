@@ -70,6 +70,8 @@ type
     ceTaxaBancaria: TCurrencyEdit;
     Label1: TLabel;
     ceMulta: TCurrencyEdit;
+    Label26: TLabel;
+    ceAdto: TCurrencyEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -99,10 +101,12 @@ type
     procedure ceMultaExit(Sender: TObject);
     procedure RxDBLookupCombo3Enter(Sender: TObject);
     procedure RxDBLookupCombo3Exit(Sender: TObject);
+    procedure ceAdtoExit(Sender: TObject);
   private
     { Private declarations }
     ffrmCadContas: TfrmCadContas;
     ffrmCadTipoCobranca: TfrmCadTipoCobranca;
+    vVlr_Diferenca : Real;
 
     function fnc_Erro: Boolean;
     procedure prc_Calcular_Total;
@@ -149,6 +153,10 @@ begin
   end;
   Label1.Visible  := (fDMCadDuplicata.qParametros_FinMOSTRAR_VLR_MULTA_DUP.AsString = 'S');
   ceMulta.Visible := (fDMCadDuplicata.qParametros_FinMOSTRAR_VLR_MULTA_DUP.AsString = 'S');
+  //14/05/2020
+  Label26.Visible := (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S');
+  ceAdto.Visible  := (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S');
+  //*****************
 end;
 
 procedure TfrmCadDuplicata_Pag.BitBtn1Click(Sender: TObject);
@@ -275,21 +283,36 @@ end;
 
 
 procedure TfrmCadDuplicata_Pag.cePagamentoExit(Sender: TObject);
+var
+  vDif : Real;
 begin
+  vVlr_Diferenca := StrToFloat(FormatFloat('0.00',0));
   if StrToFloat(FormatFloat('0.00',cePagamento.Value)) < StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) then
     ceDesconto.Value := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat - cePagamento.Value))
   else
   if StrToFloat(FormatFloat('0.00',cePagamento.Value)) > StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) then
   begin
-    ceJuros.Value     := StrToFloat(FormatFloat('0.00',cePagamento.Value - fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
-    cePagamento.Value := StrToFloat(FormatFloat('0.00',cePagamento.Value - ceJuros.Value));
+    if fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S' then
+    begin
+      vVlr_Diferenca := StrToFloat(FormatFloat('0.00',cePagamento.Value - StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat))));
+      if (fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsDateTime < DtPagamento.Date) or (trim(fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString) <> 'S') then
+      begin
+        ceJuros.Value := StrToFloat(FormatFloat('0.00',cePagamento.Value - fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+        ceAdto.Value  := StrToFloat(FormatFloat('0.00',0));
+      end
+      else
+      begin
+        ceAdto.Value  := StrToFloat(FormatFloat('0.00',cePagamento.Value - fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+        ceJuros.Value := StrToFloat(FormatFloat('0.00',0));
+      end;
+    end;
+    cePagamento.Value := StrToFloat(FormatFloat('0.00',cePagamento.Value - ceJuros.Value - ceAdto.Value));
   end
   else
   if StrToFloat(FormatFloat('0.00',fDMCadDuplicata.qParametrosPERC_JUROS_PADRAO.AsFloat)) <= 0 then
     ceJuros.Value     := StrToFloat(FormatFloat('0.00',0))
   else
     ceJuros.Value     := StrToFloat(FormatFloat('0.00',ceJuros_Calculado.Value));
-
   prc_Calcular_Total;
 end;
 
@@ -438,7 +461,7 @@ var
   vAux: Real;
 begin
   //vAux            := cePagamento.Value + ceJuros.Value + ceDespesas.Value - ceDesconto.Value - ceTaxaBancaria.Value;
-  vAux            := cePagamento.Value + ceJuros.Value + ceMulta.Value + ceDespesas.Value - ceTaxaBancaria.Value;
+  vAux            := cePagamento.Value + ceJuros.Value + ceAdto.Value + ceMulta.Value + ceDespesas.Value - ceTaxaBancaria.Value;
   Label24.Caption := FormatFloat('###,##0.00',vAux);
 end;
 
@@ -449,6 +472,16 @@ end;
 
 procedure TfrmCadDuplicata_Pag.ceJurosExit(Sender: TObject);
 begin
+  if fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S' then
+  begin
+    ceAdto.Value := vVlr_Diferenca - ceJuros.Value;
+    if ceAdto.Value < 0 then
+    begin
+      MessageDlg('*** Vlr. do juros incorreto!', mtError, [mbOk], 0);
+      ceJuros.SetFocus;
+      exit;
+    end;
+  end;
   prc_Calcular_Total;
 end;
 
@@ -485,6 +518,21 @@ procedure TfrmCadDuplicata_Pag.RxDBLookupCombo3Exit(Sender: TObject);
 begin
   fDMCadDuplicata.cdsContas.Filtered := False;
   fDMCadDuplicata.cdsContas.Filter   := '';
+end;
+
+procedure TfrmCadDuplicata_Pag.ceAdtoExit(Sender: TObject);
+begin
+  if fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S' then
+  begin
+    ceJuros.Value := vVlr_Diferenca - ceAdto.Value;
+    if ceJuros.Value < 0 then
+    begin
+      MessageDlg('*** Vlr. do adiantamento incorreto!', mtError, [mbOk], 0);
+      ceAdto.SetFocus;
+      exit;
+    end;
+  end;
+  prc_Calcular_Total;
 end;
 
 end.

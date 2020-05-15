@@ -544,6 +544,10 @@ begin
       prc_Consultar(vNumDup_Ini, vNumDup_Fin, cdsDuplicataNUMDUPLICATA.AsString, vInserir)
     else
       cdsDuplicata_Consulta.Locate('ID', vNumDup_Ini, [loCaseInsensitive]);
+
+    Panel2.SetFocus;
+    btnInserir.SetFocus;
+
   end;
 end;
 
@@ -584,6 +588,8 @@ begin
 
   //23/11/2015
   prc_Verifica_Usuario;
+
+  RxDBComboBox11.SetFocus;
 end;
 
 procedure TfrmCadDuplicata.OnShow(Sender: TObject);

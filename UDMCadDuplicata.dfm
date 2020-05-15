@@ -267,6 +267,9 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsDuplicataUSUARIO: TStringField
       FieldName = 'USUARIO'
     end
+    object sdsDuplicataVLR_ADTO: TFloatField
+      FieldName = 'VLR_ADTO'
+    end
   end
   object dspDuplicata: TDataSetProvider
     DataSet = sdsDuplicata
@@ -555,6 +558,9 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object cdsDuplicataUSUARIO: TStringField
       FieldName = 'USUARIO'
+    end
+    object cdsDuplicataVLR_ADTO: TFloatField
+      FieldName = 'VLR_ADTO'
     end
   end
   object dsDuplicata: TDataSource
@@ -4036,6 +4042,11 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object qParametros_FinID_CONTABIL_OPE_BAIXA: TIntegerField
       FieldName = 'ID_CONTABIL_OPE_BAIXA'
+    end
+    object qParametros_FinUSA_ADTO: TStringField
+      FieldName = 'USA_ADTO'
+      FixedChar = True
+      Size = 1
     end
   end
   object qParametros_Usuario: TSQLQuery
