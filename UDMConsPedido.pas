@@ -913,6 +913,8 @@ type
     cdsPedido_ItemNOME_VENDEDOR_INT: TStringField;
     cdsPedidoID_VENDEDOR_INT: TIntegerField;
     cdsPedidoNOME_VENDEDOR_INT: TStringField;
+    mEtiq_IndividualIndexadorPreco: TFloatField;
+    cdsProdutoINDEXADOR_PRECO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConsumoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_MatCalcFields(DataSet: TDataSet);
