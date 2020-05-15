@@ -358,6 +358,7 @@ type
     ContratodeServioMensal1: TMenuItem;
     ContratodeServioparaEvento1: TMenuItem;
     ConsultaComissoNFCeCupomFiscal1: TMenuItem;
+    ConsultaAdiantamentoClientesFornecedores1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);
@@ -620,6 +621,8 @@ type
     procedure ConsultaEstoqueDeTerceirosEmTerceiros1Click(Sender: TObject);
     procedure ConsultaEstoqueMovimento1Click(Sender: TObject);
     procedure ConsultaComissoNFCeCupomFiscal1Click(Sender: TObject);
+    procedure ConsultaAdiantamentoClientesFornecedores1Click(
+      Sender: TObject);
   private
     { Private declarations }
     vPedLoja: Boolean;
@@ -682,7 +685,7 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   UConsProdSTRet, UDMCadPlanoMat, UGerar_PlanoMat, UAjusteEstoqueOP_Res, uCadRaca, uCadTipo_Animal, UConsEstoque2, UComissaoVend,
   UConsProdutoNCM, UProg_Terc, UConsPedido_Producao, UConsNCM_CFOP,
   UANP_Produto, UCadMetas_Comissao, uCupomTerminal, UConsPedido_Res,
-  uConsComissao_Metas;
+  uConsComissao_Metas, UConsAdto;
 
 {$R *.dfm}
 
@@ -2232,6 +2235,12 @@ end;
 procedure TfMenu.ConsultaComissoNFCeCupomFiscal1Click(Sender: TObject);
 begin
   OpenForm(TfrmConsComissao_Metas,wsMaximized);
+end;
+
+procedure TfMenu.ConsultaAdiantamentoClientesFornecedores1Click(
+  Sender: TObject);
+begin
+  OpenForm(TfrmConsAdto,wsMaximized);
 end;
 
 initialization

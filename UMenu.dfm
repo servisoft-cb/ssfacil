@@ -1024,6 +1024,10 @@ object fMenu: TfMenu
       end
       object Consultas1: TMenuItem
         Caption = 'Consultas'
+        object ConsultaAdiantamentoClientesFornecedores1: TMenuItem
+          Caption = 'Consulta Adiantamento Clientes/Fornecedores'
+          OnClick = ConsultaAdiantamentoClientesFornecedores1Click
+        end
         object ConsultaDespesas1: TMenuItem
           Caption = 'Consulta Despesas'
           OnClick = ConsultaDespesas1Click

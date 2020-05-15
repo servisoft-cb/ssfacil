@@ -2,7 +2,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
   Left = 321
   Top = 122
   Width = 704
-  Height = 510
+  Height = 524
   Caption = 'Pagamento Duplicata'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,7 +20,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
   TextHeight = 13
   object Panel3: TPanel
     Left = 0
-    Top = 445
+    Top = 459
     Width = 696
     Height = 34
     Align = alBottom
@@ -61,7 +61,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     Left = 0
     Top = 96
     Width = 696
-    Height = 349
+    Height = 363
     Align = alClient
     Color = clMoneyGreen
     TabOrder = 0
@@ -83,7 +83,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label9: TLabel
       Left = 75
-      Top = 321
+      Top = 346
       Width = 44
       Height = 13
       Alignment = taRightJustify
@@ -99,7 +99,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label2: TLabel
       Left = 43
-      Top = 157
+      Top = 177
       Width = 78
       Height = 13
       Alignment = taRightJustify
@@ -142,7 +142,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label22: TLabel
       Left = 63
-      Top = 219
+      Top = 239
       Width = 59
       Height = 13
       Alignment = taRightJustify
@@ -166,7 +166,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label24: TLabel
       Left = 192
-      Top = 217
+      Top = 237
       Width = 26
       Height = 13
       Alignment = taRightJustify
@@ -182,7 +182,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label25: TLabel
       Left = 37
-      Top = 177
+      Top = 197
       Width = 84
       Height = 13
       Alignment = taRightJustify
@@ -190,7 +190,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label1: TLabel
       Left = 74
-      Top = 137
+      Top = 157
       Width = 47
       Height = 13
       Alignment = taRightJustify
@@ -198,7 +198,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label26: TLabel
       Left = 481
-      Top = 221
+      Top = 246
       Width = 104
       Height = 13
       Caption = 'Total de Cheques:'
@@ -212,7 +212,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label28: TLabel
       Left = 512
-      Top = 239
+      Top = 264
       Width = 73
       Height = 13
       Caption = 'Vlr.Cheques:'
@@ -226,7 +226,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label29: TLabel
       Left = 585
-      Top = 239
+      Top = 264
       Width = 7
       Height = 13
       Caption = '0'
@@ -240,7 +240,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label30: TLabel
       Left = 585
-      Top = 221
+      Top = 246
       Width = 7
       Height = 13
       Caption = '0'
@@ -254,7 +254,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label31: TLabel
       Left = 525
-      Top = 255
+      Top = 280
       Width = 60
       Height = 13
       Alignment = taRightJustify
@@ -269,7 +269,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label32: TLabel
       Left = 585
-      Top = 255
+      Top = 280
       Width = 7
       Height = 13
       Caption = '0'
@@ -283,7 +283,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object Label59: TLabel
       Left = 75
-      Top = 197
+      Top = 217
       Width = 46
       Height = 13
       Alignment = taRightJustify
@@ -294,6 +294,14 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
+    end
+    object Label33: TLabel
+      Left = 35
+      Top = 137
+      Width = 86
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Vlr. Adiantamento:'
     end
     object cePagamento: TCurrencyEdit
       Left = 122
@@ -324,33 +332,33 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object ceDespesas: TCurrencyEdit
       Left = 122
-      Top = 149
+      Top = 169
       Width = 100
       Height = 21
       AutoSize = False
       Ctl3D = False
       DisplayFormat = '0.00'
       ParentCtl3D = False
-      TabOrder = 6
+      TabOrder = 7
       OnExit = ceDespesasExit
       OnKeyPress = ceDespesasKeyPress
     end
     object ckCartorio: TCheckBox
       Left = 490
-      Top = 150
+      Top = 175
       Width = 121
       Height = 17
       Caption = 'Pago em cart'#243'rio'
-      TabOrder = 9
+      TabOrder = 10
     end
     object Edit1: TEdit
       Left = 122
-      Top = 313
+      Top = 338
       Width = 489
       Height = 21
       CharCase = ecUpperCase
       MaxLength = 70
-      TabOrder = 11
+      TabOrder = 12
     end
     object DtPagamento: TDateEdit
       Left = 122
@@ -558,7 +566,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object gbxCheque: TRzGroupBox
       Left = 124
-      Top = 274
+      Top = 299
       Width = 325
       Height = 37
       BorderColor = clNavy
@@ -575,7 +583,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
       Font.Style = []
       ParentCtl3D = False
       ParentFont = False
-      TabOrder = 10
+      TabOrder = 11
       Visible = False
       VisualStyle = vsGradient
       OnEnter = gbxChequeEnter
@@ -644,38 +652,38 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
       DisplayFormat = '0.00'
       ParentCtl3D = False
       ReadOnly = True
-      TabOrder = 12
+      TabOrder = 13
       OnKeyPress = ceJurosKeyPress
     end
     object ceTaxaBancaria: TCurrencyEdit
       Left = 122
-      Top = 169
+      Top = 189
       Width = 100
       Height = 21
       AutoSize = False
       Ctl3D = False
       DisplayFormat = '0.00'
       ParentCtl3D = False
-      TabOrder = 7
+      TabOrder = 8
       OnExit = ceTaxaBancariaExit
       OnKeyPress = ceTaxaBancariaKeyPress
     end
     object ceMulta: TCurrencyEdit
       Left = 122
-      Top = 129
+      Top = 149
       Width = 100
       Height = 21
       AutoSize = False
       Ctl3D = False
       DisplayFormat = '0.00'
       ParentCtl3D = False
-      TabOrder = 5
+      TabOrder = 6
       OnExit = ceMultaExit
       OnKeyPress = ceJurosKeyPress
     end
     object btnInformarCheque: TNxButton
       Left = 121
-      Top = 240
+      Top = 265
       Width = 200
       Caption = 'Informar Cheque Terceiro'
       Font.Charset = DEFAULT_CHARSET
@@ -684,13 +692,13 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
-      TabOrder = 13
+      TabOrder = 14
       Visible = False
       OnClick = btnInformarChequeClick
     end
     object btnBuscarCheque: TNxButton
       Left = 321
-      Top = 240
+      Top = 265
       Width = 184
       Caption = 'Repassar Cheque de Terceiro'
       Font.Charset = DEFAULT_CHARSET
@@ -699,22 +707,22 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
-      TabOrder = 14
+      TabOrder = 15
       Visible = False
       OnClick = btnBuscarChequeClick
     end
     object btnAtualizaVlr: TNxButton
       Left = 528
-      Top = 271
+      Top = 296
       Width = 113
       Caption = 'Atualiza Valor Pagto.'
-      TabOrder = 15
+      TabOrder = 16
       Visible = False
       OnClick = btnAtualizaVlrClick
     end
     object RxDBLookupCombo12: TRxDBLookupCombo
       Left = 122
-      Top = 189
+      Top = 209
       Width = 259
       Height = 21
       DropDownCount = 15
@@ -731,7 +739,20 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
       LookupSource = DMCadDuplicata.dsContabil_Ope
       ParentCtl3D = False
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 9
+    end
+    object ceAdto: TCurrencyEdit
+      Left = 122
+      Top = 129
+      Width = 100
+      Height = 21
+      AutoSize = False
+      Ctl3D = False
+      DisplayFormat = '0.00'
+      ParentCtl3D = False
+      TabOrder = 5
+      OnExit = ceAdtoExit
+      OnKeyPress = ceAdtoKeyPress
     end
   end
   object Panel4: TPanel

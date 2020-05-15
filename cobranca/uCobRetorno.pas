@@ -885,7 +885,7 @@ begin
             end;
             fDmCadDuplicata.cdsDuplicataARQUIVO_GERADO.AsString := 'N';
 
-            fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT', 'Zerado o nosso numero devido estar duplicado Nº ' + fDmCob_Eletronica.mRetornoNossoNumero.AsString + vTexto, 0, 0, 0, 0, 0, 0);
+            fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT', 'Zerado o nosso numero devido estar duplicado Nº ' + fDmCob_Eletronica.mRetornoNossoNumero.AsString + vTexto, 0, 0, 0, 0, 0, 0,0);
 
             fDmCadDuplicata.cdsDuplicata.Post;
             fDmCadDuplicata.cdsDuplicata.ApplyUpdates(0);

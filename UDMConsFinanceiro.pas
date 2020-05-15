@@ -373,6 +373,13 @@ type
     cdsDuplicata_CCustoagVlr_Saida_Dup: TAggregateField;
     qParametros_Usuario: TSQLQuery;
     qParametros_UsuarioMOSTRAR_DUP_REC_PAG: TStringField;
+    sdsConsAdto_Saldo: TSQLDataSet;
+    dspConsAdto_Saldo: TDataSetProvider;
+    cdsConsAdto_Saldo: TClientDataSet;
+    dsConsAdto_Saldo: TDataSource;
+    cdsConsAdto_SaldoID_PESSOA: TIntegerField;
+    cdsConsAdto_SaldoVALOR: TFloatField;
+    cdsConsAdto_SaldoNOME_PESSOA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConta_OrcNewRecord(DataSet: TDataSet);
     procedure mDespesaNewRecord(DataSet: TDataSet);

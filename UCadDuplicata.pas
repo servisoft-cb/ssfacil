@@ -614,6 +614,8 @@ begin
       SMDBGrid1.Columns[i].Visible := (fDMCadDuplicata.qParametrosMOSTRAR_TOTAL_ACUMULADO_DUP.AsString <> 'S');
     if (SMDBGrid1.Columns[i].FieldName = 'VLR_TOTALPAGO') then
       SMDBGrid1.Columns[i].Visible := (fDMCadDuplicata.qParametrosMOSTRAR_TOTAL_ACUMULADO_DUP.AsString = 'S');
+    if (SMDBGrid1.Columns[i].FieldName = 'VLR_ADTO') then
+      SMDBGrid1.Columns[i].Visible := (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S');
     if (SMDBGrid1.Columns[i].FieldName = 'PERC_BASE_COMISSAO') then
       SMDBGrid1.Columns[i].Visible := ((fdmCadDuplicata.qParametrosUSA_VENDEDOR.AsString = 'S')
           and ((fDMCadDuplicata.qParametros_ComCOMISSAO_DESCONTAR.AsString = 'S') or (fDMCadDuplicata.qParametros_ComCOMISSAO_DESCONTAR_PIS.AsString = 'S')

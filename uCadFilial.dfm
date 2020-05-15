@@ -120,7 +120,6 @@ object frmCadFilial: TfrmCadFilial
             FieldName = 'FONE'
             Title.Alignment = taCenter
             Title.Caption = 'Fone'
-            Width = 64
             Visible = True
           end>
       end
@@ -707,10 +706,10 @@ object frmCadFilial: TfrmCadFilial
         Top = 31
         Width = 1090
         Height = 545
-        ActivePage = ts_SoftwareHouse
+        ActivePage = TS_Parametros
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 16
+        TabIndex = 2
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19

@@ -198,7 +198,7 @@ object frmCadDuplicata_Pag: TfrmCadDuplicata_Pag
     end
     object Label26: TLabel
       Left = 35
-      Top = 137
+      Top = 136
       Width = 86
       Height = 13
       Alignment = taRightJustify

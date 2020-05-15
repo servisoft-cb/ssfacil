@@ -8,12 +8,12 @@ object DMCadDuplicata: TDMCadDuplicata
   object sdsDuplicata: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM DUPLICATA '#13#10#13#10
+    CommandText = 'SELECT *'#13#10'FROM DUPLICATA '#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 74
-    Top = 9
+    Top = 10
     object sdsDuplicataID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -286,7 +286,7 @@ object DMCadDuplicata: TDMCadDuplicata
     ProviderName = 'dspDuplicata'
     BeforePost = cdsDuplicataBeforePost
     OnNewRecord = cdsDuplicataNewRecord
-    Left = 138
+    Left = 139
     Top = 9
     object cdsDuplicataID: TIntegerField
       FieldName = 'ID'
@@ -665,6 +665,9 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsDuplicata_HistVLR_MULTA: TFloatField
       FieldName = 'VLR_MULTA'
     end
+    object sdsDuplicata_HistVLR_ADTO: TFloatField
+      FieldName = 'VLR_ADTO'
+    end
   end
   object cdsDuplicata_Hist: TClientDataSet
     Aggregates = <>
@@ -797,6 +800,9 @@ object DMCadDuplicata: TDMCadDuplicata
       ProviderFlags = []
       Size = 40
       Calculated = True
+    end
+    object cdsDuplicata_HistVLR_ADTO: TFloatField
+      FieldName = 'VLR_ADTO'
     end
   end
   object dsDuplicata_Hist: TDataSource
@@ -1553,6 +1559,9 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object cdsDuplicata_ConsultaVLR_TOTAL_NOTA: TFloatField
       FieldName = 'VLR_TOTAL_NOTA'
+    end
+    object cdsDuplicata_ConsultaVLR_ADTO: TFloatField
+      FieldName = 'VLR_ADTO'
     end
   end
   object dsDuplicata_Consulta: TDataSource
