@@ -1054,6 +1054,9 @@ type
     qParametros_FinUSA_ADTO: TStringField;
     sdsDuplicataVLR_ADTO: TFloatField;
     cdsDuplicataVLR_ADTO: TFloatField;
+    sdsDuplicata_HistVLR_ADTO: TFloatField;
+    cdsDuplicata_HistVLR_ADTO: TFloatField;
+    cdsDuplicata_ConsultaVLR_ADTO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
@@ -1117,7 +1120,7 @@ type
     procedure prc_Gravar;
     procedure prc_Excluir;
     procedure prc_Excluir_Dup_CCusto;
-    procedure prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Desconto,
+    procedure prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Adto, Vlr_Desconto,
       Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer = 0 ; ID_Descontada: Integer = 0 );
     procedure prc_Gravar_Financeiro(Valor: Real; Tipo: String; ID_Forma_Pagamento: Integer = 0;
       ComDesconto: String = '');//P=Pagamento  J=Juros  D=Despesas  M=Multa
@@ -1242,7 +1245,7 @@ begin
   end;
 
   cdsDuplicata.Post;
-  prc_Gravar_Dupicata_Hist('ENT','ENTRADA DO TITULOS',cdsDuplicataVLR_PARCELA.AsFloat,0,0,0,0,0);
+  prc_Gravar_Dupicata_Hist('ENT','ENTRADA DO TITULOS',cdsDuplicataVLR_PARCELA.AsFloat,0,0,0,0,0,0);
 
   cdsDuplicata.ApplyUpdates(0);
 end;
@@ -1373,7 +1376,7 @@ begin
   end;
 end;
 
-procedure TDMCadDuplicata.prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Desconto,
+procedure TDMCadDuplicata.prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Adto, Vlr_Desconto,
   Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer = 0 ; ID_Descontada: Integer = 0);
 var
   vItemAux: Integer;
@@ -1429,6 +1432,7 @@ begin
       cdsDuplicata_HistCOMPLEMENTO.AsString    := cdsDuplicata_HistCOMPLEMENTO.AsString + ' - COM DESCONTO';
     cdsDuplicata_HistVLR_PAGAMENTO.AsFloat     := StrToFloat(FormatFloat('0.00',Vlr_Pagamento));
     cdsDuplicata_HistVLR_JUROSPAGOS.AsFloat    := StrToFloat(FormatFloat('0.00',Vlr_Juros));
+    cdsDuplicata_HistVLR_ADTO.AsFloat          := StrToFloat(FormatFloat('0.00',Vlr_Adto));
     cdsDuplicata_HistVLR_DESCONTOS.AsFloat     := StrToFloat(FormatFloat('0.00',Vlr_Desconto));
     cdsDuplicata_HistVLR_DESPESAS.AsFloat      := StrToFloat(FormatFloat('0.00',Vlr_Despesa));
     cdsDuplicata_HistDTLANCAMENTO.AsDateTime   := cdsDuplicataDTULTPAGAMENTO.AsDateTime;
@@ -1631,6 +1635,7 @@ begin
     cdsDuplicata.Edit;
     cdsDuplicataVLR_PAGO.AsFloat          := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_PAGO.AsFloat - cdsDuplicata_HistVLR_PAGAMENTO.AsFloat));
     cdsDuplicataVLR_JUROSPAGOS.AsFloat    := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_JUROSPAGOS.AsFloat - cdsDuplicata_HistVLR_JUROSPAGOS.AsFloat));
+    cdsDuplicataVLR_ADTO.AsFloat          := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_ADTO.AsFloat - cdsDuplicata_HistVLR_ADTO.AsFloat));
     cdsDuplicataVLR_MULTA.AsFloat         := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_MULTA.AsFloat - cdsDuplicata_HistVLR_MULTA.AsFloat));
     cdsDuplicataVLR_DESCONTO.AsFloat      := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_DESCONTO.AsFloat - cdsDuplicata_HistVLR_DESCONTOS.AsFloat));
     cdsDuplicataVLR_DESPESAS.AsFloat      := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_DESPESAS.AsFloat - cdsDuplicata_HistVLR_DESPESAS.AsFloat));

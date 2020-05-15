@@ -1,7 +1,8 @@
 object DMConsFinanceiro: TDMConsFinanceiro
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 239
+  Left = 276
+  Top = 18
   Height = 653
   Width = 874
   object sdsFilial: TSQLDataSet
@@ -3045,5 +3046,46 @@ object DMConsFinanceiro: TDMConsFinanceiro
       FixedChar = True
       Size = 1
     end
+  end
+  object sdsConsAdto_Saldo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select A.*, P.NOME NOME_PESSOA'#13#10'from adto_saldo a'#13#10'INNER JOIN PE' +
+      'SSOA P'#13#10'ON A.id_pessoa = P.codigo'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 300
+    Top = 413
+  end
+  object dspConsAdto_Saldo: TDataSetProvider
+    DataSet = sdsConsAdto_Saldo
+    Left = 333
+    Top = 413
+  end
+  object cdsConsAdto_Saldo: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsAdto_Saldo'
+    Left = 365
+    Top = 413
+    object cdsConsAdto_SaldoID_PESSOA: TIntegerField
+      FieldName = 'ID_PESSOA'
+      Required = True
+    end
+    object cdsConsAdto_SaldoVALOR: TFloatField
+      FieldName = 'VALOR'
+      DisplayFormat = '###,###,##0.00'
+    end
+    object cdsConsAdto_SaldoNOME_PESSOA: TStringField
+      FieldName = 'NOME_PESSOA'
+      Size = 60
+    end
+  end
+  object dsConsAdto_Saldo: TDataSource
+    DataSet = cdsConsAdto_Saldo
+    Left = 397
+    Top = 413
   end
 end

@@ -358,6 +358,7 @@ type
     ContratodeServioMensal1: TMenuItem;
     ContratodeServioparaEvento1: TMenuItem;
     ConsultaComissoNFCeCupomFiscal1: TMenuItem;
+    ConsultaAdiantamentoClientesFornecedores1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);

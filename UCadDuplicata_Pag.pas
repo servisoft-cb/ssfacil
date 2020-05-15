@@ -188,6 +188,7 @@ begin
     fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime := DtPagamento.Date;
     fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat          := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat + cePagamento.Value));
     fDMCadDuplicata.cdsDuplicataVLR_JUROSPAGOS.AsFloat    := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_JUROSPAGOS.AsFloat + ceJuros.Value));
+    fDMCadDuplicata.cdsDuplicataVLR_ADTO.AsFloat          := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_ADTO.AsFloat + ceAdto.Value));
     fDMCadDuplicata.cdsDuplicataVLR_DESCONTO.AsFloat      := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_DESCONTO.AsFloat + ceDesconto.Value));
     fDMCadDuplicata.cdsDuplicataVLR_DESPESAS.AsFloat      := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_DESPESAS.AsFloat + ceDespesas.Value));
     fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat      := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat - cePagamento.Value - ceDesconto.Value));
@@ -203,7 +204,7 @@ begin
       vIDAux := RxDBLookupCombo1.KeyValue
     else
       vIDAux := 0;
-    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',Edit1.Text,cePagamento.Value,ceJuros.Value,ceDesconto.Value,ceDespesas.Value,ceTaxaBancaria.Value,ceMulta.Value,vIDAux);
+    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',Edit1.Text,cePagamento.Value,ceJuros.Value,ceAdto.Value,ceDesconto.Value,ceDespesas.Value,ceTaxaBancaria.Value,ceMulta.Value,vIDAux);
 
     //Foi incluida na versão .390
     if fDMCadDuplicata.mCheque.RecordCount <= 0 then
