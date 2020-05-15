@@ -83,6 +83,7 @@ type
     RxDBComboBox4: TRxDBComboBox;
     DBRadioGroup1: TDBRadioGroup;
     DBCheckBox23: TDBCheckBox;
+    DBCheckBox24: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -112,6 +113,7 @@ type
     procedure btnInserir_CondPagtoClick(Sender: TObject);
     procedure btnAlterar_CondPagtoClick(Sender: TObject);
     procedure btnExcluir_CondPagtoClick(Sender: TObject);
+    procedure RxDBComboBox1Change(Sender: TObject);
   private
     { Private declarations }
     fDMCadTipoCobranca: TDMCadTipoCobranca;
@@ -481,6 +483,11 @@ begin
   if MessageDlg('Deseja excluir este registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
   fDMCadTipoCobranca.cdsTipoCobranca_Itens.Delete;
+end;
+
+procedure TfrmCadTipoCobranca.RxDBComboBox1Change(Sender: TObject);
+begin
+  DBCheckBox24.Visible := DMCadTipoCobranca.cdsTipoCobrancaPADRAO_NFC.AsString = 'O';
 end;
 
 end.

@@ -171,6 +171,11 @@ object DMCadTipoCobranca: TDMCadTipoCobranca
       FixedChar = True
       Size = 1
     end
+    object sdsTipoCobrancaPADRAO_NFC: TStringField
+      FieldName = 'PADRAO_NFC'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspTipoCobranca: TDataSetProvider
     DataSet = sdsTipoCobranca
@@ -186,7 +191,7 @@ object DMCadTipoCobranca: TDMCadTipoCobranca
     ProviderName = 'dspTipoCobranca'
     OnNewRecord = cdsTipoCobrancaNewRecord
     Left = 120
-    Top = 36
+    Top = 33
     object cdsTipoCobrancaID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -353,6 +358,11 @@ object DMCadTipoCobranca: TDMCadTipoCobranca
     end
     object cdsTipoCobrancaTROCA: TStringField
       FieldName = 'TROCA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsTipoCobrancaPADRAO_NFC: TStringField
+      FieldName = 'PADRAO_NFC'
       FixedChar = True
       Size = 1
     end
