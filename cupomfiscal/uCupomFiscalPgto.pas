@@ -1000,9 +1000,9 @@ begin
          Label10.Visible := True;
          cbNFCe.Visible  := True;
          if fDmCupomFiscal.cdsTipoCobrancaPADRAO_NFC.AsString = 'S' then
-           cbNFCe.ItemIndex := 1
+           cbNFCe.ItemIndex := 0
          else
-           cbNFCe.ItemIndex := 0;
+           cbNFCe.ItemIndex := 1;
        end;
   end;
 
