@@ -708,6 +708,8 @@ type
     cdsBalancoDESC_TIPO_REG: TStringField;
     qParametros_Ped: TSQLQuery;
     qParametros_PedUSA_RESERVA_EST: TStringField;
+    cdsEstoque_MovESPESSURA: TFloatField;
+    qParametrosEMPRESA_SUCATA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

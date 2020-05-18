@@ -163,6 +163,12 @@ begin
     RLGroup1.DataFields   := 'NOMEPRODUTO;TAMANHO;NOME_COR';
     RLDBText10.DataField  := 'REFERENCIA';
   end;
+  if fDMConsEstoque.qParametrosEMPRESA_SUCATA.AsString = 'S' then
+  begin
+    RLLabel29.Caption    := 'Espessura';
+    RLDBText11.DataField := 'ESPESSURA';
+  end;
+
   RLDBText6.Visible  := (vOrdenar = 0 );
   RLLabel4.Visible   := (vDtInicial > 10);
   RLLabel11.Visible  := (vDtInicial > 10);
@@ -172,8 +178,8 @@ begin
   //RLLabel14.Visible  := (vDtInicial > 10);
   RLLabel27.Visible  := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
   RLLabel28.Visible  := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
-  RLLabel29.Visible  := (fDMConsEstoque.qParametrosUSA_LOTE_CONTROLE.AsString = 'S');
-  RLDBText11.Visible := (fDMConsEstoque.qParametrosUSA_LOTE_CONTROLE.AsString = 'S');
+  RLLabel29.Visible  := (fDMConsEstoque.qParametrosUSA_LOTE_CONTROLE.AsString = 'S') or (fDMConsEstoque.qParametrosEMPRESA_SUCATA.AsString = 'S');
+  RLDBText11.Visible := (fDMConsEstoque.qParametrosUSA_LOTE_CONTROLE.AsString = 'S') or (fDMConsEstoque.qParametrosEMPRESA_SUCATA.AsString = 'S');
 end;
 
 procedure TfRelEstoqueMov_Prod.RLBand12BeforePrint(Sender: TObject;

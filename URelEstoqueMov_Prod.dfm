@@ -1,6 +1,6 @@
 object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
-  Left = 80
-  Top = 167
+  Left = 59
+  Top = 119
   Width = 1272
   Height = 528
   Caption = 'fRelEstoqueMov_Prod'
@@ -774,7 +774,7 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
               ParentFont = False
             end
             object RLDBText11: TRLDBText
-              Left = 1004
+              Left = 1005
               Top = 2
               Width = 80
               Height = 12

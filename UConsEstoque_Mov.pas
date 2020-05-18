@@ -218,6 +218,8 @@ begin
       SMDBGrid1.Columns[i].Visible := (fDMConsEstoque.qParametros_EstMOSTRAR_PCUSTO_MOV.AsString = 'S');
     if (SMDBGrid1.Columns[i].FieldName = 'PRECO_CUSTO_TOTAL') then
       SMDBGrid1.Columns[i].Visible := (fDMConsEstoque.qParametros_EstMOSTRAR_PCUSTO_TOTAL_MOV.AsString = 'S');
+    if (SMDBGrid1.Columns[i].FieldName = 'ESPESSURA') then
+      SMDBGrid1.Columns[i].Visible := (fDMConsEstoque.qParametrosEMPRESA_SUCATA.AsString = 'S');
   end;
   Label10.Visible             := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
   rxdbLocalEstoque.Visible    := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
