@@ -4312,6 +4312,10 @@ begin
         fDMNFe.mItensNFeNomeProduto.AsString := TirarAcento(vNomeProduto + ' ' + texto2)
       else
         fDMNFe.mItensNFeNomeProduto.AsString := TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNOME_PRODUTO.AsString + ' ' + texto2);
+      if (fDMCadNotaFiscal.qParametros_NFeIMP_TAMANHO_FINAL.AsString = 'S') and (fDMCadNotaFiscal.cdsClienteIMP_TAMANHO_FINAL.AsString = 'S') and
+        (trim(fDMCadNotaFiscal.cdsProdutoTAMANHO.AsString) <> '') then
+        fDMNFe.mItensNFeNomeProduto.AsString := fDMNFe.mItensNFeNomeProduto.AsString + ' | ' + fDMCadNotaFiscal.cdsProdutoTAMANHO.AsString;
+
       fDMNFe.mItensNFeUnidade.AsString       := fDMCadNotaFiscal.cdsNotaFiscal_ItensUNIDADE.AsString;
       //11/07/2018
       if trim(fDMNFe.mItensNFeUnidade_Trib.AsString) = '' then

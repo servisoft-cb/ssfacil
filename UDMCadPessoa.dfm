@@ -13,7 +13,7 @@ object DMCadPessoa: TDMCadPessoa
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 48
-    Top = 8
+    Top = 9
     object sdsPessoaCODIGO: TIntegerField
       FieldName = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -619,6 +619,11 @@ object DMCadPessoa: TDMCadPessoa
     end
     object sdsPessoaPERC_COMISSAO_INT: TFloatField
       FieldName = 'PERC_COMISSAO_INT'
+    end
+    object sdsPessoaIMP_TAMANHO_FINAL: TStringField
+      FieldName = 'IMP_TAMANHO_FINAL'
+      FixedChar = True
+      Size = 1
     end
   end
   object dspPessoa: TDataSetProvider
@@ -1288,6 +1293,11 @@ object DMCadPessoa: TDMCadPessoa
     end
     object cdsPessoaPERC_COMISSAO_INT: TFloatField
       FieldName = 'PERC_COMISSAO_INT'
+    end
+    object cdsPessoaIMP_TAMANHO_FINAL: TStringField
+      FieldName = 'IMP_TAMANHO_FINAL'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPessoa: TDataSource
@@ -5655,11 +5665,11 @@ object DMCadPessoa: TDMCadPessoa
       
         'SELECT ID, USA_OPCAO_IMP_COD_CLI, IMP_NOMEPROD_CLIENTE, USA_CLIE' +
         'NTE_FAT_FIL,'
-      'USA_REGRA_CLI_PROD, ID_CST_DIFERIMENTO'
+      'USA_REGRA_CLI_PROD, ID_CST_DIFERIMENTO, IMP_TAMANHO_FINAL'
       'FROM PARAMETROS_NFE')
     SQLConnection = dmDatabase.scoDados
     Left = 1024
-    Top = 224
+    Top = 225
     object qParametros_NFeID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -5686,6 +5696,11 @@ object DMCadPessoa: TDMCadPessoa
     end
     object qParametros_NFeID_CST_DIFERIMENTO: TIntegerField
       FieldName = 'ID_CST_DIFERIMENTO'
+    end
+    object qParametros_NFeIMP_TAMANHO_FINAL: TStringField
+      FieldName = 'IMP_TAMANHO_FINAL'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPessoa_RefC: TDataSource

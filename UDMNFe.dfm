@@ -1066,6 +1066,11 @@ object DMNFe: TDMNFe
       FieldName = 'TP_VENDEDOR'
       Size = 1
     end
+    object qClienteIMP_TAMANHO_FINAL: TStringField
+      FieldName = 'IMP_TAMANHO_FINAL'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qTipoCobranca: TSQLQuery
     MaxBlobSize = -1
@@ -1144,7 +1149,7 @@ object DMNFe: TDMNFe
       'where C.ID = :ID'
       '  ')
     SQLConnection = dmDatabase.scoDados
-    Left = 430
+    Left = 432
     Top = 200
     object qContasID: TIntegerField
       FieldName = 'ID'
@@ -5060,7 +5065,7 @@ object DMNFe: TDMNFe
       'SELECT *'
       'FROM PARAMETROS_NFE')
     SQLConnection = dmDatabase.scoDados
-    Left = 568
+    Left = 566
     Top = 40
     object qParametros_NFeID: TIntegerField
       FieldName = 'ID'
@@ -5126,6 +5131,11 @@ object DMNFe: TDMNFe
     end
     object qParametros_NFeCONTROLAR_ENVIO_EMAIL: TStringField
       FieldName = 'CONTROLAR_ENVIO_EMAIL'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_NFeIMP_TAMANHO_FINAL: TStringField
+      FieldName = 'IMP_TAMANHO_FINAL'
       FixedChar = True
       Size = 1
     end

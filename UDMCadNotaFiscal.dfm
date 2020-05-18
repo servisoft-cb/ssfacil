@@ -3766,11 +3766,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'S.CARIMBO, PES.PERC_DESC_SUFRAMA, PES.ORGAO_PUBLICO, PES.IMP_COD' +
       '_PRODUTO_CLI,'#13#10'IMP_COR_CLIENTE, PES.MDIA1, PES.MDIA2, PES.insc_s' +
       'uframa, IPI_PAGO_FILIAL, PES.IMP_NOMEPROD_CLIENTE, IMP_ETIQUETA_' +
-      'ROT,'#13#10'PES.OBS_AVISO, MOSTRAR_AVISO'#13#10'FROM PESSOA PES'#13#10#13#10
+      'ROT,'#13#10'PES.OBS_AVISO, MOSTRAR_AVISO, IMP_TAMANHO_FINAL'#13#10'FROM PESS' +
+      'OA PES'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 601
+    Left = 599
     Top = 40
   end
   object dspCliente: TDataSetProvider
@@ -3783,7 +3784,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspCliente'
-    Left = 649
+    Left = 648
     Top = 40
     object cdsClienteCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -4058,6 +4059,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsClienteMOSTRAR_AVISO: TStringField
       FieldName = 'MOSTRAR_AVISO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsClienteIMP_TAMANHO_FINAL: TStringField
+      FieldName = 'IMP_TAMANHO_FINAL'
       FixedChar = True
       Size = 1
     end
@@ -5256,7 +5262,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspProduto'
-    Left = 649
+    Left = 650
     Top = 405
     object cdsProdutoID: TIntegerField
       FieldName = 'ID'
@@ -5456,10 +5462,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
-    object cdsProdutoTAMANHO: TStringField
-      FieldName = 'TAMANHO'
-      Size = 3
-    end
     object cdsProdutoQTD_EMBALAGEM: TFloatField
       FieldName = 'QTD_EMBALAGEM'
     end
@@ -5495,6 +5497,10 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsProdutoCOD_BENEF: TStringField
       FieldName = 'COD_BENEF'
       Size = 8
+    end
+    object cdsProdutoTAMANHO: TStringField
+      FieldName = 'TAMANHO'
+      Size = 10
     end
   end
   object dsProduto: TDataSource
@@ -13085,6 +13091,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object qParametros_NFeENVIAR_ICMS_SUBSTITUTO: TStringField
       FieldName = 'ENVIAR_ICMS_SUBSTITUTO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_NFeIMP_TAMANHO_FINAL: TStringField
+      FieldName = 'IMP_TAMANHO_FINAL'
       FixedChar = True
       Size = 1
     end

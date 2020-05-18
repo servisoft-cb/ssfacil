@@ -7055,6 +7055,24 @@ object frmCadPessoa: TfrmCadPessoa
             DataSource = DMCadPessoa.dsPessoa
             TabOrder = 3
           end
+          object DBCheckBox34: TDBCheckBox
+            Left = 720
+            Top = 528
+            Width = 265
+            Height = 17
+            Caption = 'Imprime o Tamanho no Final do Nome do Produto'
+            DataField = 'IMP_TAMANHO_FINAL'
+            DataSource = DMCadPessoa.dsPessoa
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 44
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
+          end
         end
         object TS_RegrasFiscais: TRzTabSheet
           Caption = 'Regras (Fiscais)'

@@ -1411,8 +1411,6 @@ type
     sdsProduto_CombFOTO: TStringField;
     cdsProduto_CombFOTO: TStringField;
     qParametros_ProdUSA_TAM_INDIVIDUAL: TStringField;
-    sdsProdutoTAMANHO: TStringField;
-    cdsProdutoTAMANHO: TStringField;
     cdsProduto_ConsultaTAMANHO: TStringField;
     sdsProduto_GradeNum: TSQLDataSet;
     dspProduto_GradeNum: TDataSetProvider;
@@ -2000,6 +1998,9 @@ type
     qParametros_EstUSA_PRODUTO_EST: TStringField;
     sdsProdutoINDEXADOR_PRECO: TFloatField;
     cdsProdutoINDEXADOR_PRECO: TFloatField;
+    qParametros_NFeIMP_TAMANHO_FINAL: TStringField;
+    sdsProdutoTAMANHO: TStringField;
+    cdsProdutoTAMANHO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
