@@ -94,11 +94,21 @@ type
     RLLabel25: TRLLabel;
     RLLabel26: TRLLabel;
     RLDBText9: TRLDBText;
-    RLLabel27: TRLLabel;
-    RLLabel28: TRLLabel;
     RLDBText10: TRLDBText;
-    RLDBText11: TRLDBText;
+    RLPanel1: TRLPanel;
+    RLLabel27: TRLLabel;
     RLLabel29: TRLLabel;
+    RLPanel2: TRLPanel;
+    RLLabel30: TRLLabel;
+    RLLabel31: TRLLabel;
+    RLLabel32: TRLLabel;
+    RLPanel3: TRLPanel;
+    RLLabel28: TRLLabel;
+    RLDBText11: TRLDBText;
+    RLPanel4: TRLPanel;
+    RLDBText12: TRLDBText;
+    RLDBText13: TRLDBText;
+    RLDBText14: TRLDBText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
@@ -165,8 +175,17 @@ begin
   end;
   if fDMConsEstoque.qParametrosEMPRESA_SUCATA.AsString = 'S' then
   begin
-    RLLabel29.Caption    := 'Espessura';
-    RLDBText11.DataField := 'ESPESSURA';
+    RLPanel1.Visible := False;
+    RLPanel3.Visible := False;
+    RLPanel2.Visible := True;
+    RLPanel4.Visible := True;
+  end
+  else
+  begin
+    RLPanel1.Visible := True;
+    RLPanel3.Visible := True;
+    RLPanel2.Visible := False;
+    RLPanel4.Visible := False;
   end;
 
   RLDBText6.Visible  := (vOrdenar = 0 );
@@ -178,8 +197,11 @@ begin
   //RLLabel14.Visible  := (vDtInicial > 10);
   RLLabel27.Visible  := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
   RLLabel28.Visible  := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
-  RLLabel29.Visible  := (fDMConsEstoque.qParametrosUSA_LOTE_CONTROLE.AsString = 'S') or (fDMConsEstoque.qParametrosEMPRESA_SUCATA.AsString = 'S');
-  RLDBText11.Visible := (fDMConsEstoque.qParametrosUSA_LOTE_CONTROLE.AsString = 'S') or (fDMConsEstoque.qParametrosEMPRESA_SUCATA.AsString = 'S');
+  if RLPanel1.Visible then
+  begin
+    RLLabel29.Visible  := (fDMConsEstoque.qParametrosUSA_LOTE_CONTROLE.AsString = 'S');
+    RLDBText11.Visible := (fDMConsEstoque.qParametrosUSA_LOTE_CONTROLE.AsString = 'S');
+  end;
 end;
 
 procedure TfRelEstoqueMov_Prod.RLBand12BeforePrint(Sender: TObject;

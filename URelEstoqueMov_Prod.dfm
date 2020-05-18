@@ -17,7 +17,7 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
   PixelsPerInch = 96
   TextHeight = 13
   object RLReport1: TRLReport
-    Left = 32
+    Left = 31
     Top = 16
     Width = 1123
     Height = 794
@@ -103,7 +103,7 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
       end
       object RLSystemInfo2: TRLSystemInfo
         Left = 1003
-        Top = 15
+        Top = 16
         Width = 64
         Height = 11
         Alignment = taCenter
@@ -331,31 +331,83 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
         Font.Style = []
         ParentFont = False
       end
-      object RLLabel27: TRLLabel
-        Left = 935
-        Top = 42
-        Width = 62
-        Height = 12
-        Caption = 'Local Estoque'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -9
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
+      object RLPanel1: TRLPanel
+        Left = 933
+        Top = 39
+        Width = 153
+        Height = 16
+        object RLLabel27: TRLLabel
+          Left = 2
+          Top = 3
+          Width = 62
+          Height = 12
+          Caption = 'Local Estoque'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLLabel29: TRLLabel
+          Left = 72
+          Top = 4
+          Width = 21
+          Height = 12
+          Caption = 'Lote'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
       end
-      object RLLabel29: TRLLabel
-        Left = 1005
-        Top = 42
-        Width = 21
-        Height = 12
-        Caption = 'Lote'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -9
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
+      object RLPanel2: TRLPanel
+        Left = 933
+        Top = 39
+        Width = 153
+        Height = 16
+        Visible = False
+        object RLLabel30: TRLLabel
+          Left = 2
+          Top = 3
+          Width = 59
+          Height = 12
+          Caption = 'Comprimento'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLLabel31: TRLLabel
+          Left = 65
+          Top = 4
+          Width = 34
+          Height = 12
+          Caption = 'Largura'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLLabel32: TRLLabel
+          Left = 102
+          Top = 3
+          Width = 47
+          Height = 12
+          Caption = 'Espessura'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
       end
     end
     object RLSubDetail1: TRLSubDetail
@@ -546,7 +598,7 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
             Left = 0
             Top = 16
             Width = 1086
-            Height = 16
+            Height = 18
             BeforePrint = RLBand2BeforePrint
             object RLDBText1: TRLDBText
               Left = 457
@@ -581,7 +633,7 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
             end
             object RLDraw2: TRLDraw
               Left = 0
-              Top = 14
+              Top = 16
               Width = 1086
               Height = 2
               Align = faBottom
@@ -759,40 +811,100 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
               Font.Style = []
               ParentFont = False
             end
-            object RLLabel28: TRLLabel
-              Left = 935
-              Top = 2
-              Width = 67
-              Height = 12
-              AutoSize = False
-              Caption = 'Local Estoque'
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -8
-              Font.Name = 'Arial'
-              Font.Style = []
-              ParentFont = False
+            object RLPanel3: TRLPanel
+              Left = 937
+              Top = 1
+              Width = 150
+              Height = 15
+              object RLLabel28: TRLLabel
+                Left = 1
+                Top = 2
+                Width = 67
+                Height = 12
+                AutoSize = False
+                Caption = 'Local Estoque'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -8
+                Font.Name = 'Arial'
+                Font.Style = []
+                ParentFont = False
+              end
+              object RLDBText11: TRLDBText
+                Left = 69
+                Top = 2
+                Width = 80
+                Height = 12
+                Alignment = taCenter
+                AutoSize = False
+                DataField = 'NUM_LOTE_CONTROLE'
+                DataSource = DMConsEstoque.dsEstoque_Mov
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -9
+                Font.Name = 'Arial'
+                Font.Style = []
+                ParentFont = False
+              end
             end
-            object RLDBText11: TRLDBText
-              Left = 1005
-              Top = 2
-              Width = 80
-              Height = 12
-              Alignment = taCenter
-              AutoSize = False
-              DataField = 'NUM_LOTE_CONTROLE'
-              DataSource = DMConsEstoque.dsEstoque_Mov
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clBlack
-              Font.Height = -9
-              Font.Name = 'Arial'
-              Font.Style = []
-              ParentFont = False
+            object RLPanel4: TRLPanel
+              Left = 936
+              Top = 1
+              Width = 150
+              Height = 15
+              object RLDBText12: TRLDBText
+                Left = 94
+                Top = 3
+                Width = 54
+                Height = 12
+                Alignment = taCenter
+                AutoSize = False
+                DataField = 'ESPESSURA'
+                DataSource = DMConsEstoque.dsEstoque_Mov
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -9
+                Font.Name = 'Arial'
+                Font.Style = []
+                ParentFont = False
+              end
+              object RLDBText13: TRLDBText
+                Left = 2
+                Top = 3
+                Width = 52
+                Height = 12
+                Alignment = taCenter
+                AutoSize = False
+                DataField = 'COMPRIMENTO'
+                DataSource = DMConsEstoque.dsEstoque_Mov
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -9
+                Font.Name = 'Arial'
+                Font.Style = []
+                ParentFont = False
+              end
+              object RLDBText14: TRLDBText
+                Left = 55
+                Top = 3
+                Width = 38
+                Height = 12
+                Alignment = taCenter
+                AutoSize = False
+                DataField = 'LARGURA'
+                DataSource = DMConsEstoque.dsEstoque_Mov
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clBlack
+                Font.Height = -9
+                Font.Name = 'Arial'
+                Font.Style = []
+                ParentFont = False
+              end
             end
           end
           object RLBand3: TRLBand
             Left = 0
-            Top = 32
+            Top = 34
             Width = 1086
             Height = 18
             BandType = btSummary

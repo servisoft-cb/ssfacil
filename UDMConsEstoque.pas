@@ -710,6 +710,8 @@ type
     qParametros_PedUSA_RESERVA_EST: TStringField;
     cdsEstoque_MovESPESSURA: TFloatField;
     qParametrosEMPRESA_SUCATA: TStringField;
+    cdsEstoque_MovCOMPRIMENTO: TFloatField;
+    cdsEstoque_MovLARGURA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

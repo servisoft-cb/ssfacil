@@ -218,7 +218,7 @@ begin
       SMDBGrid1.Columns[i].Visible := (fDMConsEstoque.qParametros_EstMOSTRAR_PCUSTO_MOV.AsString = 'S');
     if (SMDBGrid1.Columns[i].FieldName = 'PRECO_CUSTO_TOTAL') then
       SMDBGrid1.Columns[i].Visible := (fDMConsEstoque.qParametros_EstMOSTRAR_PCUSTO_TOTAL_MOV.AsString = 'S');
-    if (SMDBGrid1.Columns[i].FieldName = 'ESPESSURA') then
+    if (SMDBGrid1.Columns[i].FieldName = 'ESPESSURA') or (SMDBGrid1.Columns[i].FieldName = 'LARGURA') or (SMDBGrid1.Columns[i].FieldName = 'COMPRIMENTO') then
       SMDBGrid1.Columns[i].Visible := (fDMConsEstoque.qParametrosEMPRESA_SUCATA.AsString = 'S');
   end;
   Label10.Visible             := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
@@ -541,7 +541,6 @@ begin
   case ComboBox1.ItemIndex of
     0: fDMConsEstoque.cdsEstoque_Mov.IndexFieldNames := 'NOMEPRODUTO;TAMANHO;NOME_COR;DTMOVIMENTO;TIPO_ES;NOME_LOCAL;NOMEPESSOA;NUMNOTA';
     1: fDMConsEstoque.cdsEstoque_Mov.IndexFieldNames := 'NOMEPESSOA;NOMEPRODUTO;NOME_COR;TAMANHO;DTMOVIMENTO;TIPO_ES;NOME_LOCAL;NUMNOTA';
-//    3: fDMConsEstoque.cdsEstoque_Mov.IndexFieldNames := 'CODIGO_CCUSTO;CODIGO_GRUPO;NOMEPRODUTO;NOME_COR;TAMANHO;DTMOVIMENTO;TIPO_ES;NOME_LOCAL;NUMNOTA';
     3,4: fDMConsEstoque.mEstoque_CentroCusto.IndexFieldNames := 'Codigo_CentroCusto;Codigo_Grupo;Nome_Produto';
   end;
   if (ckEstruturado.Checked) and (ComboBox1.ItemIndex < 2) then
