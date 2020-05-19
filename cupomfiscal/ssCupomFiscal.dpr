@@ -96,7 +96,8 @@ uses
   uDmMySql in 'uDmMySql.pas' {DmMySql: TDataModule},
   UCadFechamento_Contagem2 in 'UCadFechamento_Contagem2.pas' {frmCadFechamento_Contagem2},
   UCadFechamento2 in 'UCadFechamento2.pas' {frmCadFechamento2},
-  uCarneRenegociacao in 'uCarneRenegociacao.pas' {fCarneRenegociacao};
+  uCarneRenegociacao in 'uCarneRenegociacao.pas' {fCarneRenegociacao},
+  uRenegociacao in 'uRenegociacao.pas' {fRenegociacao};
 
 {$R *.res}
 
