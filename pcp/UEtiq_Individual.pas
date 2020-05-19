@@ -294,6 +294,8 @@ procedure TfrmEtiq_Individual.btnGerarClick(Sender: TObject);
 var
   i: Integer;
 begin
+  if not fDMConsPedido.mEtiq_Individual.Active then
+    fDMConsPedido.mEtiq_Individual.CreateDataSet;
   if (trim(RxDBLookupCombo4.Text) = '') and (trim(RxDBLookupCombo6.Text) = '') then
   begin
     MessageDlg('*** Referência e nome não informados!', mtError, [mbOk], 0);
@@ -327,7 +329,8 @@ begin
     fDMConsPedido.mEtiq_IndividualTamanho.AsString      := RxDBLookupCombo5.Text;
     fDMConsPedido.mEtiq_IndividualTamanho_USA.AsString  := fDMConsPedido.qGradeMarcarTAMANHO_USA.AsString;
     fDMConsPedido.mEtiq_IndividualTamanho_EUR.AsString  := fDMConsPedido.qGradeMarcarTAMANHO_EUR.AsString;
-    fDMConsPedido.mEtiq_IndividualPreco_Produto.AsString := fDMConsPedido.cdsProdutoPRECO_VENDA.AsString;
+    fDMConsPedido.mEtiq_IndividualPreco_Produto.AsString  := fDMConsPedido.cdsProdutoPRECO_VENDA.AsString;
+    fDMConsPedido.mEtiq_IndividualIndexadorPreco.AsString := FormatFloat('0.000',fdmConsPedido.cdsProdutoINDEXADOR_PRECO.AsFloat);
 
     fDMConsPedido.mEtiq_IndividualItem_Pedido.AsInteger := 0;
     fDMConsPedido.mEtiq_IndividualID_Pedido.AsInteger   := 0;
