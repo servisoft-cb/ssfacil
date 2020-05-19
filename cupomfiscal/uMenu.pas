@@ -57,6 +57,7 @@ type
     Ativas1: TMenuItem;
     N6: TMenuItem;
     btnRecebimento: TSpeedItem;
+    Negociaes1: TMenuItem;
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure SpeedItem5Click(Sender: TObject);
@@ -84,6 +85,7 @@ type
     procedure Sair1Click(Sender: TObject);
     procedure erminal1Click(Sender: TObject);
     procedure btnRecebimentoClick(Sender: TObject);
+    procedure Negociaes1Click(Sender: TObject);
   private
     { Private declarations }
     fDmParametros: TDmParametros;
@@ -107,9 +109,8 @@ var
 implementation
 
 uses DmdDatabase, uCupomFiscalC, uCupomParametros, LogProvider, uCadFechamento, AcbrEcf, uCupomTerminal, uUtilPadrao,
-     uRelCartao, UCadFechamento_Sangria, UCadFechamento_Contagem, DateUtils, uPrevVendas,
-     uCarnePgto, uCupomDevolucao,
-  DmdDatabase_NFeBD, uCarnePgtoC;
+     uRelCartao, UCadFechamento_Sangria, UCadFechamento_Contagem, DateUtils, uPrevVendas, uCarnePgto, uCupomDevolucao,
+     DmdDatabase_NFeBD, uCarnePgtoC, uRenegociacao;
 //  uImpFiscal_Bematech;
 //  UECF_DLLG32, DmdDatabase;
 //  , uImpFiscal_Daruma //DmdDatabase
@@ -654,6 +655,11 @@ end;
 procedure TfMenu.btnRecebimentoClick(Sender: TObject);
 begin
   Pagamentos1Click(Self);
+end;
+
+procedure TfMenu.Negociaes1Click(Sender: TObject);
+begin
+  OpenForm(TfRenegociacao,wsMaximized);
 end;
 
 initialization

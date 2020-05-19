@@ -25,7 +25,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 89
-    Height = 566
+    Height = 558
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -2579,6 +2579,10 @@ object fMenu: TfMenu
         Caption = 'Devolu'#231#245'es / Trocas'
         OnClick = DevoluesTrocas1Click
       end
+      object Negociaes1: TMenuItem
+        Caption = 'Renegocia'#231#245'es'
+        OnClick = Negociaes1Click
+      end
     end
     object N6: TMenuItem
       Caption = '|'
@@ -2721,6 +2725,12 @@ object fMenu: TfMenu
         CompName = 'PanelTotais'
         Caption = 'Mostrar Totais'
         GroupName = 'Cupom'
+      end
+      item
+        FormName = 'fRenegociacao'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Renegociacao'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

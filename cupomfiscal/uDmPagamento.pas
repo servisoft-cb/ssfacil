@@ -3,7 +3,7 @@ unit uDmPagamento;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Graphics, Printers, Dialogs, frxClass, frxDBSet;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, Graphics, Printers, Dialogs, frxClass, frxDBSet, Forms;
 
 type
   TdmPagamento = class(TDataModule)
@@ -265,10 +265,12 @@ type
     { Public declarations }
     ctCarnePgto: String;
     vGerou: Boolean;
+    ctRenegociacao: String;
     procedure prc_PosicionaCupom(vID: Integer);
     procedure prc_ImprimirRecibo(vVlrRec, vVlrTot, vVlrTroco: Currency; vCliente: String; vDtPgto: TDateTime);
     procedure prc_InsereDuplicata(vDtVcto: TDateTime; vIdCliente, vParcela: Integer; vNomeCliente: String; vVlrParc: Currency);
     function fncCalculaTotal: Currency;
+    procedure prc_ImprimirRenegocicao(vId: Integer);
   end;
 
 var
@@ -297,7 +299,8 @@ begin
   mParcelas.CreateDataSet;
   qCupomParametros.Open;
   
-  ctCarnePgto := sdsCarnePagamento.CommandText;
+  ctCarnePgto    := sdsCarnePagamento.CommandText;
+  ctRenegociacao := sdsRenegociacao.CommandText;
 end;
 
 function TdmPagamento.fncCalculaTotal: Currency;
@@ -541,6 +544,21 @@ var
 begin
   vAux := dmDatabase.ProximaSequencia('RENEGOCIACAO',0);
   cdsRenegociacaoID.AsInteger := vAux;
+end;
+
+procedure TdmPagamento.prc_ImprimirRenegocicao(vId: Integer);
+var
+  vArq: String;
+begin
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\CarneNegociacao.fr3';
+
+  if FileExists(vArq) then
+  begin
+    frxReport1.Report.LoadFromFile(vArq);
+    frxReport1.ShowReport
+  end
+  else
+    ShowMessage('Relatório não localizado! ' + vArq);
 end;
 
 end.
