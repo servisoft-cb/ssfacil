@@ -97,7 +97,7 @@ object DMConsEstoque: TDMConsEstoque
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 90
+    Left = 91
     Top = 7
   end
   object dspEstoque: TDataSetProvider
@@ -294,20 +294,21 @@ object DMConsEstoque: TDMConsEstoque
       'RECO_CUSTO,'#13#10'       CC.DESCRICAO NOME_CENTROCUSTO,   GR.CODIGO C' +
       'ODIGO_GRUPO, DI.MOTIVO, CC.CODIGO CODIGO_CCUSTO,'#13#10'       CC1.COD' +
       'IGO CODIGO_SUPERIOR, CC1.DESCRICAO DESC_SUPERIOR,  (EM.VLR_UNITA' +
-      'RIO * EM.QTD2) VLR_TOTAL  '#13#10'from ESTOQUE_MOV EM  '#13#10'inner join PR' +
-      'ODUTO PRO on (EM.ID_PRODUTO = PRO.ID)'#13#10'left join PESSOA PES on (' +
-      'EM.ID_PESSOA = PES.CODIGO)  '#13#10'left join TAB_CFOP CFOP on (EM.ID_' +
-      'CFOP = CFOP.ID)  '#13#10'left join GRUPO GR on (PRO.ID_GRUPO = GR.ID) ' +
-      ' '#13#10'left join COMBINACAO COMB on (EM.ID_COR = COMB.ID)  '#13#10'left jo' +
-      'in LOCAL_ESTOQUE LEST on (EM.ID_LOCAL_ESTOQUE = LEST.ID)  '#13#10'left' +
-      ' join CENTROCUSTO CC on EM.ID_CENTROCUSTO = CC.ID  '#13#10'left join D' +
-      'OCESTOQUE_ITENS DI on DI.ID_MOVESTOQUE = EM.ID  '#13#10'left join CENT' +
-      'ROCUSTO CC1 on CC1.ID = CC.SUPERIOR  '#13#10'where PRO.ESTOQUE = '#39'S'#39
+      'RIO * EM.QTD2) VLR_TOTAL,'#13#10'       em.espessura, EM.comprimento, ' +
+      'EM.largura'#13#10'from ESTOQUE_MOV EM  '#13#10'inner join PRODUTO PRO on (EM' +
+      '.ID_PRODUTO = PRO.ID)'#13#10'left join PESSOA PES on (EM.ID_PESSOA = P' +
+      'ES.CODIGO)  '#13#10'left join TAB_CFOP CFOP on (EM.ID_CFOP = CFOP.ID) ' +
+      ' '#13#10'left join GRUPO GR on (PRO.ID_GRUPO = GR.ID)  '#13#10'left join COM' +
+      'BINACAO COMB on (EM.ID_COR = COMB.ID)  '#13#10'left join LOCAL_ESTOQUE' +
+      ' LEST on (EM.ID_LOCAL_ESTOQUE = LEST.ID)  '#13#10'left join CENTROCUST' +
+      'O CC on EM.ID_CENTROCUSTO = CC.ID  '#13#10'left join DOCESTOQUE_ITENS ' +
+      'DI on DI.ID_MOVESTOQUE = EM.ID  '#13#10'left join CENTROCUSTO CC1 on C' +
+      'C1.ID = CC.SUPERIOR  '#13#10'where PRO.ESTOQUE = '#39'S'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 88
-    Top = 151
+    Left = 90
+    Top = 152
   end
   object dspEstoque_Mov: TDataSetProvider
     DataSet = sdsEstoque_Mov
@@ -653,6 +654,11 @@ object DMConsEstoque: TDMConsEstoque
     end
     object qParametrosUSA_LOTE_CONTROLE: TStringField
       FieldName = 'USA_LOTE_CONTROLE'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametrosEMPRESA_SUCATA: TStringField
+      FieldName = 'EMPRESA_SUCATA'
       FixedChar = True
       Size = 1
     end
@@ -4157,7 +4163,7 @@ object DMConsEstoque: TDMConsEstoque
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEstoque_Mov'
-    Left = 149
+    Left = 148
     Top = 151
     object cdsEstoque_MovID: TIntegerField
       FieldName = 'ID'
@@ -4347,6 +4353,15 @@ object DMConsEstoque: TDMConsEstoque
     end
     object cdsEstoque_MovVLR_TOTAL: TFloatField
       FieldName = 'VLR_TOTAL'
+    end
+    object cdsEstoque_MovESPESSURA: TFloatField
+      FieldName = 'ESPESSURA'
+    end
+    object cdsEstoque_MovCOMPRIMENTO: TFloatField
+      FieldName = 'COMPRIMENTO'
+    end
+    object cdsEstoque_MovLARGURA: TFloatField
+      FieldName = 'LARGURA'
     end
   end
   object sdsEstoque2: TSQLDataSet

@@ -2476,7 +2476,6 @@ type
     mPedidoAuxExcluir: TClientDataSet;
     mPedidoAuxExcluirID_pedido: TIntegerField;
     qParametros_ProdUSA_TAM_INDIVIDUAL: TStringField;
-    cdsProdutoTAMANHO: TStringField;
     qParametros_NFeUSA_NOMEPROD_FORN_NFE: TStringField;
     frxDBDuplicatas: TfrxDBDataset;
     frxDBNota: TfrxDBDataset;
@@ -3143,6 +3142,9 @@ type
     sdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField;
     cdsNotaFiscal_ParcVLR_VENCIMENTO: TFloatField;
     cdsFilialUSA_RESPTECNICO: TStringField;
+    cdsClienteIMP_TAMANHO_FINAL: TStringField;
+    qParametros_NFeIMP_TAMANHO_FINAL: TStringField;
+    cdsProdutoTAMANHO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

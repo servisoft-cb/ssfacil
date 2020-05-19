@@ -1246,6 +1246,8 @@ type
     qSoftWareHouseCNPJ: TStringField;
     qSoftWareHouseEMAIL: TStringField;
     qSoftWareHouseFONE: TStringField;
+    qParametros_NFeIMP_TAMANHO_FINAL: TStringField;
+    qClienteIMP_TAMANHO_FINAL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);

@@ -1333,6 +1333,9 @@ type
     cdsPessoa_FiscalOPCAO_DIFERIMENTO: TStringField;
     qParametros_GeralPERMITE_CNPJ_DUP: TStringField;
     cdsPessoa_ConsultaTotalClientes: TAggregateField;
+    qParametros_NFeIMP_TAMANHO_FINAL: TStringField;
+    sdsPessoaIMP_TAMANHO_FINAL: TStringField;
+    cdsPessoaIMP_TAMANHO_FINAL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;

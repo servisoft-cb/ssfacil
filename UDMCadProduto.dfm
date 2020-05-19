@@ -391,10 +391,6 @@ object dmCadProduto: TdmCadProduto
     object sdsProdutoID_FORMA: TIntegerField
       FieldName = 'ID_FORMA'
     end
-    object sdsProdutoTAMANHO: TStringField
-      FieldName = 'TAMANHO'
-      Size = 3
-    end
     object sdsProdutoPRECO_LIQ: TFloatField
       FieldName = 'PRECO_LIQ'
     end
@@ -502,6 +498,10 @@ object dmCadProduto: TdmCadProduto
     end
     object sdsProdutoINDEXADOR_PRECO: TFloatField
       FieldName = 'INDEXADOR_PRECO'
+    end
+    object sdsProdutoTAMANHO: TStringField
+      FieldName = 'TAMANHO'
+      Size = 10
     end
   end
   object dspProduto: TDataSetProvider
@@ -951,10 +951,6 @@ object dmCadProduto: TdmCadProduto
     object cdsProdutoID_FORMA: TIntegerField
       FieldName = 'ID_FORMA'
     end
-    object cdsProdutoTAMANHO: TStringField
-      FieldName = 'TAMANHO'
-      Size = 3
-    end
     object cdsProdutoPRECO_LIQ: TFloatField
       FieldName = 'PRECO_LIQ'
     end
@@ -1067,6 +1063,10 @@ object dmCadProduto: TdmCadProduto
     end
     object cdsProdutoINDEXADOR_PRECO: TFloatField
       FieldName = 'INDEXADOR_PRECO'
+    end
+    object cdsProdutoTAMANHO: TStringField
+      FieldName = 'TAMANHO'
+      Size = 10
     end
   end
   object dsProduto: TDataSource
@@ -6913,7 +6913,9 @@ object dmCadProduto: TdmCadProduto
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT ID, USA_OPCAO_IMP_COD_CLI, GRAVAR_TAB_TAMANHO'
+      
+        'SELECT ID, USA_OPCAO_IMP_COD_CLI, GRAVAR_TAB_TAMANHO, IMP_TAMANH' +
+        'O_FINAL'
       'FROM PARAMETROS_NFE')
     SQLConnection = dmDatabase.scoDados
     Left = 1190
@@ -6929,6 +6931,11 @@ object dmCadProduto: TdmCadProduto
     end
     object qParametros_NFeGRAVAR_TAB_TAMANHO: TStringField
       FieldName = 'GRAVAR_TAB_TAMANHO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_NFeIMP_TAMANHO_FINAL: TStringField
+      FieldName = 'IMP_TAMANHO_FINAL'
       FixedChar = True
       Size = 1
     end

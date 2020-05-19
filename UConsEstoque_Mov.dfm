@@ -498,7 +498,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 34
+        ColCount = 37
         RowCount = 2
         Columns = <
           item
@@ -574,6 +574,29 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'NOMEPRODUTO'
             Title.Caption = 'Nome Produto'
             Width = 178
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'COMPRIMENTO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Comprimento'
+            Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'LARGURA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Largura'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ESPESSURA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Espessura'
             Visible = True
           end
           item
