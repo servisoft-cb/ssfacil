@@ -550,6 +550,12 @@ procedure TdmPagamento.prc_ImprimirRenegocicao(vId: Integer);
 var
   vArq: String;
 begin
+  cdsRenegociacao.Close;
+  sdsRenegociacao.CommandText := ctRenegociacao + ' WHERE 0 = 0 ';
+  if vID > 0 then
+    sdsRenegociacao.CommandText := sdsRenegociacao.CommandText + ' AND ID = ' + IntToStr(vID);
+  cdsRenegociacao.Open;
+
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\CarneNegociacao.fr3';
 
   if FileExists(vArq) then

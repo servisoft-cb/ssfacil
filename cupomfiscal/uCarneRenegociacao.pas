@@ -88,6 +88,14 @@ begin
   end;
   fDmPagamento.vGerou := True;
 
+  fDmPagamento.cdsRenegociacao.Close;
+  fDmPagamento.sdsRenegociacao.CommandText := fDmPagamento.ctRenegociacao + ' WHERE 0 = 0 ';
+  if fDmPagamento.cdsRenegociacaoParcID.AsInteger > 0 then
+    fDmPagamento.sdsRenegociacao.CommandText := fDmPagamento.sdsRenegociacao.CommandText + ' AND ID = ' +
+                                                fDmPagamento.cdsRenegociacaoParcID.AsString;
+  fDmPagamento.cdsRenegociacao.Open;
+
+
   if MessageDlg('Deseja imprimir carnê?',mtConfirmation,[mbNo,mbOK],0) = mrOk then
   begin
     vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\CarneNegociacao.fr3';
