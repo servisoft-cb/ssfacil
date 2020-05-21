@@ -108,6 +108,7 @@ type
     btnSel_CombTam: TNxButton;
     ComboBox1: TComboBox;
     Label22: TLabel;
+    DBCheckBox4: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnConsultarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -146,7 +147,9 @@ type
     procedure prc_Chama_Form_Produto(Tipo: String);
     procedure prc_Gravar_mEtiq_Indidual;
     procedure prc_Configurar_Imp;
-    procedure prc_Monta_Etiqueta_Calcado(Tipo: String);    
+    procedure prc_Monta_Etiqueta_Calcado(Tipo: String);
+    procedure prc_Gravar_Etiqueta_Aux;
+    
   public
     { Public declarations }
     fDMConsPedido: TDMConsPedido;                      
@@ -744,6 +747,14 @@ procedure TfrmEtiq_Individual.ag1Click(Sender: TObject);
 begin
   SMDBGrid2.DisableScroll;
   //05/09/2019 incluida a MAXMODAS
+  fDMConsPedido.cdsParametros_Etiq.Close;
+  fDMConsPedido.cdsParametros_Etiq.Open;
+  if fDMConsPedido.cdsParametros_EtiqUSA_ETIQUETA_AUX.AsString = 'S' then
+  begin
+    prc_Gravar_Etiqueta_Aux;
+    MessageDlg('*** Etiquetas em processo de impressão!', mtConfirmation, [mbOk], 0);
+  end
+  else
   if fDMConsPedido.cdsParametros_EtiqTIPO_CLIENTE.AsString = 'MAXMODAS' then
     uEtiqueta.prc_Etiq_Tag_Argox_MaxModas(fDMConsPedido,ComboBox1.ItemIndex)
   else
@@ -968,6 +979,29 @@ begin
   finally
     FreeAndNil(frmSel_CombTam);
   end;
+end;
+
+procedure TfrmEtiq_Individual.prc_Gravar_Etiqueta_Aux;
+begin
+  if not fDMConsPedido.cdsEtiqueta_Aux.Active then
+    fDMConsPedido.cdsEtiqueta_Aux.Open;
+  fDMConsPedido.mEtiq_Individual.First;
+  while not fDMConsPedido.mEtiq_Individual.Eof do
+  begin
+    fDMConsPedido.cdsEtiqueta_Aux.Insert;
+    fDMConsPedido.cdsEtiqueta_AuxID_PRODUTO.AsInteger   := fDMConsPedido.mEtiq_IndividualID_Produto.AsInteger;
+    fDMConsPedido.cdsEtiqueta_AuxREFERENCIA.AsString    := fDMConsPedido.mEtiq_IndividualReferencia.AsString;
+    fDMConsPedido.cdsEtiqueta_AuxNOME_ETIQUETA.AsString := fDMConsPedido.cdsFilialNOME_ETIQUETA.AsString;
+    fDMConsPedido.cdsEtiqueta_AuxNOME_PRODUTO.AsString  := fDMConsPedido.mEtiq_IndividualNome_Produto.AsString;
+    fDMConsPedido.cdsEtiqueta_AuxPRECO_PRODUTO.AsFloat  := fDMConsPedido.mEtiq_IndividualPreco_Produto.AsFloat;
+    fDMConsPedido.cdsEtiqueta_AuxINFOCODBARRA.AsString  := IntToStr(ComboBox1.ItemIndex);
+    fDMConsPedido.cdsEtiqueta_AuxCODBARRA.AsString      := fDMConsPedido.mEtiq_IndividualCodBarra.AsString;
+    fDMConsPedido.cdsEtiqueta_Aux.Post;
+    fDMConsPedido.cdsEtiqueta_Aux.ApplyUpdates(0);
+
+    fDMConsPedido.mEtiq_Individual.Next;
+  end;
+
 end;
 
 end.

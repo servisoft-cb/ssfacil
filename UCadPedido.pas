@@ -368,6 +368,8 @@ type
     SpeedButton9: TSpeedButton;
     N4: TMenuItem;
     ImprimiraListaemExcel1: TMenuItem;
+    btnVlr_Saldo_Usado: TNxButton;
+    btnGerarSaldo_Usado: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -494,6 +496,9 @@ type
       Shift: TShiftState);
     procedure SpeedButton9Click(Sender: TObject);
     procedure ImprimiraListaemExcel1Click(Sender: TObject);
+    procedure btnVlr_Saldo_UsadoClick(Sender: TObject);
+    procedure btnGerarSaldo_UsadoClick(Sender: TObject);
+    procedure DBEdit20Exit(Sender: TObject);
   private
     { Private declarations }
     fLista: TStringList;
@@ -517,6 +522,8 @@ type
     vID_ClienteAnt: Integer;
     vVlrFrete_Ant: Real;
     vInclusao_Edicao: String; //I=Incluir   E=Editar
+    vVlr_Saldo_Usado  : Real;
+
     ffrmMostraPDF: TfrmMostraPDF;
 
     procedure prc_Inserir_Registro;
@@ -844,6 +851,8 @@ begin
     if (trim(fDMCadPedido.cdsFilialFINALIDADE_PADRAO.AsString) <> '') and (not(fDMCadPedido.cdsFilialFINALIDADE_PADRAO.IsNull)) then
       fDMCadPedido.cdsPedidoFINALIDADE.AsString := fDMCadPedido.cdsFilialFINALIDADE_PADRAO.AsString;
   end;
+
+  vVlr_Saldo_Usado     := 0;
 end;
 
 procedure TfrmCadPedido.FormShow(Sender: TObject);
@@ -1043,7 +1052,11 @@ begin
   end;
   //**********
 
+  //Esse GroupBox estava visible = False, pois não era usado   19/05/2020
   //gbxVlr_Adiantado.Visible := not(gbxDuplicata.Visible);
+  gbxVlr_Adiantado.Visible := (fDMCadPedido.qParametros_FinUSA_ADTO.AsString = 'S');
+  //***************************
+  
   if (fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S') or (fDMCadPedido.qParametros_PedUSA_OPERACAO_SERV.AsString = 'S') then
     fDMCadPedido.cdsPedido_Itens.AfterScroll := prc_scroll
   else
@@ -1262,6 +1275,9 @@ begin
   if (fDMCadPedido.cdsPedido.IsEmpty) or not(fDMCadPedido.cdsPedido.Active) or (fDMCadPedido.cdsPedidoID.AsInteger < 1) then
     Exit;
 
+  //vVlr_Saldo_Usado_Ant := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
+  vVlr_Saldo_Usado     := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
+
   fDMCadPedido.mSenha.EmptyDataSet;
 
   if vInclusao_Edicao <> 'C' then
@@ -1324,9 +1340,13 @@ var
   vIDVend: Integer;
 begin
   if fDMCadPedido.qParametros_PedUSA_RETIRADA.AsString = 'S' then
-  begin
     fDMCadPedido.cdsPedidoNOME_PRODUTO_PROPOSTA.AsString := InputBox('Retirada','Retirada:',fDMCadPedido.cdsPedidoNOME_PRODUTO_PROPOSTA.AsString);
-  end;
+
+  //19/05/2020
+  if (fDMCadPedido.qParametros_FinUSA_ADTO.AsString = 'S')
+    and (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat))) then
+    fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
+  //*****************
 
   //19/08/2019
   if (fDMCadPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S') then
@@ -1745,6 +1765,15 @@ begin
     if fDMCadPedido.qRegime_TribCODIGO.AsInteger > 2 then
       vCalcICMSSimples := True;
   end;}
+
+  //19/05/2020
+  if fDMCadPedido.qParametros_FinUSA_ADTO.AsString = 'S' then
+  begin
+    fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := fnc_Saldo_Adto(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger);
+    if StrToFloat(FOrmatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0 then
+      MessageDlg('*** Cliente com Saldo de ' + FormatFloat('###,###,##0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat),mtInformation, [mbOk], 0);
+  end;
+  //********************
 
   btnAltProdCli.Visible := ((fDMCadPedido.cdsClienteIMP_COR_CLIENTE.AsString = 'S') and (fDMCadPedido.qParametros_UsuarioALT_PROD_CLIENTE.AsString = 'S'));
 end;
@@ -2932,7 +2961,6 @@ begin
     end;
   end;
   prc_Opcao_Consumidor;
-
 end;
 
 procedure TfrmCadPedido.prc_Opcao_Consumidor;
@@ -3050,8 +3078,17 @@ begin
       fDMCadPedido.cdsPedido_Parc.Delete;
   end
   else
-  if not uCalculo_Pedido.fnc_Gerar_Pedido_Parc(fDMCadPedido) then
-    MessageDlg(fDMCadPedido.vMsgErroParc, mtError, [mbOk], 0);
+  begin
+    //19/05/2020
+    if fDMCadPedido.qParametros_FinUSA_ADTO.AsString = 'S' then
+    begin
+      if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat)) then
+        fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
+    end;
+    //*****************
+    if not uCalculo_Pedido.fnc_Gerar_Pedido_Parc(fDMCadPedido) then
+      MessageDlg(fDMCadPedido.vMsgErroParc, mtError, [mbOk], 0);
+  end;
 end;
 
 procedure TfrmCadPedido.prc_Opcao_Prazo;
@@ -4833,6 +4870,36 @@ begin
 
   Planilha.ActiveWorkBook.SaveAs(vTexto);
   Screen.Cursor := crDefault;
+end;
+
+procedure TfrmCadPedido.btnVlr_Saldo_UsadoClick(Sender: TObject);
+begin
+  MessageDlg('*** O Valor informado neste campo vai ser descontado do valor a pagar do cliente.' +#13+
+             '    Esse valor é valor do adiantamento (saldo) que o cliente possui na empresa' ,mtInformation, [mbOk], 0);
+end;
+
+procedure TfrmCadPedido.btnGerarSaldo_UsadoClick(Sender: TObject);
+var
+  vVlrAux : Real;
+begin
+  if MessageDlg('Deseja recalcular o saldo?',mtConfirmation,[mbYes,mbNo],0) <> mrYes then
+    exit;
+  vVlrAux := fnc_Saldo_Adto(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger);
+  vVlrAux := vVlrAux + vVlr_Saldo_Usado;
+  fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := vVlrAux;
+end;
+
+procedure TfrmCadPedido.DBEdit20Exit(Sender: TObject);
+var
+  vAux : Real;
+begin
+  vAux := fnc_Saldo_Adto(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger) + vVlr_Saldo_Usado;
+  if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',vAux)) then
+  begin
+    MessageDlg('*** Saldo informado maior que o disponível!' + #13
+             + '    Disponível: ' + FormatFloat('###,###,##0.00',vAux),mtError, [mbOk], 0);
+    DBEdit20.SetFocus;
+  end;
 end;
 
 end.

@@ -21,8 +21,8 @@ object frmEtiq_Individual: TfrmEtiq_Individual
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 976
-    Height = 439
+    Width = 984
+    Height = 447
     ActivePage = TS_Avulsa
     ActivePageDefault = TS_Pedido
     Align = alClient
@@ -35,8 +35,8 @@ object frmEtiq_Individual: TfrmEtiq_Individual
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 107
-        Width = 972
-        Height = 309
+        Width = 980
+        Height = 317
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido_Item2
@@ -148,7 +148,7 @@ object frmEtiq_Individual: TfrmEtiq_Individual
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 972
+        Width = 980
         Height = 107
         Align = alTop
         Color = clSilver
@@ -390,7 +390,7 @@ object frmEtiq_Individual: TfrmEtiq_Individual
           OnClick = btnConsultarClick
         end
         object RxDBLookupCombo3: TRxDBLookupCombo
-          Left = 464
+          Left = 465
           Top = 4
           Width = 325
           Height = 21
@@ -587,7 +587,7 @@ object frmEtiq_Individual: TfrmEtiq_Individual
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 972
+        Width = 980
         Height = 143
         Align = alTop
         Color = clSilver
@@ -929,7 +929,7 @@ object frmEtiq_Individual: TfrmEtiq_Individual
         object Panel3: TPanel
           Left = 1
           Top = 1
-          Width = 970
+          Width = 978
           Height = 69
           Align = alTop
           BevelOuter = bvNone
@@ -1084,7 +1084,7 @@ object frmEtiq_Individual: TfrmEtiq_Individual
         object Panel5: TPanel
           Left = 1
           Top = 70
-          Width = 970
+          Width = 978
           Height = 26
           Align = alTop
           BevelOuter = bvNone
@@ -1106,8 +1106,8 @@ object frmEtiq_Individual: TfrmEtiq_Individual
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 143
-        Width = 972
-        Height = 273
+        Width = 980
+        Height = 281
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsmEtiq_Individual
@@ -1566,6 +1566,20 @@ object frmEtiq_Individual: TfrmEtiq_Individual
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
+          object DBCheckBox4: TDBCheckBox
+            Left = 522
+            Top = 121
+            Width = 366
+            Height = 17
+            Caption = 
+              'Usar Impress'#227'o de Etiqueta Tabela Auxiliar (Usa Programa Etiquet' +
+              'a_PDV)'
+            DataField = 'USA_ETIQUETA_AUX'
+            DataSource = DMConsPedido.dsParametros_Etiq
+            TabOrder = 13
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
+          end
         end
         object Panel4: TPanel
           Left = 2
@@ -1633,7 +1647,7 @@ object frmEtiq_Individual: TfrmEtiq_Individual
   end
   object PopupMenu1: TPopupMenu
     Left = 722
-    Top = 252
+    Top = 255
     object Modelo11: TMenuItem
       Caption = 'Modelo 1'
       OnClick = Modelo11Click

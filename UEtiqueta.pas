@@ -427,8 +427,7 @@ end;
 
 //******* Max Modas    05/09/2019
 procedure prc_Etiq_Tag_Argox_MaxModas(fDMConsPedido: TDMConsPedido; vInfoBarra: Byte);
-var
-  F: TextFile;
+var                      F: TextFile;
   vTexto: String;
   vCod: array[1..3] of Integer;
   vNome_Prod: array[1..3] of String;

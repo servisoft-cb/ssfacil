@@ -376,8 +376,8 @@ begin
 
     if not Repetir then
     begin
-      if (fDMCadNotaFiscal.cdsParametrosUSA_ADIANTAMENTO_PEDIDO.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger > 0) and
-         (vID_PedAnt <> fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger) then
+      if ((fDMCadNotaFiscal.cdsParametrosUSA_ADIANTAMENTO_PEDIDO.AsString = 'S') or (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S'))
+         and (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger > 0) and (vID_PedAnt <> fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger) then
       begin
         if not fDMCadNotaFiscal.mPedidoAux.FindKey([fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger]) then
         begin
@@ -385,6 +385,7 @@ begin
           fDMCadNotaFiscal.mPedidoAuxID_Pedido.AsInteger      := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger;
           fDMCadNotaFiscal.mPedidoAuxVlr_Adiantamento.AsFloat := StrToFloat(FormatFloat('0.00',0));
           fDMCadNotaFiscal.mPedidoAuxVlr_Entrada.AsFloat      := StrToFloat(FormatFloat('0.00',0));
+          fDMCadNotaFiscal.mPedidoAuxVlr_Saldo_Usado.AsFloat  := StrToFloat(FormatFloat('0.00',0));
           fDMCadNotaFiscal.mPedidoAux.Post;
         end;
       end;
@@ -943,7 +944,8 @@ begin
   //11/05/2016
   fDMCadNotaFiscal.cdsNotaFiscalVLR_ENTRADA.AsFloat      := StrToFloat(FormatFloat('0.00',0));
   //if (fDMCadNotaFiscal.cdsParametrosUSA_ADIANTAMENTO_PEDIDO.AsString = 'S') and not(fDMCadNotaFiscal.mPedidoAux.EmptyDataSet) then
-  if (fDMCadNotaFiscal.cdsParametrosUSA_ADIANTAMENTO_PEDIDO.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) > 0) then
+  if ((fDMCadNotaFiscal.cdsParametrosUSA_ADIANTAMENTO_PEDIDO.AsString = 'S') or (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S'))
+    and (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) > 0) then
   begin
     sds := TSQLDataSet.Create(nil);
     try
@@ -956,7 +958,7 @@ begin
       begin
         sds.Close;
         //11/05/2016
-        sds.CommandText := ' SELECT VLR_ADIANTAMENTO, VLR_ENTRADA, GERA_ENTRADA_NO_PEDIDO '
+        sds.CommandText := ' SELECT VLR_ADIANTAMENTO, VLR_ENTRADA, GERA_ENTRADA_NO_PEDIDO, VLR_SALDO_USADO '
                          + ' FROM PEDIDO '
                          + ' WHERE ID = :ID ';
         sds.ParamByName('ID').AsInteger := fDMCadNotaFiscal.mPedidoAuxID_Pedido.AsInteger;

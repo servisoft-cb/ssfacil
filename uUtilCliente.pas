@@ -13,6 +13,7 @@ uses
   function fnc_Limite_Compra_Cadastrado(ID_Fornecedor: Integer): Real;
   function fnc_Primeiro_Pedido(ID_Cliente: Integer): Integer;
   function fnc_Verifica_CAE(Codigo : String) : Boolean;
+  function fnc_Saldo_Adto(ID_Pessoa : Integer) : Real;
 
 var
   vSenha_Cliente: String;
@@ -360,6 +361,25 @@ begin
     sds.Open;
     if sds.FieldByName('CONTADOR').AsInteger > 0 then
       Result := True;
+  finally
+    FreeAndNil(sds);
+  end;
+end;
+
+function fnc_Saldo_Adto(ID_Pessoa : Integer) : Real;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 0;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'select A.VALOR from ADTO_SALDO A where A.ID_PESSOA = :ID_PESSOA ';
+    sds.ParamByName('ID_PESSOA').AsInteger := ID_Pessoa;
+    sds.Open;
+    Result := StrToFloat(FormatFloat('0.00',sds.FieldByName('VALOR').AsFloat));
   finally
     FreeAndNil(sds);
   end;

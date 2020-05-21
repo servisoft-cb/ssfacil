@@ -138,12 +138,6 @@ type
     DBEdit27: TDBEdit;
     Label84: TLabel;
     RxDBComboBox3: TRxDBComboBox;
-    pnlVendedor: TPanel;
-    Label82: TLabel;
-    SpeedButton5: TSpeedButton;
-    Label83: TLabel;
-    RxDBLookupCombo9: TRxDBLookupCombo;
-    DBEdit53: TDBEdit;
     btnAtualizar_Estoque: TBitBtn;
     Label2: TLabel;
     Label19: TLabel;
@@ -328,8 +322,6 @@ type
     DBEdit46: TDBEdit;
     Label90: TLabel;
     DBEdit49: TDBEdit;
-    Label91: TLabel;
-    DBEdit50: TDBEdit;
     Label92: TLabel;
     RxDBLookupCombo8: TRxDBLookupCombo;
     btnVlr_Outras_Despesas: TNxButton;
@@ -425,6 +417,15 @@ type
     DBEdit79: TDBEdit;
     Label120: TLabel;
     DBEdit80: TDBEdit;
+    Label82: TLabel;
+    SpeedButton5: TSpeedButton;
+    Label83: TLabel;
+    Label91: TLabel;
+    RxDBLookupCombo9: TRxDBLookupCombo;
+    DBEdit53: TDBEdit;
+    DBEdit50: TDBEdit;
+    Label121: TLabel;
+    DBEdit81: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -1396,6 +1397,11 @@ begin
     Label118.Caption := vTexto2;
     Label118.Visible := True;
   end;
+
+  //20/05/2020
+  Label121.Visible := (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S');
+  DBEdit81.Visible := (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S');
+  //*******************
 end;
 
 procedure TfrmCadNotaFiscal.prc_Consultar(ID: Integer);
@@ -2450,7 +2456,7 @@ begin
   btnCopiarRecNF.Enabled         := not(btnCopiarRecNF.Enabled);
 
   pnlTransporte.Enabled    := not(pnlTransporte.Enabled);
-  pnlVendedor.Enabled      := not(pnlVendedor.Enabled);
+  gbxVendedor.Enabled      := not(gbxVendedor.Enabled);
   pnlCliTriangular.Enabled := not(pnlCliTriangular.Enabled);
 
   btnGerarParcelas.Enabled     := not(btnGerarParcelas.Enabled);

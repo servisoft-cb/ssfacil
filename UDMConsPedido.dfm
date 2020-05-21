@@ -2184,7 +2184,7 @@ object DMConsPedido: TDMConsPedido
     Params = <>
     StoreDefs = True
     OnNewRecord = mEtiq_IndividualNewRecord
-    Left = 704
+    Left = 703
     Top = 280
     Data = {
       910300009619E0BD01000000180000001E00000000000300000091030A49445F
@@ -3682,7 +3682,7 @@ object DMConsPedido: TDMConsPedido
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 760
+    Left = 761
     Top = 34
   end
   object dspPedido_Ref2: TDataSetProvider
@@ -4025,12 +4025,17 @@ object DMConsPedido: TDMConsPedido
       FixedChar = True
       Size = 1
     end
+    object sdsParametros_EtiqUSA_ETIQUETA_AUX: TStringField
+      FieldName = 'USA_ETIQUETA_AUX'
+      FixedChar = True
+      Size = 1
+    end
   end
   object cdsParametros_Etiq: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspParametros_Etiq'
-    Left = 536
+    Left = 537
     Top = 56
     object cdsParametros_EtiqID: TIntegerField
       FieldName = 'ID'
@@ -4087,6 +4092,11 @@ object DMConsPedido: TDMConsPedido
     end
     object cdsParametros_EtiqNAO_IMP_MSG_TROCA: TStringField
       FieldName = 'NAO_IMP_MSG_TROCA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsParametros_EtiqUSA_ETIQUETA_AUX: TStringField
+      FieldName = 'USA_ETIQUETA_AUX'
       FixedChar = True
       Size = 1
     end
@@ -5591,6 +5601,81 @@ object DMConsPedido: TDMConsPedido
       FieldName = 'USA_VENDEDOR_INT'
       FixedChar = True
       Size = 1
+    end
+  end
+  object sdsEtiqueta_Aux: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM ETIQUETA_AUX'#13#10#13#10'      '#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 952
+    Top = 566
+    object sdsEtiqueta_AuxID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object sdsEtiqueta_AuxREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object sdsEtiqueta_AuxNOME_ETIQUETA: TStringField
+      FieldName = 'NOME_ETIQUETA'
+      Size = 15
+    end
+    object sdsEtiqueta_AuxNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 60
+    end
+    object sdsEtiqueta_AuxPRECO_PRODUTO: TFloatField
+      FieldName = 'PRECO_PRODUTO'
+    end
+    object sdsEtiqueta_AuxINFOCODBARRA: TStringField
+      FieldName = 'INFOCODBARRA'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsEtiqueta_AuxCODBARRA: TStringField
+      FieldName = 'CODBARRA'
+      Size = 30
+    end
+  end
+  object dspEtiqueta_Aux: TDataSetProvider
+    DataSet = sdsEtiqueta_Aux
+    Left = 983
+    Top = 566
+  end
+  object cdsEtiqueta_Aux: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspEtiqueta_Aux'
+    OnCalcFields = cdsLiberadoCalcFields
+    Left = 1024
+    Top = 566
+    object cdsEtiqueta_AuxID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsEtiqueta_AuxREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsEtiqueta_AuxNOME_ETIQUETA: TStringField
+      FieldName = 'NOME_ETIQUETA'
+      Size = 15
+    end
+    object cdsEtiqueta_AuxNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 60
+    end
+    object cdsEtiqueta_AuxPRECO_PRODUTO: TFloatField
+      FieldName = 'PRECO_PRODUTO'
+    end
+    object cdsEtiqueta_AuxINFOCODBARRA: TStringField
+      FieldName = 'INFOCODBARRA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsEtiqueta_AuxCODBARRA: TStringField
+      FieldName = 'CODBARRA'
+      Size = 30
     end
   end
 end

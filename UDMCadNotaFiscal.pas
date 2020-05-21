@@ -3145,6 +3145,12 @@ type
     cdsClienteIMP_TAMANHO_FINAL: TStringField;
     qParametros_NFeIMP_TAMANHO_FINAL: TStringField;
     cdsProdutoTAMANHO: TStringField;
+    mPedidoAuxVlr_Saldo_Usado: TFloatField;
+    qParametros_FinUSA_ADTO: TStringField;
+    sdsNotaFiscalVLR_SALDO_USADO: TFloatField;
+    sdsNotaFiscalID_ADTO: TIntegerField;
+    cdsNotaFiscalVLR_SALDO_USADO: TFloatField;
+    cdsNotaFiscalID_ADTO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
