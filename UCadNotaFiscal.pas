@@ -138,12 +138,6 @@ type
     DBEdit27: TDBEdit;
     Label84: TLabel;
     RxDBComboBox3: TRxDBComboBox;
-    pnlVendedor: TPanel;
-    Label82: TLabel;
-    SpeedButton5: TSpeedButton;
-    Label83: TLabel;
-    RxDBLookupCombo9: TRxDBLookupCombo;
-    DBEdit53: TDBEdit;
     btnAtualizar_Estoque: TBitBtn;
     Label2: TLabel;
     Label19: TLabel;
@@ -328,8 +322,6 @@ type
     DBEdit46: TDBEdit;
     Label90: TLabel;
     DBEdit49: TDBEdit;
-    Label91: TLabel;
-    DBEdit50: TDBEdit;
     Label92: TLabel;
     RxDBLookupCombo8: TRxDBLookupCombo;
     btnVlr_Outras_Despesas: TNxButton;
@@ -425,6 +417,17 @@ type
     DBEdit79: TDBEdit;
     Label120: TLabel;
     DBEdit80: TDBEdit;
+    Label82: TLabel;
+    SpeedButton5: TSpeedButton;
+    Label83: TLabel;
+    Label91: TLabel;
+    RxDBLookupCombo9: TRxDBLookupCombo;
+    DBEdit53: TDBEdit;
+    DBEdit50: TDBEdit;
+    gbxVlr_Adiantado: TRzGroupBox;
+    Label121: TLabel;
+    dbedtVlr_Saldo_Usado: TDBEdit;
+    btnGerarSaldo_Usado: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -562,6 +565,7 @@ type
     procedure ExcluirDetExportaoDrawBack1Click(Sender: TObject);
     procedure ExcluirDetExportaoDrawBackItensdeOrigem1Click(
       Sender: TObject);
+    procedure btnGerarSaldo_UsadoClick(Sender: TObject);
   private
     { Private declarations }
     vTipoNotaAnt: String;
@@ -1313,6 +1317,8 @@ begin
   vPreFat := False;
   fDMCadNotaFiscal.cdsNotaFiscal_Imp_Aux.Close;
   fDMCadNotaFiscal.cdsNotaFiscal_Imp_Aux.Open;
+
+  fDMCadNotaFiscal.vVlr_Saldo_Usado := 0;
 end;
 
 procedure TfrmCadNotaFiscal.FormShow(Sender: TObject);
@@ -1396,6 +1402,9 @@ begin
     Label118.Caption := vTexto2;
     Label118.Visible := True;
   end;
+
+  //25/05/2020
+  gbxVlr_Adiantado.Visible := (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S');
 end;
 
 procedure TfrmCadNotaFiscal.prc_Consultar(ID: Integer);
@@ -1483,6 +1492,8 @@ var
   vExcluir: boolean;
   fdmDatabase_NFeBD: TdmDatabase_NFeBD;
 begin
+  fDMCadNotaFiscal.vVlr_Saldo_Usado := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat));
+
   vFilial := fDMCadNotaFiscal.cdsNotaFiscalFILIAL.AsInteger;
   fDMCadNotaFiscal.mPedidoAuxExcluir.EmptyDataSet;
   ckTotalDup.Checked := False;
@@ -2450,7 +2461,7 @@ begin
   btnCopiarRecNF.Enabled         := not(btnCopiarRecNF.Enabled);
 
   pnlTransporte.Enabled    := not(pnlTransporte.Enabled);
-  pnlVendedor.Enabled      := not(pnlVendedor.Enabled);
+  gbxVendedor.Enabled      := not(gbxVendedor.Enabled);
   pnlCliTriangular.Enabled := not(pnlCliTriangular.Enabled);
 
   btnGerarParcelas.Enabled     := not(btnGerarParcelas.Enabled);
@@ -3236,6 +3247,17 @@ begin
   if (fDMCadNotaFiscal.cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadNotaFiscal.cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'G') or
      (fDMCadNotaFiscal.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadNotaFiscal.qParametros_ProdMOSTRA_PROD_TPRECO.AsString = 'S') then
     fDMCadNotaFiscal.prc_Filtrar_Produto_Cliente(False);
+
+  //25/05/2020
+  //if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') and (vID_Cliente_Ant <> fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) then
+  if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') then
+  begin
+    fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fnc_Saldo_Adto(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) + fDMCadNotaFiscal.vVlr_Saldo_Usado));
+    if StrToFloat(FOrmatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0 then
+      MessageDlg('*** Cliente com Saldo de ' + FormatFloat('###,###,##0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat),mtInformation, [mbOk], 0);
+  end;
+  //********************
+
 end;
 
 procedure TfrmCadNotaFiscal.Panel4Enter(Sender: TObject);
@@ -3719,8 +3741,17 @@ begin
       fDMCadNotaFiscal.cdsNotaFiscal_Parc.Delete;
   end
   else
-  if not fnc_Gerar_NotaFiscal_Parc(fDMCadNotaFiscal) then
-    MessageDlg(fDMCadNotaFiscal.vMsgErroParc, mtError, [mbOk], 0);
+  begin
+    //25/05/2020
+    if fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S' then
+    begin
+      if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) then
+        fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat));
+    end;
+    //*****************
+    if not fnc_Gerar_NotaFiscal_Parc(fDMCadNotaFiscal) then
+      MessageDlg(fDMCadNotaFiscal.vMsgErroParc, mtError, [mbOk], 0);
+  end;
 end;
 
 procedure TfrmCadNotaFiscal.btnExcluirParcelasClick(Sender: TObject);
@@ -5754,6 +5785,14 @@ begin
   SMDBGrid2.DisableScroll;
   uGrava_NotaFiscal.prc_Ajustar_Itens(fDMCadNotaFiscal,'EI');
   SMDBGrid2.EnableScroll;
+end;
+
+procedure TfrmCadNotaFiscal.btnGerarSaldo_UsadoClick(Sender: TObject);
+var
+  vVlrAux : Real;
+begin
+  vVlrAux := StrToFloat(FormatFloat('0.00',fnc_Saldo_Adto(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) + fDMCadNotaFiscal.vVlr_Saldo_Usado));
+  MessageDlg('*** Vlr. de Crédito de Adiantamento: ' + FormatFloat('###,###,##0.00',vVlrAux) , mtInformation, [mbOk], 0);
 end;
 
 end.

@@ -3749,6 +3749,7 @@ type
     cdsClienteCLIENTE_ESTOQUE: TStringField;
     sdsPedidoCONTROLA_RESERVA: TStringField;
     cdsPedidoCONTROLA_RESERVA: TStringField;
+    qParametros_FinUSA_ADTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

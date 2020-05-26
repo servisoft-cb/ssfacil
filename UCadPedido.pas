@@ -248,9 +248,6 @@ type
     Shape7: TShape;
     Label32: TLabel;
     ckNaoAprovado: TCheckBox;
-    gbxVlr_Adiantado: TRzGroupBox;
-    Label52: TLabel;
-    DBEdit20: TDBEdit;
     gbxVendedor: TRzGroupBox;
     pnlVendedor: TPanel;
     Label7: TLabel;
@@ -517,6 +514,7 @@ type
     vID_ClienteAnt: Integer;
     vVlrFrete_Ant: Real;
     vInclusao_Edicao: String; //I=Incluir   E=Editar
+
     ffrmMostraPDF: TfrmMostraPDF;
 
     procedure prc_Inserir_Registro;
@@ -1043,7 +1041,10 @@ begin
   end;
   //**********
 
+  //Esse GroupBox estava visible = False, pois não era usado   19/05/2020
   //gbxVlr_Adiantado.Visible := not(gbxDuplicata.Visible);
+  //***************************
+  
   if (fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S') or (fDMCadPedido.qParametros_PedUSA_OPERACAO_SERV.AsString = 'S') then
     fDMCadPedido.cdsPedido_Itens.AfterScroll := prc_scroll
   else
@@ -1324,9 +1325,7 @@ var
   vIDVend: Integer;
 begin
   if fDMCadPedido.qParametros_PedUSA_RETIRADA.AsString = 'S' then
-  begin
     fDMCadPedido.cdsPedidoNOME_PRODUTO_PROPOSTA.AsString := InputBox('Retirada','Retirada:',fDMCadPedido.cdsPedidoNOME_PRODUTO_PROPOSTA.AsString);
-  end;
 
   //19/08/2019
   if (fDMCadPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S') then
@@ -2932,7 +2931,6 @@ begin
     end;
   end;
   prc_Opcao_Consumidor;
-
 end;
 
 procedure TfrmCadPedido.prc_Opcao_Consumidor;
@@ -3050,8 +3048,10 @@ begin
       fDMCadPedido.cdsPedido_Parc.Delete;
   end
   else
-  if not uCalculo_Pedido.fnc_Gerar_Pedido_Parc(fDMCadPedido) then
-    MessageDlg(fDMCadPedido.vMsgErroParc, mtError, [mbOk], 0);
+  begin
+    if not uCalculo_Pedido.fnc_Gerar_Pedido_Parc(fDMCadPedido) then
+      MessageDlg(fDMCadPedido.vMsgErroParc, mtError, [mbOk], 0);
+  end;
 end;
 
 procedure TfrmCadPedido.prc_Opcao_Prazo;

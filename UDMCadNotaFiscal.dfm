@@ -585,6 +585,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object sdsNotaFiscalBASE_COFINS: TFloatField
       FieldName = 'BASE_COFINS'
     end
+    object sdsNotaFiscalVLR_SALDO_USADO: TFloatField
+      FieldName = 'VLR_SALDO_USADO'
+    end
+    object sdsNotaFiscalID_ADTO: TIntegerField
+      FieldName = 'ID_ADTO'
+    end
   end
   object dspNotaFiscal: TDataSetProvider
     DataSet = sdsNotaFiscal
@@ -601,7 +607,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     ProviderName = 'dspNotaFiscal'
     BeforePost = cdsNotaFiscalBeforePost
     OnNewRecord = cdsNotaFiscalNewRecord
-    Left = 76
+    Left = 77
     Top = 9
     object cdsNotaFiscalID: TIntegerField
       FieldName = 'ID'
@@ -1249,6 +1255,13 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsNotaFiscalBASE_COFINS: TFloatField
       FieldName = 'BASE_COFINS'
       DisplayFormat = '0.00'
+    end
+    object cdsNotaFiscalVLR_SALDO_USADO: TFloatField
+      FieldName = 'VLR_SALDO_USADO'
+      DisplayFormat = '0.00'
+    end
+    object cdsNotaFiscalID_ADTO: TIntegerField
+      FieldName = 'ID_ADTO'
     end
   end
   object dsNotaFiscal: TDataSource
@@ -9571,6 +9584,10 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
         Name = 'Num_OC'
         DataType = ftString
         Size = 20
+      end
+      item
+        Name = 'Vlr_Saldo_Usado'
+        DataType = ftFloat
       end>
     IndexDefs = <
       item
@@ -9583,15 +9600,16 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Params = <>
     StoreDefs = True
     OnNewRecord = mPedidoAuxNewRecord
-    Left = 1022
-    Top = 273
+    Left = 1021
+    Top = 274
     Data = {
-      A70000009619E0BD010000001800000005000000000003000000A7000949445F
+      BF0000009619E0BD010000001800000006000000000003000000BF000949445F
       50656469646F040001000000000010566C725F416469616E74616D656E746F08
       00040000000000084F42535F4E6F746101004900000001000557494454480200
       0200FA000B566C725F456E74726164610800040000000000064E756D5F4F4301
-      0049000000010005574944544802000200140001000D44454641554C545F4F52
-      4445520200820000000000}
+      004900000001000557494454480200020014000F566C725F53616C646F5F5573
+      61646F080004000000000001000D44454641554C545F4F524445520200820000
+      000000}
     object mPedidoAuxID_Pedido: TIntegerField
       FieldName = 'ID_Pedido'
     end
@@ -9607,6 +9625,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object mPedidoAuxNum_OC: TStringField
       FieldName = 'Num_OC'
+    end
+    object mPedidoAuxVlr_Saldo_Usado: TFloatField
+      FieldName = 'Vlr_Saldo_Usado'
     end
   end
   object qPessoa_Fiscal: TSQLQuery
@@ -11514,7 +11535,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'WHERE ID = :ID'
       '  AND UF = :UF')
     SQLConnection = dmDatabase.scoDados
-    Left = 998
+    Left = 999
     Top = 138
     object qProduto_UFID: TIntegerField
       FieldName = 'ID'
@@ -13201,6 +13222,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object qParametros_FinCONDPGTO_FRETE_IMP: TStringField
       FieldName = 'CONDPGTO_FRETE_IMP'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_FinUSA_ADTO: TStringField
+      FieldName = 'USA_ADTO'
       FixedChar = True
       Size = 1
     end

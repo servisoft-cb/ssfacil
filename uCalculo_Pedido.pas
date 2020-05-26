@@ -1110,11 +1110,26 @@ var
   i: Integer;
   vQtdParc: Integer;
   vID_Tipo_Cobranca_Aux, vID_Conta_Aux: Integer;
+  vVlrTotal : Real;
 begin
   Result := False;
   fDMCadPedido.cdsPedido_Parc.First;
   while not fDMCadPedido.cdsPedido_Parc.Eof do
     fDMCadPedido.cdsPedido_Parc.Delete;
+
+  //19/05/2020
+  if fDMCadPedido.qParametros_FinUSA_ADTO.AsString = 'S' then
+  begin
+    //vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
+    vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
+    if StrToFloat(FormatFloat('0.00',vVlrTotal)) <= 0 then
+    begin
+      Result := True;
+      exit;
+    end;
+  end;
+  //*****************
+
   fDMCadPedido.vMsgErroParc := '';
   //10/11/2015  Gravar a parcela do adiantamento
   if (fDMCadPedido.cdsParametrosUSA_ADIANTAMENTO_PEDIDO.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_ADIANTAMENTO.AsFloat)) > 0) then

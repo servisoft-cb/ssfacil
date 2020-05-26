@@ -15502,6 +15502,11 @@ object DMCadPedido: TDMCadPedido
     object qParametros_FinID_TABPRECO_SEMCAD: TIntegerField
       FieldName = 'ID_TABPRECO_SEMCAD'
     end
+    object qParametros_FinUSA_ADTO: TStringField
+      FieldName = 'USA_ADTO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qParametros_NFe: TSQLQuery
     MaxBlobSize = -1
