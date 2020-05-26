@@ -139,6 +139,11 @@ begin
   except
      RLImage1.Picture := nil;
   end;
+
+  if fDMCadDocEstoque.cdsDocEstoque_ImpTIPO_ES.AsString = 'E' then
+    RLLabel26.Caption := 'PRODUTOS  -  ENTRADA'
+  else
+    RLLabel26.Caption := 'PRODUTOS  -  SAÍDA';
 end;
 
 procedure TfRelDocEstoque.RLBand7BeforePrint(Sender: TObject;

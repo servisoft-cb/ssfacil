@@ -1992,11 +1992,12 @@ object fRelDocEstoque: TfRelDocEstoque
           ParentFont = False
         end
         object RLLabel26: TRLLabel
-          Left = 346
+          Left = 263
           Top = 181
-          Width = 72
+          Width = 215
           Height = 20
           Alignment = taCenter
+          AutoSize = False
           Borders.Sides = sdCustom
           Borders.DrawLeft = True
           Borders.DrawTop = True
