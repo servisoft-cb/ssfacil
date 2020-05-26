@@ -3749,8 +3749,6 @@ type
     cdsClienteCLIENTE_ESTOQUE: TStringField;
     sdsPedidoCONTROLA_RESERVA: TStringField;
     cdsPedidoCONTROLA_RESERVA: TStringField;
-    sdsPedidoVLR_SALDO_USADO: TFloatField;
-    cdsPedidoVLR_SALDO_USADO: TFloatField;
     qParametros_FinUSA_ADTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);

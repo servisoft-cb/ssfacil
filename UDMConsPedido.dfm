@@ -5612,6 +5612,10 @@ object DMConsPedido: TDMConsPedido
     SQLConnection = dmDatabase.scoDados
     Left = 952
     Top = 566
+    object sdsEtiqueta_AuxID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
     object sdsEtiqueta_AuxID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
     end
@@ -5641,16 +5645,22 @@ object DMConsPedido: TDMConsPedido
   end
   object dspEtiqueta_Aux: TDataSetProvider
     DataSet = sdsEtiqueta_Aux
+    UpdateMode = upWhereKeyOnly
     Left = 983
     Top = 566
   end
   object cdsEtiqueta_Aux: TClientDataSet
     Aggregates = <>
+    IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspEtiqueta_Aux'
     OnCalcFields = cdsLiberadoCalcFields
     Left = 1024
     Top = 566
+    object cdsEtiqueta_AuxID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
     object cdsEtiqueta_AuxID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
     end

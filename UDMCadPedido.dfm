@@ -424,9 +424,6 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
-    object sdsPedidoVLR_SALDO_USADO: TFloatField
-      FieldName = 'VLR_SALDO_USADO'
-    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -900,9 +897,6 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'CONTROLA_RESERVA'
       FixedChar = True
       Size = 1
-    end
-    object cdsPedidoVLR_SALDO_USADO: TFloatField
-      FieldName = 'VLR_SALDO_USADO'
     end
   end
   object dsPedido: TDataSource

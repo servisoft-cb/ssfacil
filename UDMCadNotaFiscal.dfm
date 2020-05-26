@@ -1258,6 +1258,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsNotaFiscalVLR_SALDO_USADO: TFloatField
       FieldName = 'VLR_SALDO_USADO'
+      DisplayFormat = '0.00'
     end
     object cdsNotaFiscalID_ADTO: TIntegerField
       FieldName = 'ID_ADTO'

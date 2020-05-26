@@ -982,13 +982,21 @@ begin
 end;
 
 procedure TfrmEtiq_Individual.prc_Gravar_Etiqueta_Aux;
+var
+  vID : Integer;
 begin
-  if not fDMConsPedido.cdsEtiqueta_Aux.Active then
-    fDMConsPedido.cdsEtiqueta_Aux.Open;
+  fDMConsPedido.cdsEtiqueta_Aux.Close;
+  fDMConsPedido.cdsEtiqueta_Aux.Open;
+  fDMConsPedido.cdsEtiqueta_Aux.Last;
+  vID := fDMConsPedido.cdsEtiqueta_AuxID.AsInteger;
+
   fDMConsPedido.mEtiq_Individual.First;
   while not fDMConsPedido.mEtiq_Individual.Eof do
   begin
+    vID := vID + 1;
+
     fDMConsPedido.cdsEtiqueta_Aux.Insert;
+    fDMConsPedido.cdsEtiqueta_AuxID.AsInteger           := vID;
     fDMConsPedido.cdsEtiqueta_AuxID_PRODUTO.AsInteger   := fDMConsPedido.mEtiq_IndividualID_Produto.AsInteger;
     fDMConsPedido.cdsEtiqueta_AuxREFERENCIA.AsString    := fDMConsPedido.mEtiq_IndividualReferencia.AsString;
     fDMConsPedido.cdsEtiqueta_AuxNOME_ETIQUETA.AsString := fDMConsPedido.cdsFilialNOME_ETIQUETA.AsString;

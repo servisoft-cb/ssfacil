@@ -23,10 +23,10 @@ object frmEtiq_Individual: TfrmEtiq_Individual
     Top = 0
     Width = 984
     Height = 447
-    ActivePage = TS_Avulsa
+    ActivePage = TS_Pedido
     ActivePageDefault = TS_Pedido
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19

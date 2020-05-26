@@ -3208,6 +3208,7 @@ type
     vAlt_ExtExport: Boolean;
     vNFeChave_Acesso: String;
     vCodCliente: Integer;
+    vVlr_Saldo_Usado  : Real;  //Crédito do adiantamento do Cliente    Supercrom vai usar  25/05/2020
 
     ctCommand, ctConsulta, ctNotaEntrada, ctPedido, ctProduto, ctVale, ctCliente, ctOS, ctNotaFiscal_ProdPrincipal: String;
     ctPedido_Tam: String;

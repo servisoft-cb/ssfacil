@@ -94,7 +94,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'AMOSTRA'
             Title.Alignment = taCenter
             Title.Caption = 'Amostra'
-            Width = 64
             Visible = True
           end
           item
@@ -111,7 +110,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'APROVADO_PED'
             Title.Alignment = taCenter
             Title.Caption = 'Aprovado'
-            Width = 64
             Visible = True
           end
           item
@@ -144,7 +142,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'PEDIDO_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Pedido Cliente (OC)'
-            Width = 64
             Visible = True
           end
           item
@@ -159,7 +156,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'DTENTREGA'
             Title.Alignment = taCenter
             Title.Caption = 'Data Entrega'
-            Width = 64
             Visible = True
           end
           item
@@ -215,7 +211,6 @@ object frmCadPedido: TfrmCadPedido
             Expanded = False
             FieldName = 'QTD'
             Title.Caption = 'Qtd. Produtos'
-            Width = 64
             Visible = True
           end
           item
@@ -224,7 +219,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'FATURADO'
             Title.Alignment = taCenter
             Title.Caption = 'Faturado'
-            Width = 64
             Visible = True
           end
           item
@@ -255,7 +249,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'DTAPROVADO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Aprovado'
-            Width = 64
             Visible = True
           end
           item
@@ -271,7 +264,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
-            Width = 64
             Visible = True
           end
           item
@@ -295,7 +287,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'IMPRESSO'
             Title.Alignment = taCenter
             Title.Caption = 'Impresso'
-            Width = 64
             Visible = True
           end>
       end
@@ -2569,7 +2560,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'ENCERADO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Encerado'
-                Width = 64
                 Visible = True
               end
               item
@@ -2600,7 +2590,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'QTD_ESTOQUE_RES'
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Reserva'
-                Width = 64
                 Visible = True
               end
               item
@@ -2635,7 +2624,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'VLR_DESCONTO_CALC'
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Desconto'
-                Width = 64
                 Visible = True
               end
               item
@@ -2682,7 +2670,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'QTD_CANCELADO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Cancelada'
-                Width = 64
                 Visible = True
               end
               item
@@ -2699,13 +2686,11 @@ object frmCadPedido: TfrmCadPedido
               item
                 Expanded = False
                 FieldName = 'COD_CST'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'COD_IPI'
-                Width = 64
                 Visible = True
               end
               item
@@ -2713,7 +2698,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'QTD_PRODUZIDA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Produzida'
-                Width = 64
                 Visible = True
               end
               item
@@ -2721,7 +2705,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'CARIMBO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Carimbo'
-                Width = 64
                 Visible = True
               end
               item
@@ -2729,7 +2712,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'CAIXINHA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Caixinha'
-                Width = 64
                 Visible = True
               end
               item
@@ -2777,7 +2759,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'DTCONFERENCIA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Dt. Confer'#234'ncia'
-                Width = 64
                 Visible = True
               end
               item
@@ -2785,7 +2766,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'HRCONFERENCIA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Hr. Confer'#234'ncia'
-                Width = 64
                 Visible = True
               end
               item
@@ -2793,7 +2773,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'USUARIO_CONF'
                 Title.Alignment = taCenter
                 Title.Caption = 'Usu'#225'rio Confer'#234'ncia'
-                Width = 64
                 Visible = True
               end
               item
@@ -2802,7 +2781,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'TAMANHO_CLIENTE'
                 Title.Alignment = taCenter
                 Title.Caption = 'Tam. No Cliente'
-                Width = 64
                 Visible = True
               end
               item
@@ -2811,14 +2789,12 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'COD_COR_CLIENTE'
                 Title.Alignment = taCenter
                 Title.Caption = 'C'#243'd. Cor Cliente'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'COD_PRODUTO_CLIENTE'
                 Title.Alignment = taCenter
-                Width = 64
                 Visible = True
               end
               item
@@ -2834,7 +2810,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'DRAWBACK'
                 Title.Alignment = taCenter
                 Title.Caption = 'Drawback'
-                Width = 64
                 Visible = True
               end
               item
@@ -2842,7 +2817,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'ID_PEDIDO_RESERVA'
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Ped. Reserva'
-                Width = 64
                 Visible = True
               end>
           end
@@ -3618,7 +3592,6 @@ object frmCadPedido: TfrmCadPedido
                   Title.Alignment = taCenter
                   Title.Caption = 'Pre'#231'o cor M2'
                   Title.Color = 16764831
-                  Width = 64
                   Visible = True
                 end
                 item
@@ -3989,7 +3962,7 @@ object frmCadPedido: TfrmCadPedido
               Font.Style = []
               ParentCtl3D = False
               ParentFont = False
-              TabOrder = 3
+              TabOrder = 2
               VisualStyle = vsGradient
               object Label66: TLabel
                 Left = 8
@@ -4465,7 +4438,7 @@ object frmCadPedido: TfrmCadPedido
               Font.Style = []
               ParentCtl3D = False
               ParentFont = False
-              TabOrder = 5
+              TabOrder = 4
               VisualStyle = vsGradient
               object Label47: TLabel
                 Left = 56
@@ -5016,196 +4989,6 @@ object frmCadPedido: TfrmCadPedido
                 Visible = False
               end
             end
-            object gbxVlr_Adiantado: TRzGroupBox
-              Left = 3
-              Top = 162
-              Width = 471
-              Height = 37
-              BorderColor = clMaroon
-              BorderInner = fsButtonUp
-              BorderOuter = fsBump
-              Caption = 'Saldo do Cliente'
-              Ctl3D = True
-              FlatColor = clMaroon
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clMaroon
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentCtl3D = False
-              ParentFont = False
-              TabOrder = 2
-              Visible = False
-              VisualStyle = vsGradient
-              object Label52: TLabel
-                Left = 6
-                Top = 22
-                Width = 64
-                Height = 13
-                Alignment = taRightJustify
-                Caption = 'Saldo Usado:'
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'MS Sans Serif'
-                Font.Style = []
-                ParentFont = False
-              end
-              object DBEdit20: TDBEdit
-                Left = 74
-                Top = 14
-                Width = 136
-                Height = 21
-                DataField = 'VLR_SALDO_USADO'
-                DataSource = DMCadPedido.dsPedido
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -11
-                Font.Name = 'MS Sans Serif'
-                Font.Style = []
-                ParentFont = False
-                TabOrder = 0
-                OnExit = DBEdit20Exit
-              end
-              object btnVlr_Saldo_Usado: TNxButton
-                Left = 214
-                Top = 7
-                Width = 36
-                Height = 27
-                Font.Charset = DEFAULT_CHARSET
-                Font.Color = clWindowText
-                Font.Height = -13
-                Font.Name = 'Arial'
-                Font.Style = []
-                Glyph.Data = {
-                  AE060000424DAE06000000000000360000002800000017000000170000000100
-                  1800000000007806000000000000000000000000000000000000FFFFFFFFFFFF
-                  FFFFFFFFFFFFFFFFFFFFFFFFE5E7EAC4C7CB706D6748433723160A1D11031E16
-                  114B413D746C6AC4C8CDE8EAECFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
-                  0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF72707837251D3C2100734408975E0E
-                  A96D17A86D18A367178A530A69380136190034251E79797FFFFFFFFFFFFFFFFF
-                  FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFEDEDEE35383D532D01A36D14A9
-                  7317A56B189C5F129459118F571192580C905A12935C16975C138551133E1A00
-                  3A3A3EF0F1F2FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFE7E6EA241E1F7450
-                  08BB7F1CA56A16975F0E8F570E8F56118447017E40008F560991561192541395
-                  580C945B0D9E5F175E2F02292120E9EAECFFFFFFFFFFFF000000FFFFFFFFFFFF
-                  2D2F347F560FBB821FA36B17965915965B119B5F0F804600A78C64D3C1A47F4D
-                  13975D0F985C13985D139A5D1292590E975A14633608323236FFFFFFFFFFFF00
-                  0000FFFFFF5E5A65604307BE881FAB7113985F0F9D6111996315915B07B0813F
-                  FFFFFFFFFFFFF4F1E4824A009565129465129D64109D6514945B0C9C5C154823
-                  00656469FFFFFF000000DADDE036230DB68422B27A17A369119D67129F6814A0
-                  68149A620EA17125FFFFFFFFFFFFDAC8B0955300A169139E6A11A36717A06817
-                  9F681392560F8C571229160EDEDFE2000000A0A0A45D3C00C38919B07715A36B
-                  17A46F14A66F13A16F16A77014A1640D8D621A7C613D915F0CAA700DA96E15A9
-                  6D14A46C18A46F10A570169E61129A5E0D3F1D00A0A2A6000000665E589A6E14
-                  B88520AB7514A57119AA7315A87313A97414AB7313966009DCCFB2FDFEF2A585
-                  4BA76B07A9751AA66F1BA67218AB7414AE7319A77214935A13754304635A5600
-                  00003A3426C28E20B5851FAD7614A97818AE7616AE7915B07816A97212A67726
-                  FFFFFFFFFFFFE3DDC87C4600996506B27A14AD7814AC7817B07617AD7A17945C
-                  11985D10332923000000221A07D39B24C38619AD7D18AF7D19B67C1AB27B1DAE
-                  7C1CB47811B17E23FFFFFFFDFFFFFFFFFFFFFFFFC0AE89A46A08B57C19B27D1A
-                  B37D17B17E1D9A5F0DA667171B1203000000261D0BD59E27BF881CB1801BB382
-                  18BA811DB7801DB98218BA7E0EAC7B0DDCCCAAF1F1E2FFFFFFFCFFFFFFFFFFBD
-                  A25EAC750FBA821BB98318BB811E955E12A46B18211405000000241A07D89D28
-                  BE8B1DB9851CB98917BB841CBA881CA3730FAF8640A57213B37B0DA9740CD4C4
-                  95FFFFFFFFFFFFEFEBCBA46C08BA861EBF871DB7811C99600FAA6B181A100400
-                  0000342921BF891CC5931CC1891FC08D1BC18D1BAE7708E5DBB2FFFFFFEFEEE3
-                  A87C1EAA7005C5AF80FFFFFFFFFFFFF2EFD3A47802BE8C1DC88C23AA7715A266
-                  0F995E11362C260000005D55578E6311CA991FC38C20C08D1FC4911BAE760BF6
-                  F3C9FFFFFFFFFFFFEBE9DCDBD2BBFDFFF7FCFCFFFFFFFFE0D29AAE7C07C7901D
-                  C48D22A16C0EA76C1376430A5E5A57000000A09FA63C2200D29B2AC3911DBD8E
-                  1EC8931FC08E17C49B42FFFFFFFFFFFFFFFFFFFFFFFFFEFFFFFFFFFFF8FAE5B4
-                  881FCD9218C89924A97515A46A14A96F19371800A2A3A6000000DBE1E31C0D03
-                  AC7215CE9F23BD911DC68E1ECA9621C2900FC3A340DCD3ACF2EEE1FBF8E9EFEA
-                  D9D8C797BE9528CC9518CB9924B47C1CA26A13AD731A975C0E240F09DEE0E300
-                  0000FFFFFF60626A441F00C98D1FCC9B1EC28F20C18F1BC99820CB971BC6951A
-                  C79A28C99B2FCA9924C89515D09F21C19021AC7917A57118AE771DB07116491B
-                  00625F69FFFFFF000000FFFEFFFFFFFF303036633000BC861AC99721C68F22C1
-                  8B1DBF8D1AC2901AC7941DC9941EC7931BC08B1EB27B17AC7815AD7C13AE7E16
-                  A76F0E5B30002C3036FFFFFFFEFFFF000000FBFEF9FFFFFFE8E9EC1E1F206331
-                  00BF8312C5911DC79322BF911DBC8B1AB9881AB8841BB48519B27D18B57E1CBB
-                  811DB57B18AE72145E3400221E1DE8E7EBFFFFFFFCFDFD000000FBFDFDFEFFFC
-                  FFFFFFEDEFF239373D4624009C6900B88110C8901CC9911BC48C1ABE891BC387
-                  1CBA861BB78814B47B089A620844210035383DF0EFF3FFFFFFFEFFFBFFFFFE00
-                  0000FEFBFFFFFDFCFFFFFCFFFFFFFFFFFF74767E3626213D2500845200B57900
-                  D59B09DBA612D79D0FB47D0082540045260037271F72747CFFFFFFFFFFFFF7FD
-                  FEFEFBFEFCFFFD000000FCFEF8FEFEFDFBFDFFFAFEFBFFFFFCFFFFFFE6E9EDC0
-                  C3C7726F6C4C473F291D0D271D0325200D4F473B766E6BBEC1C8E8E9EDFFFFFF
-                  FFFEFFFAFEF9FEFCFBFFFDFEFDFEFE000000}
-                GlyphSpacing = 5
-                ParentFont = False
-                TabOrder = 1
-                Transparent = True
-                Visible = False
-                OnClick = btnVlr_Saldo_UsadoClick
-              end
-              object btnGerarSaldo_Usado: TNxButton
-                Left = 248
-                Top = 6
-                Width = 31
-                Height = 29
-                Glyph.Data = {
-                  AE060000424DAE06000000000000360000002800000017000000170000000100
-                  18000000000078060000130B0000130B00000000000000000000FFFFFFFFFFFF
-                  FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD9BED7B786B5A064A1955795965B
-                  95AB84AAD5C8D4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
-                  0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB571AA801171831376902787
-                  9B3B9BA451A6AA5DAEA25DA89C68A45B215C8E6B8EFFFFFFFFFFFFFFFFFFFFFF
-                  FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFDEBAD9880C728E177D9B
-                  3193A54CA4A550A4A44DA2A34BA2A24BA1A448A2A247A1C37CC6AC84B6480E48
-                  D1C6D2FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFCA90C18602
-                  719524899E3898A249A1A147A0A0449DA1469FA1469FA1469FA1469FA1459F9E
-                  409BA747A0CB91CF5D2A61B39CB2FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
-                  D8AED2860072962489983092A1449CA0419A9F4199AA55A59E3D989F419BA041
-                  99A0419AA0419BA0419B9F3F9A9E3996C57EC65A285FCFC1CFFFFFFFFFFFFF00
-                  0000FFFFFFFFFFFF8A06779421849127899E3C959D3E949D3D949B3691D8BECF
-                  9D3D949E3B949D3D949D3D949D3D949D3D949D3D949C3B93972D8DC88ECC480E
-                  4AFFFFFFFFFFFF000000FFFFFFB15FA790197D8B2782942E899E37919D36919D
-                  36919C34909A308DFFFFFF9220859D35919D36919D35909D36919D35919F3692
-                  942C8994338BA97FB48F6A8DFFFFFF000000FFFFFF8D0D7B88277F81277F9A31
-                  8C9B318D9B318D9A318D9B318D962588C896C2FFFFFF9421859B318D9B318D9B
-                  318D9B318D9B318D9D318D7D1E79AF69B25C225FFFFFFF000000D8B2D38D187E
-                  7721787B237B9B2A8A9629889629889629889629889628888F1880FDFFFEA23F
-                  95922184962988962988962988962988992A8A80237D741B76995F9FD8CBD800
-                  0000C07AB6821F7B5E195F731C6E991F83941D80941D80941D80941E80931E81
-                  8E137ABF7BB2F5FDF48F127B941F829621839521839521839821857C1E735C15
-                  5C8C4292AF89AF000000B35DAB701B6C390D3E74206AA139949F4098A1439BA1
-                  429A9F3C96972B878E157786046DF1F2ECD8BECF8B087094217D94227D94227D
-                  982380781C6A3D0C3F7B357D9E659E000000B76CB9701B6F7821739A3F97A751
-                  A7A44EA4A44EA4A34EA49E419DFFFFFFFFFFFFFEFFFFEFEFE9F4FFF0BD81AA90
-                  15719621789521779921797618634D134F8828869B5F9C000000C38AC87E227C
-                  8A257D963A90A54FA5A44DA3A34CA2A44CA29E429EC997C9FFFFFFFEFCFEC693
-                  C7CA99C9C9A1C89C378D9B368D9E398FA042979B3D958C27808C2182A670A800
-                  0000D8B4DE8132838F237F95348CA54FA5A34CA2A34CA2A34CA2A34BA29D409C
-                  FFFFFFFFFFFFB873B69B3B9A9F449EA44EA4A44FA5A44FA4A650A697388F8E26
-                  7F891D7EBD90BB000000ECDDF3975B9F861D77942A84A755AAA44FA5A44FA5A4
-                  4FA5A550A59E429FD6B0D6FFFFFFFDFEFD9C3F9DA44EA5A54FA5A54FA5A44FA5
-                  A654AA942D87912782831277E0CADE000000FFFFFFC899D96D1764962083A855
-                  ADA95AB1A959B0A959B0A959B1A857AFA859B0FFFFFFFFFFFFD0A5D4A34EAAA9
-                  59B1A959B0AA5AB1A959B0932080952285831674FFFFFF000000FFFFFFE7D0F6
-                  8C5B958C1678A03E9CB16EC2AE67BCAE67BCAE67BCAE67BCA658B5E5D1EAFFFF
-                  FFFFFFFFAC64BCAE65BBAE67BCB16DC2A0429F9622868C147ABC7FB3FFFFFF00
-                  0000FFFFFFFFFFFFDCBCF16322639A2284B472C9B778CEB576CBB576CBB576CB
-                  B472CAFFFFFFF9F3FAF8F1F9FFFFFFB26FC9B678CDB575CB962783931F828B12
-                  78FFFFFFFFFFFF000000FFFFFFFFFFFFF7F0FCD0B0E35E1459A1328FC291E7BD
-                  8AE1BC88DFBD88DFBC88DFBA84DDB57AD9B67ADAB781DBBC8AE0C192E99F3A92
-                  962483870171E6CDE3FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFF4EBFCCFB0
-                  E364216095308ACDA2F7CAA1F4C599EFC598EEC598EEC598EEC599EEC8A1F3CB
-                  A3F4A04299921E7D860072D5ACD0FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
-                  FFFFFFFFFFFFFFFFFFDCBDF18958936B1E63B785C5E3CDFEE3CDFEE1CCFDE3CF
-                  FEE4D0FFC291D39130838911768B0D7BE5CAE1FFFFFFFFFFFFFFFFFFFFFFFF00
-                  0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9D4F5CA99DA9150977A307B
-                  8F49909951999443918218778108718E127DBF7AB6FFFFFFFFFFFFFFFFFFFFFF
-                  FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
-                  FFFFF1E4F5DCBBE1C792CAB86FB9B76AB0C78DC0E4C8E0FFFFFFFFFFFFFFFFFF
-                  FFFFFFF2F2F2FFFFFFFFFFFFF2F2F2000000}
-                ParentShowHint = False
-                ShowHint = True
-                TabOrder = 2
-                Transparent = True
-                OnClick = btnGerarSaldo_UsadoClick
-              end
-            end
             object gbxVendedor: TRzGroupBox
               Left = 481
               Top = 3
@@ -5224,7 +5007,7 @@ object frmCadPedido: TfrmCadPedido
               Font.Style = []
               ParentCtl3D = False
               ParentFont = False
-              TabOrder = 4
+              TabOrder = 3
               VisualStyle = vsGradient
               object pnlVendedor: TPanel
                 Left = 5
@@ -5468,7 +5251,7 @@ object frmCadPedido: TfrmCadPedido
               Width = 83
               Height = 25
               Caption = 'Dados Cupom'
-              TabOrder = 6
+              TabOrder = 5
               OnClick = btnDadosCupomClick
             end
           end

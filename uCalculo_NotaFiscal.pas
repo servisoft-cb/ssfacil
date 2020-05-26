@@ -73,7 +73,7 @@ var
 
 implementation
 
-uses DateUtils, uUtilPadrao;
+uses DateUtils, uUtilPadrao, UUtilCliente;
 
 var
   vCalcFrete, vCalcTotalNota, vCalcSeguro, vCalcTaxaCiscomex, vCalcOutrasDesp, vCalcImportacao, vCalcAduaneira,
@@ -118,7 +118,15 @@ var
   vBaseComissao: Real;
   vVlrBaseAux: Real;
 begin
+  //25/05/2020
+  if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString = 'S') then
+    fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00', fnc_Saldo_Adto(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) + fDMCadNotaFiscal.vVlr_Saldo_Usado))
+  else
+    fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',0));
+  //*************************
+
   fDMCadNotaFiscal.cdsNotaFiscal_Itens.First;
+
   if (fDMCadNotaFiscal.cdsNotaFiscal_Itens.IsEmpty) or (fDMCadNotaFiscal.cdsNotaFiscal_Itens.RecordCount <= 0) then
   begin
     fDMCadNotaFiscal.cdsNotaFiscalVLR_ADUANEIRA.AsFloat          := 0;
@@ -130,7 +138,6 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat        := 0;
     fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat       := 0;
     fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATAOUTROS.AsFloat := 0;
-
 
     //08/02/2016
     fDMCadNotaFiscal.cdsNotaFiscalVLR_BASE_COMISSAO.AsFloat   := 0;
@@ -480,7 +487,6 @@ begin
       end;
     end;
     //****************
-
     if fDMCadNotaFiscal.cdsNotaFiscal_Itens.State in [dsBrowse] then
       fDMCadNotaFiscal.cdsNotaFiscal_Itens.Edit;
     if fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESCONTO.AsString = 'I' then
@@ -958,7 +964,8 @@ begin
       begin
         sds.Close;
         //11/05/2016
-        sds.CommandText := ' SELECT VLR_ADIANTAMENTO, VLR_ENTRADA, GERA_ENTRADA_NO_PEDIDO, VLR_SALDO_USADO '
+        //sds.CommandText := ' SELECT VLR_ADIANTAMENTO, VLR_ENTRADA, GERA_ENTRADA_NO_PEDIDO, VLR_SALDO_USADO '
+        sds.CommandText := ' SELECT VLR_ADIANTAMENTO, VLR_ENTRADA, GERA_ENTRADA_NO_PEDIDO '
                          + ' FROM PEDIDO '
                          + ' WHERE ID = :ID ';
         sds.ParamByName('ID').AsInteger := fDMCadNotaFiscal.mPedidoAuxID_Pedido.AsInteger;
@@ -974,9 +981,26 @@ begin
     end;
     if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) > 0 then
       fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat := fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_ADIANTAMENTO.AsFloat;
-
   end;
-  fDMCadNotaFiscal.cdsNotaFiscalVLR_BASE_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat));
+
+  //25/05/2020  
+  if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString = 'S') and
+     (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0) then
+  begin
+    if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) then
+    begin
+      fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat));
+      fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat := StrToFloat(FormatFloat('0.00',0));
+    end
+    else
+      fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat));
+  end;
+  //**********************
+
+  //25/05/2020  Foi incluido para somar o valor do crédito usado
+  //fDMCadNotaFiscal.cdsNotaFiscalVLR_BASE_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat));
+  fDMCadNotaFiscal.cdsNotaFiscalVLR_BASE_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat + fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat));
+  //******************
   //08/05/2019
   vVlrBaseAux   := StrToFloat(FormatFloat('0.00',fnc_Calcula_Desc_Vendedor(fDMCadNotaFiscal)));
   if StrToFloat(FormatFloat('0.00',vVlrBaseAux)) > 0 then

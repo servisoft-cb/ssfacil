@@ -28,7 +28,7 @@ object dmDatabase: TdmDatabase
       'Interbase TransIsolation=ReadCommited'
       'Trim Char=False')
     VendorLib = 'gds32.dll'
-    Left = 53
+    Left = 57
     Top = 18
   end
   object Decoder64: TIdDecoderMIME
@@ -377,8 +377,8 @@ object dmDatabase: TdmDatabase
     LoginPrompt = False
     Params.Strings = (
       
-        'Database=localhost:D:\Fontes\$Servisoft\Bases\SSFacil\SLTextil_N' +
-        'ovo.FDB'
+        'Database=localhost:D:\Fontes\$Servisoft\Bases\SSFacil\SSFACIL.FD' +
+        'B'
       'RoleName=RoleName'
       'User_Name=sysdba'
       'Password=masterkey'

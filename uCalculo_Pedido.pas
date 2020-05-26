@@ -1120,7 +1120,8 @@ begin
   //19/05/2020
   if fDMCadPedido.qParametros_FinUSA_ADTO.AsString = 'S' then
   begin
-    vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
+    //vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
+    vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
     if StrToFloat(FormatFloat('0.00',vVlrTotal)) <= 0 then
     begin
       Result := True;
