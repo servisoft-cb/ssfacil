@@ -591,6 +591,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object sdsNotaFiscalID_ADTO: TIntegerField
       FieldName = 'ID_ADTO'
     end
+    object sdsNotaFiscalID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object sdsNotaFiscalPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
+    end
   end
   object dspNotaFiscal: TDataSetProvider
     DataSet = sdsNotaFiscal
@@ -1262,6 +1268,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsNotaFiscalID_ADTO: TIntegerField
       FieldName = 'ID_ADTO'
+    end
+    object cdsNotaFiscalID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object cdsNotaFiscalPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
     end
   end
   object dsNotaFiscal: TDataSource
@@ -3779,8 +3791,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'S.CARIMBO, PES.PERC_DESC_SUFRAMA, PES.ORGAO_PUBLICO, PES.IMP_COD' +
       '_PRODUTO_CLI,'#13#10'IMP_COR_CLIENTE, PES.MDIA1, PES.MDIA2, PES.insc_s' +
       'uframa, IPI_PAGO_FILIAL, PES.IMP_NOMEPROD_CLIENTE, IMP_ETIQUETA_' +
-      'ROT,'#13#10'PES.OBS_AVISO, MOSTRAR_AVISO, IMP_TAMANHO_FINAL'#13#10'FROM PESS' +
-      'OA PES'#13#10#13#10
+      'ROT,'#13#10'PES.OBS_AVISO, MOSTRAR_AVISO, IMP_TAMANHO_FINAL, PES.ID_VE' +
+      'NDEDOR_INT, PES.PERC_COMISSAO_INT'#13#10'FROM PESSOA PES'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -4079,6 +4091,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'IMP_TAMANHO_FINAL'
       FixedChar = True
       Size = 1
+    end
+    object cdsClienteID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object cdsClientePERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
     end
   end
   object dsCliente: TDataSource
@@ -5128,7 +5146,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 311
   end
   object cdsTipoCobranca: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5209,7 +5226,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 358
   end
   object cdsContas: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -13725,6 +13741,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object qParametros_GeralENDGRIDS: TStringField
       FieldName = 'ENDGRIDS'
       Size = 250
+    end
+    object qParametros_GeralUSA_VENDEDOR_INT: TStringField
+      FieldName = 'USA_VENDEDOR_INT'
+      FixedChar = True
+      Size = 1
     end
   end
   object mEtiquetas: TClientDataSet

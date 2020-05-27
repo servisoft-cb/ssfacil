@@ -5,8 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadNotaFiscal,
   RXDBCtrl, RzEdit, RzDBEdit, RzButton, UCadRecNF_Itens, UDMEstoque, TlHelp32, DB, DBGrids, ExtCtrls, StdCtrls, FMTBcd,
-  SqlExpr, RzTabs, Mask, DBCtrls, ToolEdit, CurrEdit, RxLookup, RxDBComb, UCBase, USel_Pedido,
-  RzPanel, Menus, dbXPress, DateUtils, UDMMovimento, NxEdit, NxCollection, Variants, UDMCadNotaFiscal_MP, frxExportPDF, frxExportMail;
+  SqlExpr, RzTabs, Mask, DBCtrls, ToolEdit, CurrEdit, RxLookup, RxDBComb, UCBase, USel_Pedido, RzPanel, Menus, dbXPress,
+  DateUtils, UDMMovimento, NxEdit, NxCollection, Variants, UDMCadNotaFiscal_MP, frxExportPDF, frxExportMail;
 
 type
   TfrmCadRecNF = class(TForm)
@@ -123,6 +123,10 @@ type
     RadioGroup1: TRadioGroup;
     Label38: TLabel;
     DBEdit14: TDBEdit;
+    Label4: TLabel;
+    RxDBLookupCombo2: TRxDBLookupCombo;
+    Label7: TLabel;
+    DBEdit1: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -320,8 +324,8 @@ var
   vVlrAux: Real;
   vPercAux: Real;
   fDMAprovacao_Ped: TDMAprovacao_Ped;
-  vID_Vendedor_Int : Integer;
-  vID_Ped_Ant : Integer;
+  vID_Vendedor_Int: Integer;
+  vID_Ped_Ant: Integer;
 begin
   fDMCadNotaFiscal.mPedidoAux.EmptyDataSet;
   vIDAux := fDMCadNotaFiscal.cdsNotaFiscalID.AsInteger;
@@ -638,7 +642,7 @@ begin
   TS_Consulta.TabEnabled    := True;
   prc_Habilitar_CamposNota;
 
-  NxDatePicker1.Date    := fDMCadNotaFiscal.cdsNotaFiscalDTEMISSAO.AsDateTime;
+  NxDatePicker1.Date := fDMCadNotaFiscal.cdsNotaFiscalDTEMISSAO.AsDateTime;
   prc_Consultar(0);
 end;
 
@@ -706,17 +710,21 @@ begin
   NxDatePicker2.Date := Date;
   btnConsultarClick(Sender);
 
-  Label99.Visible     := ((fDMCadNotaFiscal.cdsParametrosUSA_VENDEDOR.AsString = 'S') and
-                          ((fDMCadNotaFiscal.qParametros_ComCOMISSAO_DESCONTAR.AsString = 'S') or 
-                           (fDMCadNotaFiscal.qParametros_ComCOMISSAO_DESCONTAR_PIS.AsString = 'S')
-                           or (fDMCadNotaFiscal.qParametros_ComUSA_CONFIG_IND.AsString = 'S')));
-  DBEdit59.Visible    := ((fDMCadNotaFiscal.cdsParametrosUSA_VENDEDOR.AsString = 'S') and
-                         ((fDMCadNotaFiscal.qParametros_ComCOMISSAO_DESCONTAR.AsString = 'S') or
-                           (fDMCadNotaFiscal.qParametros_ComCOMISSAO_DESCONTAR_PIS.AsString = 'S')
-                           or (fDMCadNotaFiscal.qParametros_ComUSA_CONFIG_IND.AsString = 'S')));
+  Label99.Visible  := ((fDMCadNotaFiscal.cdsParametrosUSA_VENDEDOR.AsString = 'S') and
+                      ((fDMCadNotaFiscal.qParametros_ComCOMISSAO_DESCONTAR.AsString = 'S') or
+                      (fDMCadNotaFiscal.qParametros_ComCOMISSAO_DESCONTAR_PIS.AsString = 'S') or
+                      (fDMCadNotaFiscal.qParametros_ComUSA_CONFIG_IND.AsString = 'S')));
+  DBEdit59.Visible := ((fDMCadNotaFiscal.cdsParametrosUSA_VENDEDOR.AsString = 'S') and
+                      ((fDMCadNotaFiscal.qParametros_ComCOMISSAO_DESCONTAR.AsString = 'S') or
+                      (fDMCadNotaFiscal.qParametros_ComCOMISSAO_DESCONTAR_PIS.AsString = 'S') or
+                      (fDMCadNotaFiscal.qParametros_ComUSA_CONFIG_IND.AsString = 'S')));
 
   pnlLocalEstoque.Visible := (fDMCadNotaFiscal.cdsParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
-  
+
+  RxDBLookupCombo2.Visible := fDMCadNotaFiscal.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S';
+  Label4.Visible           := fDMCadNotaFiscal.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S';
+  Label7.Visible           := fDMCadNotaFiscal.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S';
+  DBEdit1.Visible          := fDMCadNotaFiscal.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S';
 end;
 
 procedure TfrmCadRecNF.prc_Consultar(ID: Integer);
@@ -1483,6 +1491,15 @@ begin
         if fDMCadNotaFiscal.cdsVendedorTIPO_COMISSAO.AsString = 'P' then
           fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_PAGAR_NOTA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsParametrosPERC_COMISSAO_PAGA_NOTA.AsFloat));
       end;
+
+//-------- JUCA 2020-05-06
+      fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_INT.AsFloat := 0;
+      fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger := fDMCadNotaFiscal.cdsClienteID_VENDEDOR_INT.AsInteger;
+      if fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger > 0 then
+      begin
+        fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_INT.AsFloat := fDMCadNotaFiscal.cdsClientePERC_COMISSAO_INT.AsFloat;
+      end;
+//---------------------
     end;
     fDMCadNotaFiscal.cdsNotaFiscalID_TRANSPORTADORA.AsInteger := fDMCadNotaFiscal.cdsClienteID_TRANSPORTADORA.AsInteger;
   end;

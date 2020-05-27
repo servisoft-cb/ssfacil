@@ -3151,6 +3151,13 @@ type
     sdsNotaFiscalID_ADTO: TIntegerField;
     cdsNotaFiscalVLR_SALDO_USADO: TFloatField;
     cdsNotaFiscalID_ADTO: TIntegerField;
+    sdsNotaFiscalID_VENDEDOR_INT: TIntegerField;
+    sdsNotaFiscalPERC_COMISSAO_INT: TFloatField;
+    cdsNotaFiscalID_VENDEDOR_INT: TIntegerField;
+    cdsNotaFiscalPERC_COMISSAO_INT: TFloatField;
+    cdsClienteID_VENDEDOR_INT: TIntegerField;
+    cdsClientePERC_COMISSAO_INT: TFloatField;
+    qParametros_GeralUSA_VENDEDOR_INT: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
