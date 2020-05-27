@@ -56,9 +56,9 @@ object frmANP_Produto: TfrmANP_Produto
     end
     object btnConfirmar: TNxButton
       Left = 232
-      Top = 11
+      Top = 12
       Width = 96
-      Height = 27
+      Height = 26
       Caption = 'Confirmar'
       Enabled = False
       Font.Charset = DEFAULT_CHARSET

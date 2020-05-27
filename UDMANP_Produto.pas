@@ -16,6 +16,8 @@ type
     cdsTab_CProd_ANPDESCRICAO: TStringField;
     dsTab_CProd_ANP: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
+    procedure dspTab_CProd_ANPGetTableName(Sender: TObject;
+      DataSet: TDataSet; var TableName: String);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -75,6 +77,12 @@ begin
     end;
   end;
   //***********************
+end;
+
+procedure TDMANP_Produto.dspTab_CProd_ANPGetTableName(Sender: TObject;
+  DataSet: TDataSet; var TableName: String);
+begin
+  TableName := 'TAB_CPROD_ANP';
 end;
 
 end.

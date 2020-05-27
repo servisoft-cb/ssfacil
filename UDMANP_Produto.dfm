@@ -28,7 +28,8 @@ object DMANP_Produto: TDMANP_Produto
   object dspTab_CProd_ANP: TDataSetProvider
     DataSet = sdsTab_CProd_ANP
     UpdateMode = upWhereKeyOnly
-    Left = 141
+    OnGetTableName = dspTab_CProd_ANPGetTableName
+    Left = 146
     Top = 73
   end
   object cdsTab_CProd_ANP: TClientDataSet
