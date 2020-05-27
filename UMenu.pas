@@ -355,8 +355,8 @@ type
     ConsultaNotasServio1: TMenuItem;
     N12: TMenuItem;
     AjustePreoContrato1: TMenuItem;
-    ContratodeServioMensal1: TMenuItem;
-    ContratodeServioparaEvento1: TMenuItem;
+    Contrato1: TMenuItem;
+    ContratoServio1: TMenuItem;
     ConsultaComissoNFCeCupomFiscal1: TMenuItem;
     ConsultaAdiantamentoClientesFornecedores1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

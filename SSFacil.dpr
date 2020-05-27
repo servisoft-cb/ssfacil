@@ -848,7 +848,8 @@ uses
   UConsPedido_Res in 'UConsPedido_Res.pas' {frmConsPedido_Res},
   UDMComissao in 'UDMComissao.pas' {DMComissao: TDataModule},
   uConsComissao_Metas in 'uConsComissao_Metas.pas' {frmConsComissao_Metas},
-  UConsAdto in 'UConsAdto.pas' {frmConsAdto};
+  UConsAdto in 'UConsAdto.pas' {frmConsAdto},
+  UCadAdto_Mov in 'UCadAdto_Mov.pas' {frmCadAdto_Mov};
 
 {$R *.res}
 

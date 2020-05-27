@@ -1,6 +1,6 @@
 object fMenu: TfMenu
-  Left = 82
-  Top = 22
+  Left = 280
+  Top = 2
   Width = 837
   Height = 686
   Caption = 'Menu'
@@ -114,8 +114,8 @@ object fMenu: TfMenu
     end
   end
   object MainMenu1: TMainMenu
-    Left = 642
-    Top = 414
+    Left = 646
+    Top = 416
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
       ImageIndex = 0
@@ -563,6 +563,7 @@ object fMenu: TfMenu
         end
         object ConsultaEstoqueReserva1: TMenuItem
           Caption = 'Consulta Estoque Reserva'
+          OnClick = ConsultaEstoqueReserva1Click
         end
         object ConsultaEstoquedeTerceiroeEmTerceiro1: TMenuItem
           Caption = 'Consulta Estoque de Terceiro e Em Terceiro'
@@ -774,6 +775,7 @@ object fMenu: TfMenu
         end
         object ConsultaNotasEntradaSada1: TMenuItem
           Caption = 'Consulta Notas (Entrada/Sa'#237'da)'
+          OnClick = ConsultaNotasEntradaSada1Click
         end
         object ConsultaProdutosSemVendasPedidosnoPerodo1: TMenuItem
           Caption = 'Consulta Produtos/Clientes Sem Vendas(Pedidos) no Per'#237'odo'
@@ -921,11 +923,13 @@ object fMenu: TfMenu
       object AjustePreoContrato1: TMenuItem
         Caption = 'Ajuste Pre'#231'o Contrato'
       end
-      object ContratodeServioMensal1: TMenuItem
+      object Contrato1: TMenuItem
         Caption = 'Contrato de Servi'#231'o Mensal'
+        OnClick = Contrato1Click
       end
-      object ContratodeServioparaEvento1: TMenuItem
+      object ContratoServio1: TMenuItem
         Caption = 'Contrato de Servi'#231'o para Evento'
+        OnClick = ContratoServio1Click
       end
       object N2: TMenuItem
         Caption = '-'

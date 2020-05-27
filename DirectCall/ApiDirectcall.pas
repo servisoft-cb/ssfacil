@@ -64,7 +64,7 @@ begin
   IdHTTP.IOHandler := idHandle;
   RBody := TStringStream.Create('');
   try
-
+                       //aqui
     IdHTTP.Request.ContentType := 'application/x-www-form-urlencoded';
     IdHTTP.Post('https://api.directcallsoft.com/'+AMethod, ARequest, RBody);
     Result := RBody.DataString;
