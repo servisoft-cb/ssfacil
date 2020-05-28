@@ -2356,6 +2356,14 @@ type
     cdsDetalheinfAdProd: TStringField;
     cdsDetalheDI: TDataSetField;
     cdsDetalhedescANP: TStringField;
+    sdsNotaFiscal_ItensANP_PERC_PGNI: TFloatField;
+    sdsNotaFiscal_ItensANP_PERC_PGNN: TFloatField;
+    sdsNotaFiscal_ItensANP_ID: TIntegerField;
+    cdsNotaFiscal_ItensANP_PERC_PGNI: TFloatField;
+    cdsNotaFiscal_ItensANP_PERC_PGNN: TFloatField;
+    cdsNotaFiscal_ItensANP_ID: TIntegerField;
+    sdsProdutoANP_ID: TIntegerField;
+    cdsProdutoANP_ID: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscalUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
