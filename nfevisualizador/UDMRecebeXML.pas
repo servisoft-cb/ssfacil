@@ -2364,6 +2364,9 @@ type
     cdsNotaFiscal_ItensANP_ID: TIntegerField;
     sdsProdutoANP_ID: TIntegerField;
     cdsProdutoANP_ID: TIntegerField;
+    mItensNotaANP_PERC_PGNI: TFloatField;
+    mItensNotaANP_PERC_PGNN: TFloatField;
+    mItensNotaANP_ID: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscalUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

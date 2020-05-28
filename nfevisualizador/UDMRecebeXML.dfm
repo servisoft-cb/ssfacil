@@ -2475,6 +2475,18 @@ object DMRecebeXML: TDMRecebeXML
         Name = 'ANP_DESCRICAO'
         DataType = ftString
         Size = 100
+      end
+      item
+        Name = 'ANP_PERC_PGNI'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ANP_PERC_PGNN'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ANP_ID'
+        DataType = ftInteger
       end>
     IndexDefs = <
       item
@@ -2488,10 +2500,10 @@ object DMRecebeXML: TDMRecebeXML
     StoreDefs = True
     BeforePost = mItensNotaBeforePost
     OnNewRecord = mItensNotaNewRecord
-    Left = 918
+    Left = 917
     Top = 232
     Data = {
-      050D00009619E0BD010000001800000083000000000003000000050D04497465
+      400D00009619E0BD010000001800000086000000000003000000400D04497465
       6D04000100000000000A436F6450726F6475746F010049000000010005574944
       5448020002003C0011436F6450726F6475746F496E7465726E6F040001000000
       000006436F64436F72040001000000000008436F644772616465040001000000
@@ -2594,8 +2606,10 @@ object DMRecebeXML: TDMRecebeXML
       5F436F66696E7308000400000000000B414E505F50524F4455544F0100490000
       0001000557494454480200020009000B414E505F55465F434F4E530100490000
       0001000557494454480200020002000D414E505F44455343524943414F010049
-      000000010005574944544802000200640001000D44454641554C545F4F524445
-      520200820000000000}
+      00000001000557494454480200020064000D414E505F504552435F50474E4908
+      000400000000000D414E505F504552435F50474E4E080004000000000006414E
+      505F4944040001000000000001000D44454641554C545F4F5244455202008200
+      00000000}
     object mItensNotaItem: TIntegerField
       FieldName = 'Item'
     end
@@ -3086,6 +3100,15 @@ object DMRecebeXML: TDMRecebeXML
       FieldName = 'ANP_DESCRICAO'
       Size = 100
     end
+    object mItensNotaANP_PERC_PGNI: TFloatField
+      FieldName = 'ANP_PERC_PGNI'
+    end
+    object mItensNotaANP_PERC_PGNN: TFloatField
+      FieldName = 'ANP_PERC_PGNN'
+    end
+    object mItensNotaANP_ID: TIntegerField
+      FieldName = 'ANP_ID'
+    end
   end
   object dsmItensNota: TDataSource
     DataSet = mItensNota
@@ -3100,7 +3123,7 @@ object DMRecebeXML: TDMRecebeXML
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 96
-    Top = 16
+    Top = 14
     object sdsProdutoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -3855,7 +3878,7 @@ object DMRecebeXML: TDMRecebeXML
   object dspCidade: TDataSetProvider
     DataSet = sdsCidade
     OnUpdateError = dspCidadeUpdateError
-    Left = 144
+    Left = 145
     Top = 64
   end
   object cdsCidade: TClientDataSet
@@ -5240,7 +5263,6 @@ object DMRecebeXML: TDMRecebeXML
     Top = 332
   end
   object cdsNotaFiscal: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
@@ -7078,7 +7100,7 @@ object DMRecebeXML: TDMRecebeXML
     ProviderName = 'dspNCM'
     OnNewRecord = cdsNCMNewRecord
     Left = 432
-    Top = 141
+    Top = 142
     object cdsNCMID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -7755,7 +7777,6 @@ object DMRecebeXML: TDMRecebeXML
     end
   end
   object cdsNotaFiscal_Parc: TClientDataSet
-    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Parc
     IndexFieldNames = 'ID;ITEM'
@@ -10364,7 +10385,6 @@ object DMRecebeXML: TDMRecebeXML
     Top = 392
   end
   object cdsPag: TClientDataSet
-    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Ref
     Params = <>

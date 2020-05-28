@@ -556,7 +556,7 @@ implementation
 
 uses
   DmdDatabase, uUtilPadrao, UMenu, rsDBUtils, uNFeComandos, USel_Pessoa, USel_Grupo, USel_Produto_Cor,
-  USel_ContaOrc, uRecebeXML_CFOP;
+  USel_ContaOrc, uRecebeXML_CFOP, VarUtils;
 
 {$R *.dfm}
 
@@ -952,6 +952,7 @@ var
   vQtdAux: Real;
   vTexto2: String;
   vFlag: Boolean;
+
 begin
   vGerar_Estoque := 'N';
   fDMRecebeXML.mItensNota.Insert;
@@ -1221,6 +1222,14 @@ begin
   fDMRecebeXML.mItensNotaANP_PRODUTO.AsString   := fDMRecebeXML.cdsDetalhecProdANP.AsString;
   fDMRecebeXML.mItensNotaANP_UF_CONS.AsString   := fDMRecebeXML.cdsDetalheUFCons.AsString;
   fDMRecebeXML.mItensNotaANP_DESCRICAO.AsString := fDMRecebeXML.cdsDetalhedescANP.AsString;
+  fDMRecebeXML.mItensNotaANP_PERC_PGNI.AsFloat  := 0;
+  fDMRecebeXML.mItensNotaANP_PERC_PGNN.AsFloat  := 0;
+  if trim(fDMRecebeXML.mItensNotaANP_PRODUTO.AsString) <> '' then  // 28/05/2020
+  begin
+    vTexto := SQLLocate('TAB_CPROD_ANP','CODIGO','ID',fDMRecebeXML.mItensNotaANP_PRODUTO.AsString);
+    if trim(vTexto) <> '' then
+      fDMRecebeXML.mItensNotaANP_ID.AsInteger := StrToInt(vTexto);
+  end;
   //********************
 
   fDMRecebeXML.mItensNota.Post;
@@ -2013,6 +2022,15 @@ begin
           fDMRecebeXML.cdsProdutoID_NCM.AsInteger := fDMRecebeXML.mItensNotaID_NCM.AsInteger;
         end;
       end;
+      if (trim(fDMRecebeXML.mItensNotaANP_PRODUTO.AsString) <> '') and (fDMRecebeXML.cdsProdutoANP_ID.AsInteger <= 0) then
+      begin
+        if not(fDMRecebeXML.cdsProduto.State in [dsEdit]) then
+          fDMRecebeXML.cdsProduto.Edit;
+        fDMRecebeXML.cdsProdutoANP_ID.AsInteger := uUtilPadrao.fnc_Gravar_CProd_ANP(fDMRecebeXML.mItensNotaANP_PRODUTO.AsString,fDMRecebeXML.mItensNotaANP_DESCRICAO.AsString);
+        if fDMRecebeXML.cdsProdutoANP_ID.AsInteger <= 0 then
+          fDMRecebeXML.cdsProdutoANP_ID.Clear;
+      end;
+
       if (fDMRecebeXML.mItensNotaID_Grupo.AsInteger > 0) and (fDMRecebeXML.cdsProdutoID_GRUPO.AsInteger <> fDMRecebeXML.mItensNotaID_Grupo.AsInteger) then
       begin
         if not(fDMRecebeXML.cdsProduto.State in [dsEdit]) then
@@ -2260,6 +2278,13 @@ begin
   else
   if (fDMRecebeXML.mItensNotaGerar_Estoque.AsString <> 'S') then
     fDMRecebeXML.cdsProdutoESTOQUE.AsString := 'N';
+
+  if (trim(fDMRecebeXML.mItensNotaANP_PRODUTO.AsString) <> '') then
+  begin
+    fDMRecebeXML.cdsProdutoANP_ID.AsInteger := uUtilPadrao.fnc_Gravar_CProd_ANP(fDMRecebeXML.mItensNotaANP_PRODUTO.AsString,fDMRecebeXML.mItensNotaANP_DESCRICAO.AsString);
+    if fDMRecebeXML.cdsProdutoANP_ID.AsInteger <= 0 then
+      fDMRecebeXML.cdsProdutoANP_ID.Clear;
+  end;
     
   fDMRecebeXML.cdsProduto.Post;
   fDMRecebeXML.cdsProduto.ApplyUpdates(0);
@@ -2276,7 +2301,8 @@ begin
     fDMRecebeXML.mItensNotaID_ContaOrcamento.AsInteger := fDMRecebeXML.cdsProdutoID_CONTA_ORCAMENTO.AsInteger;
   fDMRecebeXML.mItensNotaPosse_Material.AsString := fDMRecebeXML.cdsProdutoPOSSE_MATERIAL.AsString;
   fDMRecebeXML.mItensNotaSped_Tipo.AsString := fDMRecebeXML.cdsProdutoSPED_TIPO_ITEM.AsString;
-
+  if fDMRecebeXML.cdsProdutoANP_ID.AsInteger > 0 then
+    fDMRecebeXML.mItensNotaANP_ID.AsInteger := fDMRecebeXML.cdsProdutoANP_ID.AsInteger;
   prc_Monta_Grupo('N');
   prc_Monta_ContaOrc('N');
   //*************
@@ -2650,7 +2676,12 @@ begin
     //11/03/2020
     fDMRecebeXML.cdsNotaFiscal_ItensANP_PRODUTO.AsString := fDMRecebeXML.mItensNotaANP_PRODUTO.AsString;
     fDMRecebeXML.cdsNotaFiscal_ItensANP_UF_CONS.AsString := fDMRecebeXML.mItensNotaANP_UF_CONS.AsString;
-    uUtilPadrao.prc_Gravar_CProd_ANP(fDMRecebeXML.mItensNotaANP_PRODUTO.AsString,fDMRecebeXML.mItensNotaANP_DESCRICAO.AsString);
+    if (fDMRecebeXML.cdsNotaFiscal_ItensANP_ID.AsInteger <= 0) and (trim(fDMRecebeXML.cdsNotaFiscal_ItensANP_PRODUTO.AsString) <> '') then
+    begin
+      fDMRecebeXML.cdsNotaFiscal_ItensANP_ID.AsInteger :=  uUtilPadrao.fnc_Gravar_CProd_ANP(fDMRecebeXML.mItensNotaANP_PRODUTO.AsString,fDMRecebeXML.mItensNotaANP_DESCRICAO.AsString);
+      if fDMRecebeXML.cdsNotaFiscal_ItensANP_ID.AsInteger <= 0 then
+        fDMRecebeXML.cdsNotaFiscal_ItensANP_ID.Clear;
+    end;
     //*************************
 
     fDMRecebeXML.cdsNotaFiscal_Itens.Post;

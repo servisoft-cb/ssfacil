@@ -71,7 +71,7 @@ uses
 
   function fnc_Verifica_Tipo_Lote: String;
 
-  procedure prc_Gravar_CProd_ANP(Codigo, Descricao: String);
+  Function fnc_Gravar_CProd_ANP(Codigo, Descricao: String) : Integer;
 
   function fnc_Converte_Horas(Hora: Real): Real;
   function fnc_Converte_Min_Dec(Hora: Real): Real;
@@ -2484,16 +2484,17 @@ begin
 
 end;
 
-procedure prc_Gravar_CProd_ANP(Codigo, Descricao: String);
+function fnc_Gravar_CProd_ANP(Codigo, Descricao: String) : Integer;
 var
   sds: TSQLDataSet;
 begin
+  Result := 0;
   sds := TSQLDataSet.Create(nil);
   try
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata    := True;
     sds.GetMetadata   := False;
-    sds.CommandText   := 'select T.CODIGO, T.DESCRICAO from TAB_CPROD_ANP T where T.CODIGO = :CODIGO ';
+    sds.CommandText   := 'select T.ID T.CODIGO, T.DESCRICAO from TAB_CPROD_ANP T where T.CODIGO = :CODIGO ';
     sds.ParamByName('CODIGO').AsString := Codigo;
     sds.Open;
     if sds.IsEmpty then
@@ -2501,7 +2502,14 @@ begin
       sds.Close;
       sds.CommandText   := 'INSERT INTO TAB_CPROD_ANP (CODIGO, DESCRICAO) VALUES (' + QuotedStr(Codigo) + ',' + QuotedStr(Descricao) +')';
       sds.ExecSQL;
+
+      sds.Close;
+      sds.CommandText   := 'select T.ID from TAB_CPROD_ANP T where T.CODIGO = :CODIGO ';
+      sds.ParamByName('CODIGO').AsString := Codigo;
+      sds.Open;
     end;
+    if sds.FieldByName('ID').AsInteger > 0 then
+      Result := sds.FieldByName('ID').AsInteger;
   finally
     FreeAndNil(sds);
   end;
