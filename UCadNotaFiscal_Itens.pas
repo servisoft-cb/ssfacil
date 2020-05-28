@@ -206,7 +206,7 @@ type
     dbckDraw: TDBCheckBox;
     Label69: TLabel;
     DBEdit43: TDBEdit;
-    NxButton1: TNxButton;
+    btnANP: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure DBEdit2Exit(Sender: TObject);
@@ -282,6 +282,7 @@ type
     procedure DBEdit43Exit(Sender: TObject);
     procedure DBEdit43KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnANPClick(Sender: TObject);
   private
     { Private declarations }
     ffrmCadProduto: TfrmCadProduto;
@@ -390,7 +391,8 @@ var
 implementation
 
 uses rsDBUtils, USel_Produto, uUtilPadrao, UMenu, uCalculo_NotaFiscal, USel_TabPreco, USel_Unidade, UDMUtil, DmdDatabase,
-  USel_EnqIPI, USel_CentroCusto, USel_ContaOrc, USel_CBenef, Math;
+  USel_EnqIPI, USel_CentroCusto, USel_ContaOrc, USel_CBenef, Math,
+  UCadNotaFiscal_Itens_ANP;
 
 {$R *.dfm}
 
@@ -405,6 +407,8 @@ begin
 end;
 
 procedure TfrmCadNotaFiscal_Itens.FormShow(Sender: TObject);
+var
+  vID_CFOP : Integer;
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadNotaFiscal);
   if fDMCadNotaFiscal.vState_Item = 'I' then
@@ -412,6 +416,7 @@ begin
     vID_Produto_Ant := 0;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'S';
     TabSheet3.TabVisible := False;
+    vID_CFOP := fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger;
   end
   else
   begin
@@ -422,13 +427,19 @@ begin
     DBEdit21.Visible := (fDMCadNotaFiscal.cdsNotaFiscal_ItensORIGEM_PROD.AsString <> '0');
     Label43.Visible  := (fDMCadNotaFiscal.cdsNotaFiscal_ItensORIGEM_PROD.AsString <> '0');
     DBEdit22.Visible := (fDMCadNotaFiscal.cdsNotaFiscal_ItensORIGEM_PROD.AsString <> '0');
+    vID_CFOP := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger;
   end;
 
-  if fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger > 0 then
+  //if fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger > 0 then
+  if vID_CFOP > 0 then
   begin
-    if fDMCadNotaFiscal.cdsCFOPID.AsInteger <> fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger then
-      fDMCadNotaFiscal.cdsCFOP.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger,[loCaseInsensitive]);
+    //if fDMCadNotaFiscal.cdsCFOPID.AsInteger <> fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger then
+    //  fDMCadNotaFiscal.cdsCFOP.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger,[loCaseInsensitive]);
+    if fDMCadNotaFiscal.cdsCFOPID.AsInteger <> vID_CFOP then
+      fDMCadNotaFiscal.cdsCFOP.Locate('ID',vID_CFOP,[loCaseInsensitive]);
     TS_DrawBack.TabVisible := (((copy(fDMCadNotaFiscal.cdsCFOPCODCFOP.AsString,1,1) = '3') or  (copy(fDMCadNotaFiscal.cdsCFOPCODCFOP.AsString,1,1) = '7')));
+
+    btnANP.Visible := (fDMCadNotaFiscal.cdsCFOPCOMBUSTIVEL.AsString = 'S');
   end
   else
     TS_DrawBack.TabVisible := False;
@@ -614,6 +625,8 @@ begin
     MessageDlg('*** (prc_Move_Dados_Itens) ID CFOP  ' + fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsString + ', não encontrado! ' + #13 + '    Favor Verificar!' , mtError, [mbOk], 0);
     exit;
   end;
+  btnANP.Visible := (fDMCadNotaFiscal.cdsCFOPCOMBUSTIVEL.AsString = 'S');
+
   //Vai começar com S para não mexer nos que existem hoje    11/03/2020
   vGera_FCP := 'S';
   if fDMCadNotaFiscal.vID_Variacao > 0 then
@@ -640,6 +653,14 @@ begin
   end;
   DBEdit24.Visible := False;
   Label45.Visible  := False;
+
+  //28/05/2020
+  if fDMCadNotaFiscal.cdsProdutoANP_ID.AsInteger > 0 then
+  begin
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_ID.AsInteger := fDMCadNotaFiscal.cdsProdutoANP_ID.AsInteger;
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PRODUTO.AsString := SQLLocate('TAB_CPROD_ANP','ID','CODIGO',fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_ID.AsString);
+  end;
+  //******************
 
   fDMCadNotaFiscal.cdsCliente.Locate('CODIGO',fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,[loCaseInsensitive]);
   fDMCadNotaFiscal.cdsUF.Locate('UF',fDMCadNotaFiscal.cdsClienteUF.AsString,[loCaseInsensitive]);
@@ -3654,6 +3675,14 @@ begin
       DBEdit1.Text := vCod_CBenef;
     FreeAndNil(frmSel_CBenef);
   end;
+end;
+
+procedure TfrmCadNotaFiscal_Itens.btnANPClick(Sender: TObject);
+begin
+  frmCadNotaFiscal_Itens_ANP := TfrmCadNotaFiscal_Itens_ANP.Create(self);
+  frmCadNotaFiscal_Itens_ANP.fDMCadNotaFiscal := fDMCadNotaFiscal;
+  frmCadNotaFiscal_Itens_ANP.ShowModal;
+  FreeAndNil(frmCadNotaFiscal_Itens_ANP);
 end;
 
 end.

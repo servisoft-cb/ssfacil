@@ -230,7 +230,7 @@ var
   vID_Cupom_Pos: Integer;
   vSerie_Sel: String;
   vTipo_Dig_Cupom: String;
-
+  vID_ANP_Pos : Integer;
 
 implementation
 

@@ -849,7 +849,9 @@ uses
   UDMComissao in 'UDMComissao.pas' {DMComissao: TDataModule},
   uConsComissao_Metas in 'uConsComissao_Metas.pas' {frmConsComissao_Metas},
   UConsAdto in 'UConsAdto.pas' {frmConsAdto},
-  UCadAdto_Mov in 'UCadAdto_Mov.pas' {frmCadAdto_Mov};
+  UCadAdto_Mov in 'UCadAdto_Mov.pas' {frmCadAdto_Mov},
+  UCadNotaFiscal_Itens_ANP in 'UCadNotaFiscal_Itens_ANP.pas' {frmCadNotaFiscal_Itens_ANP},
+  USel_ANP in 'USel_ANP.pas' {frmSel_ANP};
 
 {$R *.res}
 

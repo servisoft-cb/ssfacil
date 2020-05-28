@@ -128,7 +128,7 @@ begin
   begin
     if trim(fDMCadNotaFiscal.cdsNotaFiscal_RefNFECHAVEACESSO_REF.AsString) = '' then
       vMsgErro := vMsgErro + #13 + '*** Chave de acesso não informada!';
-    if Length(fDMCadNotaFiscal.cdsNotaFiscal_RefNFECHAVEACESSO_REF.AsString) < 44 then
+    if Length(trim(fDMCadNotaFiscal.cdsNotaFiscal_RefNFECHAVEACESSO_REF.AsString)) < 44 then
       vMsgErro := vMsgErro + #13 + '*** Chave de acesso faltando dígitos!';
   end
   else

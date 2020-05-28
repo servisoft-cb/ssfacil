@@ -503,6 +503,9 @@ object dmCadProduto: TdmCadProduto
       FieldName = 'TAMANHO'
       Size = 10
     end
+    object sdsProdutoANP_ID: TIntegerField
+      FieldName = 'ANP_ID'
+    end
   end
   object dspProduto: TDataSetProvider
     DataSet = sdsProduto
@@ -1067,6 +1070,9 @@ object dmCadProduto: TdmCadProduto
     object cdsProdutoTAMANHO: TStringField
       FieldName = 'TAMANHO'
       Size = 10
+    end
+    object cdsProdutoANP_ID: TIntegerField
+      FieldName = 'ANP_ID'
     end
   end
   object dsProduto: TDataSource
@@ -10747,5 +10753,30 @@ object dmCadProduto: TdmCadProduto
     DataSet = cdsProduto_Adicional
     Left = 1133
     Top = 70
+  end
+  object qTab_CProd_ANP: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select C.*'
+      'from TAB_CPROD_ANP C'
+      'where C.ID = :ID')
+    SQLConnection = dmDatabase.scoDados
+    Left = 1183
+    Top = 130
+    object qTab_CProd_ANPCODIGO: TStringField
+      FieldName = 'CODIGO'
+      Required = True
+      Size = 9
+    end
+    object qTab_CProd_ANPDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 100
+    end
   end
 end

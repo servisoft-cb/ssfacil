@@ -416,7 +416,6 @@ type
     Label127: TLabel;
     RxDBLookupCombo19: TRxDBLookupCombo;
     DBMemo2: TDBMemo;
-    DBCheckBox8: TDBCheckBox;
     DBCheckBox9: TDBCheckBox;
     BitBtn6: TBitBtn;
     Label128: TLabel;
@@ -523,7 +522,6 @@ type
     btnGradeRef: TNxButton;
     Label169: TLabel;
     DBEdit96: TDBEdit;
-    DBCheckBox15: TDBCheckBox;
     TS_Lote: TRzTabSheet;
     Panel12: TPanel;
     btnInserir_Lote: TNxButton;
@@ -827,6 +825,10 @@ type
     Label264: TLabel;
     DBEdit166: TDBEdit;
     Label265: TLabel;
+    DBCheckBox8: TDBCheckBox;
+    DBCheckBox15: TDBCheckBox;
+    Label266: TLabel;
+    edtANP: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -1053,6 +1055,8 @@ type
     procedure DBEdit165KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBEdit165Exit(Sender: TObject);
+    procedure edtANPKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMCadProduto: TDMCadProduto;
@@ -1127,6 +1131,7 @@ type
     procedure prc_Abrir_qConta_Orcamento(ID: Integer);
     function fnc_Verificar_Tipo: Boolean;
     procedure prc_Abrir_EnqIPI(ID: Integer);
+    procedure prc_Abrir_ANP(ID: Integer);
 
     procedure prc_Gravar_Produto_Cad_Ant;
     procedure prc_Ajustar_Produto_Ped;
@@ -1177,7 +1182,7 @@ uses rsDBUtils, uUtilPadrao, URelProduto, URelProduto_Grupo, USel_Grupo, USel_Pl
   USel_EnqIPI, USel_CodCest, VarUtils, UCadProduto_Serie, UCadProduto_Cad_Ant, UCadProcesso_Grupo, USel_ContaOrc, USel_Produto,
   uCopiar_Comb_Agrupado, UCadProduto_GradeNum, UCadProduto_Lote, USel_Produto_Lote, UCadProduto_Larg, UCadProduto_GradeRefTam,
   USel_Maquina, UAltProd, UCadProduto_Consumo_Proc, UCadLinha, UCadGrade, UCadPessoa, UMenu, UCadProduto_ST, uConsProduto_Compras,
-  UCadProduto_CA, UCadProduto_Aplic, USel_CBenef;
+  UCadProduto_CA, UCadProduto_Aplic, USel_CBenef, USel_ANP;
 
 {$R *.dfm}
 
@@ -2558,6 +2563,10 @@ begin
     edtCod_EnqIPI.Clear;
     prc_Abrir_EnqIPI(fDMCadProduto.cdsProdutoID_ENQIPI.AsInteger);
     edtCod_EnqIPI.Text := fDMCadProduto.qEnqIPICODIGO.AsString;
+
+    edtANP.Clear;
+    prc_Abrir_ANP(fDMCadProduto.cdsProdutoANP_ID.AsInteger);
+    edtANP.Text := fDMCadProduto.qTab_CProd_ANPCODIGO.AsString;
 
     lblDescLargura.Caption := FormatFloat('0.000#',fDMCadProduto.cdsProdutoLARGURA.AsFloat) + ' x '
                             + FormatFloat('0.000#',fDMCadProduto.cdsProdutoALTURA.AsFloat) + ' x '
@@ -6601,6 +6610,31 @@ begin
       exit;
     end;
   end;
+end;
+
+procedure TfrmCadProduto.edtANPKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_F2) then
+  begin
+    vID_ANP_Pos := fDMCadProduto.cdsProdutoANP_ID.AsInteger;
+    frmSel_ANP := TfrmSel_ANP.Create(Self);
+    frmSel_ANP.ShowModal;
+    if vID_ANP_Pos > 0 then
+      fDMCadProduto.cdsProdutoANP_ID.AsInteger := vID_ANP_Pos
+    else
+      fDMCadProduto.cdsProdutoANP_ID.Clear;
+    edtANP.Clear;
+    prc_Abrir_ANP(fDMCadProduto.cdsProdutoANP_ID.AsInteger);
+    edtANP.Text := fDMCadProduto.qTab_CProd_ANPCODIGO.AsString;
+  end;
+end;
+
+procedure TfrmCadProduto.prc_Abrir_ANP(ID: Integer);
+begin
+  fDMCadProduto.qTab_CProd_ANP.Close;
+  fDMCadProduto.qTab_CProd_ANP.ParamByName('ID').AsInteger := ID;
+  fDMCadProduto.qTab_CProd_ANP.Open;
 end;
 
 end.

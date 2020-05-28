@@ -4780,18 +4780,22 @@ begin
     //11/03/2020
     if fDMCadNotaFiscal.cdsCFOPCOMBUSTIVEL.AsString = 'S' then
     begin
-      fDMNFe.mItensNFeANP_PRODUTO.AsString   := fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PRODUTO.AsString;
       fDMNFe.mItensNFeANP_UF_CONS.AsString   := fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_UF_CONS.AsString;
-      fDMNFe.qTab_CProd_ANP.Close;
-      fDMNFe.qTab_CProd_ANP.ParamByName('CODIGO').AsString := fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PRODUTO.AsString;
-      fDMNFe.qTab_CProd_ANP.Open;
-      fDMNFe.mItensNFeANP_DESCRICAO.AsString := fDMNFe.qTab_CProd_ANPDESCRICAO.AsString;
+      fDMCadNotaFiscal.qTab_CProd_ANP.Close;
+      fDMCadNotaFiscal.qTab_CProd_ANP.ParamByName('ID').AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_ID.AsInteger;
+      fDMCadNotaFiscal.qTab_CProd_ANP.Open;
+      fDMNFe.mItensNFeANP_PRODUTO.AsString   := fDMCadNotaFiscal.qTab_CProd_ANPCODIGO.AsString;
+      fDMNFe.mItensNFeANP_DESCRICAO.AsString := fDMCadNotaFiscal.qTab_CProd_ANPDESCRICAO.AsString;
+      fDMNFe.mItensNFeANP_PERC_PGNN.AsFloat  := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PERC_PGNN.AsFloat));
+      fDMNFe.mItensNFeANP_PERC_PGNI.AsFloat  := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PERC_PGNI.AsFloat));
     end
     else
     begin
       fDMNFe.mItensNFeANP_PRODUTO.AsString   := '';
       fDMNFe.mItensNFeANP_UF_CONS.AsString   := '';
       fDMNFe.mItensNFeANP_DESCRICAO.AsString := '';
+      fDMNFe.mItensNFeANP_PERC_PGNN.AsFloat  := StrToFloat(FormatFloat('0.0000',0));
+      fDMNFe.mItensNFeANP_PERC_PGNI.AsFloat  := StrToFloat(FormatFloat('0.0000',0));
     end;
     //****************
 

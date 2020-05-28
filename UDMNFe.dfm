@@ -1929,6 +1929,14 @@ object DMNFe: TDMNFe
         Name = 'ANP_DESCRICAO'
         DataType = ftString
         Size = 100
+      end
+      item
+        Name = 'ANP_PERC_PGNN'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ANP_PERC_PGNI'
+        DataType = ftFloat
       end>
     IndexDefs = <>
     IndexFieldNames = 'Filial;NumNota;ItemNota'
@@ -1939,7 +1947,7 @@ object DMNFe: TDMNFe
     Left = 225
     Top = 423
     Data = {
-      BD0A00009619E0BD010000001800000070000000000003000000BD0A0646696C
+      E90A00009619E0BD010000001800000072000000000003000000E90A0646696C
       69616C0400010000000000074E756D4E6F74610400010000000000084974656D
       4E6F746104000100000000000A436F6450726F6475746F010049000000010005
       57494454480200020014000A436F644E61744F70657201004900000001000557
@@ -2024,8 +2032,9 @@ object DMNFe: TDMNFe
       7308000400000000000B426173655F436F66696E7308000400000000000B414E
       505F50524F4455544F01004900000001000557494454480200020009000B414E
       505F55465F434F4E5301004900000001000557494454480200020002000D414E
-      505F44455343524943414F010049000000010005574944544802000200640000
-      00}
+      505F44455343524943414F01004900000001000557494454480200020064000D
+      414E505F504552435F50474E4E08000400000000000D414E505F504552435F50
+      474E4908000400000000000000}
     object mItensNFeFilial: TIntegerField
       FieldName = 'Filial'
     end
@@ -2400,6 +2409,12 @@ object DMNFe: TDMNFe
     object mItensNFeANP_DESCRICAO: TStringField
       FieldName = 'ANP_DESCRICAO'
       Size = 100
+    end
+    object mItensNFeANP_PERC_PGNN: TFloatField
+      FieldName = 'ANP_PERC_PGNN'
+    end
+    object mItensNFeANP_PERC_PGNI: TFloatField
+      FieldName = 'ANP_PERC_PGNI'
     end
   end
   object mAuxDadosNFe: TClientDataSet
@@ -6222,31 +6237,6 @@ object DMNFe: TDMNFe
     object qDrawObsCONTADOR: TIntegerField
       FieldName = 'CONTADOR'
       Required = True
-    end
-  end
-  object qTab_CProd_ANP: TSQLQuery
-    MaxBlobSize = -1
-    Params = <
-      item
-        DataType = ftString
-        Name = 'CODIGO'
-        ParamType = ptInput
-      end>
-    SQL.Strings = (
-      'select C.*'
-      'from TAB_CPROD_ANP C'
-      'where C.CODIGO = :CODIGO')
-    SQLConnection = dmDatabase.scoDados
-    Left = 420
-    Top = 486
-    object qTab_CProd_ANPCODIGO: TStringField
-      FieldName = 'CODIGO'
-      Required = True
-      Size = 9
-    end
-    object qTab_CProd_ANPDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Size = 100
     end
   end
   object qSoftWareHouse: TSQLQuery

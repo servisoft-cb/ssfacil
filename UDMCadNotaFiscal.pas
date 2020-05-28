@@ -3158,6 +3158,16 @@ type
     cdsClienteID_VENDEDOR_INT: TIntegerField;
     cdsClientePERC_COMISSAO_INT: TFloatField;
     qParametros_GeralUSA_VENDEDOR_INT: TStringField;
+    sdsNotaFiscal_ItensANP_PERC_PGNI: TFloatField;
+    sdsNotaFiscal_ItensANP_PERC_PGNN: TFloatField;
+    cdsNotaFiscal_ItensANP_PERC_PGNI: TFloatField;
+    cdsNotaFiscal_ItensANP_PERC_PGNN: TFloatField;
+    sdsNotaFiscal_ItensANP_ID: TIntegerField;
+    cdsNotaFiscal_ItensANP_ID: TIntegerField;
+    qTab_CProd_ANP: TSQLQuery;
+    qTab_CProd_ANPCODIGO: TStringField;
+    qTab_CProd_ANPDESCRICAO: TStringField;
+    cdsProdutoANP_ID: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

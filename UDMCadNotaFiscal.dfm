@@ -613,7 +613,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     ProviderName = 'dspNotaFiscal'
     BeforePost = cdsNotaFiscalBeforePost
     OnNewRecord = cdsNotaFiscalNewRecord
-    Left = 77
+    Left = 78
     Top = 9
     object cdsNotaFiscalID: TIntegerField
       FieldName = 'ID'
@@ -1947,6 +1947,15 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'ANP_UF_CONS'
       Size = 2
     end
+    object sdsNotaFiscal_ItensANP_PERC_PGNI: TFloatField
+      FieldName = 'ANP_PERC_PGNI'
+    end
+    object sdsNotaFiscal_ItensANP_PERC_PGNN: TFloatField
+      FieldName = 'ANP_PERC_PGNN'
+    end
+    object sdsNotaFiscal_ItensANP_ID: TIntegerField
+      FieldName = 'ANP_ID'
+    end
   end
   object cdsNotaFiscal_Itens: TClientDataSet
     Aggregates = <>
@@ -2617,6 +2626,15 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsNotaFiscal_ItensANP_UF_CONS: TStringField
       FieldName = 'ANP_UF_CONS'
       Size = 2
+    end
+    object cdsNotaFiscal_ItensANP_PERC_PGNI: TFloatField
+      FieldName = 'ANP_PERC_PGNI'
+    end
+    object cdsNotaFiscal_ItensANP_PERC_PGNN: TFloatField
+      FieldName = 'ANP_PERC_PGNN'
+    end
+    object cdsNotaFiscal_ItensANP_ID: TIntegerField
+      FieldName = 'ANP_ID'
     end
   end
   object dsNotaFiscal_Itens: TDataSource
@@ -5146,6 +5164,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 311
   end
   object cdsTipoCobranca: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5226,6 +5245,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 358
   end
   object cdsContas: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5274,7 +5294,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'TAL,PERC_MARGEMLUCRO'#13#10',PERC_DESC_MAX,SPED_TIPO_ITEM,ID_CSTICMS_B' +
       'RED,USA_PRECO_COR,TAMANHO,COD_BARRA2,QTD_EMBALAGEM'#13#10',ID_MARCA,UN' +
       'IDADE2,ID_CSTICMS,P.NOME_MODELO,P.perc_icms_nfce, P.CALCULAR_ST,' +
-      ' P.MEDIDA, P.COD_BENEF'#13#10'FROM PRODUTO P'#13#10#13#10
+      ' P.MEDIDA, P.COD_BENEF, ANP_ID'#13#10'FROM PRODUTO P'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5530,6 +5550,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsProdutoTAMANHO: TStringField
       FieldName = 'TAMANHO'
       Size = 10
+    end
+    object cdsProdutoANP_ID: TIntegerField
+      FieldName = 'ANP_ID'
     end
   end
   object dsProduto: TDataSource
@@ -15519,6 +15542,31 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object qPessoa_ProdICMSCOD_BENEF: TStringField
       FieldName = 'COD_BENEF'
       Size = 8
+    end
+  end
+  object qTab_CProd_ANP: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select C.*'
+      'from TAB_CPROD_ANP C'
+      'where C.ID = :ID')
+    SQLConnection = dmDatabase.scoDados
+    Left = 1143
+    Top = 136
+    object qTab_CProd_ANPCODIGO: TStringField
+      FieldName = 'CODIGO'
+      Required = True
+      Size = 9
+    end
+    object qTab_CProd_ANPDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 100
     end
   end
 end

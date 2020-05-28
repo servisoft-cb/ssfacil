@@ -1216,7 +1216,7 @@ object frmCadNotaFiscal_Alt_Imp: TfrmCadNotaFiscal_Alt_Imp
         end
         object RzGroupBox1: TRzGroupBox
           Left = 621
-          Top = 404
+          Top = 386
           Width = 181
           Height = 131
           BorderColor = clNavy
@@ -1504,7 +1504,7 @@ object frmCadNotaFiscal_Alt_Imp: TfrmCadNotaFiscal_Alt_Imp
         end
         object RzGroupBox3: TRzGroupBox
           Left = 621
-          Top = 320
+          Top = 305
           Width = 172
           Height = 75
           BorderColor = clNavy
@@ -1995,69 +1995,6 @@ object frmCadNotaFiscal_Alt_Imp: TfrmCadNotaFiscal_Alt_Imp
           DataField = 'BASE_COFINS'
           DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
           TabOrder = 29
-        end
-        object RzGroupBox7: TRzGroupBox
-          Left = 623
-          Top = 541
-          Width = 169
-          Height = 62
-          BorderColor = clNavy
-          BorderInner = fsButtonUp
-          BorderOuter = fsBump
-          Caption = ' ANP Produto '
-          Color = clMoneyGreen
-          Ctl3D = True
-          FlatColor = clNavy
-          FlatColorAdjustment = 2
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentCtl3D = False
-          ParentFont = False
-          TabOrder = 65
-          VisualStyle = vsGradient
-          object Label91: TLabel
-            Left = 33
-            Top = 25
-            Width = 35
-            Height = 13
-            Alignment = taRightJustify
-            Caption = 'C.Prod:'
-          end
-          object Label92: TLabel
-            Left = 4
-            Top = 43
-            Width = 64
-            Height = 13
-            Alignment = taRightJustify
-            Caption = 'UF Consumo:'
-          end
-          object DBEdit75: TDBEdit
-            Left = 69
-            Top = 17
-            Width = 92
-            Height = 19
-            Color = clWhite
-            Ctl3D = False
-            DataField = 'ANP_PRODUTO'
-            DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
-            ParentCtl3D = False
-            TabOrder = 0
-          end
-          object DBEdit76: TDBEdit
-            Left = 69
-            Top = 35
-            Width = 39
-            Height = 19
-            Color = clWhite
-            Ctl3D = False
-            DataField = 'ANP_UF_CONS'
-            DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
-            ParentCtl3D = False
-            TabOrder = 1
-          end
         end
       end
     end

@@ -2001,6 +2001,11 @@ type
     qParametros_NFeIMP_TAMANHO_FINAL: TStringField;
     sdsProdutoTAMANHO: TStringField;
     cdsProdutoTAMANHO: TStringField;
+    sdsProdutoANP_ID: TIntegerField;
+    cdsProdutoANP_ID: TIntegerField;
+    qTab_CProd_ANP: TSQLQuery;
+    qTab_CProd_ANPCODIGO: TStringField;
+    qTab_CProd_ANPDESCRICAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
