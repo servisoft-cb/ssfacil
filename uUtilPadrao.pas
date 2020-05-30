@@ -1451,7 +1451,7 @@ begin
         Result := 'C2'  //Lotus
       else
         Result := 'C'; //RGB
-    end
+    end                                                         
     else
       Result := '';
   finally

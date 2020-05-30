@@ -22,9 +22,9 @@ object frmCadTabPreco: TfrmCadTabPreco
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 934
-    Height = 564
-    ActivePage = TS_Consulta
+    Width = 942
+    Height = 572
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadTabPreco: TfrmCadTabPreco
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -40,8 +40,8 @@ object frmCadTabPreco: TfrmCadTabPreco
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 104
-        Width = 930
-        Height = 420
+        Width = 938
+        Height = 428
         Align = alClient
         Ctl3D = False
         DataSource = DMCadTab_Preco.dsTab_Preco
@@ -103,7 +103,7 @@ object frmCadTabPreco: TfrmCadTabPreco
       object pnlPesquisa: TPanel
         Left = 0
         Top = 31
-        Width = 930
+        Width = 938
         Height = 73
         Align = alTop
         Color = clSilver
@@ -249,8 +249,8 @@ object frmCadTabPreco: TfrmCadTabPreco
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 524
-        Width = 930
+        Top = 532
+        Width = 938
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -266,7 +266,7 @@ object frmCadTabPreco: TfrmCadTabPreco
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 930
+        Width = 938
         Height = 31
         Align = alTop
         Color = clSilver
@@ -595,7 +595,7 @@ object frmCadTabPreco: TfrmCadTabPreco
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 930
+        Width = 938
         Height = 31
         Align = alTop
         Color = 8404992
@@ -824,8 +824,8 @@ object frmCadTabPreco: TfrmCadTabPreco
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 110
-        Width = 930
-        Height = 431
+        Width = 938
+        Height = 439
         ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
@@ -842,8 +842,8 @@ object frmCadTabPreco: TfrmCadTabPreco
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 49
-            Width = 926
-            Height = 342
+            Width = 934
+            Height = 350
             Align = alClient
             Ctl3D = False
             DataSource = DMCadTab_Preco.dsTab_Preco_Itens
@@ -982,7 +982,7 @@ object frmCadTabPreco: TfrmCadTabPreco
           object pnlItem: TPanel
             Left = 0
             Top = 0
-            Width = 926
+            Width = 934
             Height = 49
             Align = alTop
             Enabled = False
@@ -1295,8 +1295,8 @@ object frmCadTabPreco: TfrmCadTabPreco
           end
           object StaticText2: TStaticText
             Left = 0
-            Top = 391
-            Width = 926
+            Top = 399
+            Width = 934
             Height = 17
             Align = alBottom
             Caption = 'F3 para informar o mesmo pre'#231'o para os produtos selecionados'
@@ -1331,7 +1331,7 @@ object frmCadTabPreco: TfrmCadTabPreco
           object pnlExcluirSel: TPanel
             Left = 0
             Top = 0
-            Width = 926
+            Width = 934
             Height = 49
             Align = alTop
             Color = 11206655
@@ -1486,8 +1486,8 @@ object frmCadTabPreco: TfrmCadTabPreco
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 49
-            Width = 926
-            Height = 359
+            Width = 934
+            Height = 367
             Align = alClient
             Ctl3D = False
             DataSource = DMCadTab_Preco.dsPrecoProd
@@ -1601,13 +1601,13 @@ object frmCadTabPreco: TfrmCadTabPreco
       object pnlCliente: TPanel
         Left = 0
         Top = 31
-        Width = 930
+        Width = 938
         Height = 79
         Align = alTop
         Enabled = False
         TabOrder = 2
         DesignSize = (
-          930
+          938
           79)
         object Label18: TLabel
           Left = 15

@@ -1206,9 +1206,9 @@ begin
   begin
     DetXML.Prod.Comb.CProdANP := fDMNFe.mItensNFeANP_PRODUTO.AsString;
     DetXML.Prod.Comb.DescANP  := fDMNFe.mItensNFeANP_DESCRICAO.AsString;
-    DetXML.Prod.Comb.UFCons   := fDMNFe.mItensNFeANP_UF_CONS.AsString;
     DetXML.Prod.Comb.PGNn     := Replace(FormatFloat('0.0000',fDMNFe.mItensNFeANP_PERC_PGNN.AsFloat),',','.');
     DetXML.Prod.Comb.PGNi     := Replace(FormatFloat('0.0000',fDMNFe.mItensNFeANP_PERC_PGNI.AsFloat),',','.');
+    DetXML.Prod.Comb.UFCons   := fDMNFe.mItensNFeANP_UF_CONS.AsString;
   end;
 
 {* N  ICMS Normal e ST }
