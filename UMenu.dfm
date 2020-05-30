@@ -1001,6 +1001,10 @@ object fMenu: TfMenu
     end
     object Financeiro1: TMenuItem
       Caption = 'Financeiro'
+      object AdiantamentoCrditoCliente1: TMenuItem
+        Caption = 'Adiantamento (Cr'#233'dito) Cliente'
+        OnClick = AdiantamentoCrditoCliente1Click
+      end
       object Duplicatas1: TMenuItem
         Caption = 'Contas Pagar/Receber (Duplicatas)'
         OnClick = Duplicatas1Click
@@ -4390,6 +4394,24 @@ object fMenu: TfMenu
         CompName = 'btnDigitar'
         Caption = 'Digitar Metas'
         GroupName = 'Metas de Comiss'#227'o'
+      end
+      item
+        FormName = 'frmCadAdto_Mov'
+        CompName = 'btnInserir'
+        Caption = 'Inserir'
+        GroupName = 'Adiantamento Cliente'
+      end
+      item
+        FormName = 'frmCadAdto_Mov'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Adiantamento Cliente'
+      end
+      item
+        FormName = 'frmCadAdto_Mov'
+        CompName = 'btnAlterar'
+        Caption = 'Alterar'
+        GroupName = 'Adiantamento Cliente'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

@@ -3,10 +3,10 @@ unit UCadAdto_Mov;
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadDocEstoque, Math, 
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadAdto_Mov, Math, 
   DBGrids, ExtCtrls, StdCtrls, FMTBcd, SqlExpr, RzTabs, Mask, DBCtrls, ToolEdit, CurrEdit, RxLookup, RxDBComb, RXDBCtrl,
-  RzEdit, RzDBEdit, RzButton, UCadDocEstoque_Itens, UDMEstoque, UCBase, RzPanel, dbXPress, NxCollection,
-  DateUtils, DB, Menus, uEtiq_Individual, uDmConsPedido, UDMCadProduto_Lote;
+  RzEdit, RzDBEdit, RzButton, UCBase, RzPanel, dbXPress, NxCollection,
+  DateUtils, DB, Menus; 
 
 type
   TfrmCadAdto_Mov = class(TForm)
@@ -32,14 +32,8 @@ type
     btnAlterar: TNxButton;
     btnConfirmar: TNxButton;
     btnCancelar: TNxButton;
-    pnlTipo: TPanel;
-    Label3: TLabel;
-    rxcbTipo_Reg: TRxDBComboBox;
-    btnImp_Nota: TNxButton;
-    PopupMenu2: TPopupMenu;
-    Nota1: TMenuItem;
-    Etiquetas1: TMenuItem;
-    EtiquetaEstoque1: TMenuItem;
+    pnlCadastro: TPanel;
+    btnImprimir: TNxButton;
     lblTipo_Nota: TLabel;
     Label18: TLabel;
     Label80: TLabel;
@@ -51,6 +45,10 @@ type
     RxDBLookupCombo2: TRxDBLookupCombo;
     DBMemo1: TDBMemo;
     Label2: TLabel;
+    Label3: TLabel;
+    DBEdit1: TDBEdit;
+    Label4: TLabel;
+    Edit1: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -67,14 +65,14 @@ type
     procedure SMDBGrid1TitleClick(Column: TColumn);
   private
     { Private declarations }
-    fDMCadDocEstoque: TDMCadDocEstoque;
+    fDMCadAdto_Mov: TDMCadAdto_Mov;
 
     procedure prc_Inserir_Registro;
     procedure prc_Excluir_Registro;
     procedure prc_Gravar_Registro;
     procedure prc_Consultar(ID: Integer);
 
-    procedure prc_Posiciona_DocEstoque;
+    procedure prc_Posiciona_Registro;
 
     procedure prc_Habilitar;
 
@@ -99,10 +97,16 @@ end;
 
 procedure TfrmCadAdto_Mov.btnExcluirClick(Sender: TObject);
 begin
-  prc_Posiciona_DocEstoque;
+  prc_Posiciona_Registro;
 
-  if fDMCadDocEstoque.cdsDocEstoque.IsEmpty then
+  if fDMCadAdto_Mov.cdsAdto_Mov.IsEmpty then
     exit;
+
+  if fDMCadAdto_Mov.cdsAdto_MovTIPO_MOV.AsString <> 'MAN' then
+  begin
+    MessageDlg('*** Esse Registro foi gerado automático, não pode ser excluído!', mtError, [mbOk], 0);
+    exit;
+  end;
 
   if MessageDlg('Deseja excluir este registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
@@ -119,7 +123,7 @@ end;
 
 procedure TfrmCadAdto_Mov.prc_Excluir_Registro;
 begin
-  fDMCadDocEstoque.prc_Excluir;
+  fDMCadAdto_Mov.prc_Excluir;
 end;
 
 procedure TfrmCadAdto_Mov.prc_Gravar_Registro;
@@ -129,19 +133,11 @@ var
   ID: TTransactionDesc;
   vID_LocalAux: Integer;
 begin
-  if (fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger <= 0) and (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString <> 'S') then
+  fDMCadAdto_Mov.prc_Gravar;
+  vIDAux := fDMCadAdto_Mov.cdsAdto_MovID.AsInteger;
+  if fDMCadAdto_Mov.cdsAdto_Mov.State in [dsEdit,dsInsert] then
   begin
-    vID_LocalAux := fnc_Verificar_Local(fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString);
-    if vID_LocalAux <= 0 then
-      vID_LocalAux := 1;
-    fDMCadDocEstoque.cdsDocEstoqueID_LOCAL_ESTOQUE.AsInteger := vID_LocalAux;
-  end;
-
-  fDMCadDocEstoque.prc_Gravar;
-  vIDAux := fDMCadDocEstoque.cdsDocEstoqueID.AsInteger;
-  if fDMCadDocEstoque.cdsDocEstoque.State in [dsEdit,dsInsert] then
-  begin
-    MessageDlg(fDMCadDocEstoque.vMSGErro, mtError, [mbOk], 0);
+    MessageDlg(fDMCadAdto_Mov.vMSGErro, mtError, [mbOk], 0);
     exit;
   end;
 
@@ -152,12 +148,14 @@ end;
 
 procedure TfrmCadAdto_Mov.prc_Inserir_Registro;
 begin
-  fDMCadDocEstoque.prc_Inserir;
+  fDMCadAdto_Mov.prc_Inserir;
 
-  if fDMCadDocEstoque.cdsDocEstoque.State in [dsBrowse] then
+  if fDMCadAdto_Mov.cdsAdto_Mov.State in [dsBrowse] then
     exit;
 
   prc_Habilitar;
+
+  fDMCadAdto_Mov.cdsAdto_MovTIPO_MOV.AsString := 'MAN';
 
   RzPageControl1.ActivePage := TS_Cadastro;
 end;
@@ -167,8 +165,8 @@ var
   vData: TDateTime;
   i: Integer;
 begin
-  fDMCadDocEstoque := TDMCadDocEstoque.Create(Self);
-  oDBUtils.SetDataSourceProperties(Self, fDMCadDocEstoque);
+  fDMCadAdto_Mov := TDMCadAdto_Mov.Create(Self);
+  oDBUtils.SetDataSourceProperties(Self, fDMCadAdto_Mov);
 
   vData          := EncodeDate(YearOf(Date),MonthOf(Date),01);
   DateEdit1.Date := vData;
@@ -176,25 +174,29 @@ end;
 
 procedure TfrmCadAdto_Mov.prc_Consultar(ID: Integer);
 begin
-  fDMCadDocEstoque.cdsDocEstoque_Consulta.Close;
-  fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText := fDMCadDocEstoque.ctConsulta;
-  fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText := fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText +
-                                                         ' WHERE (TIPO_REG = ' + QuotedStr('D') + ' OR TIPO_REG = ' + QuotedStr('T') + ' OR TIPO_REG = ' + QuotedStr('P') + ')';
+  fDMCadAdto_Mov.cdsConsulta.Close;
+  fDMCadAdto_Mov.sdsConsulta.CommandText := fDMCadAdto_Mov.ctConsulta;
+  fDMCadAdto_Mov.sdsConsulta.CommandText := fDMCadAdto_Mov.sdsConsulta.CommandText + ' WHERE 0 = 0 ';
   if ID > 0 then
-    fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText := fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText +
-                                                           ' AND DC.ID = ' + IntToStr(ID);
+    fDMCadAdto_Mov.sdsConsulta.CommandText := fDMCadAdto_Mov.sdsConsulta.CommandText + ' AND a.ID = ' + IntToStr(ID);
+    
   case ComboBox1.ItemIndex of
-    0: fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText := fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText + ' AND DC.TIPO_ES = ' + QuotedStr('E');
-    1: fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText := fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText + ' AND DC.TIPO_ES = ' + QuotedStr('S');
+    0: fDMCadAdto_Mov.sdsConsulta.CommandText := fDMCadAdto_Mov.sdsConsulta.CommandText + ' AND A.TIPO_ES = ' + QuotedStr('E');
+    1: fDMCadAdto_Mov.sdsConsulta.CommandText := fDMCadAdto_Mov.sdsConsulta.CommandText + ' AND A.TIPO_ES = ' + QuotedStr('S');
   end;
 
   if DateEdit1.Date > 10 then
-    fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText := fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText
-                        + ' AND DC.DTMOVIMENTO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
+    fDMCadAdto_Mov.sdsConsulta.CommandText := fDMCadAdto_Mov.sdsConsulta.CommandText
+                        + ' AND a.data >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
   if DateEdit2.Date > 10 then
-    fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText := fDMCadDocEstoque.sdsDocEstoque_Consulta.CommandText
-                        + ' AND DC.DTMOVIMENTO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
-  fDMCadDocEstoque.cdsDocEstoque_Consulta.Open;
+    fDMCadAdto_Mov.sdsConsulta.CommandText := fDMCadAdto_Mov.sdsConsulta.CommandText
+                        + ' AND a.data <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
+
+  if trim(Edit1.Text) <> '' then
+    fDMCadAdto_Mov.sdsConsulta.CommandText := fDMCadAdto_Mov.sdsConsulta.CommandText
+                        + ' AND P.NOME like ' + QuotedStr('%'+Edit1.Text+'%');
+                        
+  fDMCadAdto_Mov.cdsConsulta.Open;
 end;
 
 procedure TfrmCadAdto_Mov.btnConsultarClick(Sender: TObject);
@@ -204,7 +206,7 @@ end;
 
 procedure TfrmCadAdto_Mov.btnCancelarClick(Sender: TObject);
 begin
-  if (fDMCadDocEstoque.cdsDocEstoque.State in [dsBrowse]) or not(fDMCadDocEstoque.cdsDocEstoque.Active) then
+  if (fDMCadAdto_Mov.cdsAdto_Mov.State in [dsBrowse]) or not(fDMCadAdto_Mov.cdsAdto_Mov.Active) then
   begin
     RzPageControl1.ActivePage := TS_Consulta;
     exit;
@@ -213,7 +215,7 @@ begin
   if MessageDlg('Deseja cancelar alteração/inclusão do registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
 
-  fDMCadDocEstoque.cdsDocEstoque.CancelUpdates;
+  fDMCadAdto_Mov.cdsAdto_Mov.CancelUpdates;
 
   prc_Habilitar;
 
@@ -228,12 +230,17 @@ end;
 
 procedure TfrmCadAdto_Mov.btnAlterarClick(Sender: TObject);
 begin
-  if (fDMCadDocEstoque.cdsDocEstoque.IsEmpty) or not(fDMCadDocEstoque.cdsDocEstoque.Active) or (fDMCadDocEstoque.cdsDocEstoqueID.AsInteger < 1) then
+  if (fDMCadAdto_Mov.cdsAdto_Mov.IsEmpty) or not(fDMCadAdto_Mov.cdsAdto_Mov.Active) or (fDMCadAdto_Mov.cdsAdto_MovID.AsInteger < 1) then
     exit;
 
-  fDMCadDocEstoque.cdsDocEstoque.Edit;
+  if fDMCadAdto_Mov.cdsAdto_MovTIPO_MOV.AsString <> 'MAN' then
+  begin
+    MessageDlg('*** Esse Registro foi gerado automático, não pode ser alterado!', mtError, [mbOk], 0);
+    exit;
+  end;
+
+  fDMCadAdto_Mov.cdsAdto_Mov.Edit;
   prc_Habilitar;
-  pnlTipo.Enabled := False;
 end;
 
 procedure TfrmCadAdto_Mov.btnConfirmarClick(Sender: TObject);
@@ -243,23 +250,23 @@ end;
 
 procedure TfrmCadAdto_Mov.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(fDMCadDocEstoque);
+  FreeAndNil(fDMCadAdto_Mov);
 end;
 
-procedure TfrmCadAdto_Mov.prc_Posiciona_DocEstoque;
+procedure TfrmCadAdto_Mov.prc_Posiciona_Registro;
 begin
-  fDMCadDocEstoque.prc_Localizar(fDMCadDocEstoque.cdsDocEstoque_ConsultaID.AsInteger);
+  fDMCadAdto_Mov.prc_Localizar(fDMCadAdto_Mov.cdsConsultaID.AsInteger);
 end;
 
 procedure TfrmCadAdto_Mov.RzPageControl1Change(Sender: TObject);
 begin
-  if not(fDMCadDocEstoque.cdsDocEstoque.State in [dsEdit, dsInsert]) then
+  if not(fDMCadAdto_Mov.cdsAdto_Mov.State in [dsEdit, dsInsert]) then
   begin
     if RzPageControl1.ActivePage = TS_Cadastro then
     begin
-      if not(fDMCadDocEstoque.cdsDocEstoque_Consulta.Active) or (fDMCadDocEstoque.cdsDocEstoque_Consulta.IsEmpty) or (fDMCadDocEstoque.cdsDocEstoque_ConsultaID.AsInteger <= 0) then
+      if not(fDMCadAdto_Mov.cdsConsulta.Active) or (fDMCadAdto_Mov.cdsConsulta.IsEmpty) or (fDMCadAdto_Mov.cdsConsultaID.AsInteger <= 0) then
         exit;
-      prc_Posiciona_DocEstoque;
+      prc_Posiciona_Registro;
     end;
   end;
 end;
@@ -268,7 +275,7 @@ procedure TfrmCadAdto_Mov.prc_Habilitar;
 begin
   TS_Consulta.TabEnabled := not(TS_Consulta.TabEnabled);
 
-  pnlTipo.Enabled        := not(pnlTipo.Enabled);
+  pnlCadastro.Enabled    := not(pnlCadastro.Enabled);
   btnConfirmar.Enabled   := not(btnConfirmar.Enabled);
   btnAlterar.Enabled     := not(btnAlterar.Enabled);
 end;
@@ -276,7 +283,7 @@ end;
 procedure TfrmCadAdto_Mov.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
-  CanClose := fnc_Encerrar_Tela(fDMCadDocEstoque.cdsDocEstoque);
+  CanClose := fnc_Encerrar_Tela(fDMCadAdto_Mov.cdsAdto_Mov);
 end;
 
 procedure TfrmCadAdto_Mov.btnPesquisarClick(Sender: TObject);
@@ -292,7 +299,7 @@ var
   ColunaOrdenada: String;
 begin
   ColunaOrdenada := Column.FieldName;
-  fDMCadDocEstoque.cdsDocEstoque.IndexFieldNames := Column.FieldName;
+  fDMCadAdto_Mov.cdsAdto_Mov.IndexFieldNames := Column.FieldName;
   Column.Title.Color := clBtnShadow;
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then

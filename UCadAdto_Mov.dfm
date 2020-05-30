@@ -24,7 +24,7 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
     Top = 0
     Width = 937
     Height = 638
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -45,7 +45,7 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
         Height = 496
         Align = alClient
         Ctl3D = False
-        DataSource = DMCadDocEstoque.dsDocEstoque_Consulta
+        DataSource = DMCadAdto_Mov.dsConsulta
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
         ParentCtl3D = False
         ReadOnly = True
@@ -75,106 +75,98 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 14
+        ColCount = 12
         RowCount = 2
         Columns = <
           item
             Alignment = taCenter
             Expanded = False
             FieldName = 'ID'
-            Width = 50
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Mov.'
             Visible = True
           end
           item
             Alignment = taCenter
             Expanded = False
-            FieldName = 'TIPO_REG'
+            FieldName = 'DESC_TIPO_ES'
             Title.Alignment = taCenter
-            Title.Caption = 'Tipo Reg.'
-            Width = 37
+            Title.Caption = 'Tipo ES'
+            Width = 76
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'DESC_TIPO_MOV'
+            Title.Alignment = taCenter
+            Title.Caption = 'Tipo Mov'
+            Width = 94
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME_PESSOA'
             Title.Alignment = taCenter
-            Title.Caption = 'Nome Cliente/Fornecedor'
-            Width = 241
+            Title.Caption = 'Nome'
             Visible = True
           end
           item
             Alignment = taCenter
             Expanded = False
-            FieldName = 'DTMOVIMENTO'
-            Width = 89
+            FieldName = 'DATA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Data'
+            Width = 90
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'VALOR'
+            Title.Alignment = taCenter
+            Title.Caption = 'Valor'
+            Width = 68
             Visible = True
           end
           item
             Alignment = taCenter
             Expanded = False
-            FieldName = 'FILIAL'
-            Width = 31
+            FieldName = 'NUMDUPLICATA'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Duplicata'
+            Width = 94
             Visible = True
           end
           item
             Alignment = taCenter
             Expanded = False
-            FieldName = 'TIPO_ES'
+            FieldName = 'NUMNOTA'
             Title.Alignment = taCenter
-            Title.Caption = 'Entrada / Sa'#237'da'
-            Width = 48
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VLR_TOTAL'
-            Width = 74
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NOME_FILIAL'
-            Title.Alignment = taCenter
-            Title.Caption = 'Filial Origem'
-            Width = 229
+            Title.Caption = 'N'#186' Nota'
+            Width = 70
             Visible = True
           end
           item
             Alignment = taCenter
             Expanded = False
-            FieldName = 'FILIAL_DESTINO'
+            FieldName = 'SERIE'
             Title.Alignment = taCenter
-            Title.Caption = 'Filial Destino'
-            Width = 43
+            Title.Caption = 'S'#233'rie'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ID_PESSOA'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Pessoa'
             Visible = True
           end
           item
             Expanded = False
-            FieldName = 'NOME_FILIAL_DEST'
+            FieldName = 'OBS'
             Title.Alignment = taCenter
-            Title.Caption = 'Filial Destino'
-            Width = 191
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'USUARIO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Usu'#225'rio'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'DTUSUARIO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Dt. Cadastro'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'HRUSUARIO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Hr. Cadastro'
+            Width = 481
             Visible = True
           end>
       end
@@ -209,13 +201,20 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
           Height = 13
           Caption = 'Final:'
         end
+        object Label4: TLabel
+          Left = 24
+          Top = 10
+          Width = 69
+          Height = 13
+          Caption = 'Nome Pessoa:'
+        end
         object DateEdit1: TDateEdit
           Left = 95
           Top = 26
           Width = 90
           Height = 21
           NumGlyphs = 2
-          TabOrder = 0
+          TabOrder = 1
         end
         object DateEdit2: TDateEdit
           Left = 256
@@ -223,7 +222,7 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
           Width = 90
           Height = 21
           NumGlyphs = 2
-          TabOrder = 1
+          TabOrder = 2
         end
         object ComboBox1: TComboBox
           Left = 95
@@ -233,7 +232,7 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
           Style = csDropDownList
           ItemHeight = 13
           ItemIndex = 2
-          TabOrder = 2
+          TabOrder = 3
           Text = 'Ambos'
           Items.Strings = (
             'Entrada'
@@ -308,9 +307,17 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 3
+          TabOrder = 4
           Transparent = True
           OnClick = btnConsultarClick
+        end
+        object Edit1: TEdit
+          Left = 95
+          Top = 3
+          Width = 248
+          Height = 21
+          CharCase = ecUpperCase
+          TabOrder = 0
         end
       end
       object StaticText1: TStaticText
@@ -320,7 +327,7 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
-        Caption = 'Duplo clique para consultar         F5=Cons. Estoque'
+        Caption = 'Duplo clique para consultar    '
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clMaroon
         Font.Height = -11
@@ -560,7 +567,7 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
           Transparent = True
           OnClick = btnPesquisarClick
         end
-        object btnImp_Nota: TNxButton
+        object btnImprimir: TNxButton
           Left = 460
           Top = 1
           Width = 142
@@ -629,8 +636,6 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
             FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          PopupMenu = PopupMenu2
-          ShowArrow = True
           TabOrder = 3
           Transparent = True
         end
@@ -867,7 +872,7 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
           OnClick = btnCancelarClick
         end
       end
-      object pnlTipo: TPanel
+      object pnlCadastro: TPanel
         Left = 0
         Top = 30
         Width = 933
@@ -875,37 +880,29 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
         Align = alClient
         Enabled = False
         TabOrder = 0
-        object Label3: TLabel
-          Left = 80
-          Top = 12
-          Width = 24
-          Height = 13
-          Alignment = taRightJustify
-          Caption = 'Tipo:'
-        end
         object lblTipo_Nota: TLabel
           Left = 30
-          Top = 44
+          Top = 20
           Width = 74
           Height = 13
           Alignment = taRightJustify
           Caption = 'Entrada/Sa'#237'da:'
         end
         object Label18: TLabel
-          Left = 232
-          Top = 43
+          Left = 78
+          Top = 42
           Width = 26
           Height = 13
           Alignment = taRightJustify
           Caption = 'Data:'
         end
         object Label80: TLabel
-          Left = 695
-          Top = 43
-          Width = 45
+          Left = 718
+          Top = 11
+          Width = 14
           Height = 13
           Alignment = taRightJustify
-          Caption = 'Vlr. Total:'
+          Caption = 'ID:'
         end
         object Label1: TLabel
           Left = 10
@@ -965,97 +962,95 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
           Margin = 0
         end
         object Label2: TLabel
-          Left = 75
-          Top = 97
+          Left = 82
+          Top = 118
           Width = 22
           Height = 13
           Alignment = taRightJustify
           Caption = 'Obs:'
         end
-        object rxcbTipo_Reg: TRxDBComboBox
-          Left = 105
-          Top = 4
-          Width = 118
-          Height = 21
-          Style = csDropDownList
-          DataField = 'TIPO_REG'
-          DataSource = DMCadDocEstoque.dsDocEstoque
-          EnableValues = True
-          ItemHeight = 13
-          Items.Strings = (
-            'Documento'
-            'Transfer'#234'ncia'
-            'Produ'#231#227'o')
-          TabOrder = 0
-          Values.Strings = (
-            'D'
-            'T'
-            'P')
+        object Label3: TLabel
+          Left = 77
+          Top = 89
+          Width = 27
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Valor:'
         end
         object rxcbTipo_ES: TRxDBComboBox
-          Left = 106
-          Top = 36
+          Left = 107
+          Top = 12
           Width = 118
           Height = 21
           Style = csDropDownList
           DataField = 'TIPO_ES'
-          DataSource = DMCadDocEstoque.dsDocEstoque
+          DataSource = DMCadAdto_Mov.dsAdto_Mov
           EnableValues = True
           ItemHeight = 13
           Items.Strings = (
             'Sa'#237'da'
             'Entrada')
-          TabOrder = 1
+          TabOrder = 0
           Values.Strings = (
             'S'
             'E')
         end
         object DBDateEdit1: TDBDateEdit
-          Left = 261
-          Top = 36
+          Left = 107
+          Top = 35
           Width = 90
           Height = 21
-          DataField = 'DTMOVIMENTO'
-          DataSource = DMCadDocEstoque.dsDocEstoque
+          DataField = 'DATA'
+          DataSource = DMCadAdto_Mov.dsAdto_Mov
           NumGlyphs = 2
-          TabOrder = 2
+          TabOrder = 1
         end
         object DBEdit52: TDBEdit
-          Left = 744
-          Top = 35
-          Width = 150
+          Left = 737
+          Top = 3
+          Width = 83
           Height = 21
           TabStop = False
           CharCase = ecUpperCase
           Color = clSilver
-          DataField = 'VLR_TOTAL'
-          DataSource = DMCadDocEstoque.dsDocEstoque
+          DataField = 'ID'
+          DataSource = DMCadAdto_Mov.dsAdto_Mov
           MaxLength = 18
           ReadOnly = True
-          TabOrder = 3
+          TabOrder = 5
         end
         object RxDBLookupCombo2: TRxDBLookupCombo
-          Left = 105
+          Left = 107
           Top = 58
           Width = 488
           Height = 21
           DropDownCount = 15
+          DropDownWidth = 700
           DataField = 'ID_PESSOA'
-          DataSource = DMCadDocEstoque.dsDocEstoque
+          DataSource = DMCadAdto_Mov.dsAdto_Mov
           LookupField = 'CODIGO'
-          LookupDisplay = 'NOME'
-          LookupSource = DMCadDocEstoque.dsPessoa
-          TabOrder = 4
+          LookupDisplay = 'NOME;CNPJ_CPF'
+          LookupSource = DMCadAdto_Mov.dsPessoa
+          TabOrder = 2
         end
         object DBMemo1: TDBMemo
-          Left = 105
-          Top = 82
+          Left = 107
+          Top = 103
           Width = 632
           Height = 52
           DataField = 'OBS'
-          DataSource = DMCadDocEstoque.dsDocEstoque
+          DataSource = DMCadAdto_Mov.dsAdto_Mov
           ScrollBars = ssVertical
-          TabOrder = 5
+          TabOrder = 4
+        end
+        object DBEdit1: TDBEdit
+          Left = 107
+          Top = 81
+          Width = 121
+          Height = 21
+          DataField = 'VALOR'
+          DataSource = DMCadAdto_Mov.dsAdto_Mov
+          TabOrder = 3
         end
       end
     end
@@ -1066,18 +1061,5 @@ object frmCadAdto_Mov: TfrmCadAdto_Mov
     NotAllowed = naDisabled
     Left = 578
     Top = 60
-  end
-  object PopupMenu2: TPopupMenu
-    Left = 542
-    Top = 33
-    object Nota1: TMenuItem
-      Caption = 'Documento'
-    end
-    object Etiquetas1: TMenuItem
-      Caption = 'Etiquetas'
-    end
-    object EtiquetaEstoque1: TMenuItem
-      Caption = 'Etiqueta Estoque'
-    end
   end
 end

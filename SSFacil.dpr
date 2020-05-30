@@ -851,7 +851,8 @@ uses
   UConsAdto in 'UConsAdto.pas' {frmConsAdto},
   UCadAdto_Mov in 'UCadAdto_Mov.pas' {frmCadAdto_Mov},
   UCadNotaFiscal_Itens_ANP in 'UCadNotaFiscal_Itens_ANP.pas' {frmCadNotaFiscal_Itens_ANP},
-  USel_ANP in 'USel_ANP.pas' {frmSel_ANP};
+  USel_ANP in 'USel_ANP.pas' {frmSel_ANP},
+  UDMCadAdto_Mov in 'UDMCadAdto_Mov.pas' {DMCadAdto_Mov: TDataModule};
 
 {$R *.res}
 

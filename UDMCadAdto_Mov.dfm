@@ -1,8 +1,8 @@
-object DMCadAdto: TDMCadAdto
+object DMCadAdto_Mov: TDMCadAdto_Mov
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 257
-  Top = 40
+  Left = 350
+  Top = 154
   Height = 436
   Width = 670
   object sdsAdto_Mov: TSQLDataSet
@@ -12,8 +12,8 @@ object DMCadAdto: TDMCadAdto
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 130
-    Top = 5
+    Left = 129
+    Top = 6
     object sdsAdto_MovID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -54,16 +54,16 @@ object DMCadAdto: TDMCadAdto
     DataSet = sdsAdto_Mov
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspAdto_MovUpdateError
-    Left = 199
-    Top = 5
+    Left = 200
+    Top = 6
   end
   object cdsAdto_Mov: TClientDataSet
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
-    ProviderName = 'dspAdto'
+    ProviderName = 'dspAdto_Mov'
     Left = 259
-    Top = 6
+    Top = 8
     object cdsAdto_MovID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -110,13 +110,18 @@ object DMCadAdto: TDMCadAdto
     GetMetadata = False
     CommandText = 
       'select a.*, p.nome nome_pessoa, DUP.numduplicata, N.numnota, N.s' +
-      'erie'#13#10'from adto_mov a'#13#10'inner join pessoa p'#13#10'on a.id_pessoa = p.c' +
-      'odigo'#13#10'LEFT JOIN DUPLICATA DUP'#13#10'ON A.id_duplicata = DUP.ID'#13#10'LEFT' +
-      ' JOIN NOTAFISCAL N'#13#10'ON A.id_notafiscal = N.ID'#13#10#13#10
+      'erie,'#13#10'CASE'#13#10'  WHEN A.TIPO_ES = '#39'E'#39' THEN '#39'Entrada'#39#13#10'  WHEN A.TIP' +
+      'O_ES = '#39'S'#39' THEN '#39'Sa'#237'da'#39#13#10'  else '#39#39#13#10'  end DESC_TIPO_ES,'#13#10'case'#13#10' ' +
+      ' when a.tipo_mov = '#39'DUP'#39' then '#39'T'#237'tulo'#39#13#10'  when a.tipo_mov = '#39'NTS' +
+      #39' then '#39'Nota Fiscal'#39#13#10'  when a.tipo_mov = '#39'MAN'#39' then '#39'Manual'#39#13#10' ' +
+      ' else a.tipo_mov'#13#10'  end DESC_TIPO_MOV'#13#10'from adto_mov a'#13#10'inner jo' +
+      'in pessoa p'#13#10'on a.id_pessoa = p.codigo'#13#10'LEFT JOIN DUPLICATA DUP'#13 +
+      #10'ON A.id_duplicata = DUP.ID'#13#10'LEFT JOIN NOTAFISCAL N'#13#10'ON A.id_not' +
+      'afiscal = N.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 471
+    Left = 470
     Top = 9
   end
   object dspConsulta: TDataSetProvider
@@ -143,6 +148,7 @@ object DMCadAdto: TDMCadAdto
     end
     object cdsConsultaVALOR: TFloatField
       FieldName = 'VALOR'
+      DisplayFormat = '###,###,##0.00'
     end
     object cdsConsultaTIPO_ES: TStringField
       FieldName = 'TIPO_ES'
@@ -179,6 +185,16 @@ object DMCadAdto: TDMCadAdto
       FieldName = 'SERIE'
       Size = 3
     end
+    object cdsConsultaDESC_TIPO_ES: TStringField
+      FieldName = 'DESC_TIPO_ES'
+      Required = True
+      FixedChar = True
+      Size = 7
+    end
+    object cdsConsultaDESC_TIPO_MOV: TStringField
+      FieldName = 'DESC_TIPO_MOV'
+      Size = 11
+    end
   end
   object dsConsulta: TDataSource
     DataSet = cdsConsulta
@@ -190,7 +206,8 @@ object DMCadAdto: TDMCadAdto
     GetMetadata = False
     CommandText = 
       'SELECT CODIGO, NOME, CNPJ_CPF, CIDADE, TP_CLIENTE, TP_FORNECEDOR' +
-      ', FANTASIA'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39#13#10
+      ', FANTASIA'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39#13#10'  AND TP_CLIENTE =' +
+      ' '#39'S'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

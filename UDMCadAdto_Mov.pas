@@ -1,4 +1,4 @@
-unit UDMCadAdto;
+unit UDMCadAdto_Mov;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   SqlExpr;
 
 type
-  TDMCadAdto = class(TDataModule)
+  TDMCadAdto_Mov = class(TDataModule)
     sdsAdto_Mov: TSQLDataSet;
     dspAdto_Mov: TDataSetProvider;
     cdsAdto_Mov: TClientDataSet;
@@ -63,6 +63,8 @@ type
     cdsPessoaTP_CLIENTE: TStringField;
     cdsPessoaTP_FORNECEDOR: TStringField;
     cdsPessoaFANTASIA: TStringField;
+    cdsConsultaDESC_TIPO_ES: TStringField;
+    cdsConsultaDESC_TIPO_MOV: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspAdto_MovUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -79,12 +81,10 @@ type
     procedure prc_Inserir;
     procedure prc_Gravar;
     procedure prc_Excluir;
-    procedure prc_Excluir_Item;
-    procedure prc_Inserir_Itens;
   end;
 
 var
-  DMCadAdto: TDMCadAdto;
+  DMCadAdto_Mov: TDMCadAdto_Mov;
 
 implementation
 
@@ -94,7 +94,7 @@ uses DmdDatabase, Math, uUtilPadrao, LogProvider;
 
 { TDMCadCFOP}
 
-procedure TDMCadAdto.prc_Inserir;
+procedure TDMCadAdto_Mov.prc_Inserir;
 var
   vAux: Integer;
 begin
@@ -103,11 +103,11 @@ begin
   vAux := dmDatabase.ProximaSequencia('ADTO_MOV',0);
 
   cdsAdto_Mov.Insert;
-  cdsAdto_MovID.AsInteger           := vAux;
-  cdsAdto_MovDTMOVIMENTO.AsDateTime := Date;
+  cdsAdto_MovID.AsInteger    := vAux;
+  cdsAdto_MovDATA.AsDateTime := Date;
 end;
 
-procedure TDMCadAdto.prc_Excluir;
+procedure TDMCadAdto_Mov.prc_Excluir;
 begin
   if not(cdsAdto_Mov.Active) or (cdsAdto_Mov.IsEmpty) then
     exit;
@@ -115,15 +115,15 @@ begin
   cdsAdto_Mov.ApplyUpdates(0);
 end;
 
-procedure TDMCadAdto.prc_Gravar;
+procedure TDMCadAdto_Mov.prc_Gravar;
 begin
   vMsgErro := '';
   if (cdsAdto_MovTIPO_ES.AsString <> 'E') and (cdsAdto_MovTIPO_ES.AsString <> 'S') then
     vMsgErro := vMsgErro + #13 + '*** Tipo Entrada ou Saída não informado!';
   if cdsAdto_MovID_PESSOA.AsInteger <= 0 then
     vMsgErro := vMsgErro + #13 + '*** Pessoa não informada!';
-  if cdsAdto_MovDATA.AsDateTime <= 10
-    vMsgErro := vMsgErro + #13 + '*** Data não informada!';
+  if cdsAdto_MovDATA.AsDateTime <= 10 then
+    vMSGErro := vMsgErro + #13 + '*** Data não informada!';
   if StrToFloat(FormatFloat('0.00',cdsAdto_MovVALOR.AsFloat)) <= 0 then
     vMsgErro := vMsgErro + #13 + '*** Valor não informado!';
   if trim(vMsgErro) <> '' then
@@ -132,7 +132,7 @@ begin
   cdsAdto_Mov.ApplyUpdates(0);
 end;
 
-procedure TDMCadAdto.prc_Localizar(ID: Integer); //-1 é para inclusão
+procedure TDMCadAdto_Mov.prc_Localizar(ID: Integer); //-1 é para inclusão
 begin
   cdsAdto_Mov.Close;
   sdsAdto_Mov.CommandText := ctCommand;
@@ -141,7 +141,7 @@ begin
   cdsAdto_Mov.Open;
 end;
 
-procedure TDMCadAdto.DataModuleCreate(Sender: TObject);
+procedure TDMCadAdto_Mov.DataModuleCreate(Sender: TObject);
 var
   i, x: Integer;
   SR: TSearchRec;
@@ -181,14 +181,14 @@ begin
   //***********************
 end;
 
-procedure TDMCadAdto.dspAdto_MovUpdateError(Sender: TObject;
+procedure TDMCadAdto_Mov.dspAdto_MovUpdateError(Sender: TObject;
   DataSet: TCustomClientDataSet; E: EUpdateError; UpdateKind: TUpdateKind;
   var Response: TResolverResponse);
 begin
   dmDatabase.prc_UpdateError(DataSet.Name,UpdateKind,E);
 end;
 
-procedure TDMCadAdto.DoLogAdditionalValues(ATableName: string;
+procedure TDMCadAdto_Mov.DoLogAdditionalValues(ATableName: string;
   var AValues: TArrayLogData; var UserName: string);
 begin
   UserName := vUsuario;
