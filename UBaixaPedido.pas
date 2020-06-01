@@ -211,7 +211,8 @@ begin
   begin
     if SMDBGrid1.Columns[i].FieldName = vCampoAux then
       SMDBGrid1.Columns[i].Visible := False;
-    if ((SMDBGrid1.Columns[i].FieldName = 'NUM_DOC') OR (SMDBGrid1.Columns[i].FieldName = 'NUMOS') OR (SMDBGrid1.Columns[i].FieldName = 'NUM_TALAO')) and (fDMBaixaPedido.qParametrosEMPRESA_NAVALHA.AsString <> 'S') then
+    if ((SMDBGrid1.Columns[i].FieldName = 'NUM_DOC') OR (SMDBGrid1.Columns[i].FieldName = 'NUMOS') OR
+       (SMDBGrid1.Columns[i].FieldName = 'NUM_TALAO')) and (fDMBaixaPedido.qParametrosEMPRESA_NAVALHA.AsString <> 'S') then
       SMDBGrid1.Columns[i].Visible := False;
     if vTipo_Baixa_Ped = 'COM' then
     begin
@@ -222,8 +223,6 @@ begin
         SMDBGrid1.Columns[i].Visible := False;
     end;
   end;
-
-
 end;
 
 procedure TfrmBaixaPedido.SMDBGrid1TitleClick(Column: TColumn);
@@ -284,8 +283,8 @@ procedure TfrmBaixaPedido.btnConfBaixaClick(Sender: TObject);
 var
   vContadorAux: Integer;
   vEstoque: String;
-  VOBSAux : String;
-  vGravar : Boolean;
+  VOBSAux: String;
+  vGravar: Boolean;
 begin
   if DateEdit5.Date < 10 then
   begin

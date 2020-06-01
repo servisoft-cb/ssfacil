@@ -270,6 +270,12 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsDuplicataVLR_ADTO: TFloatField
       FieldName = 'VLR_ADTO'
     end
+    object sdsDuplicataID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object sdsDuplicataPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
+    end
   end
   object dspDuplicata: TDataSetProvider
     DataSet = sdsDuplicata
@@ -561,6 +567,12 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object cdsDuplicataVLR_ADTO: TFloatField
       FieldName = 'VLR_ADTO'
+    end
+    object cdsDuplicataID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object cdsDuplicataPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
     end
   end
   object dsDuplicata: TDataSource
@@ -4133,6 +4145,11 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object qParametros_GeralMOSTRAR_COD_CONTABIL: TStringField
       FieldName = 'MOSTRAR_COD_CONTABIL'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_GeralUSA_VENDEDOR_INT: TStringField
+      FieldName = 'USA_VENDEDOR_INT'
       FixedChar = True
       Size = 1
     end

@@ -220,7 +220,7 @@ type
 
     function fnc_Controla_Est(Tipo: String; Qtd: Real): Integer; //Tipo I=Lendo Tabela Itens   T=Lendo tabela de tamanhos
 
-    function fnc_Busca_Cond_AVista : Integer;
+    function fnc_Busca_Cond_AVista: Integer;
 
   public
     { Public declarations }
@@ -233,8 +233,8 @@ var
 implementation
 
 uses DmdDatabase, rsDBUtils, uUtilPadrao, USel_Pessoa, uCalculo_NotaFiscal, uUtilCliente, uUtilCobranca, UDMAprovacao_Ped,
-  UConsPessoa_Fin, UConsPedido_Senha, UDMRecNF, USel_ContaOrc, USenha, uGrava_NotaFiscal, USel_Vale, UMenu,
-  UCadNotaFiscal_Desconto, UCadNotaFiscal_Canc, uMenu1, classe.validaemail;
+  UConsPessoa_Fin, UConsPedido_Senha, UDMRecNF, USel_ContaOrc, USenha, uGrava_NotaFiscal, USel_Vale, UMenu, uMenu1,
+  UCadNotaFiscal_Desconto, UCadNotaFiscal_Canc, classe.validaemail;
 
 {$R *.dfm}
 
@@ -265,7 +265,7 @@ begin
 
   if (trim(fDMCadNotaFiscal.cdsNotaFiscalNFEAMBIENTE.AsString) = '1') and (trim(fDMCadNotaFiscal.cdsNotaFiscalNFECHAVEACESSO.AsString) <> '') then
   begin
-    MessageDlg('*** Nota não pode ser excluida, já possui chave de acesso!' , mtInformation, [mbOk], 0);
+    MessageDlg('*** Nota não pode ser excluída, já possui chave de acesso!' , mtInformation, [mbOk], 0);
     exit;
   end;
 
@@ -639,7 +639,7 @@ begin
   if (fDMCadNotaFiscal.cdsParametrosBAIXA_ESTOQUE_MP.AsString = 'F') and ((fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString = 'S') or
      (fDMCadNotaFiscal.cdsNotaFiscalNOTA_ESTORNO.AsString = 'S')) and (fDMCadNotaFiscal.cdsNotaFiscalTIPO_REG.AsString = 'RNF') then
     FreeAndNil(fDMCadNotaFiscal_MP);
-  TS_Consulta.TabEnabled    := True;
+  TS_Consulta.TabEnabled  := True;
   prc_Habilitar_CamposNota;
 
   NxDatePicker1.Date := fDMCadNotaFiscal.cdsNotaFiscalDTEMISSAO.AsDateTime;
@@ -759,8 +759,8 @@ begin
                                                           ' AND ((CLI.NOME LIKE ' + QuotedStr('%'+Edit2.Text+'%') + ')' +
                                                           ' OR (CLI.FANTASIA LIKE ' + QuotedStr('%'+Edit2.Text+'%') + '))';
     case RadioGroup1.ItemIndex of
-      1 : fDMCadNotaFiscal.sdsNotaFiscal_Consulta.CommandText := fDMCadNotaFiscal.sdsNotaFiscal_Consulta.CommandText + ' AND NT.CANCELADA = ' + QuotedStr('S');
-      2 : fDMCadNotaFiscal.sdsNotaFiscal_Consulta.CommandText := fDMCadNotaFiscal.sdsNotaFiscal_Consulta.CommandText + ' AND NT.CANCELADA = ' + QuotedStr('N');
+      1: fDMCadNotaFiscal.sdsNotaFiscal_Consulta.CommandText := fDMCadNotaFiscal.sdsNotaFiscal_Consulta.CommandText + ' AND NT.CANCELADA = ' + QuotedStr('S');
+      2: fDMCadNotaFiscal.sdsNotaFiscal_Consulta.CommandText := fDMCadNotaFiscal.sdsNotaFiscal_Consulta.CommandText + ' AND NT.CANCELADA = ' + QuotedStr('N');
     end;
     
   end;
@@ -864,10 +864,10 @@ var
   vAux: Real;
   vID_LocalAux: Integer;
   vFlag: Boolean;
-  vNaoContDupl : Boolean;
-  vAuxLim : Real;
+  vNaoContDupl: Boolean;
+  vAuxLim: Real;
   sds: TSQLDataSet;
-  vNumAux : Integer;
+  vNumAux: Integer;
 begin
   if (trim(fDMCadNotaFiscal.cdsNotaFiscalNFEDENEGADA.AsString) = '') or (fDMCadNotaFiscal.cdsNotaFiscalNFEDENEGADA.IsNull) then
     fDMCadNotaFiscal.cdsNotaFiscalNFEDENEGADA.AsString := 'N';
@@ -906,6 +906,12 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO.AsFloat := 0;
     fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_PAGAR_NOTA.AsFloat := 0;
   end;
+  if fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger < 1 then
+  begin
+    fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_INT.AsFloat := 0;
+    fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_PAGAR_NOTA.AsFloat := 0;
+  end;
+
   fDMCadNotaFiscal.cdsNotaFiscalTIPO_REG.AsString := vTipo_Reg;
   if (fDMCadNotaFiscal.cdsNotaFiscalTIPO_PRAZO.AsString = 'V') and not(fDMCadNotaFiscal.cdsNotaFiscal_Parc.IsEmpty) then
   begin
@@ -1271,10 +1277,10 @@ end;
 
 procedure TfrmCadRecNF.prc_Posicionar_Cliente;
 begin
-  fDMCadNotaFiscal.vSiglaUF  := '';
+  fDMCadNotaFiscal.vSiglaUF := '';
   if fDMCadNotaFiscal.cdsClienteCODIGO.AsInteger <> fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger then
     fDMCadNotaFiscal.cdsCliente.Locate('CODIGO',fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,[loCaseInsensitive]);
-  if fDMCadNotaFiscal.cdsUFUF.AsString  <> fDMCadNotaFiscal.cdsClienteUF.AsString then
+  if fDMCadNotaFiscal.cdsUFUF.AsString <> fDMCadNotaFiscal.cdsClienteUF.AsString then
     fDMCadNotaFiscal.cdsUF.Locate('UF',fDMCadNotaFiscal.cdsClienteUF.AsString,[loCaseInsensitive]);
   if (fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR.AsInteger > 0) and (fDMCadNotaFiscal.cdsVendedorCODIGO.AsInteger <>
       fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR.AsInteger) then
@@ -1845,11 +1851,11 @@ end;
 procedure TfrmCadRecNF.Recibo1Click(Sender: TObject);
 var
   fDMRecNF: TDMRecNF;
-  vArq, x : String;
-  vObsAux : String;
-  email : TValidaEmail;
-  enviar : TfrxMailExport;
-  pdf : TfrxPDFExport;
+  vArq, x: String;
+  vObsAux: String;
+  email: TValidaEmail;
+  enviar: TfrxMailExport;
+  pdf: TfrxPDFExport;
 begin
   if not (fDMCadNotaFiscal.cdsNotaFiscal_Consulta.Active) or (fDMCadNotaFiscal.cdsNotaFiscal_Consulta.IsEmpty) or
          (fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger < 1) then
@@ -1943,7 +1949,7 @@ end;
 
 procedure TfrmCadRecNF.Detalhado1Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   if not (fDMCadNotaFiscal.cdsNotaFiscal_Consulta.Active) or (fDMCadNotaFiscal.cdsNotaFiscal_Consulta.IsEmpty) then
   begin
@@ -1971,7 +1977,7 @@ end;
 
 procedure TfrmCadRecNF.DetalhadoPorVendedor1Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   fDMCadNotaFiscal.cdsNotaFiscal_Consulta.IndexFieldNames := 'NOME_VENDEDOR;SERIE;NUMNOTA';
 
@@ -2068,7 +2074,7 @@ end;
 procedure TfrmCadRecNF.btnCancelar_RecClick(Sender: TObject);
 var
   ffrmCadNotaFiscal_Canc: TfrmCadNotaFiscal_Canc;
-  vIDAux : Integer;
+  vIDAux: Integer;
 begin
   if not fnc_Verifica_Registro then
     exit;

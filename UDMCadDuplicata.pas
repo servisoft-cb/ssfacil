@@ -1057,6 +1057,11 @@ type
     sdsDuplicata_HistVLR_ADTO: TFloatField;
     cdsDuplicata_HistVLR_ADTO: TFloatField;
     cdsDuplicata_ConsultaVLR_ADTO: TFloatField;
+    sdsDuplicataID_VENDEDOR_INT: TIntegerField;
+    sdsDuplicataPERC_COMISSAO_INT: TFloatField;
+    cdsDuplicataID_VENDEDOR_INT: TIntegerField;
+    cdsDuplicataPERC_COMISSAO_INT: TFloatField;
+    qParametros_GeralUSA_VENDEDOR_INT: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);

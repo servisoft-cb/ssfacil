@@ -351,7 +351,7 @@ type
     procedure prc_Gravar_mExtComissao_Red;
     procedure prc_Gravar_mExtComissao_Red_Prev(Tipo: String; ID_Vendedor: Integer; Vlr_Base, Percentual, Vlr_Outros: Real);
     procedure prc_Gravar_mPrevPedido;
-    function fnc_Busca_Vlr_Entrada(ID : Integer) : Real;
+    function fnc_Busca_Vlr_Entrada(ID: Integer): Real;
 
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
 
@@ -365,7 +365,7 @@ type
     ctPedido_Vend: String;
     vEntrada_Ext, vPagamento_Ext, vAdiantamento_Ext, vDevolucao_Ext: Real;
     vPrevisao_Dup_Ext, vPrevisao_Ped_Ext: Real;
-    vAno, vMes : Integer;
+    vAno, vMes: Integer;
 
     procedure prc_Localizar(ID: Integer);
     procedure prc_Inserir;
@@ -384,8 +384,8 @@ type
                                 Parcela, Num_RPS, ID_Nota_Servico, ID_Cupom: Integer ;
                                 Base_Comissao, Vlr_Comissao, Perc_Comissao: Real; ID_Recibo, ID_Descontada: Integer): Integer;
 
-    function fnc_Busca_Metas(Ano,Mes,ID_Vendedor : Integer) : Real;
-    function fnc_Busca_Vendas(Ano,Mes,ID_Vendedor : Integer) : Real;
+    function fnc_Busca_Metas(Ano,Mes,ID_Vendedor: Integer): Real;
+    function fnc_Busca_Vendas(Ano,Mes,ID_Vendedor: Integer): Real;
 
   end;
 
@@ -453,8 +453,8 @@ end;
 
 procedure TDMCadExtComissao.prc_Gravar;
 var
-  vIDAux : Integer;
-  vIDNotaAux : Integer;
+  vIDAux: Integer;
+  vIDNotaAux: Integer;
 begin
   vIDAux := cdsExtComissaoID.AsInteger;
   vMsgErro := '';
@@ -567,9 +567,9 @@ begin
       if ID_Descontada > 0 then
         cdsExtComissaoID_DESCONTADA.AsInteger := ID_Descontada;
     end;
-    cdsExtComissaoBASE_COMISSAO.AsFloat         := Base_Comissao;
-    cdsExtComissaoPERC_COMISSAO.AsFloat         := Perc_Comissao;
-    cdsExtComissaoVLR_COMISSAO.AsFloat          := StrToFloat(FormatFloat('0.00', Base_Comissao * Perc_Comissao / 100));
+    cdsExtComissaoBASE_COMISSAO.AsFloat := Base_Comissao;
+    cdsExtComissaoPERC_COMISSAO.AsFloat := Perc_Comissao;
+    cdsExtComissaoVLR_COMISSAO.AsFloat  := StrToFloat(FormatFloat('0.00', Base_Comissao * Perc_Comissao / 100));
 
     prc_Gravar;
 
@@ -698,7 +698,6 @@ begin
   cdsPrevisao.First;
   while not cdsPrevisao.Eof do
   begin
-    //prc_Gravar_mExtComissao_Red_Prev('D',cdsPrevisaoID_VENDEDOR.AsInteger,cdsPrevisaoVLR_RESTANTE.AsFloat,cdsPrevisaoPERC_COMISSAO.AsFloat);
     prc_Gravar_mExtComissao_Red_Prev('D',cdsPrevisaoID_VENDEDOR.AsInteger,cdsPrevisaoVLR_BASE_COMISSAO.AsFloat,cdsPrevisaoPERC_COMISSAO.AsFloat,0);
     cdsPrevisao.Next;
   end;
@@ -706,9 +705,9 @@ end;
 
 procedure TDMCadExtComissao.prc_Le_cdsPrevisao_Ped;
 var
-  vAux : Real;
-  vID_Ant : Integer;
-  vVlr_Base, vVlr_Comissao : Real;
+  vAux: Real;
+  vID_Ant: Integer;
+  vVlr_Base, vVlr_Comissao: Real;
 begin
   vID_Ant := 0;
   cdsPrevisao_Ped.IndexFieldNames := 'ID_VENDEDOR;ID';
@@ -844,11 +843,11 @@ procedure TDMCadExtComissao.cdsExtComissaoReconcileError(
   DataSet: TCustomClientDataSet; E: EReconcileError;
   UpdateKind: TUpdateKind; var Action: TReconcileAction);
 var
-  vMSGAux : String;  
+  vMSGAux: String;  
 begin
   if trim(e.Message) <> '' then
   begin
-    vMSGAux := e.Message + #13 + #13 + '*** Comissao nao gravada!';
+    vMSGAux := e.Message + #13 + #13 + '*** Comissão nao gravada!';
     MessageDlg(e.Message + #13 + #13 + '*** Comissão não gravada!', mtError, [mbOk], 0);
     uGrava_Erro.prc_Gravar('ExtComissao','',vMSGAux,DateToStr(Date),TimeToStr(Now));
   end;
@@ -868,7 +867,7 @@ begin
     cdsPedido_VendclVlr_Comissao.AsFloat := StrToFloat(FormatFloat('0.00',0));
 end;
 
-function TDMCadExtComissao.fnc_Busca_Metas(Ano, Mes, ID_Vendedor : Integer): Real;
+function TDMCadExtComissao.fnc_Busca_Metas(Ano, Mes, ID_Vendedor: Integer): Real;
 var
   sds: TSQLDataSet;
 begin
@@ -921,7 +920,7 @@ end;
 
 procedure TDMCadExtComissao.prc_Gravar_mPrevPedido;
 var
-  vBase : Real;
+  vBase: Real;
 begin
   if mPrevPedido.Locate('ID_Pedido',cdsPrevisao_PedID.AsInteger,[loCaseInsensitive]) then
   begin
@@ -948,15 +947,16 @@ begin
     if qParametros_ComCOMISSAO_DESCONTAR.AsString = 'S' then
       vBase := StrToFloat(FormatFloat('0.00',mPrevPedidoVlr_Base_Comissao.AsFloat + cdsPrevisao_PedVLR_CALCULADO.AsFloat))
     else
-      vBase := StrToFloat(FormatFloat('0.00',mPrevPedidoVlr_Base_Comissao.AsFloat + cdsPrevisao_PedVLR_CALCULADO.AsFloat
-                                            + cdsPrevisao_PedVLR_FRETE_CALCULADO.AsFloat + cdsPrevisao_PedVLR_ICMSSUBST_CALCULADO.AsFloat + cdsPrevisao_PedVLR_IPI_CALCULADO.AsFloat));
+      vBase := StrToFloat(FormatFloat('0.00',mPrevPedidoVlr_Base_Comissao.AsFloat + cdsPrevisao_PedVLR_CALCULADO.AsFloat +
+                                            cdsPrevisao_PedVLR_FRETE_CALCULADO.AsFloat + cdsPrevisao_PedVLR_ICMSSUBST_CALCULADO.AsFloat +
+                                            cdsPrevisao_PedVLR_IPI_CALCULADO.AsFloat));
     mPrevPedidoVlr_Base_Comissao.AsFloat := StrToFloat(FormatFloat('0.00',vBase));
   end;
   mPrevPedidoVlr_Comissao.AsFloat := mPrevPedidoVlr_Comissao.AsFloat + (StrToFloat(FormatFloat('0.00',cdsPrevisaoPERC_COMISSAO.AsFloat * vBase / 100)));
   mPrevPedido.Post;
 end;
 
-function TDMCadExtComissao.fnc_Busca_Vlr_Entrada(ID: Integer) : Real;
+function TDMCadExtComissao.fnc_Busca_Vlr_Entrada(ID: Integer): Real;
 var
   sds: TSQLDataSet;
 begin
@@ -967,8 +967,8 @@ begin
     sds.NoMetadata    := True;
     sds.GetMetadata   := False;
     sds.CommandText   := 'SELECT VLR_ENTRADA ' +
-                         ' FROM PEDIDO ' +
-                         ' WHERE ID = :ID ';
+                         'FROM PEDIDO ' +
+                         'WHERE ID = :ID ';
     sds.ParamByName('ID').AsInteger := ID;
     sds.Open;
     Result := StrToFloat(FormatFloat('0.00',sds.FieldByName('VLR_ENTRADA').AsFloat));

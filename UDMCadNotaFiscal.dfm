@@ -2022,6 +2022,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsNotaFiscal_ItensVLR_TOTAL: TFloatField
       FieldName = 'VLR_TOTAL'
+      currency = True
     end
     object cdsNotaFiscal_ItensPERC_DESCONTO: TFloatField
       FieldName = 'PERC_DESCONTO'
@@ -5164,7 +5165,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 311
   end
   object cdsTipoCobranca: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5245,7 +5245,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 358
   end
   object cdsContas: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -7287,6 +7286,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object sdsDuplicataDTAPROVADO: TDateField
       FieldName = 'DTAPROVADO'
     end
+    object sdsDuplicataID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object sdsDuplicataPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
+    end
   end
   object dspDuplicata: TDataSetProvider
     DataSet = sdsDuplicata
@@ -7496,6 +7501,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsDuplicataDTAPROVADO: TDateField
       FieldName = 'DTAPROVADO'
+    end
+    object cdsDuplicataID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object cdsDuplicataPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
     end
   end
   object dsDuplicata_Mestre: TDataSource

@@ -24,12 +24,12 @@ function fnc_Calcula_PercComissao(fDMCadNotaFiscal: TDMCadNotaFiscal): Boolean;
 
 procedure prc_Ajustar_ExtComissao(fDMCadNotaFiscal: TDMCadNotaFiscal);
 
-procedure prc_Ajustar_Itens(fDMCadNotaFiscal: TDMCadNotaFiscal; Tipo : String); //AT= Atualiza todos   AI= Somente os que tem o iten de origem igual
+procedure prc_Ajustar_Itens(fDMCadNotaFiscal: TDMCadNotaFiscal; Tipo: String); //AT= Atualiza todos   AI= Somente os que tem o iten de origem igual
                                                                                 //ET= Excluir Todos    EI= Excluir os que tem o item de origem igual
 
-function fnc_Busca_Vend_Int_Ped(ID_Ped : Integer) : Integer;
+function fnc_Busca_Vend_Int_Ped(ID_Ped: Integer): Integer;
 
-function fnc_Existe_Est_Baixado_LoteMat(ID : Integer) : Boolean;  //07/10/2019
+function fnc_Existe_Est_Baixado_LoteMat(ID: Integer): Boolean;  //07/10/2019
 
 implementation
 
@@ -340,6 +340,12 @@ begin
   fDMCadNotaFiscal.cdsDuplicataID_PESSOA.AsInteger := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger;
   if fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR.AsInteger > 0 then
     fDMCadNotaFiscal.cdsDuplicataID_VENDEDOR.AsInteger := fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR.AsInteger;
+  if fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger > 0 then
+  begin
+    fDMCadNotaFiscal.cdsDuplicataID_VENDEDOR_INT.AsInteger    := fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger;
+    fDMCadNotaFiscal.cdsDuplicataPERC_COMISSAO_INT.AsCurrency := fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_INT.AsCurrency;
+  end;
+
   if ((Prazo = 'AVI') and (fDMCadNotaFiscal.cdsParametrosQUITAR_AVISTA_AUT.AsString = 'S')) then
   begin
     if fDMCadNotaFiscal.cdsNotaFiscalID_CONTA.AsInteger > 0 then
@@ -659,7 +665,7 @@ begin
   FreeAndNil(fDMCadExtComissao);
 end;
 
-function fnc_Busca_Vend_Int_Ped(ID_Ped : Integer) : Integer;
+function fnc_Busca_Vend_Int_Ped(ID_Ped: Integer): Integer;
 var
   sds: TSQLDataSet;
 begin
@@ -678,14 +684,14 @@ begin
   end;
 end;
 
-procedure prc_Ajustar_Itens(fDMCadNotaFiscal: TDMCadNotaFiscal; Tipo : String); //AT= Atualiza todos   AI= Somente os que tem o iten de origem igual
+procedure prc_Ajustar_Itens(fDMCadNotaFiscal: TDMCadNotaFiscal; Tipo: String); //AT= Atualiza todos   AI= Somente os que tem o iten de origem igual
                                                                                 //ET= Excluir Todos    EI= Excluir os que tem o item de origem igual
 var
-  vItemOri : Integer;
-  vItem_Draw : Integer;
-  vNum_Draw : String;
-  vNum_Reg_Exportacao : String;
-  vNum_Chave_Acesso : String;
+  vItemOri: Integer;
+  vItem_Draw: Integer;
+  vNum_Draw: String;
+  vNum_Reg_Exportacao: String;
+  vNum_Chave_Acesso: String;
 begin
   if fDMCadNotaFiscal.cdsNotaFiscal_DrawBack.RecordCount <= 0 then
     exit;
@@ -721,7 +727,7 @@ begin
   end;
 end;
 
-function fnc_Existe_Est_Baixado_LoteMat(ID : Integer) : Boolean; //07/10/2019
+function fnc_Existe_Est_Baixado_LoteMat(ID: Integer): Boolean; //07/10/2019
 var
   sds: TSQLDataSet;
 begin
