@@ -2490,7 +2490,7 @@ var
   vVlrParc_Prim: Real;
   vVlrParc_Ult: Real;
   vValorParc_Orig: Real;
-  vPerc_Base_Com_Prim : Real;
+  vPerc_Base_Com_Prim: Real;
 begin
   Result := False;
   fDMCadNotaFiscal.cdsNotaFiscal_Parc.First;
@@ -2583,13 +2583,15 @@ begin
     begin
       i := vQtdParc + 1;
       //01/06/2018 Foi incluido a opção se usa o % nas parcelas
-      if (fDMCadNotaFiscal.qParametros_FinUSA_PERC_CONDPGTO.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsCondPgtoPERC_ENTRADA.AsFloat)) > 0) then
+      if (fDMCadNotaFiscal.qParametros_FinUSA_PERC_CONDPGTO.AsString = 'S') and
+         (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsCondPgtoPERC_ENTRADA.AsFloat)) > 0) then
       begin
         //21/09/2018
         if (fDMCadNotaFiscal.qParametros_FinCONDPGTO_FRETE_IMP.AsString = 'S') then
           vValorParc := StrToFloat(FormatFloat('0.00',(vVlrDup * fDMCadNotaFiscal.cdsCondPgtoPERC_ENTRADA.AsFloat) / 100))
         else
-          vValorParc := StrToFloat(FormatFloat('0.00',(fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat * fDMCadNotaFiscal.cdsCondPgtoPERC_ENTRADA.AsFloat) / 100));
+          vValorParc := StrToFloat(FormatFloat('0.00',(fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat *
+                        fDMCadNotaFiscal.cdsCondPgtoPERC_ENTRADA.AsFloat) / 100));
         //*****************
       end
       else
@@ -2727,7 +2729,7 @@ begin
         if (fDMCadNotaFiscal.qParametros_FinCONDPGTO_FRETE_IMP.AsString = 'S') then
           vValorParc := StrToFloat(FormatFloat('0.00',((fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat - vVlrParc_Prim - vVlrParc_Ult - fDMCadNotaFiscal.cdsNotaFiscalVLR_ENTRADA.AsFloat) * fDMCadNotaFiscal.cdsCondPgto_DiaPERC_PARCELA.AsFloat) / 100))
         else
-          vValorParc     := StrToFloat(FormatFloat('0.00',((fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_ENTRADA.AsFloat) * fDMCadNotaFiscal.cdsCondPgto_DiaPERC_PARCELA.AsFloat) / 100));
+          vValorParc := StrToFloat(FormatFloat('0.00',((fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_ENTRADA.AsFloat) * fDMCadNotaFiscal.cdsCondPgto_DiaPERC_PARCELA.AsFloat) / 100));
         vValorParc_Com := StrToFloat(FormatFloat('0.00',((fDMCadNotaFiscal.cdsNotaFiscalVLR_BASE_COMISSAO.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_ENTRADA.AsFloat) * fDMCadNotaFiscal.cdsCondPgto_DiaPERC_PARCELA.AsFloat) / 100));
       end;
       if (viparc = 1) and (fDMCadNotaFiscal.qParametros_FinCONDPGTO_FRETE_IMP.AsString = 'S') then

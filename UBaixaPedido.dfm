@@ -685,7 +685,6 @@ object frmBaixaPedido: TfrmBaixaPedido
         FieldName = 'NOME_COR_COMBINACAO'
         Title.Alignment = taCenter
         Title.Caption = 'Nome Cor'
-        Width = 64
         Visible = True
       end>
   end

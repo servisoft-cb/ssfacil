@@ -2595,7 +2595,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             WidthOfIndicator = 11
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 41
+            ColCount = 42
             RowCount = 2
             Columns = <
               item
@@ -2952,6 +2952,14 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 FieldName = 'ANP_UF_CONS'
                 Title.Alignment = taCenter
                 Title.Caption = 'ANP UF'
+                Title.Color = 12582847
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'ANP_PERC_PGLP'
+                Title.Alignment = taCenter
+                Title.Caption = '% GLP'
                 Title.Color = 12582847
                 Visible = True
               end>

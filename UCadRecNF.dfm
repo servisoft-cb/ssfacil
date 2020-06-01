@@ -43,9 +43,9 @@ object frmCadRecNF: TfrmCadRecNF
       Caption = 'Tela de Consulta'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 119
+        Top = 117
         Width = 934
-        Height = 503
+        Height = 505
         Align = alClient
         BorderStyle = bsNone
         Ctl3D = False
@@ -178,7 +178,6 @@ object frmCadRecNF: TfrmCadRecNF
             FieldName = 'TIPO_PRAZO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Prazo'
-            Width = 64
             Visible = True
           end
           item
@@ -214,13 +213,12 @@ object frmCadRecNF: TfrmCadRecNF
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
-            Width = 64
             Visible = True
           end>
       end
       object pnlPesquisa: TPanel
         Left = 0
-        Top = 34
+        Top = 32
         Width = 934
         Height = 85
         Align = alTop
@@ -436,15 +434,16 @@ object frmCadRecNF: TfrmCadRecNF
         Left = 0
         Top = 0
         Width = 934
-        Height = 34
+        Height = 32
         Align = alTop
         Color = clSilver
         TabOrder = 1
         object btnInserir: TNxButton
-          Left = 3
-          Top = 3
+          Left = 1
+          Top = 1
           Width = 160
           Height = 30
+          Align = alLeft
           Caption = 'Inserir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -515,10 +514,11 @@ object frmCadRecNF: TfrmCadRecNF
           OnClick = btnInserirClick
         end
         object btnExcluir: TNxButton
-          Left = 162
-          Top = 3
+          Left = 433
+          Top = 1
           Width = 136
           Height = 30
+          Align = alLeft
           Caption = 'Excluir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -589,10 +589,11 @@ object frmCadRecNF: TfrmCadRecNF
           OnClick = btnExcluirClick
         end
         object btnPesquisar: TNxButton
-          Left = 433
-          Top = 3
+          Left = 161
+          Top = 1
           Width = 136
           Height = 30
+          Align = alLeft
           Caption = 'Pesquisar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -662,9 +663,10 @@ object frmCadRecNF: TfrmCadRecNF
         end
         object btnRecibo: TNxButton
           Left = 297
-          Top = 3
+          Top = 1
           Width = 136
           Height = 30
+          Align = alLeft
           Caption = 'Imprimir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -734,10 +736,11 @@ object frmCadRecNF: TfrmCadRecNF
         end
         object btnCancelar_Rec: TNxButton
           Left = 569
-          Top = 3
+          Top = 1
           Width = 153
           Height = 30
           Cursor = crHandPoint
+          Align = alLeft
           Caption = 'Cancelar Rec'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -814,15 +817,16 @@ object frmCadRecNF: TfrmCadRecNF
         Left = 0
         Top = 0
         Width = 934
-        Height = 35
+        Height = 32
         Align = alTop
         Color = 8404992
         TabOrder = 3
         object btnAlterar: TNxButton
-          Left = 4
-          Top = 3
+          Left = 1
+          Top = 1
           Width = 139
           Height = 30
+          Align = alLeft
           Caption = 'Alterar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -891,10 +895,11 @@ object frmCadRecNF: TfrmCadRecNF
           OnClick = btnAlterarClick
         end
         object btnConfirmar: TNxButton
-          Left = 142
-          Top = 3
+          Left = 140
+          Top = 1
           Width = 131
           Height = 30
+          Align = alLeft
           Caption = 'Confirmar'
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
@@ -964,10 +969,11 @@ object frmCadRecNF: TfrmCadRecNF
           OnClick = btnConfirmarClick
         end
         object btnCancelar: TNxButton
-          Left = 277
-          Top = 3
+          Left = 271
+          Top = 1
           Width = 139
           Height = 30
+          Align = alLeft
           Caption = 'Cancelar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -1038,7 +1044,7 @@ object frmCadRecNF: TfrmCadRecNF
       end
       object pnlCadastro: TPanel
         Left = 0
-        Top = 35
+        Top = 32
         Width = 934
         Height = 148
         Align = alTop
@@ -1537,10 +1543,10 @@ object frmCadRecNF: TfrmCadRecNF
       end
       object RzPageControl2: TRzPageControl
         Left = 0
-        Top = 212
+        Top = 209
         Width = 934
-        Height = 399
-        ActivePage = TabSheet2
+        Height = 402
+        ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
         BackgroundColor = clSilver
@@ -1548,7 +1554,7 @@ object frmCadRecNF: TfrmCadRecNF
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 1
         FixedDimension = 19
         object RzTabSheet1: TRzTabSheet
@@ -1556,9 +1562,9 @@ object frmCadRecNF: TfrmCadRecNF
           Caption = 'Itens'
           object SMDBGrid2: TSMDBGrid
             Left = 0
-            Top = 60
+            Top = 58
             Width = 930
-            Height = 316
+            Height = 321
             Align = alClient
             DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -1630,7 +1636,6 @@ object frmCadRecNF: TfrmCadRecNF
                 FieldName = 'NUM_LOTE_CONTROLE'
                 Title.Alignment = taCenter
                 Title.Caption = 'N'#186' Lote Controle'
-                Width = 64
                 Visible = True
               end
               item
@@ -1751,16 +1756,17 @@ object frmCadRecNF: TfrmCadRecNF
             Left = 0
             Top = 26
             Width = 930
-            Height = 34
+            Height = 32
             Align = alTop
             Color = clSilver
             Enabled = False
             TabOrder = 0
             object btnInserir_Itens: TNxButton
-              Left = 4
-              Top = 2
+              Left = 1
+              Top = 1
               Width = 149
               Height = 30
+              Align = alLeft
               Caption = 'Inserir Produto'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1832,10 +1838,11 @@ object frmCadRecNF: TfrmCadRecNF
               OnClick = btnInserir_ItensClick
             end
             object btnAlterar_Itens: TNxButton
-              Left = 153
-              Top = 2
+              Left = 150
+              Top = 1
               Width = 148
               Height = 30
+              Align = alLeft
               Caption = 'Alterar Produto'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1905,10 +1912,11 @@ object frmCadRecNF: TfrmCadRecNF
               OnClick = btnAlterar_ItensClick
             end
             object btnExcluir_Itens: TNxButton
-              Left = 301
-              Top = 2
+              Left = 298
+              Top = 1
               Width = 143
               Height = 30
+              Align = alLeft
               Caption = 'Excluir Produto'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -2028,7 +2036,7 @@ object frmCadRecNF: TfrmCadRecNF
           Caption = 'Dados'
           DesignSize = (
             930
-            376)
+            379)
           object Label3: TLabel
             Left = 24
             Top = 353
@@ -2820,7 +2828,7 @@ object frmCadRecNF: TfrmCadRecNF
       end
       object Panel3: TPanel
         Left = 0
-        Top = 183
+        Top = 180
         Width = 934
         Height = 29
         Align = alTop

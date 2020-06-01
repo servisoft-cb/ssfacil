@@ -3170,6 +3170,10 @@ type
     cdsProdutoANP_ID: TIntegerField;
     sdsNotaFiscal_ItensANP_PERC_PGLP: TFloatField;
     cdsNotaFiscal_ItensANP_PERC_PGLP: TFloatField;
+    sdsDuplicataID_VENDEDOR_INT: TIntegerField;
+    sdsDuplicataPERC_COMISSAO_INT: TFloatField;
+    cdsDuplicataID_VENDEDOR_INT: TIntegerField;
+    cdsDuplicataPERC_COMISSAO_INT: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
