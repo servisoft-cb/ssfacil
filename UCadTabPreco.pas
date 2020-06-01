@@ -599,7 +599,7 @@ begin
   ffrmCadTabPreco_Copia.fDMCadTab_Preco  := fDMCadTab_Preco;
   ffrmCadTabPreco_Copia.vNum_Lista_Preco := fDMCadTab_Preco.cdsTab_PrecoID.AsInteger;
   ffrmCadTabPreco_Copia.vData_Inicial    := fDMCadTab_Preco.cdsTab_PrecoDTINICIAL.AsDateTime;
-  ffrmCadTabPreco_Copia.vData_Final    := fDMCadTab_Preco.cdsTab_PrecoDTFINAL.AsDateTime;
+  ffrmCadTabPreco_Copia.vData_Final      := fDMCadTab_Preco.cdsTab_PrecoDTFINAL.AsDateTime;
   ffrmCadTabPreco_Copia.ShowModal;
   FreeAndNil(frmCadTabPreco_Copia);
 

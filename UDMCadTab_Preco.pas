@@ -215,18 +215,18 @@ type
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
   public
     { Public declarations }
-    vMsgErro : String;
-    ctCommand : String;
-    ctTabPreco_Consulta : String;
-    ctProduto : String;
-    vPreco_Sel : Real;
-    procedure prc_Localizar(ID : Integer);
+    vMsgErro: String;
+    ctCommand: String;
+    ctTabPreco_Consulta: String;
+    ctProduto: String;
+    vPreco_Sel: Real;
+    procedure prc_Localizar(ID: Integer);
     procedure prc_Inserir;
     procedure prc_Gravar;
     procedure prc_Excluir;
     procedure prc_Excluir_Item;
     procedure prc_Inserir_Itens;
-    procedure prc_Consultar_Produto(Nome : String ; Tipo : String = 'A');
+    procedure prc_Consultar_Produto(Nome: String; Tipo: String = 'A');
   end;
 
 var
@@ -242,10 +242,10 @@ uses DmdDatabase, LogProvider, uUtilPadrao;
 
 procedure TDMCadTab_Preco.prc_Inserir;
 var
-  vAux : Integer;
-  vUltimoRegistro : Integer;
+  vAux: Integer;
+  vUltimoRegistro: Integer;
   sds: TSQLDataSet;
-  iSeq : Integer;
+  iSeq: Integer;
 begin
   if not cdsTab_Preco.Active then
     prc_Localizar(-1);
@@ -326,7 +326,7 @@ begin
   cdsTab_Preco.ApplyUpdates(0);
 end;
 
-procedure TDMCadTab_Preco.prc_Localizar(ID : Integer); //-1 é para inclusão
+procedure TDMCadTab_Preco.prc_Localizar(ID: Integer); //-1 é para inclusão
 begin
   cdsTab_Preco.Close;
   sdsTab_Preco.CommandText := ctCommand;
@@ -433,7 +433,7 @@ begin
     cdsTab_PrecoDTFINAL.Clear;
 end;
 
-procedure TDMCadTab_Preco.prc_Consultar_Produto(Nome : String ; Tipo : String = 'A');
+procedure TDMCadTab_Preco.prc_Consultar_Produto(Nome: String; Tipo: String = 'A');
 begin
   cdsProduto.Close;
   sdsProduto.CommandText := ctProduto;

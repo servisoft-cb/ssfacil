@@ -3,9 +3,8 @@ unit UCadTabPreco_Copia;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, ToolEdit, RXDBCtrl, RzPanel, StdCtrls, Mask, CurrEdit,
-  Buttons, DateUtils, UDMCadTab_Preco, UDMCopiaTabPreco, NxEdit, ComCtrls;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, ToolEdit, RXDBCtrl, RzPanel,
+  StdCtrls, Mask, CurrEdit, Buttons, DateUtils, UDMCadTab_Preco, UDMCopiaTabPreco, NxEdit, ComCtrls;
 
 type
   TfrmCadTabPreco_Copia = class(TForm)
@@ -24,6 +23,8 @@ type
     edtCorrecao: TCurrencyEdit;
     lblReajuste: TLabel;
     ProgressBar1: TProgressBar;
+    Label4: TLabel;
+    CurrencyEdit2: TCurrencyEdit;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -31,15 +32,15 @@ type
     procedure BitBtn2Click(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
   private
-    vPercentual_Reajuste : Real;
-    procedure prc_Abrir_Tab_Preco(ID : Integer);
-    procedure prc_Copiar_Tab_Preco;
+    vPercentual_Reajuste: Real;
+    procedure prc_Abrir_Tab_Preco(ID: Integer);
+    function prc_Copiar_Tab_Preco(vId: Integer): Boolean;
     procedure prc_Copiar_Tab_Preco_Item;
   public
     fDMCadTab_Preco: TDMCadTab_Preco;
-    fDMCopiaCadPreco : TDMCopiaTabPreco;
-    vNum_Lista_Preco : Integer;
-    vData_Inicial, vData_Final : TDate;
+    fDMCopiaCadPreco: TDMCopiaTabPreco;
+    vNum_Lista_Preco: Integer;
+    vData_Inicial, vData_Final: TDate;
     { Public declarations }
   end;
 
@@ -48,9 +49,7 @@ var
 
 implementation
 
-uses DB, Math;
-
-
+uses DB, Math;                                
 
 {$R *.dfm}
 
@@ -72,8 +71,7 @@ begin
   NxDatePicker1.Date      := vData_Inicial;
   NxDatePicker2.Date      := vData_Final;
   NxDatePicker1.Clear;
-  NxDatePicker2.Clear;
-
+  NxDatePicker2.Clear;            
 end;
 
 procedure TfrmCadTabPreco_Copia.RadioGroup1Click(Sender: TObject);
@@ -131,29 +129,42 @@ begin
   if (RadioGroup1.ItemIndex = 1) then
     vPercentual_Reajuste := edtCorrecao.Value * -1;
   fDMCadTab_Preco.Tag := 1;
-  prc_Copiar_Tab_Preco;
-  prc_Copiar_Tab_Preco_Item;
+  if prc_Copiar_Tab_Preco(CurrencyEdit2.AsInteger) then
+    prc_Copiar_Tab_Preco_Item;
   Close;
 end;
 
-procedure TfrmCadTabPreco_Copia.prc_Copiar_Tab_Preco;
+function TfrmCadTabPreco_Copia.prc_Copiar_Tab_Preco(vId: Integer): Boolean;
 var
-  i : Integer;
+  i: Integer;
 begin
-  fDMCadTab_Preco.prc_Inserir;
-  for i := 0 to ( fDMCopiaCadPreco.cdsTab_Preco.FieldCount - 1) do
+  Result := True;
+  if vId = 0 then
   begin
-    if (fDMCopiaCadPreco.cdsTab_Preco.Fields[i].FieldName <> 'ID') then
-      fDMCadTab_Preco.cdsTab_Preco.FieldByName(fDMCopiaCadPreco.cdsTab_Preco.Fields[i].FieldName).AsVariant := fDMCopiaCadPreco.cdsTab_Preco.Fields[i].Value;
+    fDMCadTab_Preco.prc_Inserir;
+    for i := 0 to ( fDMCopiaCadPreco.cdsTab_Preco.FieldCount - 1) do
+    begin
+      if (fDMCopiaCadPreco.cdsTab_Preco.Fields[i].FieldName <> 'ID') then
+        fDMCadTab_Preco.cdsTab_Preco.FieldByName(fDMCopiaCadPreco.cdsTab_Preco.Fields[i].FieldName).AsVariant := fDMCopiaCadPreco.cdsTab_Preco.Fields[i].Value;
+    end;
+  end
+  else
+  begin
+    fDMCadTab_Preco.cdsTab_Preco.IndexFieldNames := 'ID';
+    if not fDMCadTab_Preco.cdsTab_Preco.FindKey([vId]) then
+    begin
+      ShowMessage('Tabela ' + IntToStr(vId) + ' não localizada!');
+      Result := False;
+    end;
   end;
 end;
 
 procedure TfrmCadTabPreco_Copia.prc_Copiar_Tab_Preco_Item;
 var
-  i : Integer;
-  vAux : Real;
-  vAux2 : Real;
-  vAux3 : Real;
+  i: Integer;
+  vAux: Real;
+  vAux2: Real;
+  vAux3: Real;
 begin
   ProgressBar1.Max      := fDMCopiaCadPreco.cdsTab_Preco_Itens.RecordCount;
   ProgressBar1.Position := 0;

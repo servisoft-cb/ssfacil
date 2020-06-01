@@ -2,7 +2,7 @@ object frmCadTabPreco_Copia: TfrmCadTabPreco_Copia
   Left = 378
   Top = 136
   Width = 437
-  Height = 323
+  Height = 378
   Caption = 'Copiar Lista Pre'#231'o'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,31 +20,44 @@ object frmCadTabPreco_Copia: TfrmCadTabPreco_Copia
     Left = 0
     Top = 0
     Width = 421
-    Height = 284
+    Height = 339
     Align = alClient
     BorderStyle = bsSingle
     Color = clMoneyGreen
     TabOrder = 0
     DesignSize = (
       417
-      280)
+      335)
     object Label1: TLabel
-      Left = 40
+      Left = 78
       Top = 26
-      Width = 170
+      Width = 139
       Height = 13
       Caption = 'N'#186' da Lista de Pre'#231'o Original:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -12
       Font.Name = 'MS Sans Serif'
-      Font.Style = [fsBold]
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label4: TLabel
+      Left = 56
+      Top = 58
+      Width = 159
+      Height = 13
+      Caption = 'Tabela Destino (Zero para Nova):'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
       ParentFont = False
     end
     object CurrencyEdit1: TCurrencyEdit
-      Left = 216
+      Left = 220
       Top = 18
-      Width = 134
+      Width = 110
       Height = 21
       AutoSize = False
       DisplayFormat = '0'
@@ -58,10 +71,10 @@ object frmCadTabPreco_Copia: TfrmCadTabPreco_Copia
     end
     object gbxVigencia: TRzGroupBox
       Left = 39
-      Top = 150
+      Top = 206
       Width = 314
-      Height = 52
-      Anchors = [akLeft, akTop, akRight, akBottom]
+      Height = 46
+      Anchors = [akLeft, akTop, akRight]
       BorderColor = clNavy
       BorderInner = fsButtonUp
       BorderOuter = fsBump
@@ -77,7 +90,7 @@ object frmCadTabPreco_Copia: TfrmCadTabPreco_Copia
       Font.Style = []
       ParentCtl3D = False
       ParentFont = False
-      TabOrder = 1
+      TabOrder = 2
       VisualStyle = vsGradient
       object Label2: TLabel
         Left = 16
@@ -126,11 +139,11 @@ object frmCadTabPreco_Copia: TfrmCadTabPreco_Copia
     end
     object BitBtn1: TBitBtn
       Left = 80
-      Top = 240
+      Top = 296
       Width = 105
       Height = 33
       Caption = 'Copiar'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = BitBtn1Click
       Glyph.Data = {
         AE060000424DAE06000000000000360000002800000017000000170000000100
@@ -190,11 +203,11 @@ object frmCadTabPreco_Copia: TfrmCadTabPreco_Copia
     end
     object BitBtn2: TBitBtn
       Left = 216
-      Top = 240
+      Top = 296
       Width = 105
       Height = 33
       Caption = 'Cancelar'
-      TabOrder = 3
+      TabOrder = 4
       OnClick = BitBtn2Click
       Glyph.Data = {
         AE060000424DAE06000000000000360000002800000017000000170000000100
@@ -254,12 +267,12 @@ object frmCadTabPreco_Copia: TfrmCadTabPreco_Copia
     end
     object Panel2: TPanel
       Left = 42
-      Top = 46
+      Top = 102
       Width = 313
       Height = 94
       BorderStyle = bsSingle
       Color = clMoneyGreen
-      TabOrder = 4
+      TabOrder = 5
       object lblReajuste: TLabel
         Left = 8
         Top = 64
@@ -295,10 +308,25 @@ object frmCadTabPreco_Copia: TfrmCadTabPreco_Copia
     end
     object ProgressBar1: TProgressBar
       Left = 40
-      Top = 208
+      Top = 264
       Width = 313
       Height = 17
-      TabOrder = 5
+      TabOrder = 6
+    end
+    object CurrencyEdit2: TCurrencyEdit
+      Left = 220
+      Top = 50
+      Width = 110
+      Height = 21
+      AutoSize = False
+      DisplayFormat = '0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 1
     end
   end
 end
