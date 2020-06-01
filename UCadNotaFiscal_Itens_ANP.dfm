@@ -4,7 +4,7 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'ANP '
-  ClientHeight = 119
+  ClientHeight = 147
   ClientWidth = 363
   Color = 16759413
   Font.Charset = DEFAULT_CHARSET
@@ -38,7 +38,7 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
   end
   object Label1: TLabel
     Left = 11
-    Top = 60
+    Top = 79
     Width = 153
     Height = 13
     Alignment = taRightJustify
@@ -46,7 +46,7 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
   end
   object Label2: TLabel
     Left = 10
-    Top = 78
+    Top = 97
     Width = 154
     Height = 13
     Alignment = taRightJustify
@@ -58,6 +58,14 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     Width = 61
     Height = 13
     Caption = 'F2 Pesquisar'
+  end
+  object Label4: TLabel
+    Left = 16
+    Top = 61
+    Width = 148
+    Height = 13
+    Alignment = taRightJustify
+    Caption = '% PGLP (derivado do petr'#243'leo):'
   end
   object DBEdit75: TDBEdit
     Left = 221
@@ -88,7 +96,7 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
   end
   object DBEdit1: TDBEdit
     Left = 165
-    Top = 52
+    Top = 71
     Width = 92
     Height = 19
     Color = clWhite
@@ -96,11 +104,11 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     DataField = 'ANP_PERC_PGNN'
     DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
     ParentCtl3D = False
-    TabOrder = 3
+    TabOrder = 4
   end
   object DBEdit2: TDBEdit
     Left = 165
-    Top = 70
+    Top = 89
     Width = 92
     Height = 19
     Color = clWhite
@@ -108,11 +116,11 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     DataField = 'ANP_PERC_PGNI'
     DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
     ParentCtl3D = False
-    TabOrder = 4
+    TabOrder = 5
   end
   object NxButton1: TNxButton
     Left = 165
-    Top = 90
+    Top = 109
     Width = 92
     Height = 25
     Caption = 'Confirmar'
@@ -123,7 +131,7 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 6
     OnClick = NxButton1Click
   end
   object DBEdit3: TDBEdit
@@ -138,5 +146,17 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     ParentCtl3D = False
     TabOrder = 0
     OnExit = DBEdit3Exit
+  end
+  object DBEdit4: TDBEdit
+    Left = 165
+    Top = 53
+    Width = 92
+    Height = 19
+    Color = clWhite
+    Ctl3D = False
+    DataField = 'ANP_PERC_PGLP'
+    DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
+    ParentCtl3D = False
+    TabOrder = 3
   end
 end

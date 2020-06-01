@@ -4412,6 +4412,24 @@ object fMenu: TfMenu
         CompName = 'btnAlterar'
         Caption = 'Alterar'
         GroupName = 'Adiantamento Cliente'
+      end
+      item
+        FormName = 'frmCadPagtoAdto'
+        CompName = 'btnInserir'
+        Caption = 'Inserir'
+        GroupName = 'Pagamento Cr'#233'dito'
+      end
+      item
+        FormName = 'frmCadPagtoAdto'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Pagamento Cr'#233'dito'
+      end
+      item
+        FormName = 'frmCadPagtoAdto'
+        CompName = 'btnAlterar'
+        Caption = 'Alterar'
+        GroupName = 'Pagamento Cr'#233'dito'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

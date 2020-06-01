@@ -1057,6 +1057,35 @@ type
     sdsDuplicata_HistVLR_ADTO: TFloatField;
     cdsDuplicata_HistVLR_ADTO: TFloatField;
     cdsDuplicata_ConsultaVLR_ADTO: TFloatField;
+    sdsPagtoAdto: TSQLDataSet;
+    dspPagtoAdto: TDataSetProvider;
+    cdsPagtoAdto: TClientDataSet;
+    dsPagtoAdto: TDataSource;
+    sdsPagtoAdtoID: TIntegerField;
+    sdsPagtoAdtoDATA: TDateField;
+    sdsPagtoAdtoID_PESSOA: TIntegerField;
+    sdsPagtoAdtoVLR_TOTAL: TFloatField;
+    sdsPagtoAdtoID_CONTA: TIntegerField;
+    cdsPagtoAdtoID: TIntegerField;
+    cdsPagtoAdtoDATA: TDateField;
+    cdsPagtoAdtoID_PESSOA: TIntegerField;
+    cdsPagtoAdtoVLR_TOTAL: TFloatField;
+    cdsPagtoAdtoID_CONTA: TIntegerField;
+    dsPagtoAdto_Mestre: TDataSource;
+    sdsPagtoAdto_Itens: TSQLDataSet;
+    sdsPagtoAdto_ItensID: TIntegerField;
+    sdsPagtoAdto_ItensITEM: TIntegerField;
+    sdsPagtoAdto_ItensID_DUPLICATA: TIntegerField;
+    sdsPagtoAdto_ItensVLR_DUPLICATA: TFloatField;
+    sdsPagtoAdto_ItensVLR_PAGO: TFloatField;
+    cdsPagtoAdto_Itens: TClientDataSet;
+    cdsPagtoAdtosdsPagtoAdto_Itens: TDataSetField;
+    cdsPagtoAdto_ItensID: TIntegerField;
+    cdsPagtoAdto_ItensITEM: TIntegerField;
+    cdsPagtoAdto_ItensID_DUPLICATA: TIntegerField;
+    cdsPagtoAdto_ItensVLR_DUPLICATA: TFloatField;
+    cdsPagtoAdto_ItensVLR_PAGO: TFloatField;
+    dsPagtoAdto_Itens: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
@@ -1118,6 +1147,7 @@ type
     procedure prc_Localizar(ID: Integer);
     procedure prc_Inserir;
     procedure prc_Gravar;
+    procedure prc_Gravar_PagtoAdto;
     procedure prc_Excluir;
     procedure prc_Excluir_Dup_CCusto;
     procedure prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Adto, Vlr_Desconto,
@@ -2301,6 +2331,57 @@ begin
   finally
     FreeAndNil(sds);
   end;                
+end;
+
+procedure TDMCadDuplicata.prc_Gravar_PagtoAdto;
+var
+  vVlrAux: Real;
+  vPerc: Real;
+  vItem: Integer;
+begin
+  vMsgErro := '';
+  if cdsPagtoAdtoID_PESSOA.AsInteger <= 0 then
+    vMsgErro := vMsgErro + #13 + '*** Pessoa não informada!';
+  if cdsPagtoAdtoID_CONTA.AsInteger <= 0 then
+    vMsgErro := vMsgErro + #13 + '*** Conta não informada!';
+  if cdsPagtoAdtoDATA.AsDateTime <= 10 then
+    vMsgErro := vMsgErro + #13 + '*** Data não informada!';
+
+
+  if (qParametros_FinUSA_CCUSTO_DUP.AsString = 'S') then
+  begin
+    vPerc := 100;
+    vItem := 0;
+    cdsDuplicata_CCusto.First;
+    while not cdsDuplicata_CCusto.Eof do
+    begin
+      vItem := vItem + 1;
+      if StrToFloat(FormatFloat('0.00',cdsDuplicata_CCustoPERCENTUAL.AsFloat)) <= 0 then
+      begin
+        cdsDuplicata_CCusto.Edit;
+        if vItem = cdsDuplicata_CCusto.RecordCount then
+        begin
+          if StrToFloat(FormatFloat('0.00',vPerc)) > 0 then
+            cdsDuplicata_CCustoPERCENTUAL.AsFloat := StrToFloat(FormatFloat('0.00',vPerc));
+        end
+        else
+        begin
+          vVlrAux := StrToFloat(FormatFloat('0.00',(cdsDuplicata_CCustoVALOR.AsFloat / cdsDuplicataVLR_PARCELA.AsFloat) * 100));
+          if StrToFloat(FormatFloat('0.00',vVlrAux)) > StrToFloat(FormatFloat('0.00',vPerc)) then
+            vVlrAux := StrToFloat(FormatFloat('0.00',vPerc));
+          cdsDuplicata_CCustoPERCENTUAL.AsFloat := StrToFloat(FormatFloat('0.00',vVlrAux));
+        end;
+        cdsDuplicata_CCusto.Post;
+      end;
+      vPerc := StrToFloat(FormatFloat('0.00',vPerc - cdsDuplicata_CCustoPERCENTUAL.AsFloat));
+      cdsDuplicata_CCusto.Next;
+    end;
+  end;
+
+  cdsDuplicata.Post;
+  prc_Gravar_Dupicata_Hist('ENT','ENTRADA DO TITULOS',cdsDuplicataVLR_PARCELA.AsFloat,0,0,0,0,0,0);
+
+  cdsDuplicata.ApplyUpdates(0);
 end;
 
 end.

@@ -19,6 +19,8 @@ type
     NxButton1: TNxButton;
     DBEdit3: TDBEdit;
     Label3: TLabel;
+    Label4: TLabel;
+    DBEdit4: TDBEdit;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure NxButton1Click(Sender: TObject);

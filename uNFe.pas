@@ -4788,6 +4788,7 @@ begin
       fDMNFe.mItensNFeANP_DESCRICAO.AsString := fDMCadNotaFiscal.qTab_CProd_ANPDESCRICAO.AsString;
       fDMNFe.mItensNFeANP_PERC_PGNN.AsFloat  := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PERC_PGNN.AsFloat));
       fDMNFe.mItensNFeANP_PERC_PGNI.AsFloat  := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PERC_PGNI.AsFloat));
+      fDMNFe.mItensNFeANP_PERC_PGLP.AsFloat  := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensANP_PERC_PGLP.AsFloat));
     end
     else
     begin
@@ -4796,6 +4797,7 @@ begin
       fDMNFe.mItensNFeANP_DESCRICAO.AsString := '';
       fDMNFe.mItensNFeANP_PERC_PGNN.AsFloat  := StrToFloat(FormatFloat('0.0000',0));
       fDMNFe.mItensNFeANP_PERC_PGNI.AsFloat  := StrToFloat(FormatFloat('0.0000',0));
+      fDMNFe.mItensNFeANP_PERC_PGLP.AsFloat  := StrToFloat(FormatFloat('0.0000',0));
     end;
     //****************
 

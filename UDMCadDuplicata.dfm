@@ -1,8 +1,8 @@
 object DMCadDuplicata: TDMCadDuplicata
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 149
-  Top = 20
+  Left = 107
+  Top = 10
   Height = 687
   Width = 1209
   object sdsDuplicata: TSQLDataSet
@@ -5274,5 +5274,142 @@ object DMCadDuplicata: TDMCadDuplicata
     DataSet = cdsDupCCusto
     Left = 784
     Top = 395
+  end
+  object sdsPagtoAdto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM PAGTOADTO'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 687
+    Top = 481
+    object sdsPagtoAdtoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPagtoAdtoDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object sdsPagtoAdtoID_PESSOA: TIntegerField
+      FieldName = 'ID_PESSOA'
+    end
+    object sdsPagtoAdtoVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+    end
+    object sdsPagtoAdtoID_CONTA: TIntegerField
+      FieldName = 'ID_CONTA'
+    end
+  end
+  object dspPagtoAdto: TDataSetProvider
+    DataSet = sdsPagtoAdto
+    UpdateMode = upWhereKeyOnly
+    Left = 719
+    Top = 480
+  end
+  object cdsPagtoAdto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPagtoAdto'
+    Left = 750
+    Top = 479
+    object cdsPagtoAdtoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPagtoAdtoDATA: TDateField
+      FieldName = 'DATA'
+    end
+    object cdsPagtoAdtoID_PESSOA: TIntegerField
+      FieldName = 'ID_PESSOA'
+    end
+    object cdsPagtoAdtoVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+    end
+    object cdsPagtoAdtoID_CONTA: TIntegerField
+      FieldName = 'ID_CONTA'
+    end
+    object cdsPagtoAdtosdsPagtoAdto_Itens: TDataSetField
+      FieldName = 'sdsPagtoAdto_Itens'
+    end
+  end
+  object dsPagtoAdto: TDataSource
+    DataSet = cdsPagtoAdto
+    Left = 783
+    Top = 479
+  end
+  object dsPagtoAdto_Mestre: TDataSource
+    DataSet = sdsPagtoAdto
+    Left = 673
+    Top = 531
+  end
+  object sdsPagtoAdto_Itens: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM PAGTOADTO_ITENS'#13#10'WHERE ID = :ID'
+    DataSource = dsPagtoAdto_Mestre
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+        Size = 4
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 711
+    Top = 582
+    object sdsPagtoAdto_ItensID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPagtoAdto_ItensITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPagtoAdto_ItensID_DUPLICATA: TIntegerField
+      FieldName = 'ID_DUPLICATA'
+    end
+    object sdsPagtoAdto_ItensVLR_DUPLICATA: TFloatField
+      FieldName = 'VLR_DUPLICATA'
+    end
+    object sdsPagtoAdto_ItensVLR_PAGO: TFloatField
+      FieldName = 'VLR_PAGO'
+    end
+  end
+  object cdsPagtoAdto_Itens: TClientDataSet
+    Aggregates = <>
+    DataSetField = cdsPagtoAdtosdsPagtoAdto_Itens
+    Params = <>
+    Left = 759
+    Top = 586
+    object cdsPagtoAdto_ItensID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPagtoAdto_ItensITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPagtoAdto_ItensID_DUPLICATA: TIntegerField
+      FieldName = 'ID_DUPLICATA'
+    end
+    object cdsPagtoAdto_ItensVLR_DUPLICATA: TFloatField
+      FieldName = 'VLR_DUPLICATA'
+    end
+    object cdsPagtoAdto_ItensVLR_PAGO: TFloatField
+      FieldName = 'VLR_PAGO'
+    end
+  end
+  object dsPagtoAdto_Itens: TDataSource
+    DataSet = cdsPagtoAdto_Itens
+    Left = 806
+    Top = 584
   end
 end

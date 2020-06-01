@@ -1956,6 +1956,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object sdsNotaFiscal_ItensANP_ID: TIntegerField
       FieldName = 'ANP_ID'
     end
+    object sdsNotaFiscal_ItensANP_PERC_PGLP: TFloatField
+      FieldName = 'ANP_PERC_PGLP'
+    end
   end
   object cdsNotaFiscal_Itens: TClientDataSet
     Aggregates = <>
@@ -2635,6 +2638,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsNotaFiscal_ItensANP_ID: TIntegerField
       FieldName = 'ANP_ID'
+    end
+    object cdsNotaFiscal_ItensANP_PERC_PGLP: TFloatField
+      FieldName = 'ANP_PERC_PGLP'
     end
   end
   object dsNotaFiscal_Itens: TDataSource

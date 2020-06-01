@@ -1247,6 +1247,7 @@ type
     qClienteIMP_TAMANHO_FINAL: TStringField;
     mItensNFeANP_PERC_PGNN: TFloatField;
     mItensNFeANP_PERC_PGNI: TFloatField;
+    mItensNFeANP_PERC_PGLP: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);

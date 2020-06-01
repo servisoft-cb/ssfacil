@@ -3168,6 +3168,8 @@ type
     qTab_CProd_ANPCODIGO: TStringField;
     qTab_CProd_ANPDESCRICAO: TStringField;
     cdsProdutoANP_ID: TIntegerField;
+    sdsNotaFiscal_ItensANP_PERC_PGLP: TFloatField;
+    cdsNotaFiscal_ItensANP_PERC_PGLP: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
