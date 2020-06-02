@@ -465,7 +465,7 @@ object frmConferencia_Ped: TfrmConferencia_Ped
         OnKeyDown = CurrencyEdit1KeyDown
       end
       object btnConsultarSaldoSMS: TNxButton
-        Left = 596
+        Left = 597
         Top = 4
         Width = 197
         Height = 30
