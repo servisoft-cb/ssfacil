@@ -3658,10 +3658,10 @@ object frmCadDuplicata: TfrmCadDuplicata
         Top = 375
         Width = 1042
         Height = 231
-        ActivePage = TS_Comissao
+        ActivePage = TS_Historico
         ActivePageDefault = TS_Historico
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 2
         FixedDimension = 19
         object TS_Historico: TRzTabSheet

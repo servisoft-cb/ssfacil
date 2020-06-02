@@ -1087,6 +1087,10 @@ type
     cdsPagtoAdto_ItensVLR_PAGO: TFloatField;
     dsPagtoAdto_Itens: TDataSource;
     qParametros_GeralUSA_VENDEDOR_INT: TStringField;
+    sdsDuplicataID_VENDEDOR_INT: TIntegerField;
+    sdsDuplicataPERC_COMISSAO_INT: TFloatField;
+    cdsDuplicataID_VENDEDOR_INT: TIntegerField;
+    cdsDuplicataPERC_COMISSAO_INT: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);

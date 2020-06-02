@@ -635,7 +635,7 @@ begin
   if fDMCadDuplicata.qParametrosUSA_VENDEDOR.AsString <> 'S' then
     gbxContabil.Left := 10;
   gbxContabil.Visible := (fDMCadDuplicata.qParametros_GeralMOSTRAR_COD_CONTABIL.AsString = 'S');
-  TS_Comissao.Visible := (gbxVendedor.Visible) or (gbxVendedorInt.Visible) or (gbxContabil.Visible);
+  TS_Comissao.TabVisible := (gbxVendedor.Visible) or (gbxVendedorInt.Visible) or (gbxContabil.Visible);
 
   Label29.Visible := (RxDBComboBox11.ItemIndex = 0);
   DBDateEdit3.Visible := (RxDBComboBox11.ItemIndex = 0);
