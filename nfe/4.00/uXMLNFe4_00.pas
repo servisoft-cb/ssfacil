@@ -1209,6 +1209,7 @@ begin
     DetXML.Prod.Comb.PGLP     := Replace(FormatFloat('0.0000',fDMNFe.mItensNFeANP_PERC_PGLP.AsFloat),',','.');
     DetXML.Prod.Comb.PGNn     := Replace(FormatFloat('0.0000',fDMNFe.mItensNFeANP_PERC_PGNN.AsFloat),',','.');
     DetXML.Prod.Comb.PGNi     := Replace(FormatFloat('0.0000',fDMNFe.mItensNFeANP_PERC_PGNI.AsFloat),',','.');
+    DetXML.Prod.Comb.VPart    := Replace(FormatFloat('0.00',fDMNFe.mItensNFeANP_VLR_VPART.AsFloat),',','.');
     DetXML.Prod.Comb.UFCons   := fDMNFe.mItensNFeANP_UF_CONS.AsString;
   end;
 

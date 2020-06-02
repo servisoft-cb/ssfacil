@@ -3174,6 +3174,8 @@ type
     sdsDuplicataPERC_COMISSAO_INT: TFloatField;
     cdsDuplicataID_VENDEDOR_INT: TIntegerField;
     cdsDuplicataPERC_COMISSAO_INT: TFloatField;
+    sdsNotaFiscal_ItensANP_VLR_VPART: TFloatField;
+    cdsNotaFiscal_ItensANP_VLR_VPART: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

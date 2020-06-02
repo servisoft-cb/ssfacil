@@ -4,7 +4,7 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'ANP '
-  ClientHeight = 147
+  ClientHeight = 206
   ClientWidth = 363
   Color = 16759413
   Font.Charset = DEFAULT_CHARSET
@@ -67,6 +67,29 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     Alignment = taRightJustify
     Caption = '% PGLP (derivado do petr'#243'leo):'
   end
+  object Label5: TLabel
+    Left = 67
+    Top = 114
+    Width = 97
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Valor Partida (vPart):'
+  end
+  object Label6: TLabel
+    Left = 9
+    Top = 170
+    Width = 263
+    Height = 26
+    Caption = 
+      'Valor Partida : Deve ser informado neste campo o valor '#13#10'por qui' +
+      'lograma sem ICMS'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clMaroon
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+  end
   object DBEdit75: TDBEdit
     Left = 221
     Top = 17
@@ -119,8 +142,8 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     TabOrder = 5
   end
   object NxButton1: TNxButton
-    Left = 165
-    Top = 109
+    Left = 166
+    Top = 129
     Width = 92
     Height = 25
     Caption = 'Confirmar'
@@ -131,7 +154,7 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     Font.Name = 'MS Sans Serif'
     Font.Style = [fsBold]
     ParentFont = False
-    TabOrder = 6
+    TabOrder = 7
     OnClick = NxButton1Click
   end
   object DBEdit3: TDBEdit
@@ -158,5 +181,17 @@ object frmCadNotaFiscal_Itens_ANP: TfrmCadNotaFiscal_Itens_ANP
     DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
     ParentCtl3D = False
     TabOrder = 3
+  end
+  object DBEdit5: TDBEdit
+    Left = 165
+    Top = 107
+    Width = 92
+    Height = 19
+    Color = clWhite
+    Ctl3D = False
+    DataField = 'ANP_VLR_VPART'
+    DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
+    ParentCtl3D = False
+    TabOrder = 6
   end
 end

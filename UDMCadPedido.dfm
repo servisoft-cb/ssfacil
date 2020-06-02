@@ -1595,7 +1595,6 @@ object DMCadPedido: TDMCadPedido
     Top = 297
   end
   object cdsTipoCobranca: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -1672,7 +1671,6 @@ object DMCadPedido: TDMCadPedido
     Top = 339
   end
   object cdsContas: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5579,7 +5577,7 @@ object DMCadPedido: TDMCadPedido
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspOperacao_Nota'
-    Left = 624
+    Left = 623
     Top = 460
     object cdsOperacao_NotaID: TIntegerField
       FieldName = 'ID'
@@ -6121,7 +6119,7 @@ object DMCadPedido: TDMCadPedido
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspFuncionario'
-    Left = 504
+    Left = 505
     Top = 256
     object cdsFuncionarioCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -6292,7 +6290,7 @@ object DMCadPedido: TDMCadPedido
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspProjeto'
-    Left = 344
+    Left = 343
     Top = 256
     object cdsProjetoID: TIntegerField
       FieldName = 'ID'
@@ -8326,7 +8324,7 @@ object DMCadPedido: TDMCadPedido
     Params = <>
     ProviderName = 'dspOrcamento_Mat'
     Left = 210
-    Top = 141
+    Top = 142
     object cdsOrcamento_MatID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -11630,7 +11628,7 @@ object DMCadPedido: TDMCadPedido
     ProviderName = 'dspPedidoServicoImp'
     OnCalcFields = pedidoImpCalcFields
     Left = 344
-    Top = 501
+    Top = 502
     object cdsPedidoServicoImpID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -11791,7 +11789,7 @@ object DMCadPedido: TDMCadPedido
     Params = <>
     ProviderName = 'dspAcabamento'
     Left = 625
-    Top = 213
+    Top = 214
     object cdsAcabamentoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -11990,7 +11988,7 @@ object DMCadPedido: TDMCadPedido
     Params = <>
     ProviderName = 'dspFuros'
     Left = 625
-    Top = 339
+    Top = 340
     object cdsFurosID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -14040,7 +14038,7 @@ object DMCadPedido: TDMCadPedido
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Ace'
-    Left = 210
+    Left = 211
     Top = 271
     object cdsOrcamento_AceID: TIntegerField
       FieldName = 'ID'
@@ -16997,7 +16995,7 @@ object DMCadPedido: TDMCadPedido
     Params = <>
     ProviderName = 'dspChapa'
     Left = 785
-    Top = 304
+    Top = 303
     object cdsChapaID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -17418,7 +17416,7 @@ object DMCadPedido: TDMCadPedido
     IndexFieldNames = 'CODIGO'
     Params = <>
     ProviderName = 'dspServico'
-    Left = 776
+    Left = 777
     Top = 528
     object cdsServicoID: TIntegerField
       FieldName = 'ID'
@@ -18062,7 +18060,7 @@ object DMCadPedido: TDMCadPedido
   end
   object dsTab_Preco: TDataSource
     DataSet = cdsTab_Preco
-    Left = 640
+    Left = 639
     Top = 170
   end
   object sdsConsumo_Comb: TSQLDataSet
@@ -18668,7 +18666,7 @@ object DMCadPedido: TDMCadPedido
     Params = <>
     ProviderName = 'dspTitulosPend'
     OnNewRecord = cdsPedido_ItensNewRecord
-    Left = 651
+    Left = 652
     Top = 590
     object cdsTitulosPendID: TIntegerField
       FieldName = 'ID'

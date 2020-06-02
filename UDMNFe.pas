@@ -1248,6 +1248,7 @@ type
     mItensNFeANP_PERC_PGNN: TFloatField;
     mItensNFeANP_PERC_PGNI: TFloatField;
     mItensNFeANP_PERC_PGLP: TFloatField;
+    mItensNFeANP_VLR_VPART: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);

@@ -613,7 +613,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     ProviderName = 'dspNotaFiscal'
     BeforePost = cdsNotaFiscalBeforePost
     OnNewRecord = cdsNotaFiscalNewRecord
-    Left = 78
+    Left = 79
     Top = 9
     object cdsNotaFiscalID: TIntegerField
       FieldName = 'ID'
@@ -1310,7 +1310,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 27
+    Left = 26
     Top = 52
     object sdsNotaFiscal_ItensID: TIntegerField
       FieldName = 'ID'
@@ -1959,6 +1959,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object sdsNotaFiscal_ItensANP_PERC_PGLP: TFloatField
       FieldName = 'ANP_PERC_PGLP'
     end
+    object sdsNotaFiscal_ItensANP_VLR_VPART: TFloatField
+      FieldName = 'ANP_VLR_VPART'
+    end
   end
   object cdsNotaFiscal_Itens: TClientDataSet
     Aggregates = <>
@@ -1968,7 +1971,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     BeforePost = cdsNotaFiscal_ItensBeforePost
     OnNewRecord = cdsNotaFiscal_ItensNewRecord
     Left = 51
-    Top = 51
+    Top = 52
     object cdsNotaFiscal_ItensID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2642,6 +2645,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsNotaFiscal_ItensANP_PERC_PGLP: TFloatField
       FieldName = 'ANP_PERC_PGLP'
+    end
+    object cdsNotaFiscal_ItensANP_VLR_VPART: TFloatField
+      FieldName = 'ANP_VLR_VPART'
     end
   end
   object dsNotaFiscal_Itens: TDataSource
@@ -4561,7 +4567,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     ProviderName = 'dspNotaFiscal_Consulta'
     OnCalcFields = cdsNotaFiscal_ConsultaCalcFields
     Left = 263
-    Top = 8
+    Top = 9
     object cdsNotaFiscal_ConsultaID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -5171,6 +5177,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 311
   end
   object cdsTipoCobranca: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5251,6 +5258,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 358
   end
   object cdsContas: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5586,7 +5594,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Params = <>
     ProviderName = 'dspUnidade'
     Left = 649
-    Top = 451
+    Top = 452
     object cdsUnidadeUNIDADE: TStringField
       FieldName = 'UNIDADE'
       Required = True
@@ -7313,7 +7321,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     OnNewRecord = cdsDuplicataNewRecord
     OnReconcileError = cdsDuplicataReconcileError
     Left = 817
-    Top = 450
+    Top = 451
     object cdsDuplicataID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -12030,7 +12038,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     DataSetField = cdsNotaFiscal_ItenssdsNotaFiscal_OS
     IndexFieldNames = 'ID;ITEM;ITEM_NOTAOS'
     Params = <>
-    Left = 240
+    Left = 241
     Top = 393
     object cdsNotaFiscal_OSID: TIntegerField
       FieldName = 'ID'
@@ -12560,7 +12568,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspLocal_Estoque'
-    Left = 819
+    Left = 818
     Top = 360
     object cdsLocal_EstoqueID: TIntegerField
       FieldName = 'ID'
@@ -13985,7 +13993,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Params = <>
     ProviderName = 'dspHist_Senha'
     Left = 464
-    Top = 8
+    Top = 9
     object cdsHist_SenhaID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -14858,7 +14866,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Params = <>
     ProviderName = 'dspImpNota'
     OnCalcFields = cdsNotaFiscal_ConsultaCalcFields
-    Left = 649
+    Left = 648
     Top = 600
     object cdsImpNotaID: TIntegerField
       FieldName = 'ID'
