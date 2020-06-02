@@ -150,12 +150,6 @@ type
     RxDBLookupCombo5: TRxDBLookupCombo;
     RxDBLookupCombo9: TRxDBLookupCombo;
     DBDateEdit3: TDBDateEdit;
-    gbxVendedor: TRzGroupBox;
-    lblVendedor: TLabel;
-    SpeedButton5: TSpeedButton;
-    lblComissao: TLabel;
-    rxdbVendedor: TRxDBLookupCombo;
-    dbedtComissao: TDBEdit;
     RzGroupBox1: TRzGroupBox;
     Label30: TLabel;
     Label31: TLabel;
@@ -194,8 +188,6 @@ type
     PopupMenu3: TPopupMenu;
     GravarComissao1: TMenuItem;
     GravaComissao2: TMenuItem;
-    Label42: TLabel;
-    DBEdit22: TDBEdit;
     DBEdit23: TDBEdit;
     Label44: TLabel;
     Excel1: TMenuItem;
@@ -203,12 +195,6 @@ type
     Label48: TLabel;
     RxDBLookupCombo10: TRxDBLookupCombo;
     ExtratoVendedor1: TMenuItem;
-    gbxContabil: TRzGroupBox;
-    Label53: TLabel;
-    SpeedButton6: TSpeedButton;
-    RxDBLookupCombo11: TRxDBLookupCombo;
-    Label59: TLabel;
-    RxDBLookupCombo12: TRxDBLookupCombo;
     DBCheckBox8: TDBCheckBox;
     LayoutBorder1: TMenuItem;
     Lista1: TMenuItem;
@@ -265,6 +251,27 @@ type
     Gerarcomissoconformeconsultatodasatjgeradas1: TMenuItem;
     Label66: TLabel;
     DBEdit24: TDBEdit;
+    TS_Comissao: TRzTabSheet;
+    gbxVendedor: TRzGroupBox;
+    lblVendedor: TLabel;
+    SpeedButton5: TSpeedButton;
+    lblComissao: TLabel;
+    Label42: TLabel;
+    rxdbVendedor: TRxDBLookupCombo;
+    dbedtComissao: TDBEdit;
+    DBEdit22: TDBEdit;
+    gbxContabil: TRzGroupBox;
+    Label53: TLabel;
+    SpeedButton6: TSpeedButton;
+    Label59: TLabel;
+    RxDBLookupCombo11: TRxDBLookupCombo;
+    RxDBLookupCombo12: TRxDBLookupCombo;
+    gbxVendedorInt: TRzGroupBox;
+    Label67: TLabel;
+    Label68: TLabel;
+    RxDBLookupCombo14: TRxDBLookupCombo;
+    DBEdit25: TDBEdit;
+    SpeedButton8: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure OnShow(Sender: TObject);
@@ -623,10 +630,12 @@ begin
     if (SMDBGrid1.Columns[i].FieldName = 'APROVADO') then
       SMDBGrid1.Columns[i].Visible := (fDMCadDuplicata.qParametros_FinUSA_APROVA_DUP.AsString = 'S');
   end;
-  gbxVendedor.Visible := (fDMCadDuplicata.qParametrosUSA_VENDEDOR.AsString = 'S');
+  gbxVendedor.Visible    := (fDMCadDuplicata.qParametrosUSA_VENDEDOR.AsString = 'S');
+  gbxVendedorInt.Visible := (fDMCadDuplicata.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S');
   if fDMCadDuplicata.qParametrosUSA_VENDEDOR.AsString <> 'S' then
     gbxContabil.Left := 10;
   gbxContabil.Visible := (fDMCadDuplicata.qParametros_GeralMOSTRAR_COD_CONTABIL.AsString = 'S');
+  TS_Comissao.TabVisible := (gbxVendedor.Visible) or (gbxVendedorInt.Visible) or (gbxContabil.Visible);
 
   Label29.Visible := (RxDBComboBox11.ItemIndex = 0);
   DBDateEdit3.Visible := (RxDBComboBox11.ItemIndex = 0);
@@ -3043,6 +3052,7 @@ begin
         SMDBGrid3.Columns[i].ReadOnly := True;
     end;
   end;
+  TS_Comissao.Enabled := not(TS_Comissao.Enabled);
 end;
 
 procedure TfrmCadDuplicata.btnGerarCCustoClick(Sender: TObject);
