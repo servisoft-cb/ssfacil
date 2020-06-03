@@ -19,7 +19,7 @@ type
     btnCopiar: TBitBtn;
     lblDiretorio: TLabel;
     DirectoryEdit1: TDirectoryEdit;
-    SpeedButton1: TSpeedButton;
+    btnCarrega: TSpeedButton;
     mArquivoImportado: TClientDataSet;
     dsmArquivoImportado: TDataSource;
     mArquivoImportadoCaminhoArquivo: TStringField;
@@ -46,11 +46,13 @@ type
     pnlItens: TPanel;
     SMDBGrid1: TSMDBGrid;
     btnAbrirPDF: TSpeedButton;
+    SpeedButton3: TSpeedButton;
+    Label2: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure btnCopiarClick(Sender: TObject);
-    procedure SpeedButton1Click(Sender: TObject);
+    procedure btnCarregaClick(Sender: TObject);
     procedure prc_OpenPDF(aFile: TFileName; TypeForm: Integer = SW_NORMAL);
     procedure SpeedButton2Click(Sender: TObject);
     procedure mArquivoImportadoEspessuraChange(Sender: TField);
@@ -62,11 +64,17 @@ type
     procedure btnAbrirPDFClick(Sender: TObject);
     procedure mArquivoImportadoVlr_UnitarioChange(Sender: TField);
     procedure FormDestroy(Sender: TObject);
+    procedure SpeedButton3Click(Sender: TObject);
+    procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     ctChapaLocal: string;
     ffrmCadPedido_Itens : TfrmCadPedido_Itens;
     ffrmMostraPDF : TfrmMostraPDF;
+
+    vSomar : Boolean;
+
     procedure ListarArquivos(Diretorio: string);
     procedure prc_Calcular_Peso_PC_Chapa;
     procedure prc_Calcular_VlrTotal;
@@ -235,9 +243,12 @@ begin
   Close;
 end;
 
-procedure TfrmMontaPed_TipoItem.SpeedButton1Click(Sender: TObject);
+procedure TfrmMontaPed_TipoItem.btnCarregaClick(Sender: TObject);
 begin
+  btnCarrega.Tag := 1;
   ListarArquivos(DirectoryEdit1.Text);
+  btnCarrega.Enabled := (mArquivoImportado.IsEmpty);
+  btnCarrega.Tag := 0;
 end;
 
 procedure TfrmMontaPed_TipoItem.ListarArquivos(Diretorio: string);
@@ -437,6 +448,8 @@ procedure TfrmMontaPed_TipoItem.prc_Calcular_VlrTotal;
 var
   vCalcular : TCalcluar_Peso;
 begin
+  if not vSomar then
+    exit;
   vCalcular := TCalcluar_Peso.Create;
   try
     vCalcular.ValorDobra := mArquivoImportadoVlr_Dobra.AsFloat;
@@ -515,6 +528,22 @@ procedure TfrmMontaPed_TipoItem.FormDestroy(Sender: TObject);
 begin
   if Assigned(ffrmMostraPDF) then
     FreeAndNil(ffrmMostraPDF);
+end;
+
+procedure TfrmMontaPed_TipoItem.SpeedButton3Click(Sender: TObject);
+begin
+  btnCarrega.Enabled := True;
+end;
+
+procedure TfrmMontaPed_TipoItem.SMDBGrid1KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (mArquivoImportado.State in [dsEdit]) and ((Key = 38) or (Key = 40)) then
+    key := Vk_Return;
+  if Key = Vk_Return then
+    vSomar := True
+  else
+    vSomar := False;
 end;
 
 end.

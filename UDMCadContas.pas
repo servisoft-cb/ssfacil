@@ -359,6 +359,14 @@ type
     cdsContas_SacadolkNomeFilial: TStringField;
     sdsContasEND_ARQUIVO_RET: TStringField;
     cdsContasEND_ARQUIVO_RET: TStringField;
+    sdsContas_Vinculada: TSQLDataSet;
+    dspContas_Vinculada: TDataSetProvider;
+    cdsContas_Vinculada: TClientDataSet;
+    dsContas_Vinculada: TDataSource;
+    cdsContas_VinculadaID: TIntegerField;
+    cdsContas_VinculadaNOME: TStringField;
+    sdsContasID_CONTA_VINCULADA: TIntegerField;
+    cdsContasID_CONTA_VINCULADA: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspContasUpdateError(Sender: TObject; DataSet: TCustomClientDataSet; E: EUpdateError; UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsContas_CalculoNewRecord(DataSet: TDataSet);
@@ -463,6 +471,7 @@ begin
   qParametros_Geral.Close;
   qParametros_Geral.Open;
   cdsFiliallk.Open;
+  cdsContas_Vinculada.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do

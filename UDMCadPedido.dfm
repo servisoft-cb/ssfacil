@@ -6493,6 +6493,10 @@ object DMCadPedido: TDMCadPedido
         Name = 'Motivo_Nao_Aprovado_Memo'
         DataType = ftMemo
         Size = 2
+      end
+      item
+        Name = 'Vlr_Unitario_IPI'
+        DataType = ftFloat
       end>
     IndexDefs = <
       item
@@ -6509,7 +6513,7 @@ object DMCadPedido: TDMCadPedido
     Left = 856
     Top = 137
     Data = {
-      500200009619E0BD01000000180000001700000000000300000050020C49445F
+      690200009619E0BD01000000180000001800000000000300000069020C49445F
       4F7263616D656E746F0400010000000000044974656D04000100000000000A49
       445F50726F6475746F04000100000000000C4E6F6D655F50726F6475746F0100
       490000000100055749445448020002003C000351746408000400000000000C56
@@ -6526,8 +6530,9 @@ object DMCadPedido: TDMCadPedido
       104D6F7469766F5F4E616F5F4170726F76010049000000010005574944544802
       00020064000E446174615F4E616F5F4170726F760400060000000000184D6F74
       69766F5F4E616F5F4170726F7661646F5F4D656D6F04004B0000000200075355
-      4254595045020049000500546578740005574944544802000200020001000D44
-      454641554C545F4F524445520200820000000000}
+      4254595045020049000500546578740005574944544802000200020010566C72
+      5F556E69746172696F5F495049080004000000000001000D44454641554C545F
+      4F524445520200820000000000}
     object mOrcamento_ItensID_Orcamento: TIntegerField
       FieldName = 'ID_Orcamento'
     end
@@ -6606,6 +6611,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'Motivo_Nao_Aprovado_Memo'
       BlobType = ftMemo
       Size = 2
+    end
+    object mOrcamento_ItensVlr_Unitario_IPI: TFloatField
+      FieldName = 'Vlr_Unitario_IPI'
     end
   end
   object dsmOrcamento_Itens: TDataSource
@@ -7154,6 +7162,9 @@ object DMCadPedido: TDMCadPedido
     object cdsOrcamento_ItensFOTO: TStringField
       FieldName = 'FOTO'
       Size = 250
+    end
+    object cdsOrcamento_ItensVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
     end
   end
   object dsOrcamento_Itens: TDataSource

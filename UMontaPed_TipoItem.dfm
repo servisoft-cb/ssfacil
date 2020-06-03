@@ -1,6 +1,6 @@
 object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
-  Left = 184
-  Top = 2
+  Left = 178
+  Top = 24
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmMontaPed_TipoItem'
@@ -37,7 +37,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Height = 13
       Caption = 'Diret'#243'rio Projeto:'
     end
-    object SpeedButton1: TSpeedButton
+    object btnCarrega: TSpeedButton
       Left = 427
       Top = 3
       Width = 137
@@ -142,7 +142,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
-      OnClick = SpeedButton1Click
+      OnClick = btnCarregaClick
     end
     object btnAbrirPDF: TSpeedButton
       Left = 564
@@ -251,6 +251,27 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
         40E82D3EE42C3DE02F3EDA5865E0ADB6EFFDFEFFFFFFFFFFFFFF}
       OnClick = btnAbrirPDFClick
     end
+    object SpeedButton3: TSpeedButton
+      Left = 701
+      Top = 3
+      Width = 137
+      Height = 37
+      Caption = 'Liberar'
+      OnClick = SpeedButton3Click
+    end
+    object Label2: TLabel
+      Left = 742
+      Top = 60
+      Width = 249
+      Height = 13
+      Caption = 'Para calcular use o ENTER entre os campos'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+    end
     object DirectoryEdit1: TDirectoryEdit
       Left = 82
       Top = 6
@@ -261,7 +282,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       TabOrder = 0
     end
     object RadioGroup1: TRadioGroup
-      Left = 369
+      Left = 365
       Top = 42
       Width = 333
       Height = 37
@@ -394,6 +415,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       TitleFont.Height = -11
       TitleFont.Name = 'MS Sans Serif'
       TitleFont.Style = []
+      OnKeyDown = SMDBGrid1KeyDown
       OnTitleClick = SMDBGrid1TitleClick
       Flat = True
       BandsFont.Charset = DEFAULT_CHARSET
@@ -576,7 +598,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Params = <>
     StoreDefs = True
     OnNewRecord = mArquivoImportadoNewRecord
-    Left = 272
+    Left = 273
     Top = 328
     Data = {
       6C0100009619E0BD01000000180000000F0000000000030000006C010E43616D

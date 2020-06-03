@@ -3750,6 +3750,8 @@ type
     sdsPedidoCONTROLA_RESERVA: TStringField;
     cdsPedidoCONTROLA_RESERVA: TStringField;
     qParametros_FinUSA_ADTO: TStringField;
+    mOrcamento_ItensVlr_Unitario_IPI: TFloatField;
+    cdsOrcamento_ItensVLR_UNITARIO_IPI: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

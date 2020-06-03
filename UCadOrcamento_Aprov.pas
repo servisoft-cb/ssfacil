@@ -95,9 +95,10 @@ begin
         fDMCadPedido.mOrcamento_ItensID_Produto.AsInteger   := fDMCadPedido.cdsOrcamento_ItensID_PRODUTO.AsInteger
       else
         fDMCadPedido.mOrcamento_ItensID_Produto.Clear;
-      fDMCadPedido.mOrcamento_ItensNome_Produto.AsString   := fDMCadPedido.cdsOrcamento_ItensNOMEPRODUTO.AsString;
-      fDMCadPedido.mOrcamento_ItensQtd.AsFloat             := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsOrcamento_ItensQTD.AsFloat));
-      fDMCadPedido.mOrcamento_ItensVlr_Unitario.AsFloat    := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsOrcamento_ItensVLR_UNITARIO.AsFloat));
+      fDMCadPedido.mOrcamento_ItensNome_Produto.AsString    := fDMCadPedido.cdsOrcamento_ItensNOMEPRODUTO.AsString;
+      fDMCadPedido.mOrcamento_ItensQtd.AsFloat              := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsOrcamento_ItensQTD.AsFloat));
+      fDMCadPedido.mOrcamento_ItensVlr_Unitario.AsFloat     := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsOrcamento_ItensVLR_UNITARIO.AsFloat));
+      fDMCadPedido.mOrcamento_ItensVlr_Unitario_IPI.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsOrcamento_ItensVLR_UNITARIO_IPI.AsFloat));
       fDMCadPedido.mOrcamento_ItensVlr_Total.AsFloat       := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsOrcamento_ItensVLR_TOTAL.AsFloat));
       fDMCadPedido.mOrcamento_ItensAprovar.AsBoolean       := False;
       fDMCadPedido.mOrcamento_ItensReprovar.AsBoolean      := False;
