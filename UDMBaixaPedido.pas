@@ -549,26 +549,26 @@ type
     procedure cdsBaixa_Pedido_MPBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
-    vTipoDoc : String;
+    vTipoDoc: String;
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
-    procedure prc_Abrir_Produto_Consumo(ID_Produto : Integer);
-    procedure prc_Abrir_Produto_CMat(ID_Produto, ID_Cor : Integer);
-    procedure prc_Gravar_Baixa_MP(Qtd, Qtd_Consumo : Real ; Tamanho : String ; ID_Cor, ID_Material : Integer);
-    procedure prc_Le_Produto_Consumo(Qtd : Real);
+    procedure prc_Abrir_Produto_Consumo(ID_Produto: Integer);
+    procedure prc_Abrir_Produto_CMat(ID_Produto, ID_Cor: Integer);
+    procedure prc_Gravar_Baixa_MP(Qtd, Qtd_Consumo: Real; Tamanho: String; ID_Cor, ID_Material: Integer);
+    procedure prc_Le_Produto_Consumo(Qtd: Real);
 
   public
     { Public declarations }
-    ctPedido_Item  : String;
-    ctBaixa_Pedido : String;
-    ctBaixa_Talao  : String;
-    ctLote_Talao   : String;
-    ctCliente      : String;
-    ctPedido_Pend  : String;
+    ctPedido_Item : String;
+    ctBaixa_Pedido: String;
+    ctBaixa_Talao : String;
+    ctLote_Talao  : String;
+    ctCliente     : String;
+    ctPedido_Pend : String;
 
-    fDMEstoque : TDMEstoque;
-    procedure prc_Abrir_Baixa_Pedido(ID : Integer);
-    procedure prc_Gravar_Baixa(Tipo_Reg_Pedido, Estoque, Tipo_Mov : String ; DtBaixa : TDateTime);
-    procedure prc_Abrir_Cliente(Tipo_Reg, Tipo_Baixa : String);
+    fDMEstoque: TDMEstoque;
+    procedure prc_Abrir_Baixa_Pedido(ID: Integer);
+    procedure prc_Gravar_Baixa(Tipo_Reg_Pedido, Estoque, Tipo_Mov: String; DtBaixa: TDateTime);
+    procedure prc_Abrir_Cliente(Tipo_Reg, Tipo_Baixa: String);
   end;
 
 var
@@ -655,14 +655,14 @@ begin
   cdsBaixa_PedidoTIPO_MOV.AsString := 'P';
 end;
 
-procedure TDMBaixaPedido.prc_Gravar_Baixa(Tipo_Reg_Pedido, Estoque, Tipo_Mov : String ; DtBaixa : TDateTime);
+procedure TDMBaixaPedido.prc_Gravar_Baixa(Tipo_Reg_Pedido, Estoque, Tipo_Mov: String; DtBaixa: TDateTime);
 var
   ID: TTransactionDesc;
-  vAux : Integer;
-  vID_Estoque : Integer;
-  vES : String;
-  vID_BaixaTalao : Integer;
-  vQtd : Real;
+  vAux: Integer;
+  vID_Estoque: Integer;
+  vES: String;
+  vID_BaixaTalao: Integer;
+  vQtd: Real;
 begin
   vAux := dmDatabase.ProximaSequencia('BAIXA_PEDIDO',0);
   if not cdsBaixa_Pedido.Active then
@@ -778,7 +778,7 @@ end;
 
 procedure TDMBaixaPedido.prc_Abrir_Cliente(Tipo_Reg, Tipo_Baixa: String);
 var
-  vComando : String;
+  vComando: String;
 begin
   cdsCliente.Close;
   vComando := '';
@@ -800,7 +800,7 @@ begin
   UserName := vUsuario;
 end;
 
-procedure TDMBaixaPedido.prc_Le_Produto_Consumo(Qtd : Real);
+procedure TDMBaixaPedido.prc_Le_Produto_Consumo(Qtd: Real);
 begin
   if qParametrosINFORMAR_COR_PROD.AsString = 'B' then
   begin
@@ -857,10 +857,10 @@ begin
   cdsProduto_Consumo.Open;
 end;
 
-procedure TDMBaixaPedido.prc_Gravar_Baixa_MP(Qtd, Qtd_Consumo : Real ; Tamanho : String ; ID_Cor, ID_Material : Integer);
+procedure TDMBaixaPedido.prc_Gravar_Baixa_MP(Qtd, Qtd_Consumo: Real; Tamanho: String; ID_Cor, ID_Material: Integer);
 var
-  vItem : Integer;
-  vID_Estoque : Integer;
+  vItem: Integer;
+  vID_Estoque: Integer;
 begin
   cdsBaixa_Pedido_MP.Last;
   vItem := cdsBaixa_Pedido_MPITEM.AsInteger + 1;
