@@ -38,7 +38,7 @@ object frmBaixa_Material_OP: TfrmBaixa_Material_OP
     end
     object edtOrdemProducao: TEdit
       Left = 182
-      Top = 16
+      Top = 18
       Width = 166
       Height = 26
       Ctl3D = False

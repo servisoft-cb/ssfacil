@@ -4,7 +4,7 @@ object DMCadContas: TDMCadContas
   Left = 410
   Top = 30
   Height = 647
-  Width = 741
+  Width = 797
   object sdsContas: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -241,6 +241,9 @@ object DMCadContas: TDMCadContas
     object sdsContasEND_ARQUIVO_RET: TStringField
       FieldName = 'END_ARQUIVO_RET'
       Size = 200
+    end
+    object sdsContasID_CONTA_VINCULADA: TIntegerField
+      FieldName = 'ID_CONTA_VINCULADA'
     end
   end
   object dspContas: TDataSetProvider
@@ -505,6 +508,9 @@ object DMCadContas: TDMCadContas
     object cdsContasEND_ARQUIVO_RET: TStringField
       FieldName = 'END_ARQUIVO_RET'
       Size = 200
+    end
+    object cdsContasID_CONTA_VINCULADA: TIntegerField
+      FieldName = 'ID_CONTA_VINCULADA'
     end
   end
   object dsContas: TDataSource
@@ -1590,5 +1596,44 @@ object DMCadContas: TDMCadContas
     DataSet = cdsFiliallk
     Left = 520
     Top = 376
+  end
+  object sdsContas_Vinculada: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT C.ID, C.nome'#13#10'FROM CONTAS C'#13#10'WHERE (C.TIPO_CONTA = '#39'C'#39#13#10' ' +
+      '  OR C.TIPO_CONTA = '#39'B'#39' )'#13#10'   AND (C.INATIVO = '#39'N'#39')'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 66
+    Top = 341
+  end
+  object dspContas_Vinculada: TDataSetProvider
+    DataSet = sdsContas_Vinculada
+    OnUpdateError = dspContasUpdateError
+    Left = 138
+    Top = 341
+  end
+  object cdsContas_Vinculada: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspContas_Vinculada'
+    Left = 202
+    Top = 341
+    object cdsContas_VinculadaID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsContas_VinculadaNOME: TStringField
+      FieldName = 'NOME'
+      Size = 30
+    end
+  end
+  object dsContas_Vinculada: TDataSource
+    DataSet = cdsContas_Vinculada
+    Left = 277
+    Top = 341
   end
 end

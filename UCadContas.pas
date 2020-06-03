@@ -434,6 +434,8 @@ type
     Label190: TLabel;
     DBEdit86: TDBEdit;
     Label191: TLabel;
+    Label192: TLabel;
+    RxDBLookupCombo44: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
