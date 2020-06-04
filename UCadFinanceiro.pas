@@ -103,6 +103,8 @@ type
     Pagamento1: TMenuItem;
     Label30: TLabel;
     DBEdit5: TDBEdit;
+    Label32: TLabel;
+    RxDBLookupCombo8: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -140,6 +142,7 @@ type
     procedure MovimentopData1Click(Sender: TObject);
     procedure Recebimento1Click(Sender: TObject);
     procedure Pagamento1Click(Sender: TObject);
+    procedure RxDBLookupCombo4Exit(Sender: TObject);
   private
     { Private declarations }
     fDMCadFinanceiro: TDMCadFinanceiro;
@@ -188,6 +191,12 @@ begin
   prc_Posiciona_Financeiro;
   if fDMCadFinanceiro.cdsFinanceiro.IsEmpty then
     exit;
+  if fDMCadFinanceiro.cdsFinanceiroID_FINANCEIRO_VINC.AsInteger > 0 then
+  begin
+    MessageDlg('*** Movimento é de adiantamento, precisa excluir a conta original..... ID Original: ' + fDMCadFinanceiro.cdsFinanceiroID_FINANCEIRO_VINC.AsString, mtError, [mbOk], 0);
+    exit;
+  end;
+
   if fnc_Fechamento then
     exit;
   if MessageDlg('Deseja excluir este registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
@@ -373,8 +382,15 @@ begin
     exit;
   end;
 
+  if fDMCadFinanceiro.cdsFinanceiroID_FINANCEIRO_VINC.AsInteger > 0 then
+  begin
+    MessageDlg('*** Movimento é de adiantamento, precisa alterar a conta original..... ID Original: ' + fDMCadFinanceiro.cdsFinanceiroID_FINANCEIRO_VINC.AsString, mtError, [mbOk], 0);
+    exit;
+  end;
+
   if fnc_Fechamento then
     exit;
+
   fDMCadFinanceiro.cdsFinanceiro.Edit;
 
   TS_Consulta.TabEnabled := False;
@@ -504,6 +520,7 @@ begin
             (fDMCadFinanceiro.cdsFinanceiro_ConsultaID.AsInteger <= 0) then
         exit;
       prc_Posiciona_Financeiro;
+      RxDBLookupCombo4Exit(Sender);
     end;
   end;
 end;
@@ -764,6 +781,21 @@ begin
     Exit;
   end;
   fDMCadFinanceiro.frxReport1.ShowReport;
+end;
+
+procedure TfrmCadFinanceiro.RxDBLookupCombo4Exit(Sender: TObject);
+begin
+  if trim(RxDBLookupCombo4.Text) <> '' then
+  begin
+    fDMCadFinanceiro.cdsContas.Locate('ID',RxDBLookupCombo4.KeyValue,[loCaseInsensitive]);
+    RxDBLookupCombo8.Visible := (fDMCadFinanceiro.cdsContasTIPO_CONTA.AsString = 'A');
+    Label32.Visible          := (fDMCadFinanceiro.cdsContasTIPO_CONTA.AsString = 'A');
+  end
+  else
+  begin
+    RxDBLookupCombo8.Visible := False;
+    Label32.Visible          := False;
+  end;
 end;
 
 end.

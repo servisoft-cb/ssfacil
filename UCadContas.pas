@@ -452,6 +452,7 @@ type
     procedure BitBtn1Click(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure Normal1Click(Sender: TObject);
+    procedure RxDBComboBox1Exit(Sender: TObject);
   private
     { Private declarations }
     fDMCadContas: TDMCadContas;
@@ -697,6 +698,7 @@ begin
     fDMCadContas.prc_Abrir_Instrucao(fDMCadContas.cdsContasID_BANCO.AsInteger);
     fDMCadContas.prc_Abrir_Ocorrencia(fDMCadContas.cdsContasID_BANCO.AsInteger);
     prc_Habilita_Aba;
+    RxDBComboBox1Exit(Sender);
   end;
 
   DirectoryEdit1.Text := fDMCadContas.cdsContasBANCO_LOGO.AsString;
@@ -959,6 +961,12 @@ begin
     5: ts_Itau.TabVisible         := True;
     6: ts_Sicoob.TabVisible       := True;
   end;
+end;
+
+procedure TfrmCadContas.RxDBComboBox1Exit(Sender: TObject);
+begin
+  RxDBLookupCombo44.Visible := (fDMCadContas.cdsContasTIPO_CONTA.AsString = 'A');
+  Label192.Visible          := (fDMCadContas.cdsContasTIPO_CONTA.AsString = 'A');
 end;
 
 end.

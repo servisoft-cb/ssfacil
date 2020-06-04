@@ -395,6 +395,11 @@ type
     cdsOrcamentoAPROVADO_ORC: TStringField;
     cdsOrcamentoID_VENDEDOR: TIntegerField;
     cdsOrcamentoNOME_VENDEDOR: TStringField;
+    sdsFinanceiroID_CONTA_VINCULADA: TIntegerField;
+    cdsFinanceiroID_CONTA_VINCULADA: TIntegerField;
+    sdsFinanceiroID_FINANCEIRO_VINC: TIntegerField;
+    cdsFinanceiroID_FINANCEIRO_VINC: TIntegerField;
+    cdsContasTIPO_CONTA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspFinanceiroUpdateError(Sender: TObject; DataSet: TCustomClientDataSet; E: EUpdateError; UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsFinanceiroBeforePost(DataSet: TDataSet);
@@ -408,6 +413,9 @@ type
     vSaldo: Real;
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
+
+    procedure prc_Gravar_Financeiro_Vinculado(ID, ID_Conta : Integer);
+
   public
     { Public declarations }
     vMsgErro: string;
@@ -463,8 +471,13 @@ begin
 end;
 
 procedure TDMCadFinanceiro.prc_Gravar;
+var
+  vIDAux : Integer;
+  vIDConta : Integer;
 begin
   vMsgErro := '';
+  if cdsFinanceiroID_CONTA.AsInteger > 0 then
+    cdsContas.Locate('ID',cdsFinanceiroID_CONTA.AsInteger,[loCaseInsensitive]);
   if cdsFinanceiroID_CONTA.AsInteger < 1 then
     vMsgErro := vMsgErro + #13 + '*** Conta não informada!';
   if cdsFinanceiroFILIAL.AsInteger < 1 then
@@ -475,12 +488,19 @@ begin
     vMsgErro := vMsgErro + #13 + '*** Histórico não informado!';
   if (qParametros_FinEXIGIR_CONTA_ORC_DUP.AsString = 'S') and (cdsFinanceiroID_CONTA_ORCAMENTO.AsInteger <= 0) then
     vMsgErro := vMsgErro + #13 + '*** Conta de Orçamento não informada!';
-
+  if (cdsContasTIPO_CONTA.AsString = 'A') and (cdsFinanceiroID_CONTA_VINCULADA.AsInteger <= 0) then
+    vMsgErro := vMsgErro + #13 + '*** Conta Banco/Caixa não foi informada!';
+  if (cdsContasTIPO_CONTA.AsString = 'A') and (cdsFinanceiroID_PESSOA.AsInteger <= 0) then
+    vMsgErro := vMsgErro + #13 + '*** Pessoa não foi informada!';
   if trim(vMsgErro) <> '' then
     exit;
+  vIDAux   := cdsFinanceiroID.AsInteger;
+  vIDConta := cdsFinanceiroID_CONTA_VINCULADA.AsInteger; 
   cdsFinanceiro.Post;
-
   cdsFinanceiro.ApplyUpdates(0);
+
+  if cdsContasTIPO_CONTA.AsString = 'A' then
+    prc_Gravar_Financeiro_Vinculado(vIDAux,vIDConta);
 end;
 
 procedure TDMCadFinanceiro.prc_Localizar(ID: Integer); //-1 é para inclusão
@@ -602,6 +622,54 @@ procedure TDMCadFinanceiro.mFaturamentoNewRecord(DataSet: TDataSet);
 begin
   mFaturamentoVlrMovimento.AsFloat := 0;
   mFaturamentoQtd.AsInteger        := 0;
+end;
+
+procedure TDMCadFinanceiro.prc_Gravar_Financeiro_Vinculado(ID, ID_Conta: Integer);
+var
+  sds: TSQLDataSet;
+  x: Integer;
+  vIDAux : Integer;
+begin
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata  := True;
+    sds.GetMetadata := False;
+
+    sds.CommandText := 'SELECT ID FROM FINANCEIRO '
+                     + 'WHERE ID_FINANCEIRO_VINC = ' + IntToStr(ID);
+    sds.Open;
+
+    vIDAux := sds.FieldByName('ID').AsInteger;
+
+    sds.Close;
+    sds.CommandText := 'SELECT TIPO_ES, DTMOVIMENTO, VLR_MOVIMENTO, ID_HISTORICO, HISTORICO_COMPL, ID_PESSOA, FILIAL, '
+                     + 'USUARIO, DTUSUARIO, HRUSUARIO, ID_FORMA_PAGAMENTO, VLR_SAIDA, VLR_ENTRADA, ID_CONTA_ORCAMENTO '
+                     + 'FROM FINANCEIRO '
+                     + 'WHERE ID = ' + IntToStr(ID);
+    sds.Open;
+
+
+    if vIDAux > 0 then
+    begin
+      prc_Localizar(vIDAux);
+      if cdsFinanceiroID.AsInteger > 0 then
+        cdsFinanceiro.Edit;
+    end;
+    if not (cdsFinanceiro.State in [dsEdit]) then
+      prc_Inserir;
+    for x := 0 to (sds.FieldCount - 1) do
+      cdsFinanceiro.FieldByName(sds.Fields[x].FieldName).AsVariant := sds.Fields[x].Value;
+    cdsFinanceiroID_CONTA.AsInteger := ID_Conta;
+    cdsFinanceiroID_FINANCEIRO_VINC.AsInteger := ID; 
+
+    cdsFinanceiro.Post;
+    cdsFinanceiro.ApplyUpdates(0);
+
+  finally
+    FreeAndNil(sds);
+  end;
+
 end;
 
 end.
