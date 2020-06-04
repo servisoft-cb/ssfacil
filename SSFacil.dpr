@@ -852,7 +852,10 @@ uses
   UCadAdto_Mov in 'UCadAdto_Mov.pas' {frmCadAdto_Mov},
   UCadNotaFiscal_Itens_ANP in 'UCadNotaFiscal_Itens_ANP.pas' {frmCadNotaFiscal_Itens_ANP},
   USel_ANP in 'USel_ANP.pas' {frmSel_ANP},
-  UDMCadAdto_Mov in 'UDMCadAdto_Mov.pas' {DMCadAdto_Mov: TDataModule};
+  UDMCadAdto_Mov in 'UDMCadAdto_Mov.pas' {DMCadAdto_Mov: TDataModule},
+  UDMCadAjuste_Preco in 'UDMCadAjuste_Preco.pas' {DMCadAjuste_Preco: TDataModule},
+  UCadAjuste_Preco in 'UCadAjuste_Preco.pas' {frmCadAjuste_Preco},
+  UCadAjuste_Preco_Sel in 'UCadAjuste_Preco_Sel.pas' {frmCadAjuste_Preco_Sel};
 
 {$R *.res}
 

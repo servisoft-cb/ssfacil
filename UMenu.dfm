@@ -427,6 +427,10 @@ object fMenu: TfMenu
           Caption = 'Consulta Nova'
           OnClick = ConsultaNova1Click
         end
+        object AjustaPreoNoCadastrodoProduto1: TMenuItem
+          Caption = 'Ajusta Pre'#231'o No Cadastro do Produto'
+          OnClick = AjustaPreoNoCadastrodoProduto1Click
+        end
       end
       object abelaImpostos1: TMenuItem
         Caption = 'Tabela Impostos / Lei'
@@ -4430,6 +4434,18 @@ object fMenu: TfMenu
         CompName = 'btnAlterar'
         Caption = 'Alterar'
         GroupName = 'Pagamento Cr'#233'dito'
+      end
+      item
+        FormName = 'frmCadAjuste_Preco'
+        CompName = 'btnInserir'
+        Caption = 'Inserir'
+        GroupName = 'Ajuste Pre'#231'o'
+      end
+      item
+        FormName = 'frmCadAjuste_Preco'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Ajuste Pre'#231'o'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True
