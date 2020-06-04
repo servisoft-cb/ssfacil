@@ -537,12 +537,9 @@ begin
     begin
       Edit3.Clear;
       prc_CorTamanho;
-      Edit3.Text         := Edit1.Text + ' ' + fDmCupomFiscal.vCombinacao + ' ' + RxDBLookupCombo1.Text;
+      Edit3.Text         := Trim(Edit1.Text + ' ' + fDmCupomFiscal.vCombinacao + ' ' + RxDBLookupCombo1.Text);
       pnlTamanho.Visible := True;
     end;              
-
-//    if fDmCupomFiscal.cdsCupomParametrosUSA_COR_TAMANHO.AsString = 'S' then
-//      prc_CorTamanho;
   end;
 end;
 

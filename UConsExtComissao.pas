@@ -366,7 +366,8 @@ begin
     SMDBGrid1.EnableScroll;
   end;
 
-  if MessageDlg('Realizar o pagamento de comissão do vendedor ' + fDMCadExtComissao.mExtComissao_RedNomeVendedor.AsString,mtConfirmation,[mbYes,mbNo],0) = mrNo then
+  if MessageDlg('Realizar o pagamento de comissão do vendedor ' +
+                fDMCadExtComissao.mExtComissao_RedNomeVendedor.AsString,mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
   vFilial      := RxDBLookupCombo1.KeyValue;
   vFilial_Nome := RxDBLookupCombo1.Text;

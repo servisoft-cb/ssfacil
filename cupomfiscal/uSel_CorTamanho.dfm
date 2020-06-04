@@ -12,9 +12,11 @@ object fSel_CorTamanho: TfSel_CorTamanho
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -96,6 +98,7 @@ object fSel_CorTamanho: TfSel_CorTamanho
     Width = 361
     Height = 23
     DropDownCount = 8
+    DisplayEmpty = 'Nenhum'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13
@@ -113,6 +116,7 @@ object fSel_CorTamanho: TfSel_CorTamanho
     Width = 145
     Height = 23
     DropDownCount = 15
+    DisplayEmpty = 'Nenhum'
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -13

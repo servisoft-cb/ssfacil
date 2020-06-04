@@ -19,6 +19,8 @@ type
     procedure btConfirmarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
   public
@@ -41,9 +43,25 @@ end;
 
 procedure TfSel_CorTamanho.btConfirmarClick(Sender: TObject);
 begin
-  fDmCupomFiscal.vIdCombinacao := RxDBLookupCombo1.KeyValue;
-  fDmCupomFiscal.vTamanho      := RxDBLookupCombo2.KeyValue;
-  fDmCupomFiscal.vCombinacao   := RxDBLookupCombo1.Text;
+  if (not fDmCupomFiscal.cdsCombinacao.IsEmpty) and (RxDBLookupCombo1.Text = 'Nenhum') then
+  begin
+    ShowMessage('Cor deve ser selecionada para este produto!');
+    RxDBLookupCombo1.SetFocus;
+    Exit;
+  end;
+  if RxDBLookupCombo1.Text <> 'Nenhum' then
+  begin
+    fDmCupomFiscal.vIdCombinacao := RxDBLookupCombo1.KeyValue;
+    fDmCupomFiscal.vCombinacao   := RxDBLookupCombo1.Text;
+  end;
+  if (not fDmCupomFiscal.cdsTamanho.IsEmpty) and (RxDBLookupCombo2.Text = 'Nenhum') then
+  begin
+    ShowMessage('Tamanho deve ser selecionado para este produto!');
+    RxDBLookupCombo2.SetFocus;
+    Exit;
+  end;
+  if RxDBLookupCombo2.Text <> 'Nenhum' then
+    fDmCupomFiscal.vTamanho := RxDBLookupCombo2.KeyValue;
   Close;
 end;
 
@@ -61,8 +79,14 @@ begin
 
   fdmCupomFiscal.cdsTamanho.Close;
   fdmCupomFiscal.sdsTamanho.ParamByName('P1').AsInteger := vProd;
-  fdmCupomFiscal.cdsTamanho.Open;
+  fdmCupomFiscal.cdsTamanho.Open;     
+end;
 
+procedure TfSel_CorTamanho.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_Return) then
+    btConfirmarClick(Sender);
 end;
 
 end.

@@ -2243,9 +2243,6 @@ begin
     fDMCadDuplicata.cdsDuplicata.First;
     while not fDMCadDuplicata.cdsDuplicata.Eof do
     begin
-       if fDMCadDuplicata.cdsDuplicataNUMNOTA.AsInteger = 273 then
-         ShowMessage('aqui 273');
-
       if (fDMCadDuplicata.cdsDuplicataID_VENDEDOR.AsInteger <= 0) or (StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataPERC_COMISSAO.AsFloat)) <= 0) then
       begin
         fDMCadDuplicata.cdsDuplicata.Edit;
@@ -2325,7 +2322,7 @@ begin
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata := True;
     sds.GetMetadata := False;
-    sds.CommandText := 'SELECT ID FROM EXTCOMISSAO ' + 'WHERE ID_DUPLICATA  = :ID_DUPLICATA ' + 'AND ITEM_DUPLICATA_HIST = :ITEM_DUPLICATA_HIST ';
+    sds.CommandText := 'SELECT ID FROM EXTCOMISSAO WHERE ID_DUPLICATA = :ID_DUPLICATA AND ITEM_DUPLICATA_HIST = :ITEM_DUPLICATA_HIST';
     sds.ParamByName('ID_DUPLICATA').AsInteger := fDMCadDuplicata.cdsDuplicata_HistID.AsInteger;
     sds.ParamByName('ITEM_DUPLICATA_HIST').AsInteger := fDMCadDuplicata.cdsDuplicata_HistITEM.AsInteger;
     sds.Open;
