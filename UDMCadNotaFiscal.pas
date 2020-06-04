@@ -3176,6 +3176,7 @@ type
     cdsDuplicataPERC_COMISSAO_INT: TFloatField;
     sdsNotaFiscal_ItensANP_VLR_VPART: TFloatField;
     cdsNotaFiscal_ItensANP_VLR_VPART: TFloatField;
+    qParametros_NFeID_CONTA_ADTO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
@@ -4101,6 +4102,19 @@ begin
   if (cdsNotaFiscalTIPO_REG.AsString = 'NTS') and (cdsNotaFiscalTIPO_NOTA.AsString = 'S') and (StrToFloat(FormatFloat('0.00',cdsNotaFiscalVLR_DUPLICATA.AsFloat)) > 0)
     and (cdsNotaFiscalID_TIPO_COBRANCA.AsInteger <= 0) then
     vMSGNotaFiscal := vMSGNotaFiscal + #13 + '*** Forma de Pagamento não informada!';
+  if StrToFloat(FormatFloat('0.00',cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0 then
+  begin
+    if cdsNotaFiscalID_CONTA.AsInteger <= 0 then
+    begin
+      qParametros_NFe.Close;
+      qParametros_NFe.Open;
+      if qParametros_NFeID_CONTA_ADTO.AsInteger > 0 then
+        cdsNotaFiscalID_CONTA.AsInteger := qParametros_NFeID_CONTA_ADTO.AsInteger
+      else
+        vMSGNotaFiscal := vMSGNotaFiscal + #13 + '*** Não informada a conta de adiantamento nos Parâmetros da Nota Fiscal!';
+    end;
+  end;
+
   if vMSGNotaFiscal <> '' then
     exit;
   Result := False;

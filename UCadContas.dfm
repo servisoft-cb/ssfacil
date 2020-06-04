@@ -988,6 +988,7 @@ object frmCadContas: TfrmCadContas
                 'B'
                 'O'
                 'A')
+              OnExit = RxDBComboBox1Exit
             end
             object RxDBLookupCombo2: TRxDBLookupCombo
               Left = 323
@@ -1094,7 +1095,7 @@ object frmCadContas: TfrmCadContas
               Width = 313
               Height = 21
               DropDownCount = 8
-              DataField = 'FILIAL'
+              DataField = 'ID_CONTA_VINCULADA'
               DataSource = DMCadContas.dsContas
               LookupField = 'ID'
               LookupDisplay = 'NOME'

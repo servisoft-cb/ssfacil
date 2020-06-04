@@ -8,12 +8,14 @@ object DMCadFinanceiro: TDMCadFinanceiro
   object sdsContas: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME'#13#10'FROM CONTAS'#13#10'WHERE DTENCERRAMENTO IS NULL'
+    CommandText = 
+      'select ID, NOME, TIPO_CONTA'#13#10'from CONTAS'#13#10'where DTENCERRAMENTO i' +
+      's null   '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 224
-    Top = 168
+    Top = 169
   end
   object dspContas: TDataSetProvider
     DataSet = sdsContas
@@ -34,6 +36,11 @@ object DMCadFinanceiro: TDMCadFinanceiro
     object cdsContasNOME: TStringField
       FieldName = 'NOME'
       Size = 30
+    end
+    object cdsContasTIPO_CONTA: TStringField
+      FieldName = 'TIPO_CONTA'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsContas: TDataSource
@@ -330,8 +337,8 @@ object DMCadFinanceiro: TDMCadFinanceiro
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 32
-    Top = 24
+    Left = 31
+    Top = 22
     object sdsFinanceiroID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -402,6 +409,12 @@ object DMCadFinanceiro: TDMCadFinanceiro
     end
     object sdsFinanceiroID_FECHAMENTO: TIntegerField
       FieldName = 'ID_FECHAMENTO'
+    end
+    object sdsFinanceiroID_CONTA_VINCULADA: TIntegerField
+      FieldName = 'ID_CONTA_VINCULADA'
+    end
+    object sdsFinanceiroID_FINANCEIRO_VINC: TIntegerField
+      FieldName = 'ID_FINANCEIRO_VINC'
     end
   end
   object dspFinanceiro: TDataSetProvider
@@ -502,6 +515,12 @@ object DMCadFinanceiro: TDMCadFinanceiro
     end
     object cdsFinanceiroID_FECHAMENTO: TIntegerField
       FieldName = 'ID_FECHAMENTO'
+    end
+    object cdsFinanceiroID_CONTA_VINCULADA: TIntegerField
+      FieldName = 'ID_CONTA_VINCULADA'
+    end
+    object cdsFinanceiroID_FINANCEIRO_VINC: TIntegerField
+      FieldName = 'ID_FINANCEIRO_VINC'
     end
   end
   object dsFinanceiro: TDataSource

@@ -1413,6 +1413,15 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           Anchors = [akTop, akRight]
           Caption = 'ID. Fechamento:'
         end
+        object Label32: TLabel
+          Left = 42
+          Top = 215
+          Width = 96
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Conta Banco/Caixa:'
+          Visible = False
+        end
         object DBEdit7: TDBEdit
           Left = 140
           Top = 180
@@ -1433,7 +1442,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           Align = alTop
           Color = clSilver
           Enabled = False
-          TabOrder = 8
+          TabOrder = 9
           object Label19: TLabel
             Left = 248
             Top = 14
@@ -1515,11 +1524,11 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           DataSource = DMCadFinanceiro.dsFinanceiro
           ParentCtl3D = False
           ReadOnly = True
-          TabOrder = 9
+          TabOrder = 10
         end
         object DBDateEdit1: TDBDateEdit
           Left = 140
-          Top = 142
+          Top = 143
           Width = 121
           Height = 21
           DataField = 'DTMOVIMENTO'
@@ -1556,6 +1565,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           LookupSource = DMCadFinanceiro.dsContas
           ParentCtl3D = False
           TabOrder = 1
+          OnExit = RxDBLookupCombo4Exit
         end
         object DBDateEdit2: TDBDateEdit
           Left = 390
@@ -1570,7 +1580,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           Ctl3D = False
           NumGlyphs = 2
           ParentCtl3D = False
-          TabOrder = 10
+          TabOrder = 11
           StartOfWeek = Sun
         end
         object DBEdit1: TDBEdit
@@ -1587,7 +1597,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           DataSource = DMCadFinanceiro.dsFinanceiro
           ParentCtl3D = False
           ReadOnly = True
-          TabOrder = 11
+          TabOrder = 12
         end
         object DBEdit2: TDBEdit
           Left = 772
@@ -1603,7 +1613,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           DataSource = DMCadFinanceiro.dsFinanceiro
           ParentCtl3D = False
           ReadOnly = True
-          TabOrder = 12
+          TabOrder = 13
         end
         object RxDBLookupCombo6: TRxDBLookupCombo
           Left = 140
@@ -1627,7 +1637,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
         end
         object RxDBLookupCombo3: TRxDBLookupCombo
           Left = 140
-          Top = 82
+          Top = 83
           Width = 349
           Height = 21
           DropDownCount = 16
@@ -1670,7 +1680,23 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           DataSource = DMCadFinanceiro.dsFinanceiro
           ParentCtl3D = False
           ReadOnly = True
-          TabOrder = 13
+          TabOrder = 14
+        end
+        object RxDBLookupCombo8: TRxDBLookupCombo
+          Left = 140
+          Top = 208
+          Width = 349
+          Height = 22
+          DropDownCount = 10
+          Ctl3D = False
+          DataField = 'ID_CONTA_VINCULADA'
+          DataSource = DMCadFinanceiro.dsFinanceiro
+          LookupField = 'ID'
+          LookupDisplay = 'NOME'
+          LookupSource = DMCadFinanceiro.dsContas
+          ParentCtl3D = False
+          TabOrder = 8
+          Visible = False
         end
       end
     end
