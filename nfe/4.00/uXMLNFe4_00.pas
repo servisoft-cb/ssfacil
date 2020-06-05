@@ -1602,6 +1602,7 @@ begin
     DetXML.Imposto.ICMSUFDest.VICMSUFDest    := Replace(FormatFloat('0.00',fDMNFe.mItensNFeVlr_ICMS_UF_Dest.AsFloat),',','.');
     DetXML.Imposto.ICMSUFDest.VICMSUFRemet   := Replace(FormatFloat('0.00',fDMNFe.mItensNFeVlr_ICMS_UF_Remet.AsFloat),',','.');
   end;
+
 end;
 
 end.

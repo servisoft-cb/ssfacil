@@ -4813,13 +4813,22 @@ begin
   try
     if vTipoIcms <> 'SER' then
     begin
-      while (vTipoIcms = '') or (i <= vContadorIcms) do
+    //aqui
+      if fDMRecebeXML.cdsDetalheICMSST_CST.AsInteger > 0 then
       begin
-        inc(i);
-        if vDescICMS[i] <> '' then
+        vTipoIcms := fDMRecebeXML.cdsDetalheICMSST_CST.AsString;
+      end
+      else
+      begin
+        while (vTipoIcms = '') or (i <= vContadorIcms) do
         begin
-          if Trim(fDMRecebeXML.cdsDetalhe.FieldByName(vDescICMS[i]+'Orig').AsString) <> '' then
-            vTipoIcms := vDescICMS[i];
+          inc(i);
+          if vDescICMS[i] <> '' then
+          begin
+            if Trim(fDMRecebeXML.cdsDetalhe.FieldByName(vDescICMS[i]+'Orig').AsString) <> '' then
+              vTipoIcms := vDescICMS[i];
+
+          end;
         end;
       end;
     end;
@@ -4834,44 +4843,10 @@ begin
   begin
     if vTipoIcms <> '' then
     begin
-      //22/10/2016 tirado o IF
-      //if  fDMRecebeXML.cdsCabecalhoenderEmit_cPais.AsString = '1058' then
-      //  fDMRecebeXML.mItensNotaOrigem.AsString  := '0'
-      //else
-        fDMRecebeXML.mItensNotaOrigem.AsString  := fDMRecebeXML.cdsDetalhe.FieldByName(vTipoIcms+'Orig').AsString;
-      busca_SitTrib(fDMRecebeXML.cdsDetalhe.FieldByName(vTipoIcms+'CST').AsString);
-      fDMRecebeXML.mItensNotaCodSitTribInterno.AsInteger := vCSTInterno;
-      fDMRecebeXML.mItensNotaCodSitTrib.AsString         := fDMRecebeXML.cdsDetalhe.FieldByName(vTipoIcms+'CST').AsString;
-      Move_Campos(vTipoIcms+'ModBC','ModICMS','N');
-      Move_Campos(vTipoIcms+'vBC','BaseIcms','N');
-      Move_Campos(vTipoIcms+'pICMS','AliqIcms','N');
-      Move_Campos(vTipoIcms+'vICMS','VlrIcms','N');
-      Move_Campos(vTipoIcms+'ModBCST','ModIcmsST','N');
-      Move_Campos(vTipoIcms+'pMVAST','PercMVAST','N');
-      Move_Campos(vTipoIcms+'pRedBCST','PercRedBCST','N');
-      Move_Campos(vTipoIcms+'vBCST','BaseCST','N');
-      Move_Campos(vTipoIcms+'pICMSST','PercIcmsST','N');
-      Move_Campos(vTipoIcms+'vICMSST','VlrIcmsST','N');
-      Move_Campos(vTipoIcms+'pRedBC','PercRedIcms','N');
-      Move_Campos(vTipoIcms+'vBCSTRet','BaseCSTRet','N');
-      Move_Campos(vTipoIcms+'vICMSSTRet','VlrIcmsCSTRet','N');
-      Move_Campos(vTipoIcms+'pST','PercIcmsST','N');
-      Move_Campos(vTipoIcms+'vICMSSubstituto','Vlr_Icms_Substituto','N');
-      Move_Campos(vTipoIcms+'pRedBCEfet','Perc_Base_Red_Efet','N');
-      Move_Campos(vTipoIcms+'vBCEfet','Vlr_Base_Efet','N');
-      Move_Campos(vTipoIcms+'pICMSEfet','Perc_ICMS_Efet','N');
-      Move_Campos(vTipoIcms+'vICMSEfet','Vlr_ICMS_Efet','N');
-
-      if fDMRecebeXML.mItensNotaOrigem.AsString = '' then
-        fDMRecebeXML.mItensNotaOrigem.AsString := '0';
-    end
-    else
-      //22/10/2016  mexendo neste if  na Pramel da muitos erros, pois não é tratado estes campos
-      if fDMRecebeXML.cdsDetalheICMSST_CST.AsInteger <> 41 then
-        ShowMessage('Verificar a CST ICMS!')
-      else
-      //if fDMRecebeXML.cdsDetalheICMSST_CST.AsInteger = 41 then
+      if fDMRecebeXML.cdsDetalheICMSST_CST.AsInteger > 0 then
       begin
+        fDMRecebeXML.mItensNotaOrigem.AsString := fDMRecebeXML.cdsDetalheICMSST_orig.AsString;
+
         fDMRecebeXML.mItensNotaOrigem.AsString := fDMRecebeXML.cdsDetalheICMSST_orig.AsString;
         Busca_SitTrib(fDMRecebeXML.cdsDetalheICMSST_CST.AsString);
         fDMRecebeXML.mItensNotaCodSitTribInterno.AsInteger := vCSTInterno;
@@ -4883,14 +4858,46 @@ begin
         fDMRecebeXML.mItensNotaModIcmsST.AsString          := '';
         fDMRecebeXML.mItensNotaBaseCSTRet.AsFloat          := fDMRecebeXML.cdsDetalheICMSST_vBCSTRet.AsFloat;
         fDMRecebeXML.mItensNotaVlrIcmsCSTRet.AsFloat       := fDMRecebeXML.cdsDetalheICMSST_vICMSSTRet.AsFloat;
+        fDMRecebeXML.mItensNotaPercIcmsST.AsFloat          := 0;
+        fDMRecebeXML.mItensNotaVlr_Icms_Substituto.AsFloat := fDMRecebeXML.cdsDetalheICMSST_vICMSSubstituto.AsFloat;
+        fDMRecebeXML.mItensNotaPerc_Base_Red_Efet.AsFloat  := 0;
+        fDMRecebeXML.mItensNotaVlr_Base_Efet.AsFloat       := 0;
+        fDMRecebeXML.mItensNotaPerc_ICMS_Efet.AsFloat      := 0;
+        fDMRecebeXML.mItensNotaVlr_ICMS_Efet.AsFloat       := 0;
 
-        //Move_Campos(vTipoIcms+'pMVAST','PercMVAST','N');
-        //Move_Campos(vTipoIcms+'pRedBCST','PercRedBCST','N');
-        //Move_Campos(vTipoIcms+'vBCST','BaseCST','N');
-        //Move_Campos(vTipoIcms+'pICMSST','PercIcmsST','N');
-        //Move_Campos(vTipoIcms+'vICMSST','VlrIcmsST','N');
-        //Move_Campos(vTipoIcms+'pRedBC','PercRedIcms','N');
+      end
+      else
+      begin
+        fDMRecebeXML.mItensNotaOrigem.AsString  := fDMRecebeXML.cdsDetalhe.FieldByName(vTipoIcms+'Orig').AsString;
+        busca_SitTrib(fDMRecebeXML.cdsDetalhe.FieldByName(vTipoIcms+'CST').AsString);
+        fDMRecebeXML.mItensNotaCodSitTribInterno.AsInteger := vCSTInterno;
+        fDMRecebeXML.mItensNotaCodSitTrib.AsString         := fDMRecebeXML.cdsDetalhe.FieldByName(vTipoIcms+'CST').AsString;
+        Move_Campos(vTipoIcms+'ModBC','ModICMS','N');
+        Move_Campos(vTipoIcms+'vBC','BaseIcms','N');
+        Move_Campos(vTipoIcms+'pICMS','AliqIcms','N');
+        Move_Campos(vTipoIcms+'vICMS','VlrIcms','N');
+        Move_Campos(vTipoIcms+'ModBCST','ModIcmsST','N');
+        Move_Campos(vTipoIcms+'pMVAST','PercMVAST','N');
+        Move_Campos(vTipoIcms+'pRedBCST','PercRedBCST','N');
+        Move_Campos(vTipoIcms+'vBCST','BaseCST','N');
+        Move_Campos(vTipoIcms+'pICMSST','PercIcmsST','N');
+        Move_Campos(vTipoIcms+'vICMSST','VlrIcmsST','N');
+        Move_Campos(vTipoIcms+'pRedBC','PercRedIcms','N');
+        Move_Campos(vTipoIcms+'vBCSTRet','BaseCSTRet','N');
+        Move_Campos(vTipoIcms+'vICMSSTRet','VlrIcmsCSTRet','N');
+        Move_Campos(vTipoIcms+'pST','PercIcmsST','N');
+        Move_Campos(vTipoIcms+'vICMSSubstituto','Vlr_Icms_Substituto','N');
+        Move_Campos(vTipoIcms+'pRedBCEfet','Perc_Base_Red_Efet','N');
+        Move_Campos(vTipoIcms+'vBCEfet','Vlr_Base_Efet','N');
+        Move_Campos(vTipoIcms+'pICMSEfet','Perc_ICMS_Efet','N');
+        Move_Campos(vTipoIcms+'vICMSEfet','Vlr_ICMS_Efet','N');
       end;
+
+      if fDMRecebeXML.mItensNotaOrigem.AsString = '' then
+        fDMRecebeXML.mItensNotaOrigem.AsString := '0';
+    end
+    else
+      ShowMessage('Verificar a CST ICMS!')
   end
   else
   if (fDMRecebeXML.cdsCabecalhoCRT.AsInteger = 1) then
