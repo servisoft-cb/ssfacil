@@ -83,6 +83,8 @@ type
     RxDBLookupCombo12: TRxDBLookupCombo;
     Label33: TLabel;
     ceAdto: TCurrencyEdit;
+    lblDescSaldo: TLabel;
+    lblSaldoCredito: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -119,6 +121,7 @@ type
     ffrmCadContas: TfrmCadContas;
     ffrmCadTipoCobranca: TfrmCadTipoCobranca;
     vVlr_Diferenca : Real;
+    vVlrSaldo_Adto : Real;
     
     function fnc_Erro: Boolean;
     procedure prc_Calcular_Total;
@@ -134,7 +137,7 @@ var
 implementation
 
 uses rsDBUtils, uUtilPadrao, UDMUtil, DmdDatabase, UCadDuplicata_Cheque,
-  USel_Cheque;
+  USel_Cheque, uUtilCliente;
 
 {$R *.dfm}
 
@@ -170,6 +173,7 @@ begin
   Label33.Visible := (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S');
   ceAdto.Visible  := (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S');
   //*****************
+  vVlrSaldo_Adto := 0;
 end;
 
 procedure TfrmCadDuplicata_Pag2.BitBtn1Click(Sender: TObject);
@@ -227,6 +231,10 @@ begin
     fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat      := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat - cePagamento.Value - ceDesconto.Value));
     fDMCadDuplicata.cdsDuplicataVLR_TAXA_BANCARIA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_TAXA_BANCARIA.AsFloat + ceTaxaBancaria.Value));
     fDMCadDuplicata.cdsDuplicataVLR_MULTA.AsFloat         := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_MULTA.AsFloat + ceMulta.Value));
+    //05/06/2020
+    if (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A') then
+      fDMCadDuplicata.cdsDuplicataVLR_ADTO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_ADTO_USADO.AsFloat + cePagamento.Value + ceJuros.Value));
+    //*****************
 
     if ckCartorio.Checked then
       fDMCadDuplicata.cdsDuplicataPAGO_CARTORIO.AsString := 'S'
@@ -241,21 +249,31 @@ begin
     fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',Edit1.Text,cePagamento.Value,ceJuros.Value,ceAdto.Value,ceDesconto.Value,ceDespesas.Value,ceTaxaBancaria.Value,ceMulta.Value,vIDAux);
 
     //Foi incluida na versão .390
-    if (fDMCadDuplicata.mCheque.RecordCount <= 0) or ((fDMCadDuplicata.mCheque.RecordCount > 0) and (fDMCadDuplicata.cdsDuplicataTIPO_ES.AsString = 'E')) then
+    if ((fDMCadDuplicata.mCheque.RecordCount <= 0) or ((fDMCadDuplicata.mCheque.RecordCount > 0) and (fDMCadDuplicata.cdsDuplicataTIPO_ES.AsString = 'E'))) then
     begin
       vComDesconto := '';
       if ceDesconto.Value > 0 then
         vComDesconto := 'S';
-      if cePagamento.Value > 0 then
-        fDMCadDuplicata.prc_Gravar_Financeiro(cePagamento.Value,'P',vIDAux,vComDesconto);
-      if ceJuros.Value > 0 then
-        fDMCadDuplicata.prc_Gravar_Financeiro(ceJuros.Value,'J',vIDAux);
-      if ceMulta.Value > 0 then
-        fDMCadDuplicata.prc_Gravar_Financeiro(ceMulta.Value,'M',vIDAux);
-      if ceDespesas.Value > 0 then
-        fDMCadDuplicata.prc_Gravar_Financeiro(ceDespesas.Value,'D',vIDAux);
-      if ceTaxaBancaria.Value > 0 then
-        fDMCadDuplicata.prc_Gravar_Financeiro(ceTaxaBancaria.Value,'T',vIDAux);
+      //IF colocado dia 05/06/2020 do tipo da conta
+      if (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A') then
+      begin
+        if cePagamento.Value > 0 then
+          fDMCadDuplicata.prc_Gravar_Financeiro(cePagamento.Value + ceJuros.Value,'P',vIDAux,vComDesconto);
+      end
+      else
+      if (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString <> 'A') then
+      begin
+        if cePagamento.Value > 0 then
+          fDMCadDuplicata.prc_Gravar_Financeiro(cePagamento.Value,'P',vIDAux,vComDesconto);
+        if ceJuros.Value > 0 then
+          fDMCadDuplicata.prc_Gravar_Financeiro(ceJuros.Value,'J',vIDAux);
+        if ceMulta.Value > 0 then
+          fDMCadDuplicata.prc_Gravar_Financeiro(ceMulta.Value,'M',vIDAux);
+        if ceDespesas.Value > 0 then
+          fDMCadDuplicata.prc_Gravar_Financeiro(ceDespesas.Value,'D',vIDAux);
+        if ceTaxaBancaria.Value > 0 then
+          fDMCadDuplicata.prc_Gravar_Financeiro(ceTaxaBancaria.Value,'T',vIDAux);
+      end;
     end;
 
     if fDMCadDuplicata.cdsDuplicata.State in [dsEdit,dsInsert] then
@@ -322,6 +340,16 @@ procedure TfrmCadDuplicata_Pag2.cePagamentoExit(Sender: TObject);
 var
   vDif : Real;
 begin
+  if fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A' then
+  begin
+    if StrToFloat(FormatFloat('0.00',cePagamento.Value)) > StrToFloat(FormatFloat('0.00',vVlrSaldo_Adto)) then
+    begin
+      MessageDlg('*** Valor de pagamento maior que o saldo de crédito!', mtError, [mbOk], 0);
+      cePagamento.SetFocus;
+      exit;
+    end;
+  end;
+
   vVlr_Diferenca := StrToFloat(FormatFloat('0.00',0));
   if StrToFloat(FormatFloat('0.00',cePagamento.Value)) < StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) then
     ceDesconto.Value := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat - cePagamento.Value))
@@ -486,6 +514,20 @@ begin
     label31.Visible           := Label26.Visible;
     label32.Visible           := Label26.Visible;
     btnBuscarCheque.Visible   := ((vFlag) and (fDMCadDuplicata.cdsDuplicataTIPO_ES.AsString = 'S'));
+
+    lblDescSaldo.Visible    := (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A');
+    lblSaldoCredito.Visible := (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A');
+
+    Label33.Visible := ((fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString <> 'A'));
+    ceAdto.Visible  := ((fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString <> 'A'));
+
+    if fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A' then
+    begin
+      vVlrSaldo_Adto := uUtilCliente.fnc_Saldo_Adto(fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger);
+      lblSaldoCredito.Caption := FormatFloat('###,###,##0.00',vVlrSaldo_Adto);
+    end
+    else
+      vVlrSaldo_Adto := 0;
   end;
 end;
 
@@ -529,13 +571,26 @@ begin
 end;
 
 procedure TfrmCadDuplicata_Pag2.ceJurosExit(Sender: TObject);
+var
+  vVlrAux : Real;
 begin
-  if fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S' then
+  if (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString <> 'A') then
   begin
     ceAdto.Value := vVlr_Diferenca - ceJuros.Value;
     if ceAdto.Value < 0 then
     begin
       MessageDlg('*** Vlr. do juros incorreto!', mtError, [mbOk], 0);
+      ceJuros.SetFocus;
+      exit;
+    end;
+  end
+  else
+  if (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A') then
+  begin
+    vVlrAux := cePagamento.Value + ceJuros.Value;
+    if StrToFloat(FormatFloat('0.00',vVlrAux)) > StrToFloat(FormatFloat('0.00',vVlrSaldo_Adto)) then
+    begin
+      MessageDlg('*** Valor do Pagamento + Juros  é maior que o Saldo do Crédito!', mtError, [mbOk], 0);
       ceJuros.SetFocus;
       exit;
     end;

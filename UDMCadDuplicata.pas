@@ -1091,6 +1091,12 @@ type
     sdsDuplicataPERC_COMISSAO_INT: TFloatField;
     cdsDuplicataID_VENDEDOR_INT: TIntegerField;
     cdsDuplicataPERC_COMISSAO_INT: TFloatField;
+    sdsDuplicata_HistVLR_ADTO_USADO: TFloatField;
+    sdsDuplicata_HistID_ADTO_USADO: TIntegerField;
+    cdsDuplicata_HistVLR_ADTO_USADO: TFloatField;
+    cdsDuplicata_HistID_ADTO_USADO: TIntegerField;
+    sdsDuplicataVLR_ADTO_USADO: TFloatField;
+    cdsDuplicataVLR_ADTO_USADO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
@@ -1445,6 +1451,12 @@ begin
   cdsDuplicata_HistTIPO_ES.AsString        := cdsDuplicataTIPO_ES.AsString;
   cdsDuplicata_HistCOMPLEMENTO.AsString    := Historico;
   cdsDuplicata_HistID_DESCONTADA.AsInteger := ID_Descontada;
+  if cdsDuplicataID_CONTA.AsInteger > 0 then
+  begin
+    cdsDuplicata_HistID_CONTA.AsInteger := cdsDuplicataID_CONTA.AsInteger;
+    if cdsContasID.AsInteger <> cdsDuplicataID_CONTA.AsInteger then
+      cdsContas.Locate('ID',cdsDuplicataID_CONTA.AsInteger,([Locaseinsensitive]));
+  end;
   if Tipo = 'ENT' then
   begin
     if trim(Historico) = '' then
@@ -1459,8 +1471,12 @@ begin
       if (cdsDuplicataTIPO_ES.AsString = 'E') and (mCheque.RecordCount > 0) then
         cdsDuplicata_HistCOMPLEMENTO.AsString := 'PAGAMENTO DE TITULO COM ' + IntToStr(mCheque.RecordCount) + ' CHEQUES'
       else
+      if cdsContasTIPO_CONTA.AsString = 'A' then // 05/06/2020
+        cdsDuplicata_HistCOMPLEMENTO.AsString := 'PAGAMENTO DE TITULO COM SALDO DE CREDITO'
+      else
         cdsDuplicata_HistCOMPLEMENTO.AsString := 'PAGAMENTO DE TITULO';
     end;
+    
     if copy(Historico,1,3) = 'LCA' then
       cdsDuplicata_HistCOMPLEMENTO.AsString := cdsDuplicata_HistCOMPLEMENTO.AsString + ' EM CARTÓRIO';
     if StrToFloat(FormatFloat('0.00',Vlr_Desconto)) > 0 then
@@ -1473,9 +1489,11 @@ begin
     cdsDuplicata_HistDTLANCAMENTO.AsDateTime   := cdsDuplicataDTULTPAGAMENTO.AsDateTime;
     cdsDuplicata_HistVLR_TAXA_BANCARIA.AsFloat := StrToFloat(FormatFloat('0.00',Vlr_Taxa));
     cdsDuplicata_HistVLR_MULTA.AsFloat         := StrToFloat(FormatFloat('0.00',Vlr_Multa));
+    //05/06/2020
+    if cdsContasTIPO_CONTA.AsString = 'A' then
+      cdsDuplicata_HistVLR_ADTO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',Vlr_Pagamento + Vlr_Juros));
+    //***************
   end;
-  if cdsDuplicataID_CONTA.AsInteger > 0 then
-    cdsDuplicata_HistID_CONTA.AsInteger := cdsDuplicataID_CONTA.AsInteger;
   cdsDuplicata_HistID_FORMA_PAGAMENTO.AsInteger := ID_Forma_Pagamento;
   if (Tipo = 'PAG')and (cdsDuplicataTIPO_ES.AsString = 'S') and not(mCheque.IsEmpty) then
   begin
@@ -1551,6 +1569,10 @@ begin
 
   cdsFinanceiro.Insert;
   cdsFinanceiroID.AsInteger := vAux;
+  //Esse primeiro IF foi colocado 05/06/2020 para controlar o adiantamento
+  if (Tipo = 'P') and (cdsContasTIPO_CONTA.AsString = 'A') then
+    cdsFinanceiroTIPO_ES.AsString := 'S'
+  else
   if Tipo = 'T' then
     cdsFinanceiroTIPO_ES.AsString := 'S'
   else
@@ -1678,6 +1700,8 @@ begin
     cdsDuplicataVLR_DEVOLUCAO.AsFloat     := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_DEVOLUCAO.AsFloat - cdsDuplicata_HistVLR_DEVOLUCAO.AsFloat));
     cdsDuplicataVLR_RESTANTE.AsFloat      := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_RESTANTE.AsFloat +
                                           cdsDuplicata_HistVLR_PAGAMENTO.AsFloat + cdsDuplicata_HistVLR_DESCONTOS.AsFloat + cdsDuplicata_HistVLR_DEVOLUCAO.AsFloat));
+    cdsDuplicataVLR_ADTO_USADO.AsFloat    := StrToFloat(FormatFloat('0.00',cdsDuplicataVLR_ADTO_USADO.AsFloat - cdsDuplicata_HistVLR_ADTO_USADO.AsFloat));
+
     cdsDuplicataPAGO_CARTORIO.AsString := 'N';
     cdsDuplicataCONFIRMA_PGTO.AsString := 'N';
     if vDtUltPagamento < 10 then

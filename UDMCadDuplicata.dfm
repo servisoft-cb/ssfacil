@@ -276,6 +276,9 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsDuplicataPERC_COMISSAO_INT: TFloatField
       FieldName = 'PERC_COMISSAO_INT'
     end
+    object sdsDuplicataVLR_ADTO_USADO: TFloatField
+      FieldName = 'VLR_ADTO_USADO'
+    end
   end
   object dspDuplicata: TDataSetProvider
     DataSet = sdsDuplicata
@@ -574,6 +577,9 @@ object DMCadDuplicata: TDMCadDuplicata
     object cdsDuplicataPERC_COMISSAO_INT: TFloatField
       FieldName = 'PERC_COMISSAO_INT'
     end
+    object cdsDuplicataVLR_ADTO_USADO: TFloatField
+      FieldName = 'VLR_ADTO_USADO'
+    end
   end
   object dsDuplicata: TDataSource
     DataSet = cdsDuplicata
@@ -600,7 +606,7 @@ object DMCadDuplicata: TDMCadDuplicata
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 66
-    Top = 105
+    Top = 106
     object sdsDuplicata_HistID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -679,6 +685,12 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object sdsDuplicata_HistVLR_ADTO: TFloatField
       FieldName = 'VLR_ADTO'
+    end
+    object sdsDuplicata_HistVLR_ADTO_USADO: TFloatField
+      FieldName = 'VLR_ADTO_USADO'
+    end
+    object sdsDuplicata_HistID_ADTO_USADO: TIntegerField
+      FieldName = 'ID_ADTO_USADO'
     end
   end
   object cdsDuplicata_Hist: TClientDataSet
@@ -815,6 +827,12 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object cdsDuplicata_HistVLR_ADTO: TFloatField
       FieldName = 'VLR_ADTO'
+    end
+    object cdsDuplicata_HistVLR_ADTO_USADO: TFloatField
+      FieldName = 'VLR_ADTO_USADO'
+    end
+    object cdsDuplicata_HistID_ADTO_USADO: TIntegerField
+      FieldName = 'ID_ADTO_USADO'
     end
   end
   object dsDuplicata_Hist: TDataSource

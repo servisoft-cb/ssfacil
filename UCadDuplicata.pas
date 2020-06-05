@@ -424,7 +424,8 @@ implementation
 
 uses
   DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, uRelPagarReceber, uRelPagarReceber2, URelCheque_Copia, USel_ContaOrc, USel_Pessoa,
-  uUtilCobranca, UCadDuplicata_Desc, uRelPagarReceber3, UChequeDupHist, UCadDuplicata_Cob, uMenu1, uRelRecibo_Pgto, USel_CentroCusto;
+  uUtilCobranca, UCadDuplicata_Desc, uRelPagarReceber3, UChequeDupHist, UCadDuplicata_Cob, uMenu1, uRelRecibo_Pgto, USel_CentroCusto,
+  uUtilCliente;
 
 {$R *.dfm}
 
@@ -1326,7 +1327,10 @@ var
   vHist: string;
   vPagou: Boolean;
   vQtdePagto: Integer;
+  vVlrAux : Real;
 begin
+  if fDMCadDuplicata.vID_ContaPgtoSel > 0 then
+    fDMCadDuplicata.cdsContas.Locate('ID',fDMCadDuplicata.vID_ContaPgtoSel, [loCaseInsensitive]);
   vQtdePagto := 0;
   vPagou := False;
   fDMCadDuplicata.vID_Cheque := 0;
@@ -1344,6 +1348,9 @@ begin
         fDMCadDuplicata.cdsDuplicataID_CONTA.AsInteger := fDMCadDuplicata.vID_ContaPgtoSel;
         fDMCadDuplicata.cdsDuplicataID_CONTABIL_OPE_BAIXA.AsInteger := fDMCadDuplicata.vId_Contabil_OP_Baixa;
         fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime := fDMCadDuplicata.vDtPgtoSel;
+        if fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A' then
+          vVlrAux := uUtilCliente.fnc_Saldo_Adto(fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger);
+        
         fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat := StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat + fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
         if trim(fDMCadDuplicata.vHistorico_PagSel) <> '' then
           vHist := fDMCadDuplicata.vHistorico_PagSel

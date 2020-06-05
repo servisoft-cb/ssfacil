@@ -2494,7 +2494,7 @@ begin
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata    := True;
     sds.GetMetadata   := False;
-    sds.CommandText   := 'select T.ID T.CODIGO, T.DESCRICAO from TAB_CPROD_ANP T where T.CODIGO = :CODIGO ';
+    sds.CommandText   := 'select T.ID, T.CODIGO, T.DESCRICAO from TAB_CPROD_ANP T where T.CODIGO = :CODIGO ';
     sds.ParamByName('CODIGO').AsString := Codigo;
     sds.Open;
     if sds.IsEmpty then

@@ -535,6 +535,22 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
         Margin = 0
         OnClick = SpeedButton3Click
       end
+      object lblDescSaldo: TLabel
+        Left = 453
+        Top = 22
+        Width = 66
+        Height = 13
+        Caption = 'Saldo Cr'#233'dito:'
+        Visible = False
+      end
+      object lblSaldoCredito: TLabel
+        Left = 522
+        Top = 23
+        Width = 21
+        Height = 13
+        Caption = '0,00'
+        Visible = False
+      end
       object RxDBLookupCombo3: TRxDBLookupCombo
         Left = 121
         Top = 3
