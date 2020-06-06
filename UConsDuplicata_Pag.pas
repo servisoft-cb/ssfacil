@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadDuplicata, ComObj,
   DBGrids, ExtCtrls, StdCtrls, DB, RzTabs, DBCtrls, ToolEdit, UCBase, RxLookup, Mask, CurrEdit, RxDBComb, RXDBCtrl, RzPanel,
-  UEscolhe_Filial, URelDuplicata, UCadDuplicata_Pag, Variants, UCadDuplicata_Pag_Sel,  NxCollection, UCadDuplicata_Gerar, UDMCadCheque,
+  UEscolhe_Filial, URelDuplicata, Variants, UCadDuplicata_Pag_Sel,  NxCollection, UCadDuplicata_Gerar, UDMCadCheque,
   Menus;
 
 type

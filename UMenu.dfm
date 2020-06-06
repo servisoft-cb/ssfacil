@@ -114,7 +114,7 @@ object fMenu: TfMenu
     end
   end
   object MainMenu1: TMainMenu
-    Left = 646
+    Left = 647
     Top = 416
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
@@ -1005,10 +1005,6 @@ object fMenu: TfMenu
     end
     object Financeiro1: TMenuItem
       Caption = 'Financeiro'
-      object AdiantamentoCrditoCliente1: TMenuItem
-        Caption = 'Adiantamento (Cr'#233'dito) Cliente'
-        OnClick = AdiantamentoCrditoCliente1Click
-      end
       object Duplicatas1: TMenuItem
         Caption = 'Contas Pagar/Receber (Duplicatas)'
         OnClick = Duplicatas1Click

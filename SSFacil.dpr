@@ -122,7 +122,6 @@ uses
   UCadOrcamento in 'UCadOrcamento.pas' {frmCadOrcamento},
   UCadOrcamento_Itens in 'UCadOrcamento_Itens.pas' {frmCadOrcamento_Itens},
   URelOrcamento in 'URelOrcamento.pas' {fRelOrcamento},
-  UCadDuplicata_Pag in 'UCadDuplicata_Pag.pas' {frmCadDuplicata_Pag},
   UDMCadFinanceiro in 'UDMCadFinanceiro.pas' {DMCadFinanceiro: TDataModule},
   UCadFinanceiro in 'UCadFinanceiro.pas' {frmCadFinanceiro},
   UConsSaldo_Conta in 'UConsSaldo_Conta.pas' {frmConsSaldo_Conta},
@@ -849,10 +848,8 @@ uses
   UDMComissao in 'UDMComissao.pas' {DMComissao: TDataModule},
   uConsComissao_Metas in 'uConsComissao_Metas.pas' {frmConsComissao_Metas},
   UConsAdto in 'UConsAdto.pas' {frmConsAdto},
-  UCadAdto_Mov in 'UCadAdto_Mov.pas' {frmCadAdto_Mov},
   UCadNotaFiscal_Itens_ANP in 'UCadNotaFiscal_Itens_ANP.pas' {frmCadNotaFiscal_Itens_ANP},
   USel_ANP in 'USel_ANP.pas' {frmSel_ANP},
-  UDMCadAdto_Mov in 'UDMCadAdto_Mov.pas' {DMCadAdto_Mov: TDataModule},
   UDMCadAjuste_Preco in 'UDMCadAjuste_Preco.pas' {DMCadAjuste_Preco: TDataModule},
   UCadAjuste_Preco in 'UCadAjuste_Preco.pas' {frmCadAjuste_Preco},
   UCadAjuste_Preco_Sel in 'UCadAjuste_Preco_Sel.pas' {frmCadAjuste_Preco_Sel};

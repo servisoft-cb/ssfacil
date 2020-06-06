@@ -1,6 +1,6 @@
 object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
-  Left = 460
-  Top = 231
+  Left = 252
+  Top = 209
   Width = 674
   Height = 263
   Caption = 'Pagamento Duplicata'

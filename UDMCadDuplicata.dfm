@@ -267,9 +267,6 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsDuplicataUSUARIO: TStringField
       FieldName = 'USUARIO'
     end
-    object sdsDuplicataVLR_ADTO: TFloatField
-      FieldName = 'VLR_ADTO'
-    end
     object sdsDuplicataID_VENDEDOR_INT: TIntegerField
       FieldName = 'ID_VENDEDOR_INT'
     end
@@ -568,9 +565,6 @@ object DMCadDuplicata: TDMCadDuplicata
     object cdsDuplicataUSUARIO: TStringField
       FieldName = 'USUARIO'
     end
-    object cdsDuplicataVLR_ADTO: TFloatField
-      FieldName = 'VLR_ADTO'
-    end
     object cdsDuplicataID_VENDEDOR_INT: TIntegerField
       FieldName = 'ID_VENDEDOR_INT'
     end
@@ -682,9 +676,6 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object sdsDuplicata_HistVLR_MULTA: TFloatField
       FieldName = 'VLR_MULTA'
-    end
-    object sdsDuplicata_HistVLR_ADTO: TFloatField
-      FieldName = 'VLR_ADTO'
     end
     object sdsDuplicata_HistVLR_ADTO_USADO: TFloatField
       FieldName = 'VLR_ADTO_USADO'
@@ -824,9 +815,6 @@ object DMCadDuplicata: TDMCadDuplicata
       ProviderFlags = []
       Size = 40
       Calculated = True
-    end
-    object cdsDuplicata_HistVLR_ADTO: TFloatField
-      FieldName = 'VLR_ADTO'
     end
     object cdsDuplicata_HistVLR_ADTO_USADO: TFloatField
       FieldName = 'VLR_ADTO_USADO'
@@ -1590,8 +1578,10 @@ object DMCadDuplicata: TDMCadDuplicata
     object cdsDuplicata_ConsultaVLR_TOTAL_NOTA: TFloatField
       FieldName = 'VLR_TOTAL_NOTA'
     end
-    object cdsDuplicata_ConsultaVLR_ADTO: TFloatField
-      FieldName = 'VLR_ADTO'
+    object cdsDuplicata_ConsultaVLR_ADTO_USADO: TFloatField
+      DisplayLabel = 'Vlr. Cr'#233'dito Usado'
+      FieldName = 'VLR_ADTO_USADO'
+      DisplayFormat = '###,###,##0.00'
     end
   end
   object dsDuplicata_Consulta: TDataSource
@@ -5446,5 +5436,34 @@ object DMCadDuplicata: TDMCadDuplicata
     DataSet = cdsPagtoAdto_Itens
     Left = 806
     Top = 584
+  end
+  object qContas: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select C.ID, C.NOME, C.TIPO_CONTA'
+      'from CONTAS C'
+      'where C.ID = :ID   ')
+    SQLConnection = dmDatabase.scoDados
+    Left = 861
+    Top = 248
+    object qContasID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qContasNOME: TStringField
+      FieldName = 'NOME'
+      Size = 30
+    end
+    object qContasTIPO_CONTA: TStringField
+      FieldName = 'TIPO_CONTA'
+      FixedChar = True
+      Size = 1
+    end
   end
 end

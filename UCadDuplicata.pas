@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadDuplicata, DBGrids,
   ExtCtrls, StdCtrls, DB, RzTabs, DBCtrls, ToolEdit, UCBase, RxLookup, Mask, CurrEdit, RxDBComb, RXDBCtrl, RzChkLst, RzPanel,
-  URelDuplicata, UCadDuplicata_Pag, UCadDuplicata_Pag2, Variants, UCadDuplicata_Pag_Sel, NxEdit, Menus, ComObj, NxCollection,
+  URelDuplicata, UCadDuplicata_Pag2, Variants, UCadDuplicata_Pag_Sel, NxEdit, Menus, ComObj, NxCollection,
   StrUtils, DateUtils, UCadDuplicata_Gerar, UDMCadCheque, UCadDuplicata_Alt, UCadDuplicata_EscTipo, RzLstBox, SqlExpr, ComCtrls,
   UCadDuplicata_Total, ValorPor;
 
@@ -369,7 +369,6 @@ type
   private
     { Private declarations }
     fDMCadDuplicata: TDMCadDuplicata;
-    ffrmCadDuplicata_Pag: TfrmCadDuplicata_Pag;
     ffrmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2;
     ffrmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel;
     ffrmCadDuplicata_Gerar: TfrmCadDuplicata_Gerar;
@@ -527,11 +526,11 @@ begin
     vNumDup_Ini := cdsDuplicataID.AsInteger; // Já existia em versões anteriores
     if cdsDuplicataREGIME_CAIXA.AsString = 'S' then
     begin
-      ffrmCadDuplicata_Pag := TfrmCadDuplicata_Pag.Create(self);
-      ffrmCadDuplicata_Pag.fDMCadDuplicata := fDMCadDuplicata;
-      ffrmCadDuplicata_Pag.DtPagamento.Date := cdsDuplicataDTEMISSAO.AsDateTime;
-      ffrmCadDuplicata_Pag.ShowModal;
-      FreeAndNil(ffrmCadDuplicata_Pag);
+      ffrmCadDuplicata_Pag2 := TfrmCadDuplicata_Pag2.Create(self);
+      ffrmCadDuplicata_Pag2.fDMCadDuplicata := fDMCadDuplicata;
+      ffrmCadDuplicata_Pag2.DtPagamento.Date := cdsDuplicataDTEMISSAO.AsDateTime;
+      ffrmCadDuplicata_Pag2.ShowModal;
+      FreeAndNil(ffrmCadDuplicata_Pag2);
       if (mCheque.RecordCount > 0) and (fDMCadDuplicata.cdsDuplicataTIPO_ES.AsString = 'S') then
         prc_Imprimir_Cheque;
     end;
@@ -1327,7 +1326,7 @@ var
   vHist: string;
   vPagou: Boolean;
   vQtdePagto: Integer;
-  vVlrAux : Real;
+  vVlrPago : Real;
 begin
   if fDMCadDuplicata.vID_ContaPgtoSel > 0 then
     fDMCadDuplicata.cdsContas.Locate('ID',fDMCadDuplicata.vID_ContaPgtoSel, [loCaseInsensitive]);
@@ -1348,10 +1347,19 @@ begin
         fDMCadDuplicata.cdsDuplicataID_CONTA.AsInteger := fDMCadDuplicata.vID_ContaPgtoSel;
         fDMCadDuplicata.cdsDuplicataID_CONTABIL_OPE_BAIXA.AsInteger := fDMCadDuplicata.vId_Contabil_OP_Baixa;
         fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime := fDMCadDuplicata.vDtPgtoSel;
-        if fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'A' then
-          vVlrAux := uUtilCliente.fnc_Saldo_Adto(fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger);
-        
-        fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat := StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat + fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+        //06/06/2020
+        vVlrPago := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+        if fDMCadDuplicata.qContasTIPO_CONTA.AsString = 'A' then
+        begin
+          vVlrPago := uUtilCliente.fnc_Saldo_Adto(fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger);
+          if StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) <= StrToFloat(FormatFloat('0.00',vVlrPago)) then
+            vVlrPago := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+          fDMCadDuplicata.cdsDuplicataVLR_ADTO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',vVlrPago));
+        end;
+        //******************
+
+        //fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat := StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat + fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+        fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat := StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat + vVlrPago));
         if trim(fDMCadDuplicata.vHistorico_PagSel) <> '' then
           vHist := fDMCadDuplicata.vHistorico_PagSel
         else
@@ -1359,10 +1367,12 @@ begin
           vHist := 'PAGAMENTO DE TITULO'
         else
           vHist := 'PAGAMENTO COM CHEQUE Nº ' + fDMCadDuplicata.mChequeNum_Cheque.AsString;
-        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG', vHist, fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat, 0, 0, 0, 0, 0, fDMCadDuplicata.vID_FormaPgto);
+        //fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG', vHist, fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat, 0, 0, 0, 0, 0, fDMCadDuplicata.vID_FormaPgto);
+        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG', vHist, vVlrPago , 0, 0, 0, 0, 0,fDMCadDuplicata.vID_FormaPgto);
         //Foi colocado na versão .390
         if fDMCadDuplicata.mCheque.RecordCount <= 0 then
-          fDMCadDuplicata.prc_Gravar_Financeiro(fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat, 'P', fDMCadDuplicata.vID_FormaPgto);
+          //fDMCadDuplicata.prc_Gravar_Financeiro(fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat, 'P', fDMCadDuplicata.vID_FormaPgto);
+          fDMCadDuplicata.prc_Gravar_Financeiro(vVlrPago, 'P', fDMCadDuplicata.vID_FormaPgto);
         fDMCadDuplicata.cdsDuplicataVLR_JUROSPAGOS.AsFloat := 0;
         fDMCadDuplicata.cdsDuplicataVLR_DESCONTO.AsFloat := 0;
         fDMCadDuplicata.cdsDuplicataVLR_DESPESAS.AsFloat := 0;
@@ -1800,6 +1810,10 @@ begin
 
   if (fDMCadDuplicata.vDtPgtoSel > 10) and (fDMCadDuplicata.vID_ContaPgtoSel > 0) then
   begin
+    fDMCadDuplicata.qContas.Close;
+    fDMCadDuplicata.qContas.ParamByName('ID').AsInteger := fDMCadDuplicata.vID_ContaPgtoSel;
+    fDMCadDuplicata.qContas.Open;
+  
     vTipo_ES_Loc := '';
     prc_Gravar_Selecionados;
     if (fDMCadDuplicata.mCheque.RecordCount > 0) and (vTipo_ES_Loc = 'S') then
@@ -1807,7 +1821,7 @@ begin
   end;
   btnConsultarClick(Sender);
   btnPagtoSelecionado.Enabled := False;
-  btnPagamento.Enabled := False;
+  btnPagamento.Enabled        := False;
 end;
 
 procedure TfrmCadDuplicata.prc_Opcao_Registro;
