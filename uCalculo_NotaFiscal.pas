@@ -119,7 +119,8 @@ var
   vVlrBaseAux: Real;
 begin
   //25/05/2020
-  if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString = 'S') then
+  if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString = 'S') and
+      (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0) then
     fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00', fnc_Saldo_Adto(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) + fDMCadNotaFiscal.vVlr_Saldo_Usado))
   else
     fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',0));

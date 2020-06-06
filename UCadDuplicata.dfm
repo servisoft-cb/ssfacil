@@ -411,6 +411,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_ADTO_USADO'
             Title.Alignment = taCenter
+            Width = 64
             Visible = True
           end>
       end

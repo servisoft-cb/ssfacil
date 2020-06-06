@@ -399,6 +399,7 @@ type
     ctPedido_Cli : String;
     ctPedido_Pend : String;
     ctPrazoMedio : String;
+    ctConsAdto_Saldo: String;
     vDataIni, vDataFim: String;
 
     vDtInicial, vDtFinal : TDateTime;
@@ -440,6 +441,7 @@ begin
   ctPedido_Cli            := sdsPedido_Cli.CommandText;
   ctPedido_Pend           := sdsPedido_Pend.CommandText;
   ctPrazoMedio            := sdsPrazoMedio.CommandText;
+  ctConsAdto_Saldo        := sdsConsAdto_Saldo.CommandText;
 end;
 
 procedure TDMConsFinanceiro.mConta_OrcNewRecord(DataSet: TDataSet);

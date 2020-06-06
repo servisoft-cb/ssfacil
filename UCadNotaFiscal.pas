@@ -428,6 +428,7 @@ type
     Label121: TLabel;
     dbedtVlr_Saldo_Usado: TDBEdit;
     btnGerarSaldo_Usado: TNxButton;
+    btnZerarSaldo: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -565,7 +566,9 @@ type
     procedure ExcluirDetExportaoDrawBack1Click(Sender: TObject);
     procedure ExcluirDetExportaoDrawBackItensdeOrigem1Click(
       Sender: TObject);
+    procedure btnZerarSaldoClick(Sender: TObject);
     procedure btnGerarSaldo_UsadoClick(Sender: TObject);
+    procedure rxdbCondicaoPgtoExit(Sender: TObject);
   private
     { Private declarations }
     vTipoNotaAnt: String;
@@ -3074,6 +3077,7 @@ procedure TfrmCadNotaFiscal.Panel4Exit(Sender: TObject);
 var
   vID_Aux: Integer;
   vFlag: Boolean;
+  vVlrSaldo : Real;
 begin
   if not(fDMCadNotaFiscal.cdsNotaFiscal.State in [dsEdit,dsInsert]) then
     exit;
@@ -3198,7 +3202,7 @@ begin
   else
   if (copy(fDMCadNotaFiscal.cdsCFOPCODCFOP.AsString,1,1) = '3') or (copy(fDMCadNotaFiscal.cdsCFOPCODCFOP.AsString,1,1) = '7') then
     fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESTINO_OPERACAO.AsInteger := 3
-  else
+  else             
     fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESTINO_OPERACAO.AsInteger := 2;
   if (fDMCadNotaFiscal.cdsNotaFiscalTIPO_CONSUMIDOR.IsNull) or (fDMCadNotaFiscal.cdsClienteCODIGO.AsInteger <> vID_Cliente_Ant) then
     fDMCadNotaFiscal.cdsNotaFiscalTIPO_CONSUMIDOR.AsInteger := fDMCadNotaFiscal.cdsClienteTIPO_CONSUMIDOR.AsInteger;
@@ -3252,9 +3256,18 @@ begin
   //if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') and (vID_Cliente_Ant <> fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) then
   if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') then
   begin
-    fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fnc_Saldo_Adto(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) + fDMCadNotaFiscal.vVlr_Saldo_Usado));
-    if StrToFloat(FOrmatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0 then
-      MessageDlg('*** Cliente com Saldo de ' + FormatFloat('###,###,##0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat),mtInformation, [mbOk], 0);
+    //fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fnc_Saldo_Adto(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) + fDMCadNotaFiscal.vVlr_Saldo_Usado));
+    vVlrSaldo := StrToFloat(FormatFloat('0.00',fnc_Saldo_Adto(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) + fDMCadNotaFiscal.vVlr_Saldo_Usado));
+    if StrToFloat(FormatFloat('0.00',vVlrSaldo)) > 0 then
+    begin
+      if MessageDlg('*** Cliente com Saldo Crédito de ' + FormatFloat('###,###,##0.00',vVlrSaldo) + #13 +
+                    '    Usar este saldo nesta nota fiscal?'      ,mtConfirmation,[mbYes,mbNo],0) <> mrYes then
+        fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',0))
+      else
+        fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',vVlrSaldo));
+    end;
+    //if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0 then
+    //  MessageDlg('*** Cliente com Saldo de ' + FormatFloat('###,###,##0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat),mtInformation, [mbOk], 0);
   end;
   //********************
 
@@ -3743,7 +3756,7 @@ begin
   else
   begin
     //25/05/2020
-    if fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S' then
+    if (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0)  then
     begin
       if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) then
         fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat));
@@ -5787,12 +5800,39 @@ begin
   SMDBGrid2.EnableScroll;
 end;
 
+procedure TfrmCadNotaFiscal.btnZerarSaldoClick(Sender: TObject);
+begin
+  if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0 then
+  begin
+    if MessageDlg('*** Zerar o saldo do cliente nesta nota ?' ,mtConfirmation,[mbYes,mbNo],0) = mrYes then
+    begin
+      fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',0));
+      btnCalcular_ValoresClick(Sender);
+    end;
+  end;
+end;
+
 procedure TfrmCadNotaFiscal.btnGerarSaldo_UsadoClick(Sender: TObject);
 var
   vVlrAux : Real;
 begin
   vVlrAux := StrToFloat(FormatFloat('0.00',fnc_Saldo_Adto(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger) + fDMCadNotaFiscal.vVlr_Saldo_Usado));
-  MessageDlg('*** Vlr. de Crédito de Adiantamento: ' + FormatFloat('###,###,##0.00',vVlrAux) , mtInformation, [mbOk], 0);
+  if MessageDlg('*** Cliente com Saldo de Crédito de ' + FormatFloat('###,###,##0.00',vVlrAux) + #13 +
+                '    Usar o saldo do cliente nesta nota ?' ,mtConfirmation,[mbYes,mbNo],0) = mrYes then
+  begin
+    fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',vVlrAux));
+    btnCalcular_ValoresClick(Sender);
+  end;
+end;
+
+procedure TfrmCadNotaFiscal.rxdbCondicaoPgtoExit(Sender: TObject);
+begin
+  if rxdbCondicaoPgto.Text = '[..Nenhuma..]' then
+  begin
+    prc_Opcao_Prazo;
+    if fDMCadNotaFiscal.cdsNotaFiscal.State in [dsEdit,dsInsert] then
+      btnGerarParcelasClick(Sender);
+  end;
 end;
 
 end.

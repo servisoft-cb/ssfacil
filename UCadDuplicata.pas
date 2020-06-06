@@ -424,7 +424,7 @@ implementation
 uses
   DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, uRelPagarReceber, uRelPagarReceber2, URelCheque_Copia, USel_ContaOrc, USel_Pessoa,
   uUtilCobranca, UCadDuplicata_Desc, uRelPagarReceber3, UChequeDupHist, UCadDuplicata_Cob, uMenu1, uRelRecibo_Pgto, USel_CentroCusto,
-  uUtilCliente;
+  uUtilCliente, UConsAdto;
 
 {$R *.dfm}
 
@@ -655,6 +655,7 @@ begin
     stat1.Panels[2].Text := 'Duplo clique para consultar    F3 Altera Conta Previsão/Orçamento'
   else
     stat1.Panels[2].Text := 'Duplo clique para consultar';
+  stat1.Panels[2].Text := stat1.Panels[2].Text + '  F9-Cons.Saldo Crédito';
 
   NxDatePicker1.Clear;
   NxDatePicker2.Clear;
@@ -1966,7 +1967,15 @@ begin
     FreeAndNil(ffrmCadDuplicata_Alt);
   end
   else if Key = Vk_Return then
-    RzPageControl1.ActivePage := TS_Cadastro;
+    RzPageControl1.ActivePage := TS_Cadastro
+  else
+  if (Key = Vk_F9) and not (fDMCadDuplicata.cdsDuplicata_Consulta.IsEmpty) then
+  begin
+    frmConsAdto := TfrmConsAdto.Create(self);
+    frmConsAdto.Edit1.Text := fDMCadDuplicata.cdsDuplicata_ConsultaNOME_PESSOA.AsString;
+    frmConsAdto.ShowModal;
+    FreeAndNil(frmConsAdto);
+  end;
 end;
 
 procedure TfrmCadDuplicata.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);

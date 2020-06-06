@@ -19,13 +19,20 @@ object frmConsAdto: TfrmConsAdto
     Left = 0
     Top = 0
     Width = 920
-    Height = 41
+    Height = 65
     Align = alTop
     Color = clSilver
     TabOrder = 0
+    object Label1: TLabel
+      Left = 18
+      Top = 21
+      Width = 31
+      Height = 13
+      Caption = 'Nome:'
+    end
     object btnConsultar: TNxButton
-      Left = 10
-      Top = 9
+      Left = 52
+      Top = 39
       Width = 131
       Caption = 'Efetuar Pesquisa'
       Font.Charset = DEFAULT_CHARSET
@@ -34,15 +41,23 @@ object frmConsAdto: TfrmConsAdto
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
-      TabOrder = 0
+      TabOrder = 1
       OnClick = btnConsultarClick
+    end
+    object Edit1: TEdit
+      Left = 52
+      Top = 14
+      Width = 323
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 0
     end
   end
   object SMDBGrid1: TSMDBGrid
     Left = 0
-    Top = 41
+    Top = 65
     Width = 920
-    Height = 408
+    Height = 384
     Align = alClient
     Ctl3D = False
     DataSource = DMConsFinanceiro.dsConsAdto_Saldo
@@ -67,7 +82,7 @@ object frmConsAdto: TfrmConsAdto
     GridStyle.EvenColor = clWindow
     TitleHeight.PixelCount = 24
     FooterColor = clBtnFace
-    ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+    ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
     RegistryKey = 'Software\Scalabium'
     RegistrySection = 'SMDBGrid'
     WidthOfIndicator = 11
