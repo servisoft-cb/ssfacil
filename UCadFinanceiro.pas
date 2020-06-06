@@ -105,6 +105,8 @@ type
     DBEdit5: TDBEdit;
     Label32: TLabel;
     RxDBLookupCombo8: TRxDBLookupCombo;
+    Label33: TLabel;
+    Edit1: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -288,6 +290,9 @@ begin
   if RxDBLookupCombo1.Text <> '' then
     fDMCadFinanceiro.sdsFinanceiro_Consulta.CommandText := fDMCadFinanceiro.sdsFinanceiro_Consulta.CommandText
                                                        + ' AND F.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
+  if trim(Edit1.Text) <> '' then
+    fDMCadFinanceiro.sdsFinanceiro_Consulta.CommandText := fDMCadFinanceiro.sdsFinanceiro_Consulta.CommandText
+                                                       + ' AND P.NOME LIKE ' + QuotedStr('%'+Edit1.Text+'%');
   if RxDBLookupCombo2.Text <> '' then
     fDMCadFinanceiro.sdsFinanceiro_Consulta.CommandText := fDMCadFinanceiro.sdsFinanceiro_Consulta.CommandText
                                                        + ' AND F.ID_CONTA = ' + IntToStr(RxDBLookupCombo2.KeyValue);

@@ -400,6 +400,7 @@ type
     sdsFinanceiroID_FINANCEIRO_VINC: TIntegerField;
     cdsFinanceiroID_FINANCEIRO_VINC: TIntegerField;
     cdsContasTIPO_CONTA: TStringField;
+    cdsFinanceiro_ConsultaNOME_PESSOA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspFinanceiroUpdateError(Sender: TObject; DataSet: TCustomClientDataSet; E: EUpdateError; UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsFinanceiroBeforePost(DataSet: TDataSet);

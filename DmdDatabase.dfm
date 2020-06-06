@@ -392,7 +392,7 @@ object dmDatabase: TdmDatabase
       'Interbase TransIsolation=ReadCommited'
       'Trim Char=False')
     VendorLib = 'gds32.dll'
-    Left = 401
+    Left = 400
     Top = 83
   end
 end

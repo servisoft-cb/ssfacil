@@ -25,7 +25,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
     Top = 0
     Width = 904
     Height = 670
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -41,9 +41,9 @@ object frmCadFinanceiro: TfrmCadFinanceiro
       Caption = 'Consulta'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 151
+        Top = 165
         Width = 900
-        Height = 479
+        Height = 465
         Align = alClient
         Ctl3D = False
         DataSource = DMCadFinanceiro.dsFinanceiro_Consulta
@@ -76,7 +76,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
         WidthOfIndicator = 27
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 16
+        ColCount = 17
         RowCount = 2
         Columns = <
           item
@@ -118,6 +118,14 @@ object frmCadFinanceiro: TfrmCadFinanceiro
             Expanded = False
             FieldName = 'NOME_FORMAPGTO'
             Width = 130
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_PESSOA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Pessoa'
+            Width = 276
             Visible = True
           end
           item
@@ -500,7 +508,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
         Left = 0
         Top = 30
         Width = 900
-        Height = 121
+        Height = 135
         Align = alTop
         TabOrder = 0
         Visible = False
@@ -514,7 +522,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
         end
         object Label18: TLabel
           Left = 85
-          Top = 82
+          Top = 100
           Width = 120
           Height = 13
           Alignment = taRightJustify
@@ -522,14 +530,14 @@ object frmCadFinanceiro: TfrmCadFinanceiro
         end
         object Label26: TLabel
           Left = 313
-          Top = 82
+          Top = 100
           Width = 25
           Height = 13
           Caption = 'Final:'
         end
         object Label27: TLabel
           Left = 99
-          Top = 102
+          Top = 120
           Width = 106
           Height = 13
           Alignment = taRightJustify
@@ -537,7 +545,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
         end
         object Label28: TLabel
           Left = 313
-          Top = 102
+          Top = 120
           Width = 25
           Height = 13
           Caption = 'Final:'
@@ -551,12 +559,20 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           Caption = 'Conta:'
         end
         object Label9: TLabel
-          Left = 101
+          Left = 100
           Top = 62
           Width = 104
           Height = 13
           Alignment = taRightJustify
           Caption = 'Forma de Pagamento:'
+        end
+        object Label33: TLabel
+          Left = 133
+          Top = 80
+          Width = 69
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Nome Pessoa:'
         end
         object RxDBLookupCombo1: TRxDBLookupCombo
           Left = 207
@@ -575,7 +591,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           Left = 1
           Top = 1
           Width = 72
-          Height = 119
+          Height = 133
           Align = alLeft
           Caption = ' Tipo '
           ItemIndex = 2
@@ -587,18 +603,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
         end
         object DateEdit1: TDateEdit
           Left = 207
-          Top = 74
-          Width = 100
-          Height = 21
-          Ctl3D = False
-          NumGlyphs = 2
-          ParentCtl3D = False
-          StartOfWeek = Sun
-          TabOrder = 4
-        end
-        object DateEdit2: TDateEdit
-          Left = 341
-          Top = 74
+          Top = 92
           Width = 100
           Height = 21
           Ctl3D = False
@@ -607,9 +612,9 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           StartOfWeek = Sun
           TabOrder = 5
         end
-        object DateEdit3: TDateEdit
-          Left = 207
-          Top = 94
+        object DateEdit2: TDateEdit
+          Left = 341
+          Top = 92
           Width = 100
           Height = 21
           Ctl3D = False
@@ -618,9 +623,9 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           StartOfWeek = Sun
           TabOrder = 6
         end
-        object DateEdit4: TDateEdit
-          Left = 341
-          Top = 94
+        object DateEdit3: TDateEdit
+          Left = 207
+          Top = 112
           Width = 100
           Height = 21
           Ctl3D = False
@@ -628,6 +633,17 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           ParentCtl3D = False
           StartOfWeek = Sun
           TabOrder = 7
+        end
+        object DateEdit4: TDateEdit
+          Left = 341
+          Top = 112
+          Width = 100
+          Height = 21
+          Ctl3D = False
+          NumGlyphs = 2
+          ParentCtl3D = False
+          StartOfWeek = Sun
+          TabOrder = 8
         end
         object RxDBLookupCombo2: TRxDBLookupCombo
           Left = 207
@@ -661,7 +677,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           Font.Style = []
           ParentCtl3D = False
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 9
           VisualStyle = vsGradient
           object Label8: TLabel
             Left = 36
@@ -802,7 +818,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           Font.Style = []
           ParentCtl3D = False
           ParentFont = False
-          TabOrder = 9
+          TabOrder = 10
           VisualStyle = vsGradient
           object Label13: TLabel
             Left = 9
@@ -907,9 +923,19 @@ object frmCadFinanceiro: TfrmCadFinanceiro
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 10
+          TabOrder = 11
           Transparent = True
           OnClick = btnConsultarClick
+        end
+        object Edit1: TEdit
+          Left = 207
+          Top = 74
+          Width = 233
+          Height = 19
+          CharCase = ecUpperCase
+          Ctl3D = False
+          ParentCtl3D = False
+          TabOrder = 4
         end
       end
     end
