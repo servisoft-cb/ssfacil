@@ -1,6 +1,6 @@
 object frmCadPedido: TfrmCadPedido
-  Left = 102
-  Top = 6
+  Left = 134
+  Top = 23
   Width = 1105
   Height = 710
   Caption = 'Pedido de Venda'
@@ -25,7 +25,7 @@ object frmCadPedido: TfrmCadPedido
     Top = 0
     Width = 1097
     Height = 679
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -34,7 +34,7 @@ object frmCadPedido: TfrmCadPedido
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -2410,7 +2410,7 @@ object frmCadPedido: TfrmCadPedido
         Top = 190
         Width = 1093
         Height = 397
-        ActivePage = RzTabSheet2
+        ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
         BackgroundColor = clSilver
@@ -2418,7 +2418,7 @@ object frmCadPedido: TfrmCadPedido
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 1
         FixedDimension = 19
         object RzTabSheet1: TRzTabSheet
@@ -7106,7 +7106,7 @@ object frmCadPedido: TfrmCadPedido
     end
   end
   object PopupMenu2: TPopupMenu
-    Left = 614
+    Left = 618
     Top = 59
     object CancelarPedido1: TMenuItem
       Caption = 'Cancelar Pedido'

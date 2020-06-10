@@ -3752,6 +3752,8 @@ type
     qParametros_FinUSA_ADTO: TStringField;
     mOrcamento_ItensVlr_Unitario_IPI: TFloatField;
     cdsOrcamento_ItensVLR_UNITARIO_IPI: TFloatField;
+    sdsPedido_CanceladoID_LOTE: TIntegerField;
+    cdsPedido_CanceladoID_LOTE: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

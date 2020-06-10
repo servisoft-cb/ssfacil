@@ -1070,7 +1070,7 @@ object DMCadPedido: TDMCadPedido
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 176
+    Left = 177
     Top = 2
   end
   object dspPedido_Consulta: TDataSetProvider
@@ -16270,7 +16270,7 @@ object DMCadPedido: TDMCadPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 24
+    Left = 23
     Top = 537
     object sdsPedido_CanceladoID: TIntegerField
       FieldName = 'ID'
@@ -16309,6 +16309,9 @@ object DMCadPedido: TDMCadPedido
     end
     object sdsPedido_CanceladoID_MOVESTOQUE: TIntegerField
       FieldName = 'ID_MOVESTOQUE'
+    end
+    object sdsPedido_CanceladoID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
     end
   end
   object dspPedido_Cancelado: TDataSetProvider
@@ -16361,6 +16364,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedido_CanceladoID_MOVESTOQUE: TIntegerField
       FieldName = 'ID_MOVESTOQUE'
+    end
+    object cdsPedido_CanceladoID_LOTE: TIntegerField
+      FieldName = 'ID_LOTE'
     end
   end
   object dsPedido_Cancelado: TDataSource

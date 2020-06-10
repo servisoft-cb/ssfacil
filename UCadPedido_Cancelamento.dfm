@@ -1,8 +1,8 @@
 object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
   Left = 238
-  Top = 191
+  Top = 204
   Width = 784
-  Height = 432
+  Height = 419
   Caption = 'Cancelar Pedido'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -20,11 +20,11 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
   TextHeight = 13
   object Panel3: TPanel
     Left = 0
-    Top = 210
+    Top = 197
     Width = 776
     Height = 34
     Align = alBottom
-    Color = 8404992
+    Color = clMoneyGreen
     TabOrder = 1
     object BitBtn4: TBitBtn
       Left = 205
@@ -42,7 +42,7 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
       OnClick = BitBtn4Click
     end
     object btnConfirmar: TBitBtn
-      Left = 106
+      Left = 107
       Top = 5
       Width = 98
       Height = 25
@@ -76,7 +76,7 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
     Left = 0
     Top = 111
     Width = 776
-    Height = 99
+    Height = 86
     Align = alClient
     Color = clMoneyGreen
     TabOrder = 0
@@ -294,12 +294,14 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
   end
   object SMDBGrid1: TSMDBGrid
     Left = 0
-    Top = 244
+    Top = 231
     Width = 776
     Height = 157
     Align = alBottom
+    Ctl3D = False
     DataSource = DMCadPedido.dsPedido_Cancelado
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+    ParentCtl3D = False
     ReadOnly = True
     TabOrder = 4
     TitleFont.Charset = DEFAULT_CHARSET
@@ -307,7 +309,7 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
-    Flat = False
+    Flat = True
     BandsFont.Charset = DEFAULT_CHARSET
     BandsFont.Color = clWindowText
     BandsFont.Height = -11
@@ -333,6 +335,7 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
         FieldName = 'ITEM_CANC'
         Title.Alignment = taCenter
         Title.Caption = 'Item Canc.'
+        Title.Color = 10354687
         Visible = True
       end
       item
@@ -341,6 +344,7 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
         FieldName = 'DATA'
         Title.Alignment = taCenter
         Title.Caption = 'Data'
+        Title.Color = 10354687
         Width = 96
         Visible = True
       end
@@ -349,6 +353,7 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
         FieldName = 'QTD'
         Title.Alignment = taCenter
         Title.Caption = 'Qtde.'
+        Title.Color = 10354687
         Visible = True
       end
       item
@@ -356,6 +361,7 @@ object frmCadPedido_Cancelamento: TfrmCadPedido_Cancelamento
         FieldName = 'MOTIVO'
         Title.Alignment = taCenter
         Title.Caption = 'Motivo'
+        Title.Color = 10354687
         Width = 500
         Visible = True
       end>

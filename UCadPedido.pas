@@ -4159,14 +4159,18 @@ begin
 end;
 
 procedure TfrmCadPedido.CancelarPedido1Click(Sender: TObject);
+var
+  vLoteGerado : Boolean;
 begin
+  vLoteGerado := False;
   if fDMCadPedido.qParametros_UsuarioPERMITE_CANC_PED_OP.AsString <> 'S' then
   begin
     if (fDMCadPedido.cdsPedido_ConsultaGEROU_PRODUCAO.AsString = 'S') or (fDMCadPedido.cdsPedido_ConsultaCONT_TALAO.AsInteger > 0) or
       (fDMCadPedido.cdsPedido_ConsultaCONT_TALAO2.AsInteger > 0) then
     begin
       MessageDlg('*** Lote/Talão já gerado para esse pedido!',mtError, [mbOk], 0);
-      exit;
+      vLoteGerado := True;
+      //exit;
     end;
   end;
   if (fDMCadPedido.cdsParametrosCONTROLAR_DUP_PEDIDO.AsString = 'S') and (fDMCadPedido.fnc_Existe_DupPaga(fDMCadPedido.cdsPedidoID.AsInteger) > 0) then
@@ -4177,20 +4181,27 @@ begin
 
   ffrmCadPedido_Cancelamento                 := TfrmCadPedido_Cancelamento.Create(self);
   ffrmCadPedido_Cancelamento.fDMCadPedido    := fDMCadPedido;
-  ffrmCadPedido_Cancelamento.vOpcao_Cancelar := 'P';
+  if vLoteGerado then
+    ffrmCadPedido_Cancelamento.vOpcao_Cancelar := 'C'
+  else
+    ffrmCadPedido_Cancelamento.vOpcao_Cancelar := 'P';
   ffrmCadPedido_Cancelamento.ShowModal;
   FreeAndNil(ffrmCadPedido_Cancelamento);
 end;
 
 procedure TfrmCadPedido.CancelarItemdoPedido1Click(Sender: TObject);
+var
+  vLoteGerado : Boolean;
 begin
+  vLoteGerado := False;
   if fDMCadPedido.qParametros_UsuarioPERMITE_CANC_PED_OP.AsString <> 'S' then
   begin
     if (fDMCadPedido.cdsPedido_ConsultaGEROU_PRODUCAO.AsString = 'S') or (fDMCadPedido.cdsPedido_ConsultaCONT_TALAO.AsInteger > 0) or
       (fDMCadPedido.cdsPedido_ConsultaCONT_TALAO2.AsInteger > 0) then
     begin
       MessageDlg('*** Lote/Talão já gerado para esse pedido!',mtError, [mbOk], 0);
-      exit;
+      vLoteGerado := True;
+      //exit;
     end;
   end;
   if (fDMCadPedido.cdsParametrosCONTROLAR_DUP_PEDIDO.AsString = 'S') and (fDMCadPedido.fnc_Existe_DupPaga(fDMCadPedido.cdsPedidoID.AsInteger) > 0) then
@@ -4201,7 +4212,10 @@ begin
 
   ffrmCadPedido_Cancelamento                 := TfrmCadPedido_Cancelamento.Create(self);
   ffrmCadPedido_Cancelamento.fDMCadPedido    := fDMCadPedido;
-  ffrmCadPedido_Cancelamento.vOpcao_Cancelar := 'I';
+  if vLoteGerado then
+    ffrmCadPedido_Cancelamento.vOpcao_Cancelar := 'C'
+  else
+    ffrmCadPedido_Cancelamento.vOpcao_Cancelar := 'I';
   ffrmCadPedido_Cancelamento.ShowModal;
   FreeAndNil(ffrmCadPedido_Cancelamento);
 end;

@@ -88,18 +88,26 @@ begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadPedido);
   vGE_Cancelamento := False;
 
-  Panel2.Visible        := (vOpcao_Cancelar = 'P');
-  Panel4.Visible        := (vOpcao_Cancelar = 'I');
-  Label1.Visible        := (vOpcao_Cancelar = 'I');
-  CurrencyEdit1.Visible := (vOpcao_Cancelar = 'I');
-  SMDBGrid1.Visible     := (vOpcao_Cancelar = 'I');
-  btnExcluir.Visible    := (vOpcao_Cancelar = 'I');
-
-  DateEdit1.Date := Date;
-  if vOpcao_Cancelar = 'I' then
+  if vOpcao_Cancelar = 'C' then
   begin
-    CurrencyEdit1.Value := fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat;
+    Panel1.Visible := False;
+    Panel3.Visible := False;
     prc_Abrir_Pedido_Cancelamento(fDMCadPedido.cdsPedido_ItensID.AsInteger,fDMCadPedido.cdsPedido_ItensITEM.AsInteger);
+  end
+  else
+  begin
+    Panel2.Visible        := (vOpcao_Cancelar = 'P');
+    Panel4.Visible        := (vOpcao_Cancelar = 'I');
+    Label1.Visible        := (vOpcao_Cancelar = 'I');
+    CurrencyEdit1.Visible := (vOpcao_Cancelar = 'I');
+    SMDBGrid1.Visible     := (vOpcao_Cancelar = 'I');
+    btnExcluir.Visible    := (vOpcao_Cancelar = 'I');
+    DateEdit1.Date := Date;
+    if vOpcao_Cancelar = 'I' then
+    begin
+      CurrencyEdit1.Value := fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat;
+      prc_Abrir_Pedido_Cancelamento(fDMCadPedido.cdsPedido_ItensID.AsInteger,fDMCadPedido.cdsPedido_ItensITEM.AsInteger);
+    end;
   end;
 end;
 
@@ -286,6 +294,12 @@ procedure TfrmCadPedido_Cancelamento.btnExcluirClick(Sender: TObject);
 begin
   if not(fDMCadPedido.cdsPedido_Cancelado.Active) or (fDMCadPedido.cdsPedido_Cancelado.IsEmpty) or (fDMCadPedido.cdsPedido_CanceladoITEM_CANC.AsInteger <= 0) then
     exit;
+
+  if fDMCadPedido.cdsPedido_CanceladoID_LOTE.AsInteger > 0 then
+  begin
+    MessageDlg('*** Cancelamento feito pela OP de Produção, não pode ser excluído por este cadastro!', mtError, [mbOk], 0);
+    exit;
+  end;
 
   if MessageDlg('Deseja excluir o cancelamento que esta selecionado?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
