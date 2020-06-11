@@ -1031,8 +1031,25 @@ begin
 end;
 
 procedure TfMenu.Manifesto1Click(Sender: TObject);
+const
+  C_Dll : string = 'ManifestoNFe.dll';
+var
+  FHandle : THandle;
+  FRoutine : procedure;
 begin
-  OpenForm(TfrmManifesto,wsMaximized);
+  if SQLLocate('PARAMETROS_RECXML','ID','UTILIZA_DFE_ACBR','1') = 'S' then
+  begin
+    FHandle := LoadLibrary(PAnsiChar(C_Dll));
+    try
+      FRoutine :=  GetProcAddress(FHandle, 'Abre_ManifestoNFe');
+      if (Assigned(FRoutine)) then
+        FRoutine;
+    finally
+      FreeLibrary(FHandle);
+    end;
+  end
+  else
+    OpenForm(TfrmManifesto,wsMaximized);
   //prc_ShellExecute('SSManifesto.exe');
 end;
 
