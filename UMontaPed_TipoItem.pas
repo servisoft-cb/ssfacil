@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Buttons, Grids, DBGrids, SMDBGrid, FMTBcd, DB,
-  Provider, DBClient, SqlExpr, RxLookup, Mask, ToolEdit, CurrEdit,
+  Provider, DBClient, SqlExpr, RxLookup, Mask, ToolEdit, CurrEdit, ComObj, 
   UDMCopiaPedido, ShellAPI, Menus, uConsProdutoPedido, UCadPedido_Itens, uDMCadPedido,
   uSel_Produto, uMostraPDF, classe.ControlePedidoProjeto, classe.Controle, classe.ConexaoBD;
 
@@ -48,6 +48,8 @@ type
     btnAbrirPDF: TSpeedButton;
     SpeedButton3: TSpeedButton;
     Label2: TLabel;
+    Label3: TLabel;
+    FilenameEdit1: TFilenameEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -70,6 +72,7 @@ type
   private
     { Private declarations }
     ctChapaLocal: string;
+    StringGrid1: TStringGrid;
     ffrmCadPedido_Itens : TfrmCadPedido_Itens;
     ffrmMostraPDF : TfrmMostraPDF;
 
@@ -80,8 +83,13 @@ type
     procedure prc_Calcular_VlrTotal;
     procedure prc_Desabilita_Controles;
     procedure prc_Habilita_Controles;
+    procedure prc_Carrega_Excel;
+    procedure prc_Le_StringGrid;
+
     function fnc_Buscar_Produto(MM : Real; Tipo : String): Integer;
     function NomeArquivoSemExtensao(Texto: string): string;
+
+    function XlsToStringGrid2(AGrid: TStringGrid; AXLSFile: string; WorkSheet: Integer): Boolean;
 
   public
     { Public declarations }
@@ -247,6 +255,8 @@ procedure TfrmMontaPed_TipoItem.btnCarregaClick(Sender: TObject);
 begin
   btnCarrega.Tag := 1;
   ListarArquivos(DirectoryEdit1.Text);
+  if (trim(FilenameEdit1.Text) <> '') then
+    prc_Carrega_Excel;
   btnCarrega.Enabled := (mArquivoImportado.IsEmpty);
   btnCarrega.Tag := 0;
 end;
@@ -544,6 +554,140 @@ begin
     vSomar := True
   else
     vSomar := False;
+end;
+
+procedure TfrmMontaPed_TipoItem.prc_Carrega_Excel;
+var
+  vEnd_Arquivo: String;
+begin
+  vEnd_Arquivo := FilenameEdit1.Text;
+  if copy(vEnd_Arquivo,1,1) = '"' then
+    Delete(vEnd_Arquivo,1,1);
+  if copy(vEnd_Arquivo,Length(vEnd_Arquivo),1) = '"' then
+    Delete(vEnd_Arquivo,Length(vEnd_Arquivo),1);
+  FilenameEdit1.Text := vEnd_Arquivo;
+  if (trim(FilenameEdit1.Text) <> '') and  not(FileExists(FilenameEdit1.Text)) then
+  begin
+    MessageDlg('Arquivo em excel não encontrado!',mtError,mbOKCancel,0);
+    exit;
+  end;
+
+  StringGrid1 := TStringGrid.Create(StringGrid1);
+  XlsToStringGrid2(StringGrid1,FilenameEdit1.Text,1);
+  prc_Le_StringGrid;
+  FreeAndNil(StringGrid1);
+end;
+
+function TfrmMontaPed_TipoItem.XlsToStringGrid2(AGrid: TStringGrid;
+  AXLSFile: string; WorkSheet: Integer): Boolean;
+const
+	xlCellTypeLastCell = $0000000B;
+var
+	XLApp, Sheet: OLEVariant;
+	RangeMatrix: Variant;
+	x, y, k, r: Integer;
+begin
+	Result := False;
+	//Cria Excel- OLE Object
+	XLApp  := CreateOleObject('Excel.Application');
+	try
+		//Esconde Excel
+		XLApp.Visible:=False;
+
+		//Abre o Workbook
+		XLApp.Workbooks.Open(AXLSFile);
+
+		//Setar na planilha desejada
+		XLApp.Workbooks[ExtractFileName(AXLSFile)].WorkSheets[WorkSheet].Activate;
+
+		// Para saber a dimensão do WorkSheet (o número de linhas e de colunas),
+		//selecionamos a última célula não vazia do worksheet
+		Sheet :=  XLApp.Workbooks[ExtractFileName(AXLSFile)].WorkSheets[WorkSheet];
+		Sheet.Cells.SpecialCells(xlCellTypeLastCell, EmptyParam).Select;
+
+    //Pegar o número da última linha
+                x:=XLApp.ActiveCell.Row;
+    //x:=fDMExcel.cdsProduto.RecordCount;
+    //Pegar o número da última coluna
+		y:=XLApp.ActiveCell.Column;
+
+		//Seta Stringgrid linha e coluna
+		AGrid.RowCount:=x;
+		AGrid.ColCount:=y;
+
+		//Associa a variant WorkSheet com a variant do Delphi
+		RangeMatrix:=XLApp.Range['A1', XLApp.Cells.Item[X, Y]].Value;
+
+		//Cria o loop para listar os registros no TStringGrid
+		k:=1;
+		repeat
+		  for r:=1 to y do
+		  begin
+			 AGrid.Cells[(r - 1),(k - 1)] := RangeMatrix[K, R];
+
+			 //Redimensionar tamanho das colunas do grid dinamicamente
+			 If (AGrid.ColWidths[r-1] < (Length(AGrid.Cells[(r - 1),(k - 1)]) * 8)) then
+				AGrid.ColWidths[r-1] := Length(AGrid.Cells[(r - 1),(k - 1)]) * 8;
+
+		  end;
+		  Inc(k,1);
+		until k > x;
+		RangeMatrix := Unassigned;
+	finally
+		//Fecha o Excel
+		if not VarIsEmpty(XLApp) then
+		   begin
+			  XLApp.Quit;
+			  XLAPP:=Unassigned;
+			  Sheet:=Unassigned;
+			  Result:=True;
+		   end;
+	end;
+end;
+
+procedure TfrmMontaPed_TipoItem.prc_Le_StringGrid;
+var
+  Linha, Coluna: Integer;
+  i: Integer;
+  vTexto: String;
+  vGravar: Boolean;
+  vContador: Integer;
+  vFinalidadeAux : String;
+begin
+  vTexto  := '';
+  Linha     := 0;
+  vContador := 0;
+  while Linha < StringGrid1.RowCount -1 do
+  begin
+    Linha := Linha + 1;
+    //if Linha <= 1 then
+    //  continue;
+
+    vTexto:=StringGrid1.Cells[0,Linha];
+    i := Pos(' ',vTexto);
+    vTexto := copy(vTexto,1,i-1);
+    if mArquivoImportado.Locate('NomeArquivo',vTexto,([Locaseinsensitive])) then
+    begin
+      mArquivoImportado.Edit;
+      vTexto := trim(StringGrid1.Cells[1,Linha]);
+      mArquivoImportadoEspessura.AsFloat := StrToFloat(vTexto);
+
+      mArquivoImportado.Edit;
+
+      vTexto := trim(StringGrid1.Cells[4,Linha]);
+      mArquivoImportadoComprimento.AsFloat := StrToFloat(vTexto);
+
+      if not (mArquivoImportado.State in [dsEdit]) then
+        mArquivoImportado.Edit;
+
+      vTexto := trim(StringGrid1.Cells[5,Linha]);
+      mArquivoImportadoLargura.AsFloat := StrToFloat(vTexto);
+
+      if (mArquivoImportado.State in [dsEdit]) then
+        mArquivoImportado.Post;
+
+    end;
+  end;
 end;
 
 end.

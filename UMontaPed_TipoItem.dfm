@@ -26,20 +26,21 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Left = 0
     Top = 0
     Width = 1067
-    Height = 83
+    Height = 94
     Align = alTop
     Color = 16777134
     TabOrder = 0
     object lblDiretorio: TLabel
-      Left = 2
+      Left = 3
       Top = 14
       Width = 78
       Height = 13
+      Alignment = taRightJustify
       Caption = 'Diret'#243'rio Projeto:'
     end
     object btnCarrega: TSpeedButton
-      Left = 427
-      Top = 3
+      Left = 459
+      Top = 5
       Width = 137
       Height = 37
       Caption = 'Carregar Arquivos'
@@ -145,8 +146,8 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       OnClick = btnCarregaClick
     end
     object btnAbrirPDF: TSpeedButton
-      Left = 564
-      Top = 3
+      Left = 596
+      Top = 4
       Width = 137
       Height = 37
       Caption = 'Abrir PDF'
@@ -252,8 +253,8 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       OnClick = btnAbrirPDFClick
     end
     object SpeedButton3: TSpeedButton
-      Left = 701
-      Top = 3
+      Left = 733
+      Top = 4
       Width = 137
       Height = 37
       Caption = 'Liberar'
@@ -261,7 +262,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object Label2: TLabel
       Left = 742
-      Top = 60
+      Top = 72
       Width = 249
       Height = 13
       Caption = 'Para calcular use o ENTER entre os campos'
@@ -272,10 +273,18 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Font.Style = []
       ParentFont = False
     end
+    object Label3: TLabel
+      Left = 13
+      Top = 35
+      Width = 68
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Arquivo Excel:'
+    end
     object DirectoryEdit1: TDirectoryEdit
       Left = 82
       Top = 6
-      Width = 343
+      Width = 354
       Height = 21
       InitialDir = 'c:\temp'
       NumGlyphs = 1
@@ -283,7 +292,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object RadioGroup1: TRadioGroup
       Left = 365
-      Top = 42
+      Top = 54
       Width = 333
       Height = 37
       Color = clYellow
@@ -294,11 +303,11 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
         'Chapa Inox'
         'Chapa Alum'#237'nio')
       ParentColor = False
-      TabOrder = 1
+      TabOrder = 2
     end
     object RadioGroup2: TRadioGroup
       Left = 85
-      Top = 42
+      Top = 54
       Width = 272
       Height = 37
       Caption = 'Diret'#243'rio Padr'#227'o'
@@ -309,7 +318,15 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
         'Pedidos'
         'Desenhos')
       ParentColor = False
-      TabOrder = 2
+      TabOrder = 3
+    end
+    object FilenameEdit1: TFilenameEdit
+      Left = 82
+      Top = 28
+      Width = 354
+      Height = 21
+      NumGlyphs = 1
+      TabOrder = 1
     end
   end
   object StaticText1: TStaticText
@@ -394,16 +411,16 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   end
   object pnlItens: TPanel
     Left = 0
-    Top = 83
+    Top = 94
     Width = 1067
-    Height = 519
+    Height = 508
     Align = alClient
     TabOrder = 3
     object SMDBGrid1: TSMDBGrid
       Left = 1
       Top = 1
       Width = 1065
-      Height = 517
+      Height = 506
       Align = alClient
       Ctl3D = False
       DataSource = dsmArquivoImportado
