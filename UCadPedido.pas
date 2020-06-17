@@ -292,7 +292,7 @@ type
     Label61: TLabel;
     cbxOpcao: TComboBox;
     Label67: TLabel;
-    Shape11: TShape;
+    Shape: TShape;
     Label68: TLabel;
     EtiquetaPorItemdoPedido1: TMenuItem;
     btnAltDtEntrega: TBitBtn;
@@ -365,6 +365,8 @@ type
     SpeedButton9: TSpeedButton;
     N4: TMenuItem;
     ImprimiraListaemExcel1: TMenuItem;
+    Shape14: TShape;
+    Label52: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -1871,6 +1873,13 @@ begin
     AFont.Color := clBlack;
   end
   else
+  if (fDMCadPedido.qParametros_PedCONFERENCIA_SIMPLES.AsString <> 'S') and (fDMCadPedido.qParametros_PedUSA_CONFERENCIA.AsString <> 'S')
+    and (fDMCadPedido.cdsPedido_ConsultaFATURADO.AsString <> 'S') and (fDMCadPedido.cdsPedido_ConsultaCONFERIDO.AsString = 'P') then
+  begin
+    Background  := $00002980;
+    AFont.Color := clWhite;
+  end
+  else
   if (fDMCadPedido.qParametros_PedUSA_CONFERENCIA.AsString = 'S') and (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsPedido_ConsultaQTD_LIBERADA.AsFloat)) > 0) then
   begin
     Background  := $000080FF;
@@ -1989,8 +1998,11 @@ end;
 procedure TfrmCadPedido.SMDBGrid2GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
 begin
-  if (fDMCadPedido.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S') and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) > 0)
-    and (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime > 10) then
+  //16/06/2020
+  //if ((fDMCadPedido.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S') and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) > 0)
+  //  and (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime > 10) then
+  if (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) > 0) and (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime > 10)
+    and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat)) <= 0) then
   begin
     Background  := $000080FF;
     AFont.Color := clBlack;

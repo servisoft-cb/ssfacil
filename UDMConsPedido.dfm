@@ -22,31 +22,32 @@ object DMConsPedido: TDMConsPedido
       'OME NOME_COR_COMBINACAO, PRO.TIPO_REG, ITE.TAMANHO, GR.NOME NOME' +
       '_GRUPO, PED.APROVADO_PED, ITE.DTFATURA,'#13#10'       ITE.DTEXPEDICAO,' +
       ' APROV.DATA DTAPROVADO, ITE.UNIDADE, ITE.OBS_ETIQUETA, PED.ID_VE' +
-      'NDEDOR_INT,  VINT.NOME NOME_VENDEDOR_INT,'#13#10'       case'#13#10'        ' +
-      ' when (ITE.COD_PRODUTO_CLIENTE <> '#39#39' and'#13#10'               ITE.COD' +
-      '_COR_CLIENTE <> '#39#39' and'#13#10'               ITE.NOME_COR_CLIENTE <> '#39 +
-      #39' and'#13#10'               ITE.TAMANHO_CLIENTE <> '#39#39') then'#13#10'         ' +
-      '      (ITE.NOME_COR_CLIENTE || '#39' T. '#39'||ITE.TAMANHO_CLIENTE|| '#39'('#39 +
-      '||'#13#10'               ITE.COD_PRODUTO_CLIENTE ||'#39')'#39' || '#39' Cod.Prod: ' +
-      #39'||'#13#10'               ITE.COD_COR_CLIENTE)'#13#10'         else'#13#10'       ' +
-      '        COMB.NOME'#13#10'         end as MONT_COMBINACAO,'#13#10'       case' +
-      #13#10'         when (ITE.QTD > 0) then ((ITE.VLR_TOTAL / ITE.QTD) * ' +
-      'ITE.QTD_RESTANTE)'#13#10'         when (ITE.QTD <= 0) then 0'#13#10'       e' +
-      'nd as VLR_RESTANTE,'#13#10'       case'#13#10'         when (ITE.QTD > 0) th' +
-      'en ((ITE.VLR_TOTAL / ITE.QTD) * ITE.QTD_FATURADO)'#13#10'         when' +
-      ' (ITE.QTD <= 0) then 0'#13#10'       end as VLR_FATURADO,'#13#10'       case' +
-      #13#10'         when (ITE.QTD > 0) then ((ITE.VLR_TOTAL / ITE.QTD) * ' +
-      'ITE.QTD_CANCELADO)'#13#10'         when (ITE.QTD <= 0) then 0'#13#10'       ' +
-      'end as VLR_CANCELADO, PRO.TAM_CALC,'#13#10'case'#13#10'  when coalesce(cli.f' +
-      'antasia,'#39#39') = '#39#39' then cli.nome'#13#10'  else cli.fantasia'#13#10'  end FANTA' +
-      'SIA, ITE.encomenda'#13#10#13#10'from PEDIDO PED'#13#10'inner join PEDIDO_ITEM IT' +
-      'E on PED.ID = ITE.ID'#13#10'inner join FILIAL FIL on PED.FILIAL = FIL.' +
-      'ID'#13#10'inner join PESSOA CLI on PED.ID_CLIENTE = CLI.CODIGO'#13#10'inner ' +
-      'join PRODUTO PRO on ITE.ID_PRODUTO = PRO.ID'#13#10'left join PESSOA VE' +
-      'N on PED.ID_VENDEDOR = VEN.CODIGO'#13#10'left join COMBINACAO COMB on ' +
-      'ITE.ID_COR = COMB.ID'#13#10'left join GRUPO GR on PRO.ID_GRUPO = GR.ID' +
-      #13#10'left join PEDIDO_APROV APROV on PED.ID = APROV.ID  '#13#10'LEFT JOIN' +
-      ' PESSOA VINT ON PED.ID_VENDEDOR_INT = VINT.CODIGO'#13#10
+      'NDEDOR_INT,  VINT.NOME NOME_VENDEDOR_INT,'#13#10'       ITE.dtconferen' +
+      'cia,'#13#10'       case'#13#10'         when (ITE.COD_PRODUTO_CLIENTE <> '#39#39' ' +
+      'and'#13#10'               ITE.COD_COR_CLIENTE <> '#39#39' and'#13#10'             ' +
+      '  ITE.NOME_COR_CLIENTE <> '#39#39' and'#13#10'               ITE.TAMANHO_CLI' +
+      'ENTE <> '#39#39') then'#13#10'               (ITE.NOME_COR_CLIENTE || '#39' T. '#39 +
+      '||ITE.TAMANHO_CLIENTE|| '#39'('#39'||'#13#10'               ITE.COD_PRODUTO_CL' +
+      'IENTE ||'#39')'#39' || '#39' Cod.Prod: '#39'||'#13#10'               ITE.COD_COR_CLIEN' +
+      'TE)'#13#10'         else'#13#10'               COMB.NOME'#13#10'         end as MO' +
+      'NT_COMBINACAO,'#13#10'       case'#13#10'         when (ITE.QTD > 0) then ((' +
+      'ITE.VLR_TOTAL / ITE.QTD) * ITE.QTD_RESTANTE)'#13#10'         when (ITE' +
+      '.QTD <= 0) then 0'#13#10'       end as VLR_RESTANTE,'#13#10'       case'#13#10'   ' +
+      '      when (ITE.QTD > 0) then ((ITE.VLR_TOTAL / ITE.QTD) * ITE.Q' +
+      'TD_FATURADO)'#13#10'         when (ITE.QTD <= 0) then 0'#13#10'       end as' +
+      ' VLR_FATURADO,'#13#10'       case'#13#10'         when (ITE.QTD > 0) then ((' +
+      'ITE.VLR_TOTAL / ITE.QTD) * ITE.QTD_CANCELADO)'#13#10'         when (IT' +
+      'E.QTD <= 0) then 0'#13#10'       end as VLR_CANCELADO, PRO.TAM_CALC,'#13#10 +
+      'case'#13#10'  when coalesce(cli.fantasia,'#39#39') = '#39#39' then cli.nome'#13#10'  els' +
+      'e cli.fantasia'#13#10'  end FANTASIA, ITE.encomenda'#13#10#13#10'from PEDIDO PED' +
+      #13#10'inner join PEDIDO_ITEM ITE on PED.ID = ITE.ID'#13#10'inner join FILI' +
+      'AL FIL on PED.FILIAL = FIL.ID'#13#10'inner join PESSOA CLI on PED.ID_C' +
+      'LIENTE = CLI.CODIGO'#13#10'inner join PRODUTO PRO on ITE.ID_PRODUTO = ' +
+      'PRO.ID'#13#10'left join PESSOA VEN on PED.ID_VENDEDOR = VEN.CODIGO'#13#10'le' +
+      'ft join COMBINACAO COMB on ITE.ID_COR = COMB.ID'#13#10'left join GRUPO' +
+      ' GR on PRO.ID_GRUPO = GR.ID'#13#10'left join PEDIDO_APROV APROV on PED' +
+      '.ID = APROV.ID  '#13#10'LEFT JOIN PESSOA VINT ON PED.ID_VENDEDOR_INT =' +
+      ' VINT.CODIGO'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -244,6 +245,9 @@ object DMConsPedido: TDMConsPedido
     object cdsPedido_ItemNOME_VENDEDOR_INT: TStringField
       FieldName = 'NOME_VENDEDOR_INT'
       Size = 60
+    end
+    object cdsPedido_ItemDTCONFERENCIA: TDateField
+      FieldName = 'DTCONFERENCIA'
     end
   end
   object dsPedido_Item: TDataSource

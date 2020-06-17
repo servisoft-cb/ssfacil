@@ -25,7 +25,7 @@ object frmCadPedido: TfrmCadPedido
     Top = 0
     Width = 1097
     Height = 679
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -34,7 +34,7 @@ object frmCadPedido: TfrmCadPedido
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -1232,9 +1232,9 @@ object frmCadPedido: TfrmCadPedido
         object Label50: TLabel
           Left = 466
           Top = 8
-          Width = 116
+          Width = 83
           Height = 13
-          Caption = 'Pendente de Aprova'#231#227'o'
+          Caption = 'Pend. Aprova'#231#227'o'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clMaroon
           Font.Height = -11
@@ -1243,14 +1243,14 @@ object frmCadPedido: TfrmCadPedido
           ParentFont = False
         end
         object Shape7: TShape
-          Left = 591
+          Left = 555
           Top = 5
           Width = 30
           Height = 16
           Brush.Color = 11184895
         end
         object Label32: TLabel
-          Left = 623
+          Left = 587
           Top = 8
           Width = 69
           Height = 13
@@ -1262,15 +1262,15 @@ object frmCadPedido: TfrmCadPedido
           Font.Style = []
           ParentFont = False
         end
-        object Shape11: TShape
-          Left = 698
-          Top = 4
+        object Shape: TShape
+          Left = 663
+          Top = 6
           Width = 30
           Height = 16
           Brush.Color = 33023
         end
         object Label68: TLabel
-          Left = 731
+          Left = 695
           Top = 7
           Width = 45
           Height = 13
@@ -1283,14 +1283,14 @@ object frmCadPedido: TfrmCadPedido
           ParentFont = False
         end
         object Shape12: TShape
-          Left = 803
+          Left = 746
           Top = 4
           Width = 30
           Height = 16
           Brush.Color = 16755370
         end
         object Label75: TLabel
-          Left = 835
+          Left = 778
           Top = 7
           Width = 78
           Height = 13
@@ -1303,18 +1303,38 @@ object frmCadPedido: TfrmCadPedido
           ParentFont = False
         end
         object Shape13: TShape
-          Left = 931
+          Left = 861
           Top = 4
           Width = 30
           Height = 16
           Brush.Color = clOlive
         end
         object Label82: TLabel
-          Left = 963
+          Left = 898
           Top = 7
           Width = 42
           Height = 13
           Caption = 'Impresso'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Shape14: TShape
+          Left = 953
+          Top = 5
+          Width = 30
+          Height = 16
+          Brush.Color = 10624
+        end
+        object Label52: TLabel
+          Left = 990
+          Top = 6
+          Width = 80
+          Height = 13
+          Caption = 'Conferido Parcial'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clMaroon
           Font.Height = -11

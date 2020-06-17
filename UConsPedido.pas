@@ -119,6 +119,8 @@ type
     ComboBox4: TComboBox;
     Label35: TLabel;
     RxDBLookupCombo6: TRxDBLookupCombo;
+    Shape: TShape;
+    Label68: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -224,6 +226,7 @@ uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, URelPedido_Det, URelPedido_Res,
 procedure TfrmConsPedido.prc_Consultar;
 var
   vOpcaoDtEntrega: String;
+  vOpcaoConferido: String;
 begin
   fDMConsPedido.cdsPedido_Item.Close;
   fDMConsPedido.cdsPedido_Item.IndexFieldNames := '';
@@ -281,11 +284,17 @@ begin
       vComando := vComando + ' AND PED.PEDIDO_CLIENTE LIKE ' + QuotedStr('%'+Edit1.Text+'%');
     if CurrencyEdit1.AsInteger > 0 then
       vComando := vComando + ' AND PED.NUM_PEDIDO = ' + IntToStr(CurrencyEdit1.AsInteger);
+
+    if ((fDMConsPedido.qParametrosUSA_PEDIDO_FUT.AsString <> 'S') and (RadioGroup2.ItemIndex = 4))
+        or (RadioGroup2.ItemIndex = 5) then
+      vComando := vComando + ' AND (ITE.DTCONFERENCIA IS NOT NULL) AND (ITE.QTD_RESTANTE > 0) '
+    else
+    if (fDMConsPedido.qParametrosUSA_PEDIDO_FUT.AsString = 'S') and (RadioGroup2.ItemIndex = 4) then
+      vComando := vComando + ' AND ITE.QTD_FUT > 0 ';
     case RadioGroup2.ItemIndex of
       0: vComando := vComando + ' AND ITE.QTD_RESTANTE > 0 ';
       1: vComando := vComando + ' AND ITE.QTD_FATURADO > 0 ';
       2: vComando := vComando + ' AND ITE.QTD_CANCELADO > 0 ';
-      4: vComando := vComando + ' AND ITE.QTD_FUT > 0 ';
     end;
     if DateEdit5.Date > 10 then
       vComando := vComando + ' AND ITE.DTFATURA >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit5.date));
@@ -585,6 +594,12 @@ begin
   if (fDMConsPedido.qParametrosUSA_APROVACAO_PED.AsString = 'S') and (fDMConsPedido.cdsPedido_ItemAPROVADO_PED.AsString = 'P') then
   begin
     Background  := $0080FFFF;
+    AFont.Color := clBlack;
+  end
+  else
+  if fDMConsPedido.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
+  begin
+    Background  := $000080FF;
     AFont.Color := clBlack;
   end;
 end;

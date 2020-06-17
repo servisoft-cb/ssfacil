@@ -936,6 +936,7 @@ type
     cdsEtiqueta_AuxPRECO_PRODUTO: TFloatField;
     cdsEtiqueta_AuxINFOCODBARRA: TStringField;
     cdsEtiqueta_AuxCODBARRA: TStringField;
+    cdsPedido_ItemDTCONFERENCIA: TDateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConsumoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_MatCalcFields(DataSet: TDataSet);

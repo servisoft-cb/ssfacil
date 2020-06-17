@@ -323,7 +323,8 @@ object frmConsPedido: TfrmConsPedido
         'Faturado'
         'Cancelado'
         'Ambos'
-        'Env. N'#227'o Cobr.')
+        'Env. N'#227'o Cobr.'
+        'Conferido')
       ParentCtl3D = False
       TabOrder = 13
       OnClick = RadioGroup2Click
@@ -512,7 +513,7 @@ object frmConsPedido: TfrmConsPedido
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 39
+        ColCount = 40
         RowCount = 2
         Columns = <
           item
@@ -597,6 +598,14 @@ object frmConsPedido: TfrmConsPedido
             Title.Alignment = taCenter
             Title.Caption = 'Data Emiss'#227'o'
             Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DTCONFERENCIA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Data Confer'#234'ncia'
+            Width = 62
             Visible = True
           end
           item
@@ -3885,6 +3894,26 @@ object frmConsPedido: TfrmConsPedido
       Width = 80
       Height = 13
       Caption = 'Pend.Aprova'#231#227'o'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Shape: TShape
+      Left = 400
+      Top = 6
+      Width = 30
+      Height = 16
+      Brush.Color = 33023
+    end
+    object Label68: TLabel
+      Left = 432
+      Top = 8
+      Width = 45
+      Height = 13
+      Caption = 'Conferido'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
       Font.Height = -11
