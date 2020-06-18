@@ -864,8 +864,8 @@ begin
   fDMCupomFiscal.cdsCupomFiscalVLR_TRIBUTO_MUNICIPAL.AsFloat := 0;
 //////////////////////////////////////////////
 
-  vVlrParcelado := fDmCupomFiscal.cdsCupomFiscalVLR_TOTAL.AsCurrency - fDmCupomFiscal.vVlrEntrada +
-                   fDmCupomFiscal.cdsCupomFiscalVLR_OUTROS.AsCurrency;
+  vVlrParcelado := fDmCupomFiscal.cdsCupomFiscalVLR_TOTAL.AsCurrency - fDmCupomFiscal.vVlrEntrada;// +
+                  // fDmCupomFiscal.cdsCupomFiscalVLR_OUTROS.AsCurrency;
 
   prc_ControleParcelas(vVlrParcelado,0,vQtdParcelas);
 
@@ -954,6 +954,7 @@ begin
   ceFormaPgto.AsInteger := RxDBLookupCombo3.KeyValue;
 
   vPercJuros := 0;
+  ceJuros.Value   := 0;
   Label17.Visible := False;
   ceJuros.Visible := False;
   if fDmCupomFiscal.cdsTipoCobrancaPERC_JUROS.AsFloat > 0 then
