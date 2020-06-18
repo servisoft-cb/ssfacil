@@ -5,7 +5,7 @@ object frmSel_Produto_Cor: TfrmSel_Produto_Cor
   BorderStyle = bsSingle
   Caption = 'frmSel_Produto_Cor'
   ClientHeight = 540
-  ClientWidth = 1087
+  ClientWidth = 1112
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -23,7 +23,7 @@ object frmSel_Produto_Cor: TfrmSel_Produto_Cor
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1087
+    Width = 1112
     Height = 41
     Align = alTop
     BevelOuter = bvNone
@@ -91,7 +91,7 @@ object frmSel_Produto_Cor: TfrmSel_Produto_Cor
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 41
-    Width = 1087
+    Width = 1112
     Height = 482
     Align = alClient
     Ctl3D = False
@@ -134,7 +134,7 @@ object frmSel_Produto_Cor: TfrmSel_Produto_Cor
         FieldName = 'NOME'
         Title.Alignment = taCenter
         Title.Caption = 'Nome'
-        Width = 350
+        Width = 421
         Visible = True
       end
       item
@@ -176,7 +176,7 @@ object frmSel_Produto_Cor: TfrmSel_Produto_Cor
         FieldName = 'NOME_COMBINACAO'
         Title.Alignment = taCenter
         Title.Caption = 'Nome Combina'#231#227'o'
-        Width = 290
+        Width = 263
         Visible = True
       end
       item
@@ -190,7 +190,7 @@ object frmSel_Produto_Cor: TfrmSel_Produto_Cor
   object StaticText1: TStaticText
     Left = 0
     Top = 523
-    Width = 1087
+    Width = 1112
     Height = 17
     Align = alBottom
     BorderStyle = sbsSingle

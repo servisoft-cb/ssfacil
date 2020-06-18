@@ -115,6 +115,8 @@ type
     sdsEdi_ConfigCOD_COR_TAM: TIntegerField;
     cdsEdi_ConfigCOD_COR_INI: TIntegerField;
     cdsEdi_ConfigCOD_COR_TAM: TIntegerField;
+    sdsEdi_ConfigUSA_TAMANHO_CPRODUTO: TStringField;
+    cdsEdi_ConfigUSA_TAMANHO_CPRODUTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEdi_ConfigUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

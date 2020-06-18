@@ -12,7 +12,7 @@ object DMGerar_EDI: TDMGerar_EDI
       'SELECT *'
       'FROM PARAMETROS')
     SQLConnection = dmDatabase.scoDados
-    Left = 96
+    Left = 97
     Top = 112
     object qParametrosID: TIntegerField
       FieldName = 'ID'
@@ -782,6 +782,11 @@ object DMGerar_EDI: TDMGerar_EDI
     object qEDI_ConfigCOD_COR_TAM: TIntegerField
       FieldName = 'COD_COR_TAM'
     end
+    object qEDI_ConfigUSA_TAMANHO_CPRODUTO: TStringField
+      FieldName = 'USA_TAMANHO_CPRODUTO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qProduto_Forn: TSQLQuery
     MaxBlobSize = -1
@@ -805,6 +810,11 @@ object DMGerar_EDI: TDMGerar_EDI
         DataType = ftString
         Name = 'TAMANHO_CLIENTE'
         ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'TAMANHO_CLIENTE'
+        ParamType = ptInput
       end>
     SQL.Strings = (
       'SELECT p.*, prod.inativo, prod.tipo_reg'
@@ -814,7 +824,9 @@ object DMGerar_EDI: TDMGerar_EDI
       'WHERE P.ID_FORNECEDOR = :ID_FORNECEDOR'
       '  AND P.COD_MATERIAL_FORN = :COD_MATERIAL_FORN'
       '  AND P.COD_COR_FORN = :COD_COR_FORN'
-      '  AND P.TAMANHO_CLIENTE = :TAMANHO_CLIENTE')
+      
+        '      and (P.TAMANHO_CLIENTE = :TAMANHO_CLIENTE or :TAMANHO_CLIE' +
+        'NTE = '#39#39')')
     SQLConnection = dmDatabase.scoDados
     Left = 376
     Top = 184

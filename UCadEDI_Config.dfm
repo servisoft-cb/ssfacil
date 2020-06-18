@@ -1568,6 +1568,18 @@ object frmCadEDI_Config: TfrmCadEDI_Config
           ParentCtl3D = False
           TabOrder = 51
         end
+        object DBCheckBox1: TDBCheckBox
+          Left = 395
+          Top = 467
+          Width = 215
+          Height = 17
+          Caption = 'Usa Tamanho no C'#243'digo do Produto'
+          DataField = 'USA_TAMANHO_CPRODUTO'
+          DataSource = DMCadEDI_Config.dsEdi_Config
+          TabOrder = 52
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
       end
     end
   end

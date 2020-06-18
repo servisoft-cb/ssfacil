@@ -397,7 +397,7 @@ object frmGerar_Pedido_EDI_Cons: TfrmGerar_Pedido_EDI_Cons
           Caption = 'Combina'#231#227'o:'
         end
         object btnConfirmar: TNxButton
-          Left = 604
+          Left = 608
           Top = 45
           Width = 171
           Height = 29

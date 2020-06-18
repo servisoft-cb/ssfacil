@@ -484,6 +484,7 @@ type
     mRemessacodigo: TStringField;
     mRemessadescricao: TStringField;
     mRemessalargura: TStringField;
+    qEDI_ConfigUSA_TAMANHO_CPRODUTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mAuxiliarNewRecord(DataSet: TDataSet);
   private
@@ -491,6 +492,7 @@ type
   public
     { Public declarations }
     ctqProduto_Forn : String;
+    vTamanho_Prod: String;
     procedure prc_Abre_Operacao;
   end;
 

@@ -203,7 +203,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       TabOrder = 3
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
-      Left = 122
+      Left = 121
       Top = 44
       Width = 391
       Height = 21

@@ -180,13 +180,21 @@ begin
   CurrencyEdit1.AsInteger := vCodProduto_Pos;
   CurrencyEdit2.AsInteger := vCodCombinacao_Pos;
   pnlProduto_Proprio.Visible := (CurrencyEdit1.AsInteger > 0);
+  fDMGerar_EDI.vTamanho_Prod := '';
   if CurrencyEdit1.AsInteger > 0 then
   begin
-    fDMGerar_EDI.qProduto_Tam.Close;
-    fDMGerar_EDI.qProduto_Tam.ParamByName('ID').AsInteger := vCodProduto_Pos;
-    fDMGerar_EDI.qProduto_Tam.Open;
-    vCodAux    := copy(Edit1.Text,1,Length(Edit1.Text) - Length(fDMGerar_EDI.qProduto_TamTAMANHO.AsString));
-    Edit1.Text := vCodAux;
+      fDMGerar_EDI.qProduto_Tam.Close;
+      fDMGerar_EDI.qProduto_Tam.ParamByName('ID').AsInteger := vCodProduto_Pos;
+      fDMGerar_EDI.qProduto_Tam.Open;
+      fDMGerar_EDI.vTamanho_Prod := copy(Edit1.Text,Length(Edit1.Text)-(Length(fDMGerar_EDI.qProduto_TamTAMANHO.AsString)-1),Length(fDMGerar_EDI.qProduto_TamTAMANHO.AsString));
+      vCodAux    := copy(Edit1.Text,1,Length(Edit1.Text) - Length(fDMGerar_EDI.qProduto_TamTAMANHO.AsString));
+      Edit1.Text := vCodAux;
+      if trim(fDMGerar_EDI.qEDI_ConfigUSA_TAMANHO_CPRODUTO.AsString) = 'S' then
+      begin
+        fDMGerar_EDI.mAuxiliar.Edit;
+        fDMGerar_EDI.mAuxiliarTamnanho.AsString := trim(fDMGerar_EDI.vTamanho_Prod);
+        fDMGerar_EDI.mAuxiliar.Edit;
+      end;
     Label6.Caption := 'Gerar o relacionamento do produto com o cliente CNPJ: ' + fDMGerar_EDI.mAuxiliarCNPJCliente.AsString;
   end;
   if CurrencyEdit2.AsInteger > 0 then

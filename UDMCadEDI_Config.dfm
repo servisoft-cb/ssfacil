@@ -175,6 +175,11 @@ object DMCadEDI_Config: TDMCadEDI_Config
     object sdsEdi_ConfigCOD_COR_TAM: TIntegerField
       FieldName = 'COD_COR_TAM'
     end
+    object sdsEdi_ConfigUSA_TAMANHO_CPRODUTO: TStringField
+      FieldName = 'USA_TAMANHO_CPRODUTO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspEdi_Config: TDataSetProvider
     DataSet = sdsEdi_Config
@@ -349,6 +354,11 @@ object DMCadEDI_Config: TDMCadEDI_Config
     end
     object cdsEdi_ConfigCOD_COR_TAM: TIntegerField
       FieldName = 'COD_COR_TAM'
+    end
+    object cdsEdi_ConfigUSA_TAMANHO_CPRODUTO: TStringField
+      FieldName = 'USA_TAMANHO_CPRODUTO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsEdi_Config: TDataSource
