@@ -124,7 +124,7 @@ function SendEMailByMAPI_OLE(const SenderName,SenderAddress,Subject,Body:string;
 const
  olMailItem = 0;
 var
-  Email : String;
+  //Email : String;
   vNomeArquivo : String;
 	Outlook: OLEVariant;
 	MailItem: Variant;
@@ -163,8 +163,7 @@ var
   vCNPJ_Filial : String;
   vSenhaEmail : String;
   lista_Anexo: TStringList;
-  i : Integer;
-  vCorpo_EmailAux : String;
+  //i : Integer;
   vLocalServidorNFe : String; 
 begin
   sds         := TSQLDataSet.Create(nil);

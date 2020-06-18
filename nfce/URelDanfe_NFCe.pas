@@ -106,8 +106,6 @@ type
     procedure RLBand9BeforePrint(Sender: TObject; var PrintIt: Boolean);
   private
     { Private declarations }
-    vCod: String;
-    vData: TDateTime;
     vVlr_Desconto_Total: Real;
   public
     { Public declarations }
@@ -199,8 +197,6 @@ end;
 
 procedure TfRelDanfe_NFCe.RLBand4BeforePrint(Sender: TObject;
   var PrintIt: Boolean);
-var
-  vTexto : String;
 begin
   RLLabel38.Caption := 'Vlr. Aprox.Tributos R$ ' + FormatFloat('###,###,##0.00',fDmNFCe.cdsCupomFiscalVLR_TRIBUTO.AsFloat);
   if trim(fDmNFCe.cdsCupomFiscalFONTE_TRIBUTOS.AsString) <> '' then

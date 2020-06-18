@@ -5,10 +5,12 @@ interface
 uses
   inifiles, Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, xmldom, XMLIntf, msxmldom, XMLDoc,
   StdCtrls, oxmldom, Buttons, Mask, ToolEdit, DB, DBClient, IdIOHandler, IdIOHandlerSocket, IdBaseComponent, IdComponent, JPeg,
-  IdTCPConnection, IdTCPClient, RzTabs, ExtCtrls, IdCoder, IdCoder3to4, IdCoderMIME, IdSSLOpenSSL, IdMessageClient, RzSndMsg,
+  //IdTCPConnection, IdTCPClient, RzTabs, ExtCtrls, IdCoder, IdCoder3to4, IdCoderMIME, IdSSLOpenSSL, IdMessageClient, RzSndMsg,
+  IdTCPConnection, IdTCPClient, RzTabs, ExtCtrls, IdCoder, IdCoder3to4, IdCoderMIME, IdMessageClient, RzSndMsg,
+
   //IdSMTP, IdMessage, JvComponent, JvMail, Mapi, ShellApi, RLMetaFile, DBTables, UDMCupomFiscal, UCBase, UDMCadNFe_Inutilizacao, UDMNFCe,
   IdSMTP, IdMessage, JvComponent, JvMail, Mapi, ShellApi, RLMetaFile, DBTables, UDMCupomFiscal, UCBase, UDMNFCe, UDMRel, dbXPress,
-  UDMConsNotaEletronica, SqlExpr;
+  UDMConsNotaEletronica, SqlExpr, IdSSLOpenSSL;
 
   //UDMRel, RzSndMsg, ;
 
@@ -190,7 +192,7 @@ implementation
 
 //uses nfe_v110, DateUtils, uNFeConsts, uNFeComandos, ComObj, uUtilPadrao, UMenu, uXMLNFCe3_10, StrUtils, URelDanfe_NFCe,
 uses nfe_v110, DateUtils, uNFeConsts, uNFeComandos, ComObj, uUtilPadrao, UMenu, StrUtils, URelDanfe_NFCe,
-  UNFCe_Log, DmdDatabase, uXMLNFCe4_00, Math, pcnAuxiliar, ACBrNFeUtil;
+  UNFCe_Log, DmdDatabase, uXMLNFCe4_00, Math, pcnAuxiliar;
 
 {$R *.dfm}
 
