@@ -418,6 +418,7 @@ type
     DBCheckBox27: TDBCheckBox;
     btnVlr_Outras_Despesas: TNxButton;
     lblBuscaFilial: TLabel;
+    DBCheckBox28: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

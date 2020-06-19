@@ -109,7 +109,6 @@ object frmCadContas: TfrmCadContas
             FieldName = 'DIG_CONTA'
             Title.Alignment = taCenter
             Title.Caption = 'Dig. Conta'
-            Width = 64
             Visible = True
           end
           item
@@ -120,7 +119,6 @@ object frmCadContas: TfrmCadContas
           item
             Expanded = False
             FieldName = 'CNAB'
-            Width = 64
             Visible = True
           end
           item

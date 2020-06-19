@@ -695,6 +695,8 @@ type
     cdsFilialID_CEDENTE: TIntegerField;
     cdsFilialFORMA_TRABALHO: TStringField;
     cdsFilialPERGUNTA_MESA: TStringField;
+    sdsFilialUSA_RESPTECNICO: TStringField;
+    cdsFilialUSA_RESPTECNICO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsFilialNewRecord(DataSet: TDataSet);
     procedure cdsFilialBeforePost(DataSet: TDataSet);

@@ -1108,6 +1108,26 @@ object DMInformar_Tam: TDMInformar_Tam
       item
         Name = 'VLR_UNITARIO_IPI'
         DataType = ftFloat
+      end
+      item
+        Name = 'ANP_PERC_PGNI'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ANP_PERC_PGNN'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ANP_ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ANP_PERC_PGLP'
+        DataType = ftFloat
+      end
+      item
+        Name = 'ANP_VLR_VPART'
+        DataType = ftFloat
       end>
     IndexDefs = <>
     Params = <>
@@ -1116,7 +1136,7 @@ object DMInformar_Tam: TDMInformar_Tam
     Left = 302
     Top = 42
     Data = {
-      3E1600009619E0BD0100000018000000E10000000000030000003E160A49445F
+      A51600009619E0BD0100000018000000E6000000000003000000A5160A49445F
       50726F6475746F04000100000000000A5265666572656E636961010049000000
       010005574944544802000200140007556E696461646501004900000001000557
       494454480200020006000351746408000400000000000749445F43464F500400
@@ -1294,7 +1314,10 @@ object DMInformar_Tam: TDMInformar_Tam
       0000000A434F445F4342454E4546010049000000010005574944544802000200
       080008424153455F50495308000400000000000B424153455F434F46494E5308
       0004000000000010564C525F554E49544152494F5F4950490800040000000000
-      0000}
+      0D414E505F504552435F50474E4908000400000000000D414E505F504552435F
+      50474E4E080004000000000006414E505F494404000100000000000D414E505F
+      504552435F50474C5008000400000000000D414E505F564C525F565041525408
+      000400000000000000}
     object mItensID_Produto: TIntegerField
       FieldName = 'ID_Produto'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2152,6 +2175,21 @@ object DMInformar_Tam: TDMInformar_Tam
     end
     object mItensVLR_UNITARIO_IPI: TFloatField
       FieldName = 'VLR_UNITARIO_IPI'
+    end
+    object mItensANP_PERC_PGNI: TFloatField
+      FieldName = 'ANP_PERC_PGNI'
+    end
+    object mItensANP_PERC_PGNN: TFloatField
+      FieldName = 'ANP_PERC_PGNN'
+    end
+    object mItensANP_ID: TIntegerField
+      FieldName = 'ANP_ID'
+    end
+    object mItensANP_PERC_PGLP: TFloatField
+      FieldName = 'ANP_PERC_PGLP'
+    end
+    object mItensANP_VLR_VPART: TFloatField
+      FieldName = 'ANP_VLR_VPART'
     end
   end
   object mPedido_Cli: TClientDataSet

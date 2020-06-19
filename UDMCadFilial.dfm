@@ -447,6 +447,11 @@ object DMCadFilial: TDMCadFilial
       FixedChar = True
       Size = 1
     end
+    object sdsFilialUSA_RESPTECNICO: TStringField
+      FieldName = 'USA_RESPTECNICO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
@@ -923,6 +928,11 @@ object DMCadFilial: TDMCadFilial
     end
     object cdsFilialPERGUNTA_MESA: TStringField
       FieldName = 'PERGUNTA_MESA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsFilialUSA_RESPTECNICO: TStringField
+      FieldName = 'USA_RESPTECNICO'
       FixedChar = True
       Size = 1
     end

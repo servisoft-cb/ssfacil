@@ -706,10 +706,10 @@ object frmCadFilial: TfrmCadFilial
         Top = 31
         Width = 1090
         Height = 545
-        ActivePage = TS_Parametros
+        ActivePage = TS_Tributos
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 2
+        TabIndex = 1
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -1312,7 +1312,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object Label59: TLabel
             Left = 451
-            Top = 264
+            Top = 280
             Width = 122
             Height = 26
             Alignment = taRightJustify
@@ -1379,7 +1379,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object Label140: TLabel
             Left = 455
-            Top = 224
+            Top = 240
             Width = 106
             Height = 13
             Alignment = taRightJustify
@@ -1665,7 +1665,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object DBEdit40: TDBEdit
             Left = 577
-            Top = 269
+            Top = 285
             Width = 65
             Height = 21
             CharCase = ecUpperCase
@@ -1782,7 +1782,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object RxDBComboBox26: TRxDBComboBox
             Left = 564
-            Top = 216
+            Top = 232
             Width = 145
             Height = 21
             Style = csDropDownList
@@ -1814,7 +1814,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object DBCheckBox27: TDBCheckBox
             Left = 545
-            Top = 312
+            Top = 328
             Width = 130
             Height = 17
             Caption = 'Usar o Pre'#231'o com IPI'
@@ -1895,6 +1895,18 @@ object frmCadFilial: TfrmCadFilial
             Transparent = True
             Visible = False
             OnClick = btnVlr_Outras_DespesasClick
+          end
+          object DBCheckBox28: TDBCheckBox
+            Left = 352
+            Top = 202
+            Width = 313
+            Height = 17
+            Caption = 'Gravar Respons'#225'vel T'#233'cnico no XML da NFe'
+            DataField = 'USA_RESPTECNICO'
+            DataSource = DMCadFilial.dsFilial
+            TabOrder = 28
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
           end
         end
         object TS_Parametros: TRzTabSheet

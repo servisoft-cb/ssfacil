@@ -342,6 +342,11 @@ type
     mItensBASE_PIS: TFloatField;
     mItensBASE_COFINS: TFloatField;
     mItensVLR_UNITARIO_IPI: TFloatField;
+    mItensANP_PERC_PGNI: TFloatField;
+    mItensANP_PERC_PGNN: TFloatField;
+    mItensANP_ID: TIntegerField;
+    mItensANP_PERC_PGLP: TFloatField;
+    mItensANP_VLR_VPART: TFloatField;
     procedure mItensNewRecord(DataSet: TDataSet);
     procedure mTamanhoNewRecord(DataSet: TDataSet);
   private

@@ -2870,8 +2870,13 @@ begin
   fDMInformar_Tam.mItens.Insert;
   for x := 0 to (fDMCadPedido.cdsPedido_Itens.FieldCount - 1) do
   begin
-    if fDMCadPedido.cdsPedido_Itens.Fields[x].Tag = 0 then
-      fDMInformar_Tam.mItens.FieldByName(fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName).AsVariant := fDMCadPedido.cdsPedido_Itens.Fields[x].Value;
+    try
+      if (fDMCadPedido.cdsPedido_Itens.Fields[x].Tag = 0) and
+         (fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName <> 'ID_PEDIDO_RESERVA') and
+         (fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName <> 'QTD_ESTOQUE_RES')  then
+        fDMInformar_Tam.mItens.FieldByName(fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName).AsVariant := fDMCadPedido.cdsPedido_Itens.Fields[x].Value;
+      except
+      end;
   end;
   fDMInformar_Tam.mItensItem_Tam.AsInteger             := Item;
   fDMInformar_Tam.mItensItem_original.AsInteger        := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;

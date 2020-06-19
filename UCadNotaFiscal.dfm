@@ -4564,6 +4564,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             BorderOuter = fsBump
             Caption = ' Vendedor '
             Ctl3D = True
+            Enabled = False
             FlatColor = clNavy
             FlatColorAdjustment = 2
             Font.Charset = DEFAULT_CHARSET
@@ -4582,6 +4583,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Height = 13
               Alignment = taRightJustify
               Caption = 'Vendedor:'
+              Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
@@ -4595,6 +4597,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Width = 23
               Height = 22
               Hint = 'Atualiza tabela de Vendedor'
+              Enabled = False
               Glyph.Data = {
                 E6040000424DE604000000000000360000002800000014000000140000000100
                 180000000000B0040000C40E0000C40E00000000000000000000FFFFFFFFFFFF
@@ -4646,6 +4649,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Height = 13
               Alignment = taRightJustify
               Caption = '% Comiss'#227'o:'
+              Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
@@ -4660,6 +4664,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Height = 13
               Alignment = taRightJustify
               Caption = '% Pago na Nota:'
+              Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
@@ -4676,6 +4681,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Ctl3D = False
               DataField = 'ID_VENDEDOR'
               DataSource = DMCadNotaFiscal.dsNotaFiscal
+              Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
@@ -4697,6 +4703,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Ctl3D = False
               DataField = 'PERC_COMISSAO'
               DataSource = DMCadNotaFiscal.dsNotaFiscal
+              Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
@@ -4714,6 +4721,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Ctl3D = False
               DataField = 'PERC_COMISSAO_PAGAR_NOTA'
               DataSource = DMCadNotaFiscal.dsNotaFiscal
+              Enabled = False
               Font.Charset = DEFAULT_CHARSET
               Font.Color = clWindowText
               Font.Height = -11
