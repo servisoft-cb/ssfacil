@@ -101,6 +101,8 @@ type
     cdsTipoCobrancaTROCA: TStringField;
     sdsTipoCobrancaPADRAO_NFC: TStringField;
     cdsTipoCobrancaPADRAO_NFC: TStringField;
+    sdsTipoCobrancaMOSTRAR_APP: TStringField;
+    cdsTipoCobrancaMOSTRAR_APP: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspTipoCobrancaUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

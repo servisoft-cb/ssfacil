@@ -3084,8 +3084,8 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
     Top = 70
   end
   object PopupMenu1: TPopupMenu
-    Left = 626
-    Top = 31
+    Left = 630
+    Top = 33
     object PedidosPersonalizados1: TMenuItem
       Caption = 'Pedidos'
       object Personalizado1: TMenuItem

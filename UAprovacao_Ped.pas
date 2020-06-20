@@ -92,6 +92,8 @@ type
     procedure prc_Gravar_Pedido_Aprov(ID_Pedido: Integer; Tipo: String);
     procedure prc_Gravar_PedWeb(ID : Integer);
     procedure prc_Opcoes;
+    procedure prc_Aprova_Item(ID_Pedido : Integer);
+
   public
     { Public declarations }
   end;
@@ -328,7 +330,11 @@ begin
       fDMAprovacao_Ped.cdsPedidoAPROVADO_PED.AsString := Tipo;
       fDMAprovacao_Ped.cdsPedido.Post;
       fDMAprovacao_Ped.cdsPedido.ApplyUpdates(0);
+
+      //20/06/2020
+      prc_Aprova_Item(ID_Pedido);
     end;
+
 
     fDMAprovacao_Ped.cdsPedido_Aprov.Close;
     fDMAprovacao_Ped.sdsPedido_Aprov.ParamByName('ID').AsInteger := ID_Pedido;
@@ -763,6 +769,23 @@ begin
   frmAprovacao_Ped_Item.fDMAprovacao_Ped := fDMAprovacao_Ped;
   frmAprovacao_Ped_Item.ShowModal;
   FreeAndNil(frmAprovacao_Ped_Item);
+
+end;
+
+procedure TfrmAprovacao_Ped.prc_Aprova_Item(ID_Pedido: Integer);
+var
+  sds: TSQLDataSet;
+begin
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'UPDATE PEDIDO_ITEM SET APROVADO_ITEM = ' + QuotedStr('S') + ' WHERE ID = ' + IntToStr(ID_Pedido);
+    sds.ExecSQL();
+  finally
+    FreeAndNil(sds);
+  end;
 
 end;
 

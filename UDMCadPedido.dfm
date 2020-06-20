@@ -10826,10 +10826,9 @@ object DMCadPedido: TDMCadPedido
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
-    PrintOptions.PrintMode = pmSplit
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42671.419546678200000000
-    ReportOptions.LastChange = 43880.443078807900000000
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 44002.674464479170000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -16761,6 +16760,11 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_ProdUSA_QTD_EMBALAGEM: TStringField
       FieldName = 'USA_QTD_EMBALAGEM'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_ProdUSA_QTD_MEDIA: TStringField
+      FieldName = 'USA_QTD_MEDIA'
       FixedChar = True
       Size = 1
     end

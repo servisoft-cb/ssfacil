@@ -176,6 +176,11 @@ object DMCadTipoCobranca: TDMCadTipoCobranca
       FixedChar = True
       Size = 1
     end
+    object sdsTipoCobrancaMOSTRAR_APP: TStringField
+      FieldName = 'MOSTRAR_APP'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspTipoCobranca: TDataSetProvider
     DataSet = sdsTipoCobranca
@@ -363,6 +368,11 @@ object DMCadTipoCobranca: TDMCadTipoCobranca
     end
     object cdsTipoCobrancaPADRAO_NFC: TStringField
       FieldName = 'PADRAO_NFC'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsTipoCobrancaMOSTRAR_APP: TStringField
+      FieldName = 'MOSTRAR_APP'
       FixedChar = True
       Size = 1
     end

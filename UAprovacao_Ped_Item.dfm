@@ -1,6 +1,6 @@
 object frmAprovacao_Ped_Item: TfrmAprovacao_Ped_Item
-  Left = 191
-  Top = 58
+  Left = 194
+  Top = 185
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmAprovacao_Ped_Item'
@@ -81,7 +81,7 @@ object frmAprovacao_Ped_Item: TfrmAprovacao_Ped_Item
       OnGetCellParams = SMDBGrid2GetCellParams
       RegistryKey = 'Software\Scalabium'
       RegistrySection = 'SMDBGrid'
-      WidthOfIndicator = 13
+      WidthOfIndicator = 23
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
       ColCount = 9

@@ -1741,7 +1741,11 @@ begin
       SMDBGrid1.Columns[i].Visible := (fDMCadProduto.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S')
     else
     if (SMDBGrid1.Columns[i].FieldName = 'QTD_EMBALAGEM') then
-        SMDBGrid1.Columns[i].Visible := (fDMCadProduto.qParametros_PedPEDIDO_LOJA.AsString = 'S')
+    begin
+      SMDBGrid1.Columns[i].Visible := (fDMCadProduto.qParametros_PedPEDIDO_LOJA.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_QTD_MEDIA.AsString = 'S');
+      if (fDMCadProduto.qParametros_ProdUSA_QTD_MEDIA.AsString = 'S') then
+        SMDBGrid1.Columns[i].Title.Caption := 'KG Médio Peça';
+    end
     else
     if (SMDBGrid1.Columns[i].FieldName = 'QTD_PECA_EMB') then
         SMDBGrid1.Columns[i].Visible := (fDMCadProduto.qParametros_PedPEDIDO_LOJA.AsString = 'S')
@@ -1873,8 +1877,11 @@ begin
   DBEdit64.Visible          := (fDMCadProduto.qParametros_ProdUSA_MEDIDA.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_BITOLA.AsString = 'S');
   if (fDMCadProduto.qParametros_ProdUSA_BITOLA.AsString = 'S') then
     Label129.Caption := 'Bitola:';
-  Label130.Visible          := (fDMCadProduto.qParametros_ProdUSA_QTD_EMBALAGEM.AsString = 'S');
-  DBEdit65.Visible          := (fDMCadProduto.qParametros_ProdUSA_QTD_EMBALAGEM.AsString = 'S');
+
+  Label130.Visible          := ((fDMCadProduto.qParametros_ProdUSA_QTD_EMBALAGEM.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_QTD_MEDIA.AsString = 'S'));
+  DBEdit65.Visible          := ((fDMCadProduto.qParametros_ProdUSA_QTD_EMBALAGEM.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_QTD_MEDIA.AsString = 'S'));
+  if (fDMCadProduto.qParametros_ProdUSA_QTD_MEDIA.AsString = 'S') then
+    Label130.Caption := 'KG Média Peça:';
   Label170.Visible          := (fDMCadProduto.qParametros_ProdUSA_QTD_EMBALAGEM.AsString = 'S');
   DBEdit97.Visible          := (fDMCadProduto.qParametros_ProdUSA_QTD_EMBALAGEM.AsString = 'S');
   Label159.Visible          := (fDMCadProduto.qParametros_ProdGRAVA_CONSUMO_PRVENDA.AsString = 'S');

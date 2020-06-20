@@ -346,6 +346,8 @@ type
     procedure prc_Estoque(ID_Produto: Integer);
     procedure prc_Limpa_Campo_Itens;
     procedure prc_Verifica_Itens;
+    procedure prc_Carrega_Dados_Impressoa;
+
   public
     { Public declarations }
     vQtd_Caixa: Integer;
@@ -591,9 +593,14 @@ begin
   if (fDMCadPedido.cdsParametrosID_OPERACAO_VENDA.AsInteger > 0) and (RxDBLookupCombo10.Visible) then
   begin
     fDMCadPedido.cdsPedidoID_OPERACAO_NOTA.AsInteger := fDMCadPedido.cdsParametrosID_OPERACAO_VENDA.AsInteger;
-    fDMCadPedido.cdsPedidoFINALIDADE.AsString        := 'C';
+    if fDMCadPedido.qParametros_ProdUSA_QTD_MEDIA.AsString = 'S' then
+      fDMCadPedido.cdsPedidoFINALIDADE.AsString        := 'R'
+    else
+      fDMCadPedido.cdsPedidoFINALIDADE.AsString        := 'C';
   end;
   prc_Limpa_Campo_Itens;
+
+  fDMCadPedido.cdsPedidoAPROVADO_PED.AsString := 'A';
 end;
 
 procedure TfrmCadPedidoLoja.FormShow(Sender: TObject);
@@ -895,7 +902,7 @@ begin
     MessageDlg('*** Item esta em aberto, favor Confirmar ou Cancelar a digitação do item', mtInformation, [mbOk], 0);
     exit;
   end;
-  
+
   if fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger < 1 then
     fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := 0;
   if RxDBLookupCombo3.Text <> '' then
@@ -1604,37 +1611,9 @@ begin
 end;
 
 procedure TfrmCadPedidoLoja.Personalizado1Click(Sender: TObject);
-var
-  ffrmOpcaoImp: TfrmOpcaoImp;
 begin
-
-  fDMCadPedido.mImpPed.EmptyDataSet;
-
-  ffrmOpcaoImp := TfrmOpcaoImp.Create(self);
-  ffrmOpcaoImp.fDMCadPedido := fDMCadPedido;
-  ffrmOpcaoImp.ShowModal;
-  FreeAndNil(ffrmOpcaoImp);
-
-  if fDMCadPedido.mImpPed.IsEmpty then
-  begin
-    MessageDlg('*** Não foi selecionada nenhuma via para impressão!',mtError, [mbOk], 0);
-    exit;
-  end;
-
   fDMCadPedido.vNum_Rel_Fast := 1;
-  fDMCadPedido.vTipo_Rel_Ped := '';
-  fDMCadPedido.vImpPreco     := ckImpPreco.Checked;
-  prc_Posiciona_Imp;
-
-  //11/11/2019  
-  {if fDMCadPedido.qParametros_PedIMP_DUPLICATA_PEND.AsString = 'S' then
-  begin
-    fDMCadPedido.cdsTitulosPend.Close;
-    fDMCadPedido.sdsTitulosPend.ParamByName('ID_PESSOA').AsInteger := fDMCadPedido.cdsPedidoImpID_CLIENTE.AsInteger;
-    fDMCadPedido.cdsTitulosPend.Open;
-  end;}
-  //********************
-
+  prc_Carrega_Dados_Impressoa;
   prc_Monta_Impressao(False);
 end;
 
@@ -1685,19 +1664,6 @@ begin
                          + 'WHERE H.dthistorico = :DATA '
                          + '  and d.ID_PESSOA = :ID_PESSOA '
                          + '  and coalesce(d.ID_PEDIDO,0) <> :ID_PEDIDO ';
-
-      {sds.CommandText   := 'select sum(D.VLR_RESTANTE) VLR_RESTANTE, cast(0 as float) VLR_PAGO '
-                         + 'from DUPLICATA D '
-                         + 'where D.VLR_RESTANTE > 0 and '
-                         + '      D.ID_PESSOA = :ID_PESSOA and '
-                         + '      D.DTEMISSAO < :DATA '
-                         + 'union all '
-                         + 'select cast(0 as float) VLR_RESTANTE, sum(H.VLR_PAGAMENTO) VLR_PAGO '
-                         + 'from DUPLICATA D '
-                         + 'inner join DUPLICATA_HIST H on D.ID = H.ID '
-                         + 'where H.DTHISTORICO = :DATA and '
-                         + '      D.ID_PESSOA = :ID_PESSOA and '
-                         + '      H.tipo_historico = ' + QuotedStr('PAG');}
       sds.ParamByName('ID_PESSOA').AsInteger := fDMCadPedido.cdsPedidoImpID_CLIENTE.AsInteger;
       sds.ParamByName('ID_PEDIDO').AsInteger := fDMCadPedido.cdsPedidoImpID.AsInteger;
       sds.ParamByName('DATA').AsDate         := fDMCadPedido.cdsPedidoImpDTEMISSAO.AsDateTime;
@@ -1710,7 +1676,6 @@ begin
       end;
       vSaldo_Ant   := StrToFloat(FormatFloat('0.00',vSaldo_Ant + vVlr_Recto));
       vSaldo_Final := StrToFloat(FormatFloat('0.00',(vSaldo_Ant - vVlr_Recto ) + fDMCadPedido.cdsPedidoImpVLR_TOTAL.AsFloat));
-      //vSaldo_Final := StrToFloat(FormatFloat('0.00',vSaldo_Final * -1));
 
     finally
       FreeAndNil(sds);
@@ -1763,18 +1728,14 @@ end;
 procedure TfrmCadPedidoLoja.Personalizado21Click(Sender: TObject);
 begin
   fDMCadPedido.vNum_Rel_Fast := 2;
-  fDMCadPedido.vTipo_Rel_Ped := '';
-  fDMCadPedido.vImpPreco     := ckImpPreco.Checked;
-  prc_Posiciona_Imp;
+  prc_Carrega_Dados_Impressoa;
   prc_Monta_Impressao(True);
 end;
 
 procedure TfrmCadPedidoLoja.Personalizado31Click(Sender: TObject);
 begin
   fDMCadPedido.vNum_Rel_Fast := 3;
-  fDMCadPedido.vTipo_Rel_Ped := '';
-  fDMCadPedido.vImpPreco     := ckImpPreco.Checked;
-  prc_Posiciona_Imp;
+  prc_Carrega_Dados_Impressoa;
   prc_Monta_Impressao(True);
 end;
 
@@ -3271,6 +3232,29 @@ procedure TfrmCadPedidoLoja.dbedtVlrProdKeyDown(Sender: TObject;
 begin
   if key = vk_Return then
     btnConfirmar_Itens.SetFocus;
+end;
+
+procedure TfrmCadPedidoLoja.prc_Carrega_Dados_Impressoa;
+var
+  ffrmOpcaoImp: TfrmOpcaoImp;
+begin
+  fDMCadPedido.vTipo_Rel_Ped := '';
+
+  fDMCadPedido.mImpPed.EmptyDataSet;
+
+  ffrmOpcaoImp := TfrmOpcaoImp.Create(self);
+  ffrmOpcaoImp.fDMCadPedido := fDMCadPedido;
+  ffrmOpcaoImp.ShowModal;
+  FreeAndNil(ffrmOpcaoImp);
+
+  if fDMCadPedido.mImpPed.IsEmpty then
+  begin
+    MessageDlg('*** Não foi selecionada nenhuma via para impressão!',mtError, [mbOk], 0);
+    exit;
+  end;
+
+  fDMCadPedido.vImpPreco := ckImpPreco.Checked;
+  prc_Posiciona_Imp;
 end;
 
 end.

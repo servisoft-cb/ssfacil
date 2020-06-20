@@ -20,8 +20,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 898
-    Height = 614
+    Width = 906
+    Height = 622
     ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -38,8 +38,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 67
-        Width = 894
-        Height = 507
+        Width = 902
+        Height = 515
         Align = alClient
         Ctl3D = False
         DataSource = DMCadTipoCobranca.dsTipoCobranca
@@ -72,7 +72,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 13
+        ColCount = 14
         RowCount = 2
         Columns = <
           item
@@ -164,12 +164,20 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
             Title.Caption = 'Fechamento Autom'#225'tico'
             Width = 70
             Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'MOSTRAR_APP'
+            Title.Alignment = taCenter
+            Title.Caption = 'Mostrar APP'
+            Visible = True
           end>
       end
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 894
+        Width = 902
         Height = 30
         Align = alTop
         Color = clSilver
@@ -400,8 +408,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 574
-        Width = 894
+        Top = 582
+        Width = 902
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -417,7 +425,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object pnlPesquisa: TPanel
         Left = 0
         Top = 30
-        Width = 894
+        Width = 902
         Height = 37
         Align = alTop
         Color = clSilver
@@ -558,7 +566,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 894
+        Width = 902
         Height = 30
         Align = alTop
         Color = 8404992
@@ -787,8 +795,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object pnlCadastro: TPanel
         Left = 0
         Top = 30
-        Width = 894
-        Height = 561
+        Width = 902
+        Height = 569
         Align = alClient
         Enabled = False
         TabOrder = 0
@@ -1311,15 +1319,15 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
         end
         object Panel3: TPanel
           Left = 1
-          Top = 293
-          Width = 892
+          Top = 301
+          Width = 900
           Height = 267
           Align = alBottom
           TabOrder = 34
           object Panel12: TPanel
             Left = 1
             Top = 1
-            Width = 890
+            Width = 898
             Height = 32
             Align = alTop
             Color = clSilver
@@ -1554,7 +1562,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           object SMDBGrid13: TSMDBGrid
             Left = 1
             Top = 33
-            Width = 890
+            Width = 898
             Height = 233
             Align = alClient
             Ctl3D = False
@@ -1673,6 +1681,18 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           DataField = 'PADRAO_NFC'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
           TabOrder = 26
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
+        object DBCheckBox25: TDBCheckBox
+          Left = 576
+          Top = 198
+          Width = 147
+          Height = 17
+          Caption = 'Mostrar no APP de Venda'
+          DataField = 'MOSTRAR_APP'
+          DataSource = DMCadTipoCobranca.dsTipoCobranca
+          TabOrder = 35
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end

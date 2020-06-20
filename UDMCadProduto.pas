@@ -2006,6 +2006,7 @@ type
     qTab_CProd_ANP: TSQLQuery;
     qTab_CProd_ANPCODIGO: TStringField;
     qTab_CProd_ANPDESCRICAO: TStringField;
+    qParametros_ProdUSA_QTD_MEDIA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;

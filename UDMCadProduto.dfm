@@ -4520,7 +4520,7 @@ object dmCadProduto: TdmCadProduto
       'WHERE ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 903
-    Top = 289
+    Top = 290
     object qPosicaoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -7158,6 +7158,11 @@ object dmCadProduto: TdmCadProduto
     end
     object qParametros_ProdUSA_APLICACAO: TStringField
       FieldName = 'USA_APLICACAO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_ProdUSA_QTD_MEDIA: TStringField
+      FieldName = 'USA_QTD_MEDIA'
       FixedChar = True
       Size = 1
     end
