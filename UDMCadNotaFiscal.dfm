@@ -8098,17 +8098,18 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'E.NGR, PE.ID_TAB_PRECO, pi.TIPO_OS, PF.DESC_SUFRAMA_PIS_COFINS,'#13 +
       #10'       PF.DESC_SUFRAMA_ICMS, O.DTEMISSAO DTEMISSAO_OS, O.NUM_OS' +
       ' NUM_OS_SERVICO, O.DTRECEBIMENTO, O.DT_AGENDA,'#13#10'       PIT.COMPR' +
-      'IMENTO, PIT.LARGURA, PIT.ESPESSURA, PI.DRAWBACK, PE.TIPO_DESCONT' +
-      'O, '#13#10'       PI.perc_desconto, PI.dtconferencia, PI.comprimento_v' +
-      'olume, pro.medida, PI.calcularicmssobreipi, PI.vlr_unitario_ipi,' +
-      ' PE.FILIAL'#13#10'from PEDIDO PE'#13#10'inner join PEDIDO_ITEM pi on (PE.ID ' +
-      '= pi.ID)'#13#10'inner join PESSOA CLI on (PE.ID_CLIENTE = CLI.CODIGO)'#13 +
-      #10'inner join PRODUTO PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left join C' +
-      'OMBINACAO COMB on (pi.ID_COR = COMB.ID)'#13#10'left join GRUPO GR on P' +
-      'RO.ID_GRUPO = GR.ID'#13#10'left join PESSOA_FISCAL PF on PE.ID_CLIENTE' +
-      ' = PF.CODIGO'#13#10'left join ORDEMSERVICO O on pi.ID_OS_SERV = O.ID'#13#10 +
-      'left join PEDIDO_ITEM_TIPO PIT ON PI.ID = PIT.ID AND PI.ITEM = P' +
-      'IT.ITEM'#13#10'where pi.QTD_RESTANTE > 0'#13#10#13#10#13#10
+      'IMENTO, PIT.LARGURA, PIT.ESPESSURA, pi.DRAWBACK, PE.TIPO_DESCONT' +
+      'O, pi.PERC_DESCONTO, pi.DTCONFERENCIA,'#13#10'       pi.COMPRIMENTO_VO' +
+      'LUME, PRO.MEDIDA, pi.CALCULARICMSSOBREIPI, pi.VLR_UNITARIO_IPI, ' +
+      'PE.FILIAL, coalesce(pi.PESO_AJUSTADO,'#39'N'#39') PESO_AJUSTADO'#13#10'from PE' +
+      'DIDO PE'#13#10'inner join PEDIDO_ITEM pi on (PE.ID = pi.ID)'#13#10'inner joi' +
+      'n PESSOA CLI on (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'inner join PRODUTO' +
+      ' PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left join COMBINACAO COMB on (' +
+      'pi.ID_COR = COMB.ID)'#13#10'left join GRUPO GR on PRO.ID_GRUPO = GR.ID' +
+      #13#10'left join PESSOA_FISCAL PF on PE.ID_CLIENTE = PF.CODIGO'#13#10'left ' +
+      'join ORDEMSERVICO O on pi.ID_OS_SERV = O.ID'#13#10'left join PEDIDO_IT' +
+      'EM_TIPO PIT on pi.ID = PIT.ID and pi.ITEM = PIT.ITEM'#13#10'where pi.Q' +
+      'TD_RESTANTE > 0'#13#10#13#10'  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -8490,6 +8491,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsPedidoFILIAL: TIntegerField
       FieldName = 'FILIAL'
     end
+    object cdsPedidoPESO_AJUSTADO: TStringField
+      FieldName = 'PESO_AJUSTADO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsPedido: TDataSource
     DataSet = cdsPedido
@@ -8567,7 +8573,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       ''
       '')
     SQLConnection = dmDatabase.scoDados
-    Left = 1095
+    Left = 1093
     Top = 46
     object qRegra_VariacaoID: TIntegerField
       FieldName = 'ID'
@@ -13365,6 +13371,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedUSA_QTD_PECA: TStringField
+      FieldName = 'USA_QTD_PECA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsNotaFiscal_Tam: TSQLDataSet
     NoMetadata = True
@@ -15596,5 +15607,90 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'DESCRICAO'
       Size = 100
     end
+  end
+  object mPedido_Peso: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Item'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Qtd'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Qtd_Peca'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Peso_Ajustado'
+        DataType = ftString
+        Size = 1
+      end
+      item
+        Name = 'ID_Produto'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Produto'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'Unidade'
+        DataType = ftString
+        Size = 6
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 1194
+    Top = 394
+    Data = {
+      C10000009619E0BD010000001800000008000000000003000000C10002494404
+      00010000000000044974656D0400010000000000035174640800040000000000
+      085174645F5065636104000100000000000D5065736F5F416A75737461646F01
+      004900000001000557494454480200020001000A49445F50726F6475746F0400
+      0100000000000C4E6F6D655F50726F6475746F01004900000001000557494454
+      4802000200640007556E69646164650100490000000100055749445448020002
+      0006000000}
+    object mPedido_PesoID: TIntegerField
+      FieldName = 'ID'
+    end
+    object mPedido_PesoItem: TIntegerField
+      FieldName = 'Item'
+    end
+    object mPedido_PesoQtd: TFloatField
+      FieldName = 'Qtd'
+    end
+    object mPedido_PesoQtd_Peca: TIntegerField
+      FieldName = 'Qtd_Peca'
+    end
+    object mPedido_PesoPeso_Ajustado: TStringField
+      FieldName = 'Peso_Ajustado'
+      Size = 1
+    end
+    object mPedido_PesoID_Produto: TIntegerField
+      FieldName = 'ID_Produto'
+    end
+    object mPedido_PesoNome_Produto: TStringField
+      FieldName = 'Nome_Produto'
+      Size = 100
+    end
+    object mPedido_PesoUnidade: TStringField
+      FieldName = 'Unidade'
+      Size = 6
+    end
+  end
+  object dsmPedido_Peso: TDataSource
+    DataSet = mPedido_Peso
+    Left = 1220
+    Top = 397
   end
 end

@@ -1595,6 +1595,7 @@ object DMCadPedido: TDMCadPedido
     Top = 297
   end
   object cdsTipoCobranca: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -1671,6 +1672,7 @@ object DMCadPedido: TDMCadPedido
     Top = 339
   end
   object cdsContas: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -3331,6 +3333,11 @@ object DMCadPedido: TDMCadPedido
     object sdsPedido_ItensQTD_ESTOQUE_RES: TFloatField
       FieldName = 'QTD_ESTOQUE_RES'
     end
+    object sdsPedido_ItensPESO_AJUSTADO: TStringField
+      FieldName = 'PESO_AJUSTADO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object cdsPedido_Itens: TClientDataSet
     Aggregates = <>
@@ -3985,6 +3992,11 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedido_ItensQTD_ESTOQUE_RES: TFloatField
       FieldName = 'QTD_ESTOQUE_RES'
+    end
+    object cdsPedido_ItensPESO_AJUSTADO: TStringField
+      FieldName = 'PESO_AJUSTADO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPedido_Itens: TDataSource
@@ -15368,6 +15380,11 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_PedUSA_RESERVA_EST: TStringField
       FieldName = 'USA_RESERVA_EST'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_PedUSA_QTD_PECA: TStringField
+      FieldName = 'USA_QTD_PECA'
       FixedChar = True
       Size = 1
     end

@@ -38,6 +38,7 @@ type
     pgbItens: TProgressBar;
     Shape11: TShape;
     Label68: TLabel;
+    Label10: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
@@ -48,6 +49,8 @@ type
     procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure edtPedidoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
   private
     { Private declarations }
@@ -63,6 +66,8 @@ type
     procedure prc_Gerar_mLoteControle;
 
     procedure prc_scroll(DataSet: TDataSet);
+
+    procedure prc_Grava_mPedido_Peso;
 
     function fnc_Desc_Estoque: Real;
     function fnc_busca_Produto_Tipo(ID_Tipo: Integer): String;
@@ -90,7 +95,8 @@ var
 
 implementation
 
-uses rsDBUtils, uUtilPadrao, StrUtils, DmdDatabase, UInformar_Lote_Controle, UConsEstoque_Lote, uCalculo_NotaFiscal, Math;
+uses rsDBUtils, uUtilPadrao, StrUtils, DmdDatabase, UInformar_Lote_Controle, UConsEstoque_Lote, uCalculo_NotaFiscal, Math,
+  UAjusta_Peso_Ped;
 
 {$R *.dfm}
 
@@ -179,29 +185,30 @@ begin
       if fDMCadNotaFiscal.cdsParametrosID_OPERACAO_PED_FUT.AsInteger > 0 then
         uCalculo_NotaFiscal.prc_Posicionar_Regra_Empresa(fDMCadNotaFiscal,fDMCadNotaFiscal.cdsParametrosID_OPERACAO_PED_FUT.AsInteger,'O');
     end;
-    Shape4.Visible := (fDMCadNotaFiscal.qParametros_EstGERAR_LOTE_AUT.AsString = 'S');
-    Label6.Visible := (fDMCadNotaFiscal.qParametros_EstGERAR_LOTE_AUT.AsString = 'S');
-    Shape5.Visible := (fDMCadNotaFiscal.qParametros_NFeUSA_PREFAT.AsString = 'S');
-    Label9.Visible := (fDMCadNotaFiscal.qParametros_NFeUSA_PREFAT.AsString = 'S');
-    Shape11.Visible := fDMCadNotaFiscal.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S';
-    Label68.Visible := fDMCadNotaFiscal.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S';
+    Shape4.Visible  := (fDMCadNotaFiscal.qParametros_EstGERAR_LOTE_AUT.AsString = 'S');
+    Label6.Visible  := (fDMCadNotaFiscal.qParametros_EstGERAR_LOTE_AUT.AsString = 'S');
+    Shape5.Visible  := (fDMCadNotaFiscal.qParametros_NFeUSA_PREFAT.AsString = 'S');
+    Label9.Visible  := (fDMCadNotaFiscal.qParametros_NFeUSA_PREFAT.AsString = 'S');
+    Shape11.Visible := (fDMCadNotaFiscal.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
+    Label68.Visible := (fDMCadNotaFiscal.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
+    Label10.Visible := (fDMCadNotaFiscal.qParametros_PedUSA_QTD_PECA.AsString = 'S');
   end;
 
   if vTipo <> 'VAL' then
   begin
-    //if fDMCadNotaFiscal.cdsParametrosUSA_PEDIDO_FUT.AsString <> 'S' then
     begin
       for i := 0 to SMDBGrid1.ColCount - 2 do
       begin
         if (SMDBGrid1.Columns[i].FieldName = 'QTD_FUT') then
           SMDBGrid1.Columns[i].Visible := False;
+        if (SMDBGrid1.Columns[i].FieldName = 'QTD_PECA') or (SMDBGrid1.Columns[i].FieldName = 'PESO_AJUSTADO') then
+          SMDBGrid1.Columns[i].Visible := (fDMCadNotaFiscal.qParametros_PedUSA_QTD_PECA.AsString = 'S');
         if (SMDBGrid1.Columns[i].FieldName = 'NOME_COR') then
           SMDBGrid1.Columns[i].Visible := ((fDMCadNotaFiscal.cdsParametrosINFORMAR_COR_MATERIAL.AsString = 'S') or (fDMCadNotaFiscal.cdsParametrosINFORMAR_COR_PROD.AsString = 'C')  or (fDMCadNotaFiscal.cdsParametrosINFORMAR_COR_PROD.AsString = 'B'));
         if (SMDBGrid1.Columns[i].FieldName = 'NOME_GRUPO') then
           SMDBGrid1.Columns[i].Visible := (fDMCadNotaFiscal.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S');
         if (SMDBGrid1.Columns[i].FieldName = 'ITEM_ORIGINAL') then
           SMDBGrid1.Columns[i].Visible := (fDMCadNotaFiscal.qParametros_NFeGRAVAR_TAB_TAMANHO.AsString = 'S');
-
         if (SMDBGrid1.Columns[i].FieldName = 'NOME_CONSUMIDOR') and (fDMCadNotaFiscal.qParametros_NFePERMITE_IMPORTAR_S_CLIENTE.AsString = 'S') then
         begin
           SMDBGrid1.Columns[i].FieldName     := 'NOMECLIENTE';
@@ -1318,6 +1325,13 @@ begin
       vSel := False;
       if SMDBGrid1.SelectedRows.CurrentRowSelected then
         vSel := True;
+      if (vSel) and (fDMCadNotaFiscal.qParametros_PedUSA_QTD_PECA.AsString = 'S') and (fDMCadNotaFiscal.cdsPedidoPESO_AJUSTADO.AsString = 'N') then
+      begin
+        MessageDlg('*** Existe item selecionado que o Peso não foi ajustado!', mtError, [mbOk], 0);
+        vSel := False;
+        fDMCadNotaFiscal.cdsPedido.Last;
+      end;
+
       if (fDMCadNotaFiscal.qParametros_FinUSA_NGR.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscalNGR.AsString <> fDMCadNotaFiscal.cdsPedidoNGR.AsString) and
         (vSel) then
       begin
@@ -1338,7 +1352,6 @@ begin
         end;
       end;
 
-      //if SMDBGrid1.SelectedRows.CurrentRowSelected then
       if vSel then
       begin
         //29/10/2016
@@ -2036,6 +2049,34 @@ procedure TfrmSel_Pedido.edtPedidoKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Key = Vk_Return) then
     btnPesquisarClick(Sender);
+end;
+
+procedure TfrmSel_Pedido.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_F3) then
+  begin
+    if not(fDMCadNotaFiscal.cdsPedido.Active) or (fDMCadNotaFiscal.cdsPedido.IsEmpty) then
+      MessageDlg('*** Primeiro fazer a consulta para mostrar os registros a fazer os Ajustes das Quantidades!', mtError, [mbOk], 0)
+    else
+    begin
+      prc_Grava_mPedido_Peso;
+
+      frmAjusta_Peso_Ped := TfrmAjusta_Peso_Ped.Create(self);
+      frmAjusta_Peso_Ped.fDMCadNotaFiscal    := fDMCadNotaFiscal;
+      frmAjusta_Peso_Ped.ShowModal;
+      FreeAndNil(frmAjusta_Peso_Ped);
+      btnPesquisarClick(Sender);
+    end;
+  end;
+
+end;
+
+procedure TfrmSel_Pedido.prc_Grava_mPedido_Peso;
+begin
+
+
+
 end;
 
 end.

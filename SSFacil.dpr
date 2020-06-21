@@ -852,7 +852,8 @@ uses
   USel_ANP in 'USel_ANP.pas' {frmSel_ANP},
   UDMCadAjuste_Preco in 'UDMCadAjuste_Preco.pas' {DMCadAjuste_Preco: TDataModule},
   UCadAjuste_Preco in 'UCadAjuste_Preco.pas' {frmCadAjuste_Preco},
-  UCadAjuste_Preco_Sel in 'UCadAjuste_Preco_Sel.pas' {frmCadAjuste_Preco_Sel};
+  UCadAjuste_Preco_Sel in 'UCadAjuste_Preco_Sel.pas' {frmCadAjuste_Preco_Sel},
+  UAjusta_Peso_Ped in 'UAjusta_Peso_Ped.pas' {frmAjusta_Peso_Ped};
 
 {$R *.res}
 

@@ -3755,6 +3755,9 @@ type
     sdsPedido_CanceladoID_LOTE: TIntegerField;
     cdsPedido_CanceladoID_LOTE: TIntegerField;
     qParametros_ProdUSA_QTD_MEDIA: TStringField;
+    sdsPedido_ItensPESO_AJUSTADO: TStringField;
+    cdsPedido_ItensPESO_AJUSTADO: TStringField;
+    qParametros_PedUSA_QTD_PECA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

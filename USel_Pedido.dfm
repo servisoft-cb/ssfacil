@@ -15,6 +15,7 @@ object frmSel_Pedido: TfrmSel_Pedido
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -304,9 +305,17 @@ object frmSel_Pedido: TfrmSel_Pedido
     WidthOfIndicator = 27
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 35
+    ColCount = 37
     RowCount = 2
     Columns = <
+      item
+        Expanded = False
+        FieldName = 'PESO_AJUSTADO'
+        Title.Alignment = taCenter
+        Title.Caption = 'Peso Ajustado'
+        Width = 50
+        Visible = True
+      end
       item
         Expanded = False
         FieldName = 'NOME_CONSUMIDOR'
@@ -410,6 +419,15 @@ object frmSel_Pedido: TfrmSel_Pedido
       end
       item
         Expanded = False
+        FieldName = 'QTD_PECA'
+        ReadOnly = True
+        Title.Alignment = taCenter
+        Title.Caption = 'Qtd. Pe'#231'a'
+        Title.Color = 16777136
+        Visible = True
+      end
+      item
+        Expanded = False
         FieldName = 'clQtd_NaoLiberada'
         ReadOnly = True
         Title.Alignment = taCenter
@@ -481,6 +499,7 @@ object frmSel_Pedido: TfrmSel_Pedido
         FieldName = 'DTRECEBIMENTO'
         Title.Alignment = taCenter
         Title.Caption = 'Dt. Recebimento OS'
+        Width = 64
         Visible = True
       end
       item
@@ -489,6 +508,7 @@ object frmSel_Pedido: TfrmSel_Pedido
         FieldName = 'DT_AGENDA'
         Title.Alignment = taCenter
         Title.Caption = 'Dt. Previs'#227'o Final OS'
+        Width = 64
         Visible = True
       end
       item
@@ -534,6 +554,7 @@ object frmSel_Pedido: TfrmSel_Pedido
         Expanded = False
         FieldName = 'CNPJ_CPF'
         ReadOnly = True
+        Width = 64
         Visible = True
       end
       item
@@ -557,6 +578,7 @@ object frmSel_Pedido: TfrmSel_Pedido
         ReadOnly = True
         Title.Alignment = taCenter
         Title.Caption = 'Imp. N'#186' OC na Nota'
+        Width = 64
         Visible = True
       end
       item
@@ -580,6 +602,7 @@ object frmSel_Pedido: TfrmSel_Pedido
         ReadOnly = True
         Title.Alignment = taCenter
         Title.Caption = 'Item no Cliente'
+        Width = 64
         Visible = True
       end>
   end
@@ -606,7 +629,7 @@ object frmSel_Pedido: TfrmSel_Pedido
     end
     object Label7: TLabel
       Left = 248
-      Top = 8
+      Top = 4
       Width = 208
       Height = 13
       Caption = 'F2 para consultar Estoque por LOTE'
@@ -616,6 +639,20 @@ object frmSel_Pedido: TfrmSel_Pedido
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
+    end
+    object Label10: TLabel
+      Left = 248
+      Top = 20
+      Width = 90
+      Height = 13
+      Caption = 'F3 Ajustar Peso'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Visible = False
     end
     object btnImportar: TNxButton
       Left = 5

@@ -118,6 +118,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FieldName = 'PEDIDO_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Pedido Cliente (OC)'
+            Width = 64
             Visible = True
           end
           item
@@ -163,6 +164,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             Expanded = False
             FieldName = 'QTD'
             Title.Caption = 'Qtd. Produtos'
+            Width = 64
             Visible = True
           end
           item
@@ -171,6 +173,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FieldName = 'FATURADO'
             Title.Alignment = taCenter
             Title.Caption = 'Faturado'
+            Width = 64
             Visible = True
           end
           item
@@ -201,6 +204,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FieldName = 'DTAPROVADO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Aprovado'
+            Width = 64
             Visible = True
           end
           item
@@ -216,6 +220,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
+            Width = 64
             Visible = True
           end
           item
@@ -2230,7 +2235,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           TabOrder = 0
           object Panel6: TPanel
             Left = 1
-            Top = 187
+            Top = 201
             Width = 492
             Height = 30
             Align = alTop
@@ -2440,7 +2445,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             Left = 1
             Top = 75
             Width = 492
-            Height = 112
+            Height = 126
             Align = alTop
             BevelOuter = bvNone
             Color = 13041663
@@ -2456,7 +2461,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             end
             object Label42: TLabel
               Left = 14
-              Top = 30
+              Top = 48
               Width = 40
               Height = 13
               Alignment = taRightJustify
@@ -2464,7 +2469,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             end
             object Label44: TLabel
               Left = 165
-              Top = 30
+              Top = 48
               Width = 45
               Height = 13
               Alignment = taRightJustify
@@ -2478,9 +2483,17 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               Alignment = taRightJustify
               Caption = 'Q.de Caixa:'
             end
+            object Label38: TLabel
+              Left = 0
+              Top = 28
+              Width = 54
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Qtde Pe'#231'a:'
+            end
             object dbedtQtd: TDBEdit
               Left = 56
-              Top = 6
+              Top = 7
               Width = 94
               Height = 19
               Ctl3D = False
@@ -2494,20 +2507,20 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             end
             object dbedtVlrUnitario: TDBEdit
               Left = 56
-              Top = 24
+              Top = 42
               Width = 94
               Height = 19
               Ctl3D = False
               DataField = 'VLR_UNITARIO'
               DataSource = DMCadPedido.dsPedido_Itens
               ParentCtl3D = False
-              TabOrder = 2
+              TabOrder = 3
               OnExit = dbedtVlrUnitarioExit
               OnKeyDown = dbedtVlrUnitarioKeyDown
             end
             object gbxDesconto: TRzGroupBox
               Left = 56
-              Top = 53
+              Top = 67
               Width = 272
               Height = 50
               BorderColor = clNavy
@@ -2524,7 +2537,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               Font.Style = []
               ParentCtl3D = False
               ParentFont = False
-              TabOrder = 4
+              TabOrder = 5
               TabStop = True
               VisualStyle = vsGradient
               OnEnter = gbxDescontoEnter
@@ -2637,11 +2650,11 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               DataSource = DMCadPedido.dsPedido_Itens
               ParentCtl3D = False
               ReadOnly = True
-              TabOrder = 1
+              TabOrder = 2
             end
             object dbedtVlrTotal: TDBEdit
               Left = 212
-              Top = 24
+              Top = 42
               Width = 115
               Height = 19
               TabStop = False
@@ -2651,17 +2664,17 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               DataSource = DMCadPedido.dsPedido_Itens
               ParentCtl3D = False
               ReadOnly = True
-              TabOrder = 3
+              TabOrder = 4
             end
             object RzGroupBox2: TRzGroupBox
-              Left = 338
-              Top = 0
+              Left = 339
+              Top = 2
               Width = 145
               Height = 62
               Caption = 'Quantidade'
               Color = 13041663
               Enabled = False
-              TabOrder = 5
+              TabOrder = 6
               object Label2: TLabel
                 Left = 43
                 Top = 20
@@ -2708,6 +2721,18 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
                 ReadOnly = True
                 TabOrder = 1
               end
+            end
+            object dbedtQtd_Peca: TDBEdit
+              Left = 56
+              Top = 24
+              Width = 94
+              Height = 19
+              Ctl3D = False
+              DataField = 'QTD_PECA'
+              DataSource = DMCadPedido.dsPedido_Itens
+              ParentCtl3D = False
+              TabOrder = 1
+              OnKeyDown = dbedtQtd_PecaKeyDown
             end
           end
           object Panel7: TPanel
@@ -2925,7 +2950,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           WidthOfIndicator = 11
           DefaultRowHeight = 17
           ScrollBars = ssHorizontal
-          ColCount = 18
+          ColCount = 19
           RowCount = 2
           Columns = <
             item
@@ -2975,6 +3000,15 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               Title.Caption = 'Lote'
               Title.Color = 9568255
               Width = 110
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'QTD_PECA'
+              Title.Alignment = taCenter
+              Title.Caption = 'Qtd. Pe'#231'a'
+              Title.Color = 9568255
+              Width = 42
               Visible = True
             end
             item
@@ -3036,6 +3070,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               Title.Alignment = taCenter
               Title.Caption = 'Vlr. Desconto'
               Title.Color = 9568255
+              Width = 64
               Visible = True
             end
             item
@@ -3070,6 +3105,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               FieldName = 'CODCFOP'
               Title.Alignment = taCenter
               Title.Color = 9568255
+              Width = 64
               Visible = True
             end>
         end

@@ -186,6 +186,8 @@ type
     Label39: TLabel;
     dbchkEncomenda: TDBCheckBox;
     ImprimirMatricial80Colunas1: TMenuItem;
+    Label38: TLabel;
+    dbedtQtd_Peca: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -283,6 +285,8 @@ type
       Shift: TShiftState);
     procedure ImprimirMatricial80Colunas1Click(Sender: TObject);
     procedure dbedtVlrProdKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure dbedtQtd_PecaKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
   private
     { Private declarations }
@@ -652,6 +656,8 @@ begin
     end;
     if (SMDBGrid2.Columns[i].FieldName = 'NUM_LOTE_CONTROLE') then
       SMDBGrid2.Columns[i].Visible := (fDMCadPedido.qParametros_ProdUSA_LOTE_PROD.AsString = 'S');
+    if (SMDBGrid2.Columns[i].FieldName = 'QTD_PECA') then
+      SMDBGrid2.Columns[i].Visible := (fDMCadPedido.qParametros_PedUSA_QTD_PECA.AsString = 'S');
     if (SMDBGrid2.Columns[i].FieldName = 'QTD_CAIXA') then
       SMDBGrid2.Columns[i].Visible := (fDMCadPedido.qParametros_ProdUSA_QTD_EMBALAGEM.AsString = 'S');
     if (SMDBGrid2.Columns[i].FieldName = 'MEDIDA') then
@@ -746,6 +752,8 @@ begin
   if fDMCadPedido.qParametros_PedUSA_REF_DIG_PEDLOJA.AsString = 'S' then
     Label33.Caption := 'Referência:';
   //************************
+  Label38.Visible  := (fDMCadPedido.qParametros_PedUSA_QTD_PECA.AsString = 'S');
+  dbedtQtd_Peca.Visible := (fDMCadPedido.qParametros_PedUSA_QTD_PECA.AsString = 'S');
 
   //16/10/2019
   if fDMCadPedido.qParametros_PedPEDIDO_COMERCIO.AsString = 'S' then
@@ -2074,7 +2082,8 @@ var
   vAux: Real;
   vQtdAux: Real;
 begin
-  if (ceQtdEmb.Value > 0) and (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat)) > 0) then
+  if (ceQtdEmb.Value > 0) and (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat)) > 0)
+    and (trim(fDMCadPedido.qParametros_PedUSA_QTD_PECA.AsString) <> 'S') then
   begin
     //fDMCadPedido.cdsPedido_ItensQTD_CAIXA.AsInteger := fDMCadPedido.cdsPedido_ItensQTD.as asfAsInteger / ceQtdEmb.AsInteger;
     vQtdAux := StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
@@ -2587,6 +2596,9 @@ end;
 
 procedure TfrmCadPedidoLoja.btnConfirmar_ItensClick(Sender: TObject);
 begin
+  if not(fDMCadPedido.cdsPedido_Itens.State in [dsEdit,dsInsert]) then
+    fDMCadPedido.cdsPedido_Itens.Edit;
+
   ffrmCadPedido_Itens.fDMCadPedido := fDMCadPedido;
   ffrmCadPedido_Itens.Tag := 2;
   ffrmCadPedido_Itens.BitBtn1Click(ffrmCadPedido_Itens);
@@ -2996,6 +3008,9 @@ begin
   vAux := Monta_Numero(dbedtQtd.Text,0);
   if (Key = vk_Return) and (trim(vAux) <> '') and (StrToFloat(vAux) > 0) then
   begin
+    if (dbedtQtd_Peca.Visible) then
+      dbedtQtd_Peca.SetFocus
+    else
     if not(dbedtVlrUnitario.ReadOnly) then
       dbedtVlrUnitario.SetFocus
     else
@@ -3255,6 +3270,13 @@ begin
 
   fDMCadPedido.vImpPreco := ckImpPreco.Checked;
   prc_Posiciona_Imp;
+end;
+
+procedure TfrmCadPedidoLoja.dbedtQtd_PecaKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if Key = vk_Return then
+    dbedtVlrUnitario.SetFocus;
 end;
 
 end.

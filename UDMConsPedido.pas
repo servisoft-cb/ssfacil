@@ -937,6 +937,7 @@ type
     cdsEtiqueta_AuxINFOCODBARRA: TStringField;
     cdsEtiqueta_AuxCODBARRA: TStringField;
     cdsPedido_ItemDTCONFERENCIA: TDateField;
+    qParametros_PedUSA_QTD_PECA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConsumoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_MatCalcFields(DataSet: TDataSet);

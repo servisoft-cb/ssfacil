@@ -3269,6 +3269,11 @@ object DMConsPedido: TDMConsPedido
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedUSA_QTD_PECA: TStringField
+      FieldName = 'USA_QTD_PECA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object frxDBDataset2: TfrxDBDataset
     UserName = 'frxPedido'

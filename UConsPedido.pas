@@ -479,7 +479,7 @@ begin
     if (SMDBGrid1.Columns[i].FieldName = 'NUM_TALAO') then
       SMDBGrid1.Columns[i].Visible := ((fDMConsPedido.qParametrosEMPRESA_NAVALHA.AsString = 'S')or (fDMConsPedido.qParametros_PedUSA_NUM_TALAO.AsString = 'I') or (fDMConsPedido.qParametros_PedUSA_NUM_TALAO.AsString = 'P'));
     if (SMDBGrid1.Columns[i].FieldName = 'QTD_PECA') then
-      SMDBGrid1.Columns[i].Visible := (fDMConsPedido.qParametrosEMPRESA_SUCATA.AsString = 'S');
+      SMDBGrid1.Columns[i].Visible := ((fDMConsPedido.qParametrosEMPRESA_SUCATA.AsString = 'S') or (fDMConsPedido.qParametros_PedUSA_QTD_PECA.AsString = 'S'));
     if (SMDBGrid1.Columns[i].FieldName = 'COMPLEMENTO_NOME') then
       SMDBGrid1.Columns[i].Visible := (fDMConsPedido.qParametrosEMPRESA_SUCATA.AsString = 'S');
 
@@ -515,7 +515,7 @@ begin
       if copy(TSMDBGrid(FindComponent(vGrid[i2])).Columns[i].FieldName,1,4) = 'VLR_' then
         TSMDBGrid(FindComponent(vGrid[i2])).Columns[i].Visible := ckMostrarPreco.Checked;
       if (TSMDBGrid(FindComponent(vGrid[i2])).Columns[i].FieldName = 'QTD_PECA') then
-        TSMDBGrid(FindComponent(vGrid[i2])).Columns[i].Visible := (fDMConsPedido.qParametrosEMPRESA_SUCATA.AsString = 'S');
+        TSMDBGrid(FindComponent(vGrid[i2])).Columns[i].Visible := ((fDMConsPedido.qParametrosEMPRESA_SUCATA.AsString = 'S') or (fDMConsPedido.qParametros_PedUSA_QTD_PECA.AsString = 'S'));
       if (TSMDBGrid(FindComponent(vGrid[i2])).Columns[i].FieldName = 'APROVADO_PED') then
         TSMDBGrid(FindComponent(vGrid[i2])).Columns[i].Visible := (fDMConsPedido.qParametrosUSA_APROVACAO_PED.AsString = 'S');
       if (TSMDBGrid(FindComponent(vGrid[i2])).Columns[i].FieldName = 'DTFATURA') then

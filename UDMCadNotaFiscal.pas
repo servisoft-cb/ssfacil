@@ -3177,6 +3177,18 @@ type
     sdsNotaFiscal_ItensANP_VLR_VPART: TFloatField;
     cdsNotaFiscal_ItensANP_VLR_VPART: TFloatField;
     qParametros_NFeID_CONTA_ADTO: TIntegerField;
+    qParametros_PedUSA_QTD_PECA: TStringField;
+    cdsPedidoPESO_AJUSTADO: TStringField;
+    mPedido_Peso: TClientDataSet;
+    mPedido_PesoID: TIntegerField;
+    mPedido_PesoItem: TIntegerField;
+    mPedido_PesoQtd: TFloatField;
+    mPedido_PesoQtd_Peca: TIntegerField;
+    mPedido_PesoPeso_Ajustado: TStringField;
+    dsmPedido_Peso: TDataSource;
+    mPedido_PesoID_Produto: TIntegerField;
+    mPedido_PesoNome_Produto: TStringField;
+    mPedido_PesoUnidade: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
