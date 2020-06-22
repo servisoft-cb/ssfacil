@@ -2770,38 +2770,6 @@ begin
     Exit;
   end;
   fDMCadPedido.frxReport1.ShowReport;
-
-
-{  if trim(fDMCadPedido.cdsParametrosEND_IMPRESSORA_DOS.AsString) <> '' then
-    AssignFile(F,fDMCadPedido.cdsParametrosEND_IMPRESSORA_DOS.AsString) //impressao via dos
-  else
-  begin
-    MessageDlg('*** Caminho da impressora DOS não informado!', mtInformation, [mbOk], 0);
-    Exit;
-  end;
-
-  Rewrite(F);
-  Write(F,'0'#15);
-  for i := 1 to 2 do
-    Writeln(F);
-  fDMCadPedido.mEtiqueta_Nav.First;
-  while not fDMCadPedido.mEtiqueta_Nav.EOF do
-    begin
-      vTexto := 'Referencia             Cor';
-      Writeln(F,cINegrito + vTexto + cFNegrito);
-
-      vTexto := fDMCadPedido.mEtiqueta_NavReferencia.AsString;
-      for i := 1 to 23 - Length(vTexto) do
-        vTexto := vTexto + ' ';
-      vTexto := vTexto + copy(fDMCadPedido.mEtiqueta_NavNome_Produto.AsString,1,35);
-      for i := 1 to 58 - Length(vTexto) do
-        vTexto := vTexto + ' ';
-      Writeln(F,cINegrito + vTexto + #18 + fDMCadPedido.mEtiqueta_NavTamanho.AsString + #15 + cFNegrito);
-      for i := 1 to 2 do
-        Writeln(F);
-      fDMCadPedido.mEtiqueta_Nav.Next;
-    end;
-  CloseFile(F);}
 end;
 
 procedure TfrmCadPedido.Excel1Click(Sender: TObject);
