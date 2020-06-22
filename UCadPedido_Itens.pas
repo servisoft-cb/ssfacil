@@ -2873,7 +2873,8 @@ begin
     try
       if (fDMCadPedido.cdsPedido_Itens.Fields[x].Tag = 0) and
          (fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName <> 'ID_PEDIDO_RESERVA') and
-         (fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName <> 'QTD_ESTOQUE_RES')  then
+         (fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName <> 'QTD_ESTOQUE_RES') and
+         (fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName <> 'PESO_AJUSTADO') then
         fDMInformar_Tam.mItens.FieldByName(fDMCadPedido.cdsPedido_Itens.Fields[x].FieldName).AsVariant := fDMCadPedido.cdsPedido_Itens.Fields[x].Value;
       except
       end;
