@@ -2273,7 +2273,8 @@ begin
     fDMCadDuplicata.cdsDuplicata.First;
     while not fDMCadDuplicata.cdsDuplicata.Eof do
     begin
-      if (fDMCadDuplicata.cdsDuplicataID_VENDEDOR.AsInteger <= 0) or (StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataPERC_COMISSAO.AsFloat)) <= 0) then
+      if (fDMCadDuplicata.cdsDuplicataID_VENDEDOR.AsInteger <= 0) or
+         (StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataPERC_COMISSAO.AsFloat)) <= 0) then
       begin
         fDMCadDuplicata.cdsDuplicata.Edit;
         fDMCadDuplicata.cdsDuplicataID_VENDEDOR.AsInteger := fDMCadDuplicata.cdsPessoaID_VENDEDOR.AsInteger;

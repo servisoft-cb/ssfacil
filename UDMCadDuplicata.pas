@@ -1791,8 +1791,10 @@ var
 begin
   Result := 0;
 
-  if (StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO.AsFloat)) <= 0) or
-     ((cdsDuplicataID_VENDEDOR.AsInteger <= 0) or (cdsDuplicataID_VENDEDOR.IsNull))  then
+  if ((StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO.AsFloat)) <= 0) or
+     ((cdsDuplicataID_VENDEDOR.AsInteger <= 0) or (cdsDuplicataID_VENDEDOR.IsNull))) and
+     ((StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO_INT.AsFloat)) <= 0) or
+     ((cdsDuplicataID_VENDEDOR_INT.AsInteger <= 0) or (cdsDuplicataID_VENDEDOR_INT.IsNull))) then
     exit;
 
   if not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR.AsInteger,[loCaseInsensitive]) then
@@ -1812,7 +1814,8 @@ begin
     if ((qParametros_ComUSA_CONFIG_IND.AsString = 'N') and ((qParametros_ComCOMISSAO_DESCONTAR.AsString = 'S') or (qParametros_ComCOMISSAO_DESCONTAR_PIS.AsString = 'S')))
       or ((qParametros_ComUSA_CONFIG_IND.AsString = 'S') and (uUtilPadrao.fnc_Vendedor_Desc_Com(cdsDuplicataID_VENDEDOR.AsInteger))) then
     begin       
-      if (StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_BASE_COMISSAO.AsFloat)) > 0) and (StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_BASE_COMISSAO.AsFloat)) < 100) then
+      if (StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_BASE_COMISSAO.AsFloat)) > 0) and
+         (StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_BASE_COMISSAO.AsFloat)) < 100) then
         vBaseAux := StrToFloat(FormatFloat('0.00',vBaseAux * cdsDuplicataPERC_BASE_COMISSAO.AsFloat / 100));
     end;
     //02/09/2015 devido a cobrança descontada
@@ -1821,7 +1824,6 @@ begin
     else
       vDtComissao := cdsDuplicata_HistDTLANCAMENTO.AsDateTime;
 
-    //Result := fDMCadExtComissao.fnc_Mover_Comissao('ENT',cdsDuplicataSERIE.AsString,'',0,cdsDuplicata_HistDTLANCAMENTO.AsDateTime,
     //25/11/2019
     vIDAux := 0;
     if Regravar then

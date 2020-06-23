@@ -353,11 +353,9 @@ type
     procedure prc_Gravar_mPrevPedido;
     function fnc_Busca_Vlr_Entrada(ID: Integer): Real;
 
-    procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
-
+    procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);  
   public
-    { Public declarations }
-
+    { Public declarations }  
     vMsgErro: String;
     ctCommand: String;
     ctConsulta: String;
@@ -385,8 +383,7 @@ type
                                 Base_Comissao, Vlr_Comissao, Perc_Comissao: Real; ID_Recibo, ID_Descontada: Integer): Integer;
 
     function fnc_Busca_Metas(Ano,Mes,ID_Vendedor: Integer): Real;
-    function fnc_Busca_Vendas(Ano,Mes,ID_Vendedor: Integer): Real;
-
+    function fnc_Busca_Vendas(Ano,Mes,ID_Vendedor: Integer): Real;   
   end;
 
 var
@@ -518,8 +515,7 @@ begin
   cdsExtComissao.Close;
   sdsExtComissao.CommandText := ctCommand;
   if ID <> 0 then
-    sdsExtComissao.CommandText := sdsExtComissao.CommandText
-                         + ' WHERE ID = ' + IntToStr(ID);
+    sdsExtComissao.CommandText := sdsExtComissao.CommandText + ' WHERE ID = ' + IntToStr(ID);
   cdsExtComissao.Open;
 end;
 
@@ -822,8 +818,6 @@ var
   vAux: Real;
 begin
   vAux := 0;
-  //if (StrToFloat(FormatFloat('0.00',cdsPrevisaoVLR_RESTANTE.AsFloat)) > 0) and (StrToFloat(FormatFloat('0.00',cdsPrevisaoPERC_COMISSAO.AsFloat)) > 0) then
-  //  vAux := StrToFloat(FormatFloat('0.00',cdsPrevisaoVLR_RESTANTE.AsFloat * cdsPrevisaoPERC_COMISSAO.AsFloat / 100));
   if (StrToFloat(FormatFloat('0.00',cdsPrevisaoVLR_BASE_COMISSAO.AsFloat)) > 0) and (StrToFloat(FormatFloat('0.00',cdsPrevisaoPERC_COMISSAO.AsFloat)) > 0) then
     vAux := StrToFloat(FormatFloat('0.00',cdsPrevisaoVLR_BASE_COMISSAO.AsFloat * cdsPrevisaoPERC_COMISSAO.AsFloat / 100));
   cdsPrevisaoVlr_Comissao.AsFloat := StrToFloat(FormatFloat('0.00',vAux));
@@ -847,7 +841,7 @@ var
 begin
   if trim(e.Message) <> '' then
   begin
-    vMSGAux := e.Message + #13 + #13 + '*** Comissão nao gravada!';
+    vMSGAux := e.Message + #13 + #13 + '*** Comissão não gravada!';
     MessageDlg(e.Message + #13 + #13 + '*** Comissão não gravada!', mtError, [mbOk], 0);
     uGrava_Erro.prc_Gravar('ExtComissao','',vMSGAux,DateToStr(Date),TimeToStr(Now));
   end;
@@ -984,5 +978,3 @@ begin
 end;
 
 end.
-
-
