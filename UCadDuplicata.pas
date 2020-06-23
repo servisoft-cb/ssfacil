@@ -1327,7 +1327,7 @@ var
   vHist: string;
   vPagou: Boolean;
   vQtdePagto: Integer;
-  vVlrPago : Real;
+  vVlrPago: Real;
 begin
   if fDMCadDuplicata.vID_ContaPgtoSel > 0 then
     fDMCadDuplicata.cdsContas.Locate('ID',fDMCadDuplicata.vID_ContaPgtoSel, [loCaseInsensitive]);

@@ -1117,7 +1117,7 @@ type
     fDMCadExtComissao: TDMCadExtComissao;
 
     procedure prc_Abrir_Financeiro;
-    procedure prc_Abrir_Cheque(ID : Integer);
+    procedure prc_Abrir_Cheque(ID: Integer);
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
   public
     { Public declarations }
@@ -1129,8 +1129,8 @@ type
     ctPagto: String;
     ctTotalAtraso: String;
     ctDescontada_Consulta: String;
-    ctChequePend : String;
-    vId_Contabil_OP_Baixa : Integer;
+    ctChequePend: String;
+    vId_Contabil_OP_Baixa: Integer;
     vDtUltPagamento: TDateTime;//Esta data é usada para o estorno
     vID_ContaPgtoSel: Integer;
     vDtPgtoSel, vDataIni, vDataFim: TDateTime;
@@ -1144,10 +1144,10 @@ type
     vNumDup_Ini, vNumDup_Fin: Integer;
     vGerou_Descontada: Boolean;
     vID_Cheque: Integer;
-    vTipo_Rel : String;
-    vImpObs : Boolean;
-    vImpCCusto : Boolean;
-    vHistorico_PagSel : String;
+    vTipo_Rel: String;
+    vImpObs: Boolean;
+    vImpCCusto: Boolean;
+    vHistorico_PagSel: String;
 
     vCReceber_Tot, vCReceber_Pago_Tot, vCReceber_Pend_Tot, vCReceber_Atraso_Tot: Real;
     vCPagar_Tot, vCPagar_Pago_Tot, vCPagar_Pend_Tot, vCPagar_Atraso_Tot: Real;
@@ -1162,7 +1162,7 @@ type
     procedure prc_Excluir;
     procedure prc_Excluir_Dup_CCusto;
     procedure prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Desconto,
-      Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer = 0 ; ID_Descontada: Integer = 0 );
+      Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer = 0; ID_Descontada: Integer = 0 );
     procedure prc_Gravar_Financeiro(Valor: Real; Tipo: String; ID_Forma_Pagamento: Integer = 0;
       ComDesconto: String = '');//P=Pagamento  J=Juros  D=Despesas  M=Multa
     procedure prc_Estorno_Pag(Usar_Transaction: Boolean = True);
@@ -1170,17 +1170,17 @@ type
     procedure prc_Abrir_Pessoa(Tipo: String);
 
     function fnc_Erro_Registro(Automatica: Boolean = False): Boolean;
-    function fnc_Gravar_ExtComissao(Regravar : Boolean = False) : Integer;
+    function fnc_Gravar_ExtComissao(Regravar: Boolean = False): Integer;
 
     function fnc_Proxima_Duplicata: Integer;
 
     function fnc_Qtd_Dias(DtVencimento, DtAtual: TDatetime): Integer;
-    function fnc_Calcular_Juros(Qtd_Dias: Integer ; Perc_Juros, Valor: Real): Real;
+    function fnc_Calcular_Juros(Qtd_Dias: Integer; Perc_Juros, Valor: Real): Real;
 
     procedure prc_Controle;
     procedure prc_Desfazer_Descontada;
     procedure prc_Abrir_Carteira(Id_banco:Integer);
-    procedure prc_Gravar_ChequeHist(Devolvido : String);
+    procedure prc_Gravar_ChequeHist(Devolvido: String);
 
     procedure prc_Inserir_Cob;
     
@@ -1418,7 +1418,7 @@ begin
 end;
 
 procedure TDMCadDuplicata.prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Desconto,
-  Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer = 0 ; ID_Descontada: Integer = 0);
+  Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer = 0; ID_Descontada: Integer = 0);
 var
   vItemAux: Integer;
   vID_ExtComissao: Integer;
@@ -1797,7 +1797,8 @@ begin
      ((cdsDuplicataID_VENDEDOR_INT.AsInteger <= 0) or (cdsDuplicataID_VENDEDOR_INT.IsNull))) then
     exit;
 
-  if not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR.AsInteger,[loCaseInsensitive]) then
+  if (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR.AsInteger,[loCaseInsensitive])) and
+     (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR_INT.AsInteger,[loCaseInsensitive]))  then
     exit;
 
   if (cdsVendedorTIPO_COMISSAO.AsString <> 'D') and (cdsVendedorTIPO_COMISSAO.AsString <> 'P') then
@@ -1837,6 +1838,16 @@ begin
                                                    cdsDuplicataNUMRPS.AsInteger,cdsDuplicataID_Cupom.AsInteger,
                                                    StrToFloat(FormatFloat('0.00',vBaseAux)),0,
                                                    StrToFloat(FormatFloat('0.000',cdsDuplicataPERC_COMISSAO.AsFloat)),0,cdsDuplicataID_DESCONTADA.AsInteger);
+    if (cdsDuplicataID_VENDEDOR_INT.AsInteger > 0) and (cdsDuplicataPERC_COMISSAO_INT.AsFloat > 0) then //vendedor interno FEPAM
+      Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,'ENT',cdsDuplicataSERIE.AsString,'',0,vDtComissao,
+                                                     cdsDuplicataFILIAL.AsInteger,cdsDuplicataID_VENDEDOR_INT.AsInteger,
+                                                     0,cdsDuplicataID.AsInteger,cdsDuplicata_HistITEM.AsInteger,cdsDuplicataNUMNOTA.AsInteger,
+                                                     cdsDuplicataID_PESSOA.AsInteger,cdsDuplicataPARCELA.AsInteger,cdsDuplicataID_NOTA_SERVICO.AsInteger,
+                                                     cdsDuplicataNUMRPS.AsInteger,cdsDuplicataID_Cupom.AsInteger,
+                                                     StrToFloat(FormatFloat('0.00',vBaseAux)),0,
+                                                     StrToFloat(FormatFloat('0.000',cdsDuplicataPERC_COMISSAO_INT.AsFloat)),0,
+                                                     cdsDuplicataID_DESCONTADA.AsInteger);
+
   except
     Result := 0;
     raise;
@@ -2102,7 +2113,7 @@ begin
   Result := vQtdAux;
 end;
 
-function TDMCadDuplicata.fnc_Calcular_Juros(Qtd_Dias: Integer ; Perc_Juros, Valor: Real): Real;
+function TDMCadDuplicata.fnc_Calcular_Juros(Qtd_Dias: Integer; Perc_Juros, Valor: Real): Real;
 var
   vAux: Real;
 begin
