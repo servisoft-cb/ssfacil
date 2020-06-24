@@ -448,7 +448,7 @@ object frmConsPedido: TfrmConsPedido
     Top = 203
     Width = 1017
     Height = 378
-    ActivePage = TS_Item
+    ActivePage = TS_RefComb
     ActivePageDefault = TS_Item
     Align = alClient
     Color = 16755027
@@ -461,7 +461,7 @@ object frmConsPedido: TfrmConsPedido
     ParentColor = False
     ParentFont = False
     TabColors.Unselected = clGray
-    TabIndex = 0
+    TabIndex = 7
     TabOrder = 1
     TextColors.Unselected = 5197647
     OnChange = RzPageControl1Change

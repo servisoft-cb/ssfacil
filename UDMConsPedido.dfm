@@ -2591,14 +2591,14 @@ object DMConsPedido: TDMConsPedido
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43339.358172094900000000
-    ReportOptions.LastChange = 43966.415433692130000000
+    ReportOptions.CreateDate = 42032.577038136600000000
+    ReportOptions.LastChange = 44006.477082326390000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 704
+    Left = 705
     Top = 359
   end
   object frxDBDataset1: TfrxDBDataset
@@ -5545,20 +5545,20 @@ object DMConsPedido: TDMConsPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 950
-    Top = 272
+    Left = 954
+    Top = 236
   end
   object dspCor_Tam: TDataSetProvider
     DataSet = sdsCor_Tam
-    Left = 984
-    Top = 272
+    Left = 988
+    Top = 236
   end
   object cdsCor_Tam: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspCor_Tam'
-    Left = 1016
-    Top = 272
+    Left = 1020
+    Top = 236
     object cdsCor_TamID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
       Required = True
@@ -5593,8 +5593,8 @@ object DMConsPedido: TDMConsPedido
   end
   object dsCor_Tam: TDataSource
     DataSet = cdsCor_Tam
-    Left = 1048
-    Top = 272
+    Left = 1052
+    Top = 236
   end
   object qParametros_Geral: TSQLQuery
     MaxBlobSize = -1
@@ -5696,5 +5696,68 @@ object DMConsPedido: TDMConsPedido
       FieldName = 'CODBARRA'
       Size = 30
     end
+  end
+  object sdsPedido_Est: TSQLDataSet
+    CommandText = 
+      'SELECT i.id_produto, coalesce(it.espessura,0) espessura, prod.no' +
+      'me nome_produto, prod.referencia,'#13#10'sum(case'#13#10'  when coalesce(it.' +
+      'peso,0) > 0 then coalesce(it.peso,0)'#13#10'  else i.qtd'#13#10'  end) qtd_e' +
+      'stoque'#13#10'from pedido p'#13#10'inner join pedido_item i'#13#10'on p.id = i.id'#13 +
+      #10'inner join produto prod'#13#10'on i.id_produto = prod.id'#13#10'left join p' +
+      'edido_item_tipo it'#13#10'on i.id = it.id'#13#10'and i.item = it.item'#13#10'where' +
+      ' p.tipo_reg = '#39'P'#39#13#10'group by i.id_produto, coalesce(it.espessura,' +
+      '0), prod.nome, prod.referencia'#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 952
+    Top = 283
+  end
+  object dspPedido_Est: TDataSetProvider
+    DataSet = sdsPedido_Est
+    Left = 985
+    Top = 283
+  end
+  object cdsPedido_Est: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPedido_Est'
+    Left = 1022
+    Top = 282
+    object cdsPedido_EstID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsPedido_EstNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsPedido_EstREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsPedido_EstQTD_ESTOQUE: TFloatField
+      FieldName = 'QTD_ESTOQUE'
+    end
+    object cdsPedido_EstESPESSURA: TFloatField
+      FieldName = 'ESPESSURA'
+    end
+  end
+  object dsPedido_Est: TDataSource
+    DataSet = cdsPedido_Est
+    Left = 1049
+    Top = 283
+  end
+  object frxPedido_Est: TfrxDBDataset
+    UserName = 'frxPedido_Est'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_PRODUTO=ID_PRODUTO'
+      'NOME_PRODUTO=NOME_PRODUTO'
+      'REFERENCIA=REFERENCIA'
+      'QTD_ESTOQUE=QTD_ESTOQUE'
+      'ESPESSURA=ESPESSURA')
+    DataSource = dsPedido_Est
+    BCDToCurrency = False
+    Left = 995
+    Top = 450
   end
 end

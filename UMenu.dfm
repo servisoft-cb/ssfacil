@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 627
+    Height = 635
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -760,6 +760,10 @@ object fMenu: TfMenu
         object ConsultaPedidosAlteradosporSenha1: TMenuItem
           Caption = 'Consulta Pedidos Alterados por Senha'
           OnClick = ConsultaPedidosAlteradosporSenha1Click
+        end
+        object ConsultaPedidoEstoque1: TMenuItem
+          Caption = 'Consulta Pedido Estoque'
+          OnClick = ConsultaPedidoEstoque1Click
         end
         object ConsultasNotas1: TMenuItem
           Caption = 'Consultas Notas'

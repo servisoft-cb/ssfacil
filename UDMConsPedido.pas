@@ -938,6 +938,16 @@ type
     cdsEtiqueta_AuxCODBARRA: TStringField;
     cdsPedido_ItemDTCONFERENCIA: TDateField;
     qParametros_PedUSA_QTD_PECA: TStringField;
+    sdsPedido_Est: TSQLDataSet;
+    dspPedido_Est: TDataSetProvider;
+    cdsPedido_Est: TClientDataSet;
+    dsPedido_Est: TDataSource;
+    cdsPedido_EstID_PRODUTO: TIntegerField;
+    cdsPedido_EstNOME_PRODUTO: TStringField;
+    cdsPedido_EstREFERENCIA: TStringField;
+    cdsPedido_EstQTD_ESTOQUE: TFloatField;
+    cdsPedido_EstESPESSURA: TFloatField;
+    frxPedido_Est: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConsumoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_MatCalcFields(DataSet: TDataSet);
@@ -976,6 +986,7 @@ type
     ctCliente_Sem_Venda : String;
     ctConsPedido_Item_Proc : String;
     ctCBarra : String;
+    ctPedido_Est: String;
 
     ctPedido_Nota, ctPedido_Vale, ctBaixa_Pedido, ctPedido_Fut: String;
     ctPedidoTipo : String;
@@ -1016,6 +1027,7 @@ begin
   ctConsPedido_Proc := sdsConsPedido_Proc.CommandText;
   ctCliente_Sem_Venda := sdsCliente_Sem_Venda.CommandText;
   ctConsPedido_Item_Proc := sdsConsPedido_Item_Proc.CommandText;
+  ctPedido_Est := sdsPedido_Est.CommandText;
 
   cdsParametros_Etiq.Close;
   sdsParametros_Etiq.ParamByName('ID').AsInteger := 1;
