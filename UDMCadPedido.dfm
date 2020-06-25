@@ -10846,7 +10846,7 @@ object DMCadPedido: TDMCadPedido
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 984
+    Left = 983
     Top = 103
   end
   object frxDBDataset1: TfrxDBDataset
@@ -15060,7 +15060,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 975
-    Top = 520
+    Top = 521
     object qParametros_PedID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15385,6 +15385,11 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_PedUSA_QTD_PECA: TStringField
       FieldName = 'USA_QTD_PECA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_PedGRAVAR_ORC_PED_CLIENTE: TStringField
+      FieldName = 'GRAVAR_ORC_PED_CLIENTE'
       FixedChar = True
       Size = 1
     end

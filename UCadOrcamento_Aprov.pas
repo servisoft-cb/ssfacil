@@ -235,7 +235,8 @@ begin
   fDMCadPedido.cdsPedidoTIPO_REG.AsString           := 'P';
   fDMCadPedido.cdsPedidoFILIAL.AsInteger            := fDMCadPedido.cdsOrcamentoFILIAL.AsInteger;
   fDMCadPedido.cdsPedidoDTEMISSAO.AsDateTime        := Date;
-  fDMCadPedido.cdsPedidoPEDIDO_CLIENTE.AsString     := 'Orc. ' + fDMCadPedido.cdsOrcamentoNUM_ORCAMENTO.AsString;
+  if fDMCadPedido.qParametros_PedGRAVAR_ORC_PED_CLIENTE.AsString = 'S' then
+    fDMCadPedido.cdsPedidoPEDIDO_CLIENTE.AsString     := 'Orc. ' + fDMCadPedido.cdsOrcamentoNUM_ORCAMENTO.AsString;
   fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger        := fDMCadPedido.cdsOrcamentoID_CLIENTE.AsInteger;
   fDMCadPedido.cdsPedidoEMAIL_COMPRAS.AsString      := fDMCadPedido.cdsOrcamentoEMAIL_COMPRAS.AsString;
   //20/11/2017
@@ -294,6 +295,9 @@ begin
   //fDMCadPedido.cdsPedidoNUM_PEDIDO.AsInteger := fDMCadPedido.qProximoPedidoNUM_PEDIDO.AsInteger + 1;
   fDMCadPedido.cdsPedidoNUM_PEDIDO.AsInteger := fnc_Proximo_Num_Pedido('P',fDMCadPedido.qParametros_PedUSA_NUM_PEDIDO_POR_FILIAL.AsString,fDMCadPedido.cdsFilialNUM_PEDIDO_ULT.AsInteger) + 1;
   vNumPedido_Gerado                          := fDMCadPedido.cdsPedidoNUM_PEDIDO.AsInteger;
+
+  if trim(fDMCadPedido.qParametros_PedGRAVAR_ORC_PED_CLIENTE.AsString) <> 'S' then
+    fDMCadPedido.cdsPedidoPEDIDO_CLIENTE.AsString     := fDMCadPedido.cdsPedidoNUM_PEDIDO.AsString; 
 
   vID_LocalAux := fnc_Verificar_Local(fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString);
   if vID_LocalAux > 0 then

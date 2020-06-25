@@ -512,7 +512,7 @@ object dmCadProduto: TdmCadProduto
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspProdutoUpdateError
     OnGetTableName = dspProdutoGetTableName
-    Left = 82
+    Left = 83
     Top = 1
   end
   object cdsProduto: TClientDataSet
@@ -524,7 +524,7 @@ object dmCadProduto: TdmCadProduto
     OnCalcFields = cdsProdutoCalcFields
     OnNewRecord = cdsProdutoNewRecord
     OnReconcileError = cdsProdutoReconcileError
-    Left = 116
+    Left = 111
     Top = 3
     object cdsProdutoID: TIntegerField
       Alignment = taCenter
@@ -1585,7 +1585,6 @@ object dmCadProduto: TdmCadProduto
     end
     object sdsProduto_ConsumoNOME_POSICAO: TStringField
       FieldName = 'NOME_POSICAO'
-      ProviderFlags = []
       Size = 30
     end
   end
@@ -1597,7 +1596,7 @@ object dmCadProduto: TdmCadProduto
     BeforePost = cdsProduto_ConsumoBeforePost
     OnCalcFields = cdsProduto_ConsumoCalcFields
     OnNewRecord = cdsProduto_ConsumoNewRecord
-    Left = 114
+    Left = 116
     Top = 114
     object cdsProduto_ConsumoID: TIntegerField
       FieldName = 'ID'
@@ -1715,7 +1714,6 @@ object dmCadProduto: TdmCadProduto
     end
     object cdsProduto_ConsumoNOME_POSICAO: TStringField
       FieldName = 'NOME_POSICAO'
-      ProviderFlags = []
       Size = 30
     end
   end
@@ -2549,8 +2547,8 @@ object dmCadProduto: TdmCadProduto
     Params = <>
     ProviderName = 'dspProduto_Veiculo'
     BeforePost = cdsProduto_VeiculoBeforePost
-    Left = 114
-    Top = 365
+    Left = 116
+    Top = 364
     object cdsProduto_VeiculoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2656,7 +2654,7 @@ object dmCadProduto: TdmCadProduto
     IndexFieldNames = 'ID;TAMANHO'
     Params = <>
     OnCalcFields = cdsProduto_TamCalcFields
-    Left = 114
+    Left = 115
     Top = 236
     object cdsProduto_TamID: TIntegerField
       FieldName = 'ID'
@@ -2891,8 +2889,8 @@ object dmCadProduto: TdmCadProduto
     DataSetField = cdsProduto_ConsumosdsProduto_Consumo_Tam
     IndexFieldNames = 'ID;ITEM;TAMANHO'
     Params = <>
-    Left = 114
-    Top = 190
+    Left = 112
+    Top = 188
     object cdsProduto_Consumo_TamID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

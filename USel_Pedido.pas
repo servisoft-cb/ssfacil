@@ -444,7 +444,6 @@ begin
       vQtd_Faturado := fDMCadNotaFiscal.cdsPedidoQTD_FATURADO.AsFloat;
       if (Tag = 11) then
         vQtd_Faturado := fDMCadNotaFiscal.cdsPedidoQTD_FUT.AsFloat;
-      //if (vTipo_RegPed <> 'C') and (StrToFloat(FormatFloat('0.000000',fDMCadNotaFiscal.cdsPedidoQTD_FATURADO.AsFloat)) > 0) then
       if (fDMCadNotaFiscal.qParametros_EstGERAR_LOTE_AUT.AsString = 'S') and (fDMCadNotaFiscal.cdsPedidoCOPIAR_SELECIONADO.AsString = 'N') and
          (fDMCadNotaFiscal.cdsPedidoLANCA_LOTE_CONTROLE.AsString = 'S') then
         Background  := clYellow
@@ -456,6 +455,12 @@ begin
       begin
         Background  := clGreen;
         AFont.Color := clWhite;
+      end
+      else
+      if (vTipo_RegPed <> 'C') and (fDMCadNotaFiscal.cdsPedidoDTCONFERENCIA.AsDateTime > 10) then
+      begin
+        Background  := $000080FF;
+        AFont.Color := clBlack;
       end;
 
       if (Field = fDMCadNotaFiscal.cdsPedidoQTD_AFATURAR) then

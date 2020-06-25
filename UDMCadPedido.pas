@@ -3758,6 +3758,7 @@ type
     sdsPedido_ItensPESO_AJUSTADO: TStringField;
     cdsPedido_ItensPESO_AJUSTADO: TStringField;
     qParametros_PedUSA_QTD_PECA: TStringField;
+    qParametros_PedGRAVAR_ORC_PED_CLIENTE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

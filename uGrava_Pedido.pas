@@ -583,14 +583,17 @@ begin
       fDMCadPedido.cdsPedidoAPROVADO_PED.AsString := 'A';
 
     //18/07/2017
-    if (fDMCadPedido.cdsClienteEMAIL_COMPRAS.AsString = '') and (fDMCadPedido.cdsPedidoEMAIL_COMPRAS.AsString <> '') and
+
+    if (Length(fDMCadPedido.cdsClienteEMAIL_COMPRAS.AsString) <= 10) and (Length(fDMCadPedido.cdsPedidoEMAIL_COMPRAS.AsString) > 10) and
+    //if ( fDMCadPedido.cdsClienteEMAIL_COMPRAS.AsString = '') and (fDMCadPedido.cdsPedidoEMAIL_COMPRAS.AsString <> '') and
        (fDMCadPedido.cdsParametrosID_CLIENTE_CONSUMIDOR.AsInteger <> fDMCadPedido.cdsPedidoID_CLIENTE.asInteger) and
        (fDMCadPedido.qParametros_PedUSA_EMAIL_NO_PED.AsString = 'S') then
     begin
        fDMCadPedido.prc_Gravar_Email_Pessoa(fDMCadPedido.cdsClienteCODIGO.AsInteger,fDMCadPedido.cdsPedidoEMAIL_COMPRAS.AsString);
     end;
 
-    if (fDMCadPedido.cdsClienteCELULAR.AsString = '') and (fDMCadPedido.cdsPedidoFONE.AsString <> '') and
+    //if (Length(fDMCadPedido.cdsClienteCELULAR.AsString) <= 10) and (Length(fDMCadPedido.cdsPedidoFONE.AsString <> '') and
+    if (Length(fDMCadPedido.cdsClienteCELULAR.AsString) <= 3) and (Length(fDMCadPedido.cdsPedidoFONE.AsString) > 3) and
        (fDMCadPedido.cdsParametrosID_CLIENTE_CONSUMIDOR.AsInteger <> fDMCadPedido.cdsPedidoID_CLIENTE.asInteger) and
        (fDMCadPedido.qParametros_PedENVIA_SMS.AsString = 'S') then
     begin
