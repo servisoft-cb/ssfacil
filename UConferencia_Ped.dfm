@@ -77,7 +77,7 @@ object frmConferencia_Ped: TfrmConferencia_Ped
       ParentFont = False
     end
     object btnConfirmar: TNxButton
-      Left = 20
+      Left = 21
       Top = 4
       Width = 173
       Height = 30
@@ -418,7 +418,6 @@ object frmConferencia_Ped: TfrmConferencia_Ped
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end>
     end
@@ -738,7 +737,7 @@ object frmConferencia_Ped: TfrmConferencia_Ped
       ParentFont = False
     end
     object Edit1: TEdit
-      Left = 116
+      Left = 118
       Top = 16
       Width = 213
       Height = 26

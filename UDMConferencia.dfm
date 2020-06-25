@@ -2011,7 +2011,7 @@ object DMConferencia: TDMConferencia
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 394
-    Top = 386
+    Top = 387
     object sdsPedido_Item_ProcessoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

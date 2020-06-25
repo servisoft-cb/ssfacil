@@ -252,15 +252,22 @@ begin
       fDMConferencia.cdsPedido_Item_Processo.Close;
       fDMConferencia.sdsPedido_Item_Processo.ParamByName('ID').AsInteger            := sds.FieldByName('ID').AsInteger;
       fDMConferencia.sdsPedido_Item_Processo.ParamByName('ITEM').AsInteger          := sds.FieldByName('ITEM').AsInteger;
-      fDMConferencia.sdsPedido_Item_Processo.ParamByName('ITEM_PROCESSO').AsInteger := sds.FieldByName('ITEM_PROCESSO').AsInteger;
+      //fDMConferencia.sdsPedido_Item_Processo.ParamByName('ITEM_PROCESSO').AsInteger := sds.FieldByName('ITEM_PROCESSO').AsInteger;
       fDMConferencia.cdsPedido_Item_Processo.Open;
-      fDMConferencia.cdsPedido_Item_Processo.Edit;
+      fDMConferencia.cdsPedido_Item_Processo.Last;
+      //Tirado 25/06/2020 Para a JW
+      {fDMConferencia.cdsPedido_Item_Processo.Edit;
       fDMConferencia.cdsPedido_Item_ProcessoDTENTRADA.Clear;
       fDMConferencia.cdsPedido_Item_ProcessoHRENTRADA.Clear;
       fDMConferencia.cdsPedido_Item_ProcessoDTBAIXA.Clear;
       fDMConferencia.cdsPedido_Item_ProcessoHRSAIDA.Clear;
-      fDMConferencia.cdsPedido_Item_Processo.Post;
-      fDMConferencia.cdsPedido_Item_Processo.ApplyUpdates(0);
+      fDMConferencia.cdsPedido_Item_Processo.
+      fDMConferencia.cdsPedido_Item_Processo.Post;}
+      if not fDMConferencia.cdsPedido_Item_Processo.IsEmpty then
+      begin
+        fDMConferencia.cdsPedido_Item_Processo.Delete;
+        fDMConferencia.cdsPedido_Item_Processo.ApplyUpdates(0);
+      end;
     end;
     
     fDMConferencia.cdsPedido_Item.Edit;
