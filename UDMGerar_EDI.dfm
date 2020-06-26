@@ -810,11 +810,6 @@ object DMGerar_EDI: TDMGerar_EDI
         DataType = ftString
         Name = 'TAMANHO_CLIENTE'
         ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'TAMANHO_CLIENTE'
-        ParamType = ptInput
       end>
     SQL.Strings = (
       'SELECT p.*, prod.inativo, prod.tipo_reg'
@@ -824,9 +819,8 @@ object DMGerar_EDI: TDMGerar_EDI
       'WHERE P.ID_FORNECEDOR = :ID_FORNECEDOR'
       '  AND P.COD_MATERIAL_FORN = :COD_MATERIAL_FORN'
       '  AND P.COD_COR_FORN = :COD_COR_FORN'
-      
-        '      and (P.TAMANHO_CLIENTE = :TAMANHO_CLIENTE or :TAMANHO_CLIE' +
-        'NTE = '#39#39')')
+      '      and (P.TAMANHO_CLIENTE = :TAMANHO_CLIENTE)'
+      '')
     SQLConnection = dmDatabase.scoDados
     Left = 376
     Top = 184
