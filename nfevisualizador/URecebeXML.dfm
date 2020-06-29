@@ -22,9 +22,9 @@ object frmRecebeXML: TfrmRecebeXML
   object pcDados: TPageControl
     Left = 0
     Top = 146
-    Width = 1106
-    Height = 519
-    ActivePage = TabSheet4
+    Width = 1098
+    Height = 511
+    ActivePage = TabSheet1
     Align = alClient
     TabOrder = 0
     object TabSheet1: TTabSheet
@@ -224,7 +224,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 47
           Top = 23
           Width = 54
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'serie'
@@ -243,7 +243,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 159
           Top = 17
           Width = 131
-          Height = 26
+          Height = 25
           TabStop = False
           Ctl3D = False
           DataField = 'nNF'
@@ -262,7 +262,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 354
           Top = 17
           Width = 143
-          Height = 26
+          Height = 25
           TabStop = False
           Ctl3D = False
           DataField = 'ide_dEmi'
@@ -281,7 +281,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 596
           Top = 23
           Width = 94
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'dSaiEnt'
@@ -300,7 +300,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 795
           Top = 23
           Width = 94
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'hSaiEnt'
@@ -319,7 +319,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 47
           Top = 66
           Width = 54
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'mod'
@@ -338,7 +338,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 353
           Top = 62
           Width = 129
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -354,7 +354,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 554
           Top = 62
           Width = 129
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -370,7 +370,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 783
           Top = 62
           Width = 94
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -386,7 +386,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 353
           Top = 80
           Width = 129
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -402,7 +402,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 7
           Top = 119
           Width = 224
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'dhCont'
@@ -421,7 +421,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 7
           Top = 162
           Width = 834
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'xJust'
@@ -440,7 +440,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 554
           Top = 80
           Width = 323
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -456,7 +456,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 353
           Top = 41
           Width = 144
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'ide_dhemi'
@@ -544,7 +544,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 66
           Top = 21
           Width = 631
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'emit_xNome'
@@ -563,7 +563,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 66
           Top = 39
           Width = 164
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -579,7 +579,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 314
           Top = 39
           Width = 129
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -595,7 +595,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 645
           Top = 39
           Width = 52
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -680,7 +680,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 66
           Top = 21
           Width = 631
-          Height = 26
+          Height = 19
           TabStop = False
           Ctl3D = False
           DataField = 'dest_xNome'
@@ -699,7 +699,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 66
           Top = 39
           Width = 164
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -715,7 +715,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 314
           Top = 39
           Width = 129
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -731,7 +731,7 @@ object frmRecebeXML: TfrmRecebeXML
           Left = 645
           Top = 39
           Width = 52
-          Height = 26
+          Height = 19
           Ctl3D = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -882,14 +882,14 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 1098
-        Height = 491
+        Width = 1090
+        Height = 483
         Align = alClient
         Color = clMoneyGreen
         TabOrder = 0
         DesignSize = (
-          1098
-          491)
+          1090
+          483)
         object Label29: TLabel
           Left = 18
           Top = 29
@@ -1138,7 +1138,7 @@ object frmRecebeXML: TfrmRecebeXML
           ParentFont = False
         end
         object Label61: TLabel
-          Left = 908
+          Left = 900
           Top = 389
           Width = 132
           Height = 13
@@ -1502,7 +1502,7 @@ object frmRecebeXML: TfrmRecebeXML
           TabOrder = 18
         end
         object BitBtn2: TBitBtn
-          Left = 932
+          Left = 924
           Top = 407
           Width = 123
           Height = 25
@@ -1514,7 +1514,7 @@ object frmRecebeXML: TfrmRecebeXML
           OnClick = BitBtn2Click
         end
         object BitBtn1: TBitBtn
-          Left = 932
+          Left = 924
           Top = 459
           Width = 123
           Height = 25
@@ -1532,8 +1532,8 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 1027
-        Height = 491
+        Width = 1090
+        Height = 483
         Align = alClient
         Color = clMoneyGreen
         TabOrder = 0
@@ -1987,8 +1987,8 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 1027
-        Height = 491
+        Width = 1090
+        Height = 483
         Align = alClient
         Color = clMoneyGreen
         TabOrder = 0
@@ -2218,16 +2218,16 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 1098
-        Height = 491
+        Width = 1090
+        Height = 483
         Align = alClient
         Color = clMoneyGreen
         TabOrder = 0
         object SMDBGrid1: TSMDBGrid
           Left = 1
           Top = 1
-          Width = 1096
-          Height = 259
+          Width = 1088
+          Height = 251
           Align = alClient
           Ctl3D = False
           DataSource = DMRecebeXML.dsmItensNota
@@ -2592,14 +2592,14 @@ object frmRecebeXML: TfrmRecebeXML
         end
         object Panel7: TPanel
           Left = 1
-          Top = 423
-          Width = 1096
+          Top = 415
+          Width = 1088
           Height = 67
           Align = alBottom
           Color = clSilver
           TabOrder = 1
           DesignSize = (
-            1096
+            1088
             67)
           object Shape1: TShape
             Left = 827
@@ -2752,8 +2752,8 @@ object frmRecebeXML: TfrmRecebeXML
         end
         object PageControl1: TPageControl
           Left = 1
-          Top = 260
-          Width = 1096
+          Top = 252
+          Width = 1088
           Height = 163
           ActivePage = TabSheet8
           Align = alBottom
@@ -3331,10 +3331,10 @@ object frmRecebeXML: TfrmRecebeXML
             ImageIndex = 1
             ParentFont = False
             DesignSize = (
-              1048
+              1040
               155)
             object Label106: TLabel
-              Left = 57
+              Left = 56
               Top = 44
               Width = 62
               Height = 13
@@ -3358,7 +3358,7 @@ object frmRecebeXML: TfrmRecebeXML
               Caption = 'Qtd.Conv.:'
             end
             object Label110: TLabel
-              Left = 68
+              Left = 67
               Top = 8
               Width = 51
               Height = 13
@@ -3382,7 +3382,7 @@ object frmRecebeXML: TfrmRecebeXML
               Caption = 'ID Pedido:'
             end
             object Label120: TLabel
-              Left = 39
+              Left = 37
               Top = 62
               Width = 81
               Height = 13
@@ -3391,22 +3391,22 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object Label115: TLabel
               Left = 99
-              Top = 97
+              Top = 98
               Width = 19
               Height = 13
               Alignment = taRightJustify
               Caption = 'Cor:'
             end
             object Label124: TLabel
-              Left = 74
-              Top = 115
+              Left = 72
+              Top = 116
               Width = 46
               Height = 13
               Alignment = taRightJustify
               Caption = 'ID Grupo:'
             end
             object Label129: TLabel
-              Left = 63
+              Left = 61
               Top = 80
               Width = 57
               Height = 13
@@ -3422,8 +3422,8 @@ object frmRecebeXML: TfrmRecebeXML
               Caption = 'CEST no NCM:'
             end
             object Label134: TLabel
-              Left = 34
-              Top = 133
+              Left = 32
+              Top = 134
               Width = 86
               Height = 13
               Alignment = taRightJustify
@@ -3431,7 +3431,7 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object Label125: TLabel
               Left = 429
-              Top = 130
+              Top = 133
               Width = 57
               Height = 13
               Alignment = taRightJustify
@@ -3439,7 +3439,7 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object Label135: TLabel
               Left = 438
-              Top = 95
+              Top = 96
               Width = 48
               Height = 13
               Alignment = taRightJustify
@@ -3511,7 +3511,7 @@ object frmRecebeXML: TfrmRecebeXML
               TabOrder = 2
             end
             object DBCheckBox1: TDBCheckBox
-              Left = 401
+              Left = 272
               Top = 20
               Width = 145
               Height = 17
@@ -3556,7 +3556,7 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object RxDBLookupCombo7: TRxDBLookupCombo
               Left = 120
-              Top = 91
+              Top = 92
               Width = 249
               Height = 19
               DropDownCount = 8
@@ -3574,7 +3574,7 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object DBEdit76: TDBEdit
               Left = 120
-              Top = 108
+              Top = 110
               Width = 81
               Height = 19
               AutoSize = False
@@ -3588,7 +3588,7 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object DBEdit77: TDBEdit
               Left = 200
-              Top = 108
+              Top = 110
               Width = 223
               Height = 19
               TabStop = False
@@ -3602,7 +3602,7 @@ object frmRecebeXML: TfrmRecebeXML
               TabOrder = 12
             end
             object ckAtualizaRef: TCheckBox
-              Left = 671
+              Left = 567
               Top = 20
               Width = 125
               Height = 17
@@ -3699,7 +3699,7 @@ object frmRecebeXML: TfrmRecebeXML
               Left = 288
               Top = 74
               Width = 81
-              Height = 18
+              Height = 19
               AutoSize = False
               CharCase = ecUpperCase
               Color = clSilver
@@ -3710,7 +3710,7 @@ object frmRecebeXML: TfrmRecebeXML
               TabOrder = 14
             end
             object DBCheckBox10: TDBCheckBox
-              Left = 436
+              Left = 440
               Top = 66
               Width = 92
               Height = 17
@@ -3723,7 +3723,7 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object DBEdit82: TDBEdit
               Left = 120
-              Top = 126
+              Top = 128
               Width = 81
               Height = 19
               AutoSize = False
@@ -3737,7 +3737,7 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object DBEdit83: TDBEdit
               Left = 200
-              Top = 126
+              Top = 128
               Width = 223
               Height = 19
               TabStop = False
@@ -3751,8 +3751,8 @@ object frmRecebeXML: TfrmRecebeXML
               TabOrder = 17
             end
             object RxDBComboBox2: TRxDBComboBox
-              Left = 489
-              Top = 123
+              Left = 487
+              Top = 125
               Width = 88
               Height = 21
               Style = csDropDownList
@@ -3770,7 +3770,7 @@ object frmRecebeXML: TfrmRecebeXML
             end
             object RxDBLookupCombo10: TRxDBLookupCombo
               Left = 487
-              Top = 89
+              Top = 90
               Width = 82
               Height = 19
               DropDownCount = 8
@@ -4051,14 +4051,14 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel10: TPanel
         Left = 0
         Top = 0
-        Width = 1088
-        Height = 481
+        Width = 1080
+        Height = 473
         Align = alClient
         TabOrder = 0
         object Panel11: TPanel
           Left = 1
           Top = 1
-          Width = 1086
+          Width = 1078
           Height = 41
           Align = alTop
           TabOrder = 0
@@ -4280,8 +4280,8 @@ object frmRecebeXML: TfrmRecebeXML
         object SMDBGrid2: TSMDBGrid
           Left = 1
           Top = 42
-          Width = 1086
-          Height = 438
+          Width = 1078
+          Height = 430
           Align = alClient
           Ctl3D = False
           DataSource = DMRecebeXML.dsmParc
@@ -4387,8 +4387,8 @@ object frmRecebeXML: TfrmRecebeXML
       object dgNFeRef: TDBGrid
         Left = 0
         Top = 0
-        Width = 1017
-        Height = 278
+        Width = 1080
+        Height = 270
         Align = alClient
         DataSource = DMRecebeXML.dsNFeRef
         ReadOnly = True
@@ -4401,8 +4401,8 @@ object frmRecebeXML: TfrmRecebeXML
       end
       object dgNFeProtocolo: TDBGrid
         Left = 0
-        Top = 278
-        Width = 1017
+        Top = 270
+        Width = 1080
         Height = 203
         Align = alBottom
         DataSource = DMRecebeXML.dsNFeProtocolo
@@ -4481,8 +4481,8 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel8: TPanel
         Left = 0
         Top = 0
-        Width = 1027
-        Height = 491
+        Width = 1090
+        Height = 483
         Align = alClient
         Color = clMoneyGreen
         Enabled = False
@@ -4858,8 +4858,8 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel6: TPanel
         Left = 0
         Top = 0
-        Width = 1098
-        Height = 491
+        Width = 1090
+        Height = 483
         Align = alClient
         Color = clMoneyGreen
         TabOrder = 0
@@ -5051,14 +5051,14 @@ object frmRecebeXML: TfrmRecebeXML
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 1106
+    Width = 1098
     Height = 146
     Align = alTop
     BevelOuter = bvNone
     Color = clMoneyGreen
     TabOrder = 1
     DesignSize = (
-      1106
+      1098
       146)
     object Label4: TLabel
       Left = 269
