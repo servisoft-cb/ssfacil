@@ -894,6 +894,16 @@ begin
       fDMCadPedido.cdsPedido_ItensPERC_ICMS.AsFloat := 0;
   end;
   //25/08/2014
+  if (fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger <= 0) and (fDMCadPedido.cdsFilialCALCULAR_IPI.AsString = 'S') then
+  begin
+    if StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsProdutoPERC_IPI.AsFloat)) > 0 then
+    begin
+      fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat    := StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsProdutoPERC_IPI.AsFloat));
+      if fDMCadPedido.cdsProdutoID_CSTIPI.AsInteger > 0 then
+        fDMCadPedido.cdsPedido_ItensID_CSTIPI.AsInteger := fDMCadPedido.cdsProdutoID_CSTIPI.AsInteger;
+    end;
+  end
+  else
   if (((fDMCadPedido.cdsCFOPGERAR_IPI.AsString = 'S') and (fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger > 0)) or (fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger <= 0)) and not(vIPI_Suspenso) and
     (fDMCadPedido.cdsFilialCALCULAR_IPI.AsString = 'S') and (fDMCadPedido.cdsTab_CSTIPIGERAR_IPI.AsString = 'S') then
   begin

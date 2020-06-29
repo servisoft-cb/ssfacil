@@ -948,7 +948,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'NOME_CONTATO'
             Title.Alignment = taCenter
             Title.Caption = 'Contato'
-            Width = 64
             Visible = True
           end
           item
@@ -1003,7 +1002,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Cli'
-            Width = 64
             Visible = True
           end
           item
@@ -1012,7 +1010,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_FORNECEDOR'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Forn.'
-            Width = 64
             Visible = True
           end
           item
@@ -1030,7 +1027,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_VENDEDOR'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Repr.'
-            Width = 64
             Visible = True
           end
           item
@@ -1039,7 +1035,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'ORGAO_PUBLICO'
             Title.Alignment = taCenter
             Title.Caption = 'Org'#227'o P'#250'blico'
-            Width = 64
             Visible = True
           end
           item
@@ -1047,7 +1042,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'DTPEDIDO'
             Title.Alignment = taCenter
             Title.Caption = 'Data '#218'lt. Pedido'
-            Width = 64
             Visible = True
           end
           item
@@ -1055,7 +1049,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'DTNOTA'
             Title.Alignment = taCenter
             Title.Caption = 'Data '#218'lt. Faturamento'
-            Width = 64
             Visible = True
           end
           item
@@ -1103,7 +1096,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Nome Grupo'
-            Width = 64
             Visible = True
           end
           item
@@ -1111,7 +1103,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_CONTA_ORCAMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Or'#231'amento'
-            Width = 64
             Visible = True
           end
           item
@@ -1119,7 +1110,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_CLI'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Cliente'
-            Width = 64
             Visible = True
           end
           item
@@ -1127,7 +1117,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_FORN'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Fornecedor'
-            Width = 64
             Visible = True
           end
           item
@@ -1135,7 +1124,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_TRANSP'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Transp.'
-            Width = 64
             Visible = True
           end
           item
@@ -1150,7 +1138,6 @@ object frmCadPessoa: TfrmCadPessoa
             Expanded = False
             FieldName = 'INSCR_EST'
             Title.Caption = 'Inscr. Estadual'
-            Width = 64
             Visible = True
           end
           item
@@ -1166,7 +1153,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_REGIME'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Regime'
-            Width = 64
             Visible = True
           end
           item
@@ -4644,7 +4630,6 @@ object frmCadPessoa: TfrmCadPessoa
                     Expanded = False
                     FieldName = 'OBS'
                     Title.Color = 12320699
-                    Width = 64
                     Visible = True
                   end>
               end
@@ -6526,7 +6511,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox14: TDBCheckBox
             Left = 720
-            Top = 416
+            Top = 413
             Width = 225
             Height = 17
             Caption = 'Cliente Estoque (Pedido sem Faturamento)'
@@ -6544,7 +6529,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox15: TDBCheckBox
             Left = 720
-            Top = 432
+            Top = 427
             Width = 249
             Height = 17
             Caption = 'Agrupa Tamanhos na Emiss'#227'o da Nota Fiscal'
@@ -6576,7 +6561,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox6: TDBCheckBox
             Left = 720
-            Top = 448
+            Top = 456
             Width = 145
             Height = 17
             Caption = 'Cobrar Taxa Banc'#225'ria'
@@ -6721,7 +6706,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox24: TDBCheckBox
             Left = 720
-            Top = 464
+            Top = 441
             Width = 89
             Height = 17
             Caption = 'Protestar'
@@ -6739,7 +6724,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox25: TDBCheckBox
             Left = 720
-            Top = 480
+            Top = 470
             Width = 265
             Height = 17
             Caption = 'Controlar o Custo L'#237'quido na Entrada'
@@ -6757,7 +6742,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox26: TDBCheckBox
             Left = 720
-            Top = 496
+            Top = 485
             Width = 265
             Height = 17
             Caption = 'Usar a OC/Item que vem no XML do fornecedor'
@@ -6998,7 +6983,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox32: TDBCheckBox
             Left = 720
-            Top = 512
+            Top = 499
             Width = 265
             Height = 17
             Caption = 'Imprimir o nome do Produto do Cliente na NFe'
@@ -7057,9 +7042,9 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox34: TDBCheckBox
             Left = 720
-            Top = 528
+            Top = 513
             Width = 265
-            Height = 17
+            Height = 21
             Caption = 'Imprime o Tamanho no Final do Nome do Produto'
             DataField = 'IMP_TAMANHO_FINAL'
             DataSource = DMCadPessoa.dsPessoa
@@ -7070,6 +7055,24 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Style = []
             ParentFont = False
             TabOrder = 44
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
+          end
+          object DBCheckBox35: TDBCheckBox
+            Left = 721
+            Top = 533
+            Width = 279
+            Height = 17
+            Caption = 'Cliente usa o Tamanho no C'#243'digo do Produto (EDI)'
+            DataField = 'USA_TAMANHO_EDI_COD'
+            DataSource = DMCadPessoa.dsPessoa
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            TabOrder = 45
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end

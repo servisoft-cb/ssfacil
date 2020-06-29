@@ -625,6 +625,11 @@ object DMCadPessoa: TDMCadPessoa
       FixedChar = True
       Size = 1
     end
+    object sdsPessoaUSA_TAMANHO_EDI_COD: TStringField
+      FieldName = 'USA_TAMANHO_EDI_COD'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspPessoa: TDataSetProvider
     DataSet = sdsPessoa
@@ -1296,6 +1301,11 @@ object DMCadPessoa: TDMCadPessoa
     end
     object cdsPessoaIMP_TAMANHO_FINAL: TStringField
       FieldName = 'IMP_TAMANHO_FINAL'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPessoaUSA_TAMANHO_EDI_COD: TStringField
+      FieldName = 'USA_TAMANHO_EDI_COD'
       FixedChar = True
       Size = 1
     end
