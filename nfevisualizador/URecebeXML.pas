@@ -433,7 +433,7 @@ type
     vDescICMS: array[1..9] of String;
     vTipoIcms: String;
     vCSTInterno: Integer;
-    vCST_TipoICMS : String;
+    vCST_TipoICMS: String;
     vItem: Integer;
     vGravar: Boolean;
     vOpenDialog: String;
@@ -516,7 +516,7 @@ type
     function fnc_erro: Boolean;
     function fnc_Item_Inativo: Boolean;
     function fnc_Montar_PrecoCompra(Unidade: String): Real;
-    function fnc_Montar_PrecoCustoTotal(Unidade: String ; CustoTotal :Boolean = True): Real;
+    function fnc_Montar_PrecoCustoTotal(Unidade: String; CustoTotal :Boolean = True): Real;
 
     procedure prc_Aplicar_Margem;
 
@@ -555,8 +555,8 @@ var
 implementation
 
 uses
-  DmdDatabase, uUtilPadrao, UMenu, rsDBUtils, uNFeComandos, USel_Pessoa, USel_Grupo, USel_Produto_Cor,
-  USel_ContaOrc, uRecebeXML_CFOP, VarUtils;
+  DmdDatabase, uUtilPadrao, UMenu, rsDBUtils, uNFeComandos, USel_Pessoa, USel_Grupo, USel_Produto_Cor, USel_ContaOrc, VarUtils,
+  uRecebeXML_CFOP;
 
 {$R *.dfm}
 
@@ -940,7 +940,6 @@ begin
       fDMRecebeXML.mParc.Post;
     end;
   end;
-
 end;
 
 procedure TfrmRecebeXML.Grava_mItensNota;
@@ -952,7 +951,6 @@ var
   vQtdAux: Real;
   vTexto2: String;
   vFlag: Boolean;
-
 begin
   vGerar_Estoque := 'N';
   fDMRecebeXML.mItensNota.Insert;
@@ -1742,18 +1740,18 @@ begin
 
   try
     fDMRecebeXML.cdsFornecedor.Insert;
-    fDMRecebeXML.cdsFornecedorCODIGO.AsInteger      := vAux;
+    fDMRecebeXML.cdsFornecedorCODIGO.AsInteger   := vAux;
     if fDMRecebeXML.qParametros_GeralUSAR_PESSOA_FILIAL.AsString = 'S' then
       fDMRecebeXML.cdsFornecedorFILIAL.AsInteger := vFilial_Local;
-    fDMRecebeXML.cdsFornecedorNOME.AsString         := UpperCase(fDMRecebeXML.cdsCabecalhoemit_xNome.AsString);
-    fDMRecebeXML.cdsFornecedorENDERECO.AsString     := UpperCase(fDMRecebeXML.cdsCabecalhoenderEmit_xLgr.AsString);
-    fDMRecebeXML.cdsFornecedorBAIRRO.AsString       := UpperCase(fDMRecebeXML.cdsCabecalhoenderEmit_xBairro.AsString);
-    fDMRecebeXML.cdsFornecedorCIDADE.AsString       := UpperCase(fDMRecebeXML.cdsCabecalhoenderEmit_xMun.AsString);
-    fDMRecebeXML.cdsFornecedorCEP.AsString          := fDMRecebeXML.cdsCabecalhoenderEmit_CEP.AsString;
-    fDMRecebeXML.cdsFornecedorUF.AsString           := UpperCase(fDMRecebeXML.cdsCabecalhoenderEmit_UF.AsString);
-    fDMRecebeXML.cdsFornecedorTELEFONE1.AsString    := fDMRecebeXML.cdsCabecalhoenderEmit_fone.AsString;
-    fDMRecebeXML.cdsFornecedorCNPJ_CPF.AsString     := edCNPJEmitente2.Text;
-    fDMRecebeXML.cdsFornecedorINSCR_EST.AsString    := edInscEmitente2.Text;
+    fDMRecebeXML.cdsFornecedorNOME.AsString      := UpperCase(fDMRecebeXML.cdsCabecalhoemit_xNome.AsString);
+    fDMRecebeXML.cdsFornecedorENDERECO.AsString  := UpperCase(fDMRecebeXML.cdsCabecalhoenderEmit_xLgr.AsString);
+    fDMRecebeXML.cdsFornecedorBAIRRO.AsString    := UpperCase(fDMRecebeXML.cdsCabecalhoenderEmit_xBairro.AsString);
+    fDMRecebeXML.cdsFornecedorCIDADE.AsString    := UpperCase(fDMRecebeXML.cdsCabecalhoenderEmit_xMun.AsString);
+    fDMRecebeXML.cdsFornecedorCEP.AsString       := fDMRecebeXML.cdsCabecalhoenderEmit_CEP.AsString;
+    fDMRecebeXML.cdsFornecedorUF.AsString        := UpperCase(fDMRecebeXML.cdsCabecalhoenderEmit_UF.AsString);
+    fDMRecebeXML.cdsFornecedorTELEFONE1.AsString := fDMRecebeXML.cdsCabecalhoenderEmit_fone.AsString;
+    fDMRecebeXML.cdsFornecedorCNPJ_CPF.AsString  := edCNPJEmitente2.Text;
+    fDMRecebeXML.cdsFornecedorINSCR_EST.AsString := edInscEmitente2.Text;
     if fDMRecebeXML.cdsFornecedorINSCR_EST.AsString = EmptyStr then
       fDMRecebeXML.cdsFornecedorTIPO_CONTRIBUINTE.AsInteger := 9
     else
@@ -1822,10 +1820,8 @@ begin
     exit;
   end;
 
-  vAux := dmDatabase.ProximaSequencia('TAB_NCM',0);
-
-  try
-
+  vAux := dmDatabase.ProximaSequencia('TAB_NCM',0);            
+  try                                              
     fDMRecebeXML.cdsNCM.Insert;
     fDMRecebeXML.cdsNCMID.AsInteger      := vAux;
     fDMRecebeXML.cdsNCMNCM.AsString      := fDMRecebeXML.mItensNotaNCM.AsString;
@@ -1954,7 +1950,6 @@ begin
   lbStatusMaterial.Color := clMoneyGreen;
   if (fDMRecebeXML.qParametros_RecXMLCONTROLAR_GRAVA_PROD.AsString = 'S') and not(ckAssociar.Checked) then
     fDMRecebeXML.prc_Abrir_Produto(-1);
-  //  exit;
 
   if fDMRecebeXML.mItensNotaCodProdutoInterno.AsInteger > 0 then
     fDMRecebeXML.prc_Abrir_Produto(fDMRecebeXML.mItensNotaCodProdutoInterno.AsInteger)
@@ -2144,7 +2139,6 @@ procedure TfrmRecebeXML.Gravar_Produto;
 var
   vAux: Integer;
   vVlrAux: Real;
-  //vUnidadeAux: String;
 begin
   vAux := dmDatabase.ProximaSequencia('PRODUTO',0);
   vAux := vAux;
@@ -2440,25 +2434,25 @@ begin
     if StrToFloat(FormatFloat('0.00',fDMRecebeXML.cdsNotaFiscalVLR_FRETE.AsFloat)) > 0 then
       fDMRecebeXML.cdsNotaFiscalGERARDUPL_FRETE.AsString := 'S';
 
-    fDMRecebeXML.cdsNotaFiscalVLR_NOTA.AsFloat        := fDMRecebeXML.cdsCabecalhovNF.AsFloat;
-    fDMRecebeXML.cdsNotaFiscalBASE_ICMS.AsFloat       := 0;
-    fDMRecebeXML.cdsNotaFiscalVLR_ICMS.AsFloat        := 0;
-    fDMRecebeXML.cdsNotaFiscalVLR_IPI.AsFloat         := 0;
-    fDMRecebeXML.cdsNotaFiscalVLR_PIS.AsFloat         := 0;
-    fDMRecebeXML.cdsNotaFiscalVLR_COFINS.AsFloat      := 0;
-    fDMRecebeXML.cdsNotaFiscalBASE_COFINS.AsFloat     := 0;
-    fDMRecebeXML.cdsNotaFiscalBASE_PIS.AsFloat        := 0;
+    fDMRecebeXML.cdsNotaFiscalVLR_NOTA.AsFloat       := fDMRecebeXML.cdsCabecalhovNF.AsFloat;
+    fDMRecebeXML.cdsNotaFiscalBASE_ICMS.AsFloat      := 0;
+    fDMRecebeXML.cdsNotaFiscalVLR_ICMS.AsFloat       := 0;
+    fDMRecebeXML.cdsNotaFiscalVLR_IPI.AsFloat        := 0;
+    fDMRecebeXML.cdsNotaFiscalVLR_PIS.AsFloat        := 0;
+    fDMRecebeXML.cdsNotaFiscalVLR_COFINS.AsFloat     := 0;
+    fDMRecebeXML.cdsNotaFiscalBASE_COFINS.AsFloat    := 0;
+    fDMRecebeXML.cdsNotaFiscalBASE_PIS.AsFloat       := 0;
 
-    fDMRecebeXML.cdsNotaFiscalID_CFOP.AsInteger       := fDMRecebeXML.mItensNotaCFOPInterno.AsInteger;
-    fDMRecebeXML.cdsNotaFiscalVLR_OUTRASDESP.AsFloat  := fDMRecebeXML.cdsCabecalhovOutro.AsFloat;
+    fDMRecebeXML.cdsNotaFiscalID_CFOP.AsInteger      := fDMRecebeXML.mItensNotaCFOPInterno.AsInteger;
+    fDMRecebeXML.cdsNotaFiscalVLR_OUTRASDESP.AsFloat := fDMRecebeXML.cdsCabecalhovOutro.AsFloat;
     //18/07/2019
-    //fDMRecebeXML.cdsNotaFiscalVLR_ITENS.AsFloat       := fDMRecebeXML.cdsCabecalhovNF.AsFloat;
+    //fDMRecebeXML.cdsNotaFiscalVLR_ITENS.AsFloat    := fDMRecebeXML.cdsCabecalhovNF.AsFloat;
     fDMRecebeXML.cdsNotaFiscalVLR_ITENS.AsFloat := fDMRecebeXML.cdsCabecalhovProd.AsFloat;
     if StrToFloat(FormatFloat('0.00',fDMRecebeXML.cdsNotaFiscalVLR_ITENS.AsFloat)) <= 0 then
       fDMRecebeXML.cdsNotaFiscalVLR_ITENS.AsFloat := fDMRecebeXML.cdsCabecalhovNF.AsFloat;
     //******************
 
-    fDMRecebeXML.cdsNotaFiscalVLR_DESCONTO.AsFloat    := fDMRecebeXML.cdsCabecalhoICMSTot_vDesc.AsFloat;
+    fDMRecebeXML.cdsNotaFiscalVLR_DESCONTO.AsFloat := fDMRecebeXML.cdsCabecalhoICMSTot_vDesc.AsFloat;
     if vImportar_NotaSaida then
     begin
       fDMRecebeXML.cdsNotaFiscalNFECHAVEACESSO.AsString := '';
@@ -2522,18 +2516,18 @@ begin
     //******************
     if Tipo = 'R' then
     begin
-      fDMRecebeXML.cdsNotaFiscal_ItensLARGURA.AsFloat       := fDMRecebeXML.mRateioGeralLargura.AsFloat;
-      fDMRecebeXML.cdsNotaFiscal_ItensCOMPRIMENTO.AsFloat   := fDMRecebeXML.mRateioGeralComprimento.AsFloat;
-      fDMRecebeXML.cdsNotaFiscal_ItensESPESSURA.AsFloat     := fDMRecebeXML.mRateioGeralEspessura.AsFloat;
-      fDMRecebeXML.cdsNotaFiscal_ItensQTD.AsFloat           := fDMRecebeXML.mRateioGeralQuantidade.AsFloat;
-      fDMRecebeXML.cdsNotaFiscal_ItensQTDRESTANTE.AsFloat   := fDMRecebeXML.mRateioGeralQuantidade.AsFloat;
-      fDMRecebeXML.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat     := fDMRecebeXML.mItensNotaVlrUnitario.AsFloat * fDMRecebeXML.mRateioGeralQuantidade.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensLARGURA.AsFloat     := fDMRecebeXML.mRateioGeralLargura.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensCOMPRIMENTO.AsFloat := fDMRecebeXML.mRateioGeralComprimento.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensESPESSURA.AsFloat   := fDMRecebeXML.mRateioGeralEspessura.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensQTD.AsFloat         := fDMRecebeXML.mRateioGeralQuantidade.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensQTDRESTANTE.AsFloat := fDMRecebeXML.mRateioGeralQuantidade.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat   := fDMRecebeXML.mItensNotaVlrUnitario.AsFloat * fDMRecebeXML.mRateioGeralQuantidade.AsFloat;
     end
     else
     begin
-      fDMRecebeXML.cdsNotaFiscal_ItensQTD.AsFloat           := fDMRecebeXML.mItensNotaQtd.AsFloat;
-      fDMRecebeXML.cdsNotaFiscal_ItensQTDRESTANTE.AsFloat   := fDMRecebeXML.mItensNotaQtd.AsFloat;
-      fDMRecebeXML.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat     := fDMRecebeXML.mItensNotaVlrTotal.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensQTD.AsFloat         := fDMRecebeXML.mItensNotaQtd.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensQTDRESTANTE.AsFloat := fDMRecebeXML.mItensNotaQtd.AsFloat;
+      fDMRecebeXML.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat   := fDMRecebeXML.mItensNotaVlrTotal.AsFloat;
     end;
 
     fDMRecebeXML.cdsNotaFiscal_ItensID_NCM.AsInteger      := fDMRecebeXML.mItensNotaID_NCM.AsInteger;
@@ -2659,13 +2653,13 @@ begin
     fDMRecebeXML.cdsNotaFiscal_ItensPERC_ISSQN.AsFloat    := StrToFloat(FormatFloat('0.0000',fDMRecebeXML.mItensNotaPerc_ISSQN.AsFloat));
 
     //23/01/2018
-    fDMRecebeXML.cdsNotaFiscal_ItensPERC_COFINS.AsFloat       := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaAliqCofins.AsFloat));
-    fDMRecebeXML.cdsNotaFiscal_ItensPERC_PIS.AsFloat          := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaAliqPIS.AsFloat));
-    fDMRecebeXML.cdsNotaFiscal_ItensVLR_COFINS.AsFloat        := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaVlrCofins.AsFloat));
-    fDMRecebeXML.cdsNotaFiscal_ItensVLR_PIS.AsFloat           := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaVlrPis.AsFloat));
+    fDMRecebeXML.cdsNotaFiscal_ItensPERC_COFINS.AsFloat   := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaAliqCofins.AsFloat));
+    fDMRecebeXML.cdsNotaFiscal_ItensPERC_PIS.AsFloat      := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaAliqPIS.AsFloat));
+    fDMRecebeXML.cdsNotaFiscal_ItensVLR_COFINS.AsFloat    := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaVlrCofins.AsFloat));
+    fDMRecebeXML.cdsNotaFiscal_ItensVLR_PIS.AsFloat       := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaVlrPis.AsFloat));
     //16/01/2020
-    fDMRecebeXML.cdsNotaFiscal_ItensBASE_COFINS.AsFloat       := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaBase_Cofins.AsFloat));
-    fDMRecebeXML.cdsNotaFiscal_ItensBASE_PIS.AsFloat          := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaBase_Pis.AsFloat));
+    fDMRecebeXML.cdsNotaFiscal_ItensBASE_COFINS.AsFloat   := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaBase_Cofins.AsFloat));
+    fDMRecebeXML.cdsNotaFiscal_ItensBASE_PIS.AsFloat      := StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaBase_Pis.AsFloat));
     //**********************
 
     fDMRecebeXML.cdsNotaFiscal_ItensPRECO_CUSTO_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00000',fDMRecebeXML.mItensNotaPreco_Custo_Total.AsFloat));
@@ -2788,7 +2782,7 @@ begin
                                                fDMRecebeXML.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger,0,0);
 
   lbStatusEstoque.Color   := clMoneyGreen;
-  lbStatusEstoque.Caption := 'Gerou o estoque dos itens';
+  lbStatusEstoque.Caption := 'Gerou o estoque dos itens!';
 end;
 
 procedure TfrmRecebeXML.Gravar_NotaEntradaParc;
@@ -2872,17 +2866,14 @@ begin
     begin
       lbStatusContasPagar.Color      := clRed;
       lbStatusContasPagar.Font.Color := clWhite;
-      lbStatusContasPagar.Caption := 'Não existem dados de cobrança, não foram geradas contas a pagar';
+      lbStatusContasPagar.Caption := 'Não existem dados de cobrança, não foram geradas contas a pagar!';
     end;
   except
     on e: Exception do
     begin
       Raise Exception.Create('Ocorreu o seguinte erro ao gravar a nota: ' + #13 + e.Message);
     end
-  end;
-
-
-
+  end;                                                                        
 end;
 
 function TfrmRecebeXML.fnc_NumValido(Const S: String): Integer;
@@ -2930,7 +2921,7 @@ procedure TfrmRecebeXML.BitBtn4Click(Sender: TObject);
 begin
   if DateEdit1.Date <= 0 then
   begin
-    MessageDlg('*** Data de entrada não foi informada', mtInformation, [mbOk], 0);
+    MessageDlg('*** Data de entrada não foi informada!', mtInformation, [mbOk], 0);
     DateEdit1.SetFocus;
     exit;
   end;
@@ -3062,7 +3053,7 @@ begin
   end;
   if (vFilial_Local <= 0) and (trim(RxDBLookupCombo6.Text) = '') then
   begin
-    ShowMessage('Nota não pertence a empresa, Verifique se o campo <Filial> está preenchido!');
+    ShowMessage('Nota não pertence a empresa. Verifique se o campo <Filial> está preenchido!');
     exit;
   end;
   if (vFilial_Local <= 0) and (RxDBLookupCombo6.Visible) then
@@ -3645,7 +3636,6 @@ begin
       Raise Exception.Create('Ocorreu o seguinte erro ao gravar a tabela de Produto_Uni: ' + #13 + e.Message);
     end
   end;
-
 end;
 
 procedure TfrmRecebeXML.btnConfirmarClick(Sender: TObject);
@@ -3658,7 +3648,6 @@ begin
     fDMRecebeXML.mItensNota.Post;
     Gravar_Unidade;
   end;
-
 end;
 
 procedure TfrmRecebeXML.Gravar_Movimento;
@@ -3818,8 +3807,7 @@ begin
   prc_Verifica_Atualizacao_NCM_Custo;
   //**********************
   
-  prc_verifica_TipoVenda;
-
+  prc_verifica_TipoVenda;                  
 
   fDMRecebeXML.mItensNota.Post;
 end;
@@ -3999,7 +3987,7 @@ begin
   Result := StrToFloat(FormatFloat('0.00000',vVlrAux));
 end;
 
-function TfrmRecebeXML.fnc_Montar_PrecoCustoTotal(Unidade: String ; CustoTotal :Boolean = True): Real;
+function TfrmRecebeXML.fnc_Montar_PrecoCustoTotal(Unidade: String; CustoTotal :Boolean = True): Real;
 var
   vVlrAux: Real;
   vVlrIPIAux: Real;
@@ -4427,7 +4415,7 @@ procedure TfrmRecebeXML.CurrencyEdit2KeyDown(Sender: TObject;
 begin
   if (key = VK_RETURN) and (CurrencyEdit2.AsInteger > 0) then
   begin
-    if MessageDlg('Deseja gerar as referências internas na sequencia?', mtConfirmation,[mbOk,mbNo],0)=mrYes then
+    if MessageDlg('Deseja gerar as referências internas na sequência?', mtConfirmation,[mbOk,mbNo],0)=mrYes then
       prc_Gerar_Ref;
   end;
 end;
@@ -4713,7 +4701,6 @@ begin
     fDMRecebeXML.cdsNotaFiscal_ItensID_MOVIMENTO.AsInteger  := vID_Mov;
     fDMRecebeXML.cdsNotaFiscal_Itens.Post;
 
-
     fDMRecebeXML.mRateioGeral.Next;
   end;
 end;
@@ -4725,7 +4712,7 @@ var
   vQtdConv: Real;
   vConvUnid: Boolean;
 begin
-  vUnidAux := InputBox('Trocar a Unidade','Informar a Unidade que que Veio no XML', '');
+  vUnidAux := InputBox('Trocar a Unidade','Informar a unidade que que veio no XML', '');
   if trim(vUnidAux) = '' then
     exit;
 
@@ -4864,7 +4851,6 @@ begin
         fDMRecebeXML.mItensNotaVlr_Base_Efet.AsFloat       := 0;
         fDMRecebeXML.mItensNotaPerc_ICMS_Efet.AsFloat      := 0;
         fDMRecebeXML.mItensNotaVlr_ICMS_Efet.AsFloat       := 0;
-
       end
       else
       begin
@@ -4958,8 +4944,7 @@ begin
       Move_Campos(vTipoIcms+'pRedBCEfet','Perc_Base_Red_Efet','N');
       Move_Campos(vTipoIcms+'vBCEfet','Vlr_Base_Efet','N');
       Move_Campos(vTipoIcms+'pICMSEfet','Perc_ICMS_Efet','N');
-      Move_Campos(vTipoIcms+'vICMSEfet','Vlr_ICMS_Efet','N');
-
+      Move_Campos(vTipoIcms+'vICMSEfet','Vlr_ICMS_Efet','N');                     
     end;
   end;
 end;
