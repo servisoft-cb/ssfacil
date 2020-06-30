@@ -22,9 +22,9 @@ object frmCadContaOrc: TfrmCadContaOrc
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 841
-    Height = 551
-    ActivePage = TS_Cadastro
+    Width = 833
+    Height = 543
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadContaOrc: TfrmCadContaOrc
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -40,9 +40,9 @@ object frmCadContaOrc: TfrmCadContaOrc
       Caption = 'Consulta'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 67
-        Width = 837
-        Height = 393
+        Top = 66
+        Width = 829
+        Height = 386
         Align = alClient
         Ctl3D = False
         DataSource = dmCadContaOrc.dsConsulta
@@ -137,8 +137,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 837
-        Height = 32
+        Width = 829
+        Height = 31
         Align = alTop
         Color = clSilver
         TabOrder = 0
@@ -177,7 +177,8 @@ object frmCadContaOrc: TfrmCadContaOrc
           Left = 1
           Top = 1
           Width = 150
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Inserir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -248,10 +249,11 @@ object frmCadContaOrc: TfrmCadContaOrc
           OnClick = btnInserirClick
         end
         object btnExcluir: TNxButton
-          Left = 150
+          Left = 301
           Top = 1
           Width = 149
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Excluir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -322,10 +324,11 @@ object frmCadContaOrc: TfrmCadContaOrc
           OnClick = btnExcluirClick
         end
         object btnPesquisar: TNxButton
-          Left = 449
+          Left = 151
           Top = 1
           Width = 150
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Pesquisar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -412,10 +415,11 @@ object frmCadContaOrc: TfrmCadContaOrc
           OnClick = NxButton1Click
         end
         object btnImprimir: TNxButton
-          Left = 300
+          Left = 450
           Top = 1
           Width = 150
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Imprimir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -486,8 +490,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 511
-        Width = 837
+        Top = 503
+        Width = 829
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -502,8 +506,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       end
       object pnlPesquisa: TPanel
         Left = 0
-        Top = 32
-        Width = 837
+        Top = 31
+        Width = 829
         Height = 35
         Align = alTop
         Color = clSilver
@@ -600,8 +604,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       end
       object Panel5: TPanel
         Left = 0
-        Top = 460
-        Width = 837
+        Top = 452
+        Width = 829
         Height = 51
         Align = alBottom
         Color = 16768185
@@ -780,16 +784,17 @@ object frmCadContaOrc: TfrmCadContaOrc
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 837
-        Height = 35
+        Width = 829
+        Height = 31
         Align = alTop
         Color = 8404992
         TabOrder = 1
         object btnCancelar: TNxButton
-          Left = 301
-          Top = 3
+          Left = 299
+          Top = 1
           Width = 153
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Cancelar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -858,10 +863,11 @@ object frmCadContaOrc: TfrmCadContaOrc
           OnClick = btnCancelarClick
         end
         object btnConfirmar: TNxButton
-          Left = 156
-          Top = 3
+          Left = 154
+          Top = 1
           Width = 145
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Confirmar'
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
@@ -931,10 +937,11 @@ object frmCadContaOrc: TfrmCadContaOrc
           OnClick = btnConfirmarClick
         end
         object btnAlterar: TNxButton
-          Left = 4
-          Top = 3
+          Left = 1
+          Top = 1
           Width = 153
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Alterar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -1005,9 +1012,9 @@ object frmCadContaOrc: TfrmCadContaOrc
       end
       object pnlCadastro: TPanel
         Left = 0
-        Top = 35
-        Width = 837
-        Height = 232
+        Top = 31
+        Width = 829
+        Height = 228
         Align = alClient
         Enabled = False
         TabOrder = 0
@@ -1353,8 +1360,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       end
       object pc_Itens: TRzPageControl
         Left = 0
-        Top = 267
-        Width = 837
+        Top = 259
+        Width = 829
         Height = 261
         ActivePage = ts_CentroCusto
         ActivePageDefault = ts_CentroCusto
@@ -1366,9 +1373,9 @@ object frmCadContaOrc: TfrmCadContaOrc
           Caption = 'Centro de Custo'
           object SMDBGrid3: TSMDBGrid
             Left = 0
-            Top = 32
-            Width = 833
-            Height = 206
+            Top = 31
+            Width = 825
+            Height = 207
             Align = alClient
             Ctl3D = False
             DataSource = dmCadContaOrc.dsContaOrc_CCusto
@@ -1434,15 +1441,16 @@ object frmCadContaOrc: TfrmCadContaOrc
           object Panel3: TPanel
             Left = 0
             Top = 0
-            Width = 833
-            Height = 32
+            Width = 825
+            Height = 31
             Align = alTop
             TabOrder = 1
             object btnInserir_CentroCusto: TNxButton
-              Left = 0
+              Left = 1
               Top = 1
               Width = 146
-              Height = 30
+              Height = 29
+              Align = alLeft
               Caption = 'Inserir'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1514,10 +1522,11 @@ object frmCadContaOrc: TfrmCadContaOrc
               OnClick = btnInserir_CentroCustoClick
             end
             object btnAlterar_CentroCusto: TNxButton
-              Left = 151
+              Left = 147
               Top = 1
               Width = 147
-              Height = 30
+              Height = 29
+              Align = alLeft
               Caption = 'Alterar'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1587,10 +1596,11 @@ object frmCadContaOrc: TfrmCadContaOrc
               OnClick = btnAlterar_CentroCustoClick
             end
             object btnExcluir_CentroCusto: TNxButton
-              Left = 303
+              Left = 294
               Top = 1
               Width = 147
-              Height = 30
+              Height = 29
+              Align = alLeft
               Caption = 'Excluir'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1667,9 +1677,9 @@ object frmCadContaOrc: TfrmCadContaOrc
           Caption = ' Contas de or'#231'amento com valores anuais '
           object SMDBGrid2: TSMDBGrid
             Left = 0
-            Top = 63
-            Width = 833
-            Height = 175
+            Top = 62
+            Width = 825
+            Height = 176
             Align = alClient
             Ctl3D = False
             DataSource = dmCadContaOrc.dsContaOrc_Itens
@@ -1725,7 +1735,7 @@ object frmCadContaOrc: TfrmCadContaOrc
           object Panel4: TPanel
             Left = 0
             Top = 0
-            Width = 833
+            Width = 825
             Height = 31
             Align = alTop
             Enabled = False
@@ -1789,15 +1799,16 @@ object frmCadContaOrc: TfrmCadContaOrc
           object Panel7: TPanel
             Left = 0
             Top = 31
-            Width = 833
-            Height = 32
+            Width = 825
+            Height = 31
             Align = alTop
             TabOrder = 2
             object btnInserir_Itens: TNxButton
-              Left = 0
+              Left = 1
               Top = 1
               Width = 146
-              Height = 30
+              Height = 29
+              Align = alLeft
               Caption = 'Inserir'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1869,10 +1880,11 @@ object frmCadContaOrc: TfrmCadContaOrc
               OnClick = btnInserir_ItensClick
             end
             object btnAlterar_Itens: TNxButton
-              Left = 151
+              Left = 147
               Top = 1
               Width = 147
-              Height = 30
+              Height = 29
+              Align = alLeft
               Caption = 'Alterar'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -1942,10 +1954,11 @@ object frmCadContaOrc: TfrmCadContaOrc
               OnClick = btnAlterar_ItensClick
             end
             object btnExcluir_Itens: TNxButton
-              Left = 303
+              Left = 294
               Top = 1
               Width = 147
-              Height = 30
+              Height = 29
+              Align = alLeft
               Caption = 'Excluir'
               Enabled = False
               Font.Charset = DEFAULT_CHARSET
@@ -2023,8 +2036,8 @@ object frmCadContaOrc: TfrmCadContaOrc
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 551
-    Width = 841
+    Top = 543
+    Width = 833
     Height = 19
     Panels = <
       item
