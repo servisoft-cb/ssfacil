@@ -9,16 +9,18 @@ object DMCadMatriz_Preco: TDMCadMatriz_Preco
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT M.*,  CASE TIPO_REG'#13#10'           WHEN '#39'ACB'#39' THEN '#39'Acabamen' +
-      'to'#39#13#10'           WHEN '#39'RMO'#39' THEN '#39'Redondo/Modelado'#39#13#10'           W' +
-      'HEN '#39'CMO'#39' THEN '#39'Canto Moeda'#39#13#10'           WHEN '#39'FRS'#39' THEN '#39'Furos'#39 +
-      #13#10'           WHEN '#39'FRC'#39' THEN '#39'Furacao'#39#13#10'           ELSE '#39#39#13#10'    ' +
-      '       END AS DESCRICAO_TIPO,'#13#10'CASE TIPO_PRECO'#13#10'           WHEN ' +
-      #39'P'#39' THEN '#39'Com Produto'#39#13#10'           WHEN '#39'D'#39' THEN '#39'Direto'#39#13#10'     ' +
-      '      ELSE '#39#39#13#10'           END AS DESCRICAO_TIPO_PRECO,'#13#10'CASE TIP' +
-      'O_VP'#13#10'           WHEN '#39'V'#39' THEN '#39'Valor'#39#13#10'           WHEN '#39'P'#39' THEN' +
-      ' '#39'Percentual'#39#13#10'           ELSE '#39#39#13#10'           END AS DESCRICAO_T' +
-      'IPO_VP'#13#10'FROM MATRIZ_PRECO M'
+      'select M.*,'#13#10'       case TIPO_REG'#13#10'         when '#39'ACB'#39' then '#39'Aca' +
+      'bamento'#39#13#10'         when '#39'RMO'#39' then '#39'Redondo/Modelado'#39#13#10'         ' +
+      'when '#39'CMO'#39' then '#39'Canto Moeda'#39#13#10'         when '#39'FRS'#39' then '#39'Furos'#39#13 +
+      #10'         when '#39'FRC'#39' then '#39'Furacao'#39#13#10'         else '#39#39#13#10'       en' +
+      'd as DESCRICAO_TIPO,'#13#10'       case TIPO_PRECO'#13#10'         when '#39'P'#39' ' +
+      'then '#39'Com Produto'#39#13#10'         when '#39'D'#39' then '#39'Direto'#39#13#10'         el' +
+      'se '#39#39#13#10'       end as DESCRICAO_TIPO_PRECO,'#13#10'       case TIPO_VP'#13 +
+      #10'         when '#39'V'#39' then '#39'Valor'#39#13#10'         when '#39'P'#39' then '#39'Percent' +
+      'ual'#39#13#10'         else '#39#39#13#10'       end as DESCRICAO_TIPO_VP,'#13#10'      ' +
+      ' case TIPO_CALCULO'#13#10'         when '#39'2'#39' then '#39'Metro Quadrado'#39#13#10'   ' +
+      '      when '#39'L'#39' then '#39'Metro Linear'#39#13#10'         else '#39#39#13#10'       end' +
+      ' as DESCRICAO_TIPO_CALCULO'#13#10'from MATRIZ_PRECO M  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -73,6 +75,17 @@ object DMCadMatriz_Preco: TDMCadMatriz_Preco
       FixedChar = True
       Size = 10
     end
+    object sdsMatriz_PrecoTIPO_CALCULO: TStringField
+      FieldName = 'TIPO_CALCULO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsMatriz_PrecoDESCRICAO_TIPO_CALCULO: TStringField
+      FieldName = 'DESCRICAO_TIPO_CALCULO'
+      Required = True
+      FixedChar = True
+      Size = 14
+    end
   end
   object dspMatriz_Preco: TDataSetProvider
     DataSet = sdsMatriz_Preco
@@ -87,7 +100,7 @@ object DMCadMatriz_Preco: TDMCadMatriz_Preco
     Params = <>
     ProviderName = 'dspMatriz_Preco'
     Left = 192
-    Top = 32
+    Top = 33
     object cdsMatriz_PrecoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -137,6 +150,18 @@ object DMCadMatriz_Preco: TDMCadMatriz_Preco
       FieldName = 'CALCULA_MEDIDAS'
       FixedChar = True
       Size = 1
+    end
+    object cdsMatriz_PrecoTIPO_CALCULO: TStringField
+      FieldName = 'TIPO_CALCULO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsMatriz_PrecoDESCRICAO_TIPO_CALCULO: TStringField
+      FieldName = 'DESCRICAO_TIPO_CALCULO'
+      ProviderFlags = []
+      Required = True
+      FixedChar = True
+      Size = 14
     end
   end
   object dsMatriz_Preco: TDataSource

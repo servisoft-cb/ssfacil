@@ -24,6 +24,8 @@ object frmRecebeXML: TfrmRecebeXML
     Top = 146
     Width = 1098
     Height = 511
+    Width = 1106
+    Height = 519
     ActivePage = TabSheet4
     Align = alClient
     TabOrder = 0
@@ -33,7 +35,7 @@ object frmRecebeXML: TfrmRecebeXML
       object GroupBox1: TGroupBox
         Left = 0
         Top = 93
-        Width = 1090
+        Width = 1098
         Height = 193
         Align = alTop
         Caption = 'Dados Da NFe'
@@ -475,7 +477,7 @@ object frmRecebeXML: TfrmRecebeXML
       object GroupBox3: TGroupBox
         Left = 0
         Top = 286
-        Width = 1090
+        Width = 1098
         Height = 91
         Align = alTop
         Caption = 'Emitente'
@@ -611,8 +613,8 @@ object frmRecebeXML: TfrmRecebeXML
       object GroupBox2: TGroupBox
         Left = 0
         Top = 377
-        Width = 1090
-        Height = 106
+        Width = 1098
+        Height = 114
         Align = alClient
         Caption = 'Destinat'#225'rio'
         Color = clMoneyGreen
@@ -747,7 +749,7 @@ object frmRecebeXML: TfrmRecebeXML
       object GroupBox4: TGroupBox
         Left = 0
         Top = 0
-        Width = 1090
+        Width = 1098
         Height = 93
         Align = alTop
         Caption = ' Dados de Autoriza'#231#227'o da NFe '
@@ -888,8 +890,8 @@ object frmRecebeXML: TfrmRecebeXML
         Color = clMoneyGreen
         TabOrder = 0
         DesignSize = (
-          1090
-          483)
+          1098
+          491)
         object Label29: TLabel
           Left = 18
           Top = 29
@@ -1138,7 +1140,7 @@ object frmRecebeXML: TfrmRecebeXML
           ParentFont = False
         end
         object Label61: TLabel
-          Left = 900
+          Left = 908
           Top = 389
           Width = 132
           Height = 13
@@ -1502,7 +1504,7 @@ object frmRecebeXML: TfrmRecebeXML
           TabOrder = 18
         end
         object BitBtn2: TBitBtn
-          Left = 924
+          Left = 932
           Top = 407
           Width = 123
           Height = 25
@@ -1514,7 +1516,7 @@ object frmRecebeXML: TfrmRecebeXML
           OnClick = BitBtn2Click
         end
         object BitBtn1: TBitBtn
-          Left = 924
+          Left = 932
           Top = 459
           Width = 123
           Height = 25
@@ -2218,16 +2220,16 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 1090
-        Height = 483
+        Width = 1098
+        Height = 491
         Align = alClient
         Color = clMoneyGreen
         TabOrder = 0
         object SMDBGrid1: TSMDBGrid
           Left = 1
           Top = 1
-          Width = 1088
-          Height = 251
+          Width = 1096
+          Height = 259
           Align = alClient
           Ctl3D = False
           DataSource = DMRecebeXML.dsmItensNota
@@ -2592,14 +2594,14 @@ object frmRecebeXML: TfrmRecebeXML
         end
         object Panel7: TPanel
           Left = 1
-          Top = 415
-          Width = 1088
+          Top = 423
+          Width = 1096
           Height = 67
           Align = alBottom
           Color = clSilver
           TabOrder = 1
           DesignSize = (
-            1088
+            1096
             67)
           object Shape1: TShape
             Left = 827
@@ -2752,8 +2754,8 @@ object frmRecebeXML: TfrmRecebeXML
         end
         object PageControl1: TPageControl
           Left = 1
-          Top = 252
-          Width = 1088
+          Top = 260
+          Width = 1096
           Height = 163
           ActivePage = TabSheet9
           Align = alBottom
@@ -3331,7 +3333,7 @@ object frmRecebeXML: TfrmRecebeXML
             ImageIndex = 1
             ParentFont = False
             DesignSize = (
-              1040
+              1048
               155)
             object Label106: TLabel
               Left = 32
@@ -4089,15 +4091,17 @@ object frmRecebeXML: TfrmRecebeXML
       object Panel10: TPanel
         Left = 0
         Top = 0
-        Width = 1080
-        Height = 473
+        Width = 1088
+        Height = 481
         Align = alClient
         TabOrder = 0
         object Panel11: TPanel
           Left = 1
           Top = 1
-          Width = 1078
+		  Width = 1078
           Height = 39
+          Width = 1086
+          Height = 41
           Align = alTop
           TabOrder = 0
           object BitBtn6: TBitBtn
@@ -4320,6 +4324,9 @@ object frmRecebeXML: TfrmRecebeXML
           Top = 40
           Width = 1078
           Height = 432
+          Top = 42
+          Width = 1086
+          Height = 438
           Align = alClient
           Ctl3D = False
           DataSource = DMRecebeXML.dsmParc
@@ -5089,14 +5096,14 @@ object frmRecebeXML: TfrmRecebeXML
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 1098
+    Width = 1106
     Height = 146
     Align = alTop
     BevelOuter = bvNone
     Color = clMoneyGreen
     TabOrder = 1
     DesignSize = (
-      1098
+      1106
       146)
     object Label4: TLabel
       Left = 269
