@@ -5,8 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid,
   UDMCadContaOrc, Mask, UCBase, StdCtrls, RxDBComb, DBCtrls, ExtCtrls, DBGrids, RzTabs, DB, RxLookup,
-  RXSpin, NxCollection, RzPanel, ToolEdit, RXDBCtrl, Menus, ComCtrls,
-  CurrEdit;
+  RXSpin, NxCollection, RzPanel, ToolEdit, RXDBCtrl, Menus, ComCtrls, CurrEdit;
 
 type
   TfrmCadContaOrc = class(TForm)
@@ -145,7 +144,6 @@ type
     procedure prc_Posiciona_Registro;
     procedure prc_Opcao;
     procedure prc_Calcular_Fixa;
-
   public
     { Public declarations }
   end;
@@ -156,9 +154,8 @@ var
 implementation
 
 uses
-  DmdDatabase, rsDBUtils, StdConvs, URelContaOrc, USel_ContaOrc, uUtilPadrao,
-  UCadContaOrc_CentroCusto, UCadContaOrc_Itens, USel_CentroCusto, USel_Plano_Contabil,
-  DateUtils;
+  DmdDatabase, rsDBUtils, StdConvs, URelContaOrc, USel_ContaOrc, uUtilPadrao, UCadContaOrc_CentroCusto, UCadContaOrc_Itens,
+  USel_CentroCusto, USel_Plano_Contabil, DateUtils;
 
 {$R *.dfm}
 
@@ -174,7 +171,7 @@ end;
 
 procedure TfrmCadContaOrc.prc_Gravar_Registro;
 var
-  vIDAux : Integer;
+  vIDAux: Integer;
 begin
   vIDAux := fDMCadContaOrc.cdsContaOrcID.AsInteger;
   fDMCadContaOrc.prc_Gravar;
@@ -298,7 +295,7 @@ end;
 
 procedure TfrmCadContaOrc.btnCancelarClick(Sender: TObject);
 var
-  vIDAux : Integer;
+  vIDAux: Integer;
 begin
   vIDAux := fDMCadContaOrc.cdsContaOrcID.AsInteger;
   if (fDMCadContaOrc.cdsContaOrc.State in [dsBrowse]) or not (fDMCadContaOrc.cdsContaOrc.Active) then
@@ -413,7 +410,7 @@ end;
 
 procedure TfrmCadContaOrc.btnExcluirClick(Sender: TObject);
 var
-  vIDAux : Integer;
+  vIDAux: Integer;
 begin
   if not(fDMCadContaOrc.cdsConsulta.Active) or (fDMCadContaOrc.cdsConsulta.IsEmpty) then
     exit;
