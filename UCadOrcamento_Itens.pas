@@ -374,6 +374,12 @@ begin
     DBEdit2.Color := clWindow;
   //************
 
+  if fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger <= 0 then
+  begin
+    vID_ICMS := fDMCadPedido.cdsFilialID_CSTICMS.AsInteger;
+
+  end
+  else
   if fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger > 0 then
   begin
     if fDMCadPedido.cdsCFOP_Variacao.Locate('ITEM',fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger,[loCaseInsensitive]) then
@@ -418,16 +424,15 @@ begin
     if fDMCadPedido.cdsTab_NCMID_CSTIPI.AsInteger > 0 then
       vID_IPI := fDMCadPedido.cdsTab_NCMID_CSTIPI.AsInteger;
   end;
-
-
   //*********
+
+  if vID_ICMS > 0 then
+    fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger := vID_ICMS
+  else
+    prc_Buscar_Imposto('CST','ICMS');
 
   if fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger > 0 then
   begin
-    if vID_ICMS > 0 then
-      fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger := vID_ICMS
-    else
-      prc_Buscar_Imposto('CST','ICMS');
     if vID_IPI > 0 then
       fDMCadPedido.cdsPedido_ItensID_CSTIPI.AsInteger := vID_IPI
     else
@@ -469,6 +474,12 @@ begin
       fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat := fDMCadPedido.cdsProdutoPERC_IPI.AsFloat
     else
       fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat := 0;
+    if (fDMCadPedido.cdsFilialSIMPLES.AsString = 'N') and (fDMCadPedido.cdsFilialID_CSTICMS.AsInteger > 0) then
+    begin
+      vID_ICMS := fDMCadPedido.cdsFilialID_CSTICMS.AsInteger;
+      fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger := fDMCadPedido.cdsFilialID_CSTICMS.AsInteger;
+      fDMCadPedido.cdsPedido_ItensPERC_ICMS.AsFloat    := StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsUFPERC_ICMS.AsFloat));
+    end;
   end;
 
   //14/12/2018
@@ -496,8 +507,6 @@ begin
   end
   else
     fDMCadPedido.cdsPedido_ItensCALCULARICMSSOBREIPI.AsString := 'N';
-
-
 
   //10/11/2015 Comissão por item
   if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString <> 'I') then
@@ -538,7 +547,11 @@ begin
   if fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger > 0 then
   begin
     if fDMCadPedido.cdsTab_CSTICMS.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger,[loCaseInsensitive]) then
+    begin
       fDMCadPedido.cdsPedido_ItensCOD_CST.AsString := fDMCadPedido.cdsTab_CSTICMSCOD_CST.AsString;
+      if StrtoFloat(FormatFloat('0.000',fDMCadPedido.cdsTab_CSTICMSPERCENTUAL.AsFloat)) <= 0 then
+        fDMCadPedido.cdsPedido_itensPERC_ICMS.AsFloat := 0;
+    end;
   end;
   if fDMCadPedido.cdsPedido_ItensID_CSTIPI.AsInteger > 0 then
   begin

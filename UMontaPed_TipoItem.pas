@@ -77,6 +77,7 @@ type
     ffrmMostraPDF : TfrmMostraPDF;
 
     vSomar : Boolean;
+    vProcurar_Prod : Boolean;
 
     procedure ListarArquivos(Diretorio: string);
     procedure prc_Calcular_Peso_PC_Chapa;
@@ -253,12 +254,17 @@ end;
 
 procedure TfrmMontaPed_TipoItem.btnCarregaClick(Sender: TObject);
 begin
-  btnCarrega.Tag := 1;
-  ListarArquivos(DirectoryEdit1.Text);
-  if (trim(FilenameEdit1.Text) <> '') then
-    prc_Carrega_Excel;
-  btnCarrega.Enabled := (mArquivoImportado.IsEmpty);
-  btnCarrega.Tag := 0;
+  vProcurar_Prod := False;
+  try
+    btnCarrega.Tag := 1;
+    ListarArquivos(DirectoryEdit1.Text);
+    if (trim(FilenameEdit1.Text) <> '') then
+      prc_Carrega_Excel;
+    btnCarrega.Enabled := (mArquivoImportado.IsEmpty);
+    btnCarrega.Tag := 0;
+  finally
+    vProcurar_Prod := True;
+  end;
 end;
 
 procedure TfrmMontaPed_TipoItem.ListarArquivos(Diretorio: string);
@@ -354,6 +360,7 @@ end;
 function TfrmMontaPed_TipoItem.fnc_Buscar_Produto(MM: Real;
   Tipo: String) : Integer;
 begin
+  Result := 0;
   ffrmConsultaProduto := TfrmConsultaProduto.Create(nil);
   ffrmConsultaProduto.cdsProduto.Close;
   ffrmConsultaProduto.sdsProduto.ParamByName('TIPO').AsString := trim(Tipo)+'%';
@@ -367,7 +374,7 @@ begin
   end
   else
   if ffrmConsultaProduto.cdsProduto.RecordCount = 1  then
-      Result := ffrmConsultaProduto.cdsProdutoID.AsInteger
+    Result := ffrmConsultaProduto.cdsProdutoID.AsInteger
   else
   begin
     frmSel_Produto  := TfrmSel_Produto.Create(Self);
@@ -375,6 +382,14 @@ begin
       frmSel_Produto.vTipo_Prod := ''
     else
       frmSel_Produto.vTipo_Prod := 'P';
+
+    if not(vProcurar_Prod) and (mArquivoImportadoCodigo_Produto.AsInteger > 0) then
+    begin
+      if Result <= 0 then
+        Result := mArquivoImportadoCodigo_Produto.AsInteger;
+      exit;
+    end;
+
     frmSel_Produto.Edit1.Text := TIPO;
     frmSel_Produto.BitBtn1Click(frmSel_Produto);
     frmSel_Produto.ShowModal;

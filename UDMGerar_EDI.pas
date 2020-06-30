@@ -485,13 +485,15 @@ type
     mRemessadescricao: TStringField;
     mRemessalargura: TStringField;
     qEDI_ConfigUSA_TAMANHO_CPRODUTO: TStringField;
+    qClienteUSA_TAMANHO_EDI_COD: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mAuxiliarNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
     { Public declarations }
-    ctqProduto_Forn : String;
+    ctqProduto_Forn  : String;
+    ctqProduto_Forn2 : String;
     vTamanho_Prod: String;
     procedure prc_Abre_Operacao;
   end;
@@ -515,6 +517,11 @@ begin
   qParametros_Geral.Open;
   qParametros_Ped.Open;
   ctqProduto_Forn := qProduto_Forn.SQL.Text;
+
+  ctqProduto_Forn2 := 'SELECT p.*, prod.inativo, prod.tipo_reg FROM PRODUTO_FORN P '
+                    + 'left join produto prod on p.id = prod.id '
+                    + 'WHERE P.ID_FORNECEDOR = :ID_FORNECEDOR   AND P.COD_MATERIAL_FORN = :COD_MATERIAL_FORN '
+                    + '  AND P.COD_COR_FORN = :COD_COR_FORN ';
 end;
 
 procedure TDMGerar_EDI.mAuxiliarNewRecord(DataSet: TDataSet);

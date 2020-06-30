@@ -288,7 +288,7 @@ object DMGerar_EDI: TDMGerar_EDI
     Params = <>
     StoreDefs = True
     OnNewRecord = mAuxiliarNewRecord
-    Left = 384
+    Left = 383
     Top = 32
     Data = {
       950300009619E0BD01000000180000002000000000000300000095030B434E50
@@ -461,7 +461,7 @@ object DMGerar_EDI: TDMGerar_EDI
       'WHERE P.CNPJ_CPF = :CNPJ_CPF')
     SQLConnection = dmDatabase.scoDados
     Left = 384
-    Top = 96
+    Top = 97
     object qClienteCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Required = True
@@ -536,6 +536,11 @@ object DMGerar_EDI: TDMGerar_EDI
     end
     object qClienteIMP_ETIQUETA_ROT: TStringField
       FieldName = 'IMP_ETIQUETA_ROT'
+      FixedChar = True
+      Size = 1
+    end
+    object qClienteUSA_TAMANHO_EDI_COD: TStringField
+      FieldName = 'USA_TAMANHO_EDI_COD'
       FixedChar = True
       Size = 1
     end
@@ -1938,7 +1943,7 @@ object DMGerar_EDI: TDMGerar_EDI
       'FROM COMBINACAO C'
       'WHERE C.ID = :ID')
     SQLConnection = dmDatabase.scoDados
-    Left = 600
+    Left = 596
     Top = 176
     object qCombNOME: TStringField
       FieldName = 'NOME'

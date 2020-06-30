@@ -1336,6 +1336,8 @@ type
     qParametros_NFeIMP_TAMANHO_FINAL: TStringField;
     sdsPessoaIMP_TAMANHO_FINAL: TStringField;
     cdsPessoaIMP_TAMANHO_FINAL: TStringField;
+    sdsPessoaUSA_TAMANHO_EDI_COD: TStringField;
+    cdsPessoaUSA_TAMANHO_EDI_COD: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;

@@ -600,6 +600,7 @@ type
     btnSefaz: TSpeedButton;
     btnReceita: TSpeedButton;
     DBCheckBox34: TDBCheckBox;
+    DBCheckBox35: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);

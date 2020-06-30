@@ -186,11 +186,16 @@ begin
     fDMGerar_EDI.mAuxiliarNomeCorCli.AsString := copy(vTexto2,i+1,Length(vTexto2)-i);
   end;
   fDMGerar_EDI.qProduto_Forn.Close;
-  fDMGerar_EDI.qProduto_Forn.SQL.Text := fDMGerar_EDI.ctqProduto_Forn;
+  if fDMGerar_EDI.qClienteUSA_TAMANHO_EDI_COD.AsString = 'S' then
+    fDMGerar_EDI.qProduto_Forn.SQL.Text := fDMGerar_EDI.ctqProduto_Forn2
+  else
+  begin
+    fDMGerar_EDI.qProduto_Forn.SQL.Text := fDMGerar_EDI.ctqProduto_Forn;
+    fDMGerar_EDI.qProduto_Forn.ParamByName('TAMANHO_CLIENTE').AsString := fDMGerar_EDI.mAuxiliarTamnanho.AsString;
+  end;
   fDMGerar_EDI.qProduto_Forn.ParamByName('ID_FORNECEDOR').AsInteger    := fDMGerar_EDI.qClienteCodigo.AsInteger;
   fDMGerar_EDI.qProduto_Forn.ParamByName('COD_MATERIAL_FORN').AsString := fDMGerar_EDI.mAuxiliarCodProdCli.AsString;
   fDMGerar_EDI.qProduto_Forn.ParamByName('COD_COR_FORN').AsString      := fDMGerar_EDI.mAuxiliarCodCorCli.AsString;
-  fDMGerar_EDI.qProduto_Forn.ParamByName('TAMANHO_CLIENTE').AsString   := fDMGerar_EDI.mAuxiliarTamnanho.AsString;
   fDMGerar_EDI.qProduto_Forn.Open;
   if not(fDMGerar_EDI.qProduto_Forn.IsEmpty)  then
   begin
@@ -349,6 +354,7 @@ begin
   fDMGerar_EDI.qEDI_Config.Open;
   if fDMGerar_EDI.qEDI_Config.IsEmpty then
     exit;
+
   Result := True;
 end;
 
