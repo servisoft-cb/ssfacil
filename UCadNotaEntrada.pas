@@ -6,8 +6,8 @@ uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadNotaFiscal,
   DB, DBGrids, ExtCtrls, StdCtrls, FMTBcd, SqlExpr, RzTabs, Mask, DBCtrls, ToolEdit, CurrEdit, RxLookup, RxDBComb,
   RXDBCtrl, RzEdit, RzDBEdit, UCadNotaEntrada_Itens, UCadNotaFiscal_Desconto, UCadNotaFiscal_OutrasDesp, DateUtils,
-  UCBase, UDMEstoque, Menus, NxCollection, dbXPress, USel_Pedido, UDMMovimento, UNFe, UDMNFe, RzButton,
-  uDmConsPedido, uEtiq_Individual, UDMCadProduto_Lote, uSel_NotaEntrada;
+  UCBase, UDMEstoque, Menus, NxCollection, dbXPress, USel_Pedido, UDMMovimento, UNFe, UDMNFe, RzButton, uDmConsPedido,
+  uEtiq_Individual, UDMCadProduto_Lote, uSel_NotaEntrada;
 
 type
   TfrmCadNotaEntrada = class(TForm)
@@ -228,7 +228,6 @@ type
     procedure btnCopiarNotaDevolucaoClick(Sender: TObject);
   private
     { Private declarations }
-
     fDMCadNotaFiscal: TDMCadNotaFiscal;
     fDMEstoque: TDMEstoque;
     fDMMovimento: TDMMovimento;
@@ -251,7 +250,7 @@ type
     procedure prc_Gravar_Registro;
     procedure prc_Consultar(ID: Integer);
 
-    procedure prc_Posiciona_NotaFiscal(Excluir : Boolean = False);
+    procedure prc_Posiciona_NotaFiscal(Excluir: Boolean = False);
     procedure prc_Posicionar_Cliente;
 
     procedure prc_Gravar_NotaFiscal_Parc(Parcela: Integer; Data: TDateTime; Valor: Real);
@@ -267,8 +266,8 @@ type
     procedure prc_Limpar_Edit_Consulta;
 
     //03/07/2018
-    procedure prc_Estoque(vlrDesconto : Real);
-    procedure prc_Movimento(vlrDesconto : Real);
+    procedure prc_Estoque(vlrDesconto: Real);
+    procedure prc_Movimento(vlrDesconto: Real);
     //*************
 
     //procedure Atualiza_Preco;
@@ -276,7 +275,6 @@ type
     procedure Abrir_produto;
 
     //procedure prc_Aplicar_Margem;
-
   public
     { Public declarations }
     vTipo_Reg: String; //NTS = Nota Fiscal   NTE = Nota Entrada    PED = Pedido
@@ -287,8 +285,8 @@ var
 
 implementation
 
-uses rsDBUtils, uUtilPadrao, USel_Pessoa, uCalculo_NotaFiscal, URelNotaEnt, DmdDatabase, USel_ContaOrc,
-  uGrava_NotaFiscal, UCadNotaFiscal_Custo, UCadNotaEntrada_Itens_Ajuste;
+uses rsDBUtils, uUtilPadrao, USel_Pessoa, uCalculo_NotaFiscal, URelNotaEnt, DmdDatabase, USel_ContaOrc, uGrava_NotaFiscal,
+  UCadNotaFiscal_Custo, UCadNotaEntrada_Itens_Ajuste;
 
 {$R *.dfm}
 
@@ -448,8 +446,7 @@ begin
         fDMCadNotaFiscal.mPedidoAux.Next;
       end;
 
-      dmDatabase.scoDados.Commit(ID);
-
+      dmDatabase.scoDados.Commit(ID);                         
     except
       on e: Exception do
         raise Exception.Create('Erro ao gravar o estoque: ' + #13 + e.Message);
@@ -672,7 +669,7 @@ begin
   FreeAndNil(fDMCadNotaFiscal);
 end;
 
-procedure TfrmCadNotaEntrada.prc_Posiciona_NotaFiscal(Excluir : Boolean = False);
+procedure TfrmCadNotaEntrada.prc_Posiciona_NotaFiscal(Excluir: Boolean = False);
 begin
   fDMCadNotaFiscal.prc_Localizar(fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger);
   fDMCadNotaFiscal.cdsNotaFiscal_Itens.Close;
@@ -1207,12 +1204,12 @@ var
   vUnidadeAux: String;
   sds: TSQLDataSet;
   Texto, Texto2: String;
-  vVlrIPIAux : Real;
-  vVlrFreteAux : Real;
-  vVlrSTAux : Real;
-  vVlrCusto : Real;
-  vVlrCusto_Total : Real;
-  vTexto : String;
+  vVlrIPIAux: Real;
+  vVlrFreteAux: Real;
+  vVlrSTAux: Real;
+  vVlrCusto: Real;
+  vVlrCusto_Total: Real;
+  vTexto: String;
 begin
   if fDMCadNotaFiscal.cdsParametrosATUALIZAR_PRECO.AsString <> 'S' then
     exit;
@@ -1499,7 +1496,7 @@ end;
 
 {procedure TfrmCadNotaEntrada.prc_Aplicar_Margem;
 var
-  vVlrAux : Real;
+  vVlrAux: Real;
 begin
   if fDMCadNotaFiscal.qParametros_ProdOPCAO_APLICAR_MARGEM.AsString <> 'C' then
   begin
@@ -1526,7 +1523,7 @@ var
   vQtd: String;
   i: Word;
   vArq: String;
-  vItemAux : Integer;
+  vItemAux: Integer;
 begin
   vQtd := InputBox('Etiquetas em branco','Quantidade:','0');
 
@@ -1643,10 +1640,10 @@ end;
 
 procedure TfrmCadNotaEntrada.btnAjustaItensClick(Sender: TObject);
 var
-  vIDProd : Integer;
-  vQtdPac : Real;
-  vQtd : Real;
-  vDescAux : Real;
+  vIDProd: Integer;
+  vQtdPac: Real;
+  vQtd: Real;
+  vDescAux: Real;
 begin
   if fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM.AsInteger <= 0 then
     exit;
@@ -1688,7 +1685,7 @@ end;
 
 procedure TfrmCadNotaEntrada.prc_Estoque(vlrDesconto: Real);
 var
-  vGerarCusto : String;
+  vGerarCusto: String;
 begin
   if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger <> fDMCadNotaFiscal.cdsCFOPID.AsInteger then
     fDMCadNotaFiscal.cdsCFOP.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger,[loCaseInsensitive]);

@@ -2367,6 +2367,8 @@ type
     mItensNotaANP_PERC_PGNI: TFloatField;
     mItensNotaANP_PERC_PGNN: TFloatField;
     mItensNotaANP_ID: TIntegerField;
+    qCentroCusto: TSQLQuery;
+    qCentroCustoDESCRICAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscalUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -2775,7 +2777,6 @@ begin
   cdsDuplicataQTD_DIASATRASO.AsInteger    := 0;
   if cdsFornecedorFORNECEDOR_CONTA_ID.AsInteger > 0 then
     cdsDuplicataID_CONTA_ORCAMENTO.AsInteger := cdsFornecedorFORNECEDOR_CONTA_ID.AsInteger;
-
   cdsDuplicataDTRECEBIMENTO_TITULO.Clear;
   cdsDuplicataDTEMISSAO.AsDateTime        := cdsNotaFiscalDTSAIDAENTRADA.AsDateTime;
   cdsDuplicataPAGO_CARTORIO.AsString      := 'N';
@@ -2836,8 +2837,7 @@ end;
 procedure TDMRecebeXML.Abrir_cdsDuplicata(ID: Integer);
 begin
   cdsDuplicata.Close;
-  sdsDuplicata.CommandText := 'SELECT * FROM DUPLICATA WHERE ID = ' + IntToStr(ID);
-
+  sdsDuplicata.CommandText := 'SELECT * FROM DUPLICATA WHERE ID = ' + IntToStr(ID);      
   cdsDuplicata.Open;
 end;
 

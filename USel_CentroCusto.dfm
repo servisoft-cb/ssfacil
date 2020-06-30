@@ -1,6 +1,6 @@
 object frmSel_CentroCusto: TfrmSel_CentroCusto
-  Left = 575
-  Top = 121
+  Left = 107
+  Top = 128
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmSel_CentroCusto'
@@ -163,7 +163,7 @@ object frmSel_CentroCusto: TfrmSel_CentroCusto
     end
     object RxDBLookupCombo9: TRxDBLookupCombo
       Left = 138
-      Top = 2
+      Top = 3
       Width = 316
       Height = 21
       DropDownCount = 15
@@ -176,7 +176,7 @@ object frmSel_CentroCusto: TfrmSel_CentroCusto
     end
     object NxButton1: TNxButton
       Left = 477
-      Top = 1
+      Top = 2
       Width = 144
       Caption = 'Copiar Selecionados'
       TabOrder = 1
