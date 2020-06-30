@@ -25,7 +25,7 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
     Top = 0
     Width = 821
     Height = 431
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,8 +33,9 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
+    OnChange = RzPageControl1Change
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
       Caption = 'Tela de Consulta'
@@ -74,7 +75,7 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 7
+        ColCount = 8
         RowCount = 2
         Columns = <
           item
@@ -82,7 +83,7 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
             Expanded = False
             FieldName = 'ID'
             Title.Alignment = taCenter
-            Width = 52
+            Width = 43
             Visible = True
           end
           item
@@ -122,6 +123,14 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
             Title.Alignment = taCenter
             Title.Caption = 'Valor / Percentual'
             Width = 99
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DESCRICAO_TIPO_CALCULO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Tipo C'#225'lculo'
+            Width = 147
             Visible = True
           end>
       end
@@ -771,11 +780,19 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
         end
         object Label4: TLabel
           Left = 5
-          Top = 78
+          Top = 79
           Width = 110
           Height = 13
           Alignment = taRightJustify
           Caption = 'Tipo Valor / Pecentual:'
+        end
+        object Label5: TLabel
+          Left = 39
+          Top = 142
+          Width = 77
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Tipo de C'#225'lculo:'
         end
         object DBEdit7: TDBEdit
           Left = 117
@@ -824,6 +841,7 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
             'FRS'
             'FRC'
             'QFR')
+          OnExit = RxDBComboBox2Exit
         end
         object DBEdit1: TDBEdit
           Left = 117
@@ -838,7 +856,7 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
         object RxDBComboBox1: TRxDBComboBox
           Left = 117
           Top = 48
-          Width = 115
+          Width = 157
           Height = 21
           Style = csDropDownList
           DataField = 'TIPO_PRECO'
@@ -857,7 +875,7 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
         object RxDBComboBox3: TRxDBComboBox
           Left = 117
           Top = 70
-          Width = 115
+          Width = 157
           Height = 21
           Style = csDropDownList
           DataField = 'TIPO_VP'
@@ -874,7 +892,7 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
           OnChange = RxDBComboBox1Change
         end
         object DBCheckBox1: TDBCheckBox
-          Left = 120
+          Left = 117
           Top = 115
           Width = 121
           Height = 17
@@ -884,6 +902,24 @@ object frmCadMatriz_Preco: TfrmCadMatriz_Preco
           TabOrder = 6
           ValueChecked = 'S'
           ValueUnchecked = 'N'
+        end
+        object RxDBComboBox4: TRxDBComboBox
+          Left = 116
+          Top = 134
+          Width = 157
+          Height = 21
+          Style = csDropDownList
+          DataField = 'TIPO_CALCULO'
+          DataSource = DMCadMatriz_Preco.dsMatriz_Preco
+          EnableValues = True
+          ItemHeight = 13
+          Items.Strings = (
+            'Metro Quadrado'
+            'Metro Linear')
+          TabOrder = 7
+          Values.Strings = (
+            '2'
+            'L')
         end
       end
     end

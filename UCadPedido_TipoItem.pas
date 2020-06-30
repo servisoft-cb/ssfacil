@@ -478,10 +478,12 @@ var
   vID_Acabamento : Integer;
   vIDProd : Integer;
   vVlr_Acab_Aux : Real;
+  vTipo_Calculo : String;
 begin
   vVlr_Calculado  := vVlr_Produto;
   vVlr_Acabamento := 0;
   vVlr_Acab_Aux   := 0;
+  vTipo_Calculo   := '';
   //if trim(RxDBLookupCombo1.Text) <> '' then
   if fDMCadPedido.cdsPedido_Item_TipoID_ACABAMENTO.AsInteger > 0 then
   begin
@@ -494,11 +496,18 @@ begin
     vVlr_Acabamento := fnc_Preco_Matriz(vIDProd,
                                         fDMCadPedido.cdsAcabamentoID.AsInteger,fDMCadPedido.cdsAcabamentoTIPO_PRECO.AsString,
                                         fDMCadPedido.cdsAcabamentoVLR_UNITARIO.AsFloat);
+    if (fDMCadPedido.qProduto_Matriz.Active) then
+      vTipo_Calculo := fDMCadPedido.qProduto_MatrizTIPO_CALCULO.AsString;
     //19/02/2020
     vVlr_Acab_Aux := vVlr_Acabamento;
     //*****************
-    if fDMCadPedido.cdsAcabamentoTIPO_VP.AsString <> 'P' then
+    if (fDMCadPedido.cdsAcabamentoTIPO_VP.AsString <> 'P') and (StrToFloat(FormatFloat('0.00',vVlr_Acabamento)) > 0) then
     begin
+      if vTipo_Calculo = 'L' then
+        vVlr_Acabamento := StrToFloat(FormatFloat('0.00',(((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat + fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat) / 1000) * 2) * vVlr_Acabamento))
+      else
+        vVlr_Acabamento := StrToFloat(FormatFloat('0.00',(((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat * fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat) / 1000)) * vVlr_Acabamento));
+
       vVlr_Calculado  := vVlr_Calculado + vVlr_Acabamento;
       vVlr_Acabamento := 0;
     end;
@@ -627,11 +636,13 @@ begin
               * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
       //*****************
 
-      //19/02/2020
+      //19/02/2020                                                             
+      //calculo do acabamento hoje esta em M2  30/06/2020  aqui
       if StrToFloat(FormatFloat('0.0000',vVlr_Acabamento)) > 0 then
         vVlr_Acab_Aux := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
               * vVlr_Acab_Aux));
       //*****************
+
 
       vVlr_Vidro := StrToFloat(FormatFloat('0.00',vVlr_Vidro * vAux));
       //19/02/2020
@@ -776,11 +787,11 @@ end;
 function TfrmCadPedido_TipoItem.fnc_Preco_Matriz(ID_Produto,
   ID_Matriz: Integer; Tipo_Preco: String; Valor: Real): Real;
 begin
+  fDMCadPedido.qProduto_Matriz.Close;
   if Tipo_Preco = 'D' then
     Result := Valor
   else
   begin
-    fDMCadPedido.qProduto_Matriz.Close;
     fDMCadPedido.qProduto_Matriz.ParamByName('ID').AsInteger              := ID_Produto;
     fDMCadPedido.qProduto_Matriz.ParamByName('ID_MATRIZ_PRECO').AsInteger := ID_Matriz;
     fDMCadPedido.qProduto_Matriz.Open;

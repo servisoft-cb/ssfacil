@@ -13155,8 +13155,10 @@ object DMCadPedido: TDMCadPedido
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT PM.vlr_unitario'
+      'SELECT PM.vlr_unitario, m.tipo_calculo'
       'FROM PRODUTO_MATRIZ PM'
+      'inner join matriz_preco m'
+      'on pm.id_matriz_preco = m.id'
       'WHERE PM.id = :ID'
       '  AND PM.id_matriz_preco = :ID_MATRIZ_PRECO'
       '')
@@ -13165,6 +13167,11 @@ object DMCadPedido: TDMCadPedido
     Top = 570
     object qProduto_MatrizVLR_UNITARIO: TFloatField
       FieldName = 'VLR_UNITARIO'
+    end
+    object qProduto_MatrizTIPO_CALCULO: TStringField
+      FieldName = 'TIPO_CALCULO'
+      FixedChar = True
+      Size = 1
     end
   end
   object sdsCombinacao: TSQLDataSet

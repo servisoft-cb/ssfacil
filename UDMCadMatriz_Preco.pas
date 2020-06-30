@@ -31,6 +31,10 @@ type
     sdsMatriz_PrecoDESCRICAO_TIPO: TStringField;
     sdsMatriz_PrecoDESCRICAO_TIPO_PRECO: TStringField;
     sdsMatriz_PrecoDESCRICAO_TIPO_VP: TStringField;
+    sdsMatriz_PrecoTIPO_CALCULO: TStringField;
+    cdsMatriz_PrecoTIPO_CALCULO: TStringField;
+    sdsMatriz_PrecoDESCRICAO_TIPO_CALCULO: TStringField;
+    cdsMatriz_PrecoDESCRICAO_TIPO_CALCULO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspMatriz_PrecoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -91,6 +95,8 @@ begin
     exit;
   if cdsMatriz_PrecoTIPO_PRECO.AsString = 'P' then
     cdsMatriz_PrecoVLR_UNITARIO.AsFloat := 0;
+  if cdsMatriz_PrecoTIPO_REG.AsString <> 'ACB' then
+    cdsMatriz_PrecoTIPO_CALCULO.Clear;
   cdsMatriz_Preco.Post;
   cdsMatriz_Preco.ApplyUpdates(0);
 end;

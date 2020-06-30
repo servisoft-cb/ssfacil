@@ -42,6 +42,8 @@ type
     Label4: TLabel;
     RxDBComboBox3: TRxDBComboBox;
     DBCheckBox1: TDBCheckBox;
+    Label5: TLabel;
+    RxDBComboBox4: TRxDBComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -57,6 +59,8 @@ type
     procedure btnPesquisarClick(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure RxDBComboBox1Change(Sender: TObject);
+    procedure RxDBComboBox2Exit(Sender: TObject);
+    procedure RzPageControl1Change(Sender: TObject);
   private
     { Private declarations }
     fDMCadMatriz_Preco: TDMCadMatriz_Preco;
@@ -257,6 +261,18 @@ begin
   DBEdit1.Visible := ((RxDBComboBox1.ItemIndex = 1) or (fDMCadMatriz_Preco.cdsMatriz_PrecoTIPO_PRECO.AsString <> 'P'));
   Label4.Visible  := ((RxDBComboBox1.ItemIndex = 1) or (fDMCadMatriz_Preco.cdsMatriz_PrecoTIPO_PRECO.AsString <> 'P'));
   RxDBComboBox3.Visible := ((RxDBComboBox1.ItemIndex = 1) or (fDMCadMatriz_Preco.cdsMatriz_PrecoTIPO_PRECO.AsString <> 'P'));
+end;
+
+procedure TfrmCadMatriz_Preco.RxDBComboBox2Exit(Sender: TObject);
+begin
+  Label5.Visible        := (fDMCadMatriz_Preco.cdsMatriz_PrecoTIPO_REG.AsString = 'ACB');
+  RxDBComboBox4.Visible := (fDMCadMatriz_Preco.cdsMatriz_PrecoTIPO_REG.AsString = 'ACB');
+end;
+
+procedure TfrmCadMatriz_Preco.RzPageControl1Change(Sender: TObject);
+begin
+  if RzPageControl1.ActivePage = TS_Cadastro then
+    RxDBComboBox2Exit(Sender);
 end;
 
 end.

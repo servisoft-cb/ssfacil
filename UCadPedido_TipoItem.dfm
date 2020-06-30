@@ -1,5 +1,5 @@
 object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
-  Left = 366
+  Left = 329
   Top = 103
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
@@ -1067,7 +1067,7 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
         TabOrder = 11
       end
       object RzGroupBox2: TRzGroupBox
-        Left = 37
+        Left = 38
         Top = 211
         Width = 335
         Height = 96

@@ -719,12 +719,12 @@ object frmCadCor: TfrmCadCor
           Caption = 'Pre'#231'o MT (Perfil):'
         end
         object Label3: TLabel
-          Left = 28
+          Left = 19
           Top = 62
-          Width = 73
+          Width = 82
           Height = 13
           Alignment = taRightJustify
-          Caption = 'Pre'#231'o 2 (Vidro):'
+          Caption = 'Pre'#231'o M2 (Vidro):'
         end
         object DBEdit2: TDBEdit
           Left = 102
@@ -833,8 +833,8 @@ object frmCadCor: TfrmCadCor
           TabOrder = 3
         end
         object DBEdit3: TDBEdit
-          Left = 102
-          Top = 56
+          Left = 101
+          Top = 57
           Width = 155
           Height = 21
           CharCase = ecUpperCase
