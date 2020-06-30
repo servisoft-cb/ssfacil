@@ -5,8 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadPedido, DB,
   DBGrids, ExtCtrls, StdCtrls, FMTBcd, SqlExpr, RzTabs, Mask, DBCtrls, ToolEdit, CurrEdit, RxLookup, RxDBComb, RXDBCtrl,
-  RzEdit, RzDBEdit, RzButton, UCadOC_Itens, UCBase, RzPanel, UCadPedido_Cancelamento, UCadFuncionario,
-  UCadObs_Aux, NxCollection, Menus, Variants, UCadPedido_Desconto;
+  RzEdit, RzDBEdit, RzButton, UCadOC_Itens, UCBase, RzPanel, UCadPedido_Cancelamento, UCadFuncionario, UCadObs_Aux, Menus, 
+  NxCollection, Variants, UCadPedido_Desconto;
 
 type
   TfrmCadOC = class(TForm)
@@ -300,8 +300,7 @@ var
 implementation
 
 uses DateUtils, DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, uRelOC, uRelOC_Hidro, USel_Pessoa, UDMUtil, USel_ContaOrc, USenha,
-  uUtilCliente, uCalculo_Pedido, uCadOC_Item_Qtd, UCadOC_Reserva, UCadPedido_Copia,
-  uGrava_Pedido, UConsMotivoNaoAprov;
+  uUtilCliente, uCalculo_Pedido, uCadOC_Item_Qtd, UCadOC_Reserva, UCadPedido_Copia, uGrava_Pedido, UConsMotivoNaoAprov;
 
 {$R *.dfm}
 
@@ -407,7 +406,7 @@ begin
       else
       begin
         fDMCadPedido.cdsPedido_Cli.First;
-        if (fDMCadPedido.cdsPedido_Cli.RecordCount = 1)  then
+        if (fDMCadPedido.cdsPedido_Cli.RecordCount = 1) then
         begin
           fDMCadPedido.cdsPedido_Cli.Edit;
           fDMCadPedido.cdsPedido_CliID_CENTROCUSTO.AsInteger := fDMCadPedido.cdsPedidoID_PROJETO.AsInteger;
@@ -508,7 +507,6 @@ begin
     ckImpProjeto.Checked := False;
 
   fDMCadPedido.cdsPedido_Consulta.AfterScroll := prc_scroll2;
-
 
   for i := 1 to SMDBGrid2.ColCount - 2 do
   begin
