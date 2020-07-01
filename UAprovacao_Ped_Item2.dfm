@@ -142,7 +142,7 @@ object frmAprovacao_Ped_Item2: TfrmAprovacao_Ped_Item2
       OnClick = NxButton1Click
     end
     object NxButton2: TNxButton
-      Left = 296
+      Left = 297
       Top = 5
       Width = 92
       Height = 26

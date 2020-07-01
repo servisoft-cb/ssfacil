@@ -4446,6 +4446,12 @@ object fMenu: TfMenu
         CompName = 'btnExcluir'
         Caption = 'Excluir'
         GroupName = 'Ajuste Pre'#231'o'
+      end
+      item
+        FormName = 'frmInforma_RecPagto'
+        CompName = 'btnConfirmar'
+        Caption = 'Confirmar'
+        GroupName = 'Pedido Informar Rec. Pagto'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

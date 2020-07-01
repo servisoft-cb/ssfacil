@@ -424,6 +424,10 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object sdsPedidoEND_ARQ_PAGTO: TStringField
+      FieldName = 'END_ARQ_PAGTO'
+      Size = 200
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -897,6 +901,10 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'CONTROLA_RESERVA'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedidoEND_ARQ_PAGTO: TStringField
+      FieldName = 'END_ARQ_PAGTO'
+      Size = 200
     end
   end
   object dsPedido: TDataSource
@@ -15399,6 +15407,10 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'GRAVAR_ORC_PED_CLIENTE'
       FixedChar = True
       Size = 1
+    end
+    object qParametros_PedEND_ARQ_REC_PED: TStringField
+      FieldName = 'END_ARQ_REC_PED'
+      Size = 200
     end
   end
   object sdsMetas_Acum: TSQLDataSet

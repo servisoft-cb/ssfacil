@@ -3760,6 +3760,9 @@ type
     qParametros_PedUSA_QTD_PECA: TStringField;
     qParametros_PedGRAVAR_ORC_PED_CLIENTE: TStringField;
     qProduto_MatrizTIPO_CALCULO: TStringField;
+    sdsPedidoEND_ARQ_PAGTO: TStringField;
+    cdsPedidoEND_ARQ_PAGTO: TStringField;
+    qParametros_PedEND_ARQ_REC_PED: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
