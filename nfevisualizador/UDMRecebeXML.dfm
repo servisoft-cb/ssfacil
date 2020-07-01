@@ -10589,4 +10589,24 @@ object DMRecebeXML: TDMRecebeXML
       Size = 5
     end
   end
+  object qCentroCusto: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'SELECT DESCRICAO'
+      'FROM CENTROCUSTO'
+      'WHERE ID = :ID')
+    SQLConnection = dmDatabase.scoDados
+    Left = 984
+    Top = 168
+    object qCentroCustoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+  end
 end

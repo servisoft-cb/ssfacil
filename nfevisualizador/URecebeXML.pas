@@ -318,9 +318,6 @@ type
     Label133: TLabel;
     RxDBLookupCombo9: TRxDBLookupCombo;
     SMDBGrid2: TSMDBGrid;
-    Label134: TLabel;
-    DBEdit82: TDBEdit;
-    DBEdit83: TDBEdit;
     RxDBComboBox2: TRxDBComboBox;
     Label125: TLabel;
     Label135: TLabel;
@@ -380,6 +377,12 @@ type
     CheckBox2: TCheckBox;
     Label150: TLabel;
     DBEdit93: TDBEdit;
+    Label151: TLabel;
+    DBEdit83: TDBEdit;
+    DBEdit82: TDBEdit;
+    Label134: TLabel;
+    CurrencyEdit3: TCurrencyEdit;
+    Edit1: TEdit;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
@@ -426,6 +429,8 @@ type
     procedure btnAjustarUnidadeClick(Sender: TObject);
     procedure CheckBox2Click(Sender: TObject);
     procedure RxDBLookupCombo6Exit(Sender: TObject);
+    procedure CurrencyEdit3KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     vCodCidade: Integer;
@@ -538,7 +543,6 @@ type
     procedure prc_Busca_CFOPAtual;
 
     procedure prc_Monta_ICMS;
-
   public
     { Public declarations }
     vUsaConfigNatOper2: String;
@@ -556,7 +560,7 @@ implementation
 
 uses
   DmdDatabase, uUtilPadrao, UMenu, rsDBUtils, uNFeComandos, USel_Pessoa, USel_Grupo, USel_Produto_Cor, USel_ContaOrc, VarUtils,
-  uRecebeXML_CFOP;
+  uRecebeXML_CFOP, USel_CentroCusto;
 
 {$R *.dfm}
 
@@ -571,18 +575,11 @@ begin
     begin
       if fDMRecebeXML.cdsDetalhe.Fields[i].DataType = ftString then
       begin
-        //vAux := Monta_Numero(fDMRecebeXML.cdsDetalhe.FieldByName(Campo1).AsString,0);
-        //if vAux <> '' then
-          fDMRecebeXML.mItensNota.FieldByName(Campo2).AsString :=  Replace(fDMRecebeXML.cdsDetalhe.FieldByName(Campo1).AssTring,'.',',')
-        //else
-        //  fDMRecebeXML.mItensNota.FieldByName(Campo2).AsString :=  '0';
+        fDMRecebeXML.mItensNota.FieldByName(Campo2).AsString := Replace(fDMRecebeXML.cdsDetalhe.FieldByName(Campo1).AssTring,'.',',')
       end
       else
         fDMRecebeXML.mItensNota.FieldByName(Campo2).AsString := fDMRecebeXML.cdsDetalhe.FieldByName(Campo1).AsString;
-
     end
-    //if fDMRecebeXML.cdsDetalhe.Fields[i].FieldName = Campo1 then
-      //fDMRecebeXML.mItensNota.FieldByName(Campo2).AsString := fDMRecebeXML.cdsDetalhe.FieldByName(Campo1).AsString;
   end;
 end;
 
@@ -616,11 +613,10 @@ begin
         fDMRecebeXML.mItensNotaID_Grupo.AsInteger := fDMRecebeXML.cdsProdutoID_GRUPO.AsInteger;
       if fDMRecebeXML.cdsProdutoID_CONTA_ORCAMENTO.AsInteger > 0 then
         fDMRecebeXML.mItensNotaID_ContaOrcamento.AsInteger := fDMRecebeXML.cdsProdutoID_CONTA_ORCAMENTO.AsInteger;
-      fDMRecebeXML.mItensNotaGerar_Estoque.AsString := fDMRecebeXML.cdsProdutoESTOQUE.AsString;
+      fDMRecebeXML.mItensNotaGerar_Estoque.AsString  := fDMRecebeXML.cdsProdutoESTOQUE.AsString;
       fDMRecebeXML.mItensNotaPosse_Material.AsString := fDMRecebeXML.cdsProdutoPOSSE_MATERIAL.AsString;
       fDMRecebeXML.mItensNotaSped_Tipo.AsString      := fDMRecebeXML.cdsProdutoSPED_TIPO_ITEM.AsString;
-      //21/08/2019
-      fDMRecebeXML.mItensNotaID_CFOPAtual.AsInteger := fDMRecebeXML.cdsProdutoID_CFOP_NFCE.AsInteger;
+      fDMRecebeXML.mItensNotaID_CFOPAtual.AsInteger  := fDMRecebeXML.cdsProdutoID_CFOP_NFCE.AsInteger;
 
       prc_Monta_Grupo('N');
       prc_Monta_ContaOrc('N');
@@ -3243,6 +3239,8 @@ begin
   Label109.Visible         := (fDMRecebeXML.qParametrosUSA_CUPOM_FISCAL.AsString = 'S');
   RxDBLookupCombo5.Visible := (fDMRecebeXML.qParametrosUSA_CUPOM_FISCAL.AsString = 'S');
   Label4.Visible := False;
+  Edit1.Clear;
+  CurrencyEdit3.Clear;             
 
   vPath := fDMRecebeXML.qParametrosENDXML_NOTAENTRADA.AsString;
   if fDMRecebeXML.qParametrosENDXML_NOTAENTRADA.AsString <> '' then
@@ -4953,6 +4951,22 @@ procedure TfrmRecebeXML.RxDBLookupCombo6Exit(Sender: TObject);
 begin
   if RxDBLookupCombo6.Text <> '' then
     vFilial_Local := RxDBLookupCombo6.KeyValue;
+end;
+
+procedure TfrmRecebeXML.CurrencyEdit3KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_F2) then
+  begin
+    vID_ContaOrcamento_Pos := fDMRecebeXML.mItensNotaID_ContaOrcamento.AsInteger;
+    frmSel_CentroCusto := TfrmSel_CentroCusto.Create(Self);
+    frmSel_CentroCusto.ShowModal;
+    CurrencyEdit3.Value := vID_Centro_Custo;
+    fDMRecebeXML.qCentroCusto.Close;
+    fDMRecebeXML.qCentroCusto.ParamByName('ID').AsInteger := vID_Centro_Custo;
+    fDMRecebeXML.qCentroCusto.Open;
+    Edit1.Text := fDMRecebeXML.qCentroCustoDESCRICAO.AsString;    
+  end;
 end;
 
 end.

@@ -4,8 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons, Grids,
-  DBGrids, SMDBGrid, FMTBcd, DB, Provider, DBClient, SqlExpr, RxLookup,
-  NxCollection;
+  DBGrids, SMDBGrid, FMTBcd, DB, Provider, DBClient, SqlExpr, RxLookup, NxCollection;
 
 type
   TfrmSel_CentroCusto = class(TForm)
@@ -58,13 +57,12 @@ type
     procedure NxButton1Click(Sender: TObject);
   private
     { Private declarations }
-    ctCentroCustoLocal : String;
+    ctCentroCustoLocal: String;
     procedure prc_Consultar;
     procedure prc_Move_Dados;
   public
     { Public declarations }
-    vID_Conta_Orcamento_Loc : Integer;
-
+    vID_Conta_Orcamento_Loc: Integer;
   end;
 
 var
@@ -85,8 +83,6 @@ procedure TfrmSel_CentroCusto.prc_Consultar;
 begin
   cdsCentroCusto.Close;
   sdsCentroCusto.CommandText := ctCentroCustoLocal;
-  //if trim(Edit1.Text) <> '' then
-    //sdsCentroCusto.CommandText := sdsCentroCusto.CommandText + ' WHERE B.DESCRICAO LIKE ' + QuotedStr('%'+Edit1.Text+'%');
   if RxDBLookupCombo9.Text <> '' then
     sdsCentroCusto.CommandText := sdsCentroCusto.CommandText + ' INNER JOIN conta_orcamento_ccusto CO ON B.ID = CO.id_centrocusto '
                                 + ' WHERE CO.ID = ' + IntToStr(RxDBLookupCombo9.KeyValue);
@@ -139,7 +135,7 @@ end;
 procedure TfrmSel_CentroCusto.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
-  vIDAux : Integer;
+  vIDAux: Integer;
 begin
   if Key = 27 then
     Close
@@ -162,11 +158,9 @@ begin
 
        // if qPesquisa.Locate('DESCRICAO',Edit1.Text,([loPartialKey])) then
 
-      //end;
-
+      //end;                  
     end;
   end;
-
 end;
 
 procedure TfrmSel_CentroCusto.FormShow(Sender: TObject);
@@ -182,8 +176,8 @@ end;
 
 procedure TfrmSel_CentroCusto.SMDBGrid1TitleClick(Column: TColumn);
 var
-  i : Integer;
-  ColunaOrdenada : String;
+  i: Integer;
+  ColunaOrdenada: String;
 begin
   ColunaOrdenada := Column.FieldName;
   cdsCentroCusto.IndexFieldNames := Column.FieldName;
@@ -200,7 +194,7 @@ end;
 
 procedure TfrmSel_CentroCusto.NxButton1Click(Sender: TObject);
 var
-  vObs : String;
+  vObs: String;
 begin
   vObs := '';
   cdsCentroCusto.First;
