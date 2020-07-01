@@ -3189,6 +3189,7 @@ type
     mPedido_PesoID_Produto: TIntegerField;
     mPedido_PesoNome_Produto: TStringField;
     mPedido_PesoUnidade: TStringField;
+    cdsPedidoEND_ARQ_PAGTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
