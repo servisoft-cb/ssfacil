@@ -186,6 +186,11 @@ type
     Label41: TLabel;
     Shape9: TShape;
     Label42: TLabel;
+    RzGroupBox3: TRzGroupBox;
+    Label43: TLabel;
+    SpeedButton9: TSpeedButton;
+    Label44: TLabel;
+    RxDBLookupCombo9: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -255,6 +260,11 @@ type
       Shift: TShiftState);
     procedure SMDBGrid2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure RxDBLookupCombo9KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure SpeedButton9Click(Sender: TObject);
+    procedure RxDBLookupCombo9DropDown(Sender: TObject);
+    procedure RxDBLookupCombo9CloseUp(Sender: TObject);
   private
     { Private declarations }
 
@@ -300,7 +310,8 @@ var
 implementation
 
 uses DateUtils, DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, uRelOC, uRelOC_Hidro, USel_Pessoa, UDMUtil, USel_ContaOrc, USenha,
-  uUtilCliente, uCalculo_Pedido, uCadOC_Item_Qtd, UCadOC_Reserva, UCadPedido_Copia, uGrava_Pedido, UConsMotivoNaoAprov;
+  uUtilCliente, uCalculo_Pedido, uCadOC_Item_Qtd, UCadOC_Reserva, UCadPedido_Copia, uGrava_Pedido, UConsMotivoNaoAprov,
+  USel_CentroCusto;
 
 {$R *.dfm}
 
@@ -1748,6 +1759,34 @@ begin
   finally
     FreeAndNil(sds);
   end;
+end;
+
+procedure TfrmCadOC.RxDBLookupCombo9KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_F2) then
+  begin
+    vID_Centro_Custo := fDMCadPedido.cdsPedidoID_CENTROCUSTO.AsInteger;
+    frmSel_CentroCusto := TfrmSel_CentroCusto.Create(Self);
+    frmSel_CentroCusto.ShowModal;
+    fDMCadPedido.cdsPedidoID_CENTROCUSTO.AsInteger := vID_Centro_Custo;
+  end;
+end;
+
+procedure TfrmCadOC.SpeedButton9Click(Sender: TObject);
+begin
+  fDMCadPedido.cdsCentroCusto.Close;
+  fDMCadPedido.cdsCentroCusto.Open;
+end;
+
+procedure TfrmCadOC.RxDBLookupCombo9DropDown(Sender: TObject);
+begin
+  RxDBLookupCombo9.LookupDisplay := 'NOME_AUX;CODIGO';
+end;
+
+procedure TfrmCadOC.RxDBLookupCombo9CloseUp(Sender: TObject);
+begin
+  RxDBLookupCombo9.LookupDisplay := 'DESCRICAO';   
 end;
 
 end.

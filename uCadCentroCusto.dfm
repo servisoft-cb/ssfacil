@@ -22,9 +22,9 @@ object frmCadCentroCusto: TfrmCadCentroCusto
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 755
-    Height = 555
-    ActivePage = TS_Cadastro
+    Width = 747
+    Height = 547
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -40,9 +40,9 @@ object frmCadCentroCusto: TfrmCadCentroCusto
       Caption = 'Consulta'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 67
-        Width = 751
-        Height = 448
+        Top = 66
+        Width = 743
+        Height = 441
         Align = alClient
         Ctl3D = False
         DataSource = dmCadCentroCusto.dsConsulta
@@ -143,16 +143,17 @@ object frmCadCentroCusto: TfrmCadCentroCusto
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 751
-        Height = 32
+        Width = 743
+        Height = 31
         Align = alTop
         Color = clSilver
         TabOrder = 0
         object btnInserir: TNxButton
-          Left = 3
+          Left = 1
           Top = 1
           Width = 153
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Inserir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -223,10 +224,11 @@ object frmCadCentroCusto: TfrmCadCentroCusto
           OnClick = btnInserirClick
         end
         object btnExcluir: TNxButton
-          Left = 155
+          Left = 304
           Top = 1
           Width = 153
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Excluir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -297,10 +299,11 @@ object frmCadCentroCusto: TfrmCadCentroCusto
           OnClick = btnExcluirClick
         end
         object btnImprimir: TNxButton
-          Left = 300
+          Left = 154
           Top = 1
           Width = 150
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Imprimir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -371,8 +374,8 @@ object frmCadCentroCusto: TfrmCadCentroCusto
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 515
-        Width = 751
+        Top = 507
+        Width = 743
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -387,8 +390,8 @@ object frmCadCentroCusto: TfrmCadCentroCusto
       end
       object Panel3: TPanel
         Left = 0
-        Top = 32
-        Width = 751
+        Top = 31
+        Width = 743
         Height = 35
         Align = alTop
         Color = clSilver
@@ -488,16 +491,17 @@ object frmCadCentroCusto: TfrmCadCentroCusto
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 751
-        Height = 35
+        Width = 743
+        Height = 31
         Align = alTop
         Color = 8404992
         TabOrder = 1
         object btnAlterar: TNxButton
-          Left = 4
-          Top = 3
+          Left = 1
+          Top = 1
           Width = 153
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Alterar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -566,10 +570,11 @@ object frmCadCentroCusto: TfrmCadCentroCusto
           OnClick = btnAlterarClick
         end
         object btnConfirmar: TNxButton
-          Left = 156
-          Top = 3
+          Left = 154
+          Top = 1
           Width = 153
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Confirmar'
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
@@ -639,10 +644,11 @@ object frmCadCentroCusto: TfrmCadCentroCusto
           OnClick = btnConfirmarClick
         end
         object btnCancelar: TNxButton
-          Left = 308
-          Top = 3
+          Left = 307
+          Top = 1
           Width = 153
-          Height = 30
+          Height = 29
+          Align = alLeft
           Caption = 'Cancelar'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -713,9 +719,9 @@ object frmCadCentroCusto: TfrmCadCentroCusto
       end
       object pnlCadastro: TPanel
         Left = 0
-        Top = 35
-        Width = 751
-        Height = 497
+        Top = 31
+        Width = 743
+        Height = 493
         Align = alClient
         Enabled = False
         TabOrder = 0
@@ -883,7 +889,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
           TabOrder = 6
         end
         object gbxEndereco: TRzGroupBox
-          Left = 98
+          Left = 90
           Top = 126
           Width = 641
           Height = 353
@@ -904,7 +910,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
           TabOrder = 7
           VisualStyle = vsGradient
           object Label7: TLabel
-            Left = 65
+            Left = 63
             Top = 134
             Width = 49
             Height = 13
@@ -920,7 +926,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'N'#186':'
           end
           object Label9: TLabel
-            Left = 47
+            Left = 45
             Top = 155
             Width = 67
             Height = 13
@@ -936,7 +942,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'Cep:'
           end
           object Label11: TLabel
-            Left = 84
+            Left = 82
             Top = 176
             Width = 30
             Height = 13
@@ -944,7 +950,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'Bairro:'
           end
           object Label12: TLabel
-            Left = 78
+            Left = 76
             Top = 198
             Width = 36
             Height = 13
@@ -960,7 +966,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'UF:'
           end
           object Label14: TLabel
-            Left = 56
+            Left = 54
             Top = 17
             Width = 58
             Height = 13
@@ -968,7 +974,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'N'#186' Contrato:'
           end
           object Label15: TLabel
-            Left = 83
+            Left = 82
             Top = 90
             Width = 30
             Height = 13
@@ -976,7 +982,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'CNPJ:'
           end
           object Label16: TLabel
-            Left = 37
+            Left = 35
             Top = 220
             Width = 77
             Height = 13
@@ -984,7 +990,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'Fone (DDD/N'#186'):'
           end
           object Label54: TLabel
-            Left = 73
+            Left = 72
             Top = 262
             Width = 40
             Height = 13
@@ -992,7 +998,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'Contato:'
           end
           object Label17: TLabel
-            Left = 85
+            Left = 84
             Top = 242
             Width = 28
             Height = 13
@@ -1000,7 +1006,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'Email:'
           end
           object Label18: TLabel
-            Left = 53
+            Left = 51
             Top = 38
             Width = 61
             Height = 13
@@ -1015,7 +1021,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'Respons'#225'vel Pelas Compras...................'
           end
           object Label21: TLabel
-            Left = 73
+            Left = 72
             Top = 331
             Width = 40
             Height = 13
@@ -1023,7 +1029,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'Contato:'
           end
           object Label22: TLabel
-            Left = 85
+            Left = 84
             Top = 311
             Width = 28
             Height = 13
@@ -1031,7 +1037,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             Caption = 'Email:'
           end
           object Label23: TLabel
-            Left = 14
+            Left = 12
             Top = 59
             Width = 100
             Height = 13
@@ -1173,7 +1179,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             TabOrder = 13
           end
           object DBEdit13: TDBEdit
-            Left = 114
+            Left = 115
             Top = 255
             Width = 395
             Height = 21
@@ -1183,7 +1189,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             TabOrder = 15
           end
           object DBEdit14: TDBEdit
-            Left = 114
+            Left = 115
             Top = 234
             Width = 395
             Height = 21
@@ -1203,7 +1209,7 @@ object frmCadCentroCusto: TfrmCadCentroCusto
             TabOrder = 1
           end
           object DBEdit16: TDBEdit
-            Left = 114
+            Left = 115
             Top = 324
             Width = 395
             Height = 21

@@ -424,6 +424,9 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object sdsPedidoID_CENTROCUSTO: TIntegerField
+      FieldName = 'ID_CENTROCUSTO'
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -897,6 +900,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'CONTROLA_RESERVA'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedidoID_CENTROCUSTO: TIntegerField
+      FieldName = 'ID_CENTROCUSTO'
     end
   end
   object dsPedido: TDataSource
@@ -19599,5 +19605,79 @@ object DMCadPedido: TDMCadPedido
     SQLConnection = dmDatabase.scoDados
     Left = 1151
     Top = 22
+  end
+  object sdsCentroCusto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT C.ID, C.DESCRICAO, C.TIPO, C.CODIGO, CASE NIVEL'#13#10'        ' +
+      '   WHEN 5 THEN '#39'          '#39' ||  DESCRICAO'#13#10'           WHEN 4 THE' +
+      'N '#39'        '#39' ||  DESCRICAO'#13#10'           WHEN 3 THEN '#39'      '#39' ||  ' +
+      'DESCRICAO'#13#10'           WHEN 2 THEN '#39'    '#39' ||  DESCRICAO'#13#10'        ' +
+      '   WHEN 1 THEN DESCRICAO'#13#10'           ELSE DESCRICAO'#13#10'           ' +
+      'END AS NOME_AUX'#13#10'FROM CENTROCUSTO C '#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 1137
+    Top = 101
+    object IntegerField1: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object StringField1: TStringField
+      FieldName = 'TIPO'
+      FixedChar = True
+      Size = 1
+    end
+    object StringField2: TStringField
+      FieldName = 'CODIGO'
+    end
+    object StringField3: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object StringField4: TStringField
+      FieldName = 'NOME_AUX'
+      Size = 60
+    end
+  end
+  object dspCentroCusto: TDataSetProvider
+    DataSet = sdsCentroCusto
+    Left = 1161
+    Top = 101
+  end
+  object cdsCentroCusto: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'DESCRICAO'
+    Params = <>
+    ProviderName = 'dspCentroCusto'
+    Left = 1185
+    Top = 101
+    object cdsCentroCustoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsCentroCustoTIPO: TStringField
+      FieldName = 'TIPO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsCentroCustoCODIGO: TStringField
+      FieldName = 'CODIGO'
+    end
+    object cdsCentroCustoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object cdsCentroCustoNOME_AUX: TStringField
+      FieldName = 'NOME_AUX'
+      Size = 60
+    end
+  end
+  object dsCentroCusto: TDataSource
+    DataSet = cdsCentroCusto
+    Left = 1209
+    Top = 101
   end
 end

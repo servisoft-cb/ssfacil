@@ -3760,6 +3760,22 @@ type
     qParametros_PedUSA_QTD_PECA: TStringField;
     qParametros_PedGRAVAR_ORC_PED_CLIENTE: TStringField;
     qProduto_MatrizTIPO_CALCULO: TStringField;
+    sdsPedidoID_CENTROCUSTO: TIntegerField;
+    cdsPedidoID_CENTROCUSTO: TIntegerField;
+    sdsCentroCusto: TSQLDataSet;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    StringField4: TStringField;
+    dspCentroCusto: TDataSetProvider;
+    cdsCentroCusto: TClientDataSet;
+    dsCentroCusto: TDataSource;
+    cdsCentroCustoID: TIntegerField;
+    cdsCentroCustoTIPO: TStringField;
+    cdsCentroCustoCODIGO: TStringField;
+    cdsCentroCustoDESCRICAO: TStringField;
+    cdsCentroCustoNOME_AUX: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -3885,8 +3901,7 @@ var
 
 implementation
 
-uses DmdDatabase, uUtilPadrao, LogProvider, uCalculo_Pedido, UDMAprovacao_Ped, StrUtils,
-  uGrava_Pedido;
+uses DmdDatabase, uUtilPadrao, LogProvider, uCalculo_Pedido, UDMAprovacao_Ped, StrUtils, uGrava_Pedido;
 
 {$R *.dfm}
 
@@ -3941,6 +3956,7 @@ begin
 
   if cdsParametrosUSA_CONTA_ORCAMENTO.AsString = 'S' then
     cdsContaOrcamento.Open;
+  cdsCentroCusto.Open;
 
   if qParametros_PedMOSTRAR_GRUPO_PESSOA.AsString = 'S' then
     cdsGrupo_Pessoa.Open;
