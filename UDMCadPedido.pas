@@ -3760,14 +3760,15 @@ type
     qParametros_PedUSA_QTD_PECA: TStringField;
     qParametros_PedGRAVAR_ORC_PED_CLIENTE: TStringField;
     qProduto_MatrizTIPO_CALCULO: TStringField;
+    sdsPedidoEND_ARQ_PAGTO: TStringField;
+    cdsPedidoEND_ARQ_PAGTO: TStringField;
+    qParametros_PedEND_ARQ_REC_PED: TStringField;
+    cdsClienteUSA_PRECO_VAREJO: TStringField;
+    cdsProdutoPRECO_VAREJO: TFloatField;
+    qParametros_ProdUSA_PRECO_VAREJO: TStringField;
     sdsPedidoID_CENTROCUSTO: TIntegerField;
     cdsPedidoID_CENTROCUSTO: TIntegerField;
     sdsCentroCusto: TSQLDataSet;
-    IntegerField1: TIntegerField;
-    StringField1: TStringField;
-    StringField2: TStringField;
-    StringField3: TStringField;
-    StringField4: TStringField;
     dspCentroCusto: TDataSetProvider;
     cdsCentroCusto: TClientDataSet;
     dsCentroCusto: TDataSource;
@@ -3775,13 +3776,6 @@ type
     cdsCentroCustoTIPO: TStringField;
     cdsCentroCustoCODIGO: TStringField;
     cdsCentroCustoDESCRICAO: TStringField;
-    cdsCentroCustoNOME_AUX: TStringField;
-    sdsPedidoEND_ARQ_PAGTO: TStringField;
-    cdsPedidoEND_ARQ_PAGTO: TStringField;
-    qParametros_PedEND_ARQ_REC_PED: TStringField;
-    cdsClienteUSA_PRECO_VAREJO: TStringField;
-    cdsProdutoPRECO_VAREJO: TFloatField;
-    qParametros_ProdUSA_PRECO_VAREJO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -3841,7 +3835,7 @@ type
     vID_Cliente: Integer;
     vID_Vendedor: Integer;
     vPerc_Comissao_Rateio: Real;
-    vTipo_Rel_Ped: String; //P=Produção  R=Romaneio Expedição
+    vTipo_Rel_Ped: String; //P=Produï¿½ï¿½o  R=Romaneio Expediï¿½ï¿½o
     vID_Cond_Pagto_Ant: Integer;
     vGravou_OK_Ajuste: Boolean;
     vImpPreco: Boolean;
@@ -3855,7 +3849,7 @@ type
 
     vNum_Rel_Fast: Integer;
 
-    //Variáveis JW  19/08/2015
+    //Variï¿½veis JW  19/08/2015
     vLargura, vAltura, vComprimento, vDiametro, vDiametro_Ext, vDiametro_Int, vParede: Real;
     //*************
     vImpPedTerceiro: Boolean;
@@ -3907,13 +3901,14 @@ var
 
 implementation
 
-uses DmdDatabase, uUtilPadrao, LogProvider, uCalculo_Pedido, UDMAprovacao_Ped, StrUtils, uGrava_Pedido;
+uses DmdDatabase, uUtilPadrao, LogProvider, uCalculo_Pedido, UDMAprovacao_Ped, StrUtils,
+  uGrava_Pedido;
 
 {$R *.dfm}
 
 { TDMCadCFOP}
 
-procedure TDMCadPedido.prc_Localizar(ID: Integer); //-1 é para inclusão
+procedure TDMCadPedido.prc_Localizar(ID: Integer); //-1 ï¿½ para inclusï¿½o
 begin
   cdsPedido.Close;
   sdsPedido.CommandText := ctCommand;
@@ -3962,7 +3957,6 @@ begin
 
   if cdsParametrosUSA_CONTA_ORCAMENTO.AsString = 'S' then
     cdsContaOrcamento.Open;
-  cdsCentroCusto.Open;
 
   if qParametros_PedMOSTRAR_GRUPO_PESSOA.AsString = 'S' then
     cdsGrupo_Pessoa.Open;
@@ -3972,6 +3966,7 @@ begin
 
   if cdsParametrosEMPRESA_AMBIENTES.AsString = 'S' then
     cdsCor.Open;
+  cdsCentroCusto.Open;
 
   if vRotulo then
     cdsCliente.Open
@@ -3994,7 +3989,7 @@ begin
     cdsLocal_Estoque.Open;
     cdsAtelier.Open;
 
-    //*** Logs Implantado na versão .353
+    //*** Logs Implantado na versï¿½o .353
     LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
     for i := 0 to (Self.ComponentCount - 1) do
     begin
@@ -4464,15 +4459,15 @@ begin
   if vCodigo <> '' then
   begin
     if ((Copy(vCodigo,1,1) <> '5') and (Copy(vCodigo,1,1) <> '6') and (Copy(vCodigo,1,1) <> '7')) then
-      vMsgErroAux := vMsgErroAux + #13 + 'Natureza é de saída!'
+      vMsgErroAux := vMsgErroAux + #13 + 'Natureza ï¿½ de saï¿½da!'
     else
     if cdsPedidoID_CLIENTE.AsInteger > 0 then
     begin
       if (vSiglaUF <> cdsFilialUF.AsString) and ((Copy(vCodigo,1,1) = '1') or (Copy(vCodigo,1,1) = '5')) then
-        vMsgErroAux := vMsgErroAux + #13 + 'Natureza inválida para o estado!'
+        vMsgErroAux := vMsgErroAux + #13 + 'Natureza invï¿½lida para o estado!'
       else
       if (vSiglaUF = cdsFilialUF.AsString) and ((Copy(vCodigo,1,1) <> '5') and (Copy(vCodigo,1,1) <> '1')) then
-        vMsgErroAux := vMsgErroAux + #13 + 'Natureza inválida para o estado!';
+        vMsgErroAux := vMsgErroAux + #13 + 'Natureza invï¿½lida para o estado!';
     end;
   end;
   if trim(vMsgErroAux) <> '' then
@@ -4506,7 +4501,7 @@ begin
   if cdsPedidoImpTIPO_FRETE.AsString <> '' then
     case cdsPedidoImpTIPO_FRETE.AsInteger of
       1: cdsPedidoImpclTIPO_FRETE.AsString := 'Emitente';
-      2: cdsPedidoImpclTIPO_FRETE.AsString := 'Destinatário';
+      2: cdsPedidoImpclTIPO_FRETE.AsString := 'Destinatï¿½rio';
       3: cdsPedidoImpclTIPO_FRETE.AsString := 'Terceiros';
       4: cdsPedidoImpclTIPO_FRETE.AsString := 'Sem Frete';
     end;
@@ -5085,4 +5080,3 @@ begin
 end;
 
 end.
-

@@ -424,11 +424,12 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
-    object sdsPedidoID_CENTROCUSTO: TIntegerField
-      FieldName = 'ID_CENTROCUSTO'
     object sdsPedidoEND_ARQ_PAGTO: TStringField
       FieldName = 'END_ARQ_PAGTO'
       Size = 200
+    end
+    object sdsPedidoID_CENTROCUSTO: TIntegerField
+      FieldName = 'ID_CENTROCUSTO'
     end
   end
   object dspPedido: TDataSetProvider
@@ -446,7 +447,7 @@ object DMCadPedido: TDMCadPedido
     BeforePost = cdsPedidoBeforePost
     OnNewRecord = cdsPedidoNewRecord
     Left = 55
-    Top = 4
+    Top = 5
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -904,11 +905,12 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
-    object cdsPedidoID_CENTROCUSTO: TIntegerField
-      FieldName = 'ID_CENTROCUSTO'
     object cdsPedidoEND_ARQ_PAGTO: TStringField
       FieldName = 'END_ARQ_PAGTO'
       Size = 200
+    end
+    object cdsPedidoID_CENTROCUSTO: TIntegerField
+      FieldName = 'ID_CENTROCUSTO'
     end
   end
   object dsPedido: TDataSource
@@ -1607,7 +1609,6 @@ object DMCadPedido: TDMCadPedido
     Top = 297
   end
   object cdsTipoCobranca: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -1684,7 +1685,6 @@ object DMCadPedido: TDMCadPedido
     Top = 339
   end
   object cdsContas: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -11832,7 +11832,7 @@ object DMCadPedido: TDMCadPedido
     Params = <>
     ProviderName = 'dspAcabamento'
     Left = 625
-    Top = 214
+    Top = 215
     object cdsAcabamentoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -12129,7 +12129,7 @@ object DMCadPedido: TDMCadPedido
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 592
+    Left = 591
     Top = 421
   end
   object dspPerfil: TDataSetProvider
@@ -13415,7 +13415,7 @@ object DMCadPedido: TDMCadPedido
   end
   object dsCondPgto_Mestre: TDataSource
     DataSet = sdsCondPgto
-    Left = 524
+    Left = 526
     Top = 460
   end
   object sdsCondPgto: TSQLDataSet
@@ -19633,51 +19633,25 @@ object DMCadPedido: TDMCadPedido
   object sdsCentroCusto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 
-      'SELECT C.ID, C.DESCRICAO, C.TIPO, C.CODIGO, CASE NIVEL'#13#10'        ' +
-      '   WHEN 5 THEN '#39'          '#39' ||  DESCRICAO'#13#10'           WHEN 4 THE' +
-      'N '#39'        '#39' ||  DESCRICAO'#13#10'           WHEN 3 THEN '#39'      '#39' ||  ' +
-      'DESCRICAO'#13#10'           WHEN 2 THEN '#39'    '#39' ||  DESCRICAO'#13#10'        ' +
-      '   WHEN 1 THEN DESCRICAO'#13#10'           ELSE DESCRICAO'#13#10'           ' +
-      'END AS NOME_AUX'#13#10'FROM CENTROCUSTO C '#13#10
+    CommandText = 'select ID, TIPO, CODIGO, DESCRICAO'#13#10'FROM CENTROCUSTO'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 1137
-    Top = 101
-    object IntegerField1: TIntegerField
-      FieldName = 'ID'
-      Required = True
-    end
-    object StringField1: TStringField
-      FieldName = 'TIPO'
-      FixedChar = True
-      Size = 1
-    end
-    object StringField2: TStringField
-      FieldName = 'CODIGO'
-    end
-    object StringField3: TStringField
-      FieldName = 'DESCRICAO'
-      Size = 50
-    end
-    object StringField4: TStringField
-      FieldName = 'NOME_AUX'
-      Size = 60
-    end
+    Left = 1203
+    Top = 389
   end
   object dspCentroCusto: TDataSetProvider
     DataSet = sdsCentroCusto
-    Left = 1161
-    Top = 101
+    Left = 1215
+    Top = 389
   end
   object cdsCentroCusto: TClientDataSet
     Aggregates = <>
     IndexFieldNames = 'DESCRICAO'
     Params = <>
     ProviderName = 'dspCentroCusto'
-    Left = 1185
-    Top = 101
+    Left = 1228
+    Top = 390
     object cdsCentroCustoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -19694,14 +19668,10 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'DESCRICAO'
       Size = 50
     end
-    object cdsCentroCustoNOME_AUX: TStringField
-      FieldName = 'NOME_AUX'
-      Size = 60
-    end
   end
   object dsCentroCusto: TDataSource
     DataSet = cdsCentroCusto
-    Left = 1209
-    Top = 101
+    Left = 1251
+    Top = 389
   end
 end
