@@ -19633,7 +19633,13 @@ object DMCadPedido: TDMCadPedido
   object sdsCentroCusto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'select ID, TIPO, CODIGO, DESCRICAO'#13#10'FROM CENTROCUSTO'
+    CommandText = 
+      'SELECT C.ID, C.DESCRICAO, C.TIPO, C.CODIGO, CASE NIVEL'#13#10'        ' +
+      '   WHEN 5 THEN '#39'          '#39' ||  DESCRICAO'#13#10'           WHEN 4 THE' +
+      'N '#39'        '#39' ||  DESCRICAO'#13#10'           WHEN 3 THEN '#39'      '#39' ||  ' +
+      'DESCRICAO'#13#10'           WHEN 2 THEN '#39'    '#39' ||  DESCRICAO'#13#10'        ' +
+      '   WHEN 1 THEN DESCRICAO'#13#10'           ELSE DESCRICAO'#13#10'           ' +
+      'END AS NOME_AUX'#13#10'FROM CENTROCUSTO C'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -19656,6 +19662,10 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'ID'
       Required = True
     end
+    object cdsCentroCustoDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
     object cdsCentroCustoTIPO: TStringField
       FieldName = 'TIPO'
       FixedChar = True
@@ -19664,9 +19674,9 @@ object DMCadPedido: TDMCadPedido
     object cdsCentroCustoCODIGO: TStringField
       FieldName = 'CODIGO'
     end
-    object cdsCentroCustoDESCRICAO: TStringField
-      FieldName = 'DESCRICAO'
-      Size = 50
+    object cdsCentroCustoNOME_AUX: TStringField
+      FieldName = 'NOME_AUX'
+      Size = 60
     end
   end
   object dsCentroCusto: TDataSource

@@ -3773,9 +3773,10 @@ type
     cdsCentroCusto: TClientDataSet;
     dsCentroCusto: TDataSource;
     cdsCentroCustoID: TIntegerField;
+    cdsCentroCustoDESCRICAO: TStringField;
     cdsCentroCustoTIPO: TStringField;
     cdsCentroCustoCODIGO: TStringField;
-    cdsCentroCustoDESCRICAO: TStringField;
+    cdsCentroCustoNOME_AUX: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -3957,6 +3958,7 @@ begin
 
   if cdsParametrosUSA_CONTA_ORCAMENTO.AsString = 'S' then
     cdsContaOrcamento.Open;
+  cdsCentroCusto.Open;
 
   if qParametros_PedMOSTRAR_GRUPO_PESSOA.AsString = 'S' then
     cdsGrupo_Pessoa.Open;
