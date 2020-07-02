@@ -77,6 +77,7 @@ object DMCadCondPgto: TDMCadCondPgto
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspCondPgto'
+    BeforePost = cdsCondPgtoBeforePost
     OnNewRecord = cdsCondPgtoNewRecord
     Left = 256
     Top = 32

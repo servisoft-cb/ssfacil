@@ -2007,6 +2007,9 @@ type
     qTab_CProd_ANPCODIGO: TStringField;
     qTab_CProd_ANPDESCRICAO: TStringField;
     qParametros_ProdUSA_QTD_MEDIA: TStringField;
+    sdsProdutoPRECO_VAREJO: TFloatField;
+    cdsProdutoPRECO_VAREJO: TFloatField;
+    qParametros_ProdUSA_PRECO_VAREJO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;

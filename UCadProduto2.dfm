@@ -1973,10 +1973,10 @@ object frmCadProduto2: TfrmCadProduto2
             Top = 269
             Width = 883
             Height = 250
-            ActivePage = TS_Livro
+            ActivePage = TS_Fiscal
             ActivePageDefault = TS_Livro
             Align = alClient
-            TabIndex = 0
+            TabIndex = 1
             TabOrder = 1
             TextColors.Selected = clBlue
             FixedDimension = 19

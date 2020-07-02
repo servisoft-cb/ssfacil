@@ -3763,6 +3763,9 @@ type
     sdsPedidoEND_ARQ_PAGTO: TStringField;
     cdsPedidoEND_ARQ_PAGTO: TStringField;
     qParametros_PedEND_ARQ_REC_PED: TStringField;
+    cdsClienteUSA_PRECO_VAREJO: TStringField;
+    cdsProdutoPRECO_VAREJO: TFloatField;
+    qParametros_ProdUSA_PRECO_VAREJO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

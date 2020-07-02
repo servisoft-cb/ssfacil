@@ -918,6 +918,10 @@ begin
   if StrToFloat(FormatFloat('0.00000',vPreco_Pos)) > 0 then
     vPrecoAux := StrToFloat(FormatFloat('0.00000',vPreco_Pos))
   else
+  //01/07/2020  para os pedidos do Caruso
+  if (fDMCadPedido.qParametros_ProdUSA_PRECO_VAREJO.AsString = 'S') and (fDMCadPedido.cdsClienteUSA_PRECO_VAREJO.AsString = 'S') then
+    vPrecoAux := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsProdutoPRECO_VAREJO.AsFloat))
+  else
   //24/05/2018  IF para informar se usa ou não a tabela de preço no pedido
   if ((fDMCadPedido.qParametros_PedUSA_TAB_PRECO.AsString = 'S') and (fDMCadPedido.cdsPedidoID_TAB_PRECO.AsInteger > 0)) or (fDMCadPedido.cdsClienteID_TAB_PRECO.AsInteger > 0) then
   begin

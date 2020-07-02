@@ -2006,6 +2006,9 @@ begin
   if (fDMCadProduto.qParametros_EstUSA_PRODUTO_EST.AsString = 'S') then
     edtProduto_Est.Text := fnc_Mostra_Nome_Prod(fDMCadProduto.cdsProdutoID_PRODUTO_EST.AsInteger);
 
+  Label169.Visible := (fDMCadProduto.qParametros_ProdUSA_PRECO_VAREJO.AsString = 'S');
+  DBEdit96.Visible := (fDMCadProduto.qParametros_ProdUSA_PRECO_VAREJO.AsString = 'S');
+
   prc_le_Grid(SMDBGrid1, Name, fDMCadProduto.qParametros_GeralENDGRIDS.AsString);
 end;
 

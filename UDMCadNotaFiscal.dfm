@@ -3823,11 +3823,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       '_PRODUTO_CLI,'#13#10'IMP_COR_CLIENTE, PES.MDIA1, PES.MDIA2, PES.insc_s' +
       'uframa, IPI_PAGO_FILIAL, PES.IMP_NOMEPROD_CLIENTE, IMP_ETIQUETA_' +
       'ROT,'#13#10'PES.OBS_AVISO, MOSTRAR_AVISO, IMP_TAMANHO_FINAL, PES.ID_VE' +
-      'NDEDOR_INT, PES.PERC_COMISSAO_INT'#13#10'FROM PESSOA PES'#13#10#13#10
+      'NDEDOR_INT, PES.PERC_COMISSAO_INT, PES.USA_PRECO_VAREJO'#13#10'FROM PE' +
+      'SSOA PES'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 599
+    Left = 600
     Top = 40
   end
   object dspCliente: TDataSetProvider
@@ -4128,6 +4129,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsClientePERC_COMISSAO_INT: TFloatField
       FieldName = 'PERC_COMISSAO_INT'
+    end
+    object cdsClienteUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsCliente: TDataSource
@@ -5307,7 +5313,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'TAL,PERC_MARGEMLUCRO'#13#10',PERC_DESC_MAX,SPED_TIPO_ITEM,ID_CSTICMS_B' +
       'RED,USA_PRECO_COR,TAMANHO,COD_BARRA2,QTD_EMBALAGEM'#13#10',ID_MARCA,UN' +
       'IDADE2,ID_CSTICMS,P.NOME_MODELO,P.perc_icms_nfce, P.CALCULAR_ST,' +
-      ' P.MEDIDA, P.COD_BENEF, ANP_ID'#13#10'FROM PRODUTO P'#13#10#13#10
+      ' P.MEDIDA, P.COD_BENEF, ANP_ID, P.PRECO_VAREJO'#13#10'FROM PRODUTO P'#13#10 +
+      #13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5566,6 +5573,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsProdutoANP_ID: TIntegerField
       FieldName = 'ANP_ID'
+    end
+    object cdsProdutoPRECO_VAREJO: TFloatField
+      FieldName = 'PRECO_VAREJO'
     end
   end
   object dsProduto: TDataSource
@@ -13760,6 +13770,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object qParametros_ProdUSA_BITOLA: TStringField
       FieldName = 'USA_BITOLA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_ProdUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
       FixedChar = True
       Size = 1
     end

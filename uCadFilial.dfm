@@ -706,10 +706,10 @@ object frmCadFilial: TfrmCadFilial
         Top = 31
         Width = 1090
         Height = 545
-        ActivePage = TS_Tributos
+        ActivePage = TS_Parametros
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 1
+        TabIndex = 2
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -2179,6 +2179,18 @@ object frmCadFilial: TfrmCadFilial
               'R'
               'I'
               'O')
+          end
+          object DBCheckBox29: TDBCheckBox
+            Left = 121
+            Top = 277
+            Width = 144
+            Height = 17
+            Caption = 'Utiliza APP Pedido'
+            DataField = 'UTILIZA_APP'
+            DataSource = DMCadFilial.dsFilial
+            TabOrder = 13
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
           end
         end
         object TS_NotaServico: TRzTabSheet

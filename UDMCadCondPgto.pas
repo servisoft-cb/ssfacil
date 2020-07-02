@@ -54,6 +54,7 @@ type
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsCondPgtoNewRecord(DataSet: TDataSet);
+    procedure cdsCondPgtoBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -218,6 +219,14 @@ procedure TDMCadCondPgto.DoLogAdditionalValues(ATableName: string;
   var AValues: TArrayLogData; var UserName: string);
 begin
   UserName := vUsuario;
+end;
+
+procedure TDMCadCondPgto.cdsCondPgtoBeforePost(DataSet: TDataSet);
+begin
+  if cdsCondPgtoQTD_PARCELA.IsNull then
+    cdsCondPgtoQTD_PARCELA.AsInteger := 0;
+  if cdsCondPgtoPERC_ENTRADA.IsNull then
+    cdsCondPgtoPERC_ENTRADA.AsInteger := 0;
 end;
 
 end.

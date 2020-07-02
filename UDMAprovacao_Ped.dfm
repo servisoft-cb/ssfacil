@@ -479,7 +479,11 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
   object sdsPedido: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, APROVADO_PED, FILIAL'#13#10'FROM PEDIDO'#13#10'WHERE ID = :ID'#13#10
+    CommandText = 
+      'select ID, APROVADO_PED, FILIAL, P.ID_REGIMETRIB, P.SIMPLES_FILI' +
+      'AL, P.ID_LOCAL_ESTOQUE, FATURADO, IMPRESSO, TIPO_STATUS,'#13#10'      ' +
+      ' ID_OPERACAO_NOTA, FINALIDADE, CONTROLA_RESERVA, TIPO_ATENDIMENT' +
+      'O'#13#10'from PEDIDO P'#13#10'where ID = :ID   '
     MaxBlobSize = -1
     Params = <
       item
@@ -502,6 +506,48 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     end
     object sdsPedidoFILIAL: TIntegerField
       FieldName = 'FILIAL'
+    end
+    object sdsPedidoID_REGIMETRIB: TIntegerField
+      FieldName = 'ID_REGIMETRIB'
+    end
+    object sdsPedidoSIMPLES_FILIAL: TStringField
+      FieldName = 'SIMPLES_FILIAL'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedidoID_LOCAL_ESTOQUE: TIntegerField
+      FieldName = 'ID_LOCAL_ESTOQUE'
+    end
+    object sdsPedidoFATURADO: TStringField
+      FieldName = 'FATURADO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedidoIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedidoTIPO_STATUS: TStringField
+      FieldName = 'TIPO_STATUS'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedidoID_OPERACAO_NOTA: TIntegerField
+      FieldName = 'ID_OPERACAO_NOTA'
+    end
+    object sdsPedidoFINALIDADE: TStringField
+      FieldName = 'FINALIDADE'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedidoCONTROLA_RESERVA: TStringField
+      FieldName = 'CONTROLA_RESERVA'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedidoTIPO_ATENDIMENTO: TSmallintField
+      FieldName = 'TIPO_ATENDIMENTO'
     end
   end
   object dspPedido: TDataSetProvider
@@ -529,6 +575,48 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     end
     object cdsPedidoFILIAL: TIntegerField
       FieldName = 'FILIAL'
+    end
+    object cdsPedidoID_REGIMETRIB: TIntegerField
+      FieldName = 'ID_REGIMETRIB'
+    end
+    object cdsPedidoSIMPLES_FILIAL: TStringField
+      FieldName = 'SIMPLES_FILIAL'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedidoID_LOCAL_ESTOQUE: TIntegerField
+      FieldName = 'ID_LOCAL_ESTOQUE'
+    end
+    object cdsPedidoFATURADO: TStringField
+      FieldName = 'FATURADO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedidoIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedidoTIPO_STATUS: TStringField
+      FieldName = 'TIPO_STATUS'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedidoID_OPERACAO_NOTA: TIntegerField
+      FieldName = 'ID_OPERACAO_NOTA'
+    end
+    object cdsPedidoFINALIDADE: TStringField
+      FieldName = 'FINALIDADE'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedidoCONTROLA_RESERVA: TStringField
+      FieldName = 'CONTROLA_RESERVA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedidoTIPO_ATENDIMENTO: TSmallintField
+      FieldName = 'TIPO_ATENDIMENTO'
     end
   end
   object dsPedido: TDataSource

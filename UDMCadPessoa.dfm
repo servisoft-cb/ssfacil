@@ -630,6 +630,11 @@ object DMCadPessoa: TDMCadPessoa
       FixedChar = True
       Size = 1
     end
+    object sdsPessoaUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspPessoa: TDataSetProvider
     DataSet = sdsPessoa
@@ -1306,6 +1311,11 @@ object DMCadPessoa: TDMCadPessoa
     end
     object cdsPessoaUSA_TAMANHO_EDI_COD: TStringField
       FieldName = 'USA_TAMANHO_EDI_COD'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPessoaUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
       FixedChar = True
       Size = 1
     end
@@ -7632,5 +7642,20 @@ object DMCadPessoa: TDMCadPessoa
     BCDToCurrency = False
     Left = 888
     Top = 536
+  end
+  object qParametros_Prod: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT USA_PRECO_VAREJO'
+      'FROM PARAMETROS_PROD')
+    SQLConnection = dmDatabase.scoDados
+    Left = 953
+    Top = 363
+    object qParametros_ProdUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
+      FixedChar = True
+      Size = 1
+    end
   end
 end

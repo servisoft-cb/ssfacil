@@ -1338,6 +1338,10 @@ type
     cdsPessoaIMP_TAMANHO_FINAL: TStringField;
     sdsPessoaUSA_TAMANHO_EDI_COD: TStringField;
     cdsPessoaUSA_TAMANHO_EDI_COD: TStringField;
+    sdsPessoaUSA_PRECO_VAREJO: TStringField;
+    cdsPessoaUSA_PRECO_VAREJO: TStringField;
+    qParametros_Prod: TSQLQuery;
+    qParametros_ProdUSA_PRECO_VAREJO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;
@@ -1607,6 +1611,7 @@ begin
   qParametros_CTA_ORC.Open;
   qParametros_Ped.Open;
   qParametros_Com.Open;
+  qParametros_Prod.Open;
   if qParametrosUSA_SERVICO.AsString = 'S' then
   begin
     prc_Abrir_Servico;
@@ -2060,6 +2065,8 @@ begin
     cdsPessoaCIDADE_ENT.AsString := cdsCidadeNOME.AsString;
   if (cdsPessoaID_CIDADE_PGTO.AsInteger > 0) and (cdsCidade.Locate('ID',cdsPessoaID_CIDADE_PGTO.AsInteger,([Locaseinsensitive]))) then
     cdsPessoaCIDADE_PGTO.AsString := cdsCidadeNOME.AsString;
+  if trim(qParametros_ProdUSA_PRECO_VAREJO.AsString) <> 'S' then
+    cdsPessoaUSA_PRECO_VAREJO.AsString := 'N';
 end;
 
 procedure TDMCadPessoa.cdsPessoa_Servico_IntNewRecord(DataSet: TDataSet);

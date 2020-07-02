@@ -506,6 +506,9 @@ object dmCadProduto: TdmCadProduto
     object sdsProdutoANP_ID: TIntegerField
       FieldName = 'ANP_ID'
     end
+    object sdsProdutoPRECO_VAREJO: TFloatField
+      FieldName = 'PRECO_VAREJO'
+    end
   end
   object dspProduto: TDataSetProvider
     DataSet = sdsProduto
@@ -1074,6 +1077,9 @@ object dmCadProduto: TdmCadProduto
     object cdsProdutoANP_ID: TIntegerField
       FieldName = 'ANP_ID'
     end
+    object cdsProdutoPRECO_VAREJO: TFloatField
+      FieldName = 'PRECO_VAREJO'
+    end
   end
   object dsProduto: TDataSource
     DataSet = cdsProduto
@@ -1267,7 +1273,7 @@ object dmCadProduto: TdmCadProduto
       'WHERE REFERENCIA = :REFERENCIA'
       '')
     SQLConnection = dmDatabase.scoDados
-    Left = 903
+    Left = 904
     Top = 197
     object qReferenciaREFERENCIA: TStringField
       FieldName = 'REFERENCIA'
@@ -7161,6 +7167,11 @@ object dmCadProduto: TdmCadProduto
     end
     object qParametros_ProdUSA_QTD_MEDIA: TStringField
       FieldName = 'USA_QTD_MEDIA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_ProdUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
       FixedChar = True
       Size = 1
     end

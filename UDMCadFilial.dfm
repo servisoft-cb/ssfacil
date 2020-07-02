@@ -13,7 +13,7 @@ object DMCadFilial: TDMCadFilial
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 72
+    Left = 70
     Top = 32
     object sdsFilialID: TIntegerField
       FieldName = 'ID'
@@ -452,6 +452,11 @@ object DMCadFilial: TDMCadFilial
       FixedChar = True
       Size = 1
     end
+    object sdsFilialUTILIZA_APP: TStringField
+      FieldName = 'UTILIZA_APP'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
@@ -468,7 +473,7 @@ object DMCadFilial: TDMCadFilial
     BeforePost = cdsFilialBeforePost
     OnNewRecord = cdsFilialNewRecord
     Left = 138
-    Top = 33
+    Top = 34
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -933,6 +938,11 @@ object DMCadFilial: TDMCadFilial
     end
     object cdsFilialUSA_RESPTECNICO: TStringField
       FieldName = 'USA_RESPTECNICO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsFilialUTILIZA_APP: TStringField
+      FieldName = 'UTILIZA_APP'
       FixedChar = True
       Size = 1
     end

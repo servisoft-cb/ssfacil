@@ -1079,7 +1079,7 @@ object frmAprovacao_Ped: TfrmAprovacao_Ped
       Color = clSilver
       TabOrder = 1
       object btnAprovar_Ped: TNxButton
-        Left = 1
+        Left = 2
         Top = 1
         Width = 390
         Height = 30
