@@ -332,6 +332,26 @@ type
     sdsPedido_ItemVLR_TOTAL: TFloatField;
     cdsPedido_ItemVLR_UNITARIO: TFloatField;
     cdsPedido_ItemVLR_TOTAL: TFloatField;
+    sdsPedidoID_REGIMETRIB: TIntegerField;
+    sdsPedidoSIMPLES_FILIAL: TStringField;
+    sdsPedidoID_LOCAL_ESTOQUE: TIntegerField;
+    sdsPedidoFATURADO: TStringField;
+    sdsPedidoIMPRESSO: TStringField;
+    sdsPedidoTIPO_STATUS: TStringField;
+    sdsPedidoID_OPERACAO_NOTA: TIntegerField;
+    sdsPedidoFINALIDADE: TStringField;
+    sdsPedidoCONTROLA_RESERVA: TStringField;
+    sdsPedidoTIPO_ATENDIMENTO: TSmallintField;
+    cdsPedidoID_REGIMETRIB: TIntegerField;
+    cdsPedidoSIMPLES_FILIAL: TStringField;
+    cdsPedidoID_LOCAL_ESTOQUE: TIntegerField;
+    cdsPedidoFATURADO: TStringField;
+    cdsPedidoIMPRESSO: TStringField;
+    cdsPedidoTIPO_STATUS: TStringField;
+    cdsPedidoID_OPERACAO_NOTA: TIntegerField;
+    cdsPedidoFINALIDADE: TStringField;
+    cdsPedidoCONTROLA_RESERVA: TStringField;
+    cdsPedidoTIPO_ATENDIMENTO: TSmallintField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedido_ProcessoNewRecord(DataSet: TDataSet);
   private

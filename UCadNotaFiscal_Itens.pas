@@ -1015,6 +1015,10 @@ begin
                 vPrecoAux := DMUtil.fnc_Buscar_Preco(fDMCadNotaFiscal.cdsNotaFiscalID_TAB_PRECO.AsInteger,fDMCadNotaFiscal.cdsProdutoID.AsInteger,0,'N');
             end
             else
+            //01/07/2020  para os pedidos do Caruso
+            if (fDMCadNotaFiscal.qParametros_ProdUSA_PRECO_VAREJO.AsString = 'S') and (fDMCadNotaFiscal.cdsClienteUSA_PRECO_VAREJO.AsString = 'S') then
+              vPrecoAux := StrToFloat(FormatFloat('0.00000',fDMCadNotaFiscal.cdsProdutoPRECO_VAREJO.AsFloat))
+            else
             if fDMCadNotaFiscal.cdsClienteID_TAB_PRECO.AsInteger > 0 then
             begin
               if (fDMCadNotaFiscal.qParametros_ProdPRODUTO_PRECO_COR.AsString = 'S') and (fDMCadNotaFiscal.cdsProdutoUSA_PRECO_COR.AsString = 'S') then

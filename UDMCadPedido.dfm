@@ -426,6 +426,9 @@ object DMCadPedido: TDMCadPedido
     end
     object sdsPedidoID_CENTROCUSTO: TIntegerField
       FieldName = 'ID_CENTROCUSTO'
+    object sdsPedidoEND_ARQ_PAGTO: TStringField
+      FieldName = 'END_ARQ_PAGTO'
+      Size = 200
     end
   end
   object dspPedido: TDataSetProvider
@@ -903,6 +906,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedidoID_CENTROCUSTO: TIntegerField
       FieldName = 'ID_CENTROCUSTO'
+    object cdsPedidoEND_ARQ_PAGTO: TStringField
+      FieldName = 'END_ARQ_PAGTO'
+      Size = 200
     end
   end
   object dsPedido: TDataSource
@@ -1713,18 +1719,19 @@ object DMCadPedido: TDMCadPedido
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT P.ID, P.REFERENCIA, P.NOME, P.UNIDADE, P.PESOLIQUIDO, P.P' +
-      'ESOBRUTO, P.INATIVO, P.ID_CSTIPI, P.PERC_IPI, P.PRECO_CUSTO, P.P' +
-      'RECO_VENDA, P.TIPO_REG, P.ESTOQUE'#13#10', P.MATERIAL_OUTROS, P.CA, P.' +
-      'COMPLEMENTO, P.ID_NCM, P.ORIGEM_PROD, P.CODSITCF, P.PERC_REDUCAO' +
-      'ICMS, P.TIPO_VENDA, P.COD_BARRA, P.PERC_IMPORTACAO'#13#10', P.DT_ALTPR' +
-      'ECO, P.PERC_REDUCAOICMSSUBST, P.USA_GRADE, P.ID_GRADE, P.USA_PER' +
-      'C_IMP_INTERESTADUAL, P.PERC_PIS, P.PERC_COFINS, P.PERC_ICMS_IMP'#13 +
-      #10', P.PERC_IPI_IMP, P.ID_GRUPO, P.USA_PRECO_COR, P.PERC_COMISSAO,' +
-      'P.PICTOGRAMA,P.PERC_DESC_MAX,P.ID_CFOP_NFCE,SPED_TIPO_ITEM,ID_CS' +
-      'TICMS_BRED'#13#10',P.PERC_MARGEMLUCRO,P.TAMANHO,P.QTD_EMBALAGEM,P.QTD_' +
-      'PECA_EMB, P.REF2, P.FATOR_CALCULO'#13#10',P.ID_CSTICMS, P.CALCULAR_ST,' +
-      ' P.MEDIDA'#13#10'FROM PRODUTO P'#13#10
+      'select P.ID, P.REFERENCIA, P.NOME, P.UNIDADE, P.PESOLIQUIDO, P.P' +
+      'ESOBRUTO, P.INATIVO, P.ID_CSTIPI, P.PERC_IPI,'#13#10'       P.PRECO_CU' +
+      'STO, P.PRECO_VENDA, P.TIPO_REG, P.ESTOQUE, P.MATERIAL_OUTROS, P.' +
+      'CA, P.COMPLEMENTO, P.ID_NCM,'#13#10'       P.ORIGEM_PROD, P.CODSITCF, ' +
+      'P.PERC_REDUCAOICMS, P.TIPO_VENDA, P.COD_BARRA, P.PERC_IMPORTACAO' +
+      ', P.DT_ALTPRECO,'#13#10'       P.PERC_REDUCAOICMSSUBST, P.USA_GRADE, P' +
+      '.ID_GRADE, P.USA_PERC_IMP_INTERESTADUAL, P.PERC_PIS, P.PERC_COFI' +
+      'NS,'#13#10'       P.PERC_ICMS_IMP, P.PERC_IPI_IMP, P.ID_GRUPO, P.USA_P' +
+      'RECO_COR, P.PERC_COMISSAO, P.PICTOGRAMA, P.PERC_DESC_MAX,'#13#10'     ' +
+      '  P.ID_CFOP_NFCE, SPED_TIPO_ITEM, ID_CSTICMS_BRED, P.PERC_MARGEM' +
+      'LUCRO, P.TAMANHO, P.QTD_EMBALAGEM, P.QTD_PECA_EMB,'#13#10'       P.REF' +
+      '2, P.FATOR_CALCULO, P.ID_CSTICMS, P.CALCULAR_ST, P.MEDIDA, P.PRE' +
+      'CO_VAREJO'#13#10'from PRODUTO P  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1922,6 +1929,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsProdutoMEDIDA: TStringField
       FieldName = 'MEDIDA'
+    end
+    object cdsProdutoPRECO_VAREJO: TFloatField
+      FieldName = 'PRECO_VAREJO'
     end
   end
   object dsProduto: TDataSource
@@ -9426,7 +9436,7 @@ object DMCadPedido: TDMCadPedido
       'LAR, PES.ID_GRUPO, PES.IMP_COR_CLIENTE, PES.MOSTRAR_AVISO,'#13#10'    ' +
       '   PES.OBS_AVISO, IPI_PAGO_FILIAL, PES.IMP_ETIQUETA_ROT, PES.ID_' +
       'VENDEDOR_INT, PES.ID_TIPOCOBRANCA,'#13#10'       PES.ID_CONTABOLETO, P' +
-      'ES.CLIENTE_ESTOQUE'#13#10'from PESSOA PES  '
+      'ES.CLIENTE_ESTOQUE, PES.USA_PRECO_VAREJO'#13#10'from PESSOA PES  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -9443,7 +9453,7 @@ object DMCadPedido: TDMCadPedido
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspCliente'
-    Left = 346
+    Left = 347
     Top = 3
     object cdsClienteCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -9589,6 +9599,11 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsClienteCLIENTE_ESTOQUE: TStringField
       FieldName = 'CLIENTE_ESTOQUE'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsClienteUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
       FixedChar = True
       Size = 1
     end
@@ -10729,8 +10744,8 @@ object DMCadPedido: TDMCadPedido
       '     AND TUF.UF = :UF'
       '     AND TUF.TIPO_PRODUTO = :TIPO_PRODUTO')
     SQLConnection = dmDatabase.scoDados
-    Left = 855
-    Top = 421
+    Left = 856
+    Top = 420
     object qNCM_UFID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15406,6 +15421,10 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedEND_ARQ_REC_PED: TStringField
+      FieldName = 'END_ARQ_REC_PED'
+      Size = 200
+    end
   end
   object sdsMetas_Acum: TSQLDataSet
     CommandText = 
@@ -16707,8 +16726,8 @@ object DMCadPedido: TDMCadPedido
       'SELECT *'
       'FROM PARAMETROS_PROD')
     SQLConnection = dmDatabase.scoDados
-    Left = 1047
-    Top = 568
+    Left = 1191
+    Top = 566
     object qParametros_ProdUSA_PRODUTO_FILIAL: TStringField
       FieldName = 'USA_PRODUTO_FILIAL'
       FixedChar = True
@@ -16800,6 +16819,11 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_ProdUSA_QTD_MEDIA: TStringField
       FieldName = 'USA_QTD_MEDIA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_ProdUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
       FixedChar = True
       Size = 1
     end

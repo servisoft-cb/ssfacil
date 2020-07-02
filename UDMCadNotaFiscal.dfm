@@ -3823,11 +3823,12 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       '_PRODUTO_CLI,'#13#10'IMP_COR_CLIENTE, PES.MDIA1, PES.MDIA2, PES.insc_s' +
       'uframa, IPI_PAGO_FILIAL, PES.IMP_NOMEPROD_CLIENTE, IMP_ETIQUETA_' +
       'ROT,'#13#10'PES.OBS_AVISO, MOSTRAR_AVISO, IMP_TAMANHO_FINAL, PES.ID_VE' +
-      'NDEDOR_INT, PES.PERC_COMISSAO_INT'#13#10'FROM PESSOA PES'#13#10#13#10
+      'NDEDOR_INT, PES.PERC_COMISSAO_INT, PES.USA_PRECO_VAREJO'#13#10'FROM PE' +
+      'SSOA PES'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 599
+    Left = 600
     Top = 40
   end
   object dspCliente: TDataSetProvider
@@ -4128,6 +4129,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsClientePERC_COMISSAO_INT: TFloatField
       FieldName = 'PERC_COMISSAO_INT'
+    end
+    object cdsClienteUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsCliente: TDataSource
@@ -5307,7 +5313,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'TAL,PERC_MARGEMLUCRO'#13#10',PERC_DESC_MAX,SPED_TIPO_ITEM,ID_CSTICMS_B' +
       'RED,USA_PRECO_COR,TAMANHO,COD_BARRA2,QTD_EMBALAGEM'#13#10',ID_MARCA,UN' +
       'IDADE2,ID_CSTICMS,P.NOME_MODELO,P.perc_icms_nfce, P.CALCULAR_ST,' +
-      ' P.MEDIDA, P.COD_BENEF, ANP_ID'#13#10'FROM PRODUTO P'#13#10#13#10
+      ' P.MEDIDA, P.COD_BENEF, ANP_ID, P.PRECO_VAREJO'#13#10'FROM PRODUTO P'#13#10 +
+      #13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5566,6 +5573,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsProdutoANP_ID: TIntegerField
       FieldName = 'ANP_ID'
+    end
+    object cdsProdutoPRECO_VAREJO: TFloatField
+      FieldName = 'PRECO_VAREJO'
     end
   end
   object dsProduto: TDataSource
@@ -8101,19 +8111,19 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'IMENTO, PIT.LARGURA, PIT.ESPESSURA, pi.DRAWBACK, PE.TIPO_DESCONT' +
       'O, pi.PERC_DESCONTO, pi.DTCONFERENCIA,'#13#10'       pi.COMPRIMENTO_VO' +
       'LUME, PRO.MEDIDA, pi.CALCULARICMSSOBREIPI, pi.VLR_UNITARIO_IPI, ' +
-      'PE.FILIAL, coalesce(pi.PESO_AJUSTADO,'#39'N'#39') PESO_AJUSTADO'#13#10'from PE' +
-      'DIDO PE'#13#10'inner join PEDIDO_ITEM pi on (PE.ID = pi.ID)'#13#10'inner joi' +
-      'n PESSOA CLI on (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'inner join PRODUTO' +
-      ' PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left join COMBINACAO COMB on (' +
-      'pi.ID_COR = COMB.ID)'#13#10'left join GRUPO GR on PRO.ID_GRUPO = GR.ID' +
-      #13#10'left join PESSOA_FISCAL PF on PE.ID_CLIENTE = PF.CODIGO'#13#10'left ' +
-      'join ORDEMSERVICO O on pi.ID_OS_SERV = O.ID'#13#10'left join PEDIDO_IT' +
-      'EM_TIPO PIT on pi.ID = PIT.ID and pi.ITEM = PIT.ITEM'#13#10'where pi.Q' +
-      'TD_RESTANTE > 0'#13#10#13#10'  '
+      'PE.FILIAL, coalesce(pi.PESO_AJUSTADO,'#39'N'#39') PESO_AJUSTADO,'#13#10'      ' +
+      ' PE.end_arq_pagto'#13#10'from PEDIDO PE'#13#10'inner join PEDIDO_ITEM pi on ' +
+      '(PE.ID = pi.ID)'#13#10'inner join PESSOA CLI on (PE.ID_CLIENTE = CLI.C' +
+      'ODIGO)'#13#10'inner join PRODUTO PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left' +
+      ' join COMBINACAO COMB on (pi.ID_COR = COMB.ID)'#13#10'left join GRUPO ' +
+      'GR on PRO.ID_GRUPO = GR.ID'#13#10'left join PESSOA_FISCAL PF on PE.ID_' +
+      'CLIENTE = PF.CODIGO'#13#10'left join ORDEMSERVICO O on pi.ID_OS_SERV =' +
+      ' O.ID'#13#10'left join PEDIDO_ITEM_TIPO PIT on pi.ID = PIT.ID and pi.I' +
+      'TEM = PIT.ITEM'#13#10'where pi.QTD_RESTANTE > 0'#13#10#13#10'  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 415
+    Left = 414
     Top = 198
   end
   object dspPedido: TDataSetProvider
@@ -8127,8 +8137,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Params = <>
     ProviderName = 'dspPedido'
     OnCalcFields = cdsPedidoCalcFields
-    Left = 469
-    Top = 198
+    Left = 473
+    Top = 199
     object cdsPedidoID: TIntegerField
       Alignment = taCenter
       DisplayLabel = 'ID Pedido'
@@ -8495,6 +8505,10 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'PESO_AJUSTADO'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedidoEND_ARQ_PAGTO: TStringField
+      FieldName = 'END_ARQ_PAGTO'
+      Size = 200
     end
   end
   object dsPedido: TDataSource
@@ -11472,7 +11486,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 417
+    Left = 418
     Top = 242
   end
   object dspPedido_Tipo: TDataSetProvider
@@ -11486,8 +11500,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Params = <>
     ProviderName = 'dspPedido_Tipo'
     OnCalcFields = cdsPedidoCalcFields
-    Left = 465
-    Top = 242
+    Left = 467
+    Top = 243
     object cdsPedido_TipoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -13756,6 +13770,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object qParametros_ProdUSA_BITOLA: TStringField
       FieldName = 'USA_BITOLA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_ProdUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
       FixedChar = True
       Size = 1
     end

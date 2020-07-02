@@ -1,6 +1,6 @@
 object frmSel_Pedido: TfrmSel_Pedido
-  Left = 118
-  Top = 27
+  Left = 166
+  Top = 42
   Width = 1116
   Height = 664
   BorderIcons = [biSystemMenu]
@@ -646,6 +646,20 @@ object frmSel_Pedido: TfrmSel_Pedido
       Width = 90
       Height = 13
       Caption = 'F3 Ajustar Peso'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Visible = False
+    end
+    object Label11: TLabel
+      Left = 495
+      Top = 22
+      Width = 186
+      Height = 13
+      Caption = 'F9 Mostra Recibo de Pagamento'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
       Font.Height = -11

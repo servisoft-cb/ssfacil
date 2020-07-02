@@ -367,6 +367,9 @@ type
     ImprimiraListaemExcel1: TMenuItem;
     Shape14: TShape;
     Label52: TLabel;
+    TS_Recibo: TRzTabSheet;
+    ppmPedido: TPopupMenu;
+    ReciboPagamento1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -493,6 +496,7 @@ type
       Shift: TShiftState);
     procedure SpeedButton9Click(Sender: TObject);
     procedure ImprimiraListaemExcel1Click(Sender: TObject);
+    procedure ReciboPagamento1Click(Sender: TObject);
   private
     { Private declarations }
     fLista: TStringList;
@@ -556,7 +560,8 @@ type
     procedure prc_Excluir_Grade(vItemOrig: Integer);
 
     procedure prc_CriaExcel(vDados: TDataSource);
-    
+    procedure MoverArquivo(Origem, Destino,Arquivo: String);
+
   public
     { Public declarations }
     vQtd_Caixa: Integer;
@@ -571,7 +576,7 @@ uses DmdDatabase, rsDBUtils, uUtilPadrao, uRelPedido, uRelPedido_SulTextil, uRel
   URelPedido_Tam, URelEtiqueta_Nav, URelPedido_Tam2, URelPedido_JW, URelEtiqueta, uUtilCliente, uCalculo_Pedido, UCadPedido_Copia,
   UConsPedido_Nota, UDMConsPedido, UInformar_DtExpedicao, UInformar_Processo_Ped, UConsPedido_Senha, USel_Produto, UCadPedido_Cupom,
   UDMPedidoImp, USel_OS_Proc, UCadPedido_ItensCli, UConsPedido_Real, UImpEtiq_Emb, UTalaoPedProc, uGrava_Pedido, UConsClienteOBS,
-  uImprimir, UConsMotivoNaoAprov, UConsPedido_Producao;
+  uImprimir, UConsMotivoNaoAprov, UConsPedido_Producao, UInforma_RecPagto;
 
 {$R *.dfm}
 
@@ -4827,6 +4832,51 @@ begin
 
   Planilha.ActiveWorkBook.SaveAs(vTexto);
   Screen.Cursor := crDefault;
+end;
+
+procedure TfrmCadPedido.ReciboPagamento1Click(Sender: TObject);
+var
+  vArq : String;
+begin
+  if not(fDMCadPedido.cdsPedido_Consulta.Active) or (fDMCadPedido.cdsPedido_Consulta.IsEmpty) then
+    exit;
+  prc_Posiciona_Pedido;
+
+  frmInforma_RecPagto := TfrmInforma_RecPagto.Create(self);
+  frmInforma_RecPagto.FilenameEdit1.EditText := fDMCadPedido.cdsPedidoEND_ARQ_PAGTO.AsString;
+  frmInforma_RecPagto.ShowModal;
+  if frmInforma_RecPagto.ModalResult = mrOk then
+  begin
+    vArq := '';
+    if trim(frmInforma_RecPagto.FilenameEdit1.Text) <> '' then
+    begin
+      vArq := frmInforma_RecPagto.FilenameEdit1.Text;
+      if (trim(fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString) <> '')
+        and (ExtractFilePath(frmInforma_RecPagto.FilenameEdit1.Text) <> fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString) then
+      begin
+        try
+          MoverArquivo(ExtractFilePath(frmInforma_RecPagto.FilenameEdit1.Text),fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString,ExtractFileName(frmInforma_RecPagto.FilenameEdit1.Text));
+          vArq := fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString + ExtractFileName(frmInforma_RecPagto.FilenameEdit1.Text);
+        except
+        end
+      end;
+    end;
+
+    fDMCadPedido.cdsPedido.Edit;
+    fDMCadPedido.cdsPedidoEND_ARQ_PAGTO.AsString := vArq;
+    fDMCadPedido.cdsPedido.Post;
+    fDMCadPedido.cdsPedido.ApplyUpdates(0);
+  end;
+  FreeAndNil(frmInforma_RecPagto);
+end;
+
+procedure TfrmCadPedido.MoverArquivo(Origem, Destino, Arquivo: String);
+var
+  o, d: PAnsiChar;
+begin
+  o := PAnsiChar(Origem + Arquivo);
+  d := PAnsiChar(Destino + Arquivo);
+  MoveFile(o,d);
 end;
 
 end.

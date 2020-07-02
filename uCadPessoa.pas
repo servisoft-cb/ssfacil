@@ -601,6 +601,7 @@ type
     btnReceita: TSpeedButton;
     DBCheckBox34: TDBCheckBox;
     DBCheckBox35: TDBCheckBox;
+    DBCheckBox36: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -915,6 +916,8 @@ begin
   btnFiscalProduto.Visible := (fDMCadPessoa.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S');
   TS_CAE.TabVisible        := (fDMCadPessoa.qParametros_GeralUSA_CAE_PESSOA.AsString = 'S');
   DBCheckBox34.Visible     := (fDMCadPessoa.qParametros_NFeIMP_TAMANHO_FINAL.AsString = 'S');
+
+  DBCheckBox36.Visible     := (fDMCadPessoa.qParametros_ProdUSA_PRECO_VAREJO.AsString = 'S');
 end;
 
 procedure TfrmCadPessoa.btnInserirClick(Sender: TObject);

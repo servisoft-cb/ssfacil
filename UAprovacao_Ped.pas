@@ -93,6 +93,7 @@ type
     procedure prc_Gravar_PedWeb(ID : Integer);
     procedure prc_Opcoes;
     procedure prc_Aprova_Item(ID_Pedido : Integer);
+    procedure prc_Ajusta_Dados_Filial;
 
   public
     { Public declarations }
@@ -328,6 +329,8 @@ begin
     begin
       fDMAprovacao_Ped.cdsPedido.Edit;
       fDMAprovacao_Ped.cdsPedidoAPROVADO_PED.AsString := Tipo;
+      prc_Ajusta_Dados_Filial;
+
       fDMAprovacao_Ped.cdsPedido.Post;
       fDMAprovacao_Ped.cdsPedido.ApplyUpdates(0);
 
@@ -786,6 +789,28 @@ begin
   finally
     FreeAndNil(sds);
   end;
+
+end;
+
+procedure TfrmAprovacao_Ped.prc_Ajusta_Dados_Filial;
+begin
+  {if fDMCadPedido.cdsFilialID.AsInteger <> fDMAprovacao_Ped.cdsPedidoFILIAL.AsInteger then
+    fDMCadPedido.cdsFilial.Locate('ID',fDMAprovacao_Ped.cdsPedidoFILIAL.AsInteger,[loCaseInsensitive]);
+  fDMAprovacao_Ped.cdsPedidoID_RE}
+
+{object cdsPedidoID_REGIMETRIB: TIntegerField
+object cdsPedidoSIMPLES_FILIAL: TStringField
+object cdsPedidoID_LOCAL_ESTOQUE: TIntegerField
+object cdsPedidoFATURADO: TStringField
+object cdsPedidoIMPRESSO: TStringField           aqui Cleomar    01/07/2020
+object cdsPedidoTIPO_STATUS: TStringField
+object cdsPedidoID_OPERACAO_NOTA: TIntegerField
+object cdsPedidoFINALIDADE: TStringField
+object cdsPedidoCONTROLA_RESERVA: TStringField
+object cdsPedidoTIPO_ATENDIMENTO: TSmallintField}
+
+
+
 
 end;
 

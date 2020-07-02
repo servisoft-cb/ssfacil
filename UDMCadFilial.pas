@@ -697,6 +697,8 @@ type
     cdsFilialPERGUNTA_MESA: TStringField;
     sdsFilialUSA_RESPTECNICO: TStringField;
     cdsFilialUSA_RESPTECNICO: TStringField;
+    sdsFilialUTILIZA_APP: TStringField;
+    cdsFilialUTILIZA_APP: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsFilialNewRecord(DataSet: TDataSet);
     procedure cdsFilialBeforePost(DataSet: TDataSet);

@@ -39,6 +39,7 @@ type
     Shape11: TShape;
     Label68: TLabel;
     Label10: TLabel;
+    Label11: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
@@ -96,7 +97,7 @@ var
 implementation
 
 uses rsDBUtils, uUtilPadrao, StrUtils, DmdDatabase, UInformar_Lote_Controle, UConsEstoque_Lote, uCalculo_NotaFiscal, Math,
-  UAjusta_Peso_Ped;
+  UAjusta_Peso_Ped, UInforma_RecPagto;
 
 {$R *.dfm}
 
@@ -1973,7 +1974,17 @@ begin
     ffrmConsEstoque_Lote.vID_Filial_Lote  := fDMCadNotaFiscal.cdsNotaFiscalFILIAL.AsInteger;
     ffrmConsEstoque_Lote.ShowModal;
     FreeAndNil(ffrmConsEstoque_Lote);
+  end
+  else
+  if (Key = Vk_F9) then
+  begin
+    frmInforma_RecPagto := TfrmInforma_RecPagto.Create(self);
+    frmInforma_RecPagto.FilenameEdit1.EditText := fDMCadNotaFiscal.cdsPedidoEND_ARQ_PAGTO.AsString;
+    frmInforma_RecPagto.btnConfirmar.Visible   := False;
+    frmInforma_RecPagto.ShowModal;
+    FreeAndNil(frmInforma_RecPagto);
   end;
+
 end;
 
 procedure TfrmSel_Pedido.prc_Gerar_mLoteControle;
