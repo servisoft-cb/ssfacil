@@ -8215,11 +8215,11 @@ object DMRecebeXML: TDMRecebeXML
       '.item, PI.VLR_DESCONTO, PRO.ID_NCM,'#13#10'PI.UNIDADE, PI.PERC_IPI, PI' +
       '.OBS_COMPLEMENTAR, PI.NUMOS, PE.TIPO_FRETE, PE.ID_CONDPGTO, '#13#10'PE' +
       '.IMP_OC_NOTA, PI.ID_VARIACAO, PRO.usa_cor, PRO.usa_preco_cor, PI' +
-      '.ID_COR, CLI.USA_OC_XML,'#13#10'PI.TAMANHO, PI.ATUALIZA_PRECO_CUSTO'#13#10'F' +
-      'ROM PEDIDO PE'#13#10'INNER JOIN PEDIDO_ITEM PI ON (PE.ID = PI.ID)'#13#10'INN' +
-      'ER JOIN PESSOA CLI ON (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'INNER JOIN P' +
-      'RODUTO PRO ON (PI.ID_PRODUTO = PRO.ID)'#13#10'WHERE PI.QTD_RESTANTE > ' +
-      '0'#13#10'      AND PE.TIPO_REG = '#39'C'#39
+      '.ID_COR, CLI.USA_OC_XML,'#13#10'PI.TAMANHO, PI.ATUALIZA_PRECO_CUSTO, P' +
+      'E.ID_CENTROCUSTO'#13#10'FROM PEDIDO PE'#13#10'INNER JOIN PEDIDO_ITEM PI ON (' +
+      'PE.ID = PI.ID)'#13#10'INNER JOIN PESSOA CLI ON (PE.ID_CLIENTE = CLI.CO' +
+      'DIGO)'#13#10'INNER JOIN PRODUTO PRO ON (PI.ID_PRODUTO = PRO.ID)'#13#10'WHERE' +
+      ' PI.QTD_RESTANTE > 0'#13#10'      AND PE.TIPO_REG = '#39'C'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -8358,6 +8358,9 @@ object DMRecebeXML: TDMRecebeXML
       FieldName = 'ATUALIZA_PRECO_CUSTO'
       FixedChar = True
       Size = 1
+    end
+    object cdsOCID_CENTROCUSTO: TIntegerField
+      FieldName = 'ID_CENTROCUSTO'
     end
   end
   object dsOC: TDataSource
@@ -10608,5 +10611,58 @@ object DMRecebeXML: TDMRecebeXML
       FieldName = 'DESCRICAO'
       Size = 50
     end
+  end
+  object sdsDupCCusto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT DC.ID, DC.ITEM, DC.ID_CENTROCUSTO, DC.PERCENTUAL, DC.VALO' +
+      'R'#13#10'FROM DUPLICATA_CCUSTO DC'#13#10'WHERE DC.ID = :ID'#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 593
+    Top = 491
+  end
+  object dspDupCCusto: TDataSetProvider
+    DataSet = sdsDupCCusto
+    Left = 625
+    Top = 491
+  end
+  object cdsDupCCusto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspDupCCusto'
+    Left = 657
+    Top = 490
+    object cdsDupCCustoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsDupCCustoITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object cdsDupCCustoID_CENTROCUSTO: TIntegerField
+      FieldName = 'ID_CENTROCUSTO'
+    end
+    object cdsDupCCustoPERCENTUAL: TFloatField
+      FieldName = 'PERCENTUAL'
+      DisplayFormat = '%0.00'
+    end
+    object cdsDupCCustoVALOR: TFloatField
+      FieldName = 'VALOR'
+      DisplayFormat = 'R$###,###,##0.00'
+    end
+  end
+  object dsDupCCusto: TDataSource
+    DataSet = cdsDupCCusto
+    Left = 688
+    Top = 491
   end
 end

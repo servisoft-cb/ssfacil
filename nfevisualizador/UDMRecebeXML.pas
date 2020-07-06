@@ -2369,6 +2369,16 @@ type
     mItensNotaANP_ID: TIntegerField;
     qCentroCusto: TSQLQuery;
     qCentroCustoDESCRICAO: TStringField;
+    cdsOCID_CENTROCUSTO: TIntegerField;
+    sdsDupCCusto: TSQLDataSet;
+    dspDupCCusto: TDataSetProvider;
+    cdsDupCCusto: TClientDataSet;
+    cdsDupCCustoID_CENTROCUSTO: TIntegerField;
+    cdsDupCCustoPERCENTUAL: TFloatField;
+    cdsDupCCustoVALOR: TFloatField;
+    dsDupCCusto: TDataSource;
+    cdsDupCCustoID: TIntegerField;
+    cdsDupCCustoITEM: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscalUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -2443,6 +2453,7 @@ type
     procedure Abrir_cdsDuplicata(ID: Integer);
     procedure Gravar_Duplicata(Tipo, TransfICMS: String; Parcela: Integer; Valor: Real; Data: TDateTime); //P= Contas a Pagar   R= Contas a Receber
     procedure Gravar_Dupicata_Hist;
+    procedure Gravar_Duplicata_CCusto;
 
     procedure prc_Abrir_Combinacao(ID_Produto: Integer);
     procedure prc_Move_Dados_Da_OC;
@@ -2452,7 +2463,6 @@ type
     function fnc_Proximo_Item_Forn(ID_Produto: Integer): Integer;
     function fnc_Ultimo_Item_Rateio(Item: Integer): Integer;
     function fnc_Verifica_Dup(ID_nota: Integer): Boolean;
-
   end;
 
 var
@@ -2798,6 +2808,7 @@ begin
   cdsDuplicata.Post;
 
   Gravar_Dupicata_Hist;
+  Gravar_Duplicata_CCusto;
 
   cdsDuplicata.ApplyUpdates(0);
 end;
@@ -3087,6 +3098,7 @@ begin
   vID_Cor_Pos        := cdsOCID_COR.AsInteger;
   vTamanho_Pos       := cdsOCTAMANHO.AsString;
   vAtualizaCusto     := cdsOCATUALIZA_PRECO_CUSTO.AsString;
+  vID_Centro_Custo   := cdsOCID_CENTROCUSTO.AsInteger;
 end;
 
 procedure TDMRecebeXML.cdsProduto_FornBeforePost(DataSet: TDataSet);
@@ -3163,6 +3175,18 @@ begin
   finally
     FreeAndNil(sds);
   end;
+end;
+
+procedure TDMRecebeXML.Gravar_Duplicata_CCusto;
+begin
+  cdsDupCCusto.Insert;
+  cdsDupCCustoID.AsInteger             := cdsDuplicataID.AsInteger;
+  cdsDupCCustoITEM.AsInteger           := 1;
+  cdsDupCCustoID_CENTROCUSTO.AsInteger := vID_Centro_Custo;
+  cdsDupCCustoPERCENTUAL.AsFloat       := 100;
+  cdsDupCCustoVALOR.AsFloat            := cdsDuplicataVLR_PARCELA.AsFloat;
+  cdsDupCCusto.Post;
+  cdsDupCCusto.ApplyUpdates(0);
 end;
 
 end.

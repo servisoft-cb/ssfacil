@@ -431,6 +431,7 @@ type
     procedure RxDBLookupCombo6Exit(Sender: TObject);
     procedure CurrencyEdit3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure CurrencyEdit3Exit(Sender: TObject);
   private
     { Private declarations }
     vCodCidade: Integer;
@@ -543,6 +544,7 @@ type
     procedure prc_Busca_CFOPAtual;
 
     procedure prc_Monta_ICMS;
+    procedure prc_Exibe_CentroCusto;
   public
     { Public declarations }
     vUsaConfigNatOper2: String;
@@ -1483,8 +1485,9 @@ begin
     vPreco_Custo_Rec_XML_Pos := StrToFloat(FormatFloat('0.0000',fDMRecebeXML.mItensNotaVlr_Custo_Prod.AsFloat));
     vTamanho_Pos             := '';
 
-    if (fDMRecebeXML.qParametrosINFORMAR_COR_MATERIAL.AsString = 'S') or (fDMRecebeXML.qParametrosINFORMAR_COR_PROD.AsString = 'C')
-      or (fDMRecebeXML.qParametrosINFORMAR_COR_PROD.AsString = 'B') then
+    if (fDMRecebeXML.qParametrosINFORMAR_COR_MATERIAL.AsString = 'S') or
+       (fDMRecebeXML.qParametrosINFORMAR_COR_PROD.AsString = 'C') or
+       (fDMRecebeXML.qParametrosINFORMAR_COR_PROD.AsString = 'B') then
     begin
       ffrmSel_Produto_Cor := TfrmSel_Produto_Cor.Create(Self);
       ffrmSel_Produto_Cor.vTipo_Prod := '';
@@ -1595,6 +1598,7 @@ begin
     if trim(fDMRecebeXML.vNum_Pedido) <> '' then
     begin
       prc_Ajuste_Prod_Pela_OC(False);
+      prc_Exibe_CentroCusto;
     end;
   end
   else
@@ -1664,7 +1668,6 @@ begin
       FreeAndNil(frmRecebeXML_CFOP);
     end;
   end;
-
 end;
 
 procedure TfrmRecebeXML.BitBtn1Click(Sender: TObject);
@@ -1781,6 +1784,7 @@ begin
       fDMRecebeXML.cdsFornecedorASSOCIAR_PROD.AsString := 'N'
     else
       fDMRecebeXML.cdsFornecedorASSOCIAR_PROD.AsString := 'S';
+    if vID_ContaOrcamento_Pos > 0 then
     fDMRecebeXML.cdsFornecedor.Post;
     fDMRecebeXML.cdsFornecedor.ApplyUpdates(0);
 
@@ -4339,10 +4343,10 @@ begin
 
       //22/08/2019
       fDMRecebeXML.mItensNotaID_CFOPAtual.AsInteger := fDMRecebeXML.cdsProdutoID_CFOP_NFCE.AsInteger;
-      prc_Busca_CFOPAtual;
-
+      prc_Busca_CFOPAtual;          
     end;
   end;
+  CurrencyEdit3.Value := vID_Centro_Custo;
   fDMRecebeXML.mItensNota.Post;
   prc_Mostrar_Cor;
 end;
@@ -4962,11 +4966,21 @@ begin
     frmSel_CentroCusto := TfrmSel_CentroCusto.Create(Self);
     frmSel_CentroCusto.ShowModal;
     CurrencyEdit3.Value := vID_Centro_Custo;
-    fDMRecebeXML.qCentroCusto.Close;
-    fDMRecebeXML.qCentroCusto.ParamByName('ID').AsInteger := vID_Centro_Custo;
-    fDMRecebeXML.qCentroCusto.Open;
-    Edit1.Text := fDMRecebeXML.qCentroCustoDESCRICAO.AsString;    
+    prc_Exibe_CentroCusto;
   end;
+end;
+
+procedure TfrmRecebeXML.prc_Exibe_CentroCusto;
+begin
+  fDMRecebeXML.qCentroCusto.Close;
+  fDMRecebeXML.qCentroCusto.ParamByName('ID').AsInteger := vID_Centro_Custo;
+  fDMRecebeXML.qCentroCusto.Open;
+  Edit1.Text := fDMRecebeXML.qCentroCustoDESCRICAO.AsString;
+end;
+
+procedure TfrmRecebeXML.CurrencyEdit3Exit(Sender: TObject);
+begin
+  prc_Exibe_CentroCusto;
 end;
 
 end.
