@@ -937,6 +937,15 @@ object frmCadFinanceiro: TfrmCadFinanceiro
           ParentCtl3D = False
           TabOrder = 4
         end
+        object ckExcluirVinculada: TCheckBox
+          Left = 804
+          Top = 70
+          Width = 125
+          Height = 17
+          Caption = 'Excluir Vinculada'
+          TabOrder = 12
+          Visible = False
+        end
       end
     end
     object TS_Cadastro: TRzTabSheet

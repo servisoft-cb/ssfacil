@@ -107,6 +107,7 @@ type
     RxDBLookupCombo8: TRxDBLookupCombo;
     Label33: TLabel;
     Edit1: TEdit;
+    ckExcluirVinculada: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -193,11 +194,11 @@ begin
   prc_Posiciona_Financeiro;
   if fDMCadFinanceiro.cdsFinanceiro.IsEmpty then
     exit;
-  if fDMCadFinanceiro.cdsFinanceiroID_FINANCEIRO_VINC.AsInteger > 0 then
+  {if (fDMCadFinanceiro.cdsFinanceiroID_FINANCEIRO_VINC.AsInteger > 0) then
   begin
     MessageDlg('*** Movimento é de adiantamento, precisa excluir a conta original..... ID Original: ' + fDMCadFinanceiro.cdsFinanceiroID_FINANCEIRO_VINC.AsString, mtError, [mbOk], 0);
     exit;
-  end;
+  end;}
 
   if fnc_Fechamento then
     exit;
@@ -639,7 +640,10 @@ begin
     ffrmConsSaldo_Conta := TfrmConsSaldo_Conta.Create(self);
     ffrmConsSaldo_Conta.ShowModal;
     FreeAndNil(ffrmConsSaldo_Conta);
-  end;
+  end
+  else
+  if (Shift = [ssCtrl]) and (Key = 82) then
+    ckExcluirVinculada.Visible := not(ckExcluirVinculada.Visible);
 end;
 
 procedure TfrmCadFinanceiro.RxDBLookupCombo6Enter(Sender: TObject);

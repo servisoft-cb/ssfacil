@@ -464,11 +464,56 @@ begin
 end;
 
 procedure TDMCadFinanceiro.prc_Excluir;
+var
+  sds: TSQLDataSet;
+  vIDAux, vIDVinc : Integer;
+  ID: TTransactionDesc;
 begin
   if not (cdsFinanceiro.Active) or (cdsFinanceiro.IsEmpty) then
     exit;
-  cdsFinanceiro.Delete;
-  cdsFinanceiro.ApplyUpdates(0);
+
+  cdsContas.Locate('ID',cdsFinanceiroID_CONTA.AsInteger,[loCaseInsensitive]);
+
+  sds  := TSQLDataSet.Create(nil);
+  ID.TransactionID  := 3;
+  ID.IsolationLevel := xilREADCOMMITTED;
+  dmDatabase.scoDados.StartTransaction(ID);
+  try
+    vIDAux  := cdsFinanceiroID.AsInteger;
+    vIDVinc := cdsFinanceiroID_FINANCEIRO_VINC.AsInteger;
+    cdsFinanceiro.Delete;
+    cdsFinanceiro.ApplyUpdates(0);
+
+    if (cdsContasTIPO_CONTA.AsString = 'A') or (vIDVinc > 0) then
+    begin
+      sds.SQLConnection := dmDatabase.scoDados;
+      sds.NoMetadata  := True;
+      sds.GetMetadata := False;
+      if vIDVinc > 0 then
+        sds.CommandText := 'SELECT COUNT(1) CONTADOR FROM FINANCEIRO WHERE ID = ' + IntToStr(vIDVinc)
+      else
+        sds.CommandText := 'SELECT COUNT(1) CONTADOR FROM FINANCEIRO WHERE ID_FINANCEIRO_VINC = ' + IntToStr(vIDAux);
+      sds.Open;
+      if sds.FieldByName('CONTADOR').AsInteger > 0 then
+      begin
+        sds.Close;
+        if vIDVinc > 0 then
+          sds.CommandText := 'DELETE FROM FINANCEIRO WHERE ID = ' + IntToStr(vIDVinc)
+        else
+          sds.CommandText := 'DELETE FROM FINANCEIRO WHERE ID_FINANCEIRO_VINC = ' + IntToStr(vIDAux);
+        SDS.ExecSQL;
+      end;
+    end;
+
+    dmDatabase.scoDados.Commit(ID);
+  except
+    on e: Exception do
+      begin
+        dmDatabase.scoDados.Rollback(ID);
+        raise Exception.Create('Erro ao excluir o Financeiro (conta vinculada): ' + #13 + e.Message);
+      end;
+  end;
+  FreeAndNil(sds);
 end;
 
 procedure TDMCadFinanceiro.prc_Gravar;

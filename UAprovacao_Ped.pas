@@ -329,11 +329,11 @@ begin
     begin
       fDMAprovacao_Ped.cdsPedido.Edit;
       fDMAprovacao_Ped.cdsPedidoAPROVADO_PED.AsString := Tipo;
-      if fDMCadPedido.cdsPedidoUSUARIO.IsNull then
+      if fDMAprovacao_Ped.cdsPedidoUSUARIO.IsNull then
       begin
-        fDMCadPedido.cdsPedidoUSUARIO.AsString     := vUsuario;
-        fDMCadPedido.cdsPedidoDTUSUARIO.AsDateTime := Date;
-        fDMCadPedido.cdsPedidoHRUSUARIO.AsDateTime := Now;
+        fDMAprovacao_Ped.cdsPedidoUSUARIO.AsString     := vUsuario;
+        fDMAprovacao_Ped.cdsPedidoDTUSUARIO.AsDateTime := Date;
+        fDMAprovacao_Ped.cdsPedidoHRUSUARIO.AsDateTime := Now;
       end;
 
       prc_Ajusta_Dados_Filial;

@@ -352,6 +352,12 @@ type
     cdsPedidoFINALIDADE: TStringField;
     cdsPedidoCONTROLA_RESERVA: TStringField;
     cdsPedidoTIPO_ATENDIMENTO: TSmallintField;
+    sdsPedidoUSUARIO: TStringField;
+    sdsPedidoDTUSUARIO: TDateField;
+    sdsPedidoHRUSUARIO: TTimeField;
+    cdsPedidoUSUARIO: TStringField;
+    cdsPedidoDTUSUARIO: TDateField;
+    cdsPedidoHRUSUARIO: TTimeField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedido_ProcessoNewRecord(DataSet: TDataSet);
   private

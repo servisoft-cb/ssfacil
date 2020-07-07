@@ -483,7 +483,8 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
       'select ID, APROVADO_PED, FILIAL, P.ID_REGIMETRIB, P.SIMPLES_FILI' +
       'AL, P.ID_LOCAL_ESTOQUE, FATURADO, IMPRESSO, TIPO_STATUS,'#13#10'      ' +
       ' ID_OPERACAO_NOTA, FINALIDADE, CONTROLA_RESERVA, TIPO_ATENDIMENT' +
-      'O'#13#10'from PEDIDO P'#13#10'where ID = :ID   '
+      'O, usuario, dtusuario, hrusuario'#13#10'from PEDIDO P'#13#10'where ID = :ID ' +
+      '  '
     MaxBlobSize = -1
     Params = <
       item
@@ -493,7 +494,7 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 73
-    Top = 25
+    Top = 26
     object sdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -549,6 +550,16 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     object sdsPedidoTIPO_ATENDIMENTO: TSmallintField
       FieldName = 'TIPO_ATENDIMENTO'
     end
+    object sdsPedidoUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object sdsPedidoDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object sdsPedidoHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -561,7 +572,7 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspPedido'
-    Left = 137
+    Left = 138
     Top = 24
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
@@ -617,6 +628,16 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     end
     object cdsPedidoTIPO_ATENDIMENTO: TSmallintField
       FieldName = 'TIPO_ATENDIMENTO'
+    end
+    object cdsPedidoUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsPedidoDTUSUARIO: TDateField
+      FieldName = 'DTUSUARIO'
+    end
+    object cdsPedidoHRUSUARIO: TTimeField
+      FieldName = 'HRUSUARIO'
     end
   end
   object dsPedido: TDataSource

@@ -3066,9 +3066,10 @@ object DMConsFinanceiro: TDMConsFinanceiro
   end
   object cdsConsAdto_Saldo: TClientDataSet
     Aggregates = <>
+    IndexFieldNames = 'NOME_PESSOA'
     Params = <>
     ProviderName = 'dspConsAdto_Saldo'
-    Left = 365
+    Left = 364
     Top = 413
     object cdsConsAdto_SaldoID_PESSOA: TIntegerField
       FieldName = 'ID_PESSOA'
