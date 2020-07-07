@@ -2833,7 +2833,7 @@ object DMCadPedido: TDMCadPedido
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 26
+    Left = 27
     Top = 52
     object sdsPedido_ItensID: TIntegerField
       FieldName = 'ID'
@@ -4061,7 +4061,7 @@ object DMCadPedido: TDMCadPedido
     BeforeInsert = cdsPedido_DescontoBeforeInsert
     AfterInsert = cdsPedido_DescontoAfterInsert
     AfterPost = cdsPedido_DescontoAfterPost
-    Left = 40
+    Left = 39
     Top = 275
     object cdsPedido_DescontoID: TIntegerField
       FieldName = 'ID'
@@ -4957,7 +4957,7 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 175
-    Top = 402
+    Top = 401
   end
   object cdsPedidoImp_Itens: TClientDataSet
     Aggregates = <>
@@ -6266,7 +6266,7 @@ object DMCadPedido: TDMCadPedido
     DataSetField = cdsPedido_ItenssdsPedido_Cli
     IndexFieldNames = 'ID;ITEM;ID_CENTROCUSTO'
     Params = <>
-    Left = 40
+    Left = 39
     Top = 101
     object cdsPedido_CliID: TIntegerField
       FieldName = 'ID'
@@ -7293,7 +7293,7 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 446
+    Top = 447
   end
   object cdsPedidoImp_Tam: TClientDataSet
     Aggregates = <>
@@ -8349,7 +8349,7 @@ object DMCadPedido: TDMCadPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 176
+    Left = 177
     Top = 141
   end
   object dspOrcamento_Mat: TDataSetProvider
@@ -10033,6 +10033,8 @@ object DMCadPedido: TDMCadPedido
     end
   end
   object sdsPedido_Item_Tipo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
     CommandText = 
       'SELECT *'#13#10'FROM PEDIDO_ITEM_TIPO '#13#10'WHERE ID = :ID'#13#10'   AND ITEM = ' +
       ':ITEM'
@@ -14076,7 +14078,7 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 175
-    Top = 270
+    Top = 271
   end
   object dspOrcamento_Ace: TDataSetProvider
     DataSet = sdsOrcamento_Ace
@@ -14158,8 +14160,8 @@ object DMCadPedido: TDMCadPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 176
-    Top = 313
+    Left = 177
+    Top = 312
   end
   object dspOrcamento_Rol: TDataSetProvider
     DataSet = sdsOrcamento_Rol
