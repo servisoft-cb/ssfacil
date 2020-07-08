@@ -26,7 +26,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Left = 0
     Top = 0
     Width = 1067
-    Height = 94
+    Height = 116
     Align = alTop
     Color = 16777134
     TabOrder = 0
@@ -39,7 +39,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Caption = 'Diret'#243'rio Projeto:'
     end
     object btnCarrega: TSpeedButton
-      Left = 459
+      Left = 458
       Top = 5
       Width = 137
       Height = 37
@@ -261,14 +261,14 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       OnClick = SpeedButton3Click
     end
     object Label2: TLabel
-      Left = 742
-      Top = 72
-      Width = 249
-      Height = 13
+      Left = 760
+      Top = 95
+      Width = 272
+      Height = 14
       Caption = 'Para calcular use o ENTER entre os campos'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Verdana'
       Font.Style = []
       ParentFont = False
@@ -280,6 +280,19 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Height = 13
       Alignment = taRightJustify
       Caption = 'Arquivo Excel:'
+    end
+    object Label4: TLabel
+      Left = 88
+      Top = 96
+      Width = 360
+      Height = 13
+      Caption = 'Layout: (Nome, Comprimento, Largura, Espessura, Qtd Inicial)'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
     end
     object DirectoryEdit1: TDirectoryEdit
       Left = 82
@@ -347,22 +360,22 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   end
   object Panel2: TPanel
     Left = 0
-    Top = 602
+    Top = 611
     Width = 1067
-    Height = 41
+    Height = 32
     Align = alBottom
     Color = 16777134
     TabOrder = 2
     object Shape1: TShape
       Left = 432
-      Top = 17
+      Top = 9
       Width = 30
       Height = 16
       Brush.Color = clRed
     end
     object Label25: TLabel
       Left = 464
-      Top = 20
+      Top = 12
       Width = 82
       Height = 13
       Caption = 'Item sem Produto'
@@ -375,14 +388,14 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object Shape2: TShape
       Left = 584
-      Top = 17
+      Top = 9
       Width = 30
       Height = 16
       Brush.Color = clGreen
     end
     object Label1: TLabel
       Left = 616
-      Top = 20
+      Top = 12
       Width = 101
       Height = 13
       Caption = 'Produto sem Estoque'
@@ -395,9 +408,9 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object btnCopiar: TBitBtn
       Left = 6
-      Top = 8
+      Top = 4
       Width = 300
-      Height = 28
+      Height = 25
       Caption = 'Copiar os Itens'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clBlue
@@ -411,16 +424,16 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   end
   object pnlItens: TPanel
     Left = 0
-    Top = 94
+    Top = 116
     Width = 1067
-    Height = 508
+    Height = 495
     Align = alClient
     TabOrder = 3
     object SMDBGrid1: TSMDBGrid
       Left = 1
       Top = 1
       Width = 1065
-      Height = 506
+      Height = 493
       Align = alClient
       Ctl3D = False
       DataSource = dsmArquivoImportado
@@ -615,7 +628,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Params = <>
     StoreDefs = True
     OnNewRecord = mArquivoImportadoNewRecord
-    Left = 273
+    Left = 272
     Top = 328
     Data = {
       6C0100009619E0BD01000000180000000F0000000000030000006C010E43616D

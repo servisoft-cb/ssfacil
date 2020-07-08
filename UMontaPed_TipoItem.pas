@@ -7,7 +7,8 @@ uses
   Dialogs, ExtCtrls, StdCtrls, Buttons, Grids, DBGrids, SMDBGrid, FMTBcd, DB,
   Provider, DBClient, SqlExpr, RxLookup, Mask, ToolEdit, CurrEdit, ComObj, 
   UDMCopiaPedido, ShellAPI, Menus, uConsProdutoPedido, UCadPedido_Itens, uDMCadPedido,
-  uSel_Produto, uMostraPDF, classe.ControlePedidoProjeto, classe.Controle, classe.ConexaoBD;
+  uSel_Produto, uMostraPDF, classe.ControlePedidoProjeto, classe.Controle, classe.ConexaoBD,
+  NxCollection;
 
 type
   EnumTipo = (tpChapa, tpInox, tpAluminio);
@@ -50,6 +51,7 @@ type
     Label2: TLabel;
     Label3: TLabel;
     FilenameEdit1: TFilenameEdit;
+    Label4: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -679,24 +681,33 @@ begin
     //  continue;
 
     vTexto:=StringGrid1.Cells[0,Linha];
-    i := Pos(' ',vTexto);
-    vTexto := copy(vTexto,1,i-1);
+    //i := Pos(' ',vTexto);
+    //vTexto := copy(vTexto,1,i-1);
     if mArquivoImportado.Locate('NomeArquivo',vTexto,([Locaseinsensitive])) then
     begin
       mArquivoImportado.Edit;
-      vTexto := trim(StringGrid1.Cells[1,Linha]);
+      vTexto := trim(StringGrid1.Cells[3,Linha]);
       mArquivoImportadoEspessura.AsFloat := StrToFloat(vTexto);
 
       mArquivoImportado.Edit;
 
-      vTexto := trim(StringGrid1.Cells[4,Linha]);
+      vTexto := trim(StringGrid1.Cells[1,Linha]);
       mArquivoImportadoComprimento.AsFloat := StrToFloat(vTexto);
 
       if not (mArquivoImportado.State in [dsEdit]) then
         mArquivoImportado.Edit;
 
-      vTexto := trim(StringGrid1.Cells[5,Linha]);
+      vTexto := trim(StringGrid1.Cells[2,Linha]);
       mArquivoImportadoLargura.AsFloat := StrToFloat(vTexto);
+
+      vTexto := trim(StringGrid1.Cells[4,Linha]);
+      if trim(vTexto) <> '' then
+      begin
+        vSomar := True;
+        mArquivoImportadoQtde.AsFloat := StrToFloat(vTexto);
+        mArquivoImportadoQtdeChange(nil);
+        vSomar := False;
+      end;
 
       if (mArquivoImportado.State in [dsEdit]) then
         mArquivoImportado.Post;

@@ -17,7 +17,7 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
   PixelsPerInch = 96
   TextHeight = 13
   object RLReport1: TRLReport
-    Left = 48
+    Left = 54
     Top = 16
     Width = 794
     Height = 1123
@@ -128,8 +128,8 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
         Caption = 'Nome'
       end
       object RLLabel5: TRLLabel
-        Left = 458
-        Top = 37
+        Left = 490
+        Top = 38
         Width = 21
         Height = 10
         Caption = 'Saldo'
@@ -149,11 +149,11 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
         Caption = 'Filial:'
       end
       object RLLabel3: TRLLabel
-        Left = 508
+        Left = 516
         Top = 37
-        Width = 35
+        Width = 45
         Height = 10
-        Caption = 'Pr. M'#233'dio'
+        Caption = 'Custo M'#233'dio'
       end
       object RLLabel9: TRLLabel
         Left = 714
@@ -182,6 +182,13 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
         Width = 11
         Height = 10
         Caption = 'IPI'
+      end
+      object RLLabel14: TRLLabel
+        Left = 423
+        Top = 37
+        Width = 21
+        Height = 10
+        Caption = 'NCM'
       end
     end
     object RLSubDetail1: TRLSubDetail
@@ -217,12 +224,12 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
         object RLMemo1: TRLMemo
           Left = 183
           Top = 1
-          Width = 275
+          Width = 235
           Height = 10
           Behavior = [beSiteExpander]
         end
         object RLDBText1: TRLDBText
-          Left = 456
+          Left = 462
           Top = 1
           Width = 50
           Height = 10
@@ -232,7 +239,7 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
           DataSource = DMConsEstoque.dsBalanco
         end
         object RLDBText2: TRLDBText
-          Left = 508
+          Left = 512
           Top = 1
           Width = 50
           Height = 10
@@ -242,9 +249,9 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
           DataSource = DMConsEstoque.dsBalanco
         end
         object RLDBText3: TRLDBText
-          Left = 685
+          Left = 687
           Top = 1
-          Width = 63
+          Width = 60
           Height = 10
           Alignment = taRightJustify
           AutoSize = False
@@ -252,7 +259,7 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
           DataSource = DMConsEstoque.dsBalanco
         end
         object RLDBText4: TRLDBText
-          Left = 82
+          Left = 81
           Top = 1
           Width = 101
           Height = 10
@@ -261,7 +268,7 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
           DataSource = DMConsEstoque.dsBalanco
         end
         object rlICMS: TRLLabel
-          Left = 584
+          Left = 593
           Top = 1
           Width = 42
           Height = 10
@@ -270,22 +277,32 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
           Caption = '0.00'
         end
         object rlIPI: TRLLabel
-          Left = 628
+          Left = 637
           Top = 1
-          Width = 49
+          Width = 45
           Height = 10
           Alignment = taRightJustify
           AutoSize = False
           Caption = '0.00'
         end
         object RLDBText5: TRLDBText
-          Left = 560
+          Left = 562
           Top = 1
           Width = 30
           Height = 10
           Alignment = taRightJustify
           AutoSize = False
           DataField = 'PERC_ICMS'
+          DataSource = DMConsEstoque.dsBalanco
+        end
+        object RLDBText6: TRLDBText
+          Left = 418
+          Top = 2
+          Width = 43
+          Height = 10
+          Alignment = taRightJustify
+          AutoSize = False
+          DataField = 'QTD_ESTOQUE'
           DataSource = DMConsEstoque.dsBalanco
         end
       end
@@ -322,7 +339,7 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
           ResetAfterPrint = True
         end
         object rlTotIcms: TRLLabel
-          Left = 560
+          Left = 569
           Top = 2
           Width = 66
           Height = 10
@@ -337,7 +354,7 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
           ParentFont = False
         end
         object rlTotIPI: TRLLabel
-          Left = 628
+          Left = 637
           Top = 2
           Width = 49
           Height = 10

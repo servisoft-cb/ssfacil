@@ -712,6 +712,7 @@ type
     qParametrosEMPRESA_SUCATA: TStringField;
     cdsEstoque_MovCOMPRIMENTO: TFloatField;
     cdsEstoque_MovLARGURA: TFloatField;
+    cdsBalancoNCM: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

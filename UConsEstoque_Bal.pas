@@ -113,7 +113,7 @@ begin
                                            ' AND PRO.INATIVO = ''N'' ' +
                                            ' AND PRO.ESTOQUE = ''S'' ' +
                                            ' GROUP BY EM.ID_PRODUTO, EM.TAMANHO, PRO.REFERENCIA, PRO.NOME, PRO.UNIDADE, ' +
-                                           'EM.id_cor, COMB.NOME, PRO.sped_tipo_item, PRO.PERC_IPI, PRO.TIPO_REG';
+                                           'EM.id_cor, COMB.NOME, PRO.sped_tipo_item, PRO.PERC_IPI, PRO.TIPO_REG, NCM.NCM';
 
   fDMConsEstoque.sdsBalanco.ParamByName('FILIAL').AsInteger   := RxDBLookupCombo1.KeyValue;
   fDMConsEstoque.sdsBalanco.ParamByName('DTMOVIMENTO').AsDate := DateEdit1.Date;

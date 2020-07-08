@@ -426,7 +426,7 @@ object frmConsEstoque_Bal: TfrmConsEstoque_Bal
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 16
+        ColCount = 17
         RowCount = 2
         Columns = <
           item
@@ -543,6 +543,13 @@ object frmConsEstoque_Bal: TfrmConsEstoque_Bal
             Title.Alignment = taCenter
             Title.Caption = 'Reg. no Sistema'
             Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NCM'
+            Title.Alignment = taCenter
+            Width = 77
             Visible = True
           end>
       end

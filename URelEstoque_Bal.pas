@@ -45,6 +45,8 @@ type
     rlTotIPI: TRLLabel;
     rlTotQtd: TRLLabel;
     rlLiquido: TRLLabel;
+    RLLabel14: TRLLabel;
+    RLDBText6: TRLDBText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
