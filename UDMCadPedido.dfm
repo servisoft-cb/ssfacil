@@ -10870,7 +10870,7 @@ object DMCadPedido: TDMCadPedido
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 983
-    Top = 103
+    Top = 104
   end
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxPedidoImp'

@@ -5,30 +5,38 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, uDMComissaoVend, StdCtrls, ExtCtrls, Mask, ToolEdit, CurrEdit,
-  NxCollection, RxLookup, Grids, DBGrids, SMDBGrid, UCBase;
+  NxCollection, RxLookup, Grids, DBGrids, SMDBGrid, UCBase, RzTabs;
 
 type
   TfrmComissaoVend = class(TForm)
+    UCControls1: TUCControls;
+    RzPageControl1: TRzPageControl;
+    TS_Gerar: TRzTabSheet;
+    Panel2: TPanel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    Label6: TLabel;
+    CurrencyEdit3: TCurrencyEdit;
+    Edit2: TEdit;
+    Edit3: TEdit;
+    btnConsultar: TNxButton;
+    RxDBLookupCombo1: TRxDBLookupCombo;
+    ckVendedor: TCheckBox;
+    RadioGroup2: TRadioGroup;
+    SMDBGrid1: TSMDBGrid;
     Panel1: TPanel;
     Label1: TLabel;
     Label2: TLabel;
     CurrencyEdit2: TCurrencyEdit;
     btnConfirmar: TNxButton;
-    Panel2: TPanel;
-    Label3: TLabel;
-    CurrencyEdit3: TCurrencyEdit;
-    Edit2: TEdit;
-    Label4: TLabel;
-    Label5: TLabel;
-    Edit3: TEdit;
-    btnConsultar: TNxButton;
-    Label6: TLabel;
-    RxDBLookupCombo1: TRxDBLookupCombo;
     RxDBLookupCombo2: TRxDBLookupCombo;
-    ckVendedor: TCheckBox;
-    RadioGroup2: TRadioGroup;
-    SMDBGrid1: TSMDBGrid;
-    UCControls1: TUCControls;
+    TS_Consulta: TRzTabSheet;
+    Panel3: TPanel;
+    Label10: TLabel;
+    btnImprimir: TNxButton;
+    RxDBLookupCombo3: TRxDBLookupCombo;
+    RadioGroup1: TRadioGroup;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure RxDBLookupCombo1Change(Sender: TObject);
@@ -36,6 +44,7 @@ type
     procedure CurrencyEdit3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnConfirmarClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
   private
     { Private declarations }
     fDMComissaoVend: TDMComissaoVend;
@@ -209,6 +218,35 @@ begin
   fDMComissaoVend.cdsProduto_Comissao_Vend.ApplyUpdates(0);
 
   vContador := vContador + 1;
+end;
+
+procedure TfrmComissaoVend.btnImprimirClick(Sender: TObject);
+var
+  vArq : String;
+begin
+  if RxDBLookupCombo3.Text = '' then
+  begin
+    MessageDlg('*** Representante não informado!', mtError, [mbOk], 0);
+    exit;
+  end;
+  fDMComissaoVend.cdsVendCons.Close;
+  fDMComissaoVend.sdsVendCons.CommandText := fDMComissaoVend.ctVendCons
+                                           + ' AND P.CODIGO = ' + IntToStr(RxDBLookupCombo3.KeyValue);
+  fDMComissaoVend.cdsVendCons.Open;
+  case RadioGroup1.ItemIndex of
+    0 : fDMComissaoVend.vTipo_Reg_Cons := 'T';
+    1 : fDMComissaoVend.vTipo_Reg_Cons := 'P';
+    2 : fDMComissaoVend.vTipo_Reg_Cons := 'S';
+  end;
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Comissao_Prod_Vend.fr3';
+  if FileExists(vArq) then
+    fDMComissaoVend.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatório não localizado! ' + vArq);
+    Exit;
+  end;
+  fDMComissaoVend.frxReport1.ShowReport;
 end;
 
 end.

@@ -3,7 +3,8 @@ unit UDMComissaoVend;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, LogTypes;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, LogTypes,
+  frxClass, frxDBSet, frxExportPDF, frxExportMail;
 
 type
   TDMComissaoVend = class(TDataModule)
@@ -37,14 +38,41 @@ type
     qVerProdVendCONTADOR: TIntegerField;
     cdsConsProdutoPERC_COMISSAO: TFloatField;
     sdsConsProduto: TSQLDataSet;
+    sdsVendCons: TSQLDataSet;
+    dspVendCons: TDataSetProvider;
+    cdsVendCons: TClientDataSet;
+    dsVendCons: TDataSource;
+    sdsProdCons: TSQLDataSet;
+    dspProdCons: TDataSetProvider;
+    cdsProdCons: TClientDataSet;
+    dsProdCons: TDataSource;
+    cdsVendConsCODIGO: TIntegerField;
+    cdsVendConsNOME: TStringField;
+    cdsVendConsPERC_COMISSAO: TFloatField;
+    cdsProdConsID: TIntegerField;
+    cdsProdConsNOME: TStringField;
+    cdsProdConsREFERENCIA: TStringField;
+    cdsProdConsTIPO_PRODUTO: TStringField;
+    cdsProdConsPERC_COMISSAO: TFloatField;
+    cdsProdConsID_VENDEDOR: TIntegerField;
+    frxReport1: TfrxReport;
+    frxMailExport1: TfrxMailExport;
+    frxPDFExport1: TfrxPDFExport;
+    frxVendCons: TfrxDBDataset;
+    frxProdCons: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
+    procedure frxVendConsNext(Sender: TObject);
+    procedure frxVendConsOpen(Sender: TObject);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
-    
+    procedure prc_Abrir_ProdCons;
+
   public
     { Public declarations }
     ctConsProduto : String;
+    ctVendCons : String;
+    vTipo_Reg_Cons : String;
   end;
 
 var
@@ -63,6 +91,7 @@ var
   aIndices: array of string;
 begin
   ctConsProduto := sdsConsProduto.CommandText;
+  ctVendCons    := sdsVendCons.CommandText;
   cdsVendedor.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
@@ -97,6 +126,40 @@ procedure TDMComissaoVend.DoLogAdditionalValues(ATableName: string;
   var AValues: TArrayLogData; var UserName: string);
 begin
   UserName := vUsuario;
+end;
+
+procedure TDMComissaoVend.frxVendConsNext(Sender: TObject);
+begin
+  prc_Abrir_ProdCons;
+end;
+
+procedure TDMComissaoVend.prc_Abrir_ProdCons;
+begin
+  cdsProdCons.Close;
+  sdsProdCons.ParamByName('ID_VENDEDOR').AsInteger := cdsVendConsCODIGO.AsInteger;
+  if vTipo_Reg_Cons = 'T' then
+  begin
+    sdsProdCons.ParamByName('TIPO_REG').AsString := 'P';
+    sdsProdCons.ParamByName('TIPO_REG2').AsString := 'S';
+  end
+  else
+  if vTipo_Reg_Cons = 'P' then
+  begin
+    sdsProdCons.ParamByName('TIPO_REG').AsString  := 'P';
+    sdsProdCons.ParamByName('TIPO_REG2').AsString := 'P';
+  end
+  else
+  if vTipo_Reg_Cons = 'S' then
+  begin
+    sdsProdCons.ParamByName('TIPO_REG').AsString  := 'S';
+    sdsProdCons.ParamByName('TIPO_REG2').AsString := 'S';
+  end;
+  cdsProdCons.Open;
+end;
+
+procedure TDMComissaoVend.frxVendConsOpen(Sender: TObject);
+begin
+  prc_Abrir_ProdCons;
 end;
 
 end.
