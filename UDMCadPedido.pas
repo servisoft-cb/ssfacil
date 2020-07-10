@@ -3777,6 +3777,9 @@ type
     cdsCentroCustoTIPO: TStringField;
     cdsCentroCustoCODIGO: TStringField;
     cdsCentroCustoNOME_AUX: TStringField;
+    qPessoa_ProdICMSID_LEI: TIntegerField;
+    qPessoa_ProdICMSCOD_BENEF: TStringField;
+    qPessoa_ProdICMSFINALIDADE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

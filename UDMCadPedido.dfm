@@ -18676,20 +18676,52 @@ object DMCadPedido: TDMCadPedido
         DataType = ftInteger
         Name = 'ID_PRODUTO'
         ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'DRAWBACK'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'FINALIDADE'
+        ParamType = ptInput
       end>
     SQL.Strings = (
-      'select p.id_csticms, DRAWBACK'
+      
+        'select First 1 p.id_csticms, P.ID_LEI, DRAWBACK, COD_BENEF, p.fi' +
+        'nalidade'
       'from pessoa_prodicms p'
       'WHERE P.CODIGO = :CODIGO'
-      '  and p.ID_PRODUTO = :ID_PRODUTO')
+      '  and p.ID_PRODUTO = :ID_PRODUTO'
+      '  and coalesce(p.DRAWBACK,'#39'N'#39') = :DRAWBACK'
+      
+        '  and ((p.finalidade = '#39'A'#39') or (coalesce(p.finalidade,'#39'A'#39') = :FI' +
+        'NALIDADE))'
+      'order by p.finalidade desc'
+      ''
+      ''
+      '')
     SQLConnection = dmDatabase.scoDados
-    Left = 1072
-    Top = 323
+    Left = 1232
+    Top = 180
     object qPessoa_ProdICMSID_CSTICMS: TIntegerField
       FieldName = 'ID_CSTICMS'
     end
     object qPessoa_ProdICMSDRAWBACK: TStringField
       FieldName = 'DRAWBACK'
+      FixedChar = True
+      Size = 1
+    end
+    object qPessoa_ProdICMSID_LEI: TIntegerField
+      FieldName = 'ID_LEI'
+    end
+    object qPessoa_ProdICMSCOD_BENEF: TStringField
+      FieldName = 'COD_BENEF'
+      Size = 8
+    end
+    object qPessoa_ProdICMSFINALIDADE: TStringField
+      FieldName = 'FINALIDADE'
       FixedChar = True
       Size = 1
     end

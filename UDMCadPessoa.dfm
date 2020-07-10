@@ -5446,7 +5446,7 @@ object DMCadPessoa: TDMCadPessoa
       'FROM PARAMETROS_GERAL'
       'WHERE ID = 1')
     SQLConnection = dmDatabase.scoDados
-    Left = 1024
+    Left = 1025
     Top = 175
     object qParametros_GeralMOSTRAR_DADOS_PESSOA_FISICA: TStringField
       FieldName = 'MOSTRAR_DADOS_PESSOA_FISICA'
@@ -6022,7 +6022,7 @@ object DMCadPessoa: TDMCadPessoa
     BeforeInsert = cdsPessoa_RefPBeforeInsert
     AfterInsert = cdsPessoa_RefPAfterInsert
     AfterPost = cdsPessoa_RefPAfterPost
-    Left = 312
+    Left = 314
     Top = 14
     object cdsPessoa_RefPCODIGO: TIntegerField
       Alignment = taCenter

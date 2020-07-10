@@ -15598,7 +15598,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'select p.id_csticms, P.ID_LEI, DRAWBACK, COD_BENEF, p.finalidade'
+      
+        'select First 1 p.id_csticms, P.ID_LEI, DRAWBACK, COD_BENEF, p.fi' +
+        'nalidade'
       'from pessoa_prodicms p'
       'WHERE P.CODIGO = :CODIGO'
       '  and p.ID_PRODUTO = :ID_PRODUTO'
@@ -15606,7 +15608,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       
         '  and ((p.finalidade = '#39'A'#39') or (coalesce(p.finalidade,'#39'A'#39') = :FI' +
         'NALIDADE))'
-      'order by p.finalidade desc')
+      'order by p.finalidade desc'
+      '')
     SQLConnection = dmDatabase.scoDados
     Left = 1216
     Top = 145
