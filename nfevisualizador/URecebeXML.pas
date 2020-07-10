@@ -2857,7 +2857,7 @@ begin
 
         fDMRecebeXML.Gravar_Duplicata('P','N',fDMRecebeXML.cdsNotaFiscal_ParcITEM.AsInteger,
                                               fDMRecebeXML.cdsNotaFiscal_ParcVLR_VENCIMENTO.AsFloat,
-                                              fDMRecebeXML.cdsNotaFiscal_ParcDTVENCIMENTO.AsDateTime);
+                                              fDMRecebeXML.cdsNotaFiscal_ParcDTVENCIMENTO.AsDateTime,CurrencyEdit3.AsInteger);
         fDMRecebeXML.cdsNotaFiscal_Parc.Next;
       end;
 
@@ -4346,7 +4346,6 @@ begin
       prc_Busca_CFOPAtual;          
     end;
   end;
-  CurrencyEdit3.Value := vID_Centro_Custo;
   fDMRecebeXML.mItensNota.Post;
   prc_Mostrar_Cor;
 end;
@@ -4973,7 +4972,7 @@ end;
 procedure TfrmRecebeXML.prc_Exibe_CentroCusto;
 begin
   fDMRecebeXML.qCentroCusto.Close;
-  fDMRecebeXML.qCentroCusto.ParamByName('ID').AsInteger := vID_Centro_Custo;
+  fDMRecebeXML.qCentroCusto.ParamByName('ID').AsInteger := CurrencyEdit3.AsInteger;
   fDMRecebeXML.qCentroCusto.Open;
   Edit1.Text := fDMRecebeXML.qCentroCustoDESCRICAO.AsString;
 end;

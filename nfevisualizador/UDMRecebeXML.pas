@@ -2456,9 +2456,9 @@ type
     procedure AbrirNFe(AXMLNFe: string);
     procedure prc_Inserir_Parcela;
     procedure Abrir_cdsDuplicata(ID: Integer);
-    procedure Gravar_Duplicata(Tipo, TransfICMS: String; Parcela: Integer; Valor: Real; Data: TDateTime); //P= Contas a Pagar   R= Contas a Receber
+    procedure Gravar_Duplicata(Tipo, TransfICMS: String; Parcela: Integer; Valor: Real; Data: TDateTime ; ID_CCusto : Integer = 0); //P= Contas a Pagar   R= Contas a Receber
     procedure Gravar_Dupicata_Hist;
-    procedure Gravar_Duplicata_CCusto;
+    procedure Gravar_Duplicata_CCusto(ID_CCusto : Integer);
 
     procedure prc_Abrir_Combinacao(ID_Produto: Integer);
     procedure prc_Move_Dados_Da_OC;
@@ -2744,7 +2744,7 @@ begin
 end;
 
 procedure TDMRecebeXML.Gravar_Duplicata(Tipo, TransfICMS: String;
-  Parcela: Integer; Valor: Real; Data: TDateTime);
+  Parcela: Integer; Valor: Real; Data: TDateTime; ID_CCusto : Integer = 0);
 var
   vAux: Integer;
 begin
@@ -2813,7 +2813,8 @@ begin
   cdsDuplicata.Post;
 
   Gravar_Dupicata_Hist;
-  Gravar_Duplicata_CCusto;
+  if ID_CCusto > 0 then
+    Gravar_Duplicata_CCusto(ID_CCusto);
 
   cdsDuplicata.ApplyUpdates(0);
 end;
@@ -3182,7 +3183,7 @@ begin
   end;
 end;
 
-procedure TDMRecebeXML.Gravar_Duplicata_CCusto;
+procedure TDMRecebeXML.Gravar_Duplicata_CCusto(ID_CCusto : Integer);
 begin
   cdsDupCCusto.Close;
   sdsDupCCusto.ParamByName('ID').AsInteger := cdsDuplicataID.AsInteger;
@@ -3191,7 +3192,7 @@ begin
   cdsDupCCusto.Insert;
   cdsDupCCustoID.AsInteger             := cdsDuplicataID.AsInteger;
   cdsDupCCustoITEM.AsInteger           := 1;
-  cdsDupCCustoID_CENTROCUSTO.AsInteger := vID_Centro_Custo;
+  cdsDupCCustoID_CENTROCUSTO.AsInteger := ID_CCusto;
   cdsDupCCustoPERCENTUAL.AsFloat       := 100;
   cdsDupCCustoVALOR.AsFloat            := cdsDuplicataVLR_PARCELA.AsFloat;
   cdsDupCCusto.Post;
