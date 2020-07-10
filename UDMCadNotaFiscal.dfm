@@ -8112,19 +8112,20 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'O, pi.PERC_DESCONTO, pi.DTCONFERENCIA,'#13#10'       pi.COMPRIMENTO_VO' +
       'LUME, PRO.MEDIDA, pi.CALCULARICMSSOBREIPI, pi.VLR_UNITARIO_IPI, ' +
       'PE.FILIAL, coalesce(pi.PESO_AJUSTADO,'#39'N'#39') PESO_AJUSTADO,'#13#10'      ' +
-      ' PE.end_arq_pagto'#13#10'from PEDIDO PE'#13#10'inner join PEDIDO_ITEM pi on ' +
-      '(PE.ID = pi.ID)'#13#10'inner join PESSOA CLI on (PE.ID_CLIENTE = CLI.C' +
-      'ODIGO)'#13#10'inner join PRODUTO PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left' +
-      ' join COMBINACAO COMB on (pi.ID_COR = COMB.ID)'#13#10'left join GRUPO ' +
-      'GR on PRO.ID_GRUPO = GR.ID'#13#10'left join PESSOA_FISCAL PF on PE.ID_' +
-      'CLIENTE = PF.CODIGO'#13#10'left join ORDEMSERVICO O on pi.ID_OS_SERV =' +
-      ' O.ID'#13#10'left join PEDIDO_ITEM_TIPO PIT on pi.ID = PIT.ID and pi.I' +
-      'TEM = PIT.ITEM'#13#10'where pi.QTD_RESTANTE > 0'#13#10#13#10'  '
+      ' PE.end_arq_pagto, PE.id_operacao_nota, PE.finalidade'#13#10'from PEDI' +
+      'DO PE'#13#10'inner join PEDIDO_ITEM pi on (PE.ID = pi.ID)'#13#10'inner join ' +
+      'PESSOA CLI on (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'inner join PRODUTO P' +
+      'RO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left join COMBINACAO COMB on (pi' +
+      '.ID_COR = COMB.ID)'#13#10'left join GRUPO GR on PRO.ID_GRUPO = GR.ID'#13#10 +
+      'left join PESSOA_FISCAL PF on PE.ID_CLIENTE = PF.CODIGO'#13#10'left jo' +
+      'in ORDEMSERVICO O on pi.ID_OS_SERV = O.ID'#13#10'left join PEDIDO_ITEM' +
+      '_TIPO PIT on pi.ID = PIT.ID and pi.ITEM = PIT.ITEM'#13#10'where pi.QTD' +
+      '_RESTANTE > 0'#13#10#13#10#13#10'  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 414
-    Top = 198
+    Left = 417
+    Top = 197
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -8509,6 +8510,14 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsPedidoEND_ARQ_PAGTO: TStringField
       FieldName = 'END_ARQ_PAGTO'
       Size = 200
+    end
+    object cdsPedidoID_OPERACAO_NOTA: TIntegerField
+      FieldName = 'ID_OPERACAO_NOTA'
+    end
+    object cdsPedidoFINALIDADE: TStringField
+      FieldName = 'FINALIDADE'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPedido: TDataSource
@@ -15577,12 +15586,27 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
         DataType = ftInteger
         Name = 'ID_PRODUTO'
         ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'DRAWBACK'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'FINALIDADE'
+        ParamType = ptInput
       end>
     SQL.Strings = (
-      'select p.id_csticms, P.ID_LEI, DRAWBACK, COD_BENEF'
+      'select p.id_csticms, P.ID_LEI, DRAWBACK, COD_BENEF, p.finalidade'
       'from pessoa_prodicms p'
       'WHERE P.CODIGO = :CODIGO'
-      '  and p.ID_PRODUTO = :ID_PRODUTO')
+      '  and p.ID_PRODUTO = :ID_PRODUTO'
+      '  and coalesce(p.DRAWBACK,'#39'N'#39') = :DRAWBACK'
+      
+        '  and ((p.finalidade = '#39'A'#39') or (coalesce(p.finalidade,'#39'A'#39') = :FI' +
+        'NALIDADE))'
+      'order by p.finalidade desc')
     SQLConnection = dmDatabase.scoDados
     Left = 1216
     Top = 145
@@ -15600,6 +15624,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object qPessoa_ProdICMSCOD_BENEF: TStringField
       FieldName = 'COD_BENEF'
       Size = 8
+    end
+    object qPessoa_ProdICMSFINALIDADE: TStringField
+      FieldName = 'FINALIDADE'
+      FixedChar = True
+      Size = 1
     end
   end
   object qTab_CProd_ANP: TSQLQuery

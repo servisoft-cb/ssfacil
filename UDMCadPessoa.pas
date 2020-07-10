@@ -1342,6 +1342,8 @@ type
     cdsPessoaUSA_PRECO_VAREJO: TStringField;
     qParametros_Prod: TSQLQuery;
     qParametros_ProdUSA_PRECO_VAREJO: TStringField;
+    sdsPessoa_ProdICMSFINALIDADE: TStringField;
+    cdsPessoa_ProdICMSFINALIDADE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;
@@ -1386,6 +1388,7 @@ type
     procedure cdsPessoa_AnimalCalcFields(DataSet: TDataSet);
     procedure cdsPessoa_ProdICMSCalcFields(DataSet: TDataSet);
     procedure cdsPessoa_FiscalBeforePost(DataSet: TDataSet);
+    procedure cdsPessoa_ProdICMSBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     vID_CidadePes: Integer;
@@ -2304,6 +2307,12 @@ procedure TDMCadPessoa.cdsPessoa_FiscalBeforePost(DataSet: TDataSet);
 begin
   if cdsPessoa_FiscalDRAW_ENQIPI.AsInteger <= 0 then
     cdsPessoa_FiscalDRAW_ENQIPI.Clear;
+end;
+
+procedure TDMCadPessoa.cdsPessoa_ProdICMSBeforePost(DataSet: TDataSet);
+begin
+  if trim(cdsPessoa_ProdICMSFINALIDADE.AsString) = '' then
+    cdsPessoa_ProdICMSFINALIDADE.AsString := 'A';
 end;
 
 end.

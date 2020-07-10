@@ -646,6 +646,19 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscal_ItensID.AsInteger          := fDMCadNotaFiscal.cdsNotaFiscalID.AsInteger;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM.AsInteger        := vItemAux;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger  := fDMCadNotaFiscal.cdsPedidoID_PRODUTO.AsInteger;
+    //10/07/2020
+    if fDMCadNotaFiscal.cdsPedidoID_OPERACAO_NOTA.AsInteger > 0 then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger := fDMCadNotaFiscal.cdsPedidoID_OPERACAO_NOTA.AsInteger
+    else
+    if fDMCadNotaFiscal.cdsNotaFiscalID_OPERACAO_NOTA.AsInteger > 0 then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger := fDMCadNotaFiscal.cdsNotaFiscalID_OPERACAO_NOTA.AsInteger;
+    if trim(fDMCadNotaFiscal.cdsPedidoFINALIDADE.AsString) <> '' then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensFINALIDADE.AsString := fDMCadNotaFiscal.cdsPedidoFINALIDADE.AsString
+    else
+    if trim(fDMCadNotaFiscal.cdsNotaFiscalFINALIDADE.AsString) <> '' then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensFINALIDADE.AsString := fDMCadNotaFiscal.cdsNotaFiscalFINALIDADE.AsString;
+    ////////////////////
+
     if fDMCadNotaFiscal.cdsPedidoID_COR.AsInteger > 0 then
     begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensID_COR.AsInteger := fDMCadNotaFiscal.cdsPedidoID_COR.AsInteger;

@@ -5440,7 +5440,7 @@ object DMNFe: TDMNFe
       '  AND TD.cod_desoneracao = :COD_DESONERACAO')
     SQLConnection = dmDatabase.scoDados
     Left = 464
-    Top = 416
+    Top = 415
     object qDesoneracaoCOD_CST_ICMS: TStringField
       FieldName = 'COD_CST_ICMS'
       Required = True
@@ -6286,6 +6286,37 @@ object DMNFe: TDMNFe
     object qSoftWareHouseFONE: TStringField
       FieldName = 'FONE'
       Size = 15
+    end
+  end
+  object qICMSDiferido: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      
+        'SELECT  sum(coalesce(I.vlr_icmsdiferido,0)) VLR_ICMSDIFERIDO, co' +
+        'alesce(cst.perc_diferimento,0) PERC_DIFERIMENTO,'
+      'sum(i.vlr_icms) vlr_icms'
+      'FROM NOTAFISCAL_ITENS I'
+      'inner join tab_csticms cst'
+      'on i.id_csticms = cst.id'
+      'WHERE I.ID = :ID'
+      'group by coalesce(cst.perc_diferimento,0)')
+    SQLConnection = dmDatabase.scoDados
+    Left = 395
+    Top = 510
+    object qICMSDiferidoVLR_ICMSDIFERIDO: TFloatField
+      FieldName = 'VLR_ICMSDIFERIDO'
+    end
+    object qICMSDiferidoPERC_DIFERIMENTO: TFloatField
+      FieldName = 'PERC_DIFERIMENTO'
+    end
+    object qICMSDiferidoVLR_ICMS: TFloatField
+      FieldName = 'VLR_ICMS'
     end
   end
 end

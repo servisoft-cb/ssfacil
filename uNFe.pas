@@ -3566,6 +3566,26 @@ begin
     end;
   end;
 
+  //10/07/2020  Grava a mensagem do diferimento parcial
+  vTexto := '';
+  fDMNFe.qICMSDiferido.Close;
+  fDMNFe.qICMSDiferido.ParamByName('ID').AsInteger := fDMCadNotaFiscal.cdsNotaFiscalID.AsInteger;
+  fDMNFe.qICMSDiferido.Open;
+  while not fDMNFe.qICMSDiferido.Eof do
+  begin
+    if StrToFloat(FormatFloat('0.00',fDMNFe.qICMSDiferidoVLR_ICMSDIFERIDO.AsFloat)) > 0 then
+    begin
+      vTexto := vTexto + '(Operação com diferimento parcial do imposto no valor de R$ ' + FormatFloat('###,###,##0.00',fDMNFe.qICMSDiferidoVLR_ICMSDIFERIDO.AsFloat)
+              + ' <' + FormatFloat('00.00##',fDMNFe.qICMSDiferidoPERC_DIFERIMENTO.AsFloat) + '% de R$ '
+              + FormatFloat('###,###,##0.00',fDMNFe.qICMSDiferidoVLR_ICMS.AsFloat + fDMNFe.qICMSDiferidoVLR_ICMSDIFERIDO.AsFloat) + '> nos termos do '
+              + 'inciso I do art.96 do Decreto no. 1.980/07 (RICMS/PR))';
+    end;
+    fDMNFe.qICMSDiferido.Next;
+  end;
+  if trim(vTexto) <> '' then
+    Grava_DadosAdicionaisNFe(vTexto,0);
+  //**************************
+
   //Grava endereço de entrega
   if fDMCadNotaFiscal.cdsNotaFiscalLOCALENTREGA.AsString = 'E' then
   begin

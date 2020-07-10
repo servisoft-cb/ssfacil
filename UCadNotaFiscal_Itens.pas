@@ -1104,12 +1104,20 @@ begin
   //13/08/2019
   //if (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
   //29/08/2019
-  if (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString = 'S')
-    and (fDMCadNotaFiscal.cdsFilialSIMPLES.AsString <> 'S') then
+  //10/07/2020 alterado para ler o DRAWBACK no parâmetros
+  if (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') and (fDMCadNotaFiscal.cdsFilialSIMPLES.AsString <> 'S') then
   begin
     fDMCadNotaFiscal.qPessoa_ProdICMS.Close;
     fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('CODIGO').AsInteger     := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger;
     fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('ID_PRODUTO').AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger;
+    if fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString = 'S' then
+      fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('DRAWBACK').AsString := 'S'
+    else
+      fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('DRAWBACK').AsString := 'N';
+    if trim(fDMCadNotaFiscal.cdsNotaFiscal_ItensFINALIDADE.AsString) <> '' then
+      fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('FINALIDADE').AsString := fDMCadNotaFiscal.cdsNotaFiscal_ItensFINALIDADE.AsString 
+    else
+      fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('FINALIDADE').AsString := 'A';
     fDMCadNotaFiscal.qPessoa_ProdICMS.Open;
     if not fDMCadNotaFiscal.qPessoa_ProdICMS.IsEmpty then
     begin
@@ -2057,7 +2065,7 @@ begin
   //end;
 
   //29/08/2019
-  if (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger <> vID_Produto_Ant) and (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
+    if (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger <> vID_Produto_Ant) and (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
   begin
     dbckDraw.Visible := uUtilPadrao.fnc_existe_Drawback(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger);
     if dbckDraw.Visible then

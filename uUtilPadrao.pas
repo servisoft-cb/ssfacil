@@ -2273,7 +2273,8 @@ begin
     sds.NoMetadata    := True;
     sds.GetMetadata   := False;
     sds.Close;
-    sds.CommandText   := 'SELECT P.DRAW_POSSUI, (SELECT I.DRAWBACK FROM pessoa_prodicms I WHERE I.CODIGO = :CODIGO AND I.ID_PRODUTO = :ID_PRODUTO) '
+    sds.CommandText   := 'SELECT P.DRAW_POSSUI, (SELECT I.DRAWBACK FROM pessoa_prodicms I '
+                                                + ' WHERE I.CODIGO = :CODIGO AND I.ID_PRODUTO = :ID_PRODUTO AND I.DRAWBACK = ' + QuotedStr('S') +' ) ' 
                        + ' FROM PESSOA_FISCAL P  WHERE P.codigo = :CODIGO ';
     sds.ParamByName('CODIGO').AsInteger      := ID_Cliente;
     sds.ParamByName('ID_PRODUTO').AsInteger  := ID_Produto;

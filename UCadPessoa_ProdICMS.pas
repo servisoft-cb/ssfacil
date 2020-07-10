@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, NxCollection, StdCtrls, Mask, ToolEdit, CurrEdit, RxLookup, UDMCadPessoa,
-  Grids, DBGrids, SMDBGrid, DB, DBCtrls;
+  Grids, DBGrids, SMDBGrid, DB, DBCtrls, Buttons, NxEdit;
 
 type
   TfrmCadPessoa_ProdICMS = class(TForm)
@@ -27,6 +27,9 @@ type
     CheckBox1: TCheckBox;
     Label7: TLabel;
     edtCBenef: TEdit;
+    SpeedButton4: TSpeedButton;
+    cbFinalidade: TNxComboBox;
+    Label8: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -39,8 +42,10 @@ type
     procedure edtCBenefExit(Sender: TObject);
     procedure edtCBenefKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure SpeedButton4Click(Sender: TObject);
   private
     { Private declarations }
+    vIndice_Loc : String;
   public
     { Public declarations }
     fDMCadPessoa: TDMCadPessoa;
@@ -59,12 +64,15 @@ uses rsDBUtils, uUtilPadrao, USel_Produto, USel_CBenef;
 procedure TfrmCadPessoa_ProdICMS.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
+  fDMCadPessoa.cdsTab_CSTICMS.IndexFieldNames := vIndice_Loc;
   Action := Cafree;
 end;
 
 procedure TfrmCadPessoa_ProdICMS.FormShow(Sender: TObject);
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadPessoa);
+  vIndice_Loc := fDMCadPessoa.cdsTab_CSTICMS.IndexFieldNames;
+  fDMCadPessoa.cdsTab_CSTICMS.IndexFieldNames := 'COD_CST';
   btnConfirmar.Enabled := (fDMCadPessoa.cdsPessoa.State in [dsEdit,dsInsert]);
   btnExcluir.Enabled   := (fDMCadPessoa.cdsPessoa.State in [dsEdit,dsInsert]);
 end;
@@ -94,6 +102,13 @@ begin
     fDMCadPessoa.cdsPessoa_ProdICMSDRAWBACK.AsString := 'S'
   else
     fDMCadPessoa.cdsPessoa_ProdICMSDRAWBACK.AsString := 'N';
+  case cbFinalidade.ItemIndex of
+    0 : fDMCadPessoa.cdsPessoa_ProdICMSFINALIDADE.AsString := 'A';
+    1 : fDMCadPessoa.cdsPessoa_ProdICMSFINALIDADE.AsString := 'C';
+    2 : fDMCadPessoa.cdsPessoa_ProdICMSFINALIDADE.AsString := 'R';
+    3 : fDMCadPessoa.cdsPessoa_ProdICMSFINALIDADE.AsString := 'I';
+    4 : fDMCadPessoa.cdsPessoa_ProdICMSFINALIDADE.AsString := 'O';
+  end;
   fDMCadPessoa.cdsPessoa_ProdICMS.Post;
 
   CurrencyEdit1.Clear;
@@ -179,6 +194,12 @@ begin
       edtCBenef.Text := vCod_CBenef;
     FreeAndNil(frmSel_CBenef);
   end;
+end;
+
+procedure TfrmCadPessoa_ProdICMS.SpeedButton4Click(Sender: TObject);
+begin
+  fDMCadPessoa.cdsTab_CSTICMS.Close;
+  fDMCadPessoa.cdsTab_CSTICMS.Open;
 end;
 
 end.

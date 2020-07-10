@@ -3193,6 +3193,9 @@ type
     qParametros_ProdUSA_PRECO_VAREJO: TStringField;
     cdsProdutoPRECO_VAREJO: TFloatField;
     cdsClienteUSA_PRECO_VAREJO: TStringField;
+    qPessoa_ProdICMSFINALIDADE: TStringField;
+    cdsPedidoID_OPERACAO_NOTA: TIntegerField;
+    cdsPedidoFINALIDADE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
@@ -4328,6 +4331,7 @@ begin
   cdsNotaFiscal_ItensPERC_ICMS_FCP_5405.AsFloat      := 0;
   cdsNotaFiscal_ItensBASE_COFINS.AsFloat             := 0;
   cdsNotaFiscal_ItensBASE_PIS.AsFloat                := 0;
+  cdsNotaFiscal_ItensDRAWBACK.AsString               := 'N';
 end;
 
 procedure TDMCadNotaFiscal.prc_Gravar_NotaFiscal_Parc(Parcela, ID_TipoCobranca, ID_Conta: Integer; Data: TDateTime;

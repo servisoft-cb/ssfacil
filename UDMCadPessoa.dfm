@@ -7336,12 +7336,19 @@ object DMCadPessoa: TDMCadPessoa
         Name = 'COD_BENEF'
         DataType = ftString
         Size = 8
+      end
+      item
+        Name = 'FINALIDADE'
+        Attributes = [faFixed]
+        DataType = ftString
+        Size = 1
       end>
     IndexDefs = <>
     IndexFieldNames = 'CODIGO;ITEM'
     Params = <>
     ProviderName = 'dspPessoa_ProdICMS'
     StoreDefs = True
+    BeforePost = cdsPessoa_ProdICMSBeforePost
     OnCalcFields = cdsPessoa_ProdICMSCalcFields
     Left = 114
     Top = 567
@@ -7392,6 +7399,11 @@ object DMCadPessoa: TDMCadPessoa
       FieldName = 'COD_BENEF'
       Size = 8
     end
+    object cdsPessoa_ProdICMSFINALIDADE: TStringField
+      FieldName = 'FINALIDADE'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspPessoa_ProdICMS: TDataSetProvider
     DataSet = sdsPessoa_ProdICMS
@@ -7440,6 +7452,11 @@ object DMCadPessoa: TDMCadPessoa
     object sdsPessoa_ProdICMSCOD_BENEF: TStringField
       FieldName = 'COD_BENEF'
       Size = 8
+    end
+    object sdsPessoa_ProdICMSFINALIDADE: TStringField
+      FieldName = 'FINALIDADE'
+      FixedChar = True
+      Size = 1
     end
   end
   object qFilial_Rel: TSQLQuery

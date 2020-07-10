@@ -234,6 +234,11 @@ begin
   vID_Pedido_Gerado := fDMCadPedido.cdsPedidoID.AsInteger;
   fDMCadPedido.cdsPedidoTIPO_REG.AsString           := 'P';
   fDMCadPedido.cdsPedidoFILIAL.AsInteger            := fDMCadPedido.cdsOrcamentoFILIAL.AsInteger;
+  //10/07/2020  Cleomar  para a JW
+  if fDMCadPedido.cdsOrcamentoID_OPERACAO_NOTA.AsInteger > 0 then
+    fDMCadPedido.cdsPedidoID_OPERACAO_NOTA.AsInteger  := fDMCadPedido.cdsOrcamentoID_OPERACAO_NOTA.AsInteger;
+  fDMCadPedido.cdsPedidoFINALIDADE.AsString := fDMCadPedido.cdsOrcamentoFINALIDADE.AsString;
+  //**************
   fDMCadPedido.cdsPedidoDTEMISSAO.AsDateTime        := Date;
   if fDMCadPedido.qParametros_PedGRAVAR_ORC_PED_CLIENTE.AsString = 'S' then
     fDMCadPedido.cdsPedidoPEDIDO_CLIENTE.AsString     := 'Orc. ' + fDMCadPedido.cdsOrcamentoNUM_ORCAMENTO.AsString;

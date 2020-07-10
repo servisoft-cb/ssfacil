@@ -1249,6 +1249,10 @@ type
     mItensNFeANP_PERC_PGNI: TFloatField;
     mItensNFeANP_PERC_PGLP: TFloatField;
     mItensNFeANP_VLR_VPART: TFloatField;
+    qICMSDiferido: TSQLQuery;
+    qICMSDiferidoVLR_ICMSDIFERIDO: TFloatField;
+    qICMSDiferidoPERC_DIFERIMENTO: TFloatField;
+    qICMSDiferidoVLR_ICMS: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);

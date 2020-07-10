@@ -789,12 +789,19 @@ begin
   vUsouRegraCli := False;
   //29/08/2019
   //if fDMCadPedido.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S' then
-  if (fDMCadPedido.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') and (fDMCadPedido.cdsPedido_ItensDRAWBACK.AsString = 'S')
-    and (fDMCadPedido.cdsFilialSIMPLES.AsString <> 'S') then
+  if (fDMCadPedido.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') and (fDMCadPedido.cdsFilialSIMPLES.AsString <> 'S') then
   begin
     fDMCadPedido.qPessoa_ProdICMS.Close;
     fDMCadPedido.qPessoa_ProdICMS.ParamByName('CODIGO').AsInteger     := fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger;
     fDMCadPedido.qPessoa_ProdICMS.ParamByName('ID_PRODUTO').AsInteger := fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger;
+    if fDMCadPedido.cdsPedido_ItensDRAWBACK.AsString = 'S' then
+      fDMCadPedido.qPessoa_ProdICMS.ParamByName('DRAWBACK').AsString := 'S'
+    else
+      fDMCadPedido.qPessoa_ProdICMS.ParamByName('DRAWBACK').AsString := 'N';
+    if trim(fDMCadPedido.cdsPedidoFINALIDADE.AsString) <> '' then
+      fDMCadPedido.qPessoa_ProdICMS.ParamByName('FINALIDADE').AsString := fDMCadPedido.cdsPedidoFINALIDADE.AsString
+    else
+      fDMCadPedido.qPessoa_ProdICMS.ParamByName('FINALIDADE').AsString := 'A';
     fDMCadPedido.qPessoa_ProdICMS.Open;
     if not fDMCadPedido.qPessoa_ProdICMS.IsEmpty then
     begin
