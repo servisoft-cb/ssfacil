@@ -4962,7 +4962,7 @@ procedure TfrmRecebeXML.CurrencyEdit3KeyDown(Sender: TObject;
 begin
   if (Key = Vk_F2) then
   begin
-    vID_ContaOrcamento_Pos := fDMRecebeXML.mItensNotaID_ContaOrcamento.AsInteger;
+    vID_Centro_Custo := fDMRecebeXML.mItensNotaID_CentroCusto.AsInteger;
     frmSel_CentroCusto := TfrmSel_CentroCusto.Create(Self);
     frmSel_CentroCusto.ShowModal;
     CurrencyEdit3.Value := vID_Centro_Custo;

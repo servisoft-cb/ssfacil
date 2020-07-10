@@ -2379,6 +2379,11 @@ type
     dsDupCCusto: TDataSource;
     cdsDupCCustoID: TIntegerField;
     cdsDupCCustoITEM: TIntegerField;
+    sdsDupCCustoID: TIntegerField;
+    sdsDupCCustoITEM: TIntegerField;
+    sdsDupCCustoID_CENTROCUSTO: TIntegerField;
+    sdsDupCCustoPERCENTUAL: TFloatField;
+    sdsDupCCustoVALOR: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscalUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -3179,6 +3184,10 @@ end;
 
 procedure TDMRecebeXML.Gravar_Duplicata_CCusto;
 begin
+  cdsDupCCusto.Close;
+  sdsDupCCusto.ParamByName('ID').AsInteger := cdsDuplicataID.AsInteger;
+  cdsDupCCusto.Open;
+
   cdsDupCCusto.Insert;
   cdsDupCCustoID.AsInteger             := cdsDuplicataID.AsInteger;
   cdsDupCCustoITEM.AsInteger           := 1;

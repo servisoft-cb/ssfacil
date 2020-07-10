@@ -10626,26 +10626,49 @@ object DMRecebeXML: TDMRecebeXML
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 593
+    Left = 595
     Top = 491
+    object sdsDupCCustoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsDupCCustoITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsDupCCustoID_CENTROCUSTO: TIntegerField
+      FieldName = 'ID_CENTROCUSTO'
+    end
+    object sdsDupCCustoPERCENTUAL: TFloatField
+      FieldName = 'PERCENTUAL'
+    end
+    object sdsDupCCustoVALOR: TFloatField
+      FieldName = 'VALOR'
+    end
   end
   object dspDupCCusto: TDataSetProvider
     DataSet = sdsDupCCusto
+    UpdateMode = upWhereKeyOnly
     Left = 625
     Top = 491
   end
   object cdsDupCCusto: TClientDataSet
     Aggregates = <>
+    IndexFieldNames = 'ID;ITEM'
     Params = <>
     ProviderName = 'dspDupCCusto'
     Left = 657
     Top = 490
     object cdsDupCCustoID: TIntegerField
       FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsDupCCustoITEM: TIntegerField
       FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsDupCCustoID_CENTROCUSTO: TIntegerField
