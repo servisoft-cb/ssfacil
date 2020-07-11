@@ -3586,6 +3586,14 @@ begin
     Grava_DadosAdicionaisNFe(vTexto,0);
   //**************************
 
+  //11/07/2020  Grava a mensagem com o saldo do adiantamento usado
+  if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat)) > 0 then
+  begin
+    vTexto := '(Vlr. de R$ ' + FormatFloat('###,###,##0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_SALDO_USADO.AsFloat) + ' usado do Crédito de adiantamento do Cliente)';
+    Grava_DadosAdicionaisNFe(vTexto,0);
+  end;
+  //*******************
+
   //Grava endereço de entrega
   if fDMCadNotaFiscal.cdsNotaFiscalLOCALENTREGA.AsString = 'E' then
   begin
