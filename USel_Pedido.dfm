@@ -650,18 +650,17 @@ object frmSel_Pedido: TfrmSel_Pedido
       Visible = False
     end
     object Label11: TLabel
-      Left = 495
+      Left = 496
       Top = 22
-      Width = 186
+      Width = 163
       Height = 13
-      Caption = 'F9 Mostra Recibo de Pagamento'
+      Caption = 'F9 Mostra Anexos no Pedido'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
       Font.Height = -11
       Font.Name = 'MS Sans Serif'
       Font.Style = [fsBold]
       ParentFont = False
-      Visible = False
     end
     object btnImportar: TNxButton
       Left = 4

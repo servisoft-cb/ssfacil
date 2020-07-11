@@ -3196,6 +3196,7 @@ type
     qPessoa_ProdICMSFINALIDADE: TStringField;
     cdsPedidoID_OPERACAO_NOTA: TIntegerField;
     cdsPedidoFINALIDADE: TStringField;
+    qParametros_PedMOSTRAR_ANEXO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

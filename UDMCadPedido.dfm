@@ -1075,12 +1075,16 @@ object DMCadPedido: TDMCadPedido
       'TO * QTD), 0)'#13#10'        from PEDIDO_ITEM'#13#10'        where ID = PED.' +
       'ID) VALOR_CUSTO,'#13#10'        (SELECT COUNT(1) CONTADOR_PROCESSO FRO' +
       'M pedido_item_processo WHERE ID = PED.ID)'#13#10'        CONTADOR_PROC' +
-      'ESSO'#13#10#13#10#13#10'from PEDIDO PED'#13#10'left join PESSOA CLI on PED.ID_CLIENT' +
-      'E = CLI.CODIGO'#13#10'left join PESSOA TRA on PED.ID_TRANSPORTADORA = ' +
-      'TRA.CODIGO'#13#10'left join PEDIDO_APROV AP on PED.ID = AP.ID'#13#10'left jo' +
-      'in PESSOA VEND on PED.ID_VENDEDOR = VEND.CODIGO'#13#10'left join OPERA' +
-      'CAO_NOTA OPN on PED.ID_OPERACAO_NOTA = OPN.ID  '#13#10'LEFT JOIN PESSO' +
-      'A VEND2 ON PED.ID_VENDEDOR_INT = VEND2.CODIGO'#13#10#13#10
+      'ESSO,'#13#10'CASE'#13#10'  WHEN (AX.end_arq_pagto IS NOT NULL) AND (AX.end_a' +
+      'rq_oc IS NOT NULL) THEN '#39'REC/OC'#39#13#10'  WHEN (AX.end_arq_pagto IS NO' +
+      'T NULL) THEN '#39'REC'#39#13#10'  WHEN (AX.end_arq_oc IS NOT NULL) THEN '#39'OC'#39 +
+      #13#10'  ELSE '#39#39#13#10'  END DESC_ARQ_ANEXO'#13#10#13#10'from PEDIDO PED'#13#10'left join ' +
+      'PESSOA CLI on PED.ID_CLIENTE = CLI.CODIGO'#13#10'left join PESSOA TRA ' +
+      'on PED.ID_TRANSPORTADORA = TRA.CODIGO'#13#10'left join PEDIDO_APROV AP' +
+      ' on PED.ID = AP.ID'#13#10'left join PESSOA VEND on PED.ID_VENDEDOR = V' +
+      'END.CODIGO'#13#10'left join OPERACAO_NOTA OPN on PED.ID_OPERACAO_NOTA ' +
+      '= OPN.ID  '#13#10'LEFT JOIN PESSOA VEND2 ON PED.ID_VENDEDOR_INT = VEND' +
+      '2.CODIGO'#13#10'LEFT JOIN PEDIDO_ANEXO AX ON PED.ID = AX.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1311,6 +1315,12 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedido_ConsultaCONTADOR_PROCESSO: TIntegerField
       FieldName = 'CONTADOR_PROCESSO'
+    end
+    object cdsPedido_ConsultaDESC_ARQ_ANEXO: TStringField
+      FieldName = 'DESC_ARQ_ANEXO'
+      Required = True
+      FixedChar = True
+      Size = 6
     end
   end
   object dsPedido_Consulta: TDataSource
@@ -15426,6 +15436,11 @@ object DMCadPedido: TDMCadPedido
     object qParametros_PedEND_ARQ_REC_PED: TStringField
       FieldName = 'END_ARQ_REC_PED'
       Size = 200
+    end
+    object qParametros_PedMOSTRAR_ANEXO: TStringField
+      FieldName = 'MOSTRAR_ANEXO'
+      FixedChar = True
+      Size = 1
     end
   end
   object sdsMetas_Acum: TSQLDataSet

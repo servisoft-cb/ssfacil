@@ -193,6 +193,8 @@ begin
     Shape11.Visible := (fDMCadNotaFiscal.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
     Label68.Visible := (fDMCadNotaFiscal.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
     Label10.Visible := (fDMCadNotaFiscal.qParametros_PedUSA_QTD_PECA.AsString = 'S');
+
+    Label11.Visible := (fDMCadNotaFiscal.qParametros_PedMOSTRAR_ANEXO.AsString = 'S');
   end;
 
   if vTipo <> 'VAL' then
@@ -1992,8 +1994,8 @@ begin
   if (Key = Vk_F9) then
   begin
     frmInforma_RecPagto := TfrmInforma_RecPagto.Create(self);
-    frmInforma_RecPagto.FilenameEdit1.EditText := fDMCadNotaFiscal.cdsPedidoEND_ARQ_PAGTO.AsString;
-    frmInforma_RecPagto.btnConfirmar.Visible   := False;
+    frmInforma_RecPagto.btnConfirmar.Visible := False;
+    frmInforma_RecPagto.vID_Pedido_Loc := fDMCadNotaFiscal.cdsPedidoID.AsInteger;
     frmInforma_RecPagto.ShowModal;
     FreeAndNil(frmInforma_RecPagto);
   end;

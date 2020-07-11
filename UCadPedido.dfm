@@ -87,9 +87,18 @@ object frmCadPedido: TfrmCadPedido
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 28
+        ColCount = 29
         RowCount = 2
         Columns = <
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'DESC_ARQ_ANEXO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Anexos'
+            Width = 54
+            Visible = True
+          end
           item
             Expanded = False
             FieldName = 'AMOSTRA'
@@ -7169,7 +7178,7 @@ object frmCadPedido: TfrmCadPedido
     end
   end
   object ppmPedido: TPopupMenu
-    Left = 460
+    Left = 458
     Top = 316
     object ReciboPagamento1: TMenuItem
       Bitmap.Data = {
@@ -7249,7 +7258,7 @@ object frmCadPedido: TfrmCadPedido
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
         FFFFFFFFFFFFFFFFFFFF}
-      Caption = 'Recibo Pagamento'
+      Caption = 'Anexar (Recibo / OC)'
       OnClick = ReciboPagamento1Click
     end
   end

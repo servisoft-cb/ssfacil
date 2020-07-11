@@ -13399,6 +13399,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedMOSTRAR_ANEXO: TStringField
+      FieldName = 'MOSTRAR_ANEXO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsNotaFiscal_Tam: TSQLDataSet
     NoMetadata = True

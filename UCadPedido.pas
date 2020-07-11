@@ -996,6 +996,8 @@ begin
       SMDBGrid1.Columns[i].Visible := (fDMCadPedido.qParametros_PedMOSTRAR_DT_REC.AsString = 'S');
     if (SMDBGrid1.Columns[i].FieldName = 'AMOSTRA') then
       SMDBGrid1.Columns[i].Visible := (fDMCadPedido.qParametros_PedUSA_AMOSTRA.AsString = 'S');
+    if (SMDBGrid1.Columns[i].FieldName = 'DESC_ARQ_ANEXO') then
+      SMDBGrid1.Columns[i].Visible := (fDMCadPedido.qParametros_PedMOSTRAR_ANEXO.AsString = 'S');
   end;
 
   if (lblNaoMostrarPreco.Visible) or (fDMCadPedido.cdsParametrosEMPRESA_NAVALHA.AsString <> 'S')  then
@@ -1858,6 +1860,7 @@ procedure TfrmCadPedido.SMDBGrid1GetCellParams(Sender: TObject;
 begin
   if fDMCadPedido.cdsPedido_Consulta.IsEmpty then
     Exit;
+
   if (fDMCadPedido.qParametros_LoteLOTE_TEXTIL.AsString = 'S') and (fDMCadPedido.cdsPedido_ConsultaIMPRESSO.AsString = 'S') then
   begin
     Background  := clOlive;
@@ -1895,6 +1898,7 @@ begin
   begin
     Background  := clGreen;
     AFont.Color := clWhite;
+    AFont.Style := [];
   end
   else
   if (fDMCadPedido.cdsPedido_ConsultaFATURADO.AsString = 'P') then
@@ -4840,33 +4844,12 @@ var
 begin
   if not(fDMCadPedido.cdsPedido_Consulta.Active) or (fDMCadPedido.cdsPedido_Consulta.IsEmpty) then
     exit;
-  prc_Posiciona_Pedido;
-
   frmInforma_RecPagto := TfrmInforma_RecPagto.Create(self);
-  frmInforma_RecPagto.FilenameEdit1.EditText := fDMCadPedido.cdsPedidoEND_ARQ_PAGTO.AsString;
+  frmInforma_RecPagto.vID_Pedido_Loc   := fDMCadPedido.cdsPedido_ConsultaID.AsInteger;
+  frmInforma_RecPagto.vEND_ARQ_REC_PED := fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString;
+  if (fDMCadPedido.cdsPedido_ConsultaFATURADO.AsString = 'S') or (fDMCadPedido.cdsPedido_ConsultaFATURADO.AsString = 'S') then
+    frmInforma_RecPagto.btnConfirmar.Visible := False;
   frmInforma_RecPagto.ShowModal;
-  if frmInforma_RecPagto.ModalResult = mrOk then
-  begin
-    vArq := '';
-    if trim(frmInforma_RecPagto.FilenameEdit1.Text) <> '' then
-    begin
-      vArq := frmInforma_RecPagto.FilenameEdit1.Text;
-      if (trim(fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString) <> '')
-        and (ExtractFilePath(frmInforma_RecPagto.FilenameEdit1.Text) <> fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString) then
-      begin
-        try
-          MoverArquivo(ExtractFilePath(frmInforma_RecPagto.FilenameEdit1.Text),fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString,ExtractFileName(frmInforma_RecPagto.FilenameEdit1.Text));
-          vArq := fDMCadPedido.qParametros_PedEND_ARQ_REC_PED.AsString + ExtractFileName(frmInforma_RecPagto.FilenameEdit1.Text);
-        except
-        end
-      end;
-    end;
-
-    fDMCadPedido.cdsPedido.Edit;
-    fDMCadPedido.cdsPedidoEND_ARQ_PAGTO.AsString := vArq;
-    fDMCadPedido.cdsPedido.Post;
-    fDMCadPedido.cdsPedido.ApplyUpdates(0);
-  end;
   FreeAndNil(frmInforma_RecPagto);
 end;
 

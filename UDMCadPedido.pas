@@ -3780,6 +3780,8 @@ type
     qPessoa_ProdICMSID_LEI: TIntegerField;
     qPessoa_ProdICMSCOD_BENEF: TStringField;
     qPessoa_ProdICMSFINALIDADE: TStringField;
+    qParametros_PedMOSTRAR_ANEXO: TStringField;
+    cdsPedido_ConsultaDESC_ARQ_ANEXO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
