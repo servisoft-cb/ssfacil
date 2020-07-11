@@ -74,8 +74,8 @@ uses
 function SendEMailByMAPI(const SenderName,SenderAddress,Subject,Body:string; Recipients,Attachments:TStrings; WithOpenMessage:boolean):integer;
 var
   Msg: TRzSendMessage;
-
 begin
+  Result := 0;  
   Msg := TRzSendMessage.Create(nil);
   try
     Msg.Attachments.Assign( Attachments );

@@ -570,6 +570,8 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       DataField = 'QTD'
       DataSource = DMCadPedido.dsPedido_Itens
       ParentCtl3D = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
       OnEnter = dbedtQtdEnter
       OnExit = dbedtQtdExit

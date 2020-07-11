@@ -364,18 +364,25 @@ begin
   Edit2.Visible         := (fDMCadPedido.qParametros_PedUSA_COD_CLIENTE.AsString = 'S');
   Label21.Visible       := (fDMCadPedido.cdsParametrosUSA_ID_PRODUTO.AsString = 'S');
   DBEdit15.Visible      := (fDMCadPedido.cdsParametrosUSA_ID_PRODUTO.AsString = 'S');
-
+  dbedtQtd.Hint         := '';
   //Tamanho
   if (fDMCadPedido.cdsPedido_Itens.State in [dsEdit]) and (fDMCadPedido.cdsParametrosUSA_GRADE.AsString = 'S') then
   begin
     fDMCadPedido.cdsProduto.Locate('ID',fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,[loCaseInsensitive]);
     btnGrade.Visible := ((fDMCadPedido.cdsProdutoUSA_GRADE.AsString = 'S') and not(lblTamanho.Visible));
     dbedtQtd.ReadOnly := ((fDMCadPedido.cdsProdutoUSA_GRADE.AsString = 'S') and not(lblTamanho.Visible));
-    if (fDMCadPedido.cdsProdutoUSA_GRADE.AsString = 'S') and not(lblTamanho.Visible) then
-      dbedtQtd.Color := clSilver
-    else
-      dbedtQtd.Color := clWindow;
+  end
+  else
+  //11/07/2020  Não vai deixar alterar se foi copiado da OS  Supercrom
+  if (fDMCadPedido.cdsPedido_Itens.State in [dsEdit]) and (fDMCadPedido.cdsPedido_ItensID_OS_SERV.AsInteger > 0) then
+  begin
+    dbedtQtd.ReadOnly := True;
+    dbedtQtd.Hint     := 'Qtd. esta na OS, não pode ser alterado!';
   end;
+  if dbedtQtd.ReadOnly then
+    dbedtQtd.Color := clSilver
+  else
+    dbedtQtd.Color := clWindow;
   //***************
   vVlr_Material := 0;
   vQtd_Material := 0; 
