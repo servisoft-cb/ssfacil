@@ -46,8 +46,6 @@ type
     rxcbTipo_Prazo: TRxDBComboBox;
     lblNome_Filial: TLabel;
     DBText1: TDBText;
-    DBText4: TDBText;
-    DBText5: TDBText;
     Label2: TLabel;
     Shape5: TShape;
     Label3: TLabel;
@@ -260,6 +258,8 @@ type
     DBEdit46: TDBEdit;
     Label78: TLabel;
     DBEdit47: TDBEdit;
+    dbedtNumNota: TDBEdit;
+    dbedtSerie: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -4508,7 +4508,11 @@ procedure TfrmCadNotaServico.DBEdit8KeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Shift = [ssCtrl]) and (Key = 87) then
-    DBEdit8.ReadOnly := not(DBEdit8.ReadOnly);
+  begin
+    DBEdit8.ReadOnly      := not(DBEdit8.ReadOnly);
+    dbedtNumNota.ReadOnly := not(dbedtNumNota.ReadOnly);
+    dbedtSerie.ReadOnly   := not(dbedtSerie.ReadOnly);
+  end;
 end;
 
 procedure TfrmCadNotaServico.rxdbVendedorExit(Sender: TObject);

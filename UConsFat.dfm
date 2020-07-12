@@ -161,7 +161,7 @@ object frmConsFat: TfrmConsFat
       TabOrder = 4
     end
     object btnConsultar: TNxButton
-      Left = 286
+      Left = 287
       Top = 46
       Width = 92
       Height = 24
@@ -984,6 +984,7 @@ object frmConsFat: TfrmConsFat
               FieldName = 'SERIE'
               Title.Alignment = taCenter
               Title.Caption = 'S'#233'rie'
+              Width = 64
               Visible = True
             end
             item

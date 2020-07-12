@@ -159,7 +159,6 @@ object frmCadNotaServico: TfrmCadNotaServico
             FieldName = 'SERIE_SUBSTITUIDO'
             Title.Alignment = taCenter
             Title.Caption = 'S'#233'rie Substitu'#237'do'
-            Width = 64
             Visible = True
           end
           item
@@ -227,7 +226,6 @@ object frmCadNotaServico: TfrmCadNotaServico
           item
             Expanded = False
             FieldName = 'NOME_PROVEDOR'
-            Width = 64
             Visible = True
           end
           item
@@ -2227,7 +2225,7 @@ object frmCadNotaServico: TfrmCadNotaServico
           TabOrder = 0
           object Label14: TLabel
             Left = 4
-            Top = 10
+            Top = 11
             Width = 27
             Height = 13
             Alignment = taRightJustify
@@ -2235,7 +2233,7 @@ object frmCadNotaServico: TfrmCadNotaServico
           end
           object Label15: TLabel
             Left = 94
-            Top = 10
+            Top = 11
             Width = 41
             Height = 13
             Alignment = taRightJustify
@@ -2273,34 +2271,6 @@ object frmCadNotaServico: TfrmCadNotaServico
             DataField = 'FILIAL'
             DataSource = DMCadNotaServico.dsNotaServico
           end
-          object DBText4: TDBText
-            Left = 34
-            Top = 10
-            Width = 39
-            Height = 13
-            DataField = 'SERIE'
-            DataSource = DMCadNotaServico.dsNotaServico
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
-          object DBText5: TDBText
-            Left = 137
-            Top = 11
-            Width = 81
-            Height = 13
-            DataField = 'NUMNOTA'
-            DataSource = DMCadNotaServico.dsNotaServico
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = [fsBold]
-            ParentFont = False
-          end
           object DBEdit8: TDBEdit
             Left = 602
             Top = 2
@@ -2312,6 +2282,46 @@ object frmCadNotaServico: TfrmCadNotaServico
             DataSource = DMCadNotaServico.dsNotaServico
             ReadOnly = True
             TabOrder = 0
+            OnKeyDown = DBEdit8KeyDown
+          end
+          object dbedtNumNota: TDBEdit
+            Left = 137
+            Top = 3
+            Width = 97
+            Height = 21
+            TabStop = False
+            CharCase = ecUpperCase
+            Color = clSilver
+            DataField = 'NUMNOTA'
+            DataSource = DMCadNotaServico.dsNotaServico
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 1
+            OnKeyDown = DBEdit8KeyDown
+          end
+          object dbedtSerie: TDBEdit
+            Left = 34
+            Top = 3
+            Width = 47
+            Height = 21
+            TabStop = False
+            CharCase = ecUpperCase
+            Color = clSilver
+            DataField = 'SERIE'
+            DataSource = DMCadNotaServico.dsNotaServico
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 2
             OnKeyDown = DBEdit8KeyDown
           end
         end
@@ -4089,7 +4099,6 @@ object frmCadNotaServico: TfrmCadNotaServico
                     FieldName = 'lkNome_Conta'
                     Title.Alignment = taCenter
                     Title.Caption = 'Nome Conta'
-                    Width = 64
                     Visible = True
                   end
                   item
@@ -5336,7 +5345,7 @@ object frmCadNotaServico: TfrmCadNotaServico
               TabOrder = 17
             end
             object DBEdit47: TDBEdit
-              Left = 200
+              Left = 202
               Top = 97
               Width = 79
               Height = 19
