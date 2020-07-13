@@ -23,8 +23,8 @@ object frmConsExtComissao: TfrmConsExtComissao
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 1032
-    Height = 679
+    Width = 1040
+    Height = 687
     ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -41,7 +41,7 @@ object frmConsExtComissao: TfrmConsExtComissao
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 1028
+        Width = 1036
         Height = 105
         Align = alTop
         Color = clSilver
@@ -375,8 +375,8 @@ object frmConsExtComissao: TfrmConsExtComissao
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 105
-        Width = 1028
-        Height = 551
+        Width = 1036
+        Height = 559
         ActivePage = TS_Resumido
         ActivePageDefault = TS_Resumido
         Align = alClient
@@ -389,8 +389,8 @@ object frmConsExtComissao: TfrmConsExtComissao
           object SMDBGrid1: TSMDBGrid
             Left = 0
             Top = 32
-            Width = 1024
-            Height = 479
+            Width = 1032
+            Height = 487
             Align = alClient
             Ctl3D = False
             DataSource = DMCadExtComissao.dsmExtComissao_Red
@@ -505,7 +505,7 @@ object frmConsExtComissao: TfrmConsExtComissao
           object Panel2: TPanel
             Left = 0
             Top = 0
-            Width = 1024
+            Width = 1032
             Height = 32
             Align = alTop
             Color = clSilver
@@ -713,8 +713,8 @@ object frmConsExtComissao: TfrmConsExtComissao
           end
           object StaticText1: TStaticText
             Left = 0
-            Top = 511
-            Width = 1024
+            Top = 519
+            Width = 1032
             Height = 17
             Align = alBottom
             BorderStyle = sbsSunken
@@ -733,7 +733,7 @@ object frmConsExtComissao: TfrmConsExtComissao
           object Panel1: TPanel
             Left = 0
             Top = 0
-            Width = 1024
+            Width = 1032
             Height = 29
             Align = alTop
             Color = clSilver
@@ -757,8 +757,8 @@ object frmConsExtComissao: TfrmConsExtComissao
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 29
-            Width = 1024
-            Height = 499
+            Width = 1032
+            Height = 507
             Align = alClient
             Ctl3D = False
             DataSource = DMCadExtComissao.dsConsulta
@@ -859,11 +859,13 @@ object frmConsExtComissao: TfrmConsExtComissao
               item
                 Expanded = False
                 FieldName = 'DTCADASTRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'ID'
+                Width = 64
                 Visible = True
               end
               item

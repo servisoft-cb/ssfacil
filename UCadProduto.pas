@@ -365,11 +365,8 @@ type
     TS_Comissao: TRzTabSheet;
     pnlComissao: TPanel;
     Panel10: TPanel;
-    btnInserir_Comissao: TNxButton;
-    btnAlterar_Comissao: TNxButton;
     Label120: TLabel;
     DBEdit59: TDBEdit;
-    btnExcluir_Comissao: TNxButton;
     Label11: TLabel;
     RxDBLookupCombo4: TRxDBLookupCombo;
     Label121: TLabel;
@@ -829,6 +826,10 @@ type
     DBCheckBox15: TDBCheckBox;
     Label266: TLabel;
     edtANP: TEdit;
+    pnlComissao_Dig: TNxPanel;
+    btnInserir_Comissao: TNxButton;
+    btnAlterar_Comissao: TNxButton;
+    btnExcluir_Comissao: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -3261,9 +3262,7 @@ begin
   btnInserir_Matriz.Enabled   := not(btnInserir_Matriz.Enabled);
   btnAlterar_Matriz.Enabled   := not(btnAlterar_Matriz.Enabled);
   btnExcluir_Matriz.Enabled   := not(btnExcluir_Matriz.Enabled);
-  btnInserir_Comissao.Enabled := not(btnInserir_Comissao.Enabled);
-  btnAlterar_Comissao.Enabled := not(btnAlterar_Comissao.Enabled);
-  btnExcluir_Comissao.Enabled := not(btnExcluir_Comissao.Enabled);
+  pnlComissao_Dig.Enabled     := not(pnlComissao_Dig.Enabled);
   btnInserir_Lote.Enabled     := not(btnInserir_Lote.Enabled);
   btnAlterar_Lote.Enabled     := not(btnAlterar_Lote.Enabled);
   btnExcluir_Lote.Enabled     := not(btnExcluir_Lote.Enabled);
