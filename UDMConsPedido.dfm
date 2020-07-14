@@ -2592,14 +2592,14 @@ object DMConsPedido: TDMConsPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42032.577038136600000000
-    ReportOptions.LastChange = 44006.477082326390000000
+    ReportOptions.LastChange = 44026.468359490740000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 705
-    Top = 359
+    Top = 358
   end
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxmEtiq_Individual'
@@ -5699,14 +5699,17 @@ object DMConsPedido: TDMConsPedido
   end
   object sdsPedido_Est: TSQLDataSet
     CommandText = 
-      'SELECT i.id_produto, coalesce(it.espessura,0) espessura, prod.no' +
-      'me nome_produto, prod.referencia,'#13#10'sum(case'#13#10'  when coalesce(it.' +
-      'peso,0) > 0 then coalesce(it.peso,0)'#13#10'  else i.qtd'#13#10'  end) qtd_e' +
-      'stoque'#13#10'from pedido p'#13#10'inner join pedido_item i'#13#10'on p.id = i.id'#13 +
-      #10'inner join produto prod'#13#10'on i.id_produto = prod.id'#13#10'left join p' +
-      'edido_item_tipo it'#13#10'on i.id = it.id'#13#10'and i.item = it.item'#13#10'where' +
-      ' p.tipo_reg = '#39'P'#39#13#10'group by i.id_produto, coalesce(it.espessura,' +
-      '0), prod.nome, prod.referencia'#13#10#13#10#13#10
+      'select I.ID_PRODUTO, coalesce(IT.ESPESSURA, 0) ESPESSURA, PROD.N' +
+      'OME NOME_PRODUTO, PROD.REFERENCIA,  sum('#13#10'       case '#13#10'        ' +
+      ' when coalesce(IT.PESO, 0) > 0 then coalesce(IT.PESO, 0) '#13#10'     ' +
+      '    else I.QTD '#13#10'       end) QTD_ESTOQUE , i.nomeproduto NOME_PR' +
+      'ODUTO_PEDIDO'#13#10'from PEDIDO P '#13#10'inner join PEDIDO_ITEM I  on P.ID ' +
+      '= I.ID '#13#10'inner join PRODUTO PROD  on I.ID_PRODUTO = PROD.ID '#13#10'le' +
+      'ft join PEDIDO_ITEM_TIPO IT  on I.ID = IT.ID  and I.ITEM = IT.IT' +
+      'EM '#13#10'where P.TIPO_REG = '#39'P'#39' and'#13#10'      P.DTEMISSAO >= '#39'07/01/202' +
+      '0'#39' and'#13#10'      P.DTEMISSAO <= '#39'07/31/2020'#39#13#10'group by I.ID_PRODUTO' +
+      ', coalesce(IT.ESPESSURA, 0), PROD.NOME, PROD.REFERENCIA  , i.nom' +
+      'eproduto'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5740,6 +5743,10 @@ object DMConsPedido: TDMConsPedido
     object cdsPedido_EstESPESSURA: TFloatField
       FieldName = 'ESPESSURA'
     end
+    object cdsPedido_EstNOME_PRODUTO_PEDIDO: TStringField
+      FieldName = 'NOME_PRODUTO_PEDIDO'
+      Size = 100
+    end
   end
   object dsPedido_Est: TDataSource
     DataSet = cdsPedido_Est
@@ -5754,7 +5761,8 @@ object DMConsPedido: TDMConsPedido
       'NOME_PRODUTO=NOME_PRODUTO'
       'REFERENCIA=REFERENCIA'
       'QTD_ESTOQUE=QTD_ESTOQUE'
-      'ESPESSURA=ESPESSURA')
+      'ESPESSURA=ESPESSURA'
+      'NOME_PRODUTO_PEDIDO=NOME_PRODUTO_PEDIDO')
     DataSource = dsPedido_Est
     BCDToCurrency = False
     Left = 995

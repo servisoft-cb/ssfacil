@@ -89,6 +89,15 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
       ParentCtl3D = False
       TabOrder = 2
     end
+    object btnExcel: TNxButton
+      Left = 494
+      Top = 20
+      Width = 111
+      Height = 26
+      Caption = 'Excel'
+      TabOrder = 4
+      OnClick = btnExcelClick
+    end
   end
   object SMDBGrid1: TSMDBGrid
     Left = 0
@@ -202,6 +211,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         FieldName = 'REFERENCIA'
         Title.Alignment = taCenter
         Title.Caption = 'Refer'#234'ncia'
+        Width = 171
         Visible = True
       end
       item
@@ -209,7 +219,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         FieldName = 'NOME_PRODUTO'
         Title.Alignment = taCenter
         Title.Caption = 'Nome Produto'
-        Width = 64
+        Width = 370
         Visible = True
       end
       item
@@ -217,7 +227,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         FieldName = 'NOME_CLIENTE'
         Title.Alignment = taCenter
         Title.Caption = 'Nome Cliente'
-        Width = 64
+        Width = 233
         Visible = True
       end
       item
@@ -225,7 +235,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         FieldName = 'NOME_VENDEDOR'
         Title.Alignment = taCenter
         Title.Caption = 'Nome Vendedor'
-        Width = 64
+        Width = 152
         Visible = True
       end
       item
@@ -233,7 +243,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         FieldName = 'NOME_FILIAL'
         Title.Alignment = taCenter
         Title.Caption = 'Nome Filial'
-        Width = 64
+        Width = 129
         Visible = True
       end
       item
@@ -257,7 +267,6 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         FieldName = 'TIPO_REG'
         Title.Alignment = taCenter
         Title.Caption = 'Tipo'
-        Width = 64
         Visible = True
       end>
   end

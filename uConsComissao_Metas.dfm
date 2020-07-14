@@ -297,9 +297,9 @@ object frmConsComissao_Metas: TfrmConsComissao_Metas
     Top = 89
     Width = 1079
     Height = 523
-    ActivePage = TS_Vendedor_Det
+    ActivePage = TS_Vendedor
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     FixedDimension = 19
     object TS_Vendedor: TRzTabSheet
@@ -486,6 +486,7 @@ object frmConsComissao_Metas: TfrmConsComissao_Metas
             Title.Alignment = taCenter
             Title.Caption = 'S'#233'rie'
             Title.Color = 13303754
+            Width = 64
             Visible = True
           end
           item
@@ -514,6 +515,7 @@ object frmConsComissao_Metas: TfrmConsComissao_Metas
             Title.Alignment = taCenter
             Title.Caption = 'Nome Cliente'
             Title.Color = 13303754
+            Width = 64
             Visible = True
           end
           item

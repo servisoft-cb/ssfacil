@@ -109,6 +109,7 @@ object frmConsPedido_Est: TfrmConsPedido_Est
       LookupSource = DMConsPedido.dsProduto
       ParentCtl3D = False
       TabOrder = 2
+      OnExit = RxDBLookupCombo4Exit
     end
     object RxDBLookupCombo3: TRxDBLookupCombo
       Left = 239
@@ -120,6 +121,7 @@ object frmConsPedido_Est: TfrmConsPedido_Est
       LookupDisplay = 'NOME'
       LookupSource = DMConsPedido.dsProduto
       TabOrder = 3
+      OnExit = RxDBLookupCombo3Exit
     end
     object DateEdit1: TDateEdit
       Left = 119
@@ -300,6 +302,21 @@ object frmConsPedido_Est: TfrmConsPedido_Est
       Transparent = True
       OnClick = btnImprimirClick
     end
+    object btnExcel: TNxButton
+      Left = 695
+      Top = 78
+      Width = 170
+      Height = 30
+      Caption = 'Excel'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 9
+      OnClick = btnExcelClick
+    end
   end
   object SMDBGrid1: TSMDBGrid
     Left = 0
@@ -318,6 +335,7 @@ object frmConsPedido_Est: TfrmConsPedido_Est
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    OnTitleClick = SMDBGrid1TitleClick
     Flat = True
     BandsFont.Charset = DEFAULT_CHARSET
     BandsFont.Color = clWindowText
@@ -330,13 +348,13 @@ object frmConsPedido_Est: TfrmConsPedido_Est
     GridStyle.EvenColor = clWindow
     TitleHeight.PixelCount = 24
     FooterColor = clBtnFace
-    ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+    ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
     RegistryKey = 'Software\Scalabium'
     RegistrySection = 'SMDBGrid'
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 6
+    ColCount = 7
     RowCount = 2
     Columns = <
       item
@@ -363,7 +381,16 @@ object frmConsPedido_Est: TfrmConsPedido_Est
         Title.Alignment = taCenter
         Title.Caption = 'Nome Produto'
         Title.Color = 12386169
-        Width = 494
+        Width = 287
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOME_PRODUTO_PEDIDO'
+        Title.Alignment = taCenter
+        Title.Caption = 'Nome Produto no Pedido'
+        Title.Color = 12386169
+        Width = 351
         Visible = True
       end
       item

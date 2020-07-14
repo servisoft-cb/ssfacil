@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, Mask, ToolEdit, RxLookup, ExtCtrls, Grids, DBGrids,
-  SMDBGrid, NxCollection, UDMConsPedido;
+  SMDBGrid, NxCollection, UDMConsPedido, DB, ComObj;
 
 type
   TfrmConsPedido_Est = class(TForm)
@@ -26,15 +26,22 @@ type
     SMDBGrid1: TSMDBGrid;
     btnConsultar: TNxButton;
     btnImprimir: TNxButton;
+    btnExcel: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnConsultarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
+    procedure SMDBGrid1TitleClick(Column: TColumn);
+    procedure RxDBLookupCombo4Exit(Sender: TObject);
+    procedure RxDBLookupCombo3Exit(Sender: TObject);
+    procedure btnExcelClick(Sender: TObject);
   private
     { Private declarations }
     fDMConsPedido: TDMConsPedido;
     
     procedure prc_Consultar;
+    procedure prc_CriaExcel(vDados: TDataSource);
+
   public
     { Public declarations }
   end;
@@ -44,7 +51,7 @@ var
 
 implementation
 
-uses rsDBUtils, StrUtils;
+uses rsDBUtils, StrUtils, uUtilPadrao;
 
 {$R *.dfm}
 
@@ -75,7 +82,10 @@ begin
   if RxDBLookupCombo2.Text <> '' then
     vComando := vComando + ' AND P.ID_CLIENTE = ' + IntToStr(RxDBLookupCombo2.KeyValue);
   if RxDBLookupCombo3.Text <> '' then
-    vComando := vComando + ' AND i.ID_PRODUTO = ' + IntToStr(RxDBLookupCombo3.KeyValue);
+    vComando := vComando + ' AND i.ID_PRODUTO = ' + IntToStr(RxDBLookupCombo3.KeyValue)
+  else
+  if RxDBLookupCombo4.Text <> '' then
+    vComando := vComando + ' AND i.ID_PRODUTO = ' + IntToStr(RxDBLookupCombo4.KeyValue);
   if RxDBLookupCombo5.Text <> '' then
     vComando := vComando + ' AND p.ID_VENDEDOR = ' + IntToStr(RxDBLookupCombo5.KeyValue);
   if DateEdit1.Date > 10 then
@@ -98,6 +108,7 @@ var
   vOpcaoAux: String;
   vArq: String;
 begin
+  fDMConsPedido.cdsPedido_Est.IndexFieldNames := 'ID_PRODUTO;ESPESSURA';
   vOpcaoAux := '';
   if RxDBLookupCombo2.Text <> '' then
     vOpcaoAux := vOpcaoAux + '(Cliente: ' + RxDBLookupCombo2.Text + ')';
@@ -123,6 +134,60 @@ begin
   end;
   fDMConsPedido.frxReport1.variables['Opcao_Imp'] := QuotedStr(vOpcaoAux);
   fDMConsPedido.frxReport1.ShowReport;
+end;
+
+procedure TfrmConsPedido_Est.SMDBGrid1TitleClick(Column: TColumn);
+begin
+  fDMConsPedido.cdsPedido_Est.IndexFieldNames := Column.FieldName;
+end;
+
+procedure TfrmConsPedido_Est.RxDBLookupCombo4Exit(Sender: TObject);
+begin
+  if RxDBLookupCombo4.Text <> '' then
+  begin
+    if RxDBLookupCombo4.KeyValue <> fDMConsPedido.cdsProdutoID.AsInteger then
+      fDMConsPedido.cdsProduto.Locate('ID',RxDBLookupCombo4.KeyValue,[loCaseInsensitive]);
+    RxDBLookupCombo3.KeyValue := fDMConsPedido.cdsProdutoID.AsInteger;
+  end;
+end;
+
+procedure TfrmConsPedido_Est.RxDBLookupCombo3Exit(Sender: TObject);
+begin
+  if RxDBLookupCombo3.Text <> '' then
+  begin
+    if RxDBLookupCombo3.KeyValue <> fDMConsPedido.cdsProdutoID.AsInteger then
+      fDMConsPedido.cdsProduto.Locate('ID',RxDBLookupCombo3.KeyValue,[loCaseInsensitive]);
+    RxDBLookupCombo4.KeyValue := fDMConsPedido.cdsProdutoID.AsInteger;
+  end;
+end;
+
+procedure TfrmConsPedido_Est.btnExcelClick(Sender: TObject);
+begin
+  prc_CriaExcel(SMDBGrid1.DataSource);
+end;
+
+procedure TfrmConsPedido_Est.prc_CriaExcel(vDados: TDataSource);
+var
+  planilha: variant;
+  vTexto: string;
+begin
+  Screen.Cursor := crHourGlass;
+  vDados.DataSet.First;
+
+  planilha := CreateOleObject('Excel.Application');
+  planilha.WorkBooks.add(1);
+  planilha.caption := 'Exportando dados do tela para o Excel';
+  planilha.visible := true;
+
+  prc_Preencher_Excel2(planilha, vDados, SMDBGrid1);
+
+  planilha.columns.Autofit;
+  vTexto := ExtractFilePath(Application.ExeName);
+
+  vTexto := vTexto + Name + '_Pedido_Estoque';
+
+  Planilha.ActiveWorkBook.SaveAs(vTexto);
+  Screen.Cursor := crDefault;
 end;
 
 end.

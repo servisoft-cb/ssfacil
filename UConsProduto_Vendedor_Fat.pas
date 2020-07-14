@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UDMComissaoVend, StdCtrls, ExtCtrls, RxLookup, NxCollection,
-  Mask, ToolEdit, CurrEdit, Grids, DBGrids, SMDBGrid;
+  Mask, ToolEdit, CurrEdit, Grids, DBGrids, SMDBGrid, DB, ComObj;
 
 type
   TfrmConsProduto_Vendedor_Fat = class(TForm)
@@ -18,15 +18,18 @@ type
     Label2: TLabel;
     DateEdit1: TDateEdit;
     DateEdit2: TDateEdit;
+    btnExcel: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
+    procedure btnExcelClick(Sender: TObject);
   private
     { Private declarations }
     fDMComissaoVend: TDMComissaoVend;
 
     procedure prc_Consulta;
-    
+    procedure prc_CriaExcel(vDados: TDataSource);
+
   public
     { Public declarations }
   end;
@@ -36,7 +39,7 @@ var
 
 implementation
 
-uses rsDBUtils;
+uses rsDBUtils, uUtilPadrao;
 
 {$R *.dfm}
 
@@ -76,6 +79,35 @@ begin
     vComando := vComando + ' AND N.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
   fDMComissaoVend.sdsConsProdFat.CommandText := fDMComissaoVend.ctConsProdFat + vComando;
   fDMComissaoVend.cdsConsProdFat.Open;
+end;
+
+procedure TfrmConsProduto_Vendedor_Fat.btnExcelClick(Sender: TObject);
+begin
+  prc_CriaExcel(SMDBGrid1.DataSource);
+end;
+
+procedure TfrmConsProduto_Vendedor_Fat.prc_CriaExcel(vDados: TDataSource);
+var
+  planilha: variant;
+  vTexto: string;
+begin
+  Screen.Cursor := crHourGlass;
+  vDados.DataSet.First;
+
+  planilha := CreateOleObject('Excel.Application');
+  planilha.WorkBooks.add(1);
+  planilha.caption := 'Exportando dados do tela para o Excel';
+  planilha.visible := true;
+
+  prc_Preencher_Excel2(planilha, vDados, SMDBGrid1);
+
+  planilha.columns.Autofit;
+  vTexto := ExtractFilePath(Application.ExeName);
+
+  vTexto := vTexto + Name + '_Produto_Vendedor_Fat';
+
+  Planilha.ActiveWorkBook.SaveAs(vTexto);
+  Screen.Cursor := crDefault;
 end;
 
 end.
