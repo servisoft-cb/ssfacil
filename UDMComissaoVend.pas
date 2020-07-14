@@ -34,8 +34,7 @@ type
     cdsConsProdutoNOME: TStringField;
     cdsConsProdutoREFERENCIA: TStringField;
     cdsConsProdutoTIPO_PRODUTO: TStringField;
-    qVerProdVend: TSQLQuery;
-    qVerProdVendCONTADOR: TIntegerField;
+    qProximoItem: TSQLQuery;
     cdsConsProdutoPERC_COMISSAO: TFloatField;
     sdsConsProduto: TSQLDataSet;
     sdsVendCons: TSQLDataSet;
@@ -60,6 +59,27 @@ type
     frxPDFExport1: TfrxPDFExport;
     frxVendCons: TfrxDBDataset;
     frxProdCons: TfrxDBDataset;
+    qProximoItemITEM: TIntegerField;
+    sdsConsProdFat: TSQLDataSet;
+    dspConsProdFat: TDataSetProvider;
+    cdsConsProdFat: TClientDataSet;
+    dsConsProdFat: TDataSource;
+    cdsConsProdFatFILIAL: TIntegerField;
+    cdsConsProdFatNUMNOTA: TIntegerField;
+    cdsConsProdFatDTEMISSAO: TDateField;
+    cdsConsProdFatID_VENDEDOR: TIntegerField;
+    cdsConsProdFatID_CLIENTE: TIntegerField;
+    cdsConsProdFatPERC_NOTA: TFloatField;
+    cdsConsProdFatID_PRODUTO: TIntegerField;
+    cdsConsProdFatREFERENCIA: TStringField;
+    cdsConsProdFatNOME_PRODUTO: TStringField;
+    cdsConsProdFatPERC_ITEM_NOTA: TFloatField;
+    cdsConsProdFatNOME_CLIENTE: TStringField;
+    cdsConsProdFatNOME_VENDEDOR: TStringField;
+    cdsConsProdFatPERC_CADASTRADO: TFloatField;
+    cdsConsProdFatNOME_FILIAL: TStringField;
+    cdsConsProdFatSERIE: TStringField;
+    cdsConsProdFatTIPO_REG: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxVendConsNext(Sender: TObject);
     procedure frxVendConsOpen(Sender: TObject);
@@ -72,6 +92,7 @@ type
     { Public declarations }
     ctConsProduto : String;
     ctVendCons : String;
+    ctConsProdFat : String;
     vTipo_Reg_Cons : String;
   end;
 
@@ -92,6 +113,7 @@ var
 begin
   ctConsProduto := sdsConsProduto.CommandText;
   ctVendCons    := sdsVendCons.CommandText;
+  ctConsProdFat := sdsConsProdFat.CommandText;
   cdsVendedor.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;

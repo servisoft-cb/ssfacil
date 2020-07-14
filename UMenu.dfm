@@ -1,6 +1,6 @@
 object fMenu: TfMenu
-  Left = 280
-  Top = 2
+  Left = 234
+  Top = 5
   Width = 837
   Height = 686
   Caption = 'Menu'
@@ -998,6 +998,10 @@ object fMenu: TfMenu
       object ConsultaComissoNFCeCupomFiscal1: TMenuItem
         Caption = 'Consulta Comiss'#227'o NFCe (Cupom Fiscal) Por Metas'
         OnClick = ConsultaComissoNFCeCupomFiscal1Click
+      end
+      object ConsultaProdutoFaturadoPorVendedor1: TMenuItem
+        Caption = 'Consulta Produto Faturado Por Vendedor'
+        OnClick = ConsultaProdutoFaturadoPorVendedor1Click
       end
       object N45: TMenuItem
         Caption = '-'

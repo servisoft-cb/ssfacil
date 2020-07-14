@@ -1,19 +1,26 @@
 object DMComissaoVend: TDMComissaoVend
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 285
-  Top = 205
-  Height = 394
+  Left = 259
+  Top = 192
+  Height = 414
   Width = 984
   object sdsProduto_Comissao_Vend: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'select *'#13#10'from PRODUTO_COMISSAO_VEND'#13#10'WHERE ID = :ID'
+    CommandText = 
+      'select *'#13#10'from PRODUTO_COMISSAO_VEND'#13#10'WHERE ID = :ID'#13#10'  AND ID_V' +
+      'ENDEDOR = :ID_VENDEDOR'
     MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
         Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_VENDEDOR'
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
@@ -151,29 +158,23 @@ object DMComissaoVend: TDMComissaoVend
     Left = 631
     Top = 94
   end
-  object qVerProdVend: TSQLQuery
+  object qProximoItem: TSQLQuery
     MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
         Name = 'ID'
         ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'ID_VENDEDOR'
-        ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT COUNT(1) CONTADOR'
-      'FROM produto_comissao_vend P'
-      'WHERE P.ID = :ID'
-      '  AND P.ID_VENDEDOR = :ID_VENDEDOR')
+      'SELECT MAX(ITEM) ITEM'
+      'FROM produto_comissao_vend'
+      'WHERE ID = :ID')
     SQLConnection = dmDatabase.scoDados
-    Left = 748
+    Left = 750
     Top = 147
-    object qVerProdVendCONTADOR: TIntegerField
-      FieldName = 'CONTADOR'
+    object qProximoItemITEM: TIntegerField
+      FieldName = 'ITEM'
       Required = True
     end
   end
@@ -387,5 +388,100 @@ object DMComissaoVend: TDMComissaoVend
     BCDToCurrency = False
     Left = 801
     Top = 267
+  end
+  object sdsConsProdFat: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select N.SERIE, N.tipo_reg, N.FILIAL, N.NUMNOTA, N.DTEMISSAO, N.' +
+      'ID_VENDEDOR, N.ID_CLIENTE, N.PERC_COMISSAO PERC_NOTA, I.ID_PRODU' +
+      'TO,'#13#10'       I.REFERENCIA, I.NOME_PRODUTO, I.PERC_COMISSAO PERC_I' +
+      'TEM_NOTA, CLI.NOME NOME_CLIENTE, VEND.NOME NOME_VENDEDOR,'#13#10'     ' +
+      '   coalesce(PV.PERC_COMISSAO,0) PERC_CADASTRADO, F.NOME NOME_FIL' +
+      'IAL'#13#10'from NOTAFISCAL N'#13#10'inner join NOTAFISCAL_ITENS I on N.ID = ' +
+      'I.ID'#13#10'inner join PESSOA CLI on N.ID_CLIENTE = CLI.CODIGO'#13#10'inner ' +
+      'join TAB_CFOP CFOP on I.ID_CFOP = CFOP.ID'#13#10'inner join FILIAL F o' +
+      'n N.FILIAL = F.ID'#13#10'left join PESSOA VEND on N.ID_VENDEDOR = VEND' +
+      '.CODIGO'#13#10'left join PRODUTO_COMISSAO_VEND PV on I.ID_PRODUTO = PV' +
+      '.ID and N.ID_VENDEDOR = PV.ID_VENDEDOR'#13#10'where N.CANCELADA = '#39'N'#39' ' +
+      'and'#13#10'      N.NFEDENEGADA = '#39'N'#39' and'#13#10'      N.TIPO_NOTA = '#39'S'#39' and'#13 +
+      #10'      CFOP.FATURAMENTO = '#39'S'#39#13#10#13#10'  '
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 342
+    Top = 312
+  end
+  object dspConsProdFat: TDataSetProvider
+    DataSet = sdsConsProdFat
+    UpdateMode = upWhereKeyOnly
+    Left = 406
+    Top = 312
+  end
+  object cdsConsProdFat: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsProdFat'
+    Left = 457
+    Top = 311
+    object cdsConsProdFatFILIAL: TIntegerField
+      FieldName = 'FILIAL'
+    end
+    object cdsConsProdFatNUMNOTA: TIntegerField
+      FieldName = 'NUMNOTA'
+    end
+    object cdsConsProdFatDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
+    end
+    object cdsConsProdFatID_VENDEDOR: TIntegerField
+      FieldName = 'ID_VENDEDOR'
+    end
+    object cdsConsProdFatID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+    end
+    object cdsConsProdFatPERC_NOTA: TFloatField
+      FieldName = 'PERC_NOTA'
+    end
+    object cdsConsProdFatID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsConsProdFatREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsConsProdFatNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsConsProdFatPERC_ITEM_NOTA: TFloatField
+      FieldName = 'PERC_ITEM_NOTA'
+    end
+    object cdsConsProdFatNOME_CLIENTE: TStringField
+      FieldName = 'NOME_CLIENTE'
+      Size = 60
+    end
+    object cdsConsProdFatNOME_VENDEDOR: TStringField
+      FieldName = 'NOME_VENDEDOR'
+      Size = 60
+    end
+    object cdsConsProdFatPERC_CADASTRADO: TFloatField
+      FieldName = 'PERC_CADASTRADO'
+    end
+    object cdsConsProdFatNOME_FILIAL: TStringField
+      FieldName = 'NOME_FILIAL'
+      Size = 60
+    end
+    object cdsConsProdFatSERIE: TStringField
+      FieldName = 'SERIE'
+      Size = 3
+    end
+    object cdsConsProdFatTIPO_REG: TStringField
+      FieldName = 'TIPO_REG'
+      Size = 3
+    end
+  end
+  object dsConsProdFat: TDataSource
+    DataSet = cdsConsProdFat
+    Left = 523
+    Top = 312
   end
 end

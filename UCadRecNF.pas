@@ -989,7 +989,7 @@ begin
   //if not ckTotalDup.Visible then
   //  vNaoContDupl := False;
 
-  if fDMCadNotaFiscal.fnc_Possui_Erro(vNaoContDupl) then
+  if uGrava_NotaFiscal.fnc_Possui_Erro(fDMCadNotaFiscal,vNaoContDupl) then
   begin
     MessageDlg(fDMCadNotaFiscal.vMSGNotaFiscal, mtError, [mbOk], 0);
     exit;

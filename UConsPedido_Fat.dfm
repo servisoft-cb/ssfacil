@@ -303,6 +303,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
             FieldName = 'DESC_TIPO_PRODUCAO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Produ'#231#227'o'
+            Width = 64
             Visible = True
           end
           item
@@ -411,16 +412,19 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
           item
             Expanded = False
             FieldName = 'QTD_FATURADO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QTD_RESTANTE'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VLR_RESTANTE'
+            Width = 64
             Visible = True
           end
           item
@@ -428,6 +432,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
             FieldName = 'NOME_COR_COMBINACAO'
             Title.Alignment = taCenter
             Title.Caption = 'Cor Combina'#231#227'o'
+            Width = 64
             Visible = True
           end>
       end

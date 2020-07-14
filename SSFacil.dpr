@@ -855,7 +855,8 @@ uses
   UCadAjuste_Preco_Sel in 'UCadAjuste_Preco_Sel.pas' {frmCadAjuste_Preco_Sel},
   UAjusta_Peso_Ped in 'UAjusta_Peso_Ped.pas' {frmAjusta_Peso_Ped},
   UConsPedido_Est in 'UConsPedido_Est.pas' {frmConsPedido_Est},
-  UInforma_RecPagto in 'UInforma_RecPagto.pas' {frmInforma_RecPagto};
+  UInforma_RecPagto in 'UInforma_RecPagto.pas' {frmInforma_RecPagto},
+  UConsProduto_Vendedor_Fat in 'UConsProduto_Vendedor_Fat.pas' {frmConsProduto_Vendedor_Fat};
 
 {$R *.res}
 

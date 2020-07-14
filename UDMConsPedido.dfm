@@ -1377,7 +1377,7 @@ object DMConsPedido: TDMConsPedido
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 39
+    Left = 40
     Top = 447
   end
   object dspPedido_Fat: TDataSetProvider
@@ -4989,7 +4989,7 @@ object DMConsPedido: TDMConsPedido
     Params = <>
     ProviderName = 'dspPedido_RefComb_DtEntrega'
     StoreDefs = True
-    Left = 328
+    Left = 329
     Top = 233
     object cdsPedido_RefComb_DtEntregaQTD: TFloatField
       FieldName = 'QTD'

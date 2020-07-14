@@ -195,23 +195,23 @@ procedure TfrmComissaoVend.prc_Grava_Produto_Comissao_Vend;
 var
   vItem : Integer;
 begin
-  fDMComissaoVend.qVerProdVend.Close;
-  fDMComissaoVend.qVerProdVend.ParamByName('ID').AsInteger          := fDMComissaoVend.cdsConsProdutoID.AsInteger;
-  fDMComissaoVend.qVerProdVend.ParamByName('ID_VENDEDOR').AsInteger := RxDBLookupCombo2.KeyValue;
-  fDMComissaoVend.qVerProdVend.Open;
-
-  if fDMComissaoVend.qVerProdVendCONTADOR.AsInteger > 0 then
-    exit;
-
+  vItem := 0;
   fDMComissaoVend.cdsProduto_Comissao_Vend.Close;
-  fDMComissaoVend.sdsProduto_Comissao_Vend.ParamByName('ID').AsInteger := fDMComissaoVend.cdsConsProdutoID.AsInteger;
+  fDMComissaoVend.sdsProduto_Comissao_Vend.ParamByName('ID').AsInteger          := fDMComissaoVend.cdsConsProdutoID.AsInteger;
+  fDMComissaoVend.sdsProduto_Comissao_Vend.ParamByName('ID_VENDEDOR').AsInteger := RxDBLookupCombo2.KeyValue;
   fDMComissaoVend.cdsProduto_Comissao_Vend.Open;
-  fDMComissaoVend.cdsProduto_Comissao_Vend.Last;
-  vItem := fDMComissaoVend.cdsProduto_Comissao_VendITEM.AsInteger;
-
-  fDMComissaoVend.cdsProduto_Comissao_Vend.Insert;
-  fDMComissaoVend.cdsProduto_Comissao_VendID.AsInteger   := fDMComissaoVend.cdsConsProdutoID.AsInteger;
-  fDMComissaoVend.cdsProduto_Comissao_VendITEM.AsInteger := vItem + 1;
+  if not fDMComissaoVend.cdsProduto_Comissao_Vend.IsEmpty then
+    fDMComissaoVend.cdsProduto_Comissao_Vend.Edit
+  else
+  begin
+    fDMComissaoVend.qProximoItem.Close;
+    fDMComissaoVend.qProximoItem.ParamByName('ID').AsInteger := fDMComissaoVend.cdsConsProdutoID.AsInteger;
+    fDMComissaoVend.qProximoItem.Open;
+    vItem := fDMComissaoVend.qProximoItemITEM.AsInteger;
+    fDMComissaoVend.cdsProduto_Comissao_Vend.Insert;
+    fDMComissaoVend.cdsProduto_Comissao_VendID.AsInteger   := fDMComissaoVend.cdsConsProdutoID.AsInteger;
+    fDMComissaoVend.cdsProduto_Comissao_VendITEM.AsInteger := vItem + 1;
+  end;
   fDMComissaoVend.cdsProduto_Comissao_VendID_VENDEDOR.AsInteger := RxDBLookupCombo2.KeyValue;
   fDMComissaoVend.cdsProduto_Comissao_VendPERC_COMISSAO.AsFloat := CurrencyEdit2.Value;
   fDMComissaoVend.cdsProduto_Comissao_Vend.Post;

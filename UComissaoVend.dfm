@@ -20,10 +20,10 @@ object frmComissaoVend: TfrmComissaoVend
     Top = 0
     Width = 920
     Height = 456
-    ActivePage = TS_Consulta
+    ActivePage = TS_Gerar
     ActivePageDefault = TS_Gerar
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     FixedDimension = 19
     object TS_Gerar: TRzTabSheet
@@ -210,7 +210,6 @@ object frmComissaoVend: TfrmComissaoVend
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
             Title.Color = 10223515
-            Width = 64
             Visible = True
           end
           item

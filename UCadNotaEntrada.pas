@@ -653,7 +653,7 @@ begin
   if fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger <= 0 then
     fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger;
     
-  if fDMCadNotaFiscal.fnc_Possui_Erro then
+  if uGrava_NotaFiscal.fnc_Possui_Erro(fDMCadNotaFiscal) then
   begin
     MessageDlg(fDMCadNotaFiscal.vMSGNotaFiscal, mtError, [mbOk], 0);
     exit;
