@@ -1141,12 +1141,12 @@ begin
   btnAltProdCli.Visible := False;
   ckImpOrdem.Checked    := (fDMCadPedido.qParametros_PedIMP_ORDEM_ITEM_PED.AsString = 'R');
 
-  if fDMCadPedido.qParametros_ProdGRAVAR_PRIMEIRO_MAT.AsString = 'S' then
+  {if fDMCadPedido.qParametros_ProdGRAVAR_PRIMEIRO_MAT.AsString = 'S' then
   begin
     pnlServico.Visible := True;
     Label73.Caption    := 'Material:';
     DBEdit23.DataField := 'OBSMATERIAL';
-  end;
+  end;}
   btnConsTempo.Visible := (fDMCadPedido.qParametros_GeralUSA_TIPO_MATERIAL.AsString = 'S');
   DBCheckBox5.Visible  := (fDMCadPedido.qParametros_FinUSA_NGR.AsString = 'S');
   DBCheckBox6.Visible  := (fDMCadPedido.qParametros_PedUSA_AMOSTRA.AsString = 'S');

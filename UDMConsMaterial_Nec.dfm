@@ -51,7 +51,7 @@ object DMConsMaterial_Nec: TDMConsMaterial_Nec
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 64
+    Left = 63
     Top = 40
   end
   object dspMaterial_Nec: TDataSetProvider

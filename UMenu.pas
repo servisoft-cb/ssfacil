@@ -629,6 +629,8 @@ type
     procedure AjustaPreoNoCadastrodoProduto1Click(Sender: TObject);
     procedure ConsultaPedidoEstoque1Click(Sender: TObject);
     procedure ConsultaProdutoFaturadoPorVendedor1Click(Sender: TObject);
+    procedure ConsultaMaterialParaComprasPedidoxRemessa1Click(
+      Sender: TObject);
   private
     { Private declarations }
     vPedLoja: Boolean;
@@ -2280,6 +2282,12 @@ end;
 procedure TfMenu.ConsultaProdutoFaturadoPorVendedor1Click(Sender: TObject);
 begin
   OpenForm(TfrmConsProduto_Vendedor_Fat,wsMaximized);
+end;
+
+procedure TfMenu.ConsultaMaterialParaComprasPedidoxRemessa1Click(
+  Sender: TObject);
+begin
+  OpenForm(TfrmConsMaterial_Nec,wsMaximized);
 end;
 
 initialization

@@ -42,7 +42,7 @@ object DMCadPlanoMat: TDMCadPlanoMat
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspPlanoMat'
-    Left = 163
+    Left = 162
     Top = 15
     object cdsPlanoMatID: TIntegerField
       FieldName = 'ID'
@@ -138,7 +138,7 @@ object DMCadPlanoMat: TDMCadPlanoMat
     IndexFieldNames = 'ID;ITEM'
     Params = <>
     Left = 158
-    Top = 107
+    Top = 106
     object cdsPlanoMat_ItensID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -220,7 +220,7 @@ object DMCadPlanoMat: TDMCadPlanoMat
     DataSetField = cdsPlanoMatsdsPlanoMat_Lote
     IndexFieldNames = 'ID;NUM_ORDEM'
     Params = <>
-    Left = 157
+    Left = 160
     Top = 163
     object cdsPlanoMat_LoteID: TIntegerField
       FieldName = 'ID'

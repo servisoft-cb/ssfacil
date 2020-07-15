@@ -115,7 +115,7 @@ object frmConsMaterial_Nec: TfrmConsMaterial_Nec
       OnExit = DateEdit2Exit
     end
     object btnConsultar: TNxButton
-      Left = 117
+      Left = 118
       Top = 64
       Width = 161
       Height = 30

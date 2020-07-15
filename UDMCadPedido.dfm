@@ -915,8 +915,8 @@ object DMCadPedido: TDMCadPedido
   end
   object dsPedido: TDataSource
     DataSet = cdsPedido
-    Left = 72
-    Top = 3
+    Left = 66
+    Top = 1
   end
   object sdsVendedor: TSQLDataSet
     NoMetadata = True

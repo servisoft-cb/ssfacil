@@ -578,6 +578,7 @@ object fMenu: TfMenu
         end
         object ConsultaMaterialParaComprasPedidoxRemessa1: TMenuItem
           Caption = 'Consulta Material Para Compras (Pedido x Remessa)'
+          OnClick = ConsultaMaterialParaComprasPedidoxRemessa1Click
         end
         object ConsultarMateriaPrimanoProduto1: TMenuItem
           Caption = 'Consultar Materia Prima no Produto'

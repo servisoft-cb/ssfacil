@@ -33,9 +33,9 @@ object frmGerar_PlanoMat: TfrmGerar_PlanoMat
         Top = 94
         Width = 916
         Height = 371
-        ActivePage = TS_Tingimento
+        ActivePage = TS_Processo
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -639,7 +639,7 @@ object frmGerar_PlanoMat: TfrmGerar_PlanoMat
         end
         object btnGerar_Plano: TNxButton
           Left = 180
-          Top = 8
+          Top = 9
           Width = 176
           Height = 34
           Caption = 'Gerar Plano Material'
