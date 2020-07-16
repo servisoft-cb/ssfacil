@@ -80,6 +80,9 @@ type
     cdsConsProdFatNOME_FILIAL: TStringField;
     cdsConsProdFatSERIE: TStringField;
     cdsConsProdFatTIPO_REG: TStringField;
+    cdsConsProdFatPERC_PRODUTO_CLI: TFloatField;
+    cdsConsProdFatVLR_TOTAL: TFloatField;
+    cdsConsProdFatCODCFOP: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxVendConsNext(Sender: TObject);
     procedure frxVendConsOpen(Sender: TObject);

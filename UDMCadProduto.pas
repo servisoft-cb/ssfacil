@@ -2010,6 +2010,7 @@ type
     sdsProdutoPRECO_VAREJO: TFloatField;
     cdsProdutoPRECO_VAREJO: TFloatField;
     qParametros_ProdUSA_PRECO_VAREJO: TStringField;
+    cdsProduto_ConsultaNUM_SERIE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;

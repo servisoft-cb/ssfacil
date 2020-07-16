@@ -2,7 +2,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
   Left = 214
   Top = 156
   Width = 928
-  Height = 480
+  Height = 493
   Caption = 'Consulta Produto Faturado Por Vendedor'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -103,7 +103,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
     Left = 0
     Top = 50
     Width = 920
-    Height = 399
+    Height = 306
     Align = alClient
     Ctl3D = False
     DataSource = DMComissaoVend.dsConsProdFat
@@ -134,7 +134,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
     WidthOfIndicator = 15
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 17
+    ColCount = 20
     RowCount = 2
     Columns = <
       item
@@ -144,6 +144,14 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         Title.Alignment = taCenter
         Title.Caption = 'Filial'
         Width = 36
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'CODCFOP'
+        Title.Alignment = taCenter
+        Title.Caption = 'CFOP'
+        Width = 42
         Visible = True
       end
       item
@@ -171,6 +179,13 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         Visible = True
       end
       item
+        Expanded = False
+        FieldName = 'VLR_TOTAL'
+        Title.Alignment = taCenter
+        Title.Caption = 'Vlr. do Item'
+        Visible = True
+      end
+      item
         Alignment = taCenter
         Expanded = False
         FieldName = 'PERC_NOTA'
@@ -195,6 +210,14 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         Title.Alignment = taCenter
         Title.Caption = '% Cadastro do Produto'
         Width = 65
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PERC_PRODUTO_CLI'
+        Title.Alignment = taCenter
+        Title.Caption = '% Cadastrado do Produto Cliente'
+        Width = 76
         Visible = True
       end
       item
@@ -269,5 +292,214 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
         Title.Caption = 'Tipo'
         Visible = True
       end>
+  end
+  object Panel1: TPanel
+    Left = 0
+    Top = 356
+    Width = 920
+    Height = 106
+    Align = alBottom
+    Color = clSilver
+    TabOrder = 2
+    object Label3: TLabel
+      Left = 10
+      Top = 13
+      Width = 111
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Vlr. Total Faturado:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 379
+      Top = 13
+      Width = 147
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Vlr. a Pagar de Comiss'#227'o:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object ceVlr_Total: TCurrencyEdit
+      Left = 124
+      Top = 5
+      Width = 121
+      Height = 21
+      AutoSize = False
+      Color = clSilver
+      Ctl3D = False
+      DisplayFormat = '###,###,##0.00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 0
+    end
+    object ceVlr_Comissao: TCurrencyEdit
+      Left = 527
+      Top = 5
+      Width = 121
+      Height = 21
+      AutoSize = False
+      Color = clSilver
+      Ctl3D = False
+      DisplayFormat = '###,###,##0.00'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 1
+    end
+    object NxButton1: TNxButton
+      Left = 693
+      Top = 73
+      Width = 75
+      Caption = 'Recalcular'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      TabOrder = 2
+      OnClick = NxButton1Click
+    end
+    object gbxVendedor: TRzGroupBox
+      Left = 18
+      Top = 34
+      Width = 235
+      Height = 64
+      BorderColor = clNavy
+      BorderInner = fsButtonUp
+      BorderOuter = fsBump
+      Caption = '  Valores da Nota Fiscal '
+      Color = clSilver
+      Ctl3D = True
+      FlatColor = clNavy
+      FlatColorAdjustment = 2
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 3
+      VisualStyle = vsGradient
+      object Label4: TLabel
+        Left = 24
+        Top = 25
+        Width = 75
+        Height = 13
+        Caption = 'Base Comiss'#227'o:'
+      end
+      object Label5: TLabel
+        Left = 9
+        Top = 45
+        Width = 90
+        Height = 13
+        Caption = 'Vlr. Sem Comiss'#227'o:'
+      end
+      object ceBase_Comissao: TCurrencyEdit
+        Left = 100
+        Top = 17
+        Width = 116
+        Height = 21
+        AutoSize = False
+        Color = clSilver
+        Ctl3D = False
+        DisplayFormat = '###,###,##0.00'
+        ParentCtl3D = False
+        TabOrder = 0
+      end
+      object ceVlr_Sem_Comissao: TCurrencyEdit
+        Left = 100
+        Top = 37
+        Width = 116
+        Height = 21
+        AutoSize = False
+        Color = clSilver
+        Ctl3D = False
+        DisplayFormat = '###,###,##0.00'
+        ParentCtl3D = False
+        TabOrder = 1
+      end
+    end
+    object RzGroupBox1: TRzGroupBox
+      Left = 389
+      Top = 34
+      Width = 294
+      Height = 64
+      BorderColor = clRed
+      BorderInner = fsButtonUp
+      BorderOuter = fsBump
+      Caption = '  Valores Conforme Percentuais Informados no Produto '
+      Color = clSilver
+      Ctl3D = True
+      FlatColor = clRed
+      FlatColorAdjustment = 2
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentCtl3D = False
+      ParentFont = False
+      TabOrder = 4
+      VisualStyle = vsGradient
+      object Label8: TLabel
+        Left = 24
+        Top = 25
+        Width = 75
+        Height = 13
+        Caption = 'Base Comiss'#227'o:'
+      end
+      object Label9: TLabel
+        Left = 9
+        Top = 45
+        Width = 90
+        Height = 13
+        Caption = 'Vlr. Sem Comiss'#227'o:'
+      end
+      object ceBase_Comissao_Prod: TCurrencyEdit
+        Left = 100
+        Top = 17
+        Width = 116
+        Height = 21
+        AutoSize = False
+        Color = clSilver
+        Ctl3D = False
+        DisplayFormat = '###,###,##0.00'
+        ParentCtl3D = False
+        TabOrder = 0
+      end
+      object ceVlr_Sem_Comissao_Prod: TCurrencyEdit
+        Left = 100
+        Top = 37
+        Width = 116
+        Height = 21
+        AutoSize = False
+        Color = clSilver
+        Ctl3D = False
+        DisplayFormat = '###,###,##0.00'
+        ParentCtl3D = False
+        TabOrder = 1
+      end
+    end
   end
 end

@@ -19,7 +19,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
     Left = 0
     Top = 0
     Width = 1098
-    Height = 63
+    Height = 78
     Align = alTop
     Color = clSilver
     TabOrder = 0
@@ -81,7 +81,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
       TabOrder = 2
     end
     object btnConsultar: TNxButton
-      Left = 606
+      Left = 695
       Top = 3
       Width = 157
       Height = 30
@@ -153,10 +153,10 @@ object frmConsFinanceiro: TfrmConsFinanceiro
       OnClick = btnConsultarClick
     end
     object RzCheckList1: TRzCheckList
-      Left = 328
+      Left = 329
       Top = 4
-      Width = 276
-      Height = 56
+      Width = 360
+      Height = 69
       Items.Strings = (
         'Bancos / Caixa'
         'Financeiro'
@@ -164,8 +164,12 @@ object frmConsFinanceiro: TfrmConsFinanceiro
         'Notas de Entrada'
         'Pedidos'
         'Or'#231'amentos'
-        'OC Fornecedor')
+        'OC Fornecedor'
+        'Contas a Rec./Pagar em Atraso'
+        'Comiss'#227'o')
       Items.ItemEnabled = (
+        True
+        True
         True
         True
         True
@@ -174,6 +178,8 @@ object frmConsFinanceiro: TfrmConsFinanceiro
         True
         True)
       Items.ItemState = (
+        0
+        0
         0
         0
         0
@@ -202,7 +208,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
       Visible = False
     end
     object btnImprimir: TNxButton
-      Left = 606
+      Left = 694
       Top = 30
       Width = 157
       Height = 30
@@ -276,9 +282,9 @@ object frmConsFinanceiro: TfrmConsFinanceiro
   end
   object RzPageControl2: TRzPageControl
     Left = 0
-    Top = 63
+    Top = 78
     Width = 1098
-    Height = 624
+    Height = 609
     ActivePage = TS_Saldo
     ActivePageDefault = TS_Saldo
     Align = alClient
@@ -294,10 +300,10 @@ object frmConsFinanceiro: TfrmConsFinanceiro
       Caption = 'Consulta'
       DesignSize = (
         1094
-        601)
+        586)
       object Panel2: TPanel
         Left = 0
-        Top = 561
+        Top = 546
         Width = 1094
         Height = 40
         Align = alBottom
@@ -386,7 +392,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
         Left = 0
         Top = 176
         Width = 529
-        Height = 377
+        Height = 362
         Anchors = [akLeft, akTop, akBottom]
         BorderColor = clNavy
         BorderInner = fsButtonUp
@@ -408,7 +414,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
           Left = 5
           Top = 18
           Width = 519
-          Height = 354
+          Height = 339
           Align = alClient
           Ctl3D = False
           DataSource = DMCadFinanceiro.dsmSaldo_FPagto
@@ -591,7 +597,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
         Left = 540
         Top = 0
         Width = 554
-        Height = 561
+        Height = 546
         Align = alRight
         Anchors = [akLeft, akTop, akRight, akBottom]
         TabOrder = 3
@@ -599,9 +605,8 @@ object frmConsFinanceiro: TfrmConsFinanceiro
           Left = 1
           Top = 1
           Width = 552
-          Height = 412
-          Align = alTop
-          Anchors = [akLeft, akTop, akRight, akBottom]
+          Height = 292
+          Align = alClient
           BorderColor = clNavy
           BorderInner = fsButtonUp
           BorderOuter = fsBump
@@ -622,7 +627,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
             Left = 5
             Top = 18
             Width = 542
-            Height = 389
+            Height = 269
             Align = alClient
             Ctl3D = False
             DataSource = DMCadFinanceiro.dsmFaturamento
@@ -688,7 +693,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
         end
         object RzGroupBox3: TRzGroupBox
           Left = 1
-          Top = 423
+          Top = 408
           Width = 552
           Height = 137
           Align = alBottom
@@ -770,6 +775,97 @@ object frmConsFinanceiro: TfrmConsFinanceiro
               end>
           end
         end
+        object RzGroupBox4: TRzGroupBox
+          Left = 1
+          Top = 293
+          Width = 552
+          Height = 115
+          Align = alBottom
+          BorderColor = clNavy
+          BorderInner = fsButtonUp
+          BorderOuter = fsBump
+          Caption = ' Comiss'#227'o '
+          Ctl3D = True
+          FlatColor = clNavy
+          FlatColorAdjustment = 2
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNavy
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentCtl3D = False
+          ParentFont = False
+          TabOrder = 2
+          Visible = False
+          VisualStyle = vsGradient
+          object SMDBGrid6: TSMDBGrid
+            Left = 5
+            Top = 18
+            Width = 542
+            Height = 92
+            Align = alClient
+            Ctl3D = False
+            DataSource = DMCadFinanceiro.dsmFaturamento
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+            ParentCtl3D = False
+            ParentFont = False
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsNormal
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+            OnGetCellParams = SMDBGrid3GetCellParams
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 16
+            ScrollBars = ssHorizontal
+            ColCount = 4
+            RowCount = 2
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'Nome'
+                Title.Caption = '.'
+                Width = 225
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Qtd'
+                Title.Alignment = taCenter
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VlrMovimento'
+                Title.Alignment = taCenter
+                Title.Caption = 'Valor'
+                Width = 129
+                Visible = True
+              end>
+          end
+        end
       end
     end
     object TabSheet1: TRzTabSheet
@@ -778,7 +874,7 @@ object frmConsFinanceiro: TfrmConsFinanceiro
         Left = 0
         Top = 73
         Width = 1094
-        Height = 528
+        Height = 513
         Align = alClient
         Ctl3D = False
         DataSource = DMCadFinanceiro.dsFinAgrupado

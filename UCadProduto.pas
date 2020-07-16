@@ -1243,10 +1243,7 @@ begin
   end;
   if not vExcluir then
     exit;
-
-
   SMDBGrid1.DisableScroll;
-
   vCont := SMDBGrid1.SelectedRows.Count;
   fDMCadProduto.cdsProduto_Consulta.First;
   while not fDMCadProduto.cdsProduto_Consulta.Eof do
@@ -1756,27 +1753,24 @@ begin
     else
     if (SMDBGrid1.Columns[i].FieldName = 'NOME_MODELO') then
         SMDBGrid1.Columns[i].Visible := (fDMCadProduto.qParametros_LoteLOTE_CALCADO_NOVO.AsString = 'S')
+    else
+    if (SMDBGrid1.Columns[i].FieldName = 'NUM_SERIE') then
+        SMDBGrid1.Columns[i].Visible := ((fDMCadProduto.qParametrosUSA_NUM_SERIE_PROD.AsString = 'S') or (fDMCadProduto.qParametrosUSA_NUM_SERIE_PROD.AsString = 'M'));
   end;
   DBMemo2.Visible     := (fDMCadProduto.qParametros_ProdMOSTRAR_OBS_CONSULTA.AsString = 'S');
   Label37.Visible     := ((fDMCadProduto.qParametrosUSA_COD_BARRAS.AsString = 'S') and (fDMCadProduto.qParametrosUSA_COD_BARRAS_PROPRIO.AsString <> 'S'));
   edtCodBarra.Visible := ((fDMCadProduto.qParametrosUSA_COD_BARRAS.AsString = 'S') and (fDMCadProduto.qParametrosUSA_COD_BARRAS_PROPRIO.AsString <> 'S'));
-
   Label36.Visible  := ((fDMCadProduto.qParametrosUSA_COD_BARRAS.AsString = 'S') and (fDMCadProduto.qParametrosUSA_COD_BARRAS_PROPRIO.AsString <> 'S'));
   DBEdit15.Visible := ((fDMCadProduto.qParametrosUSA_COD_BARRAS.AsString = 'S') and (fDMCadProduto.qParametrosUSA_COD_BARRAS_PROPRIO.AsString <> 'S'));
   Panel16.Visible  := ((fDMCadProduto.qParametrosUSA_COD_BARRAS.AsString = 'S') and (fDMCadProduto.qParametrosUSA_COD_BARRAS_PROPRIO.AsString <> 'S'));
-
   Panel14.Visible  := (fDMCadProduto.qParametros_ProdUSA_LARG.AsString = 'S');
-
   btnCBarra.Visible := ((fDMCadProduto.qParametrosUSA_COD_BARRAS.AsString = 'S') and (fDMCadProduto.qParametrosUSA_COD_BARRAS_PROPRIO.AsString = 'S'));
-
   Label102.Visible          := (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'G');
   RxDBLookupCombo14.Visible := (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'G');
   SpeedButton17.Visible     := (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'G');
   SpeedButton18.Visible     := (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'G');
-
   RxDbCliente.Visible := (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'G');
   Label111.Visible    := (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadProduto.qParametrosUSA_PRODUTO_CLIENTE.AsString = 'G');
-
   SMDBGrid1.Visible := (fDMCadProduto.qParametrosEMPRESA_VEICULO.AsString <> 'S');
   SMDBGrid4.Visible := (fDMCadProduto.qParametrosEMPRESA_VEICULO.AsString = 'S');
   if fDMCadProduto.qParametrosEMPRESA_VEICULO.AsString = 'S' then

@@ -44,7 +44,7 @@ object frmCadProduto_Comissao: TfrmCadProduto_Comissao
       OnClick = BitBtn4Click
     end
     object BitBtn1: TBitBtn
-      Left = 222
+      Left = 220
       Top = 5
       Width = 98
       Height = 25

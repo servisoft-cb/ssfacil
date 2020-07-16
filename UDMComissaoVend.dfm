@@ -398,19 +398,22 @@ object DMComissaoVend: TDMComissaoVend
       'TO,'#13#10'       I.REFERENCIA, I.NOME_PRODUTO, I.PERC_COMISSAO PERC_I' +
       'TEM_NOTA, CLI.NOME NOME_CLIENTE, VEND.NOME NOME_VENDEDOR,'#13#10'     ' +
       '   coalesce(PV.PERC_COMISSAO,0) PERC_CADASTRADO, F.NOME NOME_FIL' +
-      'IAL'#13#10'from NOTAFISCAL N'#13#10'inner join NOTAFISCAL_ITENS I on N.ID = ' +
-      'I.ID'#13#10'inner join PESSOA CLI on N.ID_CLIENTE = CLI.CODIGO'#13#10'inner ' +
-      'join TAB_CFOP CFOP on I.ID_CFOP = CFOP.ID'#13#10'inner join FILIAL F o' +
-      'n N.FILIAL = F.ID'#13#10'left join PESSOA VEND on N.ID_VENDEDOR = VEND' +
-      '.CODIGO'#13#10'left join PRODUTO_COMISSAO_VEND PV on I.ID_PRODUTO = PV' +
-      '.ID and N.ID_VENDEDOR = PV.ID_VENDEDOR'#13#10'where N.CANCELADA = '#39'N'#39' ' +
-      'and'#13#10'      N.NFEDENEGADA = '#39'N'#39' and'#13#10'      N.TIPO_NOTA = '#39'S'#39' and'#13 +
-      #10'      CFOP.FATURAMENTO = '#39'S'#39#13#10#13#10'  '
+      'IAL, PCLI.perc_comissao PERC_PRODUTO_CLI,'#13#10'        i.vlr_total, ' +
+      'cfop.codcfop'#13#10'from NOTAFISCAL N'#13#10'inner join NOTAFISCAL_ITENS I o' +
+      'n N.ID = I.ID'#13#10'inner join PESSOA CLI on N.ID_CLIENTE = CLI.CODIG' +
+      'O'#13#10'inner join TAB_CFOP CFOP on I.ID_CFOP = CFOP.ID'#13#10'inner join F' +
+      'ILIAL F on N.FILIAL = F.ID'#13#10'left join PESSOA VEND on N.ID_VENDED' +
+      'OR = VEND.CODIGO'#13#10'left join PRODUTO_COMISSAO_VEND PV on I.ID_PRO' +
+      'DUTO = PV.ID and N.ID_VENDEDOR = PV.ID_VENDEDOR'#13#10'LEFT JOIN PRODU' +
+      'TO_COMISSAO PCLI ON I.ID_PRODUTO = PCLI.ID AND N.ID_CLIENTE = PC' +
+      'LI.ID_CLIENTE'#13#10'where N.CANCELADA = '#39'N'#39' and'#13#10'      N.NFEDENEGADA ' +
+      '= '#39'N'#39' and'#13#10'      N.TIPO_NOTA = '#39'S'#39' and'#13#10'      CFOP.FATURAMENTO =' +
+      ' '#39'S'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 342
-    Top = 312
+    Left = 343
+    Top = 314
   end
   object dspConsProdFat: TDataSetProvider
     DataSet = sdsConsProdFat
@@ -441,6 +444,7 @@ object DMComissaoVend: TDMComissaoVend
     end
     object cdsConsProdFatPERC_NOTA: TFloatField
       FieldName = 'PERC_NOTA'
+      DisplayFormat = '0.00'
     end
     object cdsConsProdFatID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
@@ -454,6 +458,7 @@ object DMComissaoVend: TDMComissaoVend
     end
     object cdsConsProdFatPERC_ITEM_NOTA: TFloatField
       FieldName = 'PERC_ITEM_NOTA'
+      DisplayFormat = '0.00'
     end
     object cdsConsProdFatNOME_CLIENTE: TStringField
       FieldName = 'NOME_CLIENTE'
@@ -465,6 +470,7 @@ object DMComissaoVend: TDMComissaoVend
     end
     object cdsConsProdFatPERC_CADASTRADO: TFloatField
       FieldName = 'PERC_CADASTRADO'
+      DisplayFormat = '0.00'
     end
     object cdsConsProdFatNOME_FILIAL: TStringField
       FieldName = 'NOME_FILIAL'
@@ -477,6 +483,18 @@ object DMComissaoVend: TDMComissaoVend
     object cdsConsProdFatTIPO_REG: TStringField
       FieldName = 'TIPO_REG'
       Size = 3
+    end
+    object cdsConsProdFatPERC_PRODUTO_CLI: TFloatField
+      FieldName = 'PERC_PRODUTO_CLI'
+      DisplayFormat = '0.00'
+    end
+    object cdsConsProdFatVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+      DisplayFormat = '0.00'
+    end
+    object cdsConsProdFatCODCFOP: TStringField
+      FieldName = 'CODCFOP'
+      Size = 5
     end
   end
   object dsConsProdFat: TDataSource

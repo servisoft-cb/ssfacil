@@ -52,7 +52,7 @@ end;
 
 procedure TfrmCadProduto_Serie.btnConfirmarClick(Sender: TObject);
 begin
-  if fDMCadProduto.cdsProduto_SerieNUM_SERIE.AsInteger <= 0 then
+  if trim(fDMCadProduto.cdsProduto_SerieNUM_SERIE.AsString) = '' then
   begin
     MessageDlg('Número de Série não informado!', mtError, [mbOk], 0);
     exit;

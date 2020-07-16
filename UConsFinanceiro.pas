@@ -45,6 +45,8 @@ type
     CheckBox1: TCheckBox;
     CheckBox2: TCheckBox;
     NxButton2: TNxButton;
+    RzGroupBox4: TRzGroupBox;
+    SMDBGrid6: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);

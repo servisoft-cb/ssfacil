@@ -7121,8 +7121,8 @@ object DMCadOrdemServico: TDMCadOrdemServico
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspOrdemServico_Otica'
-    Left = 88
-    Top = 356
+    Left = 87
+    Top = 357
     object cdsOrdemServico_OticaID: TIntegerField
       FieldName = 'ID'
       Required = True
