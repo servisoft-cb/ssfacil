@@ -1344,6 +1344,15 @@ type
     qParametros_ProdUSA_PRECO_VAREJO: TStringField;
     sdsPessoa_ProdICMSFINALIDADE: TStringField;
     cdsPessoa_ProdICMSFINALIDADE: TStringField;
+    sdsPessoa_Ped: TSQLDataSet;
+    dspPessoa_Ped: TDataSetProvider;
+    cdsPessoa_Ped: TClientDataSet;
+    dsPessoa_Ped: TDataSource;
+    sdsPessoa_PedID: TIntegerField;
+    sdsPessoa_PedUNIDADE_PADRAO: TStringField;
+    cdsPessoa_PedID: TIntegerField;
+    cdsPessoa_PedUNIDADE_PADRAO: TStringField;
+    qParametros_PedUSA_UNIDADE_CLIENTE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;

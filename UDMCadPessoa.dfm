@@ -2113,8 +2113,8 @@ object DMCadPessoa: TDMCadPessoa
   end
   object dsConsultaCadastro: TDataSource
     DataSet = cdsConsultaCadastro
-    Left = 344
-    Top = 446
+    Left = 357
+    Top = 444
   end
   object sdsServico_Pad: TSQLDataSet
     NoMetadata = True
@@ -6767,7 +6767,7 @@ object DMCadPessoa: TDMCadPessoa
       'SELECT P.usa_sintetica'
       'FROM parametros_cta_orc P')
     SQLConnection = dmDatabase.scoDados
-    Left = 1024
+    Left = 1025
     Top = 273
     object qParametros_CTA_ORCUSA_SINTETICA: TStringField
       FieldName = 'USA_SINTETICA'
@@ -6779,13 +6779,18 @@ object DMCadPessoa: TDMCadPessoa
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT USA_CAIXINHA'
+      'SELECT USA_CAIXINHA, USA_UNIDADE_CLIENTE'
       'FROM PARAMETROS_PED')
     SQLConnection = dmDatabase.scoDados
     Left = 1056
     Top = 224
     object qParametros_PedUSA_CAIXINHA: TStringField
       FieldName = 'USA_CAIXINHA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_PedUSA_UNIDADE_CLIENTE: TStringField
+      FieldName = 'USA_UNIDADE_CLIENTE'
       FixedChar = True
       Size = 1
     end
@@ -7674,5 +7679,59 @@ object DMCadPessoa: TDMCadPessoa
       FixedChar = True
       Size = 1
     end
+  end
+  object sdsPessoa_Ped: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM PESSOA_PED'#13#10'WHERE ID = :ID'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 491
+    Top = 544
+    object sdsPessoa_PedID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPessoa_PedUNIDADE_PADRAO: TStringField
+      FieldName = 'UNIDADE_PADRAO'
+      Required = True
+      Size = 6
+    end
+  end
+  object dspPessoa_Ped: TDataSetProvider
+    DataSet = sdsPessoa_Ped
+    UpdateMode = upWhereKeyOnly
+    Left = 524
+    Top = 544
+  end
+  object cdsPessoa_Ped: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspPessoa_Ped'
+    Left = 555
+    Top = 544
+    object cdsPessoa_PedID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPessoa_PedUNIDADE_PADRAO: TStringField
+      FieldName = 'UNIDADE_PADRAO'
+      Required = True
+      Size = 6
+    end
+  end
+  object dsPessoa_Ped: TDataSource
+    DataSet = cdsPessoa_Ped
+    Left = 587
+    Top = 544
   end
 end

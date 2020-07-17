@@ -473,7 +473,7 @@ object frmConsEstoque_Bal: TfrmConsEstoque_Bal
             Expanded = False
             FieldName = 'clPreco_Medio'
             Title.Alignment = taCenter
-            Title.Caption = 'Pre'#231'o M'#233'dio'
+            Title.Caption = 'Custo M'#233'dio'
             Width = 118
             Visible = True
           end

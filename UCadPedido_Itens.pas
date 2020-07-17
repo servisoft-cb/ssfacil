@@ -600,6 +600,7 @@ var
   vIDAux: Integer;
   vUsouRegraCli: Boolean;
   vPerc_ICMS, vPerc_BRedICMS_NCM : Real;
+  vUniAux : String;
 begin
   vID_ICMS   := 0;
   vID_IPI    := 0;
@@ -642,6 +643,7 @@ begin
   fDMCadPedido.cdsPedido_ItensUNIDADE_PROD.AsString  := fDMCadPedido.cdsProdutoUNIDADE.AsString;
   fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsInteger := StrToInt(FormatFloat('0',1));
   //*************
+
   fDMCadPedido.cdsPedido_ItensID_NCM.AsInteger := fDMCadPedido.cdsProdutoID_NCM.AsInteger;
   if (fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger > 0) and not(fDMCadPedido.cdsCFOP.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger,[loCaseInsensitive])) then
     exit;
@@ -671,6 +673,26 @@ begin
   //************
   fDMCadPedido.cdsCliente.Locate('CODIGO',fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,[loCaseInsensitive]);
   fDMCadPedido.cdsUF.Locate('UF',fDMCadPedido.cdsClienteUF.AsString,[loCaseInsensitive]);
+
+  //16/07/2020
+  if fDMCadPedido.qParametros_PedUSA_UNIDADE_CLIENTE.AsString = 'S' then
+  begin
+    vUnidade_Ant := fDMCadPedido.cdsPedido_ItensUNIDADE.AsString;
+    vUniAux := SQLLocate('PESSOA_PED','ID','UNIDADE_PADRAO',fDMCadPedido.cdsPedidoID_CLIENTE.AsString);
+    if trim(vUniAux) <> '' then
+    begin
+      vAux := fnc_Retorna_Qtd_UConv(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,vUniAux);
+      if StrToFloat(FormatFloat('0.0000',vAux)) > 0 then
+      begin
+        fDMCadPedido.cdsPedido_ItensUNIDADE.AsString := vUniAux;
+        DBEdit23Exit(nil);
+      end
+      else
+        MessageDlg('*** O ID Produto ' + fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsString + ' não possui a Unidade  ' + vUniAux + '  Configurada!' + #13 + #13 +
+                   '    Esse Cliente esta marcado que Compra pela Unidade ' + vUniAux , mtInformation, [mbOk], 0);
+    end;
+  end;
+  //***************
 
   //25/08/2014
   //vai verificar as regras fiscais, Suspensão de IPI e PIS/COFINS
@@ -2763,7 +2785,9 @@ begin
   begin
     if (fDMCadPedido.qParametros_PedUSA_UNIDADE_VENDA.AsString = 'S') and (fDMCadPedido.cdsPedido_ItensUNIDADE.AsString <> fDMCadPedido.cdsPedido_ItensUNIDADE_PROD.AsString) then
       fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsFloat := StrToFloat(FormatFloat('0.0000',fnc_Retorna_Qtd_UConv(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,
-                                                                   fDMCadPedido.cdsPedido_ItensUNIDADE.AsString)));
+                                                                   fDMCadPedido.cdsPedido_ItensUNIDADE.AsString)))
+    else
+      fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsInteger := 1;
     if fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsFloat <= 0 then
       fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsInteger := 1;
   end;

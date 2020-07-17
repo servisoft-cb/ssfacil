@@ -3782,6 +3782,7 @@ type
     qPessoa_ProdICMSFINALIDADE: TStringField;
     qParametros_PedMOSTRAR_ANEXO: TStringField;
     cdsPedido_ConsultaDESC_ARQ_ANEXO: TStringField;
+    qParametros_PedUSA_UNIDADE_CLIENTE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

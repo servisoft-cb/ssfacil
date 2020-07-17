@@ -48,7 +48,7 @@ object frmSel_Unidade: TfrmSel_Unidade
     TitleFont.Style = []
     OnDblClick = SMDBGrid1DblClick
     OnKeyDown = SMDBGrid1KeyDown
-    Flat = False
+    Flat = True
     BandsFont.Charset = DEFAULT_CHARSET
     BandsFont.Color = clWindowText
     BandsFont.Height = -11

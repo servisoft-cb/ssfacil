@@ -628,7 +628,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Params = <>
     StoreDefs = True
     OnNewRecord = mArquivoImportadoNewRecord
-    Left = 272
+    Left = 273
     Top = 328
     Data = {
       6C0100009619E0BD01000000180000000F0000000000030000006C010E43616D

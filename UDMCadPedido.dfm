@@ -15442,6 +15442,11 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedUSA_UNIDADE_CLIENTE: TStringField
+      FieldName = 'USA_UNIDADE_CLIENTE'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsMetas_Acum: TSQLDataSet
     CommandText = 

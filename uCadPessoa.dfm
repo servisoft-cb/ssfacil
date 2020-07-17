@@ -948,7 +948,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'NOME_CONTATO'
             Title.Alignment = taCenter
             Title.Caption = 'Contato'
-            Width = 64
             Visible = True
           end
           item
@@ -1003,7 +1002,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Cli'
-            Width = 64
             Visible = True
           end
           item
@@ -1012,7 +1010,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_FORNECEDOR'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Forn.'
-            Width = 64
             Visible = True
           end
           item
@@ -1030,7 +1027,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_VENDEDOR'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Repr.'
-            Width = 64
             Visible = True
           end
           item
@@ -1039,7 +1035,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'ORGAO_PUBLICO'
             Title.Alignment = taCenter
             Title.Caption = 'Org'#227'o P'#250'blico'
-            Width = 64
             Visible = True
           end
           item
@@ -1047,7 +1042,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'DTPEDIDO'
             Title.Alignment = taCenter
             Title.Caption = 'Data '#218'lt. Pedido'
-            Width = 64
             Visible = True
           end
           item
@@ -1055,7 +1049,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'DTNOTA'
             Title.Alignment = taCenter
             Title.Caption = 'Data '#218'lt. Faturamento'
-            Width = 64
             Visible = True
           end
           item
@@ -1103,7 +1096,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Nome Grupo'
-            Width = 64
             Visible = True
           end
           item
@@ -1111,7 +1103,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_CONTA_ORCAMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Or'#231'amento'
-            Width = 64
             Visible = True
           end
           item
@@ -1119,7 +1110,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_CLI'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Cliente'
-            Width = 64
             Visible = True
           end
           item
@@ -1127,7 +1117,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_FORN'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Fornecedor'
-            Width = 64
             Visible = True
           end
           item
@@ -1135,7 +1124,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_TRANSP'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Transp.'
-            Width = 64
             Visible = True
           end
           item
@@ -1150,7 +1138,6 @@ object frmCadPessoa: TfrmCadPessoa
             Expanded = False
             FieldName = 'INSCR_EST'
             Title.Caption = 'Inscr. Estadual'
-            Width = 64
             Visible = True
           end
           item
@@ -1166,7 +1153,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_REGIME'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Regime'
-            Width = 64
             Visible = True
           end
           item
@@ -1420,7 +1406,7 @@ object frmCadPessoa: TfrmCadPessoa
         Top = 30
         Width = 1079
         Height = 627
-        ActivePage = TS_Pessoa_Dados
+        ActivePage = TS_Compras
         ActivePageDefault = TS_Pessoa_Dados
         Align = alClient
         BackgroundColor = clSilver
@@ -1428,7 +1414,7 @@ object frmCadPessoa: TfrmCadPessoa
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 0
+        TabIndex = 4
         TabOrder = 1
         OnChange = RZPageControlDadosChange
         FixedDimension = 19
@@ -4644,7 +4630,6 @@ object frmCadPessoa: TfrmCadPessoa
                     Expanded = False
                     FieldName = 'OBS'
                     Title.Color = 12320699
-                    Width = 64
                     Visible = True
                   end>
               end
@@ -5655,7 +5640,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
         end
         object TS_Pessoa_Financeiro: TRzTabSheet
-          Caption = 'Financeiro / Compras'
+          Caption = 'Financeiro'
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -5969,30 +5954,6 @@ object frmCadPessoa: TfrmCadPessoa
             Alignment = taRightJustify
             Caption = 'Email Financeiro:'
           end
-          object Label69: TLabel
-            Left = 43
-            Top = 227
-            Width = 84
-            Height = 13
-            Alignment = taRightJustify
-            Caption = 'Contato Compras:'
-          end
-          object Label70: TLabel
-            Left = 55
-            Top = 248
-            Width = 72
-            Height = 13
-            Alignment = taRightJustify
-            Caption = 'Email Compras:'
-          end
-          object Label84: TLabel
-            Left = 106
-            Top = 185
-            Width = 21
-            Height = 13
-            Alignment = taRightJustify
-            Caption = 'EDI:'
-          end
           object Label87: TLabel
             Left = 420
             Top = 185
@@ -6000,14 +5961,6 @@ object frmCadPessoa: TfrmCadPessoa
             Height = 13
             Alignment = taRightJustify
             Caption = 'Vlr. Limite Cr'#233'dito:'
-          end
-          object Label93: TLabel
-            Left = 455
-            Top = 317
-            Width = 41
-            Height = 13
-            Alignment = taRightJustify
-            Caption = 'Carimbo:'
           end
           object Label107: TLabel
             Left = 597
@@ -6074,19 +6027,6 @@ object frmCadPessoa: TfrmCadPessoa
               FFFEFEFFFFFFFFFFFFFF}
             Margin = 0
             OnClick = SpeedButton9Click
-          end
-          object Label153: TLabel
-            Left = 501
-            Top = 294
-            Width = 286
-            Height = 13
-            Caption = 'Carimbo Preenchido vai aparecer no campo MARCA da NFe'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clMaroon
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
           end
           object Label157: TLabel
             Left = 58
@@ -6209,21 +6149,6 @@ object frmCadPessoa: TfrmCadPessoa
             Height = 13
             Caption = 'Melhor dia Pgto.:'
           end
-          object Label194: TLabel
-            Left = 453
-            Top = 338
-            Width = 43
-            Height = 13
-            Alignment = taRightJustify
-            Caption = 'Caixinha:'
-          end
-          object Label196: TLabel
-            Left = 449
-            Top = 529
-            Width = 99
-            Height = 13
-            Caption = 'Imp. Etiqueta R'#243'tulo:'
-          end
           object Label197: TLabel
             Left = 42
             Top = 35
@@ -6324,7 +6249,7 @@ object frmCadPessoa: TfrmCadPessoa
             CharCase = ecLowerCase
             DataField = 'EMAIL_PGTO'
             DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 14
+            TabOrder = 13
           end
           object gbxConta_Orcamento: TRzGroupBox
             Left = 28
@@ -6333,7 +6258,7 @@ object frmCadPessoa: TfrmCadPessoa
             Height = 144
             Caption = 'Conta de Or'#231'amento por Tipo de Pessoa'
             FlatColor = clBlack
-            TabOrder = 29
+            TabOrder = 24
             OnEnter = gbxConta_OrcamentoEnter
             OnExit = gbxConta_OrcamentoExit
             object Label64: TLabel
@@ -6487,25 +6412,6 @@ object frmCadPessoa: TfrmCadPessoa
               OnKeyDown = RxDBLookupCombo44KeyDown
             end
           end
-          object DBEdit42: TDBEdit
-            Left = 130
-            Top = 219
-            Width = 640
-            Height = 21
-            DataField = 'CONTATO_COMPRAS'
-            DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 15
-          end
-          object DBEdit43: TDBEdit
-            Left = 130
-            Top = 240
-            Width = 640
-            Height = 21
-            CharCase = ecLowerCase
-            DataField = 'EMAIL_COMPRAS'
-            DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 16
-          end
           object DBCheckBox13: TDBCheckBox
             Left = 720
             Top = 398
@@ -6520,7 +6426,7 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 30
+            TabOrder = 25
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -6538,7 +6444,7 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 31
+            TabOrder = 26
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -6556,23 +6462,9 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 32
+            TabOrder = 27
             ValueChecked = 'S'
             ValueUnchecked = 'N'
-          end
-          object RxDBLookupCombo27: TRxDBLookupCombo
-            Left = 130
-            Top = 177
-            Width = 265
-            Height = 21
-            DropDownCount = 8
-            DataField = 'ID_EDI'
-            DataSource = DMCadPessoa.dsPessoa
-            LookupField = 'ID'
-            LookupDisplay = 'NOME'
-            LookupSource = DMCadPessoa.dsEDI_Config
-            TabOrder = 11
-            OnChange = RxDBLookupCombo27Change
           end
           object DBCheckBox6: TDBCheckBox
             Left = 720
@@ -6588,7 +6480,7 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 33
+            TabOrder = 28
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -6600,17 +6492,7 @@ object frmCadPessoa: TfrmCadPessoa
             CharCase = ecLowerCase
             DataField = 'VLR_LIMITE_CREDITO'
             DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 12
-          end
-          object DBEdit51: TDBEdit
-            Left = 499
-            Top = 309
-            Width = 214
-            Height = 21
-            CharCase = ecUpperCase
-            DataField = 'CARIMBO'
-            DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 23
+            TabOrder = 11
           end
           object DBEdit48: TDBEdit
             Left = 692
@@ -6620,7 +6502,7 @@ object frmCadPessoa: TfrmCadPessoa
             CharCase = ecLowerCase
             DataField = 'VLR_LIMITE_COMPRA'
             DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 13
+            TabOrder = 12
           end
           object RxDBLookupCombo35: TRxDBLookupCombo
             Left = 130
@@ -6644,7 +6526,7 @@ object frmCadPessoa: TfrmCadPessoa
             DataSource = DMCadPessoa.dsPessoa
             ReadOnly = True
             NumGlyphs = 2
-            TabOrder = 17
+            TabOrder = 14
           end
           object DBEdit21: TDBEdit
             Left = 491
@@ -6654,7 +6536,7 @@ object frmCadPessoa: TfrmCadPessoa
             CharCase = ecLowerCase
             DataField = 'VLR_ULT_FATURAMENTO'
             DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 18
+            TabOrder = 15
           end
           object DBEdit82: TDBEdit
             Left = 675
@@ -6664,7 +6546,7 @@ object frmCadPessoa: TfrmCadPessoa
             CharCase = ecLowerCase
             DataField = 'QTD_ULT_FATURAMENTO'
             DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 19
+            TabOrder = 16
           end
           object DBEdit83: TDBEdit
             Left = 130
@@ -6674,7 +6556,7 @@ object frmCadPessoa: TfrmCadPessoa
             CharCase = ecUpperCase
             DataField = 'COD_CONTABIL_CLIENTE'
             DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 20
+            TabOrder = 17
           end
           object DBEdit84: TDBEdit
             Left = 130
@@ -6684,7 +6566,7 @@ object frmCadPessoa: TfrmCadPessoa
             CharCase = ecUpperCase
             DataField = 'COD_CONTABIL_FORNECEDOR'
             DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 21
+            TabOrder = 18
           end
           object RxDBComboBox15: TRxDBComboBox
             Left = 130
@@ -6700,7 +6582,7 @@ object frmCadPessoa: TfrmCadPessoa
               'Liberado'
               'Restrito'
               'Bloqueado')
-            TabOrder = 22
+            TabOrder = 19
             Values.Strings = (
               'L'
               'R'
@@ -6733,7 +6615,7 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 34
+            TabOrder = 29
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -6751,25 +6633,7 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 35
-            ValueChecked = 'S'
-            ValueUnchecked = 'N'
-          end
-          object DBCheckBox26: TDBCheckBox
-            Left = 720
-            Top = 485
-            Width = 265
-            Height = 17
-            Caption = 'Usar a OC/Item que vem no XML do fornecedor'
-            DataField = 'USA_OC_XML'
-            DataSource = DMCadPessoa.dsPessoa
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 36
+            TabOrder = 30
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -6798,7 +6662,7 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 25
+            TabOrder = 20
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -6810,46 +6674,7 @@ object frmCadPessoa: TfrmCadPessoa
             CharCase = ecUpperCase
             DataField = 'OBS_AVISO'
             DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 26
-          end
-          object RzGroupBox2: TRzGroupBox
-            Left = 450
-            Top = 425
-            Width = 233
-            Height = 73
-            Caption = 'Imprimir na DANFE'
-            FlatColor = clBlack
-            TabOrder = 37
-            object DBCheckBox27: TDBCheckBox
-              Left = 24
-              Top = 24
-              Width = 185
-              Height = 17
-              Caption = 'Cor do cliente'
-              DataField = 'IMP_COR_CLIENTE'
-              DataSource = DMCadPessoa.dsPessoa
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              ParentFont = False
-              TabOrder = 0
-              ValueChecked = 'S'
-              ValueUnchecked = 'N'
-            end
-            object DBCheckBox23: TDBCheckBox
-              Left = 24
-              Top = 49
-              Width = 193
-              Height = 16
-              Caption = 'C'#243'digo do produto do cliente'
-              DataField = 'IMP_COD_PRODUTO_CLI'
-              DataSource = DMCadPessoa.dsPessoa
-              TabOrder = 1
-              ValueChecked = 'S'
-              ValueUnchecked = 'N'
-            end
+            TabOrder = 21
           end
           object RxDBComboBox16: TRxDBComboBox
             Left = 130
@@ -6874,7 +6699,7 @@ object frmCadPessoa: TfrmCadPessoa
             ParentCtl3D = False
             ParentShowHint = False
             ShowHint = True
-            TabOrder = 27
+            TabOrder = 22
             Values.Strings = (
               '1'
               '2'
@@ -6904,7 +6729,7 @@ object frmCadPessoa: TfrmCadPessoa
               'Sexta-Feira'
               'S'#225'bado')
             ParentCtl3D = False
-            TabOrder = 28
+            TabOrder = 23
             Values.Strings = (
               '1'
               '2'
@@ -6913,52 +6738,6 @@ object frmCadPessoa: TfrmCadPessoa
               '5'
               '6'
               '7')
-          end
-          object DBCheckBox29: TDBCheckBox
-            Left = 696
-            Top = 120
-            Width = 177
-            Height = 17
-            Caption = 'Associar Produto no Rec. XML'
-            DataField = 'ASSOCIAR_PROD'
-            DataSource = DMCadPessoa.dsPessoa
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 38
-            ValueChecked = 'S'
-            ValueUnchecked = 'N'
-          end
-          object DBCheckBox30: TDBCheckBox
-            Left = 697
-            Top = 104
-            Width = 281
-            Height = 17
-            Caption = 'Baixar Etiq. Somente no Pr'#233' Faturamento'
-            DataField = 'BAIXAR_ETIQ_PREFAT'
-            DataSource = DMCadPessoa.dsPessoa
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 39
-            ValueChecked = 'S'
-            ValueUnchecked = 'N'
-          end
-          object DBEdit108: TDBEdit
-            Left = 499
-            Top = 330
-            Width = 214
-            Height = 21
-            CharCase = ecUpperCase
-            DataField = 'CAIXINHA'
-            DataSource = DMCadPessoa.dsPessoa
-            TabOrder = 24
           end
           object DBCheckBox31: TDBCheckBox
             Left = 696
@@ -6974,48 +6753,12 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 40
-            ValueChecked = 'S'
-            ValueUnchecked = 'N'
-          end
-          object RxDBComboBox18: TRxDBComboBox
-            Left = 550
-            Top = 521
-            Width = 165
-            Height = 21
-            Style = csDropDownList
-            DataField = 'IMP_ETIQUETA_ROT'
-            DataSource = DMCadPessoa.dsPessoa
-            EnableValues = True
-            ItemHeight = 13
-            Items.Strings = (
-              'N=Produto Interno'
-              'C=Nome do Produto Cliente')
-            TabOrder = 41
-            Values.Strings = (
-              'N'
-              'C')
-          end
-          object DBCheckBox32: TDBCheckBox
-            Left = 720
-            Top = 499
-            Width = 265
-            Height = 17
-            Caption = 'Imprimir o nome do Produto do Cliente na NFe'
-            DataField = 'IMP_NOMEPROD_CLIENTE'
-            DataSource = DMCadPessoa.dsPessoa
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 42
+            TabOrder = 31
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
           object DBCheckBox5: TDBCheckBox
-            Left = 696
+            Left = 697
             Top = 135
             Width = 177
             Height = 17
@@ -7028,7 +6771,7 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 43
+            TabOrder = 32
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -7055,42 +6798,6 @@ object frmCadPessoa: TfrmCadPessoa
             DataSource = DMCadPessoa.dsPessoa
             TabOrder = 3
           end
-          object DBCheckBox34: TDBCheckBox
-            Left = 720
-            Top = 513
-            Width = 265
-            Height = 21
-            Caption = 'Imprime o Tamanho no Final do Nome do Produto'
-            DataField = 'IMP_TAMANHO_FINAL'
-            DataSource = DMCadPessoa.dsPessoa
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 44
-            ValueChecked = 'S'
-            ValueUnchecked = 'N'
-          end
-          object DBCheckBox35: TDBCheckBox
-            Left = 721
-            Top = 533
-            Width = 279
-            Height = 17
-            Caption = 'Cliente usa o Tamanho no C'#243'digo do Produto (EDI)'
-            DataField = 'USA_TAMANHO_EDI_COD'
-            DataSource = DMCadPessoa.dsPessoa
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
-            TabOrder = 45
-            ValueChecked = 'S'
-            ValueUnchecked = 'N'
-          end
           object DBCheckBox36: TDBCheckBox
             Left = 426
             Top = 135
@@ -7105,9 +6812,318 @@ object frmCadPessoa: TfrmCadPessoa
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
-            TabOrder = 46
+            TabOrder = 33
             ValueChecked = 'S'
             ValueUnchecked = 'N'
+          end
+        end
+        object TS_Compras: TRzTabSheet
+          Caption = 'Compras / Pedidos'
+          object pnlCompras_Pedidos: TPanel
+            Left = 0
+            Top = 0
+            Width = 1075
+            Height = 604
+            Align = alClient
+            Enabled = False
+            TabOrder = 0
+            OnEnter = pnlCompras_PedidosEnter
+            object Label84: TLabel
+              Left = 106
+              Top = 17
+              Width = 21
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'EDI:'
+            end
+            object Label69: TLabel
+              Left = 43
+              Top = 39
+              Width = 84
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Contato Compras:'
+            end
+            object Label70: TLabel
+              Left = 55
+              Top = 60
+              Width = 72
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Email Compras:'
+            end
+            object Label93: TLabel
+              Left = 86
+              Top = 109
+              Width = 41
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Carimbo:'
+            end
+            object Label194: TLabel
+              Left = 84
+              Top = 130
+              Width = 43
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Caixinha:'
+            end
+            object Label153: TLabel
+              Left = 130
+              Top = 86
+              Width = 286
+              Height = 13
+              Caption = 'Carimbo Preenchido vai aparecer no campo MARCA da NFe'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clMaroon
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+            end
+            object Label196: TLabel
+              Left = 28
+              Top = 152
+              Width = 99
+              Height = 13
+              Caption = 'Imp. Etiqueta R'#243'tulo:'
+            end
+            object Label211: TLabel
+              Left = 62
+              Top = 191
+              Width = 65
+              Height = 13
+              Caption = 'Unid. Padr'#227'o:'
+            end
+            object RxDBLookupCombo27: TRxDBLookupCombo
+              Left = 130
+              Top = 9
+              Width = 265
+              Height = 21
+              DropDownCount = 8
+              DataField = 'ID_EDI'
+              DataSource = DMCadPessoa.dsPessoa
+              LookupField = 'ID'
+              LookupDisplay = 'NOME'
+              LookupSource = DMCadPessoa.dsEDI_Config
+              TabOrder = 0
+              OnChange = RxDBLookupCombo27Change
+            end
+            object DBEdit42: TDBEdit
+              Left = 130
+              Top = 31
+              Width = 640
+              Height = 21
+              DataField = 'CONTATO_COMPRAS'
+              DataSource = DMCadPessoa.dsPessoa
+              TabOrder = 1
+            end
+            object DBEdit43: TDBEdit
+              Left = 131
+              Top = 52
+              Width = 640
+              Height = 21
+              CharCase = ecLowerCase
+              DataField = 'EMAIL_COMPRAS'
+              DataSource = DMCadPessoa.dsPessoa
+              TabOrder = 2
+            end
+            object DBEdit51: TDBEdit
+              Left = 130
+              Top = 101
+              Width = 214
+              Height = 21
+              CharCase = ecUpperCase
+              DataField = 'CARIMBO'
+              DataSource = DMCadPessoa.dsPessoa
+              TabOrder = 3
+            end
+            object DBEdit108: TDBEdit
+              Left = 130
+              Top = 122
+              Width = 214
+              Height = 21
+              CharCase = ecUpperCase
+              DataField = 'CAIXINHA'
+              DataSource = DMCadPessoa.dsPessoa
+              TabOrder = 4
+            end
+            object DBCheckBox30: TDBCheckBox
+              Left = 639
+              Top = 115
+              Width = 281
+              Height = 17
+              Caption = 'Baixar Etiq. Somente no Pr'#233' Faturamento'
+              DataField = 'BAIXAR_ETIQ_PREFAT'
+              DataSource = DMCadPessoa.dsPessoa
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 8
+              ValueChecked = 'S'
+              ValueUnchecked = 'N'
+            end
+            object DBCheckBox26: TDBCheckBox
+              Left = 639
+              Top = 146
+              Width = 265
+              Height = 17
+              Caption = 'Usar a OC/Item que vem no XML do fornecedor'
+              DataField = 'USA_OC_XML'
+              DataSource = DMCadPessoa.dsPessoa
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 10
+              ValueChecked = 'S'
+              ValueUnchecked = 'N'
+            end
+            object DBCheckBox35: TDBCheckBox
+              Left = 639
+              Top = 194
+              Width = 279
+              Height = 17
+              Caption = 'Cliente usa o Tamanho no C'#243'digo do Produto (EDI)'
+              DataField = 'USA_TAMANHO_EDI_COD'
+              DataSource = DMCadPessoa.dsPessoa
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 13
+              ValueChecked = 'S'
+              ValueUnchecked = 'N'
+            end
+            object DBCheckBox34: TDBCheckBox
+              Left = 639
+              Top = 174
+              Width = 265
+              Height = 21
+              Caption = 'Imprime o Tamanho no Final do Nome do Produto'
+              DataField = 'IMP_TAMANHO_FINAL'
+              DataSource = DMCadPessoa.dsPessoa
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 12
+              ValueChecked = 'S'
+              ValueUnchecked = 'N'
+            end
+            object DBCheckBox32: TDBCheckBox
+              Left = 639
+              Top = 160
+              Width = 265
+              Height = 17
+              Caption = 'Imprimir o nome do Produto do Cliente na NFe'
+              DataField = 'IMP_NOMEPROD_CLIENTE'
+              DataSource = DMCadPessoa.dsPessoa
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 11
+              ValueChecked = 'S'
+              ValueUnchecked = 'N'
+            end
+            object RzGroupBox2: TRzGroupBox
+              Left = 128
+              Top = 228
+              Width = 233
+              Height = 73
+              Caption = 'Imprimir na DANFE'
+              FlatColor = clBlack
+              TabOrder = 7
+              object DBCheckBox27: TDBCheckBox
+                Left = 23
+                Top = 24
+                Width = 185
+                Height = 17
+                Caption = 'Cor do cliente'
+                DataField = 'IMP_COR_CLIENTE'
+                DataSource = DMCadPessoa.dsPessoa
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                ParentFont = False
+                TabOrder = 0
+                ValueChecked = 'S'
+                ValueUnchecked = 'N'
+              end
+              object DBCheckBox23: TDBCheckBox
+                Left = 24
+                Top = 49
+                Width = 193
+                Height = 16
+                Caption = 'C'#243'digo do produto do cliente'
+                DataField = 'IMP_COD_PRODUTO_CLI'
+                DataSource = DMCadPessoa.dsPessoa
+                TabOrder = 1
+                ValueChecked = 'S'
+                ValueUnchecked = 'N'
+              end
+            end
+            object RxDBComboBox18: TRxDBComboBox
+              Left = 130
+              Top = 144
+              Width = 165
+              Height = 21
+              Style = csDropDownList
+              DataField = 'IMP_ETIQUETA_ROT'
+              DataSource = DMCadPessoa.dsPessoa
+              EnableValues = True
+              ItemHeight = 13
+              Items.Strings = (
+                'N=Produto Interno'
+                'C=Nome do Produto Cliente')
+              TabOrder = 5
+              Values.Strings = (
+                'N'
+                'C')
+            end
+            object DBCheckBox29: TDBCheckBox
+              Left = 639
+              Top = 131
+              Width = 177
+              Height = 17
+              Caption = 'Associar Produto no Rec. XML'
+              DataField = 'ASSOCIAR_PROD'
+              DataSource = DMCadPessoa.dsPessoa
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 9
+              ValueChecked = 'S'
+              ValueUnchecked = 'N'
+            end
+            object DBEdit117: TDBEdit
+              Left = 131
+              Top = 183
+              Width = 94
+              Height = 21
+              CharCase = ecUpperCase
+              DataField = 'UNIDADE_PADRAO'
+              DataSource = DMCadPessoa.dsPessoa_Ped
+              TabOrder = 6
+              OnExit = DBEdit117Exit
+            end
           end
         end
         object TS_RegrasFiscais: TRzTabSheet
@@ -7799,7 +7815,7 @@ object frmCadPessoa: TfrmCadPessoa
                 Caption = 'CST:'
               end
               object Label210: TLabel
-                Left = 301
+                Left = 303
                 Top = 30
                 Width = 53
                 Height = 13
@@ -8755,8 +8771,8 @@ object frmCadPessoa: TfrmCadPessoa
     GroupName = 'Pessoa'
     UserControl = fMenu.UserControl1
     NotAllowed = naDisabled
-    Left = 505
-    Top = 201
+    Left = 490
+    Top = 229
   end
   object ACBrConsultaCPF1: TACBrConsultaCPF
     ProxyPort = '8080'
