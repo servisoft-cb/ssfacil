@@ -3,8 +3,8 @@ unit uMostraPDF;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ExtCtrls, itfPDFImage, StdCtrls, Math, frxClass, Buttons;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, itfPDFImage, StdCtrls, frxClass,
+  Math, Buttons;
 
 type
   TfrmMostraPDF = class(TForm)
@@ -35,7 +35,7 @@ type
     { Private declarations }
     procedure CheckState;
   public
-    vCaminhoPDF : String;
+    vCaminhoPDF: String;
     { Public declarations }
   end;
 
@@ -93,8 +93,7 @@ begin
   {$ifndef USESYNPDF}
 //  edPageFrom.Enabled:=FALSE;
 //  edPageTo.Enabled:=FALSE;
-  {$endif}
-
+  {$endif}                                              
 end;
 
 procedure TfrmMostraPDF.btnZoomInClick(Sender: TObject);
@@ -112,13 +111,12 @@ end;
 procedure TfrmMostraPDF.frxReport1BeforePrint(Sender: TfrxReportComponent);
 begin
   if frxReport1.FindComponent('Picture1')<> nil then
-    TfrxPictureView(frxReport1.FindComponent('Picture1')).Picture.LoadFromFile(vCaminhoPDF) ;
-
+    TfrxPictureView(frxReport1.FindComponent('Picture1')).Picture.LoadFromFile(vCaminhoPDF) ; 
 end;
 
 procedure TfrmMostraPDF.BitBtn1Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\teste.fr3';
   if FileExists(vArq) then

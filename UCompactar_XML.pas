@@ -3,9 +3,8 @@ unit UCompactar_XML;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ZipMstr, StdCtrls, Buttons, Mask, ToolEdit, CurrEdit, ExtCtrls,
-  FMTBcd, DB, SqlExpr;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ZipMstr, StdCtrls, Buttons, ToolEdit,
+  Mask, CurrEdit, ExtCtrls, FMTBcd, DB, SqlExpr;
 
 type
   TfrmCompactar_XML = class(TForm)
@@ -57,7 +56,7 @@ type
     procedure FormShow(Sender: TObject);
   private
     { Private declarations }
-    vNomeZip : String;
+    vNomeZip: String;
 
     procedure prc_EfetuaBackup;
     procedure prc_Enviar_Email;
@@ -97,16 +96,16 @@ var
    tmp: String;
    Dir: string;
    CompZip: TZipMaster;
-   Diretorio : String;
-   vExtensao : String;
+   Diretorio: String;
+   vExtensao: String;
 begin
   CompZip := TZipMaster.Create(nil);
   //Dir := GetCurrentDir;
   try
     vExtensao := '';
     case ComboBox1.ItemIndex of
-      0,2,3 : vExtensao := 'XML';
-      1   : vExtensao := 'PDF';
+      0,2,3: vExtensao := 'XML';
+      1  : vExtensao := 'PDF';
     end;
 
     CompZip.UseDirOnlyEntries := True;
@@ -199,12 +198,12 @@ end;
 
 procedure TfrmCompactar_XML.prc_Enviar_Email;
 var
-  lista_Anexo : TStringList;
-  vDadosCorpoEmail : WideString;
-  texto : String;
-  Assunto : String;
-  vSenhaEmail : String;
-  vLocalServidorNFe : String;
+  lista_Anexo: TStringList;
+  vDadosCorpoEmail: WideString;
+  texto: String;
+  Assunto: String;
+  vSenhaEmail: String;
+  vLocalServidorNFe: String;
 begin
   Lista_Anexo := TStringList.Create;
   try
@@ -212,11 +211,11 @@ begin
     vDadosCorpoEmail := 'ARQUIVO ' + ComboBox1.Text + #13;
     vDadosCorpoEmail := vDadosCorpoEmail + #13;
 
-    vDadosCorpoEmail := vDadosCorpoEmail  + #13 + 'Empresa: ' + qFilialNOME.AsString;
+    vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'Empresa: ' + qFilialNOME.AsString;
     if qFilialPESSOA.AsString = 'J' then
-      vDadosCorpoEmail := vDadosCorpoEmail  + #13 + 'CNPJ: ' + qFilialCNPJ_CPF.AsString
+      vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'CNPJ: ' + qFilialCNPJ_CPF.AsString
     else
-      vDadosCorpoEmail := vDadosCorpoEmail  + #13 + 'CPF: ' + qFilialCNPJ_CPF.AsString;
+      vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'CPF: ' + qFilialCNPJ_CPF.AsString;
     if qFilialPESSOA.AsString = 'F' then
       texto := Monta_Texto(qFilialCNPJ_CPF.AsString,11)
     else

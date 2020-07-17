@@ -3,8 +3,7 @@ unit UDMRecNF;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, frxClass,
-  frxDBSet, frxRich, frxExportMail, frxExportPDF;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF;
 
 type
   TDMRecNF = class(TDataModule)
@@ -192,6 +191,7 @@ type
     dspNumOC: TDataSetProvider;
     cdsNumOC: TClientDataSet;
     cdsNumOCNUMERO_OC: TStringField;
+    cdsNotaFiscalNUM_PEDIDO: TIntegerField;
   private
     { Private declarations }
   public

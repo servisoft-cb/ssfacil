@@ -28,11 +28,12 @@ object DMRecNF: TDMRecNF
       'NUM_END_FIL,'#13#10'F.bairro BAIRRO_FIL, F.cidade CIDADE_FIL, F.UF UF_' +
       'FIL, F.cnpj_cpf CNPJ_CFP_FIL, F.CEP CEP_FIL,'#13#10'F.inscr_est INSCR_' +
       'EST_FIL, F.ddd1 DDD_FIL, F.fone FONE_FIL, COND.nome NOME_CONDPGT' +
-      'O,'#13#10'(NF.vlr_nota + NF.vlr_desconto) VLR_NOTA2'#13#10'FROM NOTAFISCAL N' +
-      'F'#13#10'INNER JOIN PESSOA CLI'#13#10'ON NF.ID_CLIENTE = CLI.CODIGO'#13#10'INNER J' +
-      'OIN FILIAL F'#13#10'ON nf.filial = f.id'#13#10'LEFT JOIN PESSOA TRANSP'#13#10'ON N' +
-      'F.ID_TRANSPORTADORA = TRANSP.CODIGO'#13#10'LEFT JOIN CONDPGTO COND'#13#10'ON' +
-      ' NF.id_condpgto = COND.ID'#13#10'WHERE NF.ID = :ID'#13#10
+      'O,'#13#10'(NF.vlr_nota + NF.vlr_desconto) VLR_NOTA2, NFP.NUM_PEDIDO'#13#10'F' +
+      'ROM NOTAFISCAL NF'#13#10'INNER JOIN PESSOA CLI ON NF.ID_CLIENTE = CLI.' +
+      'CODIGO'#13#10'INNER JOIN FILIAL F ON nf.filial = f.id'#13#10'LEFT JOIN PESSO' +
+      'A TRANSP ON NF.ID_TRANSPORTADORA = TRANSP.CODIGO'#13#10'LEFT JOIN COND' +
+      'PGTO COND ON NF.id_condpgto = COND.ID'#13#10'LEFT JOIN NOTAFISCAL_PED ' +
+      'NFP ON (NFP.ID = NF.ID)'#13#10'WHERE NF.ID = :ID'
     MaxBlobSize = -1
     Params = <
       item
@@ -606,6 +607,9 @@ object DMRecNF: TDMRecNF
       FieldName = 'USUARIO'
       Size = 15
     end
+    object cdsNotaFiscalNUM_PEDIDO: TIntegerField
+      FieldName = 'NUM_PEDIDO'
+    end
   end
   object dsNotaFiscal: TDataSource
     DataSet = cdsNotaFiscal
@@ -621,7 +625,7 @@ object DMRecNF: TDMRecNF
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 43572.707052418980000000
+    ReportOptions.LastChange = 44029.716039664350000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 440
@@ -818,7 +822,8 @@ object DMRecNF: TDMRecNF
       'DDD_FIL=DDD_FIL'
       'FONE_FIL=FONE_FIL'
       'VLR_NOTA2=VLR_NOTA2'
-      'USUARIO=USUARIO')
+      'USUARIO=USUARIO'
+      'NUM_PEDIDO=NUM_PEDIDO')
     DataSource = dsNotaFiscal
     BCDToCurrency = False
     Left = 440
