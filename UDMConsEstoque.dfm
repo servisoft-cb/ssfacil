@@ -1102,11 +1102,11 @@ object DMConsEstoque: TDMConsEstoque
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 43284.725669537000000000
-    ReportOptions.LastChange = 44020.626923078700000000
+    ReportOptions.LastChange = 44020.629402175900000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 847
+    Left = 848
     Top = 362
   end
   object frxPDFExport1: TfrxPDFExport

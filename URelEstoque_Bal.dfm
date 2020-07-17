@@ -17,7 +17,7 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
   PixelsPerInch = 96
   TextHeight = 13
   object RLReport1: TRLReport
-    Left = 54
+    Left = 55
     Top = 16
     Width = 794
     Height = 1123
@@ -300,9 +300,9 @@ object fRelEstoque_Bal: TfRelEstoque_Bal
           Top = 2
           Width = 43
           Height = 10
-          Alignment = taRightJustify
+          Alignment = taCenter
           AutoSize = False
-          DataField = 'QTD_ESTOQUE'
+          DataField = 'NCM'
           DataSource = DMConsEstoque.dsBalanco
         end
       end

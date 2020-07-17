@@ -562,6 +562,8 @@ type
     procedure prc_CriaExcel(vDados: TDataSource);
     procedure MoverArquivo(Origem, Destino,Arquivo: String);
 
+    function fnc_Sem_Comissao(ID : Integer) : String;
+
   public
     { Public declarations }
     vQtd_Caixa: Integer;
@@ -1332,7 +1334,13 @@ end;
 procedure TfrmCadPedido.btnConfirmarClick(Sender: TObject);
 var
   vIDVend: Integer;
+  vIDVendedor_Principal : Integer;
+  vIDAux : Integer;
+  vTexto : String;
+  vMSGAux : String;
 begin
+  vIDVendedor_Principal := fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger;
+  vIDAux                := fDMCadPedido.cdsPedidoID.AsInteger;
   if fDMCadPedido.qParametros_PedUSA_RETIRADA.AsString = 'S' then
     fDMCadPedido.cdsPedidoNOME_PRODUTO_PROPOSTA.AsString := InputBox('Retirada','Retirada:',fDMCadPedido.cdsPedidoNOME_PRODUTO_PROPOSTA.AsString);
 
@@ -1371,7 +1379,19 @@ begin
   SMDBGrid2.DataSource := fDMCadPedido.dsPedido_Itens;
   if not (fDMCadPedido.cdsPedido.State in [dsEdit,dsInsert]) then
     fDMCadPedido.cdsPedido.Close;
-  SMDBGrid2.EnableScroll;                                         
+  SMDBGrid2.EnableScroll;
+
+  if (vIDVendedor_Principal > 0) and (SQLLocate('PARAMETROS_COM','ID','AVISAR_SEM_COMISSAO','1') = 'S') then
+  begin
+    vMSGAux := fnc_Sem_Comissao(vIDAux); 
+    if trim(vMSGAux) <> '' then
+    begin
+      vTexto := '';
+      while not (trim(vTexto) = '1') do
+        vTexto := InputBox('*** ATENÇÃO ***',vMSGAux + #13 + #13 + 'Informar 1 para prosseguir', '');
+    end;
+  end;
+
 end;
 
 procedure TfrmCadPedido.FormDestroy(Sender: TObject);
@@ -4860,6 +4880,36 @@ begin
   o := PAnsiChar(Origem + Arquivo);
   d := PAnsiChar(Destino + Arquivo);
   MoveFile(o,d);
+end;
+
+function TfrmCadPedido.fnc_Sem_Comissao(ID : Integer) : String;
+var
+  sds: TSQLDataSet;
+begin
+  Result := '';
+  sds := TSQLDataSet.Create(nil);
+  try
+    if (fDMCadPedido.qParametros_LoteLOTE_TEXTIL.AsString = 'S') or (trim(fDMCadPedido.qParametros_LoteUSA_LOTE_PED_SPROC.AsString) = 'S') then
+    begin
+      sds.SQLConnection := dmDatabase.scoDados;
+      sds.NoMetadata    := True;
+      sds.GetMetadata   := False;
+      sds.CommandText   := 'select coalesce(P.PERC_COMISSAO,0) PERC_COMISSAO, count(1) CONTADOR from PEDIDO P '
+                         + 'inner join PEDIDO_ITEM I on P.ID = I.ID '
+                         + 'where coalesce(I.PERC_COMISSAO, 0) <= 0 and P.ID = :ID '
+                         + 'group by P.PERC_COMISSAO ';
+      sds.ParamByName('ID').AsInteger := ID;
+      sds.Open;
+      if (sds.FieldByName('CONTADOR').AsInteger > 0) and (sds.FieldByName('PERC_COMISSAO').AsFloat > 0) then
+        Result := 'Existe itens sem comissão, mas foi incluída o % na Tela Principal '
+      else
+      if (sds.FieldByName('CONTADOR').AsInteger > 0) and (sds.FieldByName('PERC_COMISSAO').AsFloat <= 0) then
+        Result := 'Existe itens sem comissão!';
+    end
+  finally
+    FreeAndNil(sds);
+  end;
+
 end;
 
 end.

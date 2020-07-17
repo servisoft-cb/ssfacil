@@ -8795,7 +8795,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = :ID'
       '  AND ID_FORNECEDOR = :ID_FORNECEDOR')
     SQLConnection = dmDatabase.scoDados
-    Left = 880
+    Left = 879
     Top = 423
     object qProduto_FornCOD_MATERIAL_FORN: TStringField
       FieldName = 'COD_MATERIAL_FORN'

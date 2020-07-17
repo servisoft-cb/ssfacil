@@ -948,6 +948,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'NOME_CONTATO'
             Title.Alignment = taCenter
             Title.Caption = 'Contato'
+            Width = 64
             Visible = True
           end
           item
@@ -1002,6 +1003,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Cli'
+            Width = 64
             Visible = True
           end
           item
@@ -1010,6 +1012,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_FORNECEDOR'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Forn.'
+            Width = 64
             Visible = True
           end
           item
@@ -1027,6 +1030,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_VENDEDOR'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Repr.'
+            Width = 64
             Visible = True
           end
           item
@@ -1035,6 +1039,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'ORGAO_PUBLICO'
             Title.Alignment = taCenter
             Title.Caption = 'Org'#227'o P'#250'blico'
+            Width = 64
             Visible = True
           end
           item
@@ -1042,6 +1047,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'DTPEDIDO'
             Title.Alignment = taCenter
             Title.Caption = 'Data '#218'lt. Pedido'
+            Width = 64
             Visible = True
           end
           item
@@ -1049,6 +1055,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'DTNOTA'
             Title.Alignment = taCenter
             Title.Caption = 'Data '#218'lt. Faturamento'
+            Width = 64
             Visible = True
           end
           item
@@ -1096,6 +1103,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Nome Grupo'
+            Width = 64
             Visible = True
           end
           item
@@ -1103,6 +1111,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_CONTA_ORCAMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Or'#231'amento'
+            Width = 64
             Visible = True
           end
           item
@@ -1110,6 +1119,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_CLI'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Cliente'
+            Width = 64
             Visible = True
           end
           item
@@ -1117,6 +1127,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_FORN'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Fornecedor'
+            Width = 64
             Visible = True
           end
           item
@@ -1124,6 +1135,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_TRANSP'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Transp.'
+            Width = 64
             Visible = True
           end
           item
@@ -1138,6 +1150,7 @@ object frmCadPessoa: TfrmCadPessoa
             Expanded = False
             FieldName = 'INSCR_EST'
             Title.Caption = 'Inscr. Estadual'
+            Width = 64
             Visible = True
           end
           item
@@ -1153,6 +1166,7 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_REGIME'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Regime'
+            Width = 64
             Visible = True
           end
           item
@@ -1406,7 +1420,7 @@ object frmCadPessoa: TfrmCadPessoa
         Top = 30
         Width = 1079
         Height = 627
-        ActivePage = TS_Compras
+        ActivePage = TS_Pessoa_Financeiro
         ActivePageDefault = TS_Pessoa_Dados
         Align = alClient
         BackgroundColor = clSilver
@@ -1414,7 +1428,7 @@ object frmCadPessoa: TfrmCadPessoa
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 4
+        TabIndex = 3
         TabOrder = 1
         OnChange = RZPageControlDadosChange
         FixedDimension = 19
@@ -4630,6 +4644,7 @@ object frmCadPessoa: TfrmCadPessoa
                     Expanded = False
                     FieldName = 'OBS'
                     Title.Color = 12320699
+                    Width = 64
                     Visible = True
                   end>
               end
@@ -5955,7 +5970,7 @@ object frmCadPessoa: TfrmCadPessoa
             Caption = 'Email Financeiro:'
           end
           object Label87: TLabel
-            Left = 420
+            Left = 43
             Top = 185
             Width = 84
             Height = 13
@@ -5963,7 +5978,7 @@ object frmCadPessoa: TfrmCadPessoa
             Caption = 'Vlr. Limite Cr'#233'dito:'
           end
           object Label107: TLabel
-            Left = 597
+            Left = 220
             Top = 185
             Width = 92
             Height = 13
@@ -6030,7 +6045,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object Label157: TLabel
             Left = 58
-            Top = 269
+            Top = 228
             Width = 70
             Height = 13
             Alignment = taRightJustify
@@ -6038,7 +6053,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object Label158: TLabel
             Left = 417
-            Top = 269
+            Top = 228
             Width = 71
             Height = 13
             Alignment = taRightJustify
@@ -6046,7 +6061,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object Label159: TLabel
             Left = 599
-            Top = 269
+            Top = 228
             Width = 73
             Height = 13
             Alignment = taRightJustify
@@ -6054,7 +6069,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object Label160: TLabel
             Left = 27
-            Top = 290
+            Top = 250
             Width = 101
             Height = 13
             Alignment = taRightJustify
@@ -6062,7 +6077,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object Label161: TLabel
             Left = 5
-            Top = 311
+            Top = 271
             Width = 123
             Height = 13
             Alignment = taRightJustify
@@ -6070,7 +6085,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object Label183: TLabel
             Left = 53
-            Top = 332
+            Top = 292
             Width = 75
             Height = 13
             Alignment = taRightJustify
@@ -6136,7 +6151,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object Label187: TLabel
             Left = 99
-            Top = 368
+            Top = 328
             Width = 29
             Height = 13
             Alignment = taRightJustify
@@ -6144,7 +6159,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object Label192: TLabel
             Left = 47
-            Top = 390
+            Top = 350
             Width = 80
             Height = 13
             Caption = 'Melhor dia Pgto.:'
@@ -6215,7 +6230,7 @@ object frmCadPessoa: TfrmCadPessoa
             TabOrder = 5
           end
           object RxDBLookupCombo7: TRxDBLookupCombo
-            Left = 130
+            Left = 131
             Top = 90
             Width = 265
             Height = 21
@@ -6253,7 +6268,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object gbxConta_Orcamento: TRzGroupBox
             Left = 28
-            Top = 424
+            Top = 384
             Width = 405
             Height = 144
             Caption = 'Conta de Or'#231'amento por Tipo de Pessoa'
@@ -6414,7 +6429,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox13: TDBCheckBox
             Left = 720
-            Top = 398
+            Top = 358
             Width = 153
             Height = 17
             Caption = 'Usa Transfer'#234'ncia ICMS'
@@ -6432,7 +6447,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox14: TDBCheckBox
             Left = 720
-            Top = 413
+            Top = 373
             Width = 225
             Height = 17
             Caption = 'Cliente Estoque (Pedido sem Faturamento)'
@@ -6450,7 +6465,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox15: TDBCheckBox
             Left = 720
-            Top = 427
+            Top = 387
             Width = 249
             Height = 17
             Caption = 'Agrupa Tamanhos na Emiss'#227'o da Nota Fiscal'
@@ -6468,7 +6483,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox6: TDBCheckBox
             Left = 720
-            Top = 456
+            Top = 416
             Width = 145
             Height = 17
             Caption = 'Cobrar Taxa Banc'#225'ria'
@@ -6485,8 +6500,8 @@ object frmCadPessoa: TfrmCadPessoa
             ValueUnchecked = 'N'
           end
           object DBEdit47: TDBEdit
-            Left = 507
-            Top = 177
+            Left = 130
+            Top = 178
             Width = 78
             Height = 21
             CharCase = ecLowerCase
@@ -6495,7 +6510,7 @@ object frmCadPessoa: TfrmCadPessoa
             TabOrder = 11
           end
           object DBEdit48: TDBEdit
-            Left = 692
+            Left = 315
             Top = 177
             Width = 78
             Height = 21
@@ -6519,7 +6534,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBDateEdit12: TDBDateEdit
             Left = 130
-            Top = 261
+            Top = 220
             Width = 119
             Height = 21
             DataField = 'DTNOTA'
@@ -6530,7 +6545,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBEdit21: TDBEdit
             Left = 491
-            Top = 261
+            Top = 220
             Width = 94
             Height = 21
             CharCase = ecLowerCase
@@ -6540,7 +6555,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBEdit82: TDBEdit
             Left = 675
-            Top = 261
+            Top = 220
             Width = 94
             Height = 21
             CharCase = ecLowerCase
@@ -6550,7 +6565,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBEdit83: TDBEdit
             Left = 130
-            Top = 282
+            Top = 242
             Width = 119
             Height = 21
             CharCase = ecUpperCase
@@ -6560,7 +6575,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBEdit84: TDBEdit
             Left = 130
-            Top = 303
+            Top = 263
             Width = 119
             Height = 21
             CharCase = ecUpperCase
@@ -6570,7 +6585,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object RxDBComboBox15: TRxDBComboBox
             Left = 130
-            Top = 324
+            Top = 284
             Width = 119
             Height = 21
             Style = csDropDownList
@@ -6603,7 +6618,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox24: TDBCheckBox
             Left = 720
-            Top = 441
+            Top = 401
             Width = 89
             Height = 17
             Caption = 'Protestar'
@@ -6621,7 +6636,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox25: TDBCheckBox
             Left = 720
-            Top = 470
+            Top = 430
             Width = 265
             Height = 17
             Caption = 'Controlar o Custo L'#237'quido na Entrada'
@@ -6650,7 +6665,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBCheckBox28: TDBCheckBox
             Left = 130
-            Top = 344
+            Top = 304
             Width = 265
             Height = 17
             Caption = 'Mostrar o Aviso no cadastro do Pedido'
@@ -6668,7 +6683,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object DBEdit103: TDBEdit
             Left = 130
-            Top = 360
+            Top = 320
             Width = 646
             Height = 21
             CharCase = ecUpperCase
@@ -6678,7 +6693,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object RxDBComboBox16: TRxDBComboBox
             Left = 130
-            Top = 382
+            Top = 342
             Width = 146
             Height = 21
             Style = csDropDownList
@@ -6711,7 +6726,7 @@ object frmCadPessoa: TfrmCadPessoa
           end
           object RxDBComboBox17: TRxDBComboBox
             Left = 281
-            Top = 382
+            Top = 342
             Width = 149
             Height = 21
             Style = csDropDownList
@@ -6853,24 +6868,24 @@ object frmCadPessoa: TfrmCadPessoa
               Caption = 'Email Compras:'
             end
             object Label93: TLabel
-              Left = 86
-              Top = 109
+              Left = 87
+              Top = 81
               Width = 41
               Height = 13
               Alignment = taRightJustify
               Caption = 'Carimbo:'
             end
             object Label194: TLabel
-              Left = 84
-              Top = 130
+              Left = 85
+              Top = 102
               Width = 43
               Height = 13
               Alignment = taRightJustify
               Caption = 'Caixinha:'
             end
             object Label153: TLabel
-              Left = 130
-              Top = 86
+              Left = 352
+              Top = 77
               Width = 286
               Height = 13
               Caption = 'Carimbo Preenchido vai aparecer no campo MARCA da NFe'
@@ -6882,15 +6897,15 @@ object frmCadPessoa: TfrmCadPessoa
               ParentFont = False
             end
             object Label196: TLabel
-              Left = 28
-              Top = 152
+              Left = 29
+              Top = 123
               Width = 99
               Height = 13
               Caption = 'Imp. Etiqueta R'#243'tulo:'
             end
             object Label211: TLabel
               Left = 62
-              Top = 191
+              Top = 144
               Width = 65
               Height = 13
               Caption = 'Unid. Padr'#227'o:'
@@ -6929,8 +6944,8 @@ object frmCadPessoa: TfrmCadPessoa
               TabOrder = 2
             end
             object DBEdit51: TDBEdit
-              Left = 130
-              Top = 101
+              Left = 131
+              Top = 73
               Width = 214
               Height = 21
               CharCase = ecUpperCase
@@ -6939,8 +6954,8 @@ object frmCadPessoa: TfrmCadPessoa
               TabOrder = 3
             end
             object DBEdit108: TDBEdit
-              Left = 130
-              Top = 122
+              Left = 131
+              Top = 94
               Width = 214
               Height = 21
               CharCase = ecUpperCase
@@ -7039,8 +7054,8 @@ object frmCadPessoa: TfrmCadPessoa
               ValueUnchecked = 'N'
             end
             object RzGroupBox2: TRzGroupBox
-              Left = 128
-              Top = 228
+              Left = 133
+              Top = 168
               Width = 233
               Height = 73
               Caption = 'Imprimir na DANFE'
@@ -7078,8 +7093,8 @@ object frmCadPessoa: TfrmCadPessoa
               end
             end
             object RxDBComboBox18: TRxDBComboBox
-              Left = 130
-              Top = 144
+              Left = 131
+              Top = 115
               Width = 165
               Height = 21
               Style = csDropDownList
@@ -7115,7 +7130,7 @@ object frmCadPessoa: TfrmCadPessoa
             end
             object DBEdit117: TDBEdit
               Left = 131
-              Top = 183
+              Top = 136
               Width = 94
               Height = 21
               CharCase = ecUpperCase
@@ -8771,8 +8786,8 @@ object frmCadPessoa: TfrmCadPessoa
     GroupName = 'Pessoa'
     UserControl = fMenu.UserControl1
     NotAllowed = naDisabled
-    Left = 490
-    Top = 229
+    Left = 833
+    Top = 199
   end
   object ACBrConsultaCPF1: TACBrConsultaCPF
     ProxyPort = '8080'
