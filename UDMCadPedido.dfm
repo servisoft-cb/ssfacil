@@ -1741,7 +1741,7 @@ object DMCadPedido: TDMCadPedido
       '  P.ID_CFOP_NFCE, SPED_TIPO_ITEM, ID_CSTICMS_BRED, P.PERC_MARGEM' +
       'LUCRO, P.TAMANHO, P.QTD_EMBALAGEM, P.QTD_PECA_EMB,'#13#10'       P.REF' +
       '2, P.FATOR_CALCULO, P.ID_CSTICMS, P.CALCULAR_ST, P.MEDIDA, P.PRE' +
-      'CO_VAREJO'#13#10'from PRODUTO P  '
+      'CO_VAREJO, P.PRECO_CUSTO_TOTAL'#13#10'from PRODUTO P  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1942,6 +1942,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsProdutoPRECO_VAREJO: TFloatField
       FieldName = 'PRECO_VAREJO'
+    end
+    object cdsProdutoPRECO_CUSTO_TOTAL: TFloatField
+      FieldName = 'PRECO_CUSTO_TOTAL'
     end
   end
   object dsProduto: TDataSource
@@ -16716,6 +16719,16 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_OCPERMITE_ALT_NOMEPROD: TStringField
       FieldName = 'PERMITE_ALT_NOMEPROD'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_OCATUALIZAR_PRECO: TStringField
+      FieldName = 'ATUALIZAR_PRECO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_OCATUALIZAR_PRECO_VENDA: TStringField
+      FieldName = 'ATUALIZAR_PRECO_VENDA'
       FixedChar = True
       Size = 1
     end

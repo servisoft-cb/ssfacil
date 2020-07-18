@@ -3797,6 +3797,9 @@ type
     cdsItens_ConsultaMOTIVO_NAO_APROV: TMemoField;
     cdsItens_ConsultaDESC_APROVADO_ORC: TStringField;
     qParametros_PedMOSTRAR_ITENS_CONS: TStringField;
+    qParametros_OCATUALIZAR_PRECO: TStringField;
+    qParametros_OCATUALIZAR_PRECO_VENDA: TStringField;
+    cdsProdutoPRECO_CUSTO_TOTAL: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

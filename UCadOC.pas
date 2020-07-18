@@ -294,6 +294,7 @@ type
 
     procedure prc_Mostrar_Reserva;
     procedure prc_Atualiza_Aprovacao_OC(ID : Integer);
+    procedure Atualiza_Preco;
 
     function fnc_Buscar_Num_Ordem(ID_OC: Integer; Ajuste: Boolean = False): String;
 
@@ -386,8 +387,6 @@ begin
     vAux := fnc_Limite_Compra_Usado(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedidoID.AsInteger,fDMCadPedido.cdsPedidoDTEMISSAO.AsDateTime);
     vAux := StrToFloat(FormatFloat('0.00',vAux + fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
     vLimiteCad := StrToFloat(FormatFloat('0.00',fnc_Limite_Compra_Cadastrado(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger)));
-    //if (StrToFloat(FormatFloat('0.00',vAux)) > StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsClienteVLR_LIMITE_COMPRA.AsFloat))) and
-    //   (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsClienteVLR_LIMITE_COMPRA.AsFloat)) > 0) then
     if (StrToFloat(FormatFloat('0.00',vAux)) > StrToFloat(FormatFloat('0.00',vLimiteCad))) and
        (StrToFloat(FormatFloat('0.00',vLimiteCad)) > 0) then
     begin
@@ -399,38 +398,43 @@ begin
   end;
 
   //Ajusta projeto na OC
-  if (fDMCadPedido.cdsParametrosUSA_PROJETO_OC.AsString = 'S') and (fDMCadPedido.cdsPedidoID_PROJETO.AsInteger > 0) then
+  if ((fDMCadPedido.cdsParametrosUSA_PROJETO_OC.AsString = 'S') and (fDMCadPedido.cdsPedidoID_PROJETO.AsInteger > 0))
+     OR (fDMCadPedido.qParametros_OCATUALIZAR_PRECO.AsString = 'S') then
   begin
     fDMCadPedido.cdsPedido_Itens.First;
     while not fDMCadPedido.cdsPedido_Itens.Eof do
     begin
-      if fDMCadPedido.cdsPedido_Cli.IsEmpty then
+      if (fDMCadPedido.cdsParametrosUSA_PROJETO_OC.AsString = 'S') and (fDMCadPedido.cdsPedidoID_PROJETO.AsInteger > 0) then
       begin
-        fDMCadPedido.cdsPedido_Cli.Insert;
-        fDMCadPedido.cdsPedido_CliID.AsInteger              := fDMCadPedido.cdsPedidoID.AsInteger;
-        fDMCadPedido.cdsPedido_CliITEM.AsInteger            := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
-        fDMCadPedido.cdsPedido_CliID_CENTROCUSTO.AsInteger  := fDMCadPedido.cdsPedidoID_PROJETO.AsInteger;
-        fDMCadPedido.cdsPedido_CliQTD.AsFloat               := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
-        fDMCadPedido.cdsPedido_CliNOME_CENTROCUSTO.AsString := RxDBLookupCombo8.Text;
-        fDMCadPedido.cdsPedido_Cli.Post;
-      end
-      else
-      begin
-        fDMCadPedido.cdsPedido_Cli.First;
-        if (fDMCadPedido.cdsPedido_Cli.RecordCount = 1) then
+        if fDMCadPedido.cdsPedido_Cli.IsEmpty then
         begin
-          fDMCadPedido.cdsPedido_Cli.Edit;
-          fDMCadPedido.cdsPedido_CliID_CENTROCUSTO.AsInteger := fDMCadPedido.cdsPedidoID_PROJETO.AsInteger;
-          fDMCadPedido.cdsPedido_CliQTD.AsFloat              := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
+          fDMCadPedido.cdsPedido_Cli.Insert;
+          fDMCadPedido.cdsPedido_CliID.AsInteger              := fDMCadPedido.cdsPedidoID.AsInteger;
+          fDMCadPedido.cdsPedido_CliITEM.AsInteger            := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+          fDMCadPedido.cdsPedido_CliID_CENTROCUSTO.AsInteger  := fDMCadPedido.cdsPedidoID_PROJETO.AsInteger;
+          fDMCadPedido.cdsPedido_CliQTD.AsFloat               := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
+          fDMCadPedido.cdsPedido_CliNOME_CENTROCUSTO.AsString := RxDBLookupCombo8.Text;
           fDMCadPedido.cdsPedido_Cli.Post;
+        end
+        else
+        begin
+          fDMCadPedido.cdsPedido_Cli.First;
+          if (fDMCadPedido.cdsPedido_Cli.RecordCount = 1) then
+          begin
+            fDMCadPedido.cdsPedido_Cli.Edit;
+            fDMCadPedido.cdsPedido_CliID_CENTROCUSTO.AsInteger := fDMCadPedido.cdsPedidoID_PROJETO.AsInteger;
+            fDMCadPedido.cdsPedido_CliQTD.AsFloat              := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
+            fDMCadPedido.cdsPedido_Cli.Post;
+          end;
+        end;
+
+        if (fDMCadPedido.qParametros_EstUSA_RESERVA.AsString = 'S') and (fDMCadPedido.cdsPedido_ItensQTD_SOBRA_OC.AsFloat > 0) then
+        begin
+          //prc_Gravar_Sobra_OC;
         end;
       end;
-
-      if (fDMCadPedido.qParametros_EstUSA_RESERVA.AsString = 'S') and (fDMCadPedido.cdsPedido_ItensQTD_SOBRA_OC.AsFloat > 0) then
-      begin
-        //prc_Gravar_Sobra_OC;
-      end;
-
+      if (fDMCadPedido.qParametros_OCATUALIZAR_PRECO.AsString = 'S') then
+        Atualiza_Preco;
       fDMCadPedido.cdsPedido_Itens.Next;
     end;
   end;
@@ -1787,6 +1791,27 @@ end;
 procedure TfrmCadOC.RxDBLookupCombo9CloseUp(Sender: TObject);
 begin
   RxDBLookupCombo9.LookupDisplay := 'DESCRICAO';   
+end;
+
+procedure TfrmCadOC.Atualiza_Preco;
+begin
+  if fDMCadPedido.cdsProdutoID.AsInteger <> fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger then
+    fDMCadPedido.cdsProduto.Locate('ID',fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,([LocaseInsensitive]));
+
+  if fDMCadPedido.cdsPedidoDTEMISSAO.AsDateTime >= fDMCadPedido.cdsProdutoDT_ALTPRECO.AsDateTime then
+  begin
+    fDMCadPedido.cdsProduto.Edit;
+    fDMCadPedido.cdsProdutoPRECO_CUSTO.AsFloat    := fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat;
+    if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsProdutoPRECO_CUSTO_TOTAL.AsFloat)) > 0 then
+      fDMCadPedido.cdsProdutoPRECO_CUSTO_TOTAL.AsFloat := fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat;
+    fDMCadPedido.cdsProdutoDT_ALTPRECO.AsDateTime := fDMCadPedido.cdsPedidoDTEMISSAO.AsDateTime;
+    if (fDMCadPedido.qParametros_OCATUALIZAR_PRECO_VENDA.AsString = 'S') and (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsProdutoPERC_MARGEMLUCRO.AsFloat)) > 0) then
+      fDMCadPedido.cdsProdutoPRECO_VENDA.AsFloat := fDMCadPedido.cdsProdutoPRECO_CUSTO.AsFloat +
+                                                       StrToFloat(FormatFloat('0.00',(fDMCadPedido.cdsProdutoPRECO_CUSTO.AsFloat * fDMCadPedido.cdsProdutoPERC_MARGEMLUCRO.AsFloat / 100)));
+    fDMCadPedido.cdsProduto.Post;
+
+    fDMCadPedido.cdsProduto.ApplyUpdates(0);
+  end;
 end;
 
 end.
