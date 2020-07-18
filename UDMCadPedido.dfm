@@ -2652,7 +2652,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE NI.ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 1105
-    Top = 422
+    Top = 414
     object qNatOperCODCFOP: TStringField
       FieldName = 'CODCFOP'
       Size = 5
@@ -2687,7 +2687,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 1107
-    Top = 472
+    Top = 464
     object qPercentual_SimplesID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -2722,7 +2722,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 1006
-    Top = 422
+    Top = 414
     object qRegime_TribID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -2762,7 +2762,7 @@ object DMCadPedido: TDMCadPedido
       '  AND TIPO_REG = '#39'NTE'#39)
     SQLConnection = dmDatabase.scoDados
     Left = 1083
-    Top = 472
+    Top = 464
     object qVerificaNotaSERIE: TStringField
       FieldName = 'SERIE'
       Size = 3
@@ -2798,7 +2798,7 @@ object DMCadPedido: TDMCadPedido
       '  AND ITEM = :ITEM')
     SQLConnection = dmDatabase.scoDados
     Left = 1059
-    Top = 472
+    Top = 464
     object qCFOP_VariacaoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -5946,7 +5946,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 982
-    Top = 422
+    Top = 414
     object qRegra_VariacaoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -6108,7 +6108,7 @@ object DMCadPedido: TDMCadPedido
       '  AND P.ID_CLIENTE = :ID_CLIENTE')
     SQLConnection = dmDatabase.scoDados
     Left = 955
-    Top = 423
+    Top = 415
     object qVerifica_OCPEDIDO_CLIENTE: TStringField
       FieldName = 'PEDIDO_CLIENTE'
     end
@@ -7225,7 +7225,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 931
-    Top = 423
+    Top = 415
     object qProximoItemITEM: TIntegerField
       FieldName = 'ITEM'
     end
@@ -7272,7 +7272,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 1035
-    Top = 472
+    Top = 464
     object qSituacao_OrcNAO_APROVADO: TIntegerField
       FieldName = 'NAO_APROVADO'
     end
@@ -8669,7 +8669,7 @@ object DMCadPedido: TDMCadPedido
       '     or (TC.tipo_consumidor IS NULL))')
     SQLConnection = dmDatabase.scoDados
     Left = 907
-    Top = 423
+    Top = 415
     object qRegra_CFOPID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -8796,7 +8796,7 @@ object DMCadPedido: TDMCadPedido
       '  AND ID_FORNECEDOR = :ID_FORNECEDOR')
     SQLConnection = dmDatabase.scoDados
     Left = 879
-    Top = 423
+    Top = 415
     object qProduto_FornCOD_MATERIAL_FORN: TStringField
       FieldName = 'COD_MATERIAL_FORN'
     end
@@ -9637,7 +9637,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE CODIGO = :CODIGO')
     SQLConnection = dmDatabase.scoDados
     Left = 1000
-    Top = 570
+    Top = 562
     object qPessoaCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Required = True
@@ -10757,7 +10757,7 @@ object DMCadPedido: TDMCadPedido
       '     AND TUF.TIPO_PRODUTO = :TIPO_PRODUTO')
     SQLConnection = dmDatabase.scoDados
     Left = 856
-    Top = 420
+    Top = 412
     object qNCM_UFID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -10840,7 +10840,7 @@ object DMCadPedido: TDMCadPedido
       '  AND UF = :UF')
     SQLConnection = dmDatabase.scoDados
     Left = 976
-    Top = 570
+    Top = 562
     object qProduto_UFID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -11472,7 +11472,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE PF.CODIGO = :CODIGO')
     SQLConnection = dmDatabase.scoDados
     Left = 1079
-    Top = 422
+    Top = 414
     object qPessoa_FiscalCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Required = True
@@ -11895,7 +11895,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE G.ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 952
-    Top = 571
+    Top = 563
     object qGrupoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -12721,7 +12721,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 928
-    Top = 570
+    Top = 562
     object qProdutoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -13197,7 +13197,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 904
-    Top = 570
+    Top = 562
     object qProduto_MatrizVLR_UNITARIO: TFloatField
       FieldName = 'VLR_UNITARIO'
     end
@@ -14308,7 +14308,7 @@ object DMCadPedido: TDMCadPedido
       'GROUP BY EMB.id_material, EMB.qtd_emb')
     SQLConnection = dmDatabase.scoDados
     Left = 880
-    Top = 571
+    Top = 563
     object qPedido_EmbID_EMBALAGEM: TIntegerField
       FieldName = 'ID_EMBALAGEM'
     end
@@ -14470,7 +14470,7 @@ object DMCadPedido: TDMCadPedido
       '      AND POSICAO = :POSICAO')
     SQLConnection = dmDatabase.scoDados
     Left = 856
-    Top = 571
+    Top = 563
     object qFilial_RelID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15017,7 +15017,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE USUARIO = :USUARIO')
     SQLConnection = dmDatabase.scoDados
     Left = 1001
-    Top = 520
+    Top = 512
     object qParametros_UsuarioID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15100,7 +15100,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 975
-    Top = 521
+    Top = 513
     object qParametros_PedID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15447,6 +15447,11 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedMOSTRAR_ITENS_CONS: TStringField
+      FieldName = 'MOSTRAR_ITENS_CONS'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsMetas_Acum: TSQLDataSet
     CommandText = 
@@ -15539,7 +15544,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = 1')
     SQLConnection = dmDatabase.scoDados
     Left = 952
-    Top = 520
+    Top = 512
     object qParametros_FinID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15601,7 +15606,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = 1')
     SQLConnection = dmDatabase.scoDados
     Left = 1072
-    Top = 570
+    Top = 562
     object qParametros_NFeID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15661,7 +15666,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE T.ANO = :ANO')
     SQLConnection = dmDatabase.scoDados
     Left = 1096
-    Top = 570
+    Top = 562
     object qIcmsPartilhaANO: TIntegerField
       FieldName = 'ANO'
       Required = True
@@ -15709,7 +15714,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE P.ID = :ID_PRODUTO')
     SQLConnection = dmDatabase.scoDados
     Left = 928
-    Top = 520
+    Top = 512
     object qCarimboCARIMBO: TStringField
       FieldName = 'CARIMBO'
       Size = 25
@@ -15782,7 +15787,7 @@ object DMCadPedido: TDMCadPedido
       'ON AUX.ID_COR_MAT = COR.ID')
     SQLConnection = dmDatabase.scoDados
     Left = 901
-    Top = 521
+    Top = 513
     object qConsumoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -16263,7 +16268,7 @@ object DMCadPedido: TDMCadPedido
       '  AND CT.tamanho = :TAMANHO')
     SQLConnection = dmDatabase.scoDados
     Left = 1121
-    Top = 571
+    Top = 563
     object qConsumo_TamQTD_CONSUMO: TFloatField
       FieldName = 'QTD_CONSUMO'
     end
@@ -16680,7 +16685,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = 1')
     SQLConnection = dmDatabase.scoDados
     Left = 880
-    Top = 520
+    Top = 512
     object qParametros_OCID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -16749,7 +16754,7 @@ object DMCadPedido: TDMCadPedido
       'FROM PARAMETROS_PROD')
     SQLConnection = dmDatabase.scoDados
     Left = 1191
-    Top = 566
+    Top = 558
     object qParametros_ProdUSA_PRODUTO_FILIAL: TStringField
       FieldName = 'USA_PRODUTO_FILIAL'
       FixedChar = True
@@ -16859,7 +16864,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = 1')
     SQLConnection = dmDatabase.scoDados
     Left = 1024
-    Top = 570
+    Top = 562
     object qParametros_GeralUSAR_PESSOA_FILIAL: TStringField
       FieldName = 'USAR_PESSOA_FILIAL'
       FixedChar = True
@@ -17418,7 +17423,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE P.USUARIO_LOG = :USUARIO_LOG')
     SQLConnection = dmDatabase.scoDados
     Left = 856
-    Top = 521
+    Top = 513
     object qUsuarioCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Required = True
@@ -17584,7 +17589,7 @@ object DMCadPedido: TDMCadPedido
       '  AND PF.ID_FORNECEDOR = :ID_FORNECEDOR')
     SQLConnection = dmDatabase.scoDados
     Left = 1054
-    Top = 422
+    Top = 414
     object qProduto_CliID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -17609,7 +17614,7 @@ object DMCadPedido: TDMCadPedido
       'FROM PARAMETROS_LOTE')
     SQLConnection = dmDatabase.scoDados
     Left = 1008
-    Top = 472
+    Top = 464
     object qParametros_LoteLOTE_TEXTIL: TStringField
       FieldName = 'LOTE_TEXTIL'
       FixedChar = True
@@ -17634,7 +17639,7 @@ object DMCadPedido: TDMCadPedido
       'FROM PARAMETROS_EST')
     SQLConnection = dmDatabase.scoDados
     Left = 1120
-    Top = 520
+    Top = 512
     object qParametros_EstID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -17719,7 +17724,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = :ID1')
     SQLConnection = dmDatabase.scoDados
     Left = 984
-    Top = 471
+    Top = 463
     object qGrupoPessoaNOME: TStringField
       FieldName = 'NOME'
       Size = 40
@@ -17785,7 +17790,7 @@ object DMCadPedido: TDMCadPedido
       '  AND PL.NUM_LOTE_CONTROLE = :NUM_LOTE_CONTROLE')
     SQLConnection = dmDatabase.scoDados
     Left = 1096
-    Top = 520
+    Top = 512
     object qProduto_LoteNUM_LOTE_CONTROLE: TStringField
       FieldName = 'NUM_LOTE_CONTROLE'
     end
@@ -17861,7 +17866,7 @@ object DMCadPedido: TDMCadPedido
       '  AND I.talao_impresso = '#39'S'#39)
     SQLConnection = dmDatabase.scoDados
     Left = 1072
-    Top = 520
+    Top = 512
     object qEtiqImpCONTADOR: TIntegerField
       FieldName = 'CONTADOR'
       Required = True
@@ -17893,7 +17898,7 @@ object DMCadPedido: TDMCadPedido
       '  AND PFOR.ID_COR = :ID_COR')
     SQLConnection = dmDatabase.scoDados
     Left = 1048
-    Top = 520
+    Top = 512
     object qProdForn2TAMANHO_CLIENTE: TStringField
       FieldName = 'TAMANHO_CLIENTE'
       Size = 10
@@ -17925,7 +17930,7 @@ object DMCadPedido: TDMCadPedido
       'from PARAMETROS ')
     SQLConnection = dmDatabase.scoDados
     Left = 957
-    Top = 471
+    Top = 463
     object qParametrosOPCAO_DTENTREGAPEDIDO: TStringField
       FieldName = 'OPCAO_DTENTREGAPEDIDO'
       FixedChar = True
@@ -18061,7 +18066,7 @@ object DMCadPedido: TDMCadPedido
       '  AND ID_TIPO_MATERIAL = :ID_TIPO_MATERIAL')
     SQLConnection = dmDatabase.scoDados
     Left = 1024
-    Top = 520
+    Top = 512
     object qPessoa_TipoMatCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Required = True
@@ -18091,7 +18096,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 1030
-    Top = 422
+    Top = 414
     object qTipoMatID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -18291,7 +18296,7 @@ object DMCadPedido: TDMCadPedido
       'where I.ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 933
-    Top = 472
+    Top = 464
     object qPedOSID_OS_SERV: TIntegerField
       FieldName = 'ID_OS_SERV'
     end
@@ -18319,7 +18324,7 @@ object DMCadPedido: TDMCadPedido
       'ORDER BY POSICAO')
     SQLConnection = dmDatabase.scoDados
     Left = 906
-    Top = 471
+    Top = 463
     object qFilial_Relatorio_MenuID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -18356,7 +18361,7 @@ object DMCadPedido: TDMCadPedido
       'FROM PARAMETROS_SER')
     SQLConnection = dmDatabase.scoDados
     Left = 880
-    Top = 472
+    Top = 464
     object qParametros_SerLIB_QTD_PEDIDO: TStringField
       FieldName = 'LIB_QTD_PEDIDO'
       FixedChar = True
@@ -18385,7 +18390,7 @@ object DMCadPedido: TDMCadPedido
       '  AND NCM.UF = :UF')
     SQLConnection = dmDatabase.scoDados
     Left = 856
-    Top = 472
+    Top = 464
     object qNCM_CSTID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -18877,7 +18882,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE C.ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 1141
-    Top = 424
+    Top = 416
     object qCorID: TFMTBCDField
       FieldName = 'ID'
       Required = True
@@ -19737,5 +19742,79 @@ object DMCadPedido: TDMCadPedido
     DataSet = cdsCentroCusto
     Left = 1251
     Top = 389
+  end
+  object sdsItens_Consulta: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT IT.ID, IT.ITEM, IT.id_produto, IT.referencia, IT.nomeprod' +
+      'uto, IT.dtentrega, IT.qtd,'#13#10'it.motivo_nao_aprov,'#13#10'CASE'#13#10'  WHEN I' +
+      'T.aprovado_orc = '#39'A'#39' then '#39'Aprovado'#39#13#10'  WHEN IT.aprovado_orc = '#39 +
+      'N'#39' then '#39'N'#227'o Aprovado'#39#13#10'  WHEN IT.aprovado_orc = '#39'P'#39' then '#39'Pende' +
+      'nte'#39#13#10'  else '#39#39#13#10'  end DESC_APROVADO_ORC'#13#10'FROM PEDIDO_ITEM it'#13#10'W' +
+      'HERE IT.ID = :ID'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 1001
+    Top = 331
+  end
+  object dspItens_Consulta: TDataSetProvider
+    DataSet = sdsItens_Consulta
+    OnUpdateError = dspPedidoUpdateError
+    Left = 1016
+    Top = 332
+  end
+  object cdsItens_Consulta: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspItens_Consulta'
+    Left = 1034
+    Top = 332
+    object cdsItens_ConsultaID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsItens_ConsultaITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object cdsItens_ConsultaID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsItens_ConsultaREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsItens_ConsultaNOMEPRODUTO: TStringField
+      FieldName = 'NOMEPRODUTO'
+      Size = 100
+    end
+    object cdsItens_ConsultaDTENTREGA: TDateField
+      FieldName = 'DTENTREGA'
+    end
+    object cdsItens_ConsultaQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsItens_ConsultaMOTIVO_NAO_APROV: TMemoField
+      FieldName = 'MOTIVO_NAO_APROV'
+      BlobType = ftMemo
+      Size = 1
+    end
+    object cdsItens_ConsultaDESC_APROVADO_ORC: TStringField
+      FieldName = 'DESC_APROVADO_ORC'
+      Required = True
+      FixedChar = True
+      Size = 12
+    end
+  end
+  object dsItens_Consulta: TDataSource
+    DataSet = cdsItens_Consulta
+    Left = 1047
+    Top = 332
   end
 end

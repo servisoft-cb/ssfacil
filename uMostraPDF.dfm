@@ -20,15 +20,15 @@ object frmMostraPDF: TfrmMostraPDF
   object pnlImagem: TPanel
     Left = 0
     Top = 65
-    Width = 1062
-    Height = 447
+    Width = 1070
+    Height = 455
     Align = alClient
     TabOrder = 0
     object ScrollBox1: TScrollBox
       Left = 1
       Top = 1
-      Width = 1060
-      Height = 445
+      Width = 1068
+      Height = 453
       Align = alClient
       TabOrder = 0
       object Image: TImage
@@ -45,7 +45,7 @@ object frmMostraPDF: TfrmMostraPDF
   object pnlControler: TPanel
     Left = 0
     Top = 0
-    Width = 1062
+    Width = 1070
     Height = 65
     Align = alTop
     TabOrder = 1

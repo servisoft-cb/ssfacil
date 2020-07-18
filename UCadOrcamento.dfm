@@ -25,7 +25,7 @@ object frmCadOrcamento: TfrmCadOrcamento
     Top = 0
     Width = 1008
     Height = 677
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,12 +33,20 @@ object frmCadOrcamento: TfrmCadOrcamento
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
       Caption = 'Tela de Consulta'
+      object Splitter1: TSplitter
+        Left = 0
+        Top = 477
+        Width = 1004
+        Height = 7
+        Cursor = crVSplit
+        Align = alBottom
+      end
       object pnlPesquisa: TPanel
         Left = 0
         Top = 31
@@ -1030,7 +1038,7 @@ object frmCadOrcamento: TfrmCadOrcamento
         Left = 0
         Top = 123
         Width = 1004
-        Height = 492
+        Height = 354
         Align = alClient
         Ctl3D = False
         DataSource = DMCadPedido.dsPedido_Consulta
@@ -1226,6 +1234,111 @@ object frmCadOrcamento: TfrmCadOrcamento
           Width = 81
           Height = 13
           Caption = 'Aprovado Parcial'
+        end
+      end
+      object pnlItens_Consulta: TPanel
+        Left = 0
+        Top = 484
+        Width = 1004
+        Height = 131
+        Align = alBottom
+        Caption = 'pnlItens_Consulta'
+        TabOrder = 5
+        object Splitter2: TSplitter
+          Left = 650
+          Top = 1
+          Height = 129
+          Align = alRight
+        end
+        object RzDBGrid1: TRzDBGrid
+          Left = 1
+          Top = 1
+          Width = 649
+          Height = 129
+          Align = alClient
+          Color = clSilver
+          Ctl3D = True
+          DataSource = DMCadPedido.dsItens_Consulta
+          FixedColor = clSilver
+          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit]
+          ParentCtl3D = False
+          ReadOnly = True
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = []
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'DESC_APROVADO_ORC'
+              Title.Alignment = taCenter
+              Title.Caption = 'Status'
+              Width = 92
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'ITEM'
+              Title.Alignment = taCenter
+              Title.Caption = 'Item'
+              Width = 37
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'ID_PRODUTO'
+              Title.Alignment = taCenter
+              Title.Caption = 'ID Produto'
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'REFERENCIA'
+              Title.Alignment = taCenter
+              Title.Caption = 'Refer'#234'ncia'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'NOMEPRODUTO'
+              Title.Alignment = taCenter
+              Title.Caption = 'Nome Produto'
+              Width = 428
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'DTENTREGA'
+              Title.Alignment = taCenter
+              Title.Caption = 'Dt. Entrega'
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'QTD'
+              Title.Alignment = taCenter
+              Title.Caption = 'Qtd.'
+              Visible = True
+            end>
+        end
+        object DBMemo3: TDBMemo
+          Left = 653
+          Top = 1
+          Width = 350
+          Height = 129
+          Align = alRight
+          Color = clSilver
+          DataField = 'MOTIVO_NAO_APROV'
+          DataSource = DMCadPedido.dsItens_Consulta
+          ReadOnly = True
+          ScrollBars = ssVertical
+          TabOrder = 1
         end
       end
     end

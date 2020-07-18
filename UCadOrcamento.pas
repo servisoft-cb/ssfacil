@@ -7,7 +7,7 @@ uses
   DBGrids, ExtCtrls, StdCtrls, DBCtrls, ToolEdit, CurrEdit, RxLookup, RxDBComb, RXDBCtrl, UCadOrcamento_Itens, 
   UCBase, Menus, NxEdit, NxCollection, UDMRel, UCadOrcamento_Aprov, Variants, Mask, RzTabs, RzPanel, UCadPedido_Desconto, ComObj,
   UCadPedido_Ace, uCadObs_Aux, UCadPedido_ItensRed, UCadOrcamento_NaoAprovado, classe.validaemail, frxExportPDF, frxExportMail,
-  UMontaPed_TipoItem;
+  UMontaPed_TipoItem, RzDBGrid;
 
 type
   TfrmCadOrcamento = class(TForm)
@@ -225,6 +225,11 @@ type
     RxDBLookupCombo10: TRxDBLookupCombo;
     Label48: TLabel;
     rxcbFinalidade: TRxDBComboBox;
+    Splitter1: TSplitter;
+    pnlItens_Consulta: TPanel;
+    RzDBGrid1: TRzDBGrid;
+    DBMemo3: TDBMemo;
+    Splitter2: TSplitter;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -333,6 +338,7 @@ type
     procedure prc_Opcao_Consumidor;
     //procedure prc_Monta_Itens_Imp;
     procedure prc_scroll(DataSet: TDataSet);
+    procedure prc_scroll_Orc(DataSet: TDataSet);
     procedure prc_CriaExcel(vDados: TDataSource);
     procedure prc_Abre_Filial_Menu(Empresa: Integer; Tipo: Integer);    
   public
@@ -516,7 +522,14 @@ begin
   end;
 
   ckImpPeso.Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
-  fDMCadPedido.cdsPedido_Itens.AfterScroll := prc_scroll;
+  fDMCadPedido.cdsPedido_Itens.AfterScroll   := prc_scroll;
+  //18/07/2020
+  if fDMCadPedido.qParametros_PedMOSTRAR_ITENS_CONS.AsString = 'S' then
+    fDMCadPedido.cdsPedido_Consulta.AfterScroll := prc_scroll_Orc;
+  pnlItens_Consulta.Visible := (fDMCadPedido.qParametros_PedMOSTRAR_ITENS_CONS.AsString = 'S');
+  Splitter1.Visible         := (fDMCadPedido.qParametros_PedMOSTRAR_ITENS_CONS.AsString = 'S');
+  //*****************
+
   TS_Trilhos.TabVisible  := (fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S');
   TS_Roldanas.TabVisible := (fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S');
   pnlAcessorios.Visible  := (fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S');
@@ -1966,6 +1979,13 @@ begin
       fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsVendedorPERC_COMISSAO_VEND.AsFloat));
     end;
   end;
+end;
+
+procedure TfrmCadOrcamento.prc_scroll_Orc(DataSet: TDataSet);
+begin
+  fDMCadPedido.cdsItens_Consulta.Close;
+  fDMCadPedido.sdsItens_Consulta.ParamByName('ID').AsInteger := fDMCadPedido.cdsPedido_ConsultaID.AsInteger;
+  fDMCadPedido.cdsItens_Consulta.Open;
 end;
 
 end.
