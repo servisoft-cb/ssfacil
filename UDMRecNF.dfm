@@ -28,16 +28,15 @@ object DMRecNF: TDMRecNF
       'NUM_END_FIL,'#13#10'F.bairro BAIRRO_FIL, F.cidade CIDADE_FIL, F.UF UF_' +
       'FIL, F.cnpj_cpf CNPJ_CFP_FIL, F.CEP CEP_FIL,'#13#10'F.inscr_est INSCR_' +
       'EST_FIL, F.ddd1 DDD_FIL, F.fone FONE_FIL, COND.nome NOME_CONDPGT' +
-      'O,'#13#10'(NF.vlr_nota + NF.vlr_desconto) VLR_NOTA2, NFP.NUM_PEDIDO'#13#10'F' +
-      'ROM NOTAFISCAL NF'#13#10'INNER JOIN PESSOA CLI ON NF.ID_CLIENTE = CLI.' +
-      'CODIGO'#13#10'INNER JOIN FILIAL F ON nf.filial = f.id'#13#10'LEFT JOIN PESSO' +
-      'A TRANSP ON NF.ID_TRANSPORTADORA = TRANSP.CODIGO'#13#10'LEFT JOIN COND' +
-      'PGTO COND ON NF.id_condpgto = COND.ID'#13#10'LEFT JOIN NOTAFISCAL_PED ' +
-      'NFP ON (NFP.ID = NF.ID)'#13#10'WHERE NF.ID = :ID'
+      'O,'#13#10'(NF.vlr_nota + NF.vlr_desconto) VLR_NOTA2'#13#10'FROM NOTAFISCAL N' +
+      'F'#13#10'INNER JOIN PESSOA CLI ON NF.ID_CLIENTE = CLI.CODIGO'#13#10'INNER JO' +
+      'IN FILIAL F ON nf.filial = f.id'#13#10'LEFT JOIN PESSOA TRANSP ON NF.I' +
+      'D_TRANSPORTADORA = TRANSP.CODIGO'#13#10'LEFT JOIN CONDPGTO COND ON NF.' +
+      'id_condpgto = COND.ID'#13#10'WHERE NF.ID = :ID'
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftInteger
+        DataType = ftUnknown
         Name = 'ID'
         ParamType = ptInput
       end>
@@ -606,9 +605,6 @@ object DMRecNF: TDMRecNF
     object cdsNotaFiscalUSUARIO: TStringField
       FieldName = 'USUARIO'
       Size = 15
-    end
-    object cdsNotaFiscalNUM_PEDIDO: TIntegerField
-      FieldName = 'NUM_PEDIDO'
     end
   end
   object dsNotaFiscal: TDataSource

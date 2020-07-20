@@ -191,7 +191,6 @@ type
     dspNumOC: TDataSetProvider;
     cdsNumOC: TClientDataSet;
     cdsNumOCNUMERO_OC: TStringField;
-    cdsNotaFiscalNUM_PEDIDO: TIntegerField;
   private
     { Private declarations }
   public

@@ -1,10 +1,10 @@
-object frmCadRegiaoVendas: TfrmCadRegiaoVendas
+object frmCadRegiaoVenda: TfrmCadRegiaoVenda
   Left = 301
   Top = 154
   Width = 687
   Height = 462
   BorderIcons = [biSystemMenu, biMaximize]
-  Caption = 'frmCadRegiaoVendas'
+  Caption = 'frmCadRegiaoVenda'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -720,7 +720,7 @@ object frmCadRegiaoVendas: TfrmCadRegiaoVendas
           Alignment = taRightJustify
           Caption = 'ID:'
         end
-        object DBEdit7: TDBEdit
+        object DBEdit1: TDBEdit
           Left = 96
           Top = 28
           Width = 545

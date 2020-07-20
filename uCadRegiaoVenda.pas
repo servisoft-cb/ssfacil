@@ -1,4 +1,4 @@
-unit UCadRegiaoVendas;
+unit UCadRegiaoVenda;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   StdCtrls, RxDBComb, DBCtrls, ExtCtrls, DBGrids, RzTabs, DB, NxCollection;
 
 type
-  TfrmCadRegiaoVendas = class(TForm)
+  TfrmCadRegiaoVenda = class(TForm)
     RzPageControl1: TRzPageControl;
     TS_Consulta: TRzTabSheet;
     TS_Cadastro: TRzTabSheet;
@@ -16,7 +16,7 @@ type
     Panel1: TPanel;
     pnlCadastro: TPanel;
     Label1: TLabel;
-    DBEdit7: TDBEdit;
+    DBEdit1: TDBEdit;
     Label8: TLabel;
     DBEdit4: TDBEdit;
     StaticText1: TStaticText;
@@ -60,7 +60,7 @@ type
   end;
 
 var
-  frmCadRegiaoVendas: TfrmCadRegiaoVendas;
+  frmCadRegiaoVenda: TfrmCadRegiaoVenda;
 
 implementation
 
@@ -68,13 +68,13 @@ uses DmdDatabase, rsDBUtils, UMenu;
 
 {$R *.dfm}
 
-procedure TfrmCadRegiaoVendas.FormClose(Sender: TObject;
+procedure TfrmCadRegiaoVenda.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   Action := Cafree;
 end;
 
-procedure TfrmCadRegiaoVendas.btnExcluirClick(Sender: TObject);
+procedure TfrmCadRegiaoVenda.btnExcluirClick(Sender: TObject);
 begin
   if fDmCadRegioes.cdsRegiao_Venda.IsEmpty then
     exit;
@@ -85,12 +85,12 @@ begin
   prc_Excluir_Registro;
 end;
 
-procedure TfrmCadRegiaoVendas.prc_Excluir_Registro;
+procedure TfrmCadRegiaoVenda.prc_Excluir_Registro;
 begin
   fDmCadRegioes.prc_Excluir;
 end;
 
-procedure TfrmCadRegiaoVendas.prc_Gravar_Registro;
+procedure TfrmCadRegiaoVenda.prc_Gravar_Registro;
 begin
   fDmCadRegioes.prc_Gravar;
   if fDmCadRegioes.cdsRegiao_Venda.State in [dsEdit,dsInsert] then
@@ -105,7 +105,7 @@ begin
   btnAlterar.Enabled        := not(btnAlterar.Enabled);
 end;
 
-procedure TfrmCadRegiaoVendas.prc_Inserir_Registro;
+procedure TfrmCadRegiaoVenda.prc_Inserir_Registro;
 begin
   fDmCadRegioes.prc_Inserir;
 
@@ -121,13 +121,13 @@ begin
   DBEdit1.SetFocus;
 end;
 
-procedure TfrmCadRegiaoVendas.FormShow(Sender: TObject);
+procedure TfrmCadRegiaoVenda.FormShow(Sender: TObject);
 begin
   fDmCadRegioes := TDmCadRegioes.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDmCadRegioes);
 end;
 
-procedure TfrmCadRegiaoVendas.prc_Consultar;
+procedure TfrmCadRegiaoVenda.prc_Consultar;
 begin
   fDmCadRegioes.cdsRegiao_Venda.Close;
   fDmCadRegioes.sdsRegiao_Venda.CommandText := fDmCadRegioes.ctCommand + ' WHERE 0 = 0 ';
@@ -136,12 +136,12 @@ begin
   fDmCadRegioes.cdsRegiao_Venda.Open;
 end;
 
-procedure TfrmCadRegiaoVendas.btnConsultarClick(Sender: TObject);
+procedure TfrmCadRegiaoVenda.btnConsultarClick(Sender: TObject);
 begin
   prc_Consultar;
 end;
 
-procedure TfrmCadRegiaoVendas.btnCancelarClick(Sender: TObject);
+procedure TfrmCadRegiaoVenda.btnCancelarClick(Sender: TObject);
 begin
   if (fDmCadRegioes.cdsRegiao_Venda.State in [dsBrowse]) or not(fDmCadRegioes.cdsRegiao_Venda.Active) then
   begin
@@ -160,12 +160,12 @@ begin
   btnAlterar.Enabled        := not(btnAlterar.Enabled);
 end;
 
-procedure TfrmCadRegiaoVendas.SMDBGrid1DblClick(Sender: TObject);
+procedure TfrmCadRegiaoVenda.SMDBGrid1DblClick(Sender: TObject);
 begin
   RzPageControl1.ActivePage := TS_Cadastro;
 end;
 
-procedure TfrmCadRegiaoVendas.btnAlterarClick(Sender: TObject);
+procedure TfrmCadRegiaoVenda.btnAlterarClick(Sender: TObject);
 begin
   if (fDmCadRegioes.cdsRegiao_Venda.IsEmpty) or not(fDmCadRegioes.cdsRegiao_Venda.Active) or (fDmCadRegioes.cdsRegiao_VendaID.AsInteger < 1) then
     exit;
@@ -178,29 +178,29 @@ begin
   pnlCadastro.Enabled    := True;
 end;
 
-procedure TfrmCadRegiaoVendas.btnConfirmarClick(Sender: TObject);
+procedure TfrmCadRegiaoVenda.btnConfirmarClick(Sender: TObject);
 begin
   prc_Gravar_Registro;
 end;
 
-procedure TfrmCadRegiaoVendas.FormDestroy(Sender: TObject);
+procedure TfrmCadRegiaoVenda.FormDestroy(Sender: TObject);
 begin
   FreeAndNil(fDmCadRegioes);
 end;
 
-procedure TfrmCadRegiaoVendas.btnInserirClick(Sender: TObject);
+procedure TfrmCadRegiaoVenda.btnInserirClick(Sender: TObject);
 begin
   prc_Inserir_Registro;
 end;
 
-procedure TfrmCadRegiaoVendas.Edit4KeyDown(Sender: TObject; var Key: Word;
+procedure TfrmCadRegiaoVenda.Edit4KeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = Vk_Return then
     btnConsultarClick(Sender);
 end;
 
-procedure TfrmCadRegiaoVendas.btnPesquisarClick(Sender: TObject);
+procedure TfrmCadRegiaoVenda.btnPesquisarClick(Sender: TObject);
 begin
   pnlPesquisa.Visible := not(pnlPesquisa.Visible);
   if pnlPesquisa.Visible then
@@ -209,12 +209,12 @@ begin
     prc_Limpar_Edit_Consulta;
 end;
 
-procedure TfrmCadRegiaoVendas.prc_Limpar_Edit_Consulta;
+procedure TfrmCadRegiaoVenda.prc_Limpar_Edit_Consulta;
 begin
   Edit4.Clear;
 end;
 
-procedure TfrmCadRegiaoVendas.FormCloseQuery(Sender: TObject;
+procedure TfrmCadRegiaoVenda.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
   CanClose := True;

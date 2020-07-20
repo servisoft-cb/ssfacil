@@ -2293,7 +2293,7 @@ end;
 
 procedure TfMenu.RegiesComerciaisPraas1Click(Sender: TObject);
 begin
-  OpenForm(frmCadRegiaoVendas,wsMaximized);
+  OpenForm(TfrmCadRegiaoVenda,wsMaximized);
 end;
 
 initialization

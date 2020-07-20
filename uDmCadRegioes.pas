@@ -48,44 +48,42 @@ procedure TdmCadRegioes.prc_Inserir;
 var
   vAux: Integer;
 begin
-  if not cdsCNAE.Active then
+  if not cdsRegiao_Venda.Active then
     prc_Localizar(-1);
-  vAux := dmDatabase.ProximaSequencia('CNAE',0);
+  vAux := dmDatabase.ProximaSequencia('REGIAO_VENDA',0);
 
-  cdsCNAE.Insert;
-  cdsCNAEID.AsInteger := vAux;
+  cdsRegiao_Venda.Insert;
+  cdsRegiao_VendaID.AsInteger := vAux;
 end;
 
 procedure TdmCadRegioes.prc_Excluir;
 begin
-  if not(cdsCNAE.Active) or (cdsCNAE.IsEmpty) then
+  if not(cdsRegiao_Venda.Active) or (cdsRegiao_Venda.IsEmpty) then
     exit;
-  cdsCNAE.Delete;
-  cdsCNAE.ApplyUpdates(0);
+  cdsRegiao_Venda.Delete;
+  cdsRegiao_Venda.ApplyUpdates(0);
 end;
 
 procedure TdmCadRegioes.prc_Gravar;
 begin
   vMsgCNAE := '';
-  if trim(cdsCNAENOME.AsString) = '' then
+  if trim(cdsRegiao_VendaNOME.AsString) = '' then
     vMsgCNAE := 'Nome não informado!';
-  if (trim(cdsCNAECODIGO.AsString) = '') then
-    vMsgCNAE := vMsgCNAE + #13 + 'Código do CNAE não informado!';
   if vMsgCNAE <> '' then
     exit;
     
-  cdsCNAE.Post;
-  cdsCNAE.ApplyUpdates(0);
+  cdsRegiao_Venda.Post;
+  cdsRegiao_Venda.ApplyUpdates(0);
 end;
 
 procedure TdmCadRegioes.prc_Localizar(ID: Integer);
 begin
-  cdsCNAE.Close;
-  sdsCNAE.CommandText := ctCommand;
+  cdsRegiao_Venda.Close;
+  sdsRegiao_Venda.CommandText := ctCommand;
   if ID <> 0 then
-    sdsCNAE.CommandText := sdsCNAE.CommandText +
+    sdsRegiao_Venda.CommandText := sdsRegiao_Venda.CommandText +
                             ' WHERE ID = ' + IntToStr(ID);
-  cdsCNAE.Open;
+  cdsRegiao_Venda.Open;
 end;
 
 procedure TdmCadRegioes.DataModuleCreate(Sender: TObject);
@@ -96,7 +94,7 @@ var
   vIndices: string;
   aIndices: array of string;
 begin
-  ctCommand := sdsCNAE.CommandText;
+  ctCommand := sdsRegiao_Venda.CommandText;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do
