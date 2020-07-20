@@ -1,13 +1,13 @@
-unit UCadCNAE;
+unit UCadRegiaoVendas;
 
 interface
 
 uses
-  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadCNAE, Mask, UCBase,
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDmCadRegioes, Mask, UCBase,
   StdCtrls, RxDBComb, DBCtrls, ExtCtrls, DBGrids, RzTabs, DB, NxCollection;
 
 type
-  TfrmCadCNAE = class(TForm)
+  TfrmCadRegiaoVendas = class(TForm)
     RzPageControl1: TRzPageControl;
     TS_Consulta: TRzTabSheet;
     TS_Cadastro: TRzTabSheet;
@@ -17,8 +17,6 @@ type
     pnlCadastro: TPanel;
     Label1: TLabel;
     DBEdit7: TDBEdit;
-    Label2: TLabel;
-    DBEdit1: TDBEdit;
     Label8: TLabel;
     DBEdit4: TDBEdit;
     StaticText1: TStaticText;
@@ -51,7 +49,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
-    fDMCadCNAE: TDMCadCNAE;
+    fDmCadRegioes: TDmCadRegioes;
     procedure prc_Inserir_Registro;
     procedure prc_Excluir_Registro;
     procedure prc_Gravar_Registro;
@@ -62,7 +60,7 @@ type
   end;
 
 var
-  frmCadCNAE: TfrmCadCNAE;
+  frmCadRegiaoVendas: TfrmCadRegiaoVendas;
 
 implementation
 
@@ -70,15 +68,15 @@ uses DmdDatabase, rsDBUtils, UMenu;
 
 {$R *.dfm}
 
-procedure TfrmCadCNAE.FormClose(Sender: TObject;
+procedure TfrmCadRegiaoVendas.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
   Action := Cafree;
 end;
 
-procedure TfrmCadCNAE.btnExcluirClick(Sender: TObject);
+procedure TfrmCadRegiaoVendas.btnExcluirClick(Sender: TObject);
 begin
-  if fDMCadCNAE.cdsCNAE.IsEmpty then
+  if fDmCadRegioes.cdsRegiao_Venda.IsEmpty then
     exit;
 
   if MessageDlg('Deseja excluir este registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
@@ -87,17 +85,17 @@ begin
   prc_Excluir_Registro;
 end;
 
-procedure TfrmCadCNAE.prc_Excluir_Registro;
+procedure TfrmCadRegiaoVendas.prc_Excluir_Registro;
 begin
-  fDMCadCNAE.prc_Excluir;
+  fDmCadRegioes.prc_Excluir;
 end;
 
-procedure TfrmCadCNAE.prc_Gravar_Registro;
+procedure TfrmCadRegiaoVendas.prc_Gravar_Registro;
 begin
-  fDMCadCNAE.prc_Gravar;
-  if fDMCadCNAE.cdsCNAE.State in [dsEdit,dsInsert] then
+  fDmCadRegioes.prc_Gravar;
+  if fDmCadRegioes.cdsRegiao_Venda.State in [dsEdit,dsInsert] then
   begin
-    MessageDlg(fDMCadCNAE.vMsgCNAE, mtError, [mbOk], 0);
+    MessageDlg(fDmCadRegioes.vMsgCNAE, mtError, [mbOk], 0);
     exit;
   end;
   TS_Consulta.TabEnabled    := not(TS_Consulta.TabEnabled);
@@ -107,11 +105,11 @@ begin
   btnAlterar.Enabled        := not(btnAlterar.Enabled);
 end;
 
-procedure TfrmCadCNAE.prc_Inserir_Registro;
+procedure TfrmCadRegiaoVendas.prc_Inserir_Registro;
 begin
-  fDMCadCNAE.prc_Inserir;
+  fDmCadRegioes.prc_Inserir;
 
-  if fDMCadCNAE.cdsCNAE.State in [dsBrowse] then
+  if fDmCadRegioes.cdsRegiao_Venda.State in [dsBrowse] then
     exit;
 
   RzPageControl1.ActivePage := TS_Cadastro;
@@ -123,29 +121,29 @@ begin
   DBEdit1.SetFocus;
 end;
 
-procedure TfrmCadCNAE.FormShow(Sender: TObject);
+procedure TfrmCadRegiaoVendas.FormShow(Sender: TObject);
 begin
-  fDMCadCNAE := TDMCadCNAE.Create(Self);
-  oDBUtils.SetDataSourceProperties(Self, fDMCadCNAE);
+  fDmCadRegioes := TDmCadRegioes.Create(Self);
+  oDBUtils.SetDataSourceProperties(Self, fDmCadRegioes);
 end;
 
-procedure TfrmCadCNAE.prc_Consultar;
+procedure TfrmCadRegiaoVendas.prc_Consultar;
 begin
-  fDMCadCNAE.cdsCNAE.Close;
-  fDMCadCNAE.sdsCNAE.CommandText := fDMCadCNAE.ctCommand + ' WHERE 0 = 0 ';
+  fDmCadRegioes.cdsRegiao_Venda.Close;
+  fDmCadRegioes.sdsRegiao_Venda.CommandText := fDmCadRegioes.ctCommand + ' WHERE 0 = 0 ';
   if Trim(Edit4.Text) <> '' then
-    fDMCadCNAE.sdsCNAE.CommandText := fDMCadCNAE.sdsCNAE.CommandText + ' AND NOME LIKE ' + QuotedStr('%'+Edit4.Text+'%');
-  fDMCadCNAE.cdsCNAE.Open;
+    fDmCadRegioes.sdsRegiao_Venda.CommandText := fDmCadRegioes.sdsRegiao_Venda.CommandText + ' AND NOME LIKE ' + QuotedStr('%'+Edit4.Text+'%');
+  fDmCadRegioes.cdsRegiao_Venda.Open;
 end;
 
-procedure TfrmCadCNAE.btnConsultarClick(Sender: TObject);
+procedure TfrmCadRegiaoVendas.btnConsultarClick(Sender: TObject);
 begin
   prc_Consultar;
 end;
 
-procedure TfrmCadCNAE.btnCancelarClick(Sender: TObject);
+procedure TfrmCadRegiaoVendas.btnCancelarClick(Sender: TObject);
 begin
-  if (fDMCadCNAE.cdsCNAE.State in [dsBrowse]) or not(fDMCadCNAE.cdsCNAE.Active) then
+  if (fDmCadRegioes.cdsRegiao_Venda.State in [dsBrowse]) or not(fDmCadRegioes.cdsRegiao_Venda.Active) then
   begin
     RzPageControl1.ActivePage := TS_Consulta;
     exit;
@@ -154,7 +152,7 @@ begin
   if MessageDlg('Deseja cancelar alteração/inclusão do registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
 
-  fDMCadCNAE.cdsCNAE.CancelUpdates;
+  fDmCadRegioes.cdsRegiao_Venda.CancelUpdates;
   TS_Consulta.TabEnabled    := True;
   RzPageControl1.ActivePage := TS_Consulta;
   pnlCadastro.Enabled       := not(pnlCadastro.Enabled);
@@ -162,17 +160,17 @@ begin
   btnAlterar.Enabled        := not(btnAlterar.Enabled);
 end;
 
-procedure TfrmCadCNAE.SMDBGrid1DblClick(Sender: TObject);
+procedure TfrmCadRegiaoVendas.SMDBGrid1DblClick(Sender: TObject);
 begin
   RzPageControl1.ActivePage := TS_Cadastro;
 end;
 
-procedure TfrmCadCNAE.btnAlterarClick(Sender: TObject);
+procedure TfrmCadRegiaoVendas.btnAlterarClick(Sender: TObject);
 begin
-  if (fDMCadCNAE.cdsCNAE.IsEmpty) or not(fDMCadCNAE.cdsCNAE.Active) or (fDMCadCNAE.cdsCNAEID.AsInteger < 1) then
+  if (fDmCadRegioes.cdsRegiao_Venda.IsEmpty) or not(fDmCadRegioes.cdsRegiao_Venda.Active) or (fDmCadRegioes.cdsRegiao_VendaID.AsInteger < 1) then
     exit;
 
-  fDMCadCNAE.cdsCNAE.Edit;
+  fDmCadRegioes.cdsRegiao_Venda.Edit;
 
   TS_Consulta.TabEnabled := False;
   btnAlterar.Enabled     := False;
@@ -180,29 +178,29 @@ begin
   pnlCadastro.Enabled    := True;
 end;
 
-procedure TfrmCadCNAE.btnConfirmarClick(Sender: TObject);
+procedure TfrmCadRegiaoVendas.btnConfirmarClick(Sender: TObject);
 begin
   prc_Gravar_Registro;
 end;
 
-procedure TfrmCadCNAE.FormDestroy(Sender: TObject);
+procedure TfrmCadRegiaoVendas.FormDestroy(Sender: TObject);
 begin
-  FreeAndNil(fDMCadCNAE);
+  FreeAndNil(fDmCadRegioes);
 end;
 
-procedure TfrmCadCNAE.btnInserirClick(Sender: TObject);
+procedure TfrmCadRegiaoVendas.btnInserirClick(Sender: TObject);
 begin
   prc_Inserir_Registro;
 end;
 
-procedure TfrmCadCNAE.Edit4KeyDown(Sender: TObject; var Key: Word;
+procedure TfrmCadRegiaoVendas.Edit4KeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = Vk_Return then
     btnConsultarClick(Sender);
 end;
 
-procedure TfrmCadCNAE.btnPesquisarClick(Sender: TObject);
+procedure TfrmCadRegiaoVendas.btnPesquisarClick(Sender: TObject);
 begin
   pnlPesquisa.Visible := not(pnlPesquisa.Visible);
   if pnlPesquisa.Visible then
@@ -211,22 +209,22 @@ begin
     prc_Limpar_Edit_Consulta;
 end;
 
-procedure TfrmCadCNAE.prc_Limpar_Edit_Consulta;
+procedure TfrmCadRegiaoVendas.prc_Limpar_Edit_Consulta;
 begin
   Edit4.Clear;
 end;
 
-procedure TfrmCadCNAE.FormCloseQuery(Sender: TObject;
+procedure TfrmCadRegiaoVendas.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
   CanClose := True;
-  if fDMCadCNAE.cdsCNAE.State in [dsEdit,dsInsert] then
+  if fDmCadRegioes.cdsRegiao_Venda.State in [dsEdit,dsInsert] then
   begin
     if MessageDlg('Fechar esta tela sem confirmar?',mtConfirmation,[mbOk,mbNo],0) = mrNo then
       CanClose := False
     else
     begin
-      DMCadCNAE.cdsCNAE.CancelUpdates;
+      DmCadRegioes.cdsRegiao_Venda.CancelUpdates;
       CanClose := True;
     end;
   end;

@@ -606,6 +606,8 @@ type
     DBCheckBox29: TDBCheckBox;
     Label211: TLabel;
     DBEdit117: TDBEdit;
+    Label212: TLabel;
+    RxDBLookupCombo48: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -735,6 +737,7 @@ type
     procedure btnReceitaClick(Sender: TObject);
     procedure DBEdit117Exit(Sender: TObject);
     procedure pnlCompras_PedidosEnter(Sender: TObject);
+    procedure RxDBLookupCombo48Enter(Sender: TObject);
   private
     { Private declarations }
     fDMCadPessoa: TDMCadPessoa;
@@ -3020,6 +3023,11 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmCadPessoa.RxDBLookupCombo48Enter(Sender: TObject);
+begin
+  fDMCadPessoa.cdsRegiao_Venda.IndexFieldNames := 'NOME';
 end;
 
 end.

@@ -60,6 +60,7 @@ type
     SpeedButton2: TSpeedButton;
     Label19: TLabel;
     DBEdit6: TDBEdit;
+    btnGerar: TNxButton;
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -88,6 +89,7 @@ type
     procedure Completo1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
+    procedure btnGerarClick(Sender: TObject);
   private
     { Private declarations }
     fDmCadPedido: TDmCadPedido;
@@ -695,6 +697,12 @@ begin
     Exit;
 
   Result := True;
+end;
+
+procedure TfrmCadPedidoSimples.btnGerarClick(Sender: TObject);
+begin
+//  frmCadPedidoSimples_Geracao := TfrmCadPedidoSimples_Geracao.Create(Self);
+//  frmCadPedidoSimples_Geracao.ShowModal;
 end;
 
 end.

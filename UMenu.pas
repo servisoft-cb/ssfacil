@@ -362,6 +362,8 @@ type
     AjustaPreoNoCadastrodoProduto1: TMenuItem;
     ConsultaPedidoEstoque1: TMenuItem;
     ConsultaProdutoFaturadoPorVendedor1: TMenuItem;
+    RegiesComerciaisPraas1: TMenuItem;
+    CondiesdePagamento1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);
@@ -496,7 +498,6 @@ type
     procedure ParmetrosOSSimples1Click(Sender: TObject);
     procedure RemessaNovo1Click(Sender: TObject);
     procedure RetornoNovoAcbr1Click(Sender: TObject);
-    procedure CondiodePagamento2Click(Sender: TObject);
     procedure ransfernciaFinanceira1Click(Sender: TObject);
     procedure ConfiguraoEmail1Click(Sender: TObject);
     procedure EtiquetaIndividual1Click(Sender: TObject);
@@ -631,6 +632,8 @@ type
     procedure ConsultaProdutoFaturadoPorVendedor1Click(Sender: TObject);
     procedure ConsultaMaterialParaComprasPedidoxRemessa1Click(
       Sender: TObject);
+    procedure CondiesdePagamento1Click(Sender: TObject);
+    procedure RegiesComerciaisPraas1Click(Sender: TObject);
   private
     { Private declarations }
     vPedLoja: Boolean;
@@ -691,10 +694,8 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   uConsPedidoProcMapa, UCadDocEntrada, UCadTipoMaquina, UConsComprasOrcamento, UConsReal_Projetado, UConsEstoque_Atual,
   UBaixaNFDevolvida, UConsEstoqueTerc, UAjuste_OperacaoNota, UConsNotas, uProdutoAtualizaPreco, uCadMovProdST, UCadPedWeb,
   UConsProdSTRet, UDMCadPlanoMat, UGerar_PlanoMat, UAjusteEstoqueOP_Res, uCadRaca, uCadTipo_Animal, UConsEstoque2, UComissaoVend,
-  UConsProdutoNCM, UProg_Terc, UConsPedido_Producao, UConsNCM_CFOP,
-  UANP_Produto, UCadMetas_Comissao, uCupomTerminal, UConsPedido_Res,
-  uConsComissao_Metas, UConsAdto, UCadAjuste_Preco, UConsPedido_Est,
-  UConsProduto_Vendedor_Fat;
+  UConsProdutoNCM, UProg_Terc, UConsPedido_Producao, UConsNCM_CFOP, UANP_Produto, UCadMetas_Comissao, uCupomTerminal, UConsAdto,
+  UConsPedido_Res, uConsComissao_Metas, UCadAjuste_Preco, UConsPedido_Est, UConsProduto_Vendedor_Fat, uCadRegiaoVenda;
 
 {$R *.dfm}
 
@@ -1587,11 +1588,6 @@ begin
   OpenForm(TfCobRetorno,wsMaximized);
 end;
 
-procedure TfMenu.CondiodePagamento2Click(Sender: TObject);
-begin
-  OpenForm(TfrmCadCondPgto,wsMaximized);
-end;
-
 procedure TfMenu.ransfernciaFinanceira1Click(Sender: TObject);
 begin
   OpenForm(TfrmCadTransferencia,wsMaximized);
@@ -2288,6 +2284,16 @@ procedure TfMenu.ConsultaMaterialParaComprasPedidoxRemessa1Click(
   Sender: TObject);
 begin
   OpenForm(TfrmConsMaterial_Nec,wsMaximized);
+end;
+
+procedure TfMenu.CondiesdePagamento1Click(Sender: TObject);
+begin
+  OpenForm(TfrmCadCondPgto,wsMaximized);
+end;
+
+procedure TfMenu.RegiesComerciaisPraas1Click(Sender: TObject);
+begin
+  OpenForm(frmCadRegiaoVendas,wsMaximized);
 end;
 
 initialization

@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 635
+    Height = 627
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -146,7 +146,6 @@ object fMenu: TfMenu
         end
         object CondiodePagamento2: TMenuItem
           Caption = 'Condi'#231#227'o de Pagamento'
-          OnClick = CondiodePagamento2Click
         end
         object CNAE1: TMenuItem
           Caption = 'CNAE'
@@ -165,6 +164,10 @@ object fMenu: TfMenu
         object Setores1: TMenuItem
           Caption = 'Setores'
           OnClick = Setores1Click
+        end
+        object RegiesComerciaisPraas1: TMenuItem
+          Caption = 'Regi'#245'es Comerciais (Pra'#231'as)'
+          OnClick = RegiesComerciaisPraas1Click
         end
       end
       object N3: TMenuItem
@@ -341,6 +344,10 @@ object fMenu: TfMenu
         object ContasBancos1: TMenuItem
           Caption = 'Contas '
           OnClick = ContasBancos1Click
+        end
+        object CondiesdePagamento1: TMenuItem
+          Caption = 'Condi'#231#245'es de Pagamento'
+          OnClick = CondiesdePagamento1Click
         end
         object CentrosdeCusto1: TMenuItem
           Caption = 'Centros de Custo'

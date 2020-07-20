@@ -1353,6 +1353,12 @@ type
     cdsPessoa_PedID: TIntegerField;
     cdsPessoa_PedUNIDADE_PADRAO: TStringField;
     qParametros_PedUSA_UNIDADE_CLIENTE: TStringField;
+    sdsRegiao_Venda: TSQLDataSet;
+    dspRegiao_Venda: TDataSetProvider;
+    cdsRegiao_Venda: TClientDataSet;
+    dsRegiao_Venda: TDataSource;
+    cdsRegiao_VendaID: TIntegerField;
+    cdsRegiao_VendaNOME: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;
@@ -1624,6 +1630,7 @@ begin
   qParametros_Ped.Open;
   qParametros_Com.Open;
   qParametros_Prod.Open;
+  cdsRegiao_Venda.Open;
   if qParametrosUSA_SERVICO.AsString = 'S' then
   begin
     prc_Abrir_Servico;

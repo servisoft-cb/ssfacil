@@ -7734,4 +7734,40 @@ object DMCadPessoa: TDMCadPessoa
     Left = 587
     Top = 544
   end
+  object sdsRegiao_Venda: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM REGIAO_VENDA'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 685
+    Top = 514
+  end
+  object dspRegiao_Venda: TDataSetProvider
+    DataSet = sdsRegiao_Venda
+    Left = 717
+    Top = 514
+  end
+  object cdsRegiao_Venda: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspRegiao_Venda'
+    Left = 749
+    Top = 514
+    object cdsRegiao_VendaID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsRegiao_VendaNOME: TStringField
+      FieldName = 'NOME'
+      Size = 60
+    end
+  end
+  object dsRegiao_Venda: TDataSource
+    DataSet = cdsRegiao_Venda
+    Left = 781
+    Top = 514
+  end
 end

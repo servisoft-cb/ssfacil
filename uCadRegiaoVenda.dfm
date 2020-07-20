@@ -1,10 +1,10 @@
-object frmCadCNAE: TfrmCadCNAE
+object frmCadRegiaoVendas: TfrmCadRegiaoVendas
   Left = 301
   Top = 154
   Width = 687
   Height = 462
   BorderIcons = [biSystemMenu, biMaximize]
-  Caption = 'Cadastro de CNAE'
+  Caption = 'frmCadRegiaoVendas'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -366,12 +366,12 @@ object frmCadCNAE: TfrmCadCNAE
           Caption = 'Nome:'
         end
         object Label3: TLabel
-          Left = 4
+          Left = 26
           Top = 10
-          Width = 36
+          Width = 14
           Height = 13
           Alignment = taRightJustify
-          Caption = 'C'#243'digo:'
+          Caption = 'ID:'
         end
         object Edit4: TEdit
           Left = 43
@@ -705,24 +705,16 @@ object frmCadCNAE: TfrmCadCNAE
         Enabled = False
         TabOrder = 0
         object Label1: TLabel
-          Left = 64
+          Left = 62
           Top = 36
           Width = 31
           Height = 13
           Alignment = taRightJustify
           Caption = 'Nome:'
         end
-        object Label2: TLabel
-          Left = 59
-          Top = 13
-          Width = 36
-          Height = 13
-          Alignment = taRightJustify
-          Caption = 'C'#243'digo:'
-        end
         object Label8: TLabel
-          Left = 409
-          Top = 13
+          Left = 79
+          Top = 12
           Width = 14
           Height = 13
           Alignment = taRightJustify
@@ -736,21 +728,11 @@ object frmCadCNAE: TfrmCadCNAE
           CharCase = ecUpperCase
           DataField = 'NOME'
           DataSource = DMCadCNAE.dsCNAE
-          TabOrder = 2
-        end
-        object DBEdit1: TDBEdit
-          Left = 96
-          Top = 5
-          Width = 113
-          Height = 21
-          CharCase = ecUpperCase
-          DataField = 'CODIGO'
-          DataSource = DMCadCNAE.dsCNAE
-          TabOrder = 0
+          TabOrder = 1
         end
         object DBEdit4: TDBEdit
-          Left = 424
-          Top = 5
+          Left = 96
+          Top = 4
           Width = 113
           Height = 21
           TabStop = False
@@ -759,7 +741,7 @@ object frmCadCNAE: TfrmCadCNAE
           DataField = 'ID'
           DataSource = DMCadCNAE.dsCNAE
           ReadOnly = True
-          TabOrder = 1
+          TabOrder = 0
         end
       end
     end
