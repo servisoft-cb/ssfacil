@@ -19764,8 +19764,8 @@ object DMCadPedido: TDMCadPedido
       'uto, IT.dtentrega, IT.qtd,'#13#10'it.motivo_nao_aprov,'#13#10'CASE'#13#10'  WHEN I' +
       'T.aprovado_orc = '#39'A'#39' then '#39'Aprovado'#39#13#10'  WHEN IT.aprovado_orc = '#39 +
       'N'#39' then '#39'N'#227'o Aprovado'#39#13#10'  WHEN IT.aprovado_orc = '#39'P'#39' then '#39'Pende' +
-      'nte'#39#13#10'  else '#39#39#13#10'  end DESC_APROVADO_ORC'#13#10'FROM PEDIDO_ITEM it'#13#10'W' +
-      'HERE IT.ID = :ID'#13#10#13#10
+      'nte'#39#13#10'  else '#39#39#13#10'  end DESC_APROVADO_ORC, it.vlr_unitario, it.vl' +
+      'r_total'#13#10'FROM PEDIDO_ITEM it'#13#10'WHERE IT.ID = :ID'
     MaxBlobSize = -1
     Params = <
       item
@@ -19823,6 +19823,14 @@ object DMCadPedido: TDMCadPedido
       Required = True
       FixedChar = True
       Size = 12
+    end
+    object cdsItens_ConsultaVLR_UNITARIO: TFloatField
+      FieldName = 'VLR_UNITARIO'
+      DisplayFormat = '###,###,##0.00##'
+    end
+    object cdsItens_ConsultaVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+      DisplayFormat = '###,###,##0.00'
     end
   end
   object dsItens_Consulta: TDataSource

@@ -949,6 +949,8 @@ type
     cdsPedido_EstESPESSURA: TFloatField;
     frxPedido_Est: TfrxDBDataset;
     cdsPedido_EstNOME_PRODUTO_PEDIDO: TStringField;
+    cdsPedido_ItemNUM_ORCAMENTO: TIntegerField;
+    cdsPedido_ItemAPROVADO_ORC: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConsumoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_MatCalcFields(DataSet: TDataSet);

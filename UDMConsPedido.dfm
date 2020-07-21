@@ -39,20 +39,20 @@ object DMConsPedido: TDMConsPedido
       'ITE.VLR_TOTAL / ITE.QTD) * ITE.QTD_CANCELADO)'#13#10'         when (IT' +
       'E.QTD <= 0) then 0'#13#10'       end as VLR_CANCELADO, PRO.TAM_CALC,'#13#10 +
       'case'#13#10'  when coalesce(cli.fantasia,'#39#39') = '#39#39' then cli.nome'#13#10'  els' +
-      'e cli.fantasia'#13#10'  end FANTASIA, ITE.encomenda'#13#10#13#10'from PEDIDO PED' +
-      #13#10'inner join PEDIDO_ITEM ITE on PED.ID = ITE.ID'#13#10'inner join FILI' +
-      'AL FIL on PED.FILIAL = FIL.ID'#13#10'inner join PESSOA CLI on PED.ID_C' +
-      'LIENTE = CLI.CODIGO'#13#10'inner join PRODUTO PRO on ITE.ID_PRODUTO = ' +
-      'PRO.ID'#13#10'left join PESSOA VEN on PED.ID_VENDEDOR = VEN.CODIGO'#13#10'le' +
-      'ft join COMBINACAO COMB on ITE.ID_COR = COMB.ID'#13#10'left join GRUPO' +
-      ' GR on PRO.ID_GRUPO = GR.ID'#13#10'left join PEDIDO_APROV APROV on PED' +
-      '.ID = APROV.ID  '#13#10'LEFT JOIN PESSOA VINT ON PED.ID_VENDEDOR_INT =' +
-      ' VINT.CODIGO'#13#10
+      'e cli.fantasia'#13#10'  end FANTASIA, ITE.encomenda, PED.num_orcamento' +
+      ', PED.APROVADO_ORC'#13#10#13#10'from PEDIDO PED'#13#10'inner join PEDIDO_ITEM IT' +
+      'E on PED.ID = ITE.ID'#13#10'inner join FILIAL FIL on PED.FILIAL = FIL.' +
+      'ID'#13#10'inner join PESSOA CLI on PED.ID_CLIENTE = CLI.CODIGO'#13#10'inner ' +
+      'join PRODUTO PRO on ITE.ID_PRODUTO = PRO.ID'#13#10'left join PESSOA VE' +
+      'N on PED.ID_VENDEDOR = VEN.CODIGO'#13#10'left join COMBINACAO COMB on ' +
+      'ITE.ID_COR = COMB.ID'#13#10'left join GRUPO GR on PRO.ID_GRUPO = GR.ID' +
+      #13#10'left join PEDIDO_APROV APROV on PED.ID = APROV.ID  '#13#10'LEFT JOIN' +
+      ' PESSOA VINT ON PED.ID_VENDEDOR_INT = VINT.CODIGO'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 39
-    Top = 10
+    Left = 38
+    Top = 11
   end
   object dspPedido_Item: TDataSetProvider
     DataSet = sdsPedido_Item
@@ -248,6 +248,14 @@ object DMConsPedido: TDMConsPedido
     end
     object cdsPedido_ItemDTCONFERENCIA: TDateField
       FieldName = 'DTCONFERENCIA'
+    end
+    object cdsPedido_ItemNUM_ORCAMENTO: TIntegerField
+      FieldName = 'NUM_ORCAMENTO'
+    end
+    object cdsPedido_ItemAPROVADO_ORC: TStringField
+      FieldName = 'APROVADO_ORC'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPedido_Item: TDataSource

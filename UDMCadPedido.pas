@@ -3800,6 +3800,8 @@ type
     qParametros_OCATUALIZAR_PRECO: TStringField;
     qParametros_OCATUALIZAR_PRECO_VENDA: TStringField;
     cdsProdutoPRECO_CUSTO_TOTAL: TFloatField;
+    cdsItens_ConsultaVLR_UNITARIO: TFloatField;
+    cdsItens_ConsultaVLR_TOTAL: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
