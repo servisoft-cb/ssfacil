@@ -1,11 +1,11 @@
 object frmConsOrcamento: TfrmConsOrcamento
-  Left = -4
-  Top = -4
+  Left = 171
+  Top = 42
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'Consulta Or'#231'amentos'
-  ClientHeight = 705
-  ClientWidth = 1366
+  ClientHeight = 628
+  ClientWidth = 1102
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,7 +22,7 @@ object frmConsOrcamento: TfrmConsOrcamento
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1366
+    Width = 1102
     Height = 135
     Align = alTop
     BevelOuter = bvNone
@@ -231,7 +231,7 @@ object frmConsOrcamento: TfrmConsOrcamento
   object Panel2: TPanel
     Left = 0
     Top = 135
-    Width = 1366
+    Width = 1102
     Height = 189
     Align = alTop
     Color = clSilver
@@ -425,8 +425,8 @@ object frmConsOrcamento: TfrmConsOrcamento
   end
   object pnlTotal: TPanel
     Left = 0
-    Top = 675
-    Width = 1366
+    Top = 598
+    Width = 1102
     Height = 30
     Align = alBottom
     Color = clSilver
@@ -619,8 +619,8 @@ object frmConsOrcamento: TfrmConsOrcamento
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 324
-    Width = 1366
-    Height = 351
+    Width = 1102
+    Height = 274
     ActivePage = TS_Item
     ActivePageDefault = TS_Item
     Align = alClient
@@ -637,8 +637,6 @@ object frmConsOrcamento: TfrmConsOrcamento
     TabIndex = 0
     TabOrder = 3
     TextColors.Unselected = 5197647
-    OnChange = RzPageControl1Change
-    OnChanging = RzPageControl1Changing
     FixedDimension = 19
     object TS_Item: TRzTabSheet
       Color = 16755027
@@ -652,8 +650,8 @@ object frmConsOrcamento: TfrmConsOrcamento
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 37
-        Width = 1362
-        Height = 291
+        Width = 1098
+        Height = 214
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido_Item
@@ -727,6 +725,7 @@ object frmConsOrcamento: TfrmConsOrcamento
             FieldName = 'DTEMISSAO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Emiss'#227'o'
+            Width = 64
             Visible = True
           end
           item
@@ -741,6 +740,7 @@ object frmConsOrcamento: TfrmConsOrcamento
             FieldName = 'REFERENCIA'
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
+            Width = 64
             Visible = True
           end
           item
@@ -848,7 +848,7 @@ object frmConsOrcamento: TfrmConsOrcamento
       object Panel6: TPanel
         Left = 0
         Top = 0
-        Width = 1362
+        Width = 1098
         Height = 37
         Align = alTop
         Color = clSilver
@@ -894,8 +894,8 @@ object frmConsOrcamento: TfrmConsOrcamento
       object SMDBGrid4: TSMDBGrid
         Left = 0
         Top = 25
-        Width = 1362
-        Height = 303
+        Width = 1098
+        Height = 226
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido
@@ -914,7 +914,6 @@ object frmConsOrcamento: TfrmConsOrcamento
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = [fsBold]
-        OnKeyDown = SMDBGrid4KeyDown
         OnTitleClick = SMDBGrid4TitleClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
@@ -959,6 +958,7 @@ object frmConsOrcamento: TfrmConsOrcamento
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -994,6 +994,7 @@ object frmConsOrcamento: TfrmConsOrcamento
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -1018,6 +1019,7 @@ object frmConsOrcamento: TfrmConsOrcamento
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -1066,6 +1068,7 @@ object frmConsOrcamento: TfrmConsOrcamento
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -1078,6 +1081,7 @@ object frmConsOrcamento: TfrmConsOrcamento
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -1214,6 +1218,7 @@ object frmConsOrcamento: TfrmConsOrcamento
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -1233,7 +1238,7 @@ object frmConsOrcamento: TfrmConsOrcamento
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 1362
+        Width = 1098
         Height = 25
         Align = alTop
         Color = clSilver

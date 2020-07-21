@@ -77,21 +77,11 @@ type
       Shift: TShiftState);
     procedure RxDBLookupCombo3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure SMDBGrid2TitleClick(Column: TColumn);
-    procedure SMDBGrid3TitleClick(Column: TColumn);
     procedure btnConsultarClick(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
-    procedure RzPageControl1Changing(Sender: TObject; NewIndex: Integer;
-      var AllowChange: Boolean);
     procedure btnRecalcularClick(Sender: TObject);
-    procedure ckAprovadoClick(Sender: TObject);
-    procedure SMDBGrid4KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure RxDBLookupCombo2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure SMDBGrid8GetCellParams(Sender: TObject; Field: TField;
-      AFont: TFont; var Background: TColor; Highlight: Boolean);
-    procedure RzPageControl1Change(Sender: TObject);
   private
     { Private declarations }
     ffrmConsPedido_Nota: TfrmConsPedido_Nota;
@@ -104,17 +94,9 @@ type
 
     procedure prc_Consultar;
     procedure prc_Consultar_Pedido;
-    procedure prc_GroupBy(ctTexto: String);
-    procedure prc_Montar_RadioGroup2;
 
     procedure prc_Somar_cdsPedido_item;
     procedure prc_Somar_cdsPedido;
-    procedure prc_Imprimir_Personalizado(Opcao: String);
-    procedure prc_Consultar_Ref2;
-
-    procedure prc_Gravar_Unidade(Unidade: String ; Qtd, Qtd_Rest, Qtd_Fat: Real);
-
-    procedure prc_Monta_mNotas_Ped;
 
   public
     { Public declarations }
@@ -128,16 +110,12 @@ var
 
 implementation
 
-uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, URelPedido_Det, URelPedido_Res, StrUtils,
-  URelPedido_Res2, USel_Produto, URelPedido_Ref, URelPedido_Ref_Acum,
-  URelPedido_Cli, URelPedido_Ref_Comb, UInformar_DtExpedicao, USel_Pessoa;
+uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, StrUtils, USel_Produto,
+  USel_Pessoa;
 
 {$R *.dfm}
 
 procedure TfrmConsOrcamento.prc_Consultar;
-var
-  vOpcaoDtEntrega: String;
-  vOpcaoConferido: String;
 begin
   fDMConsPedido.cdsPedido_Item.Close;
   fDMConsPedido.cdsPedido_Item.IndexFieldNames := '';
@@ -193,13 +171,9 @@ var
 begin
   fDMConsPedido := TDMConsPedido.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMConsPedido);
-  prc_Montar_RadioGroup2;
-  RadioGroup2Click(Sender);
   fDMConsPedido.cdsFilial.First;
   if (fDMConsPedido.cdsFilial.RecordCount < 2) and (fDMConsPedido.cdsFilialID.AsInteger > 0) then
     RxDBLookupCombo1.KeyValue := fDMConsPedido.cdsFilialID.AsInteger;
-  Shape9.Visible  := (fDMConsPedido.qParametrosUSA_PEDIDO_FUT.AsString = 'S');
-  Label45.Visible := (fDMConsPedido.qParametrosUSA_PEDIDO_FUT.AsString = 'S');
 
   for i := 1 to SMDBGrid1.ColCount - 2 do
   begin
@@ -287,19 +261,12 @@ var
   vComandoAux: String;
   i: Integer;
 begin
-  fDMConsPedido.cdsPedido.Close;
+{  fDMConsPedido.cdsPedido.Close;
   i := PosEx('GROUP',UpperCase(fDMConsPedido.ctPedido),0);
   vComandoAux := copy(fDMConsPedido.ctPedido,i,Length(fDMConsPedido.ctPedido) - i + 1);
   vComando    := copy(fDMConsPedido.ctPedido,1,i-1);
 
-  case RadioGroup1.ItemIndex of
-    0: vComando := vComando + ' WHERE V.TIPO_REG = ' + QuotedStr('P');
-    1: vComando := vComando + ' WHERE V.TIPO_REG = ' + QuotedStr('O');
-    2: vComando := vComando + ' WHERE 1 = 1';
-  end;
-
-  if (fDMConsPedido.qParametrosUSA_APROVACAO_PED.AsString = 'S') and not(ckAprovado.Checked) then
-    vComando := vComando + ' AND V.APROVADO_PED = ' + QuotedStr('A');
+  vComando := vComando + ' WHERE V.TIPO_REG = ' + QuotedStr('P');
 
   if CurrencyEdit2.AsInteger > 0 then
     vComando := vComando + ' AND V.NUM_PEDIDO IN (' + vOrdProducao + ')'
@@ -347,7 +314,7 @@ begin
   fDMConsPedido.sdsPedido.CommandText := vComando + '  ' + vComandoAux;
   fDMConsPedido.cdsPedido.Open;
   fDMConsPedido.cdsPedido.IndexFieldNames := 'DTENTREGA_ITEM;PEDIDO_CLIENTE';
-  prc_Somar_cdsPedido;
+  prc_Somar_cdsPedido;}
 end;
 
 procedure TfrmConsOrcamento.SMDBGrid4GetCellParams(Sender: TObject;
@@ -421,53 +388,6 @@ begin
   end;
 end;
 
-procedure TfrmConsOrcamento.prc_GroupBy(ctTexto: String);
-var
-  i: Integer;
-begin
-  i := PosEx('GROUP',UpperCase(ctTexto),0);
-  vComando_GroupBy := copy(ctTexto,i,Length(ctTexto) - i + 1);
-  vComando         := copy(ctTexto,1,i-1);
-end;
-
-procedure TfrmConsOrcamento.SMDBGrid2TitleClick(Column: TColumn);
-var
-  i: Integer;
-begin
-  ColunaOrdenada := Column.FieldName;
-  fDMConsPedido.cdsPedido_Ref.IndexFieldNames := Column.FieldName;
-  Column.Title.Color := clBtnShadow;
-  for i := 0 to SMDBGrid2.Columns.Count - 1 do
-    if not (SMDBGrid2.Columns.Items[I] = Column) then
-      SMDBGrid2.Columns.Items[I].Title.Color := clBtnFace;
-end;
-
-procedure TfrmConsOrcamento.SMDBGrid3TitleClick(Column: TColumn);
-var
-  i: Integer;
-  vlbMesmoCampo: Boolean;
-  vloIndices: TStrings;
-  vliCont: Integer;
-begin
-  vlbMesmoCampo := False;
-  vloIndices    := TStringList.Create;
-
-  TClientDataSet(Column.Grid.DataSource.DataSet).GetIndexNames(vloIndices);
-  TClientDataSet(Column.Grid.DataSource.DataSet).IndexName := EmptyStr;
-  vliCont := vloIndices.IndexOf('idx' + Column.FieldName);
-  if vliCont >= 0 then
-  begin
-    vlbMesmoCampo := not (ixDescending in TClientDataSet(Column.Grid.DataSource.DataSet).IndexDefs[vliCont].Options);
-    TClientDataSet(Column.Grid.DataSource.DataSet).DeleteIndex('idx' + Column.FieldName);
-  end;
-  TClientDataSet(Column.Grid.DataSource.DataSet).AddIndex('idx' + Column.FieldName, Column.FieldName, [], IfThen(vlbMesmoCampo, Column.FieldName));
-  TClientDataSet(Column.Grid.DataSource.DataSet).IndexName := 'idx' + Column.FieldName;
-  Column.Title.Color := clBtnShadow;
-  for i := 0 to SMDBGrid6.Columns.Count - 1 do
-    if not (SMDBGrid6.Columns.Items[I] = Column) then
-      SMDBGrid6.Columns.Items[I].Title.Color := clBtnFace;
-end;
-
 procedure TfrmConsOrcamento.btnConsultarClick(Sender: TObject);
 begin
   if RzPageControl1.ActivePage = TS_Item then
@@ -483,10 +403,6 @@ var
   vArq: String;
 begin
   vTipo_Config_Email := 3;
-  case cbImpCliente.ItemIndex of
-    0: vImpCliente_RF := 'F';
-    1: vImpCliente_RF := 'R';
-  end;
   vOpcaoAux := '';
   if RxDBLookupCombo2.Text <> '' then
     vOpcaoAux := vOpcaoAux + '(Cliente: ' + RxDBLookupCombo2.Text + ')';
@@ -503,14 +419,10 @@ begin
 
   if RxDBLookupCombo5.Text <> '' then
     vOpcaoAux := vOpcaoAux + '(Vendedor: ' + RxDBLookupCombo5.Text + ')';
-  case ComboBox2.ItemIndex of
-    0: vOpcaoAux := vOpcaoAux + '(Somente Ped. Estoque)';
-  end;
   case RadioGroup2.ItemIndex of
-    0: vOpcaoAux := vOpcaoAux + '(Pendente)';
-    1: vOpcaoAux := vOpcaoAux + '(Faturado)';
-    2: vOpcaoAux := vOpcaoAux + '(Cancelado)';
-    4: vOpcaoAux := vOpcaoAux + '(Enviado Não Cobr.)';
+    1: vOpcaoAux := vOpcaoAux + '(Pendente de Aprovação)';
+    2: vOpcaoAux := vOpcaoAux + '(Aprovado)';
+    3: vOpcaoAux := vOpcaoAux + '(Não Aprovado)';
   end;
   if RxDBLookupCombo6.Text <> '' then
     vOpcaoAux := vOpcaoAux + '(Vend.Interno: ' + RxDBLookupCombo6.Text + ')';
@@ -520,103 +432,19 @@ begin
     SMDBGrid1.DisableScroll;
     fDMConsPedido.mNotas_Ped.EmptyDataSet;
     fDMConsPedido.cdsPedido_Item.First;
-    if ckImpNotas.Checked then
-      prc_Monta_mNotas_Ped;
-    if ComboBox3.ItemIndex = 1 then
-    begin
-      fRelPedido_Det := TfRelPedido_Det.Create(Self);
-      fRelPedido_Det.fDMConsPedido := fDMConsPedido;
-      fRelPedido_Det.vImp_Vlr      := ckMostrarPreco.Checked;
-      fRelPedido_Det.vOpcaoImp     := vOpcaoAux;
-      fRelPedido_Det.RLReport1.PreviewModal;
-      fRelPedido_Det.RLReport1.Free;
-      FreeAndNil(fRelPedido_Det);
-    end
+    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Item.fr3';
+    if FileExists(vArq) then
+      fDMConsPedido.frxReport1.Report.LoadFromFile(vArq)
     else
     begin
-      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Item.fr3';
-      if FileExists(vArq) then
-        fDMConsPedido.frxReport1.Report.LoadFromFile(vArq)
-      else
-      begin
-        ShowMessage('Relatorio não localizado! ' + vArq);
-        Exit;
-      end;
-      fDMConsPedido.frxReport1.variables['Opcao_Imp'] := QuotedStr(vOpcaoAux);
-      fDMConsPedido.frxReport1.variables['Informar_Cor_Prod'] := QuotedStr(fDMConsPedido.qParametrosINFORMAR_COR_PROD.AsString);
-      fDMConsPedido.frxReport1.ShowReport;
+      ShowMessage('Relatorio não localizado! ' + vArq);
+      Exit;
     end;
-    SMDBGrid1.EnableScroll;
-  end
-  else
-  if RzPageControl1.ActivePage = TS_Pedido then
-  begin
-    SMDBGrid4.DisableScroll;
-    if chkImprimirPedidoItem.Checked then
-    begin
-      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Item_Consolidado.fr3';
-      if FileExists(vArq) then
-        fDMConsPedido.frxReport1.Report.LoadFromFile(vArq)
-      else
-      begin
-        ShowMessage('Relatorio não localizado! ' + vArq);
-        Exit;
-      end;
-      fDMConsPedido.vDataIni := FormatDateTime('DD/MM/YYYY',DateEdit1.Date);
-      fDMConsPedido.vDataFim := FormatDateTime('DD/MM/YYYY',DateEdit2.Date);
-      fDMConsPedido.frxReport1.ShowReport;
-    end
-    else
-    begin
-      if ComboBox1.ItemIndex = 0 then
-      begin
-        fRelPedido_Res2 := TfRelPedido_Res2.Create(Self);
-        fRelPedido_Res2.fDMConsPedido := fDMConsPedido;
-        fRelPedido_Res2.vImp_Vlr      := ckMostrarPreco.Checked;
-        fRelPedido_Res2.vOpcaoImp     := vOpcaoAux;
-        fRelPedido_Res2.RLReport1.PreviewModal;
-        fRelPedido_Res2.RLReport1.Free;
-        FreeAndNil(fRelPedido_Res2);
-      end
-      else
-      if ComboBox1.ItemIndex = 1 then
-      begin
-        fRelPedido_Res := TfRelPedido_Res.Create(Self);
-        fRelPedido_Res.fDMConsPedido := fDMConsPedido;
-        fRelPedido_Res.vImp_Vlr      := ckMostrarPreco.Checked;
-        fRelPedido_Res.vOpcaoImp     := vOpcaoAux;
-        fRelPedido_Res.RLReport1.PreviewModal;
-        fRelPedido_Res.RLReport1.Free;
-        FreeAndNil(fRelPedido_Res);
-      end
-      else
-        prc_Imprimir_Personalizado(vOpcaoAux);
-      SMDBGrid4.EnableScroll;
-    end;
+    fDMConsPedido.frxReport1.variables['Opcao_Imp'] := QuotedStr(vOpcaoAux);
+    fDMConsPedido.frxReport1.variables['Informar_Cor_Prod'] := QuotedStr(fDMConsPedido.qParametrosINFORMAR_COR_PROD.AsString);
+    fDMConsPedido.frxReport1.ShowReport;
   end;
-end;
-
-procedure TfrmConsOrcamento.prc_Montar_RadioGroup2;
-begin
-  if fDMConsPedido.qParametrosUSA_PEDIDO_FUT.AsString <> 'S' then
-    RadioGroup2.Items.Delete(4);
-end;
-
-procedure TfrmConsOrcamento.RzPageControl1Changing(Sender: TObject;
-  NewIndex: Integer; var AllowChange: Boolean);
-begin
-  if fDMConsPedido.qParametrosUSA_APROVACAO_PED.AsString = 'S' then
-  begin
-    ckAprovado.Visible := ((RzPageControl1.ActivePage = TS_Item) or (RzPageControl1.ActivePage = TS_Pedido));
-    Shape10.Visible    := ((RzPageControl1.ActivePage = TS_Item) or (RzPageControl1.ActivePage = TS_Pedido));
-    Label50.Visible    := ((RzPageControl1.ActivePage = TS_Item) or (RzPageControl1.ActivePage = TS_Pedido));
-    ckAprovadoClick(Sender);
-    if not ckAprovado.Visible then
-    begin
-      Label25.Visible := False;
-      Label26.Visible := False;
-    end;
-  end;
+  SMDBGrid1.EnableScroll;
 end;
 
 procedure TfrmConsOrcamento.prc_Somar_cdsPedido_item;
@@ -632,7 +460,6 @@ begin
   fDMConsPedido.cdsPedido_Item.First;
   while not fDMConsPedido.cdsPedido_Item.Eof do
   begin
-    prc_Gravar_Unidade(fDMConsPedido.cdsPedido_ItemUNIDADE.AsString,fDMConsPedido.cdsPedido_ItemQTD.AsFloat,fDMConsPedido.cdsPedido_ItemQTD_RESTANTE.AsFloat,fDMConsPedido.cdsPedido_ItemQTD_FATURADO.AsFloat);
     vVlrTotal         := StrToFloat(FormatFloat('0.00',vVlrTotal + fDMConsPedido.cdsPedido_ItemVLR_TOTAL.AsFloat));
     if StrToFloat(FormatFloat('0.00',fDMConsPedido.cdsPedido_ItemVLR_RESTANTE.AsFloat)) > 0 then
       vVlrRestante      := StrToFloat(FormatFloat('0.00',vVlrRestante + fDMConsPedido.cdsPedido_ItemVLR_RESTANTE.AsFloat));
@@ -683,102 +510,6 @@ begin
   Label26.Caption := FormatFloat('###,###,##0.00',vVlrPendAprovacao);
 end;
 
-procedure TfrmConsOrcamento.ckAprovadoClick(Sender: TObject);
-begin
-  Label25.Visible := (ckAprovado.Checked);
-  Label26.Visible := (ckAprovado.Checked);
-end;
-
-procedure TfrmConsOrcamento.SMDBGrid4KeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-var
-  ffrmInformar_DtExpedicao: TfrmInformar_DtExpedicao;
-begin
-  if (Key = Vk_F4) and (Label27.Visible) then
-  begin
-    ffrmInformar_DtExpedicao := TfrmInformar_DtExpedicao.Create(self);
-    ffrmInformar_DtExpedicao.Tag := 1;
-    if not(fDMConsPedido.cdsPedido.IsEmpty) then
-      ffrmInformar_DtExpedicao.CurrencyEdit1.AsInteger := fDMConsPedido.cdsPedidoNUM_PEDIDO.AsInteger;
-    ffrmInformar_DtExpedicao.ShowModal;
-    FreeAndNil(ffrmInformar_DtExpedicao);
-  end;
-end;
-
-procedure TfrmConsOrcamento.prc_Imprimir_Personalizado(Opcao: String);
-var
-  vArq: String;
-begin
-  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Cons_Pedido.fr3';
-  if FileExists(vArq) then
-    fDMConsPedido.frxReport1.Report.LoadFromFile(vArq)
-  else
-  begin
-    ShowMessage('Relatorio não localizado! ' + vArq);
-    Exit;
-  end;
-  fDMConsPedido.frxReport1.variables['Opcao_Imp'] := QuotedStr(Opcao);
-  fDMConsPedido.frxReport1.ShowReport;
-end;
-
-procedure TfrmConsOrcamento.prc_Gravar_Unidade(Unidade: String; Qtd, Qtd_Rest,
-  Qtd_Fat: Real);
-begin
-  if not (fDMConsPedido.qParametros_PedIMP_RESUMO_UNID.AsString = 'S') then
-    exit;
-  if fDMConsPedido.mUnidade.Locate('Unidade',Unidade,[loCaseInsensitive]) then
-    fDMConsPedido.mUnidade.Edit
-  else
-  begin
-    fDMConsPedido.mUnidade.Insert;
-    fDMConsPedido.mUnidadeUnidade.AsString := Unidade;
-  end;
-  fDMConsPedido.mUnidadeQtd.AsFloat      := fDMConsPedido.mUnidadeQtd.AsFloat + Qtd;
-  fDMConsPedido.mUnidadeQtd_Fat.AsFloat  := fDMConsPedido.mUnidadeQtd_Fat.AsFloat + Qtd_Fat;
-  fDMConsPedido.mUnidadeQtd_Rest.AsFloat := fDMConsPedido.mUnidadeQtd_Rest.AsFloat + Qtd_Rest;
-  fDMConsPedido.mUnidade.Post;
-end;
-
-procedure TfrmConsOrcamento.prc_Monta_mNotas_Ped;
-begin
-  fDMConsPedido.mNotas_Ped.MasterSource := nil;
-  fDMConsPedido.mNotas_Ped.MasterFields := '';
-
-  ProgressBar1.Visible  := True;
-  ProgressBar1.Max      := fDMConsPedido.cdsPedido_Item.RecordCount;
-  ProgressBar1.Position := 0;
-
-  fDMConsPedido.mNotas_Ped.EmptyDataSet;
-  fDMConsPedido.cdsPedido_Item.First;
-  while not fDMConsPedido.cdsPedido_Item.Eof do
-  begin
-    ProgressBar1.Position := ProgressBar1.Position + 1;
-    if StrToFloat(FormatFloat('0.000',fDMConsPedido.cdsPedido_ItemQTD_FATURADO.AsFloat)) > 0 then
-    begin
-      fDMConsPedido.prc_Consultar_Pedido_Nota(fDMConsPedido.cdsPedido_ItemID.AsInteger,fDMConsPedido.cdsPedido_ItemITEM.AsInteger);
-      fDMConsPedido.cdsPedido_Nota.First;
-      while not fDMConsPedido.cdsPedido_Nota.Eof do
-      begin
-        fDMConsPedido.mNotas_Ped.Insert;
-        fDMConsPedido.mNotas_PedID_Pedido.AsInteger   := fDMConsPedido.cdsPedido_ItemID.AsInteger;
-        fDMConsPedido.mNotas_PedItem_Pedido.AsInteger := fDMConsPedido.cdsPedido_ItemITEM.AsInteger;
-        fDMConsPedido.mNotas_PedNum_Nota.AsInteger    := fDMConsPedido.cdsPedido_NotaNUMNOTA.AsInteger;
-        fDMConsPedido.mNotas_PedItem_Nota.AsInteger   := fDMConsPedido.cdsPedido_NotaITEM_NOTA.AsInteger;
-        fDMConsPedido.mNotas_PedDtEmissao.AsDateTime  := fDMConsPedido.cdsPedido_NotaDTEMISSAO.AsDateTime;
-        fDMConsPedido.mNotas_PedQtd.AsFloat           := fDMConsPedido.cdsPedido_NotaQTD.AsFloat;
-        fDMConsPedido.mNotas_Ped.Post;
-        fDMConsPedido.cdsPedido_Nota.Next;
-      end;
-    end;
-    fDMConsPedido.cdsPedido_Item.Next;
-  end;
-  fDMConsPedido.cdsPedido_Item.First;
-  ProgressBar1.Visible := False;
-
-  fDMConsPedido.mNotas_Ped.MasterSource := fDMConsPedido.dsPedido_Item;
-  fDMConsPedido.mNotas_Ped.MasterFields := 'ID;ITEM';
-end;
-
 procedure TfrmConsOrcamento.RxDBLookupCombo2KeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
@@ -796,33 +527,6 @@ begin
       RxDBLookupCombo2.KeyValue := vCodPessoa_Pos;
     RxDBLookupCombo2.SetFocus;
   end;
-end;
-
-procedure TfrmConsOrcamento.SMDBGrid8GetCellParams(Sender: TObject;
-  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
-begin
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_RefCombQTD_RESTANTE.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_RefCombQTD_FATURADO.AsFloat)) > 0) then
-  begin
-    Background  := clGreen;
-    AFont.Color := clWhite;
-  end
-  else
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_RefCombQTD_FATURADO.AsFloat)) > 0) then
-    Background  := clAqua
-  else
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_RefCombQTD_FATURADO.AsFloat)) <= 0) and
-     (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_RefCombQTD_RESTANTE.AsFloat)) <= 0) and
-     (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_RefCombQTD_CANCELADO.AsFloat)) > 0) then
-  begin
-    Background  := clRed;
-    AFont.Color := clWhite;
-  end;
-end;
-
-procedure TfrmConsOrcamento.RzPageControl1Change(Sender: TObject);
-begin
-  Label34.Visible   := ((RzPageControl1.ActivePage = TS_Item) and (fDMConsPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S'));
-  ComboBox4.Visible := ((RzPageControl1.ActivePage = TS_Item) and (fDMConsPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S'));
 end;
 
 end.
