@@ -45,7 +45,7 @@ object frmCadRegiaoVenda: TfrmCadRegiaoVenda
         Height = 306
         Align = alClient
         Ctl3D = False
-        DataSource = DMCadCNAE.dsCNAE
+        DataSource = dmCadRegioes.dsRegiao_Venda
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
         ParentCtl3D = False
         ReadOnly = True
@@ -74,30 +74,17 @@ object frmCadRegiaoVenda: TfrmCadRegiaoVenda
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 4
+        ColCount = 3
         RowCount = 2
         Columns = <
           item
             Expanded = False
-            FieldName = 'CODIGO'
-            Title.Alignment = taCenter
-            Title.Caption = 'C'#243'digo'
-            Width = 82
+            FieldName = 'ID'
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOME'
-            Title.Alignment = taCenter
-            Title.Caption = 'Nome'
-            Width = 524
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'ID'
-            Title.Alignment = taCenter
-            Width = 44
             Visible = True
           end>
       end
@@ -727,7 +714,7 @@ object frmCadRegiaoVenda: TfrmCadRegiaoVenda
           Height = 21
           CharCase = ecUpperCase
           DataField = 'NOME'
-          DataSource = DMCadCNAE.dsCNAE
+          DataSource = dmCadRegioes.dsRegiao_Venda
           TabOrder = 1
         end
         object DBEdit4: TDBEdit
@@ -739,7 +726,7 @@ object frmCadRegiaoVenda: TfrmCadRegiaoVenda
           CharCase = ecUpperCase
           Color = clSilver
           DataField = 'ID'
-          DataSource = DMCadCNAE.dsCNAE
+          DataSource = dmCadRegioes.dsRegiao_Venda
           ReadOnly = True
           TabOrder = 0
         end
