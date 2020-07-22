@@ -42,18 +42,9 @@ type
     btnRecalcular: TNxButton;
     Label35: TLabel;
     RxDBLookupCombo6: TRxDBLookupCombo;
-    UCControls1: TUCControls;
     RzPageControl1: TRzPageControl;
     TS_Item: TRzTabSheet;
     SMDBGrid1: TSMDBGrid;
-    Panel6: TPanel;
-    Label33: TLabel;
-    ComboBox3: TComboBox;
-    TS_Pedido: TRzTabSheet;
-    SMDBGrid4: TSMDBGrid;
-    Panel4: TPanel;
-    Label10: TLabel;
-    ComboBox1: TComboBox;
     Label1: TLabel;
     Shape1: TShape;
     Label7: TLabel;
@@ -70,9 +61,6 @@ type
     procedure RxDBLookupCombo3Change(Sender: TObject);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
-    procedure SMDBGrid4GetCellParams(Sender: TObject; Field: TField;
-      AFont: TFont; var Background: TColor; Highlight: Boolean);
-    procedure SMDBGrid4TitleClick(Column: TColumn);
     procedure RxDBLookupCombo4KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure RxDBLookupCombo3KeyDown(Sender: TObject; var Key: Word;
@@ -82,6 +70,7 @@ type
     procedure btnRecalcularClick(Sender: TObject);
     procedure RxDBLookupCombo2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure SMDBGrid1TitleClick(Column: TColumn);
   private
     { Private declarations }
     ffrmConsPedido_Nota: TfrmConsPedido_Nota;
@@ -93,10 +82,8 @@ type
     vOrdProducao: String;
 
     procedure prc_Consultar;
-    procedure prc_Consultar_Pedido;
 
     procedure prc_Somar_cdsPedido_item;
-    procedure prc_Somar_cdsPedido;
 
   public
     { Public declarations }
@@ -181,8 +168,6 @@ begin
       SMDBGrid1.Columns[i].Visible := (fDMConsPedido.qParametros_PedCONCATENA_PROD_COR_TAM.AsString <> 'S');
   end;
 
-  if fDMConsPedido.qParametros_PedFATURAR_PED_INTEGRAL.AsString = 'S' then
-    ComboBox1.ItemIndex := 2;
   Label35.Visible          := (fDMConsPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S');
   RxDBLookupCombo6.Visible := (fDMConsPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S');
 end;
@@ -222,138 +207,24 @@ end;
 procedure TfrmConsOrcamento.SMDBGrid1GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
 begin
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_ItemQTD_FATURADO.AsFloat)) > 0) then
+  if fDMConsPedido.cdsPedido_ItemAPROVADO_ORC.AsString = 'P' then
+  begin
+    Background  := clYellow;
+    AFont.Color := clBlack;
+  end
+  else
+  if fDMConsPedido.cdsPedido_ItemAPROVADO_ORC.AsString = 'A' then
   begin
     Background  := clGreen;
     AFont.Color := clWhite;
   end
   else
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_ItemQTD_FATURADO.AsFloat)) > 0) then
-    Background  := clAqua
-  else
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_ItemQTD_FATURADO.AsFloat)) <= 0) and
-     (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and
-     (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_ItemQTD_CANCELADO.AsFloat)) > 0) then
+  //if (fDMConsPedido.cdsPedido_ItemAPROVADO_ORC.AsString = 'R') or (fDMConsPedido.cdsPedido_ItemAPROVADO_ORC.AsString = 'N') then
+  if (fDMConsPedido.cdsPedido_ItemAPROVADO_ORC.AsString = 'N') then
   begin
     Background  := clRed;
     AFont.Color := clWhite;
-  end
-  else
-  if StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedido_ItemQTD_FUT.AsFloat)) > 0 then
-    Background  := clSilver
-  else
-  if (fDMConsPedido.qParametrosUSA_APROVACAO_PED.AsString = 'S') and (fDMConsPedido.cdsPedido_ItemAPROVADO_PED.AsString = 'P') then
-  begin
-    Background  := $0080FFFF;
-    AFont.Color := clBlack;
-  end
-  else
-  if fDMConsPedido.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
-  begin
-    Background  := $000080FF;
-    AFont.Color := clBlack;
   end;
-end;
-
-procedure TfrmConsOrcamento.prc_Consultar_Pedido;
-var
-  vOpcaoDtEntrega: String;
-  vComandoAux: String;
-  i: Integer;
-begin
-{  fDMConsPedido.cdsPedido.Close;
-  i := PosEx('GROUP',UpperCase(fDMConsPedido.ctPedido),0);
-  vComandoAux := copy(fDMConsPedido.ctPedido,i,Length(fDMConsPedido.ctPedido) - i + 1);
-  vComando    := copy(fDMConsPedido.ctPedido,1,i-1);
-
-  vComando := vComando + ' WHERE V.TIPO_REG = ' + QuotedStr('P');
-
-  if CurrencyEdit2.AsInteger > 0 then
-    vComando := vComando + ' AND V.NUM_PEDIDO IN (' + vOrdProducao + ')'
-  else
-  begin
-    case ComboBox2.ItemIndex of
-      0: vComando := vComando + ' AND V.CLIENTE_ESTOQUE = ' + QuotedStr('S');
-      1: vComando := vComando + ' AND V.CLIENTE_ESTOQUE = ' + QuotedStr('N');
-    end;
-    if RxDBLookupCombo1.Text <> '' then
-      vComando := vComando + ' AND V.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
-    if RxDBLookupCombo2.Text <> '' then
-      vComando := vComando + ' AND V.ID_CLIENTE = ' + IntToStr(RxDBLookupCombo2.KeyValue);
-    if RxDBLookupCombo3.Text <> '' then
-      vComando := vComando + ' AND V.ID_PRODUTO = ' + IntToStr(RxDBLookupCombo3.KeyValue);
-    if RxDBLookupCombo5.Text <> '' then
-      vComando := vComando + ' AND V.ID_VENDEDOR = ' + IntToStr(RxDBLookupCombo5.KeyValue);
-    if RxDBLookupCombo6.Text <> '' then
-      vComando := vComando + ' AND V.ID_VENDEDOR_INT = ' + IntToStr(RxDBLookupCombo6.KeyValue);
-    if DateEdit1.Date > 10 then
-      vComando := vComando + ' AND V.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
-    if DateEdit2.Date > 10 then
-      vComando := vComando + ' AND V.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
-    vOpcaoDtEntrega := '';
-    if fDMConsPedido.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
-      vOpcaoDtEntrega := 'V.DTENTREGA_PED'
-    else
-      vOpcaoDtEntrega := 'V.DTENTREGA_ITEM';
-    if DateEdit3.Date > 10 then
-      vComando := vComando + ' AND ' + vOpcaoDtEntrega + ' >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit3.date));
-    if DateEdit4.Date > 10 then
-      vComando := vComando + ' AND ' + vOpcaoDtEntrega + ' <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit4.date));
-    if trim(Edit1.Text) <> '' then
-      vComando := vComando + ' AND V.PEDIDO_CLIENTE LIKE ' + QuotedStr('%'+Edit1.Text+'%');
-    if CurrencyEdit1.AsInteger > 0 then
-      vComando := vComando + ' AND V.NUM_PEDIDO = ' + IntToStr(CurrencyEdit1.AsInteger);
-
-    case RadioGroup2.ItemIndex of
-      0: vComando := vComando + ' AND V.QTD_RESTANTE > 0 ';
-      1: vComando := vComando + ' AND V.QTD_FATURADO > 0 ';
-      2: vComando := vComando + ' AND V.QTD_CANCELADO > 0 ';
-      4: vComando := vComando + ' AND V.QTD_FUT > 0 ';
-    end;
-  end;
-  fDMConsPedido.sdsPedido.CommandText := vComando + '  ' + vComandoAux;
-  fDMConsPedido.cdsPedido.Open;
-  fDMConsPedido.cdsPedido.IndexFieldNames := 'DTENTREGA_ITEM;PEDIDO_CLIENTE';
-  prc_Somar_cdsPedido;}
-end;
-
-procedure TfrmConsOrcamento.SMDBGrid4GetCellParams(Sender: TObject;
-  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
-begin
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedidoQTD_RESTANTE.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedidoQTD_FATURADO.AsFloat)) > 0) then
-  begin
-    Background  := clGreen;
-    AFont.Color := clWhite;
-  end
-  else
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedidoQTD_FATURADO.AsFloat)) > 0) then
-    Background  := clAqua
-  else
-  if (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedidoQTD_FATURADO.AsFloat)) <= 0) and
-     (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedidoQTD_RESTANTE.AsFloat)) <= 0) and
-     (StrToFloat(FormatFloat('0.0000',fDMConsPedido.cdsPedidoQTD_CANCELADO.AsFloat)) > 0) then
-  begin
-    Background  := clRed;
-    AFont.Color := clWhite;
-  end
-  else
-  if (fDMConsPedido.qParametrosUSA_APROVACAO_PED.AsString = 'S') and (fDMConsPedido.cdsPedidoAPROVADO_PED.AsString = 'P') then
-  begin
-    Background  := $0080FFFF;
-    AFont.Color := clBlack;
-  end;
-end;
-
-procedure TfrmConsOrcamento.SMDBGrid4TitleClick(Column: TColumn);
-var
-  i: Integer;
-begin
-  ColunaOrdenada := Column.FieldName;
-  fDMConsPedido.cdsPedido.IndexFieldNames := Column.FieldName;
-  Column.Title.Color := clBtnShadow;
-  for i := 0 to SMDBGrid4.Columns.Count - 1 do
-    if not (SMDBGrid4.Columns.Items[I] = Column) then
-      SMDBGrid4.Columns.Items[I].Title.Color := clBtnFace;
 end;
 
 procedure TfrmConsOrcamento.RxDBLookupCombo4KeyDown(Sender: TObject;
@@ -391,10 +262,7 @@ end;
 procedure TfrmConsOrcamento.btnConsultarClick(Sender: TObject);
 begin
   if RzPageControl1.ActivePage = TS_Item then
-    prc_Consultar
-  else
-  if RzPageControl1.ActivePage = TS_Pedido then
-    prc_Consultar_Pedido;
+    prc_Consultar;
 end;
 
 procedure TfrmConsOrcamento.btnImprimirClick(Sender: TObject);
@@ -432,7 +300,7 @@ begin
     SMDBGrid1.DisableScroll;
     fDMConsPedido.mNotas_Ped.EmptyDataSet;
     fDMConsPedido.cdsPedido_Item.First;
-    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Item.fr3';
+    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Orcamento_Item.fr3';
     if FileExists(vArq) then
       fDMConsPedido.frxReport1.Report.LoadFromFile(vArq)
     else
@@ -449,65 +317,38 @@ end;
 
 procedure TfrmConsOrcamento.prc_Somar_cdsPedido_item;
 var
-  vVlrTotal, vVlrRestante, vVlrFaturado, vVlrPendAprovacao: Real;
+  vVlrTotal, vVlrPendente, vVlrAprovado, vVlrNaoAprovado : Real;
 begin
-  fDMConsPedido.mUnidade.EmptyDataSet;
-  vVlrTotal         := 0;
-  vVlrRestante      := 0;
-  vVlrFaturado      := 0;
-  vVlrPendAprovacao := 0;
+  vVlrTotal       := 0;
+  vVlrPendente    := 0;
+  vVlrAprovado    := 0;
+  vVlrNaoAprovado := 0;
   SMDBGrid1.DisableScroll;
   fDMConsPedido.cdsPedido_Item.First;
   while not fDMConsPedido.cdsPedido_Item.Eof do
   begin
-    vVlrTotal         := StrToFloat(FormatFloat('0.00',vVlrTotal + fDMConsPedido.cdsPedido_ItemVLR_TOTAL.AsFloat));
-    if StrToFloat(FormatFloat('0.00',fDMConsPedido.cdsPedido_ItemVLR_RESTANTE.AsFloat)) > 0 then
-      vVlrRestante      := StrToFloat(FormatFloat('0.00',vVlrRestante + fDMConsPedido.cdsPedido_ItemVLR_RESTANTE.AsFloat));
-    vVlrFaturado      := StrToFloat(FormatFloat('0.00',vVlrFaturado + fDMConsPedido.cdsPedido_ItemVLR_FATURADO.AsFloat));
-    if (fDMConsPedido.cdsPedido_ItemAPROVADO_PED.AsString = 'P') then
-      vVlrPendAprovacao := StrToFloat(FormatFloat('0.00',vVlrPendAprovacao + fDMConsPedido.cdsPedido_ItemVLR_TOTAL.AsFloat));
+    vVlrTotal := StrToFloat(FormatFloat('0.00',vVlrTotal + fDMConsPedido.cdsPedido_ItemVLR_TOTAL.AsFloat));
+    if fDMConsPedido.cdsPedido_ItemAPROVADO_ORC.AsString = 'P' then
+      vVlrPendente := StrToFloat(FormatFloat('0.00',vVlrPendente + fDMConsPedido.cdsPedido_ItemVLR_TOTAL.AsFloat))
+    else
+    if fDMConsPedido.cdsPedido_ItemAPROVADO_ORC.AsString = 'A' then
+      vVlrAprovado := StrToFloat(FormatFloat('0.00',vVlrAprovado + fDMConsPedido.cdsPedido_ItemVLR_TOTAL.AsFloat))
+    else
+    if fDMConsPedido.cdsPedido_ItemAPROVADO_ORC.AsString = 'R' then
+      vVlrNaoAprovado := StrToFloat(FormatFloat('0.00',vVlrNaoAprovado + fDMConsPedido.cdsPedido_ItemVLR_TOTAL.AsFloat));
     fDMConsPedido.cdsPedido_Item.Next;
   end;
   SMDBGrid1.EnableScroll;
   Label20.Caption := FormatFloat('###,###,##0.00',vVlrTotal);
-  Label21.Caption := FormatFloat('###,###,##0.00',vVlrRestante);
-  Label24.Caption := FormatFloat('###,###,##0.00',vVlrFaturado);
-  Label26.Caption := FormatFloat('###,###,##0.00',vVlrPendAprovacao);
+  Label21.Caption := FormatFloat('###,###,##0.00',vVlrPendente);
+  Label24.Caption := FormatFloat('###,###,##0.00',vVlrAprovado);
+  Label26.Caption := FormatFloat('###,###,##0.00',vVlrNaoAprovado);
 end;
 
 procedure TfrmConsOrcamento.btnRecalcularClick(Sender: TObject);
 begin
   if RzPageControl1.ActivePage = TS_Item then
-    prc_Somar_cdsPedido_item
-  else
-    prc_Somar_cdsPedido;
-end;
-
-procedure TfrmConsOrcamento.prc_Somar_cdsPedido;
-var
-  vVlrTotal, vVlrRestante, vVlrFaturado, vVlrPendAprovacao: Real;
-begin
-  vVlrTotal         := 0;
-  vVlrRestante      := 0;
-  vVlrFaturado      := 0;
-  vVlrPendAprovacao := 0;
-  SMDBGrid4.DisableScroll;
-  fDMConsPedido.cdsPedido.First;
-  while not fDMConsPedido.cdsPedido.Eof do
-  begin
-    vVlrTotal      := StrToFloat(FormatFloat('0.00',vVlrTotal + fDMConsPedido.cdsPedidoVLR_TOTAL.AsFloat));
-    if StrToFloat(FormatFloat('0.00',fDMConsPedido.cdsPedidoVLR_RESTANTE.AsFloat)) > 0 then
-      vVlrRestante := StrToFloat(FormatFloat('0.00',vVlrRestante + fDMConsPedido.cdsPedidoVLR_RESTANTE.AsFloat));
-    vVlrFaturado   := StrToFloat(FormatFloat('0.00',vVlrFaturado + fDMConsPedido.cdsPedidoVLR_FATURADO.AsFloat));
-    if (fDMConsPedido.cdsPedidoAPROVADO_PED.AsString = 'P') then
-      vVlrPendAprovacao := StrToFloat(FormatFloat('0.00',vVlrPendAprovacao + fDMConsPedido.cdsPedidoVLR_TOTAL.AsFloat));
-    fDMConsPedido.cdsPedido.Next;
-  end;
-  SMDBGrid4.EnableScroll;
-  Label20.Caption := FormatFloat('###,###,##0.00',vVlrTotal);
-  Label21.Caption := FormatFloat('###,###,##0.00',vVlrRestante);
-  Label24.Caption := FormatFloat('###,###,##0.00',vVlrFaturado);
-  Label26.Caption := FormatFloat('###,###,##0.00',vVlrPendAprovacao);
+    prc_Somar_cdsPedido_item;
 end;
 
 procedure TfrmConsOrcamento.RxDBLookupCombo2KeyDown(Sender: TObject;
@@ -527,6 +368,19 @@ begin
       RxDBLookupCombo2.KeyValue := vCodPessoa_Pos;
     RxDBLookupCombo2.SetFocus;
   end;
+end;
+
+procedure TfrmConsOrcamento.SMDBGrid1TitleClick(Column: TColumn);
+var
+  i: Integer;
+  ColunaOrdenada: String;
+begin
+  ColunaOrdenada := Column.FieldName;
+  fDMConsPedido.cdsPedido_Item.IndexFieldNames := Column.FieldName;
+  Column.Title.Color := clBtnShadow;
+  for i := 0 to SMDBGrid1.Columns.Count - 1 do
+    if not (SMDBGrid1.Columns.Items[I] = Column) then
+      SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
 end;
 
 end.

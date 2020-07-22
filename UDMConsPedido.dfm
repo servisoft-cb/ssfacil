@@ -40,7 +40,7 @@ object DMConsPedido: TDMConsPedido
       'E.QTD <= 0) then 0'#13#10'       end as VLR_CANCELADO, PRO.TAM_CALC,'#13#10 +
       'case'#13#10'  when coalesce(cli.fantasia,'#39#39') = '#39#39' then cli.nome'#13#10'  els' +
       'e cli.fantasia'#13#10'  end FANTASIA, ITE.encomenda, PED.num_orcamento' +
-      ', PED.APROVADO_ORC'#13#10#13#10'from PEDIDO PED'#13#10'inner join PEDIDO_ITEM IT' +
+      ', ite.APROVADO_ORC'#13#10#13#10'from PEDIDO PED'#13#10'inner join PEDIDO_ITEM IT' +
       'E on PED.ID = ITE.ID'#13#10'inner join FILIAL FIL on PED.FILIAL = FIL.' +
       'ID'#13#10'inner join PESSOA CLI on PED.ID_CLIENTE = CLI.CODIGO'#13#10'inner ' +
       'join PRODUTO PRO on ITE.ID_PRODUTO = PRO.ID'#13#10'left join PESSOA VE' +
@@ -51,7 +51,7 @@ object DMConsPedido: TDMConsPedido
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 38
+    Left = 39
     Top = 11
   end
   object dspPedido_Item: TDataSetProvider
@@ -2600,7 +2600,7 @@ object DMConsPedido: TDMConsPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42032.577038136600000000
-    ReportOptions.LastChange = 44026.468359490740000000
+    ReportOptions.LastChange = 44034.453604965270000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -3899,7 +3899,7 @@ object DMConsPedido: TDMConsPedido
       'Qtd_Rest=Qtd_Rest')
     DataSource = dsmUnidade
     BCDToCurrency = False
-    Left = 904
+    Left = 903
     Top = 408
   end
   object qParametros_Etiq: TSQLQuery
@@ -3909,8 +3909,8 @@ object DMConsPedido: TDMConsPedido
       'SELECT *'
       'FROM PARAMETROS_ETIQ')
     SQLConnection = dmDatabase.scoDados
-    Left = 328
-    Top = 408
+    Left = 367
+    Top = 312
     object qParametros_EtiqID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -4132,19 +4132,21 @@ object DMConsPedido: TDMConsPedido
     UserName = 'frxPedido_Item'
     CloseDataSource = False
     FieldAliases.Strings = (
-      'ID=ID'
-      'ITEM=ITEM'
       'ID_CLIENTE=ID_CLIENTE'
+      'ID=ID'
       'PEDIDO_CLIENTE=PEDIDO_CLIENTE'
       'DTEMISSAO=DTEMISSAO'
       'DTENTREGA_PED=DTENTREGA_PED'
+      'NUM_PEDIDO=NUM_PEDIDO'
       'ID_VENDEDOR=ID_VENDEDOR'
       'FILIAL=FILIAL'
       'NOME_FILIAL=NOME_FILIAL'
       'NOME_FILIAL_INT=NOME_FILIAL_INT'
       'NOME_CLIENTE=NOME_CLIENTE'
+      'CLIENTE_ESTOQUE=CLIENTE_ESTOQUE'
       'NOME_PRODUTO=NOME_PRODUTO'
       'REFERENCIA=REFERENCIA'
+      'ITEM=ITEM'
       'ID_PRODUTO=ID_PRODUTO'
       'DTENTREGA_ITEM=DTENTREGA_ITEM'
       'QTD=QTD'
@@ -4152,16 +4154,11 @@ object DMConsPedido: TDMConsPedido
       'QTD_RESTANTE=QTD_RESTANTE'
       'QTD_CANCELADO=QTD_CANCELADO'
       'NOME_VENDEDOR=NOME_VENDEDOR'
-      'NUM_PEDIDO=NUM_PEDIDO'
       'VLR_UNITARIO=VLR_UNITARIO'
       'VLR_DESCONTO=VLR_DESCONTO'
       'VLR_TOTAL=VLR_TOTAL'
-      'VLR_RESTANTE=VLR_RESTANTE'
-      'VLR_FATURADO=VLR_FATURADO'
-      'VLR_CANCELADO=VLR_CANCELADO'
       'NUMOS=NUMOS'
       'FANTASIA=FANTASIA'
-      'CLIENTE_ESTOQUE=CLIENTE_ESTOQUE'
       'NUM_DOC=NUM_DOC'
       'NUM_TALAO=NUM_TALAO'
       'NOME_PRODUTO_PED=NOME_PRODUTO_PED'
@@ -4176,7 +4173,19 @@ object DMConsPedido: TDMConsPedido
       'DTFATURA=DTFATURA'
       'DTEXPEDICAO=DTEXPEDICAO'
       'DTAPROVADO=DTAPROVADO'
-      'UNIDADE=UNIDADE')
+      'UNIDADE=UNIDADE'
+      'OBS_ETIQUETA=OBS_ETIQUETA'
+      'MONT_COMBINACAO=MONT_COMBINACAO'
+      'VLR_RESTANTE=VLR_RESTANTE'
+      'VLR_FATURADO=VLR_FATURADO'
+      'VLR_CANCELADO=VLR_CANCELADO'
+      'TAM_CALC=TAM_CALC'
+      'ENCOMENDA=ENCOMENDA'
+      'ID_VENDEDOR_INT=ID_VENDEDOR_INT'
+      'NOME_VENDEDOR_INT=NOME_VENDEDOR_INT'
+      'DTCONFERENCIA=DTCONFERENCIA'
+      'NUM_ORCAMENTO=NUM_ORCAMENTO'
+      'APROVADO_ORC=APROVADO_ORC')
     DataSource = dsPedido_Item
     BCDToCurrency = False
     Left = 704
