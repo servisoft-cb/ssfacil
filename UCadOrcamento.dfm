@@ -1245,7 +1245,7 @@ object frmCadOrcamento: TfrmCadOrcamento
         Caption = 'pnlItens_Consulta'
         TabOrder = 5
         object Splitter2: TSplitter
-          Left = 650
+          Left = 691
           Top = 1
           Height = 129
           Align = alRight
@@ -1253,7 +1253,7 @@ object frmCadOrcamento: TfrmCadOrcamento
         object RzDBGrid1: TRzDBGrid
           Left = 1
           Top = 1
-          Width = 649
+          Width = 690
           Height = 129
           Align = alClient
           Color = clSilver
@@ -1284,7 +1284,7 @@ object frmCadOrcamento: TfrmCadOrcamento
               FieldName = 'ITEM'
               Title.Alignment = taCenter
               Title.Caption = 'Item'
-              Width = 37
+              Width = 29
               Visible = True
             end
             item
@@ -1293,6 +1293,7 @@ object frmCadOrcamento: TfrmCadOrcamento
               FieldName = 'ID_PRODUTO'
               Title.Alignment = taCenter
               Title.Caption = 'ID Produto'
+              Width = 56
               Visible = True
             end
             item
@@ -1308,7 +1309,7 @@ object frmCadOrcamento: TfrmCadOrcamento
               FieldName = 'NOMEPRODUTO'
               Title.Alignment = taCenter
               Title.Caption = 'Nome Produto'
-              Width = 428
+              Width = 396
               Visible = True
             end
             item
@@ -1325,12 +1326,28 @@ object frmCadOrcamento: TfrmCadOrcamento
               Title.Alignment = taCenter
               Title.Caption = 'Qtd.'
               Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VLR_UNITARIO'
+              Title.Alignment = taCenter
+              Title.Caption = 'Vlr. Unit'#225'rio'
+              Width = 69
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'VLR_TOTAL'
+              Title.Alignment = taCenter
+              Title.Caption = 'Vlr. Total'
+              Width = 77
+              Visible = True
             end>
         end
         object DBMemo3: TDBMemo
-          Left = 653
+          Left = 694
           Top = 1
-          Width = 350
+          Width = 309
           Height = 129
           Align = alRight
           Color = clSilver
