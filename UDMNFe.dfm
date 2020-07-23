@@ -6303,12 +6303,14 @@ object DMNFe: TDMNFe
       
         'SELECT  sum(coalesce(I.vlr_icmsdiferido,0)) VLR_ICMSDIFERIDO, co' +
         'alesce(cst.perc_diferimento,0) PERC_DIFERIMENTO,'
-      'sum(i.vlr_icms) vlr_icms'
+      
+        'sum(i.vlr_icms) vlr_icms, i.perc_diferimento perc_diferimento_no' +
+        'ta'
       'FROM NOTAFISCAL_ITENS I'
       'inner join tab_csticms cst'
       'on i.id_csticms = cst.id'
       'WHERE I.ID = :ID'
-      'group by coalesce(cst.perc_diferimento,0)')
+      'group by coalesce(cst.perc_diferimento,0), i.perc_diferimento')
     SQLConnection = dmDatabase.scoDados
     Left = 395
     Top = 510
@@ -6320,6 +6322,9 @@ object DMNFe: TDMNFe
     end
     object qICMSDiferidoVLR_ICMS: TFloatField
       FieldName = 'VLR_ICMS'
+    end
+    object qICMSDiferidoPERC_DIFERIMENTO_NOTA: TFloatField
+      FieldName = 'PERC_DIFERIMENTO_NOTA'
     end
   end
 end

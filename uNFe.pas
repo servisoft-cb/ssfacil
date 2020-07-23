@@ -3575,8 +3575,12 @@ begin
   begin
     if StrToFloat(FormatFloat('0.00',fDMNFe.qICMSDiferidoVLR_ICMSDIFERIDO.AsFloat)) > 0 then
     begin
+      if StrToFloat(FormatFloat('0.000',fDMNFe.qICMSDiferidoPERC_DIFERIMENTO.AsFloat)) > 0 then
+        vPercAux := StrToFloat(FormatFloat('0.000',fDMNFe.qICMSDiferidoPERC_DIFERIMENTO.AsFloat))
+      else
+        vPercAux := StrToFloat(FormatFloat('0.000',fDMNFe.qICMSDiferidoPERC_DIFERIMENTO_NOTA.AsFloat));
       vTexto := vTexto + '(Operação com diferimento parcial do imposto no valor de R$ ' + FormatFloat('###,###,##0.00',fDMNFe.qICMSDiferidoVLR_ICMSDIFERIDO.AsFloat)
-              + ' <' + FormatFloat('00.00##',fDMNFe.qICMSDiferidoPERC_DIFERIMENTO.AsFloat) + '% de R$ '
+              + ' <' + FormatFloat('00.00##',vPercAux) + '% de R$ '
               + FormatFloat('###,###,##0.00',fDMNFe.qICMSDiferidoVLR_ICMS.AsFloat + fDMNFe.qICMSDiferidoVLR_ICMSDIFERIDO.AsFloat) + '> nos termos do '
               + 'inciso I do art.96 do Decreto no. 1.980/07 (RICMS/PR))';
     end;
