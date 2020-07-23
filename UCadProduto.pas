@@ -1297,12 +1297,14 @@ var
   vID_SemiAux: Integer;
   vMaterial: String;
   Flag: Boolean;
+  vTipoAux : String;
 begin
   if fDMCadProduto.qParametros_LoteLOTE_CALCADO_NOVO.AsString = 'S' then
     if (trim(fDMCadProduto.cdsProdutoNOME_MODELO.AsString) <> '') and (fDMCadProduto.cdsProdutoTIPO_REG.AsString <> 'P') then
       fDMCadProduto.cdsProdutoNOME_MODELO.Clear;
 
-  vIDAux := fDMCadProduto.cdsProdutoID.AsInteger;
+  vIDAux   := fDMCadProduto.cdsProdutoID.AsInteger;
+  vTipoAux := fDMCadProduto.cdsProdutoTIPO_REG.AsString;
   if trim(fDMCadProduto.cdsProdutoREFERENCIA.AsString) = '' then
     fDMCadProduto.cdsProdutoREFERENCIA.AsString := fDMCadProduto.cdsProdutoID.AsString;
 
@@ -1606,6 +1608,17 @@ begin
     if trim(vMaterial) <> '' then
       MessageDlg(vMaterial + #13 + #13 + ' Esta repetido na mesma posição, favor verificar!', mtError, [mbOk], 0);
   end;
+
+  if (fDMCadProduto.qParametros_LoteLOTE_TEXTIL.AsString = 'S') and (vTipoAux = 'S') then
+  begin
+    sds.Close;
+    sds.CommandType := ctStoredProc;
+    sds.CommandText := 'PRC_GRAVAR_PRODUTO_COMISSAO';
+    sds.ParamByName('PID_SEMI').AsInteger := fDMCadProduto.cdsProdutoID.AsInteger;
+    sds.ExecSQL;
+  end;
+
+
 end;
 
 procedure TfrmCadProduto.prc_Inserir_Registro;

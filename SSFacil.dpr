@@ -858,7 +858,7 @@ uses
   UInforma_RecPagto in 'UInforma_RecPagto.pas' {frmInforma_RecPagto},
   UConsProduto_Vendedor_Fat in 'UConsProduto_Vendedor_Fat.pas' {frmConsProduto_Vendedor_Fat},
   uCadRegiaoVenda in 'uCadRegiaoVenda.pas' {frmCadRegiaoVenda},
-  UDmCadRegioes in 'uDmCadRegioes.pas' {dmCadRegioes: TDataModule};
+  UDmCadRegioes in 'uDmCadRegioes.pas' {dmCadRegioes: TDataModule},
   UConsOrcamento in 'UConsOrcamento.pas' {frmConsOrcamento};
 
 {$R *.res}
