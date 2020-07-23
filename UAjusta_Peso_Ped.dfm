@@ -174,7 +174,8 @@ object frmAjusta_Peso_Ped: TfrmAjusta_Peso_Ped
         Font.Name = 'Verdana'
         Font.Style = []
         Title.Alignment = taCenter
-        Title.Color = 8453888
+        Title.Caption = 'Qtd KG'
+        Title.Color = clYellow
         Title.Font.Charset = DEFAULT_CHARSET
         Title.Font.Color = clWindowText
         Title.Font.Height = -11

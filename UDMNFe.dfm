@@ -5940,7 +5940,7 @@ object DMNFe: TDMNFe
     SQL.Strings = (
       
         'SELECT I.tamanho_cliente, I.nome_cor_cliente, I.cod_produto_clie' +
-        'nte, i.cod_cor_cliente'
+        'nte, i.cod_cor_cliente, I.QTD_PECA'
       'FROM PEDIDO_ITEM I'
       'WHERE I.ID = :ID'
       '  AND I.ITEM = :ITEM')
@@ -5962,6 +5962,9 @@ object DMNFe: TDMNFe
     object qPedido_ItemCOD_COR_CLIENTE: TStringField
       FieldName = 'COD_COR_CLIENTE'
       Size = 10
+    end
+    object qPedido_ItemQTD_PECA: TIntegerField
+      FieldName = 'QTD_PECA'
     end
   end
   object sdsTPag: TSQLDataSet

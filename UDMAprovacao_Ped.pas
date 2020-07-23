@@ -358,6 +358,12 @@ type
     cdsPedidoUSUARIO: TStringField;
     cdsPedidoDTUSUARIO: TDateField;
     cdsPedidoHRUSUARIO: TTimeField;
+    cdsCliente_PendUSA_PRECO_VAREJO: TStringField;
+    cdsCliente_PendPESSOA: TStringField;
+    sdsPedidoVLR_TOTAL: TFloatField;
+    sdsPedidoVLR_ITENS: TFloatField;
+    cdsPedidoVLR_TOTAL: TFloatField;
+    cdsPedidoVLR_ITENS: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedido_ProcessoNewRecord(DataSet: TDataSet);
   private

@@ -1253,6 +1253,7 @@ type
     qICMSDiferidoVLR_ICMSDIFERIDO: TFloatField;
     qICMSDiferidoPERC_DIFERIMENTO: TFloatField;
     qICMSDiferidoVLR_ICMS: TFloatField;
+    qPedido_ItemQTD_PECA: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);
