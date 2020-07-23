@@ -752,7 +752,7 @@ begin
   if fDMCadPedido.qParametros_PedUSA_REF_DIG_PEDLOJA.AsString = 'S' then
     Label33.Caption := 'Referência:';
   //************************
-  Label38.Visible  := (fDMCadPedido.qParametros_PedUSA_QTD_PECA.AsString = 'S');
+  Label38.Visible       := (fDMCadPedido.qParametros_PedUSA_QTD_PECA.AsString = 'S');
   dbedtQtd_Peca.Visible := (fDMCadPedido.qParametros_PedUSA_QTD_PECA.AsString = 'S');
 
   //16/10/2019

@@ -4805,6 +4805,18 @@ begin
     end;
     //******************
 
+    //22/07/2020
+    if (fDMCadNotaFiscal.qParametros_PedUSA_QTD_PECA.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger > 0) then
+    begin
+      fDMNFe.qPedido_Item.Close;
+      fDMNFe.qPedido_Item.ParamByName('ID').AsInteger   := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger;
+      fDMNFe.qPedido_Item.ParamByName('ITEM').AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsInteger;
+      fDMNFe.qPedido_Item.Open;
+      if fDMNFe.qPedido_ItemQTD_PECA.AsInteger > 0 then
+        fDMNFe.mItensNFeInfAdicionais.AsString := fDMNFe.mItensNFeInfAdicionais.AsString + '(Qtd.Peca: ' + fDMNFe.qPedido_ItemQTD_PECA.AsString + ')';
+    end;
+    //********************
+
     //11/03/2020
     if fDMCadNotaFiscal.cdsCFOPCOMBUSTIVEL.AsString = 'S' then
     begin

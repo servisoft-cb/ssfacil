@@ -309,6 +309,8 @@ procedure TfrmAprovacao_Ped.prc_Gravar_Pedido_Aprov(ID_Pedido: Integer; Tipo: St
 var
   ID: TTransactionDesc;
   sds: TSQLDataSet;
+  vPrecoAux : String;
+  vPrecoTotal : Real;
 begin
   sds := TSQLDataSet.Create(nil);
   ID.TransactionID  := 2;
@@ -338,13 +340,39 @@ begin
 
       prc_Ajusta_Dados_Filial;
 
+      //22/07/2020
+      if (fDMAprovacao_Ped.cdsCliente_PendUSA_PRECO_VAREJO.AsString = 'S') or (fDMAprovacao_Ped.cdsCliente_PendPESSOA.AsString = 'F') then
+      begin
+        fDMAprovacao_Ped.cdsPedido_Item.Close;
+        fDMAprovacao_Ped.sdsPedido_Item.ParamByName('ID').AsInteger := ID_Pedido;
+        fDMAprovacao_Ped.cdsPedido_Item.Open;
+        fDMAprovacao_Ped.cdsPedido_Item.First;
+        while not fDMAprovacao_Ped.cdsPedido_Item.Eof do
+        begin
+          vPrecoAux := SQLLocate('PRODUTO','ID','PRECO_VAREJO',fDMAprovacao_Ped.cdsPedido_ItemID_PRODUTO.AsString);
+          if (trim(vPrecoAux) <> '') and  (StrToFloat(FormatFloat('0.0000',StrToFloat(vPrecoAux))) > 0) then
+          begin
+            vPrecoTotal := StrToFloat(FormatFloat('0.00',fDMAprovacao_Ped.cdsPedido_ItemVLR_TOTAL.AsFloat));
+            fDMAprovacao_Ped.cdsPedido_Item.Edit;
+            fDMAprovacao_Ped.cdsPedido_ItemVLR_UNITARIO.AsFloat := (StrToFloat(FormatFloat('0.0000',StrToFloat(vPrecoAux))));
+            fDMAprovacao_Ped.cdsPedido_ItemVLR_TOTAL.AsFloat    := StrToFloat(FormatFloat('0.00',fDMAprovacao_Ped.cdsPedido_ItemVLR_UNITARIO.AsFloat * fDMAprovacao_Ped.cdsPedido_ItemQTD.AsFloat));
+            fDMAprovacao_Ped.cdsPedido_Item.Post;
+
+            fDMAprovacao_Ped.cdsPedidoVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',(fDMAprovacao_Ped.cdsPedidoVLR_TOTAL.AsFloat - vPrecoTotal) + fDMAprovacao_Ped.cdsPedido_ItemVLR_TOTAL.AsFloat));
+            fDMAprovacao_Ped.cdsPedidoVLR_ITENS.AsFloat := StrToFloat(FormatFloat('0.00',(fDMAprovacao_Ped.cdsPedidoVLR_ITENS.AsFloat - vPrecoTotal) + fDMAprovacao_Ped.cdsPedido_ItemVLR_TOTAL.AsFloat));
+            
+          end;
+          fDMAprovacao_Ped.cdsPedido_Item.Next;
+        end;
+      end;
+      //********************
+
       fDMAprovacao_Ped.cdsPedido.Post;
       fDMAprovacao_Ped.cdsPedido.ApplyUpdates(0);
 
       //20/06/2020
       prc_Aprova_Item(ID_Pedido);
     end;
-
 
     fDMAprovacao_Ped.cdsPedido_Aprov.Close;
     fDMAprovacao_Ped.sdsPedido_Aprov.ParamByName('ID').AsInteger := ID_Pedido;

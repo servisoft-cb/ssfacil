@@ -79,51 +79,51 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     GetMetadata = False
     CommandText = 
       'SELECT CLI.CODIGO, CLI.nome NOME_CLIENTE, CLI.cnpj_cpf, CLI.vlr_' +
-      'limite_credito,'#13#10'  (SELECT SUM(PED.vlr_total)'#13#10'    FROM PEDIDO P' +
-      'ED'#13#10'    WHERE PED.CANCELADO = '#39'N'#39#13#10'      AND PED.APROVADO_PED = ' +
-      #39'P'#39#13#10'      AND PED.id_cliente = CLI.CODIGO'#13#10'      AND PED.TIPO_R' +
-      'EG = '#39'P'#39') VLR_TOTAL_PEND_APROV,'#13#10#13#10'  (SELECT SUM(DUP.vlr_restant' +
-      'e) FROM DUPLICATA DUP'#13#10'    WHERE DUP.id_pessoa = CLI.CODIGO'#13#10'   ' +
-      '   AND DUP.vlr_restante > 0) VLR_RESTANTE_DUP,'#13#10#13#10'  (SELECT SUM(' +
-      'VIT.vlr_restante)'#13#10'    FROM vpedido_item_pend VIT'#13#10'      WHERE V' +
-      'IT.id_cliente  = CLI.CODIGO'#13#10'        AND vit.tipo_reg = '#39'P'#39') VLR' +
-      '_TOTAL_PED,'#13#10#13#10'  (SELECT SUM(DUPA.vlr_restante) FROM DUPLICATA D' +
-      'UPA'#13#10'    WHERE DUPA.id_pessoa = CLI.CODIGO'#13#10'      AND DUPA.DTVEN' +
-      'CIMENTO < :DTVENCIMENTO'#13#10'      AND DUPA.vlr_restante > 0) VLR_AT' +
-      'RASADO,'#13#10#13#10'  (SELECT SUM(DPG.vlr_pago) FROM DUPLICATA DPG'#13#10'    W' +
-      'HERE DPG.id_pessoa = CLI.CODIGO'#13#10'      AND DPG.DTVENCIMENTO < DP' +
-      'G.dtultpagamento'#13#10'      AND DPG.vlr_restante <= 0'#13#10'      AND DPG' +
-      '.tipo_es = '#39'E'#39') VLR_PAGO_EM_ATRASO,'#13#10#13#10'  (SELECT count(1) FROM D' +
-      'UPLICATA DPG1'#13#10'    WHERE DPG1.id_pessoa = CLI.CODIGO'#13#10'      AND ' +
-      'DPG1.vlr_restante <= 0'#13#10'      AND DPG1.tipo_es = '#39'E'#39') QTD_TITULO' +
-      'S_PAGOS,'#13#10#13#10'  (SELECT count(1) FROM DUPLICATA DPG2'#13#10'    WHERE DP' +
-      'G2.id_pessoa = CLI.CODIGO'#13#10'      AND DPG2.vlr_restante <= 0'#13#10'   ' +
-      '   AND DPG2.DTVENCIMENTO < DPG2.dtultpagamento'#13#10'      AND DPG2.t' +
-      'ipo_es = '#39'E'#39') QTD_TITULOS_PAGOS_EM_ATRASO,'#13#10#13#10'  (SELECT PED2.dte' +
-      'missao'#13#10'    FROM PEDIDO PED2'#13#10'    WHERE PED2.ID ='#13#10'           (S' +
-      'ELECT MAX(PED2A.ID) FROM PEDIDO PED2A'#13#10'               WHERE PED2' +
-      'A.CANCELADO = '#39'N'#39#13#10'                 AND PED2A.APROVADO_PED = '#39'A'#39 +
-      #13#10'                 AND PED2A.id_cliente = CLI.CODIGO'#13#10'          ' +
-      '       AND PED2A.TIPO_REG = '#39'P'#39')) DT_ULTIMA_COMPRA,'#13#10#13#10'  (SELECT' +
-      ' VLR_TOTAL'#13#10'    FROM PEDIDO PED3'#13#10'    WHERE PED3.ID ='#13#10'         ' +
-      '  (SELECT MAX(PED4.ID) FROM PEDIDO PED4'#13#10'               WHERE PE' +
-      'D4.CANCELADO = '#39'N'#39#13#10'                 AND PED4.APROVADO_PED = '#39'A'#39 +
-      #13#10'                 AND PED4.id_cliente = CLI.CODIGO'#13#10'           ' +
-      '      AND PED4.TIPO_REG = '#39'P'#39')) VLR_ULTIMA_COMPRA,'#13#10#13#10'  (SELECT ' +
-      'COUNT(1) CONTADOR_PED'#13#10'    FROM PEDIDO PQ'#13#10'    WHERE pq.id_clien' +
-      'te = cli.codigo'#13#10'      and pq.cancelado = '#39'N'#39#13#10'      and pq.tipo' +
-      '_reg = '#39'P'#39#13#10'      AND PQ.aprovado_ped = '#39'A'#39') CONTADOR_PED,'#13#10#13#10' (' +
-      'SELECT COUNT(1) CONTADOR_PED_CANC'#13#10'    FROM PEDIDO PQCANC'#13#10'    W' +
-      'HERE PQCANC.id_cliente = cli.codigo'#13#10'      and PQCANC.cancelado ' +
-      '= '#39'S'#39#13#10'      and PQCANC.tipo_reg = '#39'P'#39') CONTADOR_PED_CANC,'#13#10#13#10' (' +
-      'SELECT COUNT(1) CONTADOR_PED_NAO_APROV'#13#10'    FROM PEDIDO PQN'#13#10'   ' +
-      ' WHERE PQN.id_cliente = cli.codigo'#13#10'      and PQN.cancelado = '#39'N' +
-      #39#13#10'      and PQN.tipo_reg = '#39'P'#39#13#10'      and PQN.aprovado_ped = '#39'N' +
-      #39') CONTADOR_PED_NAO_APROV'#13#10#13#10'FROM PESSOA CLI'#13#10'WHERE (SELECT COUN' +
-      'T(1) FROM PEDIDO P2'#13#10'              WHERE P2.ID_CLIENTE = CLI.COD' +
-      'IGO'#13#10'                AND P2.cancelado = '#39'N'#39#13#10'                AND' +
-      ' P2.aprovado_ped = '#39'P'#39#13#10'                AND P2.tipo_reg = '#39'P'#39') >' +
-      ' 0'#13#10#13#10#13#10
+      'limite_credito,'#13#10'   cli.usa_preco_varejo, cli.pessoa,'#13#10'  (SELECT' +
+      ' SUM(PED.vlr_total)'#13#10'    FROM PEDIDO PED'#13#10'    WHERE PED.CANCELAD' +
+      'O = '#39'N'#39#13#10'      AND PED.APROVADO_PED = '#39'P'#39#13#10'      AND PED.id_clie' +
+      'nte = CLI.CODIGO'#13#10'      AND PED.TIPO_REG = '#39'P'#39') VLR_TOTAL_PEND_A' +
+      'PROV,'#13#10#13#10'  (SELECT SUM(DUP.vlr_restante) FROM DUPLICATA DUP'#13#10'   ' +
+      ' WHERE DUP.id_pessoa = CLI.CODIGO'#13#10'      AND DUP.vlr_restante > ' +
+      '0) VLR_RESTANTE_DUP,'#13#10#13#10'  (SELECT SUM(VIT.vlr_restante)'#13#10'    FRO' +
+      'M vpedido_item_pend VIT'#13#10'      WHERE VIT.id_cliente  = CLI.CODIG' +
+      'O'#13#10'        AND vit.tipo_reg = '#39'P'#39') VLR_TOTAL_PED,'#13#10#13#10'  (SELECT S' +
+      'UM(DUPA.vlr_restante) FROM DUPLICATA DUPA'#13#10'    WHERE DUPA.id_pes' +
+      'soa = CLI.CODIGO'#13#10'      AND DUPA.DTVENCIMENTO < :DTVENCIMENTO'#13#10' ' +
+      '     AND DUPA.vlr_restante > 0) VLR_ATRASADO,'#13#10#13#10'  (SELECT SUM(D' +
+      'PG.vlr_pago) FROM DUPLICATA DPG'#13#10'    WHERE DPG.id_pessoa = CLI.C' +
+      'ODIGO'#13#10'      AND DPG.DTVENCIMENTO < DPG.dtultpagamento'#13#10'      AN' +
+      'D DPG.vlr_restante <= 0'#13#10'      AND DPG.tipo_es = '#39'E'#39') VLR_PAGO_E' +
+      'M_ATRASO,'#13#10#13#10'  (SELECT count(1) FROM DUPLICATA DPG1'#13#10'    WHERE D' +
+      'PG1.id_pessoa = CLI.CODIGO'#13#10'      AND DPG1.vlr_restante <= 0'#13#10'  ' +
+      '    AND DPG1.tipo_es = '#39'E'#39') QTD_TITULOS_PAGOS,'#13#10#13#10'  (SELECT coun' +
+      't(1) FROM DUPLICATA DPG2'#13#10'    WHERE DPG2.id_pessoa = CLI.CODIGO'#13 +
+      #10'      AND DPG2.vlr_restante <= 0'#13#10'      AND DPG2.DTVENCIMENTO <' +
+      ' DPG2.dtultpagamento'#13#10'      AND DPG2.tipo_es = '#39'E'#39') QTD_TITULOS_' +
+      'PAGOS_EM_ATRASO,'#13#10#13#10'  (SELECT PED2.dtemissao'#13#10'    FROM PEDIDO PE' +
+      'D2'#13#10'    WHERE PED2.ID ='#13#10'           (SELECT MAX(PED2A.ID) FROM P' +
+      'EDIDO PED2A'#13#10'               WHERE PED2A.CANCELADO = '#39'N'#39#13#10'       ' +
+      '          AND PED2A.APROVADO_PED = '#39'A'#39#13#10'                 AND PED' +
+      '2A.id_cliente = CLI.CODIGO'#13#10'                 AND PED2A.TIPO_REG ' +
+      '= '#39'P'#39')) DT_ULTIMA_COMPRA,'#13#10#13#10'  (SELECT VLR_TOTAL'#13#10'    FROM PEDID' +
+      'O PED3'#13#10'    WHERE PED3.ID ='#13#10'           (SELECT MAX(PED4.ID) FRO' +
+      'M PEDIDO PED4'#13#10'               WHERE PED4.CANCELADO = '#39'N'#39#13#10'      ' +
+      '           AND PED4.APROVADO_PED = '#39'A'#39#13#10'                 AND PED' +
+      '4.id_cliente = CLI.CODIGO'#13#10'                 AND PED4.TIPO_REG = ' +
+      #39'P'#39')) VLR_ULTIMA_COMPRA,'#13#10#13#10'  (SELECT COUNT(1) CONTADOR_PED'#13#10'   ' +
+      ' FROM PEDIDO PQ'#13#10'    WHERE pq.id_cliente = cli.codigo'#13#10'      and' +
+      ' pq.cancelado = '#39'N'#39#13#10'      and pq.tipo_reg = '#39'P'#39#13#10'      AND PQ.a' +
+      'provado_ped = '#39'A'#39') CONTADOR_PED,'#13#10#13#10' (SELECT COUNT(1) CONTADOR_P' +
+      'ED_CANC'#13#10'    FROM PEDIDO PQCANC'#13#10'    WHERE PQCANC.id_cliente = c' +
+      'li.codigo'#13#10'      and PQCANC.cancelado = '#39'S'#39#13#10'      and PQCANC.ti' +
+      'po_reg = '#39'P'#39') CONTADOR_PED_CANC,'#13#10#13#10' (SELECT COUNT(1) CONTADOR_P' +
+      'ED_NAO_APROV'#13#10'    FROM PEDIDO PQN'#13#10'    WHERE PQN.id_cliente = cl' +
+      'i.codigo'#13#10'      and PQN.cancelado = '#39'N'#39#13#10'      and PQN.tipo_reg ' +
+      '= '#39'P'#39#13#10'      and PQN.aprovado_ped = '#39'N'#39') CONTADOR_PED_NAO_APROV'#13 +
+      #10#13#10#13#10'FROM PESSOA CLI'#13#10'WHERE (SELECT COUNT(1) FROM PEDIDO P2'#13#10'   ' +
+      '           WHERE P2.ID_CLIENTE = CLI.CODIGO'#13#10'                AND' +
+      ' P2.cancelado = '#39'N'#39#13#10'                AND P2.aprovado_ped = '#39'P'#39#13#10 +
+      '                AND P2.tipo_reg = '#39'P'#39') > 0'#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -144,7 +144,7 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     Aggregates = <>
     Params = <>
     ProviderName = 'dspCliente_Pend'
-    Left = 417
+    Left = 418
     Top = 128
     object cdsCliente_PendCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -200,6 +200,16 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     end
     object cdsCliente_PendQTD_TITULOS_PAGOS_EM_ATRASO: TIntegerField
       FieldName = 'QTD_TITULOS_PAGOS_EM_ATRASO'
+    end
+    object cdsCliente_PendUSA_PRECO_VAREJO: TStringField
+      FieldName = 'USA_PRECO_VAREJO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsCliente_PendPESSOA: TStringField
+      FieldName = 'PESSOA'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsCliente_Pend: TDataSource
@@ -483,8 +493,8 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
       'select ID, APROVADO_PED, FILIAL, P.ID_REGIMETRIB, P.SIMPLES_FILI' +
       'AL, P.ID_LOCAL_ESTOQUE, FATURADO, IMPRESSO, TIPO_STATUS,'#13#10'      ' +
       ' ID_OPERACAO_NOTA, FINALIDADE, CONTROLA_RESERVA, TIPO_ATENDIMENT' +
-      'O, usuario, dtusuario, hrusuario'#13#10'from PEDIDO P'#13#10'where ID = :ID ' +
-      '  '
+      'O, usuario, dtusuario, hrusuario,'#13#10'       P.vlr_total, P.vlr_ite' +
+      'ns'#13#10'from PEDIDO P'#13#10'where ID = :ID   '
     MaxBlobSize = -1
     Params = <
       item
@@ -559,6 +569,12 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     end
     object sdsPedidoHRUSUARIO: TTimeField
       FieldName = 'HRUSUARIO'
+    end
+    object sdsPedidoVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+    end
+    object sdsPedidoVLR_ITENS: TFloatField
+      FieldName = 'VLR_ITENS'
     end
   end
   object dspPedido: TDataSetProvider
@@ -638,6 +654,12 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     end
     object cdsPedidoHRUSUARIO: TTimeField
       FieldName = 'HRUSUARIO'
+    end
+    object cdsPedidoVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+    end
+    object cdsPedidoVLR_ITENS: TFloatField
+      FieldName = 'VLR_ITENS'
     end
   end
   object dsPedido: TDataSource
@@ -1622,7 +1644,7 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 67
+    Left = 68
     Top = 147
     object sdsPedido_ItemID: TIntegerField
       FieldName = 'ID'
@@ -1676,7 +1698,7 @@ object DMAprovacao_Ped: TDMAprovacao_Ped
     Params = <>
     ProviderName = 'dspPedido_Item'
     Left = 131
-    Top = 145
+    Top = 146
     object cdsPedido_ItemID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

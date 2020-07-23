@@ -13334,7 +13334,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'SELECT *'
       'FROM PARAMETROS_PED')
     SQLConnection = dmDatabase.scoDados
-    Left = 1145
+    Left = 1144
     Top = 46
     object qParametros_PedCONTROLAR_FILIAL_NA_COPIA_NOTA: TStringField
       FieldName = 'CONTROLAR_FILIAL_NA_COPIA_NOTA'

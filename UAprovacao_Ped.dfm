@@ -553,7 +553,6 @@ object frmAprovacao_Ped: TfrmAprovacao_Ped
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -611,7 +610,6 @@ object frmAprovacao_Ped: TfrmAprovacao_Ped
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -708,7 +706,6 @@ object frmAprovacao_Ped: TfrmAprovacao_Ped
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end
         item
@@ -727,7 +724,6 @@ object frmAprovacao_Ped: TfrmAprovacao_Ped
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = []
-          Width = 64
           Visible = True
         end>
     end

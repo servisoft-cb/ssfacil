@@ -51,6 +51,8 @@ begin
   fDMCadPedido.prc_Abrir_cdsCFOP('S');
   fDMCadPedido.prc_Abrir_CSTICMS(fDMCadNotaFiscal.cdsFilialSIMPLES.AsString);
   prc_Gravar_mPedido_Peso;
+
+  SMDBGrid1.SelectAllClick(Sender);
 end;
 
 procedure TfrmAjusta_Peso_Ped.btnCancelarClick(Sender: TObject);
