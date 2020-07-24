@@ -479,6 +479,7 @@ begin
     fDMCadPedido.cdsPedidoID_CONDPGTO.AsInteger := fDMGerar_EDI.qClienteID_CONDPGTO.AsInteger;
   if fDMGerar_EDI.qClienteID_VENDEDOR.AsInteger > 0 then
     fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger := fDMGerar_EDI.qClienteID_VENDEDOR.AsInteger;
+
   if fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger > 0 then
   begin
     if StrToFloat(FormatFloat('0.00',fDMGerar_EDI.qClientePERC_COMISSAO.AsFloat)) > 0 then
@@ -589,6 +590,9 @@ begin
   //fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger := vID_Variacao;
 
   prc_Mover_Dados;
+
+  if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString = 'I') then
+    fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := fnc_Buscar_Comissao_Prod(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger);
 
   fDMCadPedido.cdsTab_CSTICMS.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger,([Locaseinsensitive]));
   fDMCadPedido.cdsTab_CSTIPI.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger,([Locaseinsensitive]));

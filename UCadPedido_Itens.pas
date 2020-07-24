@@ -1118,11 +1118,12 @@ begin
     fDMCadPedido.cdsPedidoTIPO_DESCONTO.AsString := 'I';
   end;
   //*****************
-  //10/11/2015 Comissão por item
+  //10/11/2015 Comissão por item 
   if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString <> 'I') then
     fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',0))
   else
-  if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString = 'I') and (fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger <> vID_Produto_Ant) then
+  if ((fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString = 'I') and (fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger <> vID_Produto_Ant))
+    or (fDMCadPedido.cdsPedido_Itens.State in [dsInsert]) then
     fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := fnc_Buscar_Comissao_Prod(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger);
   //****************
   DBCheckBox3.Visible := (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat)) > 0);
@@ -1399,7 +1400,7 @@ begin
     if (fDMCadPedido.cdsProdutoUSA_GRADE.AsString = 'S') and (fDMCadPedido.cdsParametrosUSA_GRADE.AsString = 'S') then
       prc_Gravar_Tam;
 
-    vID_Produto_Ant := 0;  
+    vID_Produto_Ant := 0;
   except
     on E: exception do
     begin

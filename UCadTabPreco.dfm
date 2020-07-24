@@ -1,6 +1,6 @@
 object frmCadTabPreco: TfrmCadTabPreco
-  Left = 252
-  Top = 71
+  Left = 200
+  Top = 59
   Width = 950
   Height = 603
   Caption = 'Tabela de Pre'#231'o'
@@ -34,6 +34,7 @@ object frmCadTabPreco: TfrmCadTabPreco
     TabColors.Shadow = clSilver
     TabIndex = 1
     TabOrder = 0
+    OnChange = RzPageControl1Change
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
       Caption = 'Tela de Consulta'

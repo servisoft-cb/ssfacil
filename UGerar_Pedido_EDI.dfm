@@ -1,6 +1,6 @@
 object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
-  Left = 120
-  Top = 87
+  Left = 148
+  Top = 88
   Width = 1095
   Height = 567
   Caption = 'frmGerar_Pedido_EDI'

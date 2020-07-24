@@ -99,6 +99,7 @@ type
     procedure btnExcluirSelecionadosClick(Sender: TObject);
     procedure btnConsPrecoProdClick(Sender: TObject);
     procedure SMDBGrid3TitleClick(Column: TColumn);
+    procedure RzPageControl1Change(Sender: TObject);
   private
     { Private declarations }
     fDMCadTab_Preco: TDMCadTab_Preco;
@@ -659,6 +660,18 @@ begin
   for i := 0 to SMDBGrid3.Columns.Count - 1 do
     if not (SMDBGrid3.Columns.Items[I] = Column) then
       SMDBGrid3.Columns.Items[I].Title.Color := clBtnFace;
+end;
+
+procedure TfrmCadTabPreco.RzPageControl1Change(Sender: TObject);
+begin
+  if RzPageControl1.ActivePage = TS_Cadastro then
+  begin
+    if fDMCadTab_Preco.cdsTab_PrecoID.AsInteger > 0 then
+    begin
+      fDMCadTab_Preco.cdsTab_Preco_Itens.Close;
+      fDMCadTab_Preco.cdsTab_Preco_Itens.Open;
+    end;
+  end;
 end;
 
 end.
