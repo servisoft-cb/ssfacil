@@ -2187,7 +2187,10 @@ begin
     end
     else
     begin
-      fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_DIFERIMENTO.AsFloat := 0;
+      if fDMCadNotaFiscal.cdsTab_CSTICMSCOD_CST.AsString = '900' then
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_DIFERIMENTO.AsFloat := fDMCadNotaFiscal.cdsTab_CSTICMSPERC_DIFERIMENTO.AsFloat
+      else
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_DIFERIMENTO.AsFloat := 0;
       //11/11/2015
       uCalculo_NotaFiscal.prc_Abrir_qProduto_UF(fDMCadNotaFiscal,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger,fDMCadNotaFiscal.cdsClienteUF.AsString);
       if StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.qProduto_UFPERC_REDUCAO_ICMS.AsFloat)) > 0 then
