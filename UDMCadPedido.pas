@@ -4525,7 +4525,7 @@ end;
 
 procedure TDMCadPedido.pedidoImpCalcFields(DataSet: TDataSet);
 begin
-  if cdsPedidoImpTIPO_FRETE.AsString <> '' then
+  if trim(cdsPedidoImpTIPO_FRETE.AsString) <> '' then
     case cdsPedidoImpTIPO_FRETE.AsInteger of
       1: cdsPedidoImpclTIPO_FRETE.AsString := 'Emitente';
       2: cdsPedidoImpclTIPO_FRETE.AsString := 'Destinat�rio';
