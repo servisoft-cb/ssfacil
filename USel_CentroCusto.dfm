@@ -1,6 +1,6 @@
 object frmSel_CentroCusto: TfrmSel_CentroCusto
-  Left = 107
-  Top = 128
+  Left = 393
+  Top = 96
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmSel_CentroCusto'

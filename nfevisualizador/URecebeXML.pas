@@ -312,9 +312,6 @@ type
     NxButton1: TNxButton;
     Panel10: TPanel;
     Panel11: TPanel;
-    BitBtn6: TBitBtn;
-    BitBtn7: TBitBtn;
-    BitBtn8: TBitBtn;
     Label133: TLabel;
     RxDBLookupCombo9: TRxDBLookupCombo;
     SMDBGrid2: TSMDBGrid;
@@ -381,8 +378,16 @@ type
     DBEdit83: TDBEdit;
     DBEdit82: TDBEdit;
     Label134: TLabel;
-    CurrencyEdit3: TCurrencyEdit;
-    Edit1: TEdit;
+    btnInserir_Fin: TNxButton;
+    btnAlterar_Fin: TNxButton;
+    btnExcluir_Fin: TNxButton;
+    Label152: TLabel;
+    ceConta_Orcamento: TCurrencyEdit;
+    edtNome_Conta_Orcamento: TEdit;
+    DBEdit94: TDBEdit;
+    DBEdit95: TDBEdit;
+    Label153: TLabel;
+    Label154: TLabel;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
@@ -419,9 +424,6 @@ type
     procedure CurrencyEdit2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure NxButton1Click(Sender: TObject);
-    procedure BitBtn6Click(Sender: TObject);
-    procedure BitBtn7Click(Sender: TObject);
-    procedure BitBtn8Click(Sender: TObject);
     procedure DBEdit82KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure DBEdit82Exit(Sender: TObject);
@@ -429,9 +431,14 @@ type
     procedure btnAjustarUnidadeClick(Sender: TObject);
     procedure CheckBox2Click(Sender: TObject);
     procedure RxDBLookupCombo6Exit(Sender: TObject);
-    procedure CurrencyEdit3KeyDown(Sender: TObject; var Key: Word;
+    procedure btnInserir_FinClick(Sender: TObject);
+    procedure btnAlterar_FinClick(Sender: TObject);
+    procedure btnExcluir_FinClick(Sender: TObject);
+    procedure ceConta_OrcamentoKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure CurrencyEdit3Exit(Sender: TObject);
+    procedure ceConta_OrcamentoExit(Sender: TObject);
+    procedure DBEdit94KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     vCodCidade: Integer;
@@ -544,7 +551,6 @@ type
     procedure prc_Busca_CFOPAtual;
 
     procedure prc_Monta_ICMS;
-    procedure prc_Exibe_CentroCusto;
   public
     { Public declarations }
     vUsaConfigNatOper2: String;
@@ -854,6 +860,16 @@ begin
   Label135.Visible          := (fDMRecebeXML.qParametrosUSA_GRADE.AsString = 'S');
   RxDBLookupCombo10.Visible := (fDMRecebeXML.qParametrosUSA_GRADE.AsString = 'S');
 
+  Label134.Visible := ((fDMRecebeXML.qParametrosUSA_CONTA_ORCAMENTO.AsString = 'S') and (fDMRecebeXML.qParametros_NTEUSA_CONTA_ORCAMENTO_ITENS.AsString = 'S'));
+  DBEdit82.Visible := ((fDMRecebeXML.qParametrosUSA_CONTA_ORCAMENTO.AsString = 'S') and (fDMRecebeXML.qParametros_NTEUSA_CONTA_ORCAMENTO_ITENS.AsString = 'S'));
+  DBEdit83.Visible := ((fDMRecebeXML.qParametrosUSA_CONTA_ORCAMENTO.AsString = 'S') and (fDMRecebeXML.qParametros_NTEUSA_CONTA_ORCAMENTO_ITENS.AsString = 'S'));
+
+  Label151.Visible := (fDMRecebeXML.qParametros_NTEUSA_CENTRO_CUSTO.AsString = 'S');
+  DBEdit94.Visible := (fDMRecebeXML.qParametros_NTEUSA_CENTRO_CUSTO.AsString = 'S');
+  DBEdit95.Visible := (fDMRecebeXML.qParametros_NTEUSA_CENTRO_CUSTO.AsString = 'S');
+
+  Label154.Visible := ((Label151.Visible) or (Label134.Visible));
+  
   fDMRecebeXML.mItensNota.AFTERSCROLL := prc_scroll;
 end;
 
@@ -1252,6 +1268,7 @@ begin
   if fDMRecebeXML.fnc_Abrir_Fornecedor(edCNPJEmitente.Text) then
   begin
     vCodFornecedor := fDMRecebeXML.cdsFornecedorCODIGO.AsInteger;
+    ceConta_Orcamento.AsInteger := fDMRecebeXML.cdsFornecedorFORNECEDOR_CONTA_ID.AsInteger;
     lbStatusForn.Caption := 'Encontrado - Código Interno: ' + fDMRecebeXML.cdsFornecedorCODIGO.AsString;
     if (fDMRecebeXML.qParametros_RecXMLCONTROLAR_GRAVA_PROD.AsString = 'S') then
       ckAssociar.Checked := (fDMRecebeXML.cdsFornecedorASSOCIAR_PROD.AsString = 'S');
@@ -1598,7 +1615,6 @@ begin
     if trim(fDMRecebeXML.vNum_Pedido) <> '' then
     begin
       prc_Ajuste_Prod_Pela_OC(False);
-      prc_Exibe_CentroCusto;
     end;
   end
   else
@@ -2398,6 +2414,11 @@ begin
     end;
     fDMRecebeXML.cdsNotaFiscalID_CLIENTE.AsInteger := vCodFornecedor;
 
+    //25/07/2020
+    if ceConta_Orcamento.AsInteger > 0 then
+      fDMRecebeXML.cdsNotaFiscalID_CONTA_ORCAMENTO.AsInteger := ceConta_Orcamento.AsInteger;
+    //****************
+
 //    if fDMRecebeXML.mParc.IsEmpty then
 //    begin
 //      vDup := 0;
@@ -2857,7 +2878,7 @@ begin
 
         fDMRecebeXML.Gravar_Duplicata('P','N',fDMRecebeXML.cdsNotaFiscal_ParcITEM.AsInteger,
                                               fDMRecebeXML.cdsNotaFiscal_ParcVLR_VENCIMENTO.AsFloat,
-                                              fDMRecebeXML.cdsNotaFiscal_ParcDTVENCIMENTO.AsDateTime,CurrencyEdit3.AsInteger);
+                                              fDMRecebeXML.cdsNotaFiscal_ParcDTVENCIMENTO.AsDateTime,0,ceConta_Orcamento.AsInteger);
         fDMRecebeXML.cdsNotaFiscal_Parc.Next;
       end;
 
@@ -3232,7 +3253,9 @@ var
   vID_LocalAux: Integer;
 begin
   lbStatusContasPagar.Font.Color := clBlack;
-  
+
+  ceConta_Orcamento.Clear;
+  edtNome_Conta_Orcamento.Clear;
   fDMRecebeXML.cdsUnidade2.Close;
   fDMRecebeXML.cdsUnidade2.Open;
   fDMRecebeXML.qParametros.Close;
@@ -3243,8 +3266,6 @@ begin
   Label109.Visible         := (fDMRecebeXML.qParametrosUSA_CUPOM_FISCAL.AsString = 'S');
   RxDBLookupCombo5.Visible := (fDMRecebeXML.qParametrosUSA_CUPOM_FISCAL.AsString = 'S');
   Label4.Visible := False;
-  Edit1.Clear;
-  CurrencyEdit3.Clear;             
 
   vPath := fDMRecebeXML.qParametrosENDXML_NOTAENTRADA.AsString;
   if fDMRecebeXML.qParametrosENDXML_NOTAENTRADA.AsString <> '' then
@@ -4442,38 +4463,6 @@ begin
   end;
 end;
 
-procedure TfrmRecebeXML.BitBtn6Click(Sender: TObject);
-begin
-  fDMRecebeXML.prc_Inserir_Parcela;
-  ffrmRecebeXML_Duplicatas := TfrmRecebeXML_Duplicatas.Create(self);
-  ffrmRecebeXML_Duplicatas.fDMRecebeXML := fDMRecebeXML;
-  ffrmRecebeXML_Duplicatas.fDMRecebeXML.mParcNumDuplicata.AsString := fDMRecebeXML.cdsCabecalhonNF.AsString;
-  ffrmRecebeXML_Duplicatas.ShowModal;
-  FreeAndNil(ffrmRecebeXML_Duplicatas);
-end;
-
-procedure TfrmRecebeXML.BitBtn7Click(Sender: TObject);
-begin
-  //if fDMRecebeXML.cdsParcelas.IsEmpty then
-  if fDMRecebeXML.mParc.IsEmpty then
-    exit;
-  fDMRecebeXML.mParc.Edit;
-  ffrmRecebeXML_Duplicatas := TfrmRecebeXML_Duplicatas.Create(self);
-  ffrmRecebeXML_Duplicatas.fDMRecebeXML := fDMRecebeXML;
-  ffrmRecebeXML_Duplicatas.ShowModal;
-  FreeAndNil(ffrmRecebeXML_Duplicatas);
-end;
-
-procedure TfrmRecebeXML.BitBtn8Click(Sender: TObject);
-begin
-  //if fDMRecebeXML.cdsParcelas.IsEmpty then
-  if fDMRecebeXML.mParc.IsEmpty then
-    exit;
-  if MessageDlg('Deseja excluir este registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
-    exit;
-  fDMRecebeXML.mParc.Delete;
-end;
-
 procedure TfrmRecebeXML.prc_Grava_mParc;
 begin
   fDMRecebeXML.mParc.Insert;
@@ -4956,30 +4945,69 @@ begin
     vFilial_Local := RxDBLookupCombo6.KeyValue;
 end;
 
-procedure TfrmRecebeXML.CurrencyEdit3KeyDown(Sender: TObject;
+procedure TfrmRecebeXML.btnInserir_FinClick(Sender: TObject);
+begin
+  fDMRecebeXML.prc_Inserir_Parcela;
+  ffrmRecebeXML_Duplicatas := TfrmRecebeXML_Duplicatas.Create(self);
+  ffrmRecebeXML_Duplicatas.fDMRecebeXML := fDMRecebeXML;
+  ffrmRecebeXML_Duplicatas.fDMRecebeXML.mParcNumDuplicata.AsString := fDMRecebeXML.cdsCabecalhonNF.AsString;
+  ffrmRecebeXML_Duplicatas.ShowModal;
+  FreeAndNil(ffrmRecebeXML_Duplicatas);
+end;
+
+procedure TfrmRecebeXML.btnAlterar_FinClick(Sender: TObject);
+begin
+  if fDMRecebeXML.mParc.IsEmpty then
+    exit;
+  fDMRecebeXML.mParc.Edit;
+  ffrmRecebeXML_Duplicatas := TfrmRecebeXML_Duplicatas.Create(self);
+  ffrmRecebeXML_Duplicatas.fDMRecebeXML := fDMRecebeXML;
+  ffrmRecebeXML_Duplicatas.ShowModal;
+  FreeAndNil(ffrmRecebeXML_Duplicatas);
+end;
+
+procedure TfrmRecebeXML.btnExcluir_FinClick(Sender: TObject);
+begin
+  if fDMRecebeXML.mParc.IsEmpty then
+    exit;
+  if MessageDlg('Deseja excluir este registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+    exit;
+  fDMRecebeXML.mParc.Delete;
+end;
+
+procedure TfrmRecebeXML.ceConta_OrcamentoKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_F2) then
+  begin
+    vID_ContaOrcamento_Pos := ceConta_Orcamento.AsInteger;
+    frmSel_ContaOrc := TfrmSel_ContaOrc.Create(Self);
+    frmSel_ContaOrc.ComboBox2.ItemIndex := 2;
+    frmSel_ContaOrc.ShowModal;
+    ceConta_Orcamento.AsInteger := vID_ContaOrcamento_Pos;
+    edtNome_Conta_Orcamento.Text := SQLLocate('CONTA_ORCAMENTO','ID','DESCRICAO',ceConta_Orcamento.Text);
+  end;
+end;
+
+procedure TfrmRecebeXML.ceConta_OrcamentoExit(Sender: TObject);
+begin
+  edtNome_Conta_Orcamento.Text := SQLLocate('CONTA_ORCAMENTO','ID','DESCRICAO',ceConta_Orcamento.Text);
+end;
+
+procedure TfrmRecebeXML.DBEdit94KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
 begin
   if (Key = Vk_F2) then
   begin
     vID_Centro_Custo := fDMRecebeXML.mItensNotaID_CentroCusto.AsInteger;
     frmSel_CentroCusto := TfrmSel_CentroCusto.Create(Self);
     frmSel_CentroCusto.ShowModal;
-    CurrencyEdit3.Value := vID_Centro_Custo;
-    prc_Exibe_CentroCusto;
+    if not(fDMRecebeXML.mItensNota.State in [dsEdit]) then
+      fDMRecebeXML.mItensNota.Edit;
+    fDMRecebeXML.mItensNotaID_CentroCusto.AsInteger := vID_Centro_Custo;
+    fDMRecebeXML.mItensNotaNome_CentroCusto.AsString := SQLLocate('CENTROCUSTO','ID','DESCRICAO',fDMRecebeXML.mItensNotaID_CentroCusto.AsString);
+    fDMRecebeXML.mItensNota.Post;
   end;
-end;
-
-procedure TfrmRecebeXML.prc_Exibe_CentroCusto;
-begin
-  fDMRecebeXML.qCentroCusto.Close;
-  fDMRecebeXML.qCentroCusto.ParamByName('ID').AsInteger := CurrencyEdit3.AsInteger;
-  fDMRecebeXML.qCentroCusto.Open;
-  Edit1.Text := fDMRecebeXML.qCentroCustoDESCRICAO.AsString;
-end;
-
-procedure TfrmRecebeXML.CurrencyEdit3Exit(Sender: TObject);
-begin
-  prc_Exibe_CentroCusto;
 end;
 
 end.

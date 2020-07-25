@@ -2384,6 +2384,12 @@ type
     sdsDupCCustoID_CENTROCUSTO: TIntegerField;
     sdsDupCCustoPERCENTUAL: TFloatField;
     sdsDupCCustoVALOR: TFloatField;
+    qParametrosUSA_CONTA_ORCAMENTO: TStringField;
+    qParametros_NTEUSA_CONTA_ORCAMENTO_ITENS: TStringField;
+    qParametros_NTEUSA_CENTRO_CUSTO: TStringField;
+    sdsNotaFiscalID_CONTA_ORCAMENTO: TIntegerField;
+    cdsNotaFiscalID_CONTA_ORCAMENTO: TIntegerField;
+    mItensNotaNome_CentroCusto: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscalUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -2456,7 +2462,7 @@ type
     procedure AbrirNFe(AXMLNFe: string);
     procedure prc_Inserir_Parcela;
     procedure Abrir_cdsDuplicata(ID: Integer);
-    procedure Gravar_Duplicata(Tipo, TransfICMS: String; Parcela: Integer; Valor: Real; Data: TDateTime ; ID_CCusto : Integer = 0); //P= Contas a Pagar   R= Contas a Receber
+    procedure Gravar_Duplicata(Tipo, TransfICMS: String; Parcela: Integer; Valor: Real; Data: TDateTime ; ID_CCusto : Integer ; ID_Conta_Orc : Integer); //P= Contas a Pagar   R= Contas a Receber
     procedure Gravar_Dupicata_Hist;
     procedure Gravar_Duplicata_CCusto(ID_CCusto : Integer);
 
@@ -2744,7 +2750,7 @@ begin
 end;
 
 procedure TDMRecebeXML.Gravar_Duplicata(Tipo, TransfICMS: String;
-  Parcela: Integer; Valor: Real; Data: TDateTime; ID_CCusto : Integer = 0);
+  Parcela: Integer; Valor: Real; Data: TDateTime; ID_CCusto : Integer ; ID_Conta_Orc : Integer); //P= Contas a Pagar   R= Contas a Receber
 var
   vAux: Integer;
 begin
@@ -2778,6 +2784,14 @@ begin
   cdsDuplicataPERC_COMISSAO.AsFloat   := StrToFloat(FormatFloat('0.00',cdsNotaFiscalPERC_COMISSAO.AsFloat));
   cdsDuplicataPERC_BASE_COMISSAO.AsFloat := 100;
 
+  //25/07/2020
+  if ID_Conta_Orc > 0 then
+    cdsDuplicataID_CONTA_ORCAMENTO.AsInteger := ID_Conta_Orc
+  else
+  if cdsFornecedorFORNECEDOR_CONTA_ID.AsInteger > 0 then
+    cdsDuplicataID_CONTA_ORCAMENTO.AsInteger := cdsFornecedorFORNECEDOR_CONTA_ID.AsInteger;
+  //****************
+
   cdsDuplicataDTULTPAGAMENTO.Clear;
   cdsDuplicataID_PESSOA.AsInteger     := cdsNotaFiscalID_CLIENTE.AsInteger;
   if cdsNotaFiscal_ParcID_CONTA.AsInteger > 0 then
@@ -2790,8 +2804,6 @@ begin
     cdsDuplicataID_CONTA_BOLETO.AsInteger := cdsNotaFiscal_ParcID_CONTA.AsInteger;
   cdsDuplicataID_COMISSAO.AsInteger       := 0;
   cdsDuplicataQTD_DIASATRASO.AsInteger    := 0;
-  if cdsFornecedorFORNECEDOR_CONTA_ID.AsInteger > 0 then
-    cdsDuplicataID_CONTA_ORCAMENTO.AsInteger := cdsFornecedorFORNECEDOR_CONTA_ID.AsInteger;
   cdsDuplicataDTRECEBIMENTO_TITULO.Clear;
   cdsDuplicataDTEMISSAO.AsDateTime        := cdsNotaFiscalDTSAIDAENTRADA.AsDateTime;
   cdsDuplicataPAGO_CARTORIO.AsString      := 'N';

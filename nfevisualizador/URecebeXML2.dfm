@@ -1789,8 +1789,8 @@ object frmRecebeXML2: TfrmRecebeXML2
       object dgDuplicatas: TDBGrid
         Left = 0
         Top = 0
-        Width = 847
-        Height = 477
+        Width = 855
+        Height = 500
         Align = alClient
         DataSource = DMRecebeXML.dsParcelas
         TabOrder = 0

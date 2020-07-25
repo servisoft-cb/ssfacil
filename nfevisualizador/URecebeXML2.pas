@@ -1278,7 +1278,7 @@ begin
       begin
         vItemAux := vItemAux + 1;
 
-        fDMRecebeXML.Gravar_Duplicata('P','N',fDMRecebeXML.cdsNotaFiscal_ParcITEM.AsInteger,fDMRecebeXML.cdsNotaFiscal_ParcVLR_VENCIMENTO.AsFloat,fDMRecebeXML.cdsNotaFiscal_ParcDTVENCIMENTO.AsDateTime);
+        fDMRecebeXML.Gravar_Duplicata('P','N',fDMRecebeXML.cdsNotaFiscal_ParcITEM.AsInteger,fDMRecebeXML.cdsNotaFiscal_ParcVLR_VENCIMENTO.AsFloat,fDMRecebeXML.cdsNotaFiscal_ParcDTVENCIMENTO.AsDateTime,0,0);
 
         fDMRecebeXML.cdsNotaFiscal_Parc.Next;
       end;

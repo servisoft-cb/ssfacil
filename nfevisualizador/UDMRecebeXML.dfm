@@ -2487,6 +2487,11 @@ object DMRecebeXML: TDMRecebeXML
       item
         Name = 'ANP_ID'
         DataType = ftInteger
+      end
+      item
+        Name = 'Nome_CentroCusto'
+        DataType = ftString
+        Size = 60
       end>
     IndexDefs = <
       item
@@ -2500,10 +2505,10 @@ object DMRecebeXML: TDMRecebeXML
     StoreDefs = True
     BeforePost = mItensNotaBeforePost
     OnNewRecord = mItensNotaNewRecord
-    Left = 917
-    Top = 232
+    Left = 916
+    Top = 231
     Data = {
-      400D00009619E0BD010000001800000086000000000003000000400D04497465
+      650D00009619E0BD010000001800000087000000000003000000650D04497465
       6D04000100000000000A436F6450726F6475746F010049000000010005574944
       5448020002003C0011436F6450726F6475746F496E7465726E6F040001000000
       000006436F64436F72040001000000000008436F644772616465040001000000
@@ -2608,8 +2613,9 @@ object DMRecebeXML: TDMRecebeXML
       0001000557494454480200020002000D414E505F44455343524943414F010049
       00000001000557494454480200020064000D414E505F504552435F50474E4908
       000400000000000D414E505F504552435F50474E4E080004000000000006414E
-      505F4944040001000000000001000D44454641554C545F4F5244455202008200
-      00000000}
+      505F49440400010000000000104E6F6D655F43656E74726F437573746F010049
+      0000000100055749445448020002003C0001000D44454641554C545F4F524445
+      520200820000000000}
     object mItensNotaItem: TIntegerField
       FieldName = 'Item'
     end
@@ -3109,6 +3115,10 @@ object DMRecebeXML: TDMRecebeXML
     object mItensNotaANP_ID: TIntegerField
       FieldName = 'ANP_ID'
     end
+    object mItensNotaNome_CentroCusto: TStringField
+      FieldName = 'Nome_CentroCusto'
+      Size = 60
+    end
   end
   object dsmItensNota: TDataSource
     DataSet = mItensNota
@@ -3502,7 +3512,7 @@ object DMRecebeXML: TDMRecebeXML
       'FROM TAB_CFOP'
       'WHERE CODCFOP = :CODCFOP')
     SQLConnection = dmDatabase.scoDados
-    Left = 824
+    Left = 822
     Top = 24
     object qCFOPID: TIntegerField
       FieldName = 'ID'
@@ -3845,6 +3855,11 @@ object DMRecebeXML: TDMRecebeXML
     end
     object qParametrosEMPRESA_SUCATA: TStringField
       FieldName = 'EMPRESA_SUCATA'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametrosUSA_CONTA_ORCAMENTO: TStringField
+      FieldName = 'USA_CONTA_ORCAMENTO'
       FixedChar = True
       Size = 1
     end
@@ -4832,7 +4847,7 @@ object DMRecebeXML: TDMRecebeXML
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 96
+    Left = 97
     Top = 332
     object sdsNotaFiscalID: TIntegerField
       FieldName = 'ID'
@@ -5254,6 +5269,9 @@ object DMRecebeXML: TDMRecebeXML
     end
     object sdsNotaFiscalBASE_COFINS: TFloatField
       FieldName = 'BASE_COFINS'
+    end
+    object sdsNotaFiscalID_CONTA_ORCAMENTO: TIntegerField
+      FieldName = 'ID_CONTA_ORCAMENTO'
     end
   end
   object dspNotaFiscal: TDataSetProvider
@@ -5732,6 +5750,9 @@ object DMRecebeXML: TDMRecebeXML
     end
     object cdsNotaFiscalBASE_COFINS: TFloatField
       FieldName = 'BASE_COFINS'
+    end
+    object cdsNotaFiscalID_CONTA_ORCAMENTO: TIntegerField
+      FieldName = 'ID_CONTA_ORCAMENTO'
     end
   end
   object dsNotaFiscal: TDataSource
@@ -7951,7 +7972,7 @@ object DMRecebeXML: TDMRecebeXML
   end
   object dsTab_CSTIPI: TDataSource
     DataSet = cdsTab_CSTIPI
-    Left = 472
+    Left = 473
     Top = 322
   end
   object qCofins: TSQLQuery
@@ -9354,8 +9375,8 @@ object DMRecebeXML: TDMRecebeXML
       'FROM PARAMETROS_NTE'
       'WHERE ID = 1')
     SQLConnection = dmDatabase.scoDados
-    Left = 984
-    Top = 119
+    Left = 983
+    Top = 118
     object qParametros_NTEID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -9383,6 +9404,16 @@ object DMRecebeXML: TDMRecebeXML
     end
     object qParametros_NTESUB_ICMS_CUSTO: TStringField
       FieldName = 'SUB_ICMS_CUSTO'
+      Size = 1
+    end
+    object qParametros_NTEUSA_CONTA_ORCAMENTO_ITENS: TStringField
+      FieldName = 'USA_CONTA_ORCAMENTO_ITENS'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_NTEUSA_CENTRO_CUSTO: TStringField
+      FieldName = 'USA_CENTRO_CUSTO'
+      FixedChar = True
       Size = 1
     end
   end

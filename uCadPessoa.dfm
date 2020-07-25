@@ -6353,7 +6353,7 @@ object frmCadPessoa: TfrmCadPessoa
             end
             object RxDBLookupCombo18: TRxDBLookupCombo
               Left = 120
-              Top = 13
+              Top = 14
               Width = 265
               Height = 21
               DropDownCount = 8
