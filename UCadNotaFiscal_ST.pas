@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, Grids, DBGrids, SMDBGrid, ExtCtrls, DBCtrls, StdCtrls, UDMCadNotaFiscal;
+  Dialogs, Grids, DBGrids, SMDBGrid, ExtCtrls, DBCtrls, StdCtrls, UDMCadNotaFiscal,
+  NxCollection;
 
 type
   TfrmCadNotaFiscal_ST = class(TForm)
@@ -28,8 +29,10 @@ type
     DBText8: TDBText;
     Label9: TLabel;
     DBText9: TDBText;
+    btnSubstTributaria: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure btnSubstTributariaClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -43,7 +46,7 @@ var
 
 implementation
 
-uses rsDBUtils;
+uses rsDBUtils, UMostrarRegras;
 
 {$R *.dfm}
 
@@ -56,6 +59,13 @@ end;
 procedure TfrmCadNotaFiscal_ST.FormShow(Sender: TObject);
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadNotaFiscal);
+end;
+
+procedure TfrmCadNotaFiscal_ST.btnSubstTributariaClick(Sender: TObject);
+begin
+  frmMostrarRegras := TfrmMostrarRegras.Create(self);
+  frmMostrarRegras.ShowModal;
+  FreeAndNil(frmMostrarRegras);
 end;
 
 end.

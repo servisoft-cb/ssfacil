@@ -859,7 +859,8 @@ uses
   UConsProduto_Vendedor_Fat in 'UConsProduto_Vendedor_Fat.pas' {frmConsProduto_Vendedor_Fat},
   uCadRegiaoVenda in 'uCadRegiaoVenda.pas' {frmCadRegiaoVenda},
   UDmCadRegioes in 'uDmCadRegioes.pas' {dmCadRegioes: TDataModule},
-  UConsOrcamento in 'UConsOrcamento.pas' {frmConsOrcamento};
+  UConsOrcamento in 'UConsOrcamento.pas' {frmConsOrcamento},
+  UMostrarRegras in 'UMostrarRegras.pas' {frmMostrarRegras};
 
 {$R *.res}
 
