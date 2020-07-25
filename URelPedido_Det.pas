@@ -19,7 +19,6 @@ type
     RLLabel4: TRLLabel;
     RLLabel5: TRLLabel;
     RLLabel6: TRLLabel;
-    RLLabel8: TRLLabel;
     RLLabel9: TRLLabel;
     RLLabel10: TRLLabel;
     RLLabel11: TRLLabel;
@@ -94,6 +93,9 @@ type
     RLLabel40: TRLLabel;
     RLLabel41: TRLLabel;
     RLDBText20: TRLDBText;
+    RLLabel8: TRLLabel;
+    RLDBText21: TRLDBText;
+    RLLabel42: TRLLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);

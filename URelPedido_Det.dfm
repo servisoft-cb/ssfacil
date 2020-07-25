@@ -150,50 +150,43 @@ object fRelPedido_Det: TfRelPedido_Det
         Height = 12
         Caption = 'OC'
       end
-      object RLLabel8: TRLLabel
-        Left = 349
-        Top = 44
-        Width = 51
-        Height = 12
-        Caption = 'Ped.Interno'
-      end
       object RLLabel9: TRLLabel
-        Left = 681
+        Left = 635
         Top = 44
         Width = 50
         Height = 12
         Caption = 'Quantidade'
       end
       object RLLabel10: TRLLabel
-        Left = 982
+        Left = 936
         Top = 44
         Width = 30
         Height = 12
         Caption = 'Q.Fat.'
       end
       object RLLabel11: TRLLabel
-        Left = 1022
+        Left = 968
         Top = 44
         Width = 38
         Height = 12
         Caption = 'DT.Entr.'
       end
       object RLLabel12: TRLLabel
-        Left = 853
+        Left = 807
         Top = 44
         Width = 52
         Height = 12
         Caption = 'Q.Pendente'
       end
       object RLLabel13: TRLLabel
-        Left = 812
+        Left = 766
         Top = 44
         Width = 37
         Height = 12
         Caption = 'Vlr.Total'
       end
       object RLLabel14: TRLLabel
-        Left = 911
+        Left = 865
         Top = 44
         Width = 59
         Height = 12
@@ -220,18 +213,32 @@ object fRelPedido_Det: TfRelPedido_Det
         ParentFont = False
       end
       object RLLabel25: TRLLabel
-        Left = 735
+        Left = 689
         Top = 43
         Width = 49
         Height = 12
         Caption = 'Vlr.Unit'#225'rio'
       end
       object RLLabel23: TRLLabel
-        Left = 651
+        Left = 608
         Top = 43
         Width = 25
         Height = 12
         Caption = 'Unid.'
+      end
+      object RLLabel8: TRLLabel
+        Left = 317
+        Top = 43
+        Width = 51
+        Height = 12
+        Caption = 'Ped.Interno'
+      end
+      object RLLabel42: TRLLabel
+        Left = 1008
+        Top = 44
+        Width = 54
+        Height = 12
+        Caption = 'Confer'#234'ncia'
       end
     end
     object RLSubDetail1: TRLSubDetail
@@ -247,7 +254,7 @@ object fRelPedido_Det: TfRelPedido_Det
         Height = 13
         BeforePrint = RLBand2BeforePrint
         object RLDBText1: TRLDBText
-          Left = 1015
+          Left = 967
           Top = 2
           Width = 46
           Height = 10
@@ -263,7 +270,7 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText2: TRLDBText
-          Left = 972
+          Left = 924
           Top = 2
           Width = 41
           Height = 10
@@ -279,7 +286,7 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText3: TRLDBText
-          Left = 907
+          Left = 859
           Top = 2
           Width = 63
           Height = 10
@@ -295,7 +302,7 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText4: TRLDBText
-          Left = 865
+          Left = 817
           Top = 2
           Width = 41
           Height = 10
@@ -311,7 +318,7 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText5: TRLDBText
-          Left = 802
+          Left = 754
           Top = 2
           Width = 46
           Height = 10
@@ -327,7 +334,7 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText6: TRLDBText
-          Left = 689
+          Left = 641
           Top = 2
           Width = 41
           Height = 10
@@ -343,7 +350,7 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText8: TRLDBText
-          Left = 403
+          Left = 363
           Top = 2
           Width = 68
           Height = 10
@@ -358,7 +365,7 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText9: TRLDBText
-          Left = 357
+          Left = 318
           Top = 2
           Width = 45
           Height = 10
@@ -389,9 +396,9 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText7: TRLDBText
-          Left = 472
+          Left = 432
           Top = 2
-          Width = 173
+          Width = 175
           Height = 10
           AutoSize = False
           DataField = 'FANTASIA'
@@ -413,7 +420,7 @@ object fRelPedido_Det: TfRelPedido_Det
           Pen.Style = psDot
         end
         object RLDBText11: TRLDBText
-          Left = 739
+          Left = 691
           Top = 2
           Width = 46
           Height = 10
@@ -431,7 +438,7 @@ object fRelPedido_Det: TfRelPedido_Det
         object RLMemo1: TRLMemo
           Left = 89
           Top = 2
-          Width = 265
+          Width = 230
           Height = 10
           Behavior = [beSiteExpander]
           Font.Charset = DEFAULT_CHARSET
@@ -442,13 +449,29 @@ object fRelPedido_Det: TfRelPedido_Det
           ParentFont = False
         end
         object RLDBText12: TRLDBText
-          Left = 649
+          Left = 609
           Top = 2
           Width = 27
           Height = 10
           Alignment = taCenter
           AutoSize = False
           DataField = 'UNIDADE'
+          DataSource = DMConsPedido.dsPedido_Item
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -8
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDBText21: TRLDBText
+          Left = 1014
+          Top = 2
+          Width = 46
+          Height = 10
+          Alignment = taCenter
+          AutoSize = False
+          DataField = 'DTCONFERENCIA'
           DataSource = DMConsPedido.dsPedido_Item
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack

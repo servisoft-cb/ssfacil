@@ -51,6 +51,7 @@ type
     Shape2: TShape;
     Label8: TLabel;
     Shape3: TShape;
+    Label10: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure RxDBLookupCombo4Enter(Sender: TObject);
@@ -71,6 +72,8 @@ type
     procedure RxDBLookupCombo2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure SMDBGrid1TitleClick(Column: TColumn);
+    procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     ffrmConsPedido_Nota: TfrmConsPedido_Nota;
@@ -98,7 +101,7 @@ var
 implementation
 
 uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, StrUtils, USel_Produto,
-  USel_Pessoa;
+  USel_Pessoa, UConsClienteOBS;
 
 {$R *.dfm}
 
@@ -381,6 +384,18 @@ begin
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then
       SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
+end;
+
+procedure TfrmConsOrcamento.SMDBGrid1KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_F4) and (fDMConsPedido.cdsPedido_Item.Active) and (fDMConsPedido.cdsPedido_ItemID_CLIENTE.AsInteger > 0) then
+  begin
+    frmConsClienteOBS := TfrmConsClienteOBS.Create(self);
+    frmConsClienteOBS.CurrencyEdit1.AsInteger := fDMConsPedido.cdsPedido_ItemID_CLIENTE.AsInteger;
+    frmConsClienteOBS.ShowModal;
+    FreeAndNil(frmConsClienteOBS);
+  end;
 end;
 
 end.

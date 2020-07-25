@@ -278,6 +278,19 @@ object frmConsOrcamento: TfrmConsOrcamento
       Height = 14
       Brush.Color = clRed
     end
+    object Label10: TLabel
+      Left = 815
+      Top = 15
+      Width = 114
+      Height = 14
+      Caption = 'F4 Cons. Obs Cliente'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -11
+      Font.Name = 'Clma'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
     object btnConsultar: TNxButton
       Left = 4
       Top = 4
@@ -662,6 +675,7 @@ object frmConsOrcamento: TfrmConsOrcamento
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
+        OnKeyDown = SMDBGrid1KeyDown
         OnTitleClick = SMDBGrid1TitleClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
@@ -724,7 +738,6 @@ object frmConsOrcamento: TfrmConsOrcamento
             FieldName = 'DTEMISSAO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Emiss'#227'o'
-            Width = 64
             Visible = True
           end
           item
@@ -739,7 +752,6 @@ object frmConsOrcamento: TfrmConsOrcamento
             FieldName = 'REFERENCIA'
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
-            Width = 64
             Visible = True
           end
           item
