@@ -404,7 +404,7 @@ object frmConsPedido_Est: TfrmConsPedido_Est
       end
       item
         Expanded = False
-        FieldName = 'QTD_ESTOQUE'
+        FieldName = 'QTD_PESO'
         Title.Alignment = taCenter
         Title.Caption = 'Qtd'
         Title.Color = 12386169
