@@ -3802,6 +3802,7 @@ type
     cdsProdutoPRECO_CUSTO_TOTAL: TFloatField;
     cdsItens_ConsultaVLR_UNITARIO: TFloatField;
     cdsItens_ConsultaVLR_TOTAL: TFloatField;
+    qParametros_PedUSA_PEDIDO_MENSAL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

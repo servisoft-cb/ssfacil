@@ -15455,6 +15455,11 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedUSA_PEDIDO_MENSAL: TStringField
+      FieldName = 'USA_PEDIDO_MENSAL'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsMetas_Acum: TSQLDataSet
     CommandText = 
