@@ -1,8 +1,8 @@
 object frmCadPedidoSimples: TfrmCadPedidoSimples
-  Left = -8
-  Top = -8
-  Width = 1382
-  Height = 744
+  Left = 97
+  Top = 80
+  Width = 1000
+  Height = 600
   Caption = 'frmCadPedidoSimples'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -18,8 +18,8 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
   object RZPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 1366
-    Height = 705
+    Width = 984
+    Height = 561
     ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -34,7 +34,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 1362
+        Width = 980
         Height = 31
         Align = alTop
         Color = clSilver
@@ -427,7 +427,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       object pnlPesquisa: TPanel
         Left = 0
         Top = 31
-        Width = 1362
+        Width = 980
         Height = 54
         Align = alTop
         TabOrder = 1
@@ -560,8 +560,8 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 85
-        Width = 1362
-        Height = 597
+        Width = 980
+        Height = 453
         Align = alClient
         Color = clWhite
         Ctl3D = True
@@ -659,7 +659,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 1362
+        Width = 980
         Height = 31
         Align = alTop
         Color = 8404992
@@ -888,14 +888,14 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       object pnlNota: TPanel
         Left = 0
         Top = 31
-        Width = 1362
+        Width = 980
         Height = 31
         Align = alTop
         Color = clSilver
         Enabled = False
         TabOrder = 1
         DesignSize = (
-          1362
+          980
           31)
         object Label16: TLabel
           Left = 16
@@ -930,7 +930,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           Visible = False
         end
         object Label19: TLabel
-          Left = 999
+          Left = 617
           Top = 14
           Width = 61
           Height = 13
@@ -952,7 +952,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           Visible = False
         end
         object DBEdit6: TDBEdit
-          Left = 1064
+          Left = 682
           Top = 6
           Width = 88
           Height = 21
@@ -968,7 +968,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       object pnlCliente: TPanel
         Left = 0
         Top = 62
-        Width = 1362
+        Width = 980
         Height = 73
         Align = alTop
         Enabled = False
@@ -1167,7 +1167,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       object pnlItem: TPanel
         Left = 0
         Top = 135
-        Width = 1362
+        Width = 980
         Height = 31
         Align = alTop
         Color = clSilver
@@ -1497,8 +1497,8 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 166
-        Width = 1362
-        Height = 458
+        Width = 980
+        Height = 314
         Align = alClient
         DataSource = DMCadPedido.dsPedido_Itens
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -1574,8 +1574,8 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       end
       object DBMemo1: TDBMemo
         Left = 0
-        Top = 624
-        Width = 1362
+        Top = 480
+        Width = 980
         Height = 58
         Align = alBottom
         DataField = 'OBS'
