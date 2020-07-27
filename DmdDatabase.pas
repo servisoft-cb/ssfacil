@@ -65,6 +65,7 @@ type
     sqEmpresaNOME: TStringField;
     sqEmpresaFONE: TStringField;
     scoServidor: TSQLConnection;
+    sqDataLiberacaoCODVENDEDOR_COB: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

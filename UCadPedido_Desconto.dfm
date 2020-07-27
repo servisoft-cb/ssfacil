@@ -1,6 +1,6 @@
 object frmCadPedido_Desconto: TfrmCadPedido_Desconto
-  Left = 436
-  Top = 243
+  Left = 454
+  Top = 207
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Informa o desconto'
@@ -171,7 +171,7 @@ object frmCadPedido_Desconto: TfrmCadPedido_Desconto
     Align = alBottom
     TabOrder = 7
     object BitBtn1: TBitBtn
-      Left = 96
+      Left = 97
       Top = 5
       Width = 94
       Height = 25
