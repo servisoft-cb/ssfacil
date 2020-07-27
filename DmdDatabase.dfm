@@ -28,8 +28,8 @@ object dmDatabase: TdmDatabase
       'Interbase TransIsolation=ReadCommited'
       'Trim Char=False')
     VendorLib = 'gds32.dll'
-    Left = 38
-    Top = 14
+    Left = 37
+    Top = 13
   end
   object Decoder64: TIdDecoderMIME
     FillChar = '='
@@ -143,6 +143,7 @@ object dmDatabase: TdmDatabase
       'Interbase TransIsolation=ReadCommited'
       'Trim Char=False')
     VendorLib = 'gds32.dll'
+    Connected = True
     Left = 40
     Top = 200
   end
@@ -197,11 +198,10 @@ object dmDatabase: TdmDatabase
         ParamType = ptInput
       end>
     SQL.Strings = (
-      
-        'SELECT DT_LIBERADO, CODVENDEDOR FROM PESSOA WHERE DOCUMENTO = :D' +
-        '1 AND STATUS = '#39'1'#39)
+      'SELECT DT_LIBERADO, CODVENDEDOR , CODVENDEDOR_COB'
+      'FROM PESSOA WHERE DOCUMENTO = :D1 AND STATUS = '#39'1'#39)
     SQLConnection = scoLiberacao
-    Left = 80
+    Left = 76
     Top = 248
     object sqDataLiberacaoDT_LIBERADO: TStringField
       FieldName = 'DT_LIBERADO'
@@ -209,6 +209,9 @@ object dmDatabase: TdmDatabase
     end
     object sqDataLiberacaoCODVENDEDOR: TIntegerField
       FieldName = 'CODVENDEDOR'
+    end
+    object sqDataLiberacaoCODVENDEDOR_COB: TIntegerField
+      FieldName = 'CODVENDEDOR_COB'
     end
   end
   object Encoder64: TIdEncoderMIME

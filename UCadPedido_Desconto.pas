@@ -62,9 +62,9 @@ var
 begin
   vVlrDescAux  := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DESCONTO.AsCurrency));
   if fDMCadPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S' then
-    vVlrDuplAux  := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat + fDMCadPedido.cdsPedidoVLR_DESCONTO.AsFloat - fDMCadPedido.cdsPedidoVLR_FRETE.AsFloat))
+    vVlrDuplAux  := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat + fDMCadPedido.cdsPedidoVLR_DESCONTO.AsFloat - fDMCadPedido.cdsPedidoVLR_FRETE.AsFloat - fDMCadPedido.cdsPedidoVLR_IPI.AsFloat))
   else
-    vVlrDuplAux  := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat + fDMCadPedido.cdsPedidoVLR_DESCONTO.AsFloat));
+    vVlrDuplAux  := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat + fDMCadPedido.cdsPedidoVLR_DESCONTO.AsFloat - fDMCadPedido.cdsPedidoVLR_IPI.AsFloat));
 
   vVlrDesconto := StrToFloat(FormatFloat('0.00',0));
   
