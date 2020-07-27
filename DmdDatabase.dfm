@@ -398,4 +398,17 @@ object dmDatabase: TdmDatabase
     Left = 403
     Top = 84
   end
+  object qParametros_Geral: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT ID_RESP_COBRANCA'
+      'FROM PARAMETROS_GERAL')
+    SQLConnection = scoDados
+    Left = 99
+    Top = 307
+    object qParametros_GeralID_RESP_COBRANCA: TIntegerField
+      FieldName = 'ID_RESP_COBRANCA'
+    end
+  end
 end

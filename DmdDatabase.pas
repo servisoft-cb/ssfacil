@@ -66,6 +66,8 @@ type
     sqEmpresaFONE: TStringField;
     scoServidor: TSQLConnection;
     sqDataLiberacaoCODVENDEDOR_COB: TIntegerField;
+    qParametros_Geral: TSQLQuery;
+    qParametros_GeralID_RESP_COBRANCA: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -398,6 +400,16 @@ begin
   end;
   //*******************
 
+  //27/07/2020 Aqui vai ser ajustado o código do responsável pela cobrança do SSFacil
+  qParametros_Geral.Close;
+  qParametros_Geral.Open;
+  if qParametros_GeralID_RESP_COBRANCA.AsInteger <> sqDataLiberacaoCODVENDEDOR_COB.AsInteger then
+  begin
+    sdsExec.CommandText := ('UPDATE PARAMETROS_GERAL SET ID_RESP_COBRANCA = ' + IntToStr(sqDataLiberacaoCODVENDEDOR_COB.AsInteger));
+    sdsExec.ExecSQL(True);
+  end;
+  //*******************
+
   vData := Decoder64.DecodeString(sqDataLiberacaoDT_LIBERADO.AsString);
   if vData <> '' then
   begin
@@ -528,9 +540,12 @@ begin
       qParametros.Close;
       qParametros.Open;
       if qParametrosID_RESP_SUPORTE.AsInteger = 90 then
-        vFoneAux := 'Contate com a Mash Soluções pelo telefone (51) 31110780 / 31110354 / 34411084!'
+        vFoneAux := 'Contate com a Mash Soluções pelo telefone (51)31110780 / 31110354 / 34411084!'
       else
-        vFoneAux := 'Contate com a Servisoft pelo telefone (51) 3598-6584!';
+      if qParametros_GeralID_RESP_COBRANCA.AsInteger = 175 then
+        vFoneAux := 'Contate com a CRI NET  pelos telefones (51)99240-0477 / 3066-0477 / 3066-0577 '
+      else
+        vFoneAux := 'Contate com a Servisoft pelo telefone (51)3598-6584!';
 
       if (dtUltimo_Acesso > 10) and (dtUltimo_Acesso > Date) then
       begin
