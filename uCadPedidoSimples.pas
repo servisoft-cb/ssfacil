@@ -3,9 +3,9 @@ unit uCadPedidoSimples;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, Grids, DBGrids, SMDBGrid, RxLookup,
-  ToolEdit, Mask, CurrEdit, StdCtrls, NxCollection, ExtCtrls, RzTabs, uDmCadPedido, db, DBCtrls, Buttons,
-  DateUtils, RXDBCtrl, rsDbUtils, uCadPedidoSimples_Itens, Menus, UCadCondPgto, RxDBComb;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, Grids, DBGrids, SMDBGrid, RxLookup, Menus, 
+  ToolEdit, Mask, CurrEdit, StdCtrls, NxCollection, ExtCtrls, RzTabs, uDmCadPedido, db, DBCtrls, Buttons, DateUtils, RXDBCtrl,
+  rsDbUtils, uCadPedidoSimples_Itens, UCadCondPgto, RxDBComb;
 
 type
   TfrmCadPedidoSimples = class(TForm)
@@ -119,7 +119,8 @@ var
 
 implementation
 
-uses uUtilPadrao, USel_Pessoa, uCalculo_Pedido, uGrava_Pedido;
+uses uUtilPadrao, USel_Pessoa, uCalculo_Pedido, uGrava_Pedido,
+  uCadPedidoSimpes_Geracao;
 
 {$R *.dfm}
 
@@ -271,6 +272,7 @@ begin
   fDMCadPedido := TDMCadPedido.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMCadPedido);
   fDMCadPedido.prc_Abrir_cdsCliente;
+  fDmCadPedido.cdsRegiao_Venda.Open;
   if vNum_Pedido_Pos > 0 then
   begin
     prc_Consultar(vNum_Pedido_Pos);
@@ -701,8 +703,9 @@ end;
 
 procedure TfrmCadPedidoSimples.btnGerarClick(Sender: TObject);
 begin
-//  frmCadPedidoSimples_Geracao := TfrmCadPedidoSimples_Geracao.Create(Self);
-//  frmCadPedidoSimples_Geracao.ShowModal;
+  frmCadPedidoSimples_Geracao := TfrmCadPedidoSimples_Geracao.Create(Self);
+  frmCadPedidoSimples_Geracao.fDmCadPedido := fDmCadPedido;
+  frmCadPedidoSimples_Geracao.ShowModal;
 end;
 
 end.

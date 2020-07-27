@@ -19704,8 +19704,8 @@ object DMCadPedido: TDMCadPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 1151
-    Top = 22
+    Left = 1078
+    Top = 4
   end
   object sdsCentroCusto: TSQLDataSet
     NoMetadata = True
@@ -19842,5 +19842,41 @@ object DMCadPedido: TDMCadPedido
     DataSet = cdsItens_Consulta
     Left = 1047
     Top = 332
+  end
+  object sdsRegiao_Venda: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM REGIAO_VENDA'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 1111
+    Top = 52
+  end
+  object dspRegiao_Venda: TDataSetProvider
+    DataSet = sdsRegiao_Venda
+    Left = 1143
+    Top = 52
+  end
+  object cdsRegiao_Venda: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspRegiao_Venda'
+    Left = 1175
+    Top = 52
+    object cdsRegiao_VendaID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsRegiao_VendaNOME: TStringField
+      FieldName = 'NOME'
+      Size = 60
+    end
+  end
+  object dsRegiao_Venda: TDataSource
+    DataSet = cdsRegiao_Venda
+    Left = 1207
+    Top = 52
   end
 end

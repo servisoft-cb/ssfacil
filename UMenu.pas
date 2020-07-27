@@ -638,7 +638,7 @@ type
     procedure ConsultaOramento1Click(Sender: TObject);
   private
     { Private declarations }
-    vPedLoja: Boolean;
+    vPedLoja: String; //L = Loja, M = Mensal, N = Normal
 
     procedure prc_Habilita_Menu;
     procedure prc_Verifica_PedLoja;
@@ -915,8 +915,11 @@ end;
 procedure TfMenu.PedidoComercial1Click(Sender: TObject);
 begin
   //OpenForm(TfrmCadPedido,wsMaximized);
-  if vPedLoja then
+  if vPedLoja = 'L' then
     OpenForm(TfrmCadPedidoLoja,wsMaximized)
+  else
+  if vPedLoja = 'M' then
+    OpenForm(TfrmCadPedidoSimples,wsMaximized)
   else
     OpenForm(TfrmCadPedido,wsMaximized);
 end;
@@ -1984,16 +1987,19 @@ procedure TfMenu.prc_Verifica_PedLoja;
 var
   sds: TSQLDataSet;
 begin
-  vPedLoja := False;
+  vPedLoja := 'N';
   sds := TSQLDataSet.Create(nil);
   try
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata    := True;
     sds.GetMetadata   := False;
-    sds.CommandText   := ' SELECT PEDIDO_LOJA, PEDIDO_COMERCIO FROM PARAMETROS_PED ';
+    sds.CommandText   := ' SELECT PEDIDO_LOJA, PEDIDO_COMERCIO, USA_PEDIDO_MENSAL FROM PARAMETROS_PED ';
     sds.Open;
     if (sds.FieldByName('PEDIDO_LOJA').AsString = 'S') or (sds.FieldByName('PEDIDO_COMERCIO').AsString = 'S') then
-      vPedLoja := True;
+      vPedLoja := 'L'
+    else
+    if (sds.FieldByName('USA_PEDIDO_MENSAL').AsString = 'S') then
+      vPedLoja := 'M';
   finally
     FreeAndNil(sds);
   end;

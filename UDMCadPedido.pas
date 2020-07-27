@@ -3803,6 +3803,12 @@ type
     cdsItens_ConsultaVLR_UNITARIO: TFloatField;
     cdsItens_ConsultaVLR_TOTAL: TFloatField;
     qParametros_PedUSA_PEDIDO_MENSAL: TStringField;
+    sdsRegiao_Venda: TSQLDataSet;
+    dspRegiao_Venda: TDataSetProvider;
+    cdsRegiao_Venda: TClientDataSet;
+    cdsRegiao_VendaID: TIntegerField;
+    cdsRegiao_VendaNOME: TStringField;
+    dsRegiao_Venda: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
