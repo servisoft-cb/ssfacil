@@ -860,7 +860,8 @@ uses
   uCadRegiaoVenda in 'uCadRegiaoVenda.pas' {frmCadRegiaoVenda},
   UDmCadRegioes in 'uDmCadRegioes.pas' {dmCadRegioes: TDataModule},
   UConsOrcamento in 'UConsOrcamento.pas' {frmConsOrcamento},
-  UMostrarRegras in 'UMostrarRegras.pas' {frmMostrarRegras};
+  UMostrarRegras in 'UMostrarRegras.pas' {frmMostrarRegras},
+  uCadPedidoSimpes_Geracao in 'uCadPedidoSimpes_Geracao.pas' {frmCadPedidoSimples_Geracao};
 
 {$R *.res}
 
