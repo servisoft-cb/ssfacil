@@ -33,15 +33,25 @@ type
     cdsPedido_ReservaTIPO_ES: TStringField;
     cdsPedido_ReservaDATA: TDateField;
     cdsPedido_ReservaQTD2: TFloatField;
+    sdsPessoa: TSQLDataSet;
+    dspPessoa: TDataSetProvider;
+    cdsPessoa: TClientDataSet;
+    dsPessoa: TDataSource;
+    sdsProduto: TSQLDataSet;
+    dspProduto: TDataSetProvider;
+    cdsProduto: TClientDataSet;
+    dsProduto: TDataSource;
+    cdsPessoaCODIGO: TIntegerField;
+    cdsProdutoID: TIntegerField;
   private
     { Private declarations }
   public
     { Public declarations }
 
-    procedure prc_localizar(ID : Integer);
+    procedure prc_localizar(ID: Integer);
 
-    function fnc_Gravar_Pedido_Reserva(ID, ID_Pedido, Item_Pedido, ID_Produto, ID_Cor, ID_Lote, Filial : Integer ;
-                                       Qtd : Real ; Tipo_ES : String ; Data : TDateTime ) : Integer;
+    function fnc_Gravar_Pedido_Reserva(ID, ID_Pedido, Item_Pedido, ID_Produto, ID_Cor, ID_Lote, Filial: Integer ;
+                                       Qtd: Real; Tipo_ES: String; Data: TDateTime ): Integer;
   end;
 
 var

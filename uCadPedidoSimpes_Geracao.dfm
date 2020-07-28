@@ -14,6 +14,7 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
@@ -120,5 +121,6 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
     ParentFont = False
     TabOrder = 1
     Transparent = True
+    OnClick = btnGerarClick
   end
 end

@@ -16,8 +16,8 @@ object DMPedido_Reserva: TDMPedido_Reserva
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 36
-    Top = 46
+    Left = 88
+    Top = 34
     object sdsPedido_ReservaID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -59,16 +59,16 @@ object DMPedido_Reserva: TDMPedido_Reserva
   object dspPedido_Reserva: TDataSetProvider
     DataSet = sdsPedido_Reserva
     UpdateMode = upWhereKeyOnly
-    Left = 76
-    Top = 46
+    Left = 128
+    Top = 34
   end
   object cdsPedido_Reserva: TClientDataSet
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspPedido_Reserva'
-    Left = 117
-    Top = 46
+    Left = 169
+    Top = 34
     object cdsPedido_ReservaID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -109,7 +109,80 @@ object DMPedido_Reserva: TDMPedido_Reserva
   end
   object dsPedido_Reserva: TDataSource
     DataSet = cdsPedido_Reserva
-    Left = 163
-    Top = 46
+    Left = 215
+    Top = 34
+  end
+  object sdsPessoa: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT CODIGO '#13#10'FROM PESSOA'#13#10'WHERE ID_REGIAO_VENDA = :RV1'#13#10'AND I' +
+      'NATIVO = '#39'N'#39
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'RV1'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 89
+    Top = 97
+  end
+  object dspPessoa: TDataSetProvider
+    DataSet = sdsPessoa
+    UpdateMode = upWhereKeyOnly
+    Left = 129
+    Top = 97
+  end
+  object cdsPessoa: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspPessoa'
+    Left = 170
+    Top = 97
+    object cdsPessoaCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Required = True
+    end
+  end
+  object dsPessoa: TDataSource
+    DataSet = cdsPessoa
+    Left = 217
+    Top = 98
+  end
+  object sdsProduto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT ID FROM PRODUTO WHERE INATIVO = '#39'N'#39
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 89
+    Top = 149
+  end
+  object dspProduto: TDataSetProvider
+    DataSet = sdsProduto
+    UpdateMode = upWhereKeyOnly
+    Left = 129
+    Top = 149
+  end
+  object cdsProduto: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspProduto'
+    Left = 170
+    Top = 149
+    object cdsProdutoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+  end
+  object dsProduto: TDataSource
+    DataSet = cdsProduto
+    Left = 217
+    Top = 150
   end
 end
