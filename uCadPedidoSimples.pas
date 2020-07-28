@@ -61,6 +61,7 @@ type
     Label19: TLabel;
     DBEdit6: TDBEdit;
     btnGerar: TNxButton;
+    N1: TMenuItem;
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -657,6 +658,11 @@ end;
 
 procedure TfrmCadPedidoSimples.Completo1Click(Sender: TObject);
 begin
+  fDmCadPedido.cdsPedido_Consulta.First;
+  while not fDmCadPedido.cdsPedido_Consulta.Eof do
+  begin
+    fDmCadPedido.cdsPedido_Consulta.Next;
+  end;
   prc_prepara_print;
 end;
 

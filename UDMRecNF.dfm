@@ -621,11 +621,11 @@ object DMRecNF: TDMRecNF
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44029.716039664350000000
+    ReportOptions.LastChange = 44040.672592870370000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
-    Left = 440
-    Top = 199
+    Left = 437
+    Top = 202
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -818,8 +818,7 @@ object DMRecNF: TDMRecNF
       'DDD_FIL=DDD_FIL'
       'FONE_FIL=FONE_FIL'
       'VLR_NOTA2=VLR_NOTA2'
-      'USUARIO=USUARIO'
-      'NUM_PEDIDO=NUM_PEDIDO')
+      'USUARIO=USUARIO')
     DataSource = dsNotaFiscal
     BCDToCurrency = False
     Left = 440

@@ -4,9 +4,9 @@ unit USel_Pedido;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, RxLookup, StdCtrls,
-  UDMCadNotaFiscal, Buttons, Grids, DBGrids, SMDBGrid, DB, UCadNotaFiscal_Itens, UCadNotaEntrada_Itens, uDmCadVale,
-  NxCollection, uCadVale_Itens, SqlExpr, UCadRecNF_Itens, ComCtrls;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, RxLookup, StdCtrls, SqlExpr,
+  UDMCadNotaFiscal, Buttons, Grids, DBGrids, SMDBGrid, DB, UCadNotaFiscal_Itens, UCadNotaEntrada_Itens, uDmCadVale, ComCtrls,
+  NxCollection, uCadVale_Itens, UCadRecNF_Itens;
 
 type
   TfrmSel_Pedido = class(TForm)
@@ -235,8 +235,7 @@ begin
     Label4.Visible := (fDMCadNotaFiscal.cdsParametrosUSA_PEDIDO_FUT.AsString = 'S');
   end;
   Label5.Visible := SMDBGrid2.Visible;
-  Label7.Visible := SMDBGrid2.Visible;
-
+  Label7.Visible := SMDBGrid2.Visible;                 
 end;
 
 procedure TfrmSel_Pedido.prc_Consultar_Pedido(Tipo: String; ID: Integer = 0; Item_Pedido: Integer = 0);

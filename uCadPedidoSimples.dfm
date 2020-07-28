@@ -20,12 +20,12 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
     Top = 0
     Width = 984
     Height = 561
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
     ParentBackgroundColor = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RZPageControl1Change
     FixedDimension = 19
@@ -1579,17 +1579,20 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
   object PopupMenu1: TPopupMenu
     Left = 612
     Top = 24
+    object Completo1: TMenuItem
+      Caption = 'Todos'
+      OnClick = Completo1Click
+    end
+    object Carndepagamento1: TMenuItem
+      Caption = 'Selecionado'
+      OnClick = Carndepagamento1Click
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
     object ModeloresumidoTXT1: TMenuItem
       Caption = 'Modelo resumido TXT'
       OnClick = ModeloresumidoTXT1Click
-    end
-    object Carndepagamento1: TMenuItem
-      Caption = 'Carn'#234' de pagamento'
-      OnClick = Carndepagamento1Click
-    end
-    object Completo1: TMenuItem
-      Caption = 'Completo'
-      OnClick = Completo1Click
     end
   end
 end
