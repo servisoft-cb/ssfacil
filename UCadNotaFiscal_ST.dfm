@@ -1,11 +1,11 @@
 object frmCadNotaFiscal_ST: TfrmCadNotaFiscal_ST
-  Left = 239
-  Top = 173
+  Left = 202
+  Top = 133
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Substitui'#231#227'o Tribut'#225'ria'
-  ClientHeight = 442
-  ClientWidth = 979
+  ClientHeight = 482
+  ClientWidth = 1044
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,8 +21,8 @@ object frmCadNotaFiscal_ST: TfrmCadNotaFiscal_ST
   object SMDBGrid2: TSMDBGrid
     Left = 0
     Top = 0
-    Width = 979
-    Height = 344
+    Width = 1044
+    Height = 273
     Align = alClient
     DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -51,7 +51,7 @@ object frmCadNotaFiscal_ST: TfrmCadNotaFiscal_ST
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 16
+    ColCount = 17
     RowCount = 2
     Columns = <
       item
@@ -105,6 +105,15 @@ object frmCadNotaFiscal_ST: TfrmCadNotaFiscal_ST
         Title.Alignment = taCenter
         Title.Caption = 'Vlr. Unit'#225'rio'
         Title.Color = 16763025
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VLR_IPI'
+        Title.Alignment = taCenter
+        Title.Caption = 'Vlr. IPI'
+        Title.Color = 16763025
+        Width = 61
         Visible = True
       end
       item
@@ -203,8 +212,8 @@ object frmCadNotaFiscal_ST: TfrmCadNotaFiscal_ST
   end
   object Panel1: TPanel
     Left = 0
-    Top = 344
-    Width = 979
+    Top = 273
+    Width = 1044
     Height = 98
     Align = alBottom
     Color = clSilver
@@ -408,8 +417,8 @@ object frmCadNotaFiscal_ST: TfrmCadNotaFiscal_ST
       ParentFont = False
     end
     object btnSubstTributaria: TNxButton
-      Left = 833
-      Top = 67
+      Left = 907
+      Top = 64
       Width = 128
       Height = 29
       Caption = 'Mostrar Regra'
@@ -478,6 +487,43 @@ object frmCadNotaFiscal_ST: TfrmCadNotaFiscal_ST
       TabOrder = 0
       Transparent = True
       OnClick = btnSubstTributariaClick
+    end
+  end
+  object Panel2: TPanel
+    Left = 0
+    Top = 371
+    Width = 1044
+    Height = 111
+    Align = alBottom
+    Color = 16777126
+    TabOrder = 2
+    object Memo1: TMemo
+      Left = 45
+      Top = 5
+      Width = 405
+      Height = 100
+      Color = 16777126
+      Ctl3D = False
+      Lines.Strings = (
+        'Memo1')
+      ParentCtl3D = False
+      ReadOnly = True
+      ScrollBars = ssVertical
+      TabOrder = 0
+    end
+    object Memo2: TMemo
+      Left = 555
+      Top = 5
+      Width = 405
+      Height = 100
+      Color = 16777126
+      Ctl3D = False
+      Lines.Strings = (
+        'Memo1')
+      ParentCtl3D = False
+      ReadOnly = True
+      ScrollBars = ssVertical
+      TabOrder = 1
     end
   end
 end

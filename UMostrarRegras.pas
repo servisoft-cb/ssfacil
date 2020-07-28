@@ -14,9 +14,12 @@ type
   private
     { Private declarations }
     procedure prc_Monta_Regra_ST;
+    procedure prc_Monta_Regra_Difal;
 
   public
     { Public declarations }
+    vMostrar_Regra : String; //'ST' = Substituição    'DF' = Difal
+
   end;
 
 var
@@ -34,13 +37,54 @@ end;
 
 procedure TfrmMostrarRegras.FormShow(Sender: TObject);
 begin
-  prc_Monta_Regra_ST;
+  if vMostrar_Regra = 'ST' then
+    prc_Monta_Regra_ST
+  else
+    prc_Monta_Regra_Difal;
+end;
+
+procedure TfrmMostrarRegras.prc_Monta_Regra_Difal;
+begin
+  Memo1.Lines.Clear;
+  Memo1.Lines.Add('1) No cadastro de Filial tem que estar marcado o campo “Calcular Difal” Que esta na aba “Tributos”. ');
+  Memo1.Lines.Add('2) Data de emissão ser superior a 31/12/2015.');
+  Memo1.Lines.Add('3) UF da Empresa (emitente) diferente da UF do cliente (destinatário)');
+  Memo1.Lines.Add('4) No cadastro de pessoa o campo “Tipo Consumidor” tem que estar marcado como FINAL.');
+  Memo1.Lines.Add('5) A CFOP tem que estar marcada que gera ICMS.');
+  Memo1.Lines.Add('6) No cadastro de pessoa o campo “Tipo Contribuinte” tem que estar marcado como Não Contribuinte.');
+  Memo1.Lines.Add('7) O Sistema vai calcular mesmo se o emitente for do Simples, neste caso vai calcular somente a diferença entre os 2 estados.');
+  Memo1.Lines.Add('8) Cuidar o % de icms que esta sendo calculado, pois quando for do Simples não vai mostrar na tela, se o produto for de');
+  Memo1.Lines.Add('   origem de importação, o sitema vai usar o % da lista camex (hoje 4%).');
+  Memo1.Lines.Add('9) Verificar se no parâmetros NFe esta marcado somente para calcular de Contribuinte ou por consumidor');
+  Memo1.Lines.Add('   - Se estiver marcado para calcular por Contribuinte, o cliente precisa ser do tipo = 9');
+  Memo1.Lines.Add('   - Se estiver marcado para calcular por Consumidor, o cliente precisa ser do tipo consumidor = 1 Final');
+  Memo1.Lines.Add('');
+  Memo1.Lines.Add('Obs: Sempre orientar a empresa emitente para ver este caso junto ao contador, pois envolve imposto e esta guia vai');
+  Memo1.Lines.Add('junto na nota em anexo quando esta for recolhida.');
 end;
 
 procedure TfrmMostrarRegras.prc_Monta_Regra_ST;
 begin
-  Memo1.Clear;
+  Memo1.Lines.Clear;
 
+  memo1.Lines.Add(' BaseICMST : Vlr_Total + Vlr_IPI + Vlr_Frete + Vlr_Seguro + Outras_Despesas');
+  memo1.Lines.Add('     (verificar que tem o esquema de ajuste do MVA, isto serve para alguns estados e alguns produtos)');
+  memo1.Lines.Add(' 	(esta informação esta na tela de NCM)');
+  memo1.Lines.Add(' 	(Ver que também tem a opção no NCM da redução do MVA)');
+  memo1.Lines.Add(' BaseICMS Proprio  : Vlr_Total + Vlr_Frete + Vlr_Seguro + Outras_Despesas');
+  memo1.Lines.Add('      (Vlr_IPI só vai ser calculado no icms proprio, se estiver marcado no item da nota que o ipi soma na base do icms)');
+  memo1.Lines.Add(' ');
+  memo1.Lines.Add(' Vlr_ICMS Proprio: BaseICMS Proprio * Perc_ICMS_Proprio / 100');
+  memo1.Lines.Add(' ');
+  memo1.Lines.Add(' Somar a BaseICMSST :  BaseICMSST + (BaseICMSST * MVA / 100)');
+  memo1.Lines.Add(' ');
+  memo1.Lines.Add(' Vlr_ICMS_Interno: (BaseICMSST * Perc_ICM_Interno / 100)');
+  memo1.Lines.Add(' ');
+  memo1.Lines.Add(' vVlrSubst := (BaseICMSST * vPerc_Interno / 100) - Vlr_ICMS Proprio))');
+  memo1.Lines.Add(' ');
+  memo1.Lines.Add(' ');
+  memo1.Lines.Add('*** Exemplo: ');
+  memo1.Lines.Add(' ');
   memo1.Lines.Add(' MVA 73,85% ');
   memo1.Lines.Add(' Vlr dos Itens: 100,00');
   memo1.Lines.Add(' ');
@@ -88,20 +132,6 @@ begin
   memo1.Lines.Add('    for de origem importado a prioridade vai ser a lista camex que esta lançado no cadastro da filial que é 4%.');
   memo1.Lines.Add('            os lançados aqui podem ser 4% 7% ou 12%');
   memo1.Lines.Add(' ');
-  memo1.Lines.Add(' BaseICMST : Vlr_Total + Vlr_IPI + Vlr_Frete + Vlr_Seguro + Outras_Despesas');
-  memo1.Lines.Add('     (verificar que tem o esquema de ajuste do MVA, isto serve para alguns estados e alguns produtos)');
-  memo1.Lines.Add(' 	(esta informação esta na tela de NCM)');
-  memo1.Lines.Add(' 	(Ver que também tem a opção no NCM da redução do MVA)');
-  memo1.Lines.Add(' BaseICMS Proprio  : Vlr_Total + Vlr_Frete + Vlr_Seguro + Outras_Despesas');
-  memo1.Lines.Add('      (Vlr_IPI só vai ser calculado no icms proprio, se estiver marcado no item da nota que o ipi soma na base do icms)');
-  memo1.Lines.Add(' ');
-  memo1.Lines.Add(' Vlr_ICMS Proprio: BaseICMS Proprio * Perc_ICMS_Proprio / 100');
-  memo1.Lines.Add(' ');
-  memo1.Lines.Add(' Somar a BaseICMSST :  BaseICMSST + (BaseICMSST * MVA / 100)');
-  memo1.Lines.Add(' ');
-  memo1.Lines.Add(' Vlr_ICMS_Interno: (BaseICMSST * Perc_ICM_Interno / 100)');
-  memo1.Lines.Add(' ');
-  memo1.Lines.Add(' vVlrSubst := (BaseICMSST * vPerc_Interno / 100) - Vlr_ICMS Proprio))');
 end;
 
 end.

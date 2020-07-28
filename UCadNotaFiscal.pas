@@ -429,6 +429,7 @@ type
     dbedtVlr_Saldo_Usado: TDBEdit;
     btnGerarSaldo_Usado: TNxButton;
     btnZerarSaldo: TNxButton;
+    btnDifal: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -569,6 +570,7 @@ type
     procedure btnZerarSaldoClick(Sender: TObject);
     procedure btnGerarSaldo_UsadoClick(Sender: TObject);
     procedure rxdbCondicaoPgtoExit(Sender: TObject);
+    procedure btnDifalClick(Sender: TObject);
   private
     { Private declarations }
     vTipoNotaAnt: String;
@@ -681,7 +683,8 @@ implementation
 
 uses DmdDatabase, rsDBUtils, uUtilPadrao, USel_Pessoa, URecebeXML, uCalculo_NotaFiscal, uNFeComandos, USel_ContaOrc, uUtilCliente,
   uUtilCobranca, DmdDatabase_NFeBD, UDMAprovacao_Ped, UConsPessoa_Fin, UConsPedido_Senha, uGrava_NotaFiscal, UCadNotaFiscal_Custo,
-  UMenu, Math, UDMEtiqueta, USel_PreFat, uMenu1, USel_RecNF, uXMLSuframa, UCadNotaFiscal_Alt_CCusto, UConsClienteOBS;
+  UMenu, Math, UDMEtiqueta, USel_PreFat, uMenu1, USel_RecNF, uXMLSuframa, UCadNotaFiscal_Alt_CCusto, UConsClienteOBS,
+  UMostrarRegras;
 
 {$R *.dfm}
 
@@ -5833,6 +5836,14 @@ begin
     if fDMCadNotaFiscal.cdsNotaFiscal.State in [dsEdit,dsInsert] then
       btnGerarParcelasClick(Sender);
   end;
+end;
+
+procedure TfrmCadNotaFiscal.btnDifalClick(Sender: TObject);
+begin
+  frmMostrarRegras := TfrmMostrarRegras.Create(self);
+  frmMostrarRegras.vMostrar_Regra := 'DF';
+  frmMostrarRegras.ShowModal;
+  FreeAndNil(frmMostrarRegras);
 end;
 
 end.

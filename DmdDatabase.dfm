@@ -202,7 +202,7 @@ object dmDatabase: TdmDatabase
       'FROM PESSOA WHERE DOCUMENTO = :D1 AND STATUS = '#39'1'#39)
     SQLConnection = scoLiberacao
     Left = 76
-    Top = 248
+    Top = 249
     object sqDataLiberacaoDT_LIBERADO: TStringField
       FieldName = 'DT_LIBERADO'
       Size = 25
