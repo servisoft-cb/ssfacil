@@ -23,7 +23,7 @@ procedure prc_Alterar_Item_Tam(fDMCadPedido: TDMCadPedido; ID_Cor, Item, Item_Or
 procedure prc_Gravar_Financeiro(fDMCadPedido: TDMCadPedido; Tipo: string);//ENT=Entrada   AVI= Avista
 
 function fnc_Existe_OC(fDMCadPedido: TDMCadPedido): Integer;
-function fnc_Verificar_Vendedor_Int(fDMCadPedido: TDMCadPedido ; ID : Integer) : Integer;
+function fnc_Verificar_Vendedor_Int(fDMCadPedido: TDMCadPedido; ID: Integer): Integer;
 
 
 implementation
@@ -86,10 +86,8 @@ begin
       //prc_Gravar_Comissao(fDMCadPedido,'ENT');
       prc_Gravar_Financeiro(fDMCadPedido,'ENT');
     end
-  end;
-
-end;
-
+  end;                                              
+end;     
 
 procedure Gravar_Duplicata(fDMCadPedido: TDMCadPedido; Tipo, TransfICMS: String; Parcela: Integer; Valor: Real; Data: TDateTime; Prazo: String = '');
 var
@@ -197,7 +195,6 @@ begin
   fDMCadPedido.cdsDuplicata.ApplyUpdates(0);
 end;
 
-
 function fnc_Existe_OC(fDMCadPedido: TDMCadPedido): Integer;
 begin
   Result := 0;
@@ -236,7 +233,7 @@ var
   vGravou: Boolean;
   vID: Integer;
   Flag: Boolean;
-  Form : TForm;
+  Form: TForm;
 begin
   fDMCadPedido.vMSGErro := '';
   vGravou  := False;
@@ -294,7 +291,7 @@ begin
   case vVerificaCampos of
     1: begin
           if (fDMCadPedido.cdsPedidoEMAIL_COMPRAS.AsString = '') and (fDMCadPedido.cdsPedidoDDD.AsInteger <= 0) and (fDMCadPedido.cdsPedidoFONE.AsString = '') then
-            fDMCadPedido.vMSGErro := fDMCadPedido.vMSGErro + #13 + '*** E-mail ou Telefone com DDD devem ser informado!'
+            fDMCadPedido.vMSGErro := fDMCadPedido.vMSGErro + #13 + '*** E-mail ou Telefone com DDD devem ser informados!'
         end ;
     2: begin
           if (fDMCadPedido.cdsPedidoEMAIL_COMPRAS.AsString = '') then
@@ -302,7 +299,7 @@ begin
          end;
     3: begin
           if (fDMCadPedido.cdsPedidoDDD.AsInteger <= 0) or (fDMCadPedido.cdsPedidoFONE.AsString = '') then
-            fDMCadPedido.vMSGErro := fDMCadPedido.vMSGErro + #13 + '*** Telefone com DDD devem ser informado!'
+            fDMCadPedido.vMSGErro := fDMCadPedido.vMSGErro + #13 + '*** Telefone com DDD devem ser informados!'
         end;
   end;
 
@@ -624,8 +621,7 @@ begin
     //11/08/2016
     if (fDMCadPedido.qParametros_GeralGRAVAR_HIST_SENHA.AsString = 'S') and (Tipo = 'ALT') then
       prc_Gravar_cdsHist_Senha(fDMCadPedido);
-    //********************
-
+    //********************    
 
     fDMCadPedido.cdsPedido.ApplyUpdates(0);
 
@@ -948,7 +944,6 @@ begin
   fDMCadPedido.cdsPedidoID.AsInteger         := vAux;
   fDMCadPedido.cdsPedidoFILIAL.AsInteger     := vFilial;
   fDMCadPedido.cdsPedidoDTEMISSAO.AsDateTime := Date;
-
 end;
 
 procedure prc_Alterar_Item_Tam(fDMCadPedido: TDMCadPedido; ID_Cor, Item, Item_Original: Integer; Preco, Perc_IPI, Perc_ICMS: Real;
@@ -1016,7 +1011,7 @@ begin
   end;
 end;
 
-function fnc_Verificar_Vendedor_Int(fDMCadPedido: TDMCadPedido ; ID : Integer) : Integer;
+function fnc_Verificar_Vendedor_Int(fDMCadPedido: TDMCadPedido; ID: Integer): Integer;
 var
   sds: TSQLDataSet;
 begin
