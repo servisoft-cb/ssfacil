@@ -43,6 +43,10 @@ type
     dsProduto: TDataSource;
     cdsPessoaCODIGO: TIntegerField;
     cdsProdutoID: TIntegerField;
+    cdsProdutoPRECO_VENDA: TFloatField;
+    cdsProdutoUNIDADE: TStringField;
+    cdsPessoaNOME: TStringField;
+    cdsProdutoNOME: TStringField;
   private
     { Private declarations }
   public
@@ -50,8 +54,8 @@ type
 
     procedure prc_localizar(ID: Integer);
 
-    function fnc_Gravar_Pedido_Reserva(ID, ID_Pedido, Item_Pedido, ID_Produto, ID_Cor, ID_Lote, Filial: Integer ;
-                                       Qtd: Real; Tipo_ES: String; Data: TDateTime ): Integer;
+    function fnc_Gravar_Pedido_Reserva(ID, ID_Pedido, Item_Pedido, ID_Produto, ID_Cor, ID_Lote, Filial: Integer;
+                                       Qtd: Real; Tipo_ES: String; Data: TDateTime): Integer;
   end;
 
 var
@@ -81,23 +85,23 @@ begin
   if ID_Cor <= 0 then
     ID_Cor := 0;
   if ID_Pedido > 0 then
-    cdsPedido_ReservaID_PEDIDO.AsInteger   := ID_Pedido
+    cdsPedido_ReservaID_PEDIDO.AsInteger := ID_Pedido
   else
     cdsPedido_ReservaID_PEDIDO.Clear;
   if Item_Pedido > 0 then
     cdsPedido_ReservaITEM_PEDIDO.AsInteger := Item_Pedido
   else
     cdsPedido_ReservaITEM_PEDIDO.Clear;
-  cdsPedido_ReservaID_PRODUTO.AsInteger  := ID_Produto;
-  cdsPedido_ReservaID_COR.AsInteger      := ID_Cor;
-  cdsPedido_ReservaQTD.AsFloat           := StrToFloat(FormatFloat('0.0000',Qtd));
+  cdsPedido_ReservaID_PRODUTO.AsInteger := ID_Produto;
+  cdsPedido_ReservaID_COR.AsInteger     := ID_Cor;
+  cdsPedido_ReservaQTD.AsFloat          := StrToFloat(FormatFloat('0.0000',Qtd));
   if ID_Lote > 0 then
-    cdsPedido_ReservaID_LOTE.AsInteger     := ID_Lote
+    cdsPedido_ReservaID_LOTE.AsInteger := ID_Lote
   else
     cdsPedido_ReservaID_LOTE.Clear;
-  cdsPedido_ReservaFILIAL.AsInteger      := Filial;
-  cdsPedido_ReservaTIPO_ES.AsString      := Tipo_ES;
-  cdsPedido_ReservaDATA.AsDateTime       := Data;
+  cdsPedido_ReservaFILIAL.AsInteger := Filial;
+  cdsPedido_ReservaTIPO_ES.AsString := Tipo_ES;
+  cdsPedido_ReservaDATA.AsDateTime  := Data;
   if Tipo_ES = 'S' then
     cdsPedido_ReservaQTD2.AsFloat := StrToFloat(FormatFloat('0.0000',Qtd * -1))
   else

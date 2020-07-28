@@ -18,12 +18,20 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
   PixelsPerInch = 96
   TextHeight = 13
   object Label1: TLabel
-    Left = 72
-    Top = 38
+    Left = 74
+    Top = 36
     Width = 37
     Height = 13
     Alignment = taRightJustify
     Caption = 'Regi'#227'o:'
+  end
+  object Label2: TLabel
+    Left = 45
+    Top = 60
+    Width = 66
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Data Entrega:'
   end
   object RxDBLookupCombo1: TRxDBLookupCombo
     Left = 115
@@ -31,6 +39,7 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
     Width = 272
     Height = 21
     DropDownCount = 15
+    DisplayEmpty = 'Selecione...'
     LookupField = 'ID'
     LookupDisplay = 'NOME'
     LookupSource = DMCadPedido.dsRegiao_Venda
@@ -119,8 +128,16 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
       FF00FFFFFF00FFFFFF00FFFFFF00F2F2F200FFFFFF00FFFFFF00F2F2F200}
     GlyphSpacing = 1
     ParentFont = False
-    TabOrder = 1
+    TabOrder = 2
     Transparent = True
     OnClick = btnGerarClick
+  end
+  object DateEdit1: TDateEdit
+    Left = 115
+    Top = 53
+    Width = 121
+    Height = 21
+    NumGlyphs = 2
+    TabOrder = 1
   end
 end

@@ -139,7 +139,7 @@ end;
 procedure TfrmCadPedidoSimples.prc_Consultar(ID: Integer);
 begin
   fDMCadPedido.cdsPedido_Consulta.Close;
-  fDMCadPedido.sdsPedido_Consulta.CommandText := fDMCadPedido.ctConsulta + ' WHERE TIPO_REG = ' + QuotedStr('S');
+  fDMCadPedido.sdsPedido_Consulta.CommandText := fDMCadPedido.ctConsulta + ' WHERE TIPO_REG = ' + QuotedStr('P');
   if ID > 0 then
     fDMCadPedido.sdsPedido_Consulta.CommandText := fDMCadPedido.sdsPedido_Consulta.CommandText +
                                                    ' AND PED.ID = ' + IntToStr(ID)
@@ -703,9 +703,18 @@ end;
 
 procedure TfrmCadPedidoSimples.btnGerarClick(Sender: TObject);
 begin
+  if uUtilPadrao.fnc_Selecionar_Filial <= 0 then
+    exit;
+
+  fDMCadPedido.cdsFilial.Locate('ID',vFilial,[loCaseInsensitive]);
+  lblNome_Filial.Caption := vFilial_Nome;
+
   frmCadPedidoSimples_Geracao := TfrmCadPedidoSimples_Geracao.Create(Self);
   frmCadPedidoSimples_Geracao.fDmCadPedido := fDmCadPedido;
   frmCadPedidoSimples_Geracao.ShowModal;
+
+  DateEdit1.Date := Date;
+  btnConsultarClick(Sender);
 end;
 
 end.

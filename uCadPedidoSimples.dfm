@@ -20,12 +20,12 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
     Top = 0
     Width = 984
     Height = 561
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
     ParentBackgroundColor = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RZPageControl1Change
     FixedDimension = 19
@@ -617,7 +617,6 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
             Expanded = False
             FieldName = 'DTENTREGA'
             Title.Caption = 'Data Entrega'
-            Width = 64
             Visible = True
           end
           item
@@ -643,7 +642,6 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
             Expanded = False
             FieldName = 'QTD'
             Title.Caption = 'Qtd. Produtos'
-            Width = 64
             Visible = True
           end
           item
@@ -1527,7 +1525,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 9
+        ColCount = 7
         RowCount = 2
         Columns = <
           item
@@ -1537,7 +1535,8 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           end
           item
             Expanded = False
-            FieldName = 'TAMANHO'
+            FieldName = 'NOMEPRODUTO'
+            Width = 325
             Visible = True
           end
           item
@@ -1547,18 +1546,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           end
           item
             Expanded = False
-            FieldName = 'DTENTREGA'
-            Visible = True
-          end
-          item
-            Expanded = False
             FieldName = 'UNIDADE'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NOMEPRODUTO'
-            Width = 325
             Visible = True
           end
           item

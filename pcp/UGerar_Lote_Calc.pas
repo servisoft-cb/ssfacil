@@ -190,7 +190,7 @@ type
     vItem_Mat: Integer;
     vQtd_Produto: Real;
     vQtd_Selecionada: Real;
-    vQtd_Corrugado : Integer;
+    vQtd_Corrugado: Integer;
 
     procedure prc_Consultar;
     procedure prc_Consultar_Ped;
@@ -212,15 +212,16 @@ type
     procedure prc_Gravar_mLoteAux(Qtd: Integer);
     procedure prc_Gravar_mTalaoAux(Qtd: Real ; ID: Integer);
 
-    procedure prc_Gerar_Materiais(Tipo : String); //L=Lote  T=Talão
+    procedure prc_Gerar_Materiais(Tipo: String); //L=Lote  T=Talão
     procedure prc_Abrir_Lote_Mat(Num_Ordem: Integer);
-    procedure prc_Gravar_Lote_Mat(Num_Ordem, ID_Material, ID_Cor, ID_Fornecedor: Integer ; Carimbo, Tamanho, Corrugado: String ; Qtd_Consumo, Qtd_Produto: Real);
+    procedure prc_Gravar_Lote_Mat(Num_Ordem, ID_Material, ID_Cor, ID_Fornecedor: Integer; Carimbo, Tamanho, Corrugado: String;
+                                  Qtd_Consumo, Qtd_Produto: Real);
     procedure prc_Consultar_Pedido_Ord;
     function fnc_Ordem_Producao_OC: Boolean;
     procedure prc_Atualizar_Material;
 
-    procedure prc_Marcar_Desmarcar(Tipo : String); //I=Item   R=Referência   P=Pedido   TM=Total    TD=Total
-    procedure prc_Marcar_Desmarcar_PED(Tipo : String); //P=Pedido   TM=Total marcar    TD=Total Desmarcar
+    procedure prc_Marcar_Desmarcar(Tipo: String); //I=Item   R=Referência   P=Pedido   TM=Total    TD=Total
+    procedure prc_Marcar_Desmarcar_PED(Tipo: String); //P=Pedido   TM=Total marcar    TD=Total Desmarcar
 
     procedure prc_Gravar_mPedTalao;
 
@@ -228,13 +229,12 @@ type
     procedure prc_Gravar_cdsTalao_Ped(Qtd: Real);
     procedure prc_Gravar_cdsTalao_Processo;
 
-    procedure prc_Le_cdsPendente(ID : Integer);
+    procedure prc_Le_cdsPendente(ID: Integer);
     procedure prc_Embalagem;
 
     procedure prc_Gerar_Corrugado;
 
-    function fnc_Calc_Corrugado(Qtd_Prod, Qtd_Emb : Integer) : Integer;
-
+    function fnc_Calc_Corrugado(Qtd_Prod, Qtd_Emb: Integer): Integer;                            
   public
     { Public declarations }
   end;
@@ -244,8 +244,8 @@ var
 
 implementation
 
-uses rsDBUtils, DmdDatabase, uUtilPadrao, USel_Produto, UMenu, URelLote,
-  URelLote_Res, URelTalao_Rot, URelTalao_Aux, UDMLoteImp, URelLote2;
+uses rsDBUtils, DmdDatabase, uUtilPadrao, USel_Produto, UMenu, URelLote, URelLote_Res, URelTalao_Rot, URelTalao_Aux, UDMLoteImp,
+  URelLote2;
 
 {$R *.dfm}
 
@@ -272,8 +272,8 @@ begin
       SMDBGrid2.Columns[i].Visible := (fDMCadLote.qParametrosGERAR_TALAO_AUXILIAR.AsString <> 'P');
     if (SMDBGrid2.Columns[i].FieldName = 'Talao_Aux_Gerado') then
       SMDBGrid2.Columns[i].Visible := ((fDMCadLote.qParametrosGERAR_TALAO_AUXILIAR.AsString <> 'P') and (fDMCadLote.qParametros_LoteLOTE_POR_PEDIDO.AsString <> 'S'));
-    if (SMDBGrid2.Columns[i].FieldName = 'Pedido_Cliente') or (SMDBGrid2.Columns[i].FieldName = 'Num_Pedido') or (SMDBGrid2.Columns[i].FieldName = 'Nome_Cliente') or
-       (SMDBGrid2.Columns[i].FieldName = 'Descricao_Tipo') then
+    if (SMDBGrid2.Columns[i].FieldName = 'Pedido_Cliente') or (SMDBGrid2.Columns[i].FieldName = 'Num_Pedido') or
+       (SMDBGrid2.Columns[i].FieldName = 'Nome_Cliente') or (SMDBGrid2.Columns[i].FieldName = 'Descricao_Tipo') then
       SMDBGrid2.Columns[i].Visible := (fDMCadLote.qParametros_LoteLOTE_POR_PEDIDO.AsString = 'S');
     if (SMDBGrid2.Columns[i].FieldName = 'ID_Produto') or (SMDBGrid2.Columns[i].FieldName = 'Referencia') or (SMDBGrid2.Columns[i].FieldName = 'Nome_Produto') then
       SMDBGrid2.Columns[i].Visible := (fDMCadLote.qParametros_LoteLOTE_POR_PEDIDO.AsString <> 'S');
@@ -329,7 +329,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Consultar;
 var
-  vTextoData : String;
+  vTextoData: String;
 begin
   if fDMCadLote.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
     vTextoData := 'PED.DTENTREGA'
@@ -686,14 +686,13 @@ begin
   for i := 0 to SMDBGrid2.Columns.Count - 1 do
     if not (SMDBGrid2.Columns.Items[I] = Column) then
       SMDBGrid2.Columns.Items[I].Title.Color := clBtnFace;
-
 end;
 
 procedure TfrmGerar_Lote_Calc.btnConfirmarClick(Sender: TObject);
 var
   ID: TTransactionDesc;
   sds: TSQLDataSet;
-  vGravou : Boolean;
+  vGravou: Boolean;
 begin
   if MessageDlg('Gerar Lote/Talões?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
@@ -1115,7 +1114,6 @@ begin
 
     fDMCadLote.qProduto_Atelier.Next;
   end;
-  
 end;
 
 procedure TfrmGerar_Lote_Calc.prc_Gravar_Talao_Aux(Qtd: Real);
@@ -1296,7 +1294,7 @@ begin
       SMDBGrid3.Columns.Items[I].Title.Color := clBtnFace;
 end;
 
-procedure TfrmGerar_Lote_Calc.prc_Gerar_Materiais(Tipo : String); //L=Lote  T=Talão
+procedure TfrmGerar_Lote_Calc.prc_Gerar_Materiais(Tipo: String); //L=Lote  T=Talão
 var
   vCarimbo: String;
   vTamanho: String;
@@ -1304,7 +1302,6 @@ var
   vQtdAux: Real;
   vID_CorAnt, vID_MaterialAnt: Integer;
 begin
-
   fDMCadLote.cdsConsumo.Close;
   if Tipo = 'T' then
   begin
@@ -1381,7 +1378,6 @@ begin
   end;
 
   //Gerar Embalagens 29/08/2018
-
   //******************
 
   fDMCadLote.cdsLote_Mat.ApplyUpdates(0);
@@ -1398,8 +1394,8 @@ procedure TfrmGerar_Lote_Calc.prc_Gravar_Lote_Mat(Num_Ordem, ID_Material, ID_Cor
   Qtd_Produto: Real);
 var
   vCarimboAux: String;
-  vStatus : String;
-  vTamAux : String;
+  vStatus: String;
+  vTamAux: String;
 begin
   vCarimboAux := '';
   if trim(Carimbo) <> '' then
@@ -1583,7 +1579,6 @@ begin
   MessageDlg('*** Materiais atualizados!', mtConfirmation, [mbOk], 0);
 
   Label8.Visible := False;
-
 end;
 
 procedure TfrmGerar_Lote_Calc.btnGerarTalao_AuxClick(Sender: TObject);
@@ -1696,10 +1691,9 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Marcar_Desmarcar(Tipo: String); //I=Item   R=Referência   P=Pedido   TM=Total    TD=Total
 var
-  vIDProdAux : Integer;
-  vMD : String;
-  vIDPedAux : Integer;
-
+  vIDProdAux: Integer;
+  vMD: String;
+  vIDPedAux: Integer;
 
   procedure prc_Somar_Qtd;
   begin
@@ -1712,7 +1706,7 @@ var
 
   procedure prc_Selecionado;
   var
-    vAux2 : String;
+    vAux2: String;
   begin
     vAux2 := fDMCadLote.cdsPendenteSELECIONADO.AsString;
     if (trim(fDMCadLote.cdsPendenteSELECIONADO.AsString) = '') then
@@ -1725,7 +1719,6 @@ var
       prc_Somar_Qtd;
     end;
   end;
-
 
 begin
   if not(fDMCadLote.cdsPendente.Active) or (fDMCadLote.cdsPendente.IsEmpty) then
@@ -1818,7 +1811,7 @@ var
   vFlag: Boolean;
   vQtd_Ped: Real;
   vQtd_Aux: Real;
-  vIDPedAux, vItemPedAux : Integer;
+  vIDPedAux, vItemPedAux: Integer;
 begin
   vTalaoAux := 0;
 
@@ -1854,7 +1847,7 @@ var
   vTalaoAux: Integer;
   vFlag: Boolean;
   vQtd_Aux: Real;
-  vIDPedAux, vItemPedAux : Integer;
+  vIDPedAux, vItemPedAux: Integer;
 begin
   vFlag    := False;
   while StrToFloat(FormatFloat('0.00000',Qtd)) > 0  do
@@ -1905,7 +1898,6 @@ begin
     prc_Gravar_cdsTalao_Processo;
     fDMCadLote.qProduto_Processo.Next;
   end;
-
 end;
 
 procedure TfrmGerar_Lote_Calc.prc_Gravar_cdsTalao_Ped(Qtd: Real);
@@ -1921,10 +1913,10 @@ end;
 
 procedure TfrmGerar_Lote_Calc.ImprimirOrdemProduo1Click(Sender: TObject);
 var
-  vNumOrdemAux : String;
+  vNumOrdemAux: String;
   fDMLoteImp: TDMLoteImp;
-  vArq : String;
-  vObsAux : WideString;
+  vArq: String;
+  vObsAux: WideString;
 begin
   if fDMCadLote.mLoteNum_Ordem.AsInteger > 0 then
     vNumOrdemAux := fDMCadLote.mLoteNum_Ordem.AsString
@@ -1957,7 +1949,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Gravar_cdsTalao_Processo;
 var
-  vItemAux : Integer;
+  vItemAux: Integer;
 begin
   fDMCadLote.cdsTalao_Processo.Last;
   vItemAux := fDMCadLote.cdsTalao_ProcessoITEM.AsInteger;
@@ -1983,8 +1975,8 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Marcar_Desmarcar_PED(Tipo: String);//P=Pedido   TM=Total marcar    TD=Total Desmarcar
 var
-  vMarcar : String;
-  ID : Integer;
+  vMarcar: String;
+  ID: Integer;
 begin
   ID := fDMCadLote.cdsPendente_PedID.AsInteger;
   if Tipo = 'P' then
@@ -2032,7 +2024,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Consultar_Ped;
 var
-  vTextoData : String;
+  vTextoData: String;
 begin
   Label12.Caption  := '0';
   vQtd_Selecionada := 0;
@@ -2079,7 +2071,7 @@ end;
 
 procedure TfrmGerar_Lote_Calc.prc_Embalagem;
 var
-  vQtdAux : Real;
+  vQtdAux: Real;
 begin
   fDMCadLote.cdsEmbalagem.Close;
   fDMCadLote.sdsEmbalagem.ParamByName('ID_PRODUTO').AsInteger := fDMCadLote.mProdAuxID_Produto.AsInteger;
@@ -2111,12 +2103,11 @@ begin
 
     fDMCadLote.cdsEmbalagem.Next;
   end;
-
 end;
 
 procedure TfrmGerar_Lote_Calc.Personalizado11Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Lote_Fepam.fr3';
   if FileExists(vArq) then
@@ -2139,10 +2130,10 @@ procedure TfrmGerar_Lote_Calc.prc_Gerar_Corrugado;
 var
   sds: TSQLDataSet;
   sds2: TSQLDataSet;
-  vQtd : Real;
-  vQtdAux : Integer;
-  vQtdResto : Integer;
-  vCont : Integer;
+  vQtd: Real;
+  vQtdAux: Integer;
+  vQtdResto: Integer;
+  vCont: Integer;
 begin
   sds  := TSQLDataSet.Create(nil);
   sds2 := TSQLDataSet.Create(nil);
@@ -2221,9 +2212,7 @@ begin
             end;
           end;
         end;
-
       end;
-
       sds.Next;
     end;
 
@@ -2233,12 +2222,11 @@ begin
     FreeAndNil(sds);
     FreeAndNil(sds2);
   end;
-
 end;
 
 function TfrmGerar_Lote_Calc.fnc_Calc_Corrugado(Qtd_Prod,Qtd_Emb: Integer): Integer;
 var
-  vQtdAux : Integer;  
+  vQtdAux: Integer;  
 begin
   vQtdAux := qtd_Prod div qtd_emb;
   vQtd_Corrugado := vQtdAux;

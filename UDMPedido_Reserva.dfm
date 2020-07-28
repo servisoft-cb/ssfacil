@@ -116,8 +116,8 @@ object DMPedido_Reserva: TDMPedido_Reserva
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT CODIGO '#13#10'FROM PESSOA'#13#10'WHERE ID_REGIAO_VENDA = :RV1'#13#10'AND I' +
-      'NATIVO = '#39'N'#39
+      'SELECT CODIGO , NOME'#13#10'FROM PESSOA'#13#10'WHERE ID_REGIAO_VENDA = :RV1'#13 +
+      #10'AND INATIVO = '#39'N'#39
     MaxBlobSize = -1
     Params = <
       item
@@ -137,7 +137,7 @@ object DMPedido_Reserva: TDMPedido_Reserva
   end
   object cdsPessoa: TClientDataSet
     Aggregates = <>
-    IndexFieldNames = 'ID'
+    IndexFieldNames = 'CODIGO'
     Params = <>
     ProviderName = 'dspPessoa'
     Left = 170
@@ -145,6 +145,10 @@ object DMPedido_Reserva: TDMPedido_Reserva
     object cdsPessoaCODIGO: TIntegerField
       FieldName = 'CODIGO'
       Required = True
+    end
+    object cdsPessoaNOME: TStringField
+      FieldName = 'NOME'
+      Size = 60
     end
   end
   object dsPessoa: TDataSource
@@ -155,7 +159,9 @@ object DMPedido_Reserva: TDMPedido_Reserva
   object sdsProduto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID FROM PRODUTO WHERE INATIVO = '#39'N'#39
+    CommandText = 
+      'SELECT ID,  PRECO_VENDA, UNIDADE, NOME'#13#10'FROM PRODUTO '#13#10'WHERE INA' +
+      'TIVO = '#39'N'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -178,6 +184,17 @@ object DMPedido_Reserva: TDMPedido_Reserva
     object cdsProdutoID: TIntegerField
       FieldName = 'ID'
       Required = True
+    end
+    object cdsProdutoPRECO_VENDA: TFloatField
+      FieldName = 'PRECO_VENDA'
+    end
+    object cdsProdutoUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsProdutoNOME: TStringField
+      FieldName = 'NOME'
+      Size = 100
     end
   end
   object dsProduto: TDataSource
