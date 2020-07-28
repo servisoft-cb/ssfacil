@@ -2,8 +2,8 @@ object DMCadFilial: TDMCadFilial
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 220
-  Top = 19
+  Left = 397
+  Top = 14
   Height = 709
   Width = 1045
   object sdsFilial: TSQLDataSet
@@ -462,7 +462,7 @@ object DMCadFilial: TDMCadFilial
     DataSet = sdsFilial
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspFilialUpdateError
-    Left = 104
+    Left = 105
     Top = 32
   end
   object cdsFilial: TClientDataSet
@@ -1652,7 +1652,7 @@ object DMCadFilial: TDMCadFilial
     IndexFieldNames = 'ID;ITEM'
     Params = <>
     OnCalcFields = cdsFilialRelatoriosCalcFields
-    Left = 136
+    Left = 137
     Top = 80
     object cdsFilialRelatoriosID: TIntegerField
       FieldName = 'ID'
@@ -1734,7 +1734,7 @@ object DMCadFilial: TDMCadFilial
     IndexFieldNames = 'ID;ITEM'
     Params = <>
     OnCalcFields = cdsFilial_EmailCalcFields
-    Left = 136
+    Left = 138
     Top = 125
     object cdsFilial_EmailID: TIntegerField
       FieldName = 'ID'
@@ -2277,7 +2277,7 @@ object DMCadFilial: TDMCadFilial
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 72
+    Left = 73
     Top = 216
     object sdsFILIAL_CBarraID: TIntegerField
       FieldName = 'ID'
@@ -2428,7 +2428,7 @@ object DMCadFilial: TDMCadFilial
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 72
-    Top = 264
+    Top = 265
     object sdsFilial_NFCeID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2449,7 +2449,7 @@ object DMCadFilial: TDMCadFilial
     IndexFieldNames = 'ID'
     Params = <>
     Left = 136
-    Top = 264
+    Top = 263
     object cdsFilial_NFCeID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2798,7 +2798,7 @@ object DMCadFilial: TDMCadFilial
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 76
+    Left = 77
     Top = 407
     object sdsFilial_CustoID: TIntegerField
       FieldName = 'ID'
@@ -2986,7 +2986,7 @@ object DMCadFilial: TDMCadFilial
     DataSetField = cdsFilialsdsFilial_SMS
     IndexFieldNames = 'ID'
     Params = <>
-    Left = 138
+    Left = 137
     Top = 457
     object cdsFilial_SMSID: TIntegerField
       FieldName = 'ID'
@@ -3041,7 +3041,7 @@ object DMCadFilial: TDMCadFilial
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 71
+    Left = 70
     Top = 552
     object sdsFilial_CertificadosID: TIntegerField
       FieldName = 'ID'
@@ -3107,7 +3107,7 @@ object DMCadFilial: TDMCadFilial
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspFilial_Certificados'
-    Left = 136
+    Left = 137
     Top = 552
     object cdsFilial_CertificadosID: TIntegerField
       FieldName = 'ID'
