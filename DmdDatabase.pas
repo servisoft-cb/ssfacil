@@ -539,6 +539,8 @@ begin
         dtUltimo_Acesso := 0;
       qParametros.Close;
       qParametros.Open;
+      qParametros_Geral.Close;
+      qParametros_Geral.Open;
       if qParametrosID_RESP_SUPORTE.AsInteger = 90 then
         vFoneAux := 'Contate com a Mash Soluções pelo telefone (51)31110780 / 31110354 / 34411084!'
       else
