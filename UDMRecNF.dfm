@@ -28,15 +28,16 @@ object DMRecNF: TDMRecNF
       'NUM_END_FIL,'#13#10'F.bairro BAIRRO_FIL, F.cidade CIDADE_FIL, F.UF UF_' +
       'FIL, F.cnpj_cpf CNPJ_CFP_FIL, F.CEP CEP_FIL,'#13#10'F.inscr_est INSCR_' +
       'EST_FIL, F.ddd1 DDD_FIL, F.fone FONE_FIL, COND.nome NOME_CONDPGT' +
-      'O,'#13#10'(NF.vlr_nota + NF.vlr_desconto) VLR_NOTA2'#13#10'FROM NOTAFISCAL N' +
-      'F'#13#10'INNER JOIN PESSOA CLI ON NF.ID_CLIENTE = CLI.CODIGO'#13#10'INNER JO' +
-      'IN FILIAL F ON nf.filial = f.id'#13#10'LEFT JOIN PESSOA TRANSP ON NF.I' +
-      'D_TRANSPORTADORA = TRANSP.CODIGO'#13#10'LEFT JOIN CONDPGTO COND ON NF.' +
-      'id_condpgto = COND.ID'#13#10'WHERE NF.ID = :ID'
+      'O,'#13#10'(NF.vlr_nota + NF.vlr_desconto) VLR_NOTA2, VEND.NOME NOME_VE' +
+      'NDEDOR'#13#10'FROM NOTAFISCAL NF'#13#10'INNER JOIN PESSOA CLI ON NF.ID_CLIEN' +
+      'TE = CLI.CODIGO'#13#10'INNER JOIN FILIAL F ON nf.filial = f.id'#13#10'LEFT J' +
+      'OIN PESSOA TRANSP ON NF.ID_TRANSPORTADORA = TRANSP.CODIGO'#13#10'LEFT ' +
+      'JOIN CONDPGTO COND ON NF.id_condpgto = COND.ID'#13#10'LEFT JOIN PESSOA' +
+      ' VEND ON (NF.ID_VENDEDOR = VEND.CODIGO)'#13#10'WHERE NF.ID = :ID'
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'ID'
         ParamType = ptInput
       end>
@@ -606,6 +607,10 @@ object DMRecNF: TDMRecNF
       FieldName = 'USUARIO'
       Size = 15
     end
+    object cdsNotaFiscalNOME_VENDEDOR: TStringField
+      FieldName = 'NOME_VENDEDOR'
+      Size = 60
+    end
   end
   object dsNotaFiscal: TDataSource
     DataSet = cdsNotaFiscal
@@ -621,7 +626,7 @@ object DMRecNF: TDMRecNF
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44040.672592870370000000
+    ReportOptions.LastChange = 44040.712184618050000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 437
@@ -818,7 +823,8 @@ object DMRecNF: TDMRecNF
       'DDD_FIL=DDD_FIL'
       'FONE_FIL=FONE_FIL'
       'VLR_NOTA2=VLR_NOTA2'
-      'USUARIO=USUARIO')
+      'USUARIO=USUARIO'
+      'NOME_VENDEDOR=NOME_VENDEDOR')
     DataSource = dsNotaFiscal
     BCDToCurrency = False
     Left = 440
