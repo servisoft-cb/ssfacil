@@ -762,7 +762,7 @@ type
     RxDBComboBox10: TRxDBComboBox;
     RxDBComboBox11: TRxDBComboBox;
     btnAjuda_TipoMat: TNxButton;
-    SMDBGrid16: TSMDBGrid;
+    smdbgridProcesso: TSMDBGrid;
     Shape1: TShape;
     Label248: TLabel;
     Label249: TLabel;
@@ -1925,8 +1925,8 @@ begin
   Label168.Visible            := ((fDMCadProduto.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S') or (fDMCadProduto.qParametros_NFeIMP_TAMANHO_FINAL.AsString = 'S'));
   DBEdit95.Visible            := ((fDMCadProduto.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S') or (fDMCadProduto.qParametros_NFeIMP_TAMANHO_FINAL.AsString = 'S'));
 
-  SMDBGrid16.Visible := (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'L');
-  if SMDBGrid16.Visible then
+  smdbgridProcesso.Visible := (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'L');
+  if smdbgridProcesso.Visible then
     pnl_Eng_Processo.Visible := False;
   Label118.Visible    := (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'L');
   StaticText1.Caption := 'Duplo clique para alterar  |  F3 Consultar Cadastro Anterior  |  F6 Histórico  |  F8 Compras';
@@ -1959,17 +1959,14 @@ begin
   //Cleomar 18/12/18
   //TS_Desenho_Passamento.TabVisible := (fDMCadProduto.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
   TS_Desenho_Passamento.TabVisible := (fDMCadProduto.qParametros_ProdMOSTRAR_FICHA_TEXTIL.AsString = 'S');
-  if not(pnl_Eng_Processo.Visible) and not(SMDBGrid16.Visible) then
+  if not(pnl_Eng_Processo.Visible) and not(smdbgridProcesso.Visible) then
     pnl_Eng_Consumo.Align := alClient
   else
   if (pnl_Eng_Processo.Visible) then
     pnl_Eng_Processo.Align := alClient
   else
-  if SMDBGrid16.Visible then
-  begin
-     SMDBGrid16.Align := alClient;
-     //nel8.Align     := alLeft;
-  end;
+  if smdbgridProcesso.Visible then
+    smdbgridProcesso.Align := alClient;
 
   if fDMCadProduto.qParametros_ProdUSA_CONSTRUCAO.AsString = 'S' then
   begin
@@ -3321,6 +3318,16 @@ begin
         SMDBGrid12.Columns[i].ReadOnly := not(SMDBGrid12.Columns[i].ReadOnly);
     end;
   end;
+
+  if smdbgridProcesso.Visible then
+  begin
+    for i := 1 to smdbgridProcesso.ColCount - 2 do
+    begin
+      if (smdbgridProcesso.Columns[i].FieldName = 'QTD_LEITURA') then
+        smdbgridProcesso.Columns[i].ReadOnly := not(smdbgridProcesso.Columns[i].ReadOnly);
+    end;
+  end;
+
 end;
 
 procedure TfrmCadProduto.prc_Controle_Serie;
