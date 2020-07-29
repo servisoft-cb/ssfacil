@@ -24,7 +24,7 @@ object frmCadProcesso: TfrmCadProcesso
     Top = 0
     Width = 779
     Height = 511
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 15759360
@@ -32,7 +32,7 @@ object frmCadProcesso: TfrmCadProcesso
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -74,7 +74,7 @@ object frmCadProcesso: TfrmCadProcesso
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 10
+        ColCount = 11
         RowCount = 2
         Columns = <
           item
@@ -143,6 +143,15 @@ object frmCadProcesso: TfrmCadProcesso
             FieldName = 'ESTOQUE'
             Title.Alignment = taCenter
             Title.Caption = 'Estoque'
+            Width = 64
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'LER_TALAO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Ler Tal'#227'o'
             Visible = True
           end>
       end
@@ -837,7 +846,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object RzGroupBox1: TRzGroupBox
           Left = 128
-          Top = 274
+          Top = 282
           Width = 451
           Height = 65
           BorderColor = clNavy
@@ -1136,6 +1145,18 @@ object frmCadProcesso: TfrmCadProcesso
           DataField = 'GERAR_ESTOQUE_TING'
           DataSource = DmCadSetor.dsProcesso
           TabOrder = 20
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
+        object DBCheckBox13: TDBCheckBox
+          Left = 464
+          Top = 85
+          Width = 145
+          Height = 17
+          Caption = 'Ler Tal'#227'o (Entrada/Sa'#237'da)'
+          DataField = 'LER_TALAO'
+          DataSource = DmCadSetor.dsProcesso
+          TabOrder = 21
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end

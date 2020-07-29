@@ -10262,7 +10262,7 @@ object dmCadProduto: TdmCadProduto
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 1080
+    Left = 1081
     Top = 464
     object sdsProduto_Consumo_ProcID: TIntegerField
       FieldName = 'ID'
@@ -10281,6 +10281,9 @@ object dmCadProduto: TdmCadProduto
     end
     object sdsProduto_Consumo_ProcID_PROCESSO: TIntegerField
       FieldName = 'ID_PROCESSO'
+    end
+    object sdsProduto_Consumo_ProcQTD_LEITURA: TIntegerField
+      FieldName = 'QTD_LEITURA'
     end
   end
   object cdsProduto_Consumo_Proc: TClientDataSet
@@ -10317,6 +10320,9 @@ object dmCadProduto: TdmCadProduto
       KeyFields = 'ID_PROCESSO'
       Size = 30
       Lookup = True
+    end
+    object cdsProduto_Consumo_ProcQTD_LEITURA: TIntegerField
+      FieldName = 'QTD_LEITURA'
     end
   end
   object dsProduto_Consumo_Proc: TDataSource

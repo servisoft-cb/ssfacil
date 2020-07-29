@@ -482,6 +482,11 @@ object DmCadSetor: TDmCadSetor
       FixedChar = True
       Size = 1
     end
+    object sdsProcessoLER_TALAO: TStringField
+      FieldName = 'LER_TALAO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspProcesso: TDataSetProvider
     DataSet = sdsProcesso
@@ -626,6 +631,11 @@ object DmCadSetor: TDmCadSetor
     end
     object cdsProcessoGERAR_ESTOQUE_TING: TStringField
       FieldName = 'GERAR_ESTOQUE_TING'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProcessoLER_TALAO: TStringField
+      FieldName = 'LER_TALAO'
       FixedChar = True
       Size = 1
     end

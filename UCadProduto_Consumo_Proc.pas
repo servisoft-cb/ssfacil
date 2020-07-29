@@ -15,6 +15,9 @@ type
     Label10: TLabel;
     SpeedButton1: TSpeedButton;
     RxDBLookupCombo2: TRxDBLookupCombo;
+    Label1: TLabel;
+    DBEdit1: TDBEdit;
+    Label2: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);

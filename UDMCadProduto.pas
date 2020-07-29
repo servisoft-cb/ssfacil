@@ -2011,6 +2011,8 @@ type
     cdsProdutoPRECO_VAREJO: TFloatField;
     qParametros_ProdUSA_PRECO_VAREJO: TStringField;
     cdsProduto_ConsultaNUM_SERIE: TStringField;
+    sdsProduto_Consumo_ProcQTD_LEITURA: TIntegerField;
+    cdsProduto_Consumo_ProcQTD_LEITURA: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
