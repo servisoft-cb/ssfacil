@@ -507,10 +507,6 @@ type
     DBEdit93: TDBEdit;
     Edit10: TEdit;
     Label166: TLabel;
-    Panel11: TPanel;
-    Label167: TLabel;
-    DBEdit94: TDBEdit;
-    Edit11: TEdit;
     FichaTcnica2: TMenuItem;
     FichaTcnicaPrincipal1: TMenuItem;
     FichaTcnicaporCombinao1: TMenuItem;
@@ -720,11 +716,6 @@ type
     DBEdit152: TDBEdit;
     Label236: TLabel;
     btnAjustarPeso: TBitBtn;
-    Label118: TLabel;
-    Label238: TLabel;
-    DBEdit154: TDBEdit;
-    Label239: TLabel;
-    DBEdit155: TDBEdit;
     Exportaparabalana1: TMenuItem;
     ExportarProduto1: TMenuItem;
     AtualizarPreo1: TMenuItem;
@@ -739,51 +730,25 @@ type
     SpeedButton16: TSpeedButton;
     SpeedButton17: TSpeedButton;
     SpeedButton18: TSpeedButton;
-    Label245: TLabel;
     Label246: TLabel;
     DBEdit159: TDBEdit;
     Label247: TLabel;
     Edit12: TEdit;
     Label13: TLabel;
     RxDBComboBox1: TRxDBComboBox;
-    pnl_Eng_Processo: TPanel;
-    SMDBGrid9: TSMDBGrid;
-    gbxProcesso: TRzGroupBox;
-    btnInserir_Processo: TNxButton;
-    btnAlterar_Processo: TNxButton;
-    btnExcluir_Processo: TNxButton;
-    RzGroupBox1: TRzGroupBox;
-    Label163: TLabel;
-    Label162: TLabel;
-    Label164: TLabel;
-    SpeedButton13: TSpeedButton;
-    SpeedButton14: TSpeedButton;
-    RxDBLookupCombo21: TRxDBLookupCombo;
-    RxDBComboBox10: TRxDBComboBox;
-    RxDBComboBox11: TRxDBComboBox;
-    btnAjuda_TipoMat: TNxButton;
-    smdbgridProcesso: TSMDBGrid;
     Shape1: TShape;
     Label248: TLabel;
     Label249: TLabel;
     ComboBox3: TComboBox;
     ListacomCdigodeBarras1: TMenuItem;
-    btnExcluir_Proc: TNxButton;
-    btnAtualizar_Proc: TNxButton;
     btnAjustarProcesso: TBitBtn;
     Label250: TLabel;
     Edit13: TEdit;
-    Label251: TLabel;
-    DBEdit160: TDBEdit;
-    Label252: TLabel;
-    DBEdit161: TDBEdit;
     Label253: TLabel;
     DBEdit162: TDBEdit;
     btnCA: TNxButton;
     lblEspessura: TLabel;
     dedtEspessura: TDBEdit;
-    RxDBComboBox12: TRxDBComboBox;
-    Label254: TLabel;
     btnAltRefEstruturada: TSpeedButton;
     TS_Corrugado: TRzTabSheet;
     NxPanel5: TNxPanel;
@@ -812,8 +777,6 @@ type
     abeladePreo1: TMenuItem;
     Label260: TLabel;
     DBEdit164: TDBEdit;
-    Label261: TLabel;
-    RxDBComboBox13: TRxDBComboBox;
     pnlProduto_Est: TPanel;
     Label262: TLabel;
     Label263: TLabel;
@@ -830,6 +793,46 @@ type
     btnInserir_Comissao: TNxButton;
     btnAlterar_Comissao: TNxButton;
     btnExcluir_Comissao: TNxButton;
+    RzPageControl7: TRzPageControl;
+    TS_Engenharia_Textil: TRzTabSheet;
+    TS_Engenharia_Calcado: TRzTabSheet;
+    Panel11: TPanel;
+    Label167: TLabel;
+    Label118: TLabel;
+    Label238: TLabel;
+    Label239: TLabel;
+    Label245: TLabel;
+    DBEdit94: TDBEdit;
+    Edit11: TEdit;
+    DBEdit154: TDBEdit;
+    DBEdit155: TDBEdit;
+    btnExcluir_Proc: TNxButton;
+    btnAtualizar_Proc: TNxButton;
+    smdbgridProcesso_Calc: TSMDBGrid;
+    pnl_Eng_Processo_Textil: TPanel;
+    RzGroupBox1: TRzGroupBox;
+    Label163: TLabel;
+    Label162: TLabel;
+    Label164: TLabel;
+    SpeedButton13: TSpeedButton;
+    SpeedButton14: TSpeedButton;
+    Label251: TLabel;
+    Label252: TLabel;
+    Label254: TLabel;
+    Label261: TLabel;
+    RxDBLookupCombo21: TRxDBLookupCombo;
+    RxDBComboBox10: TRxDBComboBox;
+    RxDBComboBox11: TRxDBComboBox;
+    btnAjuda_TipoMat: TNxButton;
+    DBEdit160: TDBEdit;
+    DBEdit161: TDBEdit;
+    RxDBComboBox12: TRxDBComboBox;
+    RxDBComboBox13: TRxDBComboBox;
+    gbxProcesso: TRzGroupBox;
+    btnInserir_Processo: TNxButton;
+    btnAlterar_Processo: TNxButton;
+    btnExcluir_Processo: TNxButton;
+    SMDBGrid9: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -1918,16 +1921,19 @@ begin
                                or ((fDMCadProduto.qParametros_GeralEMPRESA_CALCADOS.AsString = 'S') and (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'L'));
                                //or (fDMCadProduto.qParametros_PedUSA_PROCESSO_SIMPLES.AsString = 'S');
   gbxProcesso.Visible         := SMDBGrid9.Visible;
-  pnl_Eng_Processo.Visible    := ((fDMCadProduto.qParametros_GeralEMPRESA_CALCADOS.AsString <> 'S') and (fDMCadProduto.qParametros_GeralUSA_CUSTO_PROC_ATE.AsString <> 'A') and
-                                 ((fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'S') or (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'C')) or
-                                 (fDMCadProduto.qParametros_SerUSA_PROCESSO_OS.AsString = 'S') and (fDMCadProduto.qParametros_LoteLOTE_PROCESSO.AsString = 'S'));
+
+  TS_Engenharia_Textil.TabVisible := ((fDMCadProduto.qParametros_GeralEMPRESA_CALCADOS.AsString <> 'S') and (fDMCadProduto.qParametros_GeralUSA_CUSTO_PROC_ATE.AsString <> 'A') and
+                                     ((fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'S') or (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'C')) or
+                                      (fDMCadProduto.qParametros_SerUSA_PROCESSO_OS.AsString = 'S') and (fDMCadProduto.qParametros_LoteLOTE_PROCESSO.AsString = 'S'));
+  TS_Engenharia_Calcado.TabVisible := (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'L');
+  if TS_Engenharia_Calcado.TabVisible then
+    TS_Engenharia_Textil.TabVisible := False;
+
                                  //or (fDMCadProduto.qParametros_PedUSA_PROCESSO_SIMPLES.AsString = 'S');
   Label168.Visible            := ((fDMCadProduto.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S') or (fDMCadProduto.qParametros_NFeIMP_TAMANHO_FINAL.AsString = 'S'));
   DBEdit95.Visible            := ((fDMCadProduto.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S') or (fDMCadProduto.qParametros_NFeIMP_TAMANHO_FINAL.AsString = 'S'));
 
-  smdbgridProcesso.Visible := (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'L');
-  if smdbgridProcesso.Visible then
-    pnl_Eng_Processo.Visible := False;
+
   Label118.Visible    := (fDMCadProduto.qParametros_LoteTIPO_PROCESSO.AsString = 'L');
   StaticText1.Caption := 'Duplo clique para alterar  |  F3 Consultar Cadastro Anterior  |  F6 Histórico  |  F8 Compras';
   if fDMCadProduto.qParametros_ProdUSA_LOTE_PROD.AsString = 'S' then
@@ -1959,14 +1965,9 @@ begin
   //Cleomar 18/12/18
   //TS_Desenho_Passamento.TabVisible := (fDMCadProduto.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
   TS_Desenho_Passamento.TabVisible := (fDMCadProduto.qParametros_ProdMOSTRAR_FICHA_TEXTIL.AsString = 'S');
-  if not(pnl_Eng_Processo.Visible) and not(smdbgridProcesso.Visible) then
-    pnl_Eng_Consumo.Align := alClient
-  else
-  if (pnl_Eng_Processo.Visible) then
-    pnl_Eng_Processo.Align := alClient
-  else
-  if smdbgridProcesso.Visible then
-    smdbgridProcesso.Align := alClient;
+
+  if not(TS_Engenharia_Calcado.TabVisible) and not(TS_Engenharia_Textil.TabVisible) then
+    pnl_Eng_Consumo.Align := alClient;
 
   if fDMCadProduto.qParametros_ProdUSA_CONSTRUCAO.AsString = 'S' then
   begin
@@ -3319,12 +3320,12 @@ begin
     end;
   end;
 
-  if smdbgridProcesso.Visible then
+  if TS_Engenharia_Calcado.TabVisible then
   begin
-    for i := 1 to smdbgridProcesso.ColCount - 2 do
+    for i := 1 to smdbgridProcesso_Calc.ColCount - 2 do
     begin
-      if (smdbgridProcesso.Columns[i].FieldName = 'QTD_LEITURA') then
-        smdbgridProcesso.Columns[i].ReadOnly := not(smdbgridProcesso.Columns[i].ReadOnly);
+      if (smdbgridProcesso_Calc.Columns[i].FieldName = 'QTD_LEITURA') then
+        smdbgridProcesso_Calc.Columns[i].ReadOnly := not(smdbgridProcesso_Calc.Columns[i].ReadOnly);
     end;
   end;
 
