@@ -23,7 +23,7 @@ object frmSel_Pedido: TfrmSel_Pedido
     Left = 880
     Top = 52
     Width = 8
-    Height = 454
+    Height = 365
     Align = alRight
   end
   object Panel1: TPanel
@@ -272,7 +272,7 @@ object frmSel_Pedido: TfrmSel_Pedido
     Left = 0
     Top = 52
     Width = 880
-    Height = 454
+    Height = 365
     Align = alClient
     Ctl3D = False
     DataSource = DMCadNotaFiscal.dsPedido
@@ -932,7 +932,7 @@ object frmSel_Pedido: TfrmSel_Pedido
     Left = 888
     Top = 52
     Width = 212
-    Height = 454
+    Height = 365
     TabStop = False
     Align = alRight
     Ctl3D = False
@@ -994,5 +994,15 @@ object frmSel_Pedido: TfrmSel_Pedido
     Height = 17
     Align = alBottom
     TabOrder = 5
+  end
+  object DBMemo1: TDBMemo
+    Left = 0
+    Top = 417
+    Width = 1100
+    Height = 89
+    Align = alBottom
+    DataField = 'OBS_COMPLEMENTAR'
+    DataSource = DMCadNotaFiscal.dsPedido
+    TabOrder = 6
   end
 end

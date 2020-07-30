@@ -626,7 +626,7 @@ object DMRecNF: TDMRecNF
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44040.712184618050000000
+    ReportOptions.LastChange = 44042.467289675930000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 437
@@ -835,9 +835,10 @@ object DMRecNF: TDMRecNF
     GetMetadata = False
     CommandText = 
       'SELECT IT.id,  IT.ITEM, IT.id_produto, IT.referencia, IT.nome_pr' +
-      'oduto, IT.qtd,'#13#10'IT.vlr_unitario, IT.vlr_total, IT.unidade, (coal' +
-      'esce(IT.VLR_DESCONTO,0) + coalesce(IT.vlr_descontorateio,0)) VLR' +
-      '_DESCONTO'#13#10'FROM notafiscal_itens IT'#13#10'WHERE IT.ID = :ID'#13#10
+      'oduto, IT.qtd, IT.OBS_COMPLEMENTAR,'#13#10'IT.vlr_unitario, IT.vlr_tot' +
+      'al, IT.unidade, (coalesce(IT.VLR_DESCONTO,0) + coalesce(IT.vlr_d' +
+      'escontorateio,0)) VLR_DESCONTO'#13#10'FROM notafiscal_itens IT'#13#10'WHERE ' +
+      'IT.ID = :ID'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -895,6 +896,10 @@ object DMRecNF: TDMRecNF
     object cdsNotaFiscal_ItensVLR_DESCONTO: TFloatField
       FieldName = 'VLR_DESCONTO'
     end
+    object cdsNotaFiscal_ItensOBS_COMPLEMENTAR: TStringField
+      FieldName = 'OBS_COMPLEMENTAR'
+      Size = 250
+    end
   end
   object dsNotaFiscal_Itens: TDataSource
     DataSet = cdsNotaFiscal_Itens
@@ -914,7 +919,8 @@ object DMRecNF: TDMRecNF
       'VLR_UNITARIO=VLR_UNITARIO'
       'VLR_TOTAL=VLR_TOTAL'
       'UNIDADE=UNIDADE'
-      'VLR_DESCONTO=VLR_DESCONTO')
+      'VLR_DESCONTO=VLR_DESCONTO'
+      'OBS_COMPLEMENTAR=OBS_COMPLEMENTAR')
     DataSource = dsNotaFiscal_Itens
     BCDToCurrency = False
     Left = 488

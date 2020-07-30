@@ -6,7 +6,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, RxLookup, StdCtrls, SqlExpr,
   UDMCadNotaFiscal, Buttons, Grids, DBGrids, SMDBGrid, DB, UCadNotaFiscal_Itens, UCadNotaEntrada_Itens, uDmCadVale, ComCtrls,
-  NxCollection, uCadVale_Itens, UCadRecNF_Itens;
+  NxCollection, uCadVale_Itens, UCadRecNF_Itens, DBCtrls;
 
 type
   TfrmSel_Pedido = class(TForm)
@@ -40,6 +40,7 @@ type
     Label68: TLabel;
     Label10: TLabel;
     Label11: TLabel;
+    DBMemo1: TDBMemo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
@@ -193,6 +194,7 @@ begin
     Shape11.Visible := (fDMCadNotaFiscal.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
     Label68.Visible := (fDMCadNotaFiscal.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
     Label10.Visible := (fDMCadNotaFiscal.qParametros_PedUSA_QTD_PECA.AsString = 'S');
+    DBMemo1.Visible := (fDMCadNotaFiscal.qParametros_PedGRAVAR_OBS_NO_RECIBO.AsString = 'S');
 
     Label11.Visible := (fDMCadNotaFiscal.qParametros_PedMOSTRAR_ANEXO.AsString = 'S');
   end;
@@ -571,6 +573,7 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscalPERC_ICMS_FRETE.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsPedidoPERC_ICMS_FRETE.AsFloat));
     fDMCadNotaFiscal.cdsNotaFiscalGERARDUPL_FRETE.AsString := 'S';
   end;
+
   //*************
   //02/08/2018 Colocado o esquema do Lote com desconto
   if (fDMCadNotaFiscal.cdsPedidoDESC_SUFRAMA_ICMS.AsString = 'S') or (fDMCadNotaFiscal.cdsPedidoDESC_SUFRAMA_PIS_COFINS.AsString = 'S') then
@@ -1366,8 +1369,8 @@ begin
         fDMCadNotaFiscal.qPreFat.Open;
         if fDMCadNotaFiscal.qPreFatCONTADOR.AsInteger > 0 then
         begin
-          vMsgErro := vMsgErro + #13 + '*** Pedido: ' + fDMCadNotaFiscal.cdsPedidoPEDIDO_CLIENTE.AsString + '  Item: ' + fDMCadNotaFiscal.cdsPedidoITEM.AsString
-                      + ', estão no Pré Faturamento';
+          vMsgErro := vMsgErro + #13 + '*** Pedido: ' + fDMCadNotaFiscal.cdsPedidoPEDIDO_CLIENTE.AsString + '  Item: ' +
+                      fDMCadNotaFiscal.cdsPedidoITEM.AsString + ', estão no Pré Faturamento';
           vSel := False;
         end;
       end;
@@ -1535,6 +1538,11 @@ begin
           end;
         end;
       end;
+      if (fDMCadNotaFiscal.cdsParametrosUSA_OBS_PEDIDO_NOTA.AsString = 'S') and
+         (fDMCadNotaFiscal.qParametros_PedGRAVAR_OBS_NO_RECIBO.AsString = 'S') then
+        fDMCadNotaFiscal.cdsNotaFiscalDADOS_ADICIONAIS.AsString := fDMCadNotaFiscal.cdsNotaFiscalDADOS_ADICIONAIS.AsString +
+                                                                   fDMCadNotaFiscal.cdsPedidoOBS.AsString;
+
       fDMCadNotaFiscal.cdsPedido.Next;
     end;
     fDMCadNotaFiscal.cdsPedido.EnableControls;

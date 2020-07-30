@@ -3197,6 +3197,9 @@ type
     cdsPedidoID_OPERACAO_NOTA: TIntegerField;
     cdsPedidoFINALIDADE: TStringField;
     qParametros_PedMOSTRAR_ANEXO: TStringField;
+    qParametros_PedGRAVAR_FRETE_NO_RECIBO: TStringField;
+    qParametros_PedGRAVAR_OBS_NO_RECIBO: TStringField;
+    cdsPedidoOBS: TMemoField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
