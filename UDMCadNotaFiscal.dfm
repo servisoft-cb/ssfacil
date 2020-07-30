@@ -5183,7 +5183,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 311
   end
   object cdsTipoCobranca: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5264,7 +5263,6 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 358
   end
   object cdsContas: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -8112,20 +8110,20 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'O, pi.PERC_DESCONTO, pi.DTCONFERENCIA,'#13#10'       pi.COMPRIMENTO_VO' +
       'LUME, PRO.MEDIDA, pi.CALCULARICMSSOBREIPI, pi.VLR_UNITARIO_IPI, ' +
       'PE.FILIAL, coalesce(pi.PESO_AJUSTADO,'#39'N'#39') PESO_AJUSTADO,'#13#10'      ' +
-      ' PE.end_arq_pagto, PE.id_operacao_nota, PE.finalidade'#13#10'from PEDI' +
-      'DO PE'#13#10'inner join PEDIDO_ITEM pi on (PE.ID = pi.ID)'#13#10'inner join ' +
-      'PESSOA CLI on (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'inner join PRODUTO P' +
-      'RO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left join COMBINACAO COMB on (pi' +
-      '.ID_COR = COMB.ID)'#13#10'left join GRUPO GR on PRO.ID_GRUPO = GR.ID'#13#10 +
-      'left join PESSOA_FISCAL PF on PE.ID_CLIENTE = PF.CODIGO'#13#10'left jo' +
-      'in ORDEMSERVICO O on pi.ID_OS_SERV = O.ID'#13#10'left join PEDIDO_ITEM' +
-      '_TIPO PIT on pi.ID = PIT.ID and pi.ITEM = PIT.ITEM'#13#10'where pi.QTD' +
-      '_RESTANTE > 0'#13#10#13#10#13#10'  '
+      ' PE.end_arq_pagto, PE.id_operacao_nota, PE.finalidade, PE.OBS'#13#10'f' +
+      'rom PEDIDO PE'#13#10'inner join PEDIDO_ITEM pi on (PE.ID = pi.ID)'#13#10'inn' +
+      'er join PESSOA CLI on (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'inner join P' +
+      'RODUTO PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left join COMBINACAO COM' +
+      'B on (pi.ID_COR = COMB.ID)'#13#10'left join GRUPO GR on PRO.ID_GRUPO =' +
+      ' GR.ID'#13#10'left join PESSOA_FISCAL PF on PE.ID_CLIENTE = PF.CODIGO'#13 +
+      #10'left join ORDEMSERVICO O on pi.ID_OS_SERV = O.ID'#13#10'left join PED' +
+      'IDO_ITEM_TIPO PIT on pi.ID = PIT.ID and pi.ITEM = PIT.ITEM'#13#10'wher' +
+      'e pi.QTD_RESTANTE > 0'#13#10#13#10#13#10'  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 417
-    Top = 197
+    Left = 419
+    Top = 201
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -8517,6 +8515,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsPedidoFINALIDADE: TStringField
       FieldName = 'FINALIDADE'
       FixedChar = True
+      Size = 1
+    end
+    object cdsPedidoOBS: TMemoField
+      FieldName = 'OBS'
+      BlobType = ftMemo
       Size = 1
     end
   end
@@ -13404,6 +13407,16 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedGRAVAR_FRETE_NO_RECIBO: TStringField
+      FieldName = 'GRAVAR_FRETE_NO_RECIBO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_PedGRAVAR_OBS_NO_RECIBO: TStringField
+      FieldName = 'GRAVAR_OBS_NO_RECIBO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsNotaFiscal_Tam: TSQLDataSet
     NoMetadata = True
@@ -13911,8 +13924,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43412.614886273100000000
-    ReportOptions.LastChange = 43412.645099317130000000
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 43572.707052419000000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     Left = 1080

@@ -192,6 +192,7 @@ type
     cdsNumOC: TClientDataSet;
     cdsNumOCNUMERO_OC: TStringField;
     cdsNotaFiscalNOME_VENDEDOR: TStringField;
+    cdsNotaFiscal_ItensOBS_COMPLEMENTAR: TStringField;
   private
     { Private declarations }
   public
