@@ -833,6 +833,8 @@ type
     btnAlterar_Processo: TNxButton;
     btnExcluir_Processo: TNxButton;
     SMDBGrid9: TSMDBGrid;
+    SMDBGrid16: TSMDBGrid;
+    NxSplitter1: TNxSplitter;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -3327,6 +3329,13 @@ begin
       if (smdbgridProcesso_Calc.Columns[i].FieldName = 'QTD_LEITURA') then
         smdbgridProcesso_Calc.Columns[i].ReadOnly := not(smdbgridProcesso_Calc.Columns[i].ReadOnly);
     end;
+
+    for i := 1 to SMDBGrid16.ColCount - 2 do
+    begin
+      if (SMDBGrid16.Columns[i].FieldName = 'lkSetor') or (SMDBGrid16.Columns[i].FieldName = 'ORDEM') then
+        SMDBGrid16.Columns[i].ReadOnly := not(SMDBGrid16.Columns[i].ReadOnly);
+    end;
+
   end;
 
 end;
@@ -6190,6 +6199,12 @@ begin
     exit;
   if MessageDlg('Deseja excluir o Processo Selecionado?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
+
+  //30/07/2020  Lotus vai usar
+  if (fDMCadProduto.cdsProdutoProcesso.Locate('ID_PROCESSO',fDMCadProduto.cdsProduto_Consumo_ProcID_PROCESSO.AsInteger,([Locaseinsensitive]))) then
+    fDMCadProduto.cdsProdutoProcesso.Delete;
+  //******************
+
   fDMCadProduto.cdsProduto_Consumo_Proc.Delete;
 end;
 

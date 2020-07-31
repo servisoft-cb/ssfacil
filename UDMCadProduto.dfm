@@ -6203,6 +6203,46 @@ object dmCadProduto: TdmCadProduto
     SQLConnection = dmDatabase.scoDados
     Left = 672
     Top = 307
+    object sdsProdutoProcessoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsProdutoProcessoITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsProdutoProcessoID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+      Required = True
+    end
+    object sdsProdutoProcessoID_SETOR: TIntegerField
+      FieldName = 'ID_SETOR'
+    end
+    object sdsProdutoProcessoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsProdutoProcessoUN: TStringField
+      FieldName = 'UN'
+      Size = 3
+    end
+    object sdsProdutoProcessoVLR_UNIT: TFloatField
+      FieldName = 'VLR_UNIT'
+    end
+    object sdsProdutoProcessoVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+    end
+    object sdsProdutoProcessoOBS: TStringField
+      FieldName = 'OBS'
+      Size = 100
+    end
+    object sdsProdutoProcessoID_POSICAO: TIntegerField
+      FieldName = 'ID_POSICAO'
+    end
+    object sdsProdutoProcessoORDEM: TIntegerField
+      FieldName = 'ORDEM'
+    end
   end
   object dspProdutoProcesso: TDataSetProvider
     DataSet = sdsProdutoProcesso
@@ -6261,6 +6301,7 @@ object dmCadProduto: TdmCadProduto
       LookupKeyFields = 'ID'
       LookupResultField = 'NOME'
       KeyFields = 'ID_PROCESSO'
+      ProviderFlags = []
       Size = 30
       Lookup = True
     end
@@ -6271,6 +6312,7 @@ object dmCadProduto: TdmCadProduto
       LookupKeyFields = 'ID'
       LookupResultField = 'NOME'
       KeyFields = 'ID_SETOR'
+      ProviderFlags = []
       Size = 30
       Lookup = True
     end
@@ -6281,8 +6323,12 @@ object dmCadProduto: TdmCadProduto
       LookupKeyFields = 'ID'
       LookupResultField = 'NOME'
       KeyFields = 'ID_POSICAO'
+      ProviderFlags = []
       Size = 40
       Lookup = True
+    end
+    object cdsProdutoProcessoORDEM: TIntegerField
+      FieldName = 'ORDEM'
     end
   end
   object dsProdutoProcesso: TDataSource

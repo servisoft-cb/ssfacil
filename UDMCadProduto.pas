@@ -2013,6 +2013,18 @@ type
     cdsProduto_ConsultaNUM_SERIE: TStringField;
     sdsProduto_Consumo_ProcQTD_LEITURA: TIntegerField;
     cdsProduto_Consumo_ProcQTD_LEITURA: TIntegerField;
+    sdsProdutoProcessoID: TIntegerField;
+    sdsProdutoProcessoITEM: TIntegerField;
+    sdsProdutoProcessoID_PROCESSO: TIntegerField;
+    sdsProdutoProcessoID_SETOR: TIntegerField;
+    sdsProdutoProcessoQTD: TFloatField;
+    sdsProdutoProcessoUN: TStringField;
+    sdsProdutoProcessoVLR_UNIT: TFloatField;
+    sdsProdutoProcessoVLR_TOTAL: TFloatField;
+    sdsProdutoProcessoOBS: TStringField;
+    sdsProdutoProcessoID_POSICAO: TIntegerField;
+    sdsProdutoProcessoORDEM: TIntegerField;
+    cdsProdutoProcessoORDEM: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
@@ -2700,6 +2712,9 @@ begin
   qPosicao.Open;
 
   cdsProduto_ConsumoclUsa_Processo.AsString := qPosicaoUSA_PROCESSO.AsString;
+  //if cdsProduto_Consumo_Proc.RecordCount > 0 then
+   // cdsProduto_ConsumoclUsa_Processo.AsString := 'S';
+
   if cdsProduto_ConsumoID_SETOR.AsInteger > 0 then
   begin
     qSetor.Close;

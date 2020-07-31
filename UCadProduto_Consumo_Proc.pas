@@ -77,6 +77,19 @@ begin
 
   try
     fDMCadProduto.cdsProduto_Consumo_Proc.Post;
+
+    //30/07/2020
+    //Gravar Produto_Processo  Lotus vai usar
+    if not (fDMCadProduto.cdsProdutoProcesso.Locate('ID_PROCESSO',fDMCadProduto.cdsProduto_Consumo_ProcID_PROCESSO.AsInteger,([Locaseinsensitive]))) then
+    begin
+      fDMCadProduto.prc_Inserir_ProdProcesso;
+      fDMCadProduto.cdsProdutoProcessoID_PROCESSO.AsInteger := fDMCadProduto.cdsProduto_Consumo_ProcID_PROCESSO.AsInteger;
+      fDMCadProduto.cdsProdutoProcessoID_SETOR.AsInteger    := fDMCadProduto.cdsProduto_ConsumoID_SETOR.AsInteger;
+      fDMCadProduto.cdsProdutoProcessoORDEM.AsInteger       := fDMCadProduto.cdsProdutoProcessoITEM.AsInteger;
+      fDMCadProduto.cdsProdutoProcesso.Post;
+    end;
+    //***********
+
   except
     on E: exception do
     begin
