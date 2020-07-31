@@ -1931,6 +1931,9 @@ begin
   if TS_Engenharia_Calcado.TabVisible then
     TS_Engenharia_Textil.TabVisible := False;
 
+  if not(TS_Engenharia_Textil.TabVisible) and not(TS_Engenharia_Calcado.TabVisible) then
+    RzPageControl7.Visible := False;
+    
                                  //or (fDMCadProduto.qParametros_PedUSA_PROCESSO_SIMPLES.AsString = 'S');
   Label168.Visible            := ((fDMCadProduto.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S') or (fDMCadProduto.qParametros_NFeIMP_TAMANHO_FINAL.AsString = 'S'));
   DBEdit95.Visible            := ((fDMCadProduto.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S') or (fDMCadProduto.qParametros_NFeIMP_TAMANHO_FINAL.AsString = 'S'));
