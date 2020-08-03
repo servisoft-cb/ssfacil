@@ -62,6 +62,10 @@ type
     DBEdit6: TDBEdit;
     btnGerar: TNxButton;
     N1: TMenuItem;
+    Label1: TLabel;
+    RxDBLookupCombo1: TRxDBLookupCombo;
+    Label2: TLabel;
+    RxDBLookupCombo4: TRxDBLookupCombo;
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -91,6 +95,7 @@ type
     procedure SpeedButton2Click(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
+    procedure RxDBLookupCombo1Change(Sender: TObject);
   private
     { Private declarations }
     fDmCadPedido: TDmCadPedido;
@@ -120,8 +125,7 @@ var
 
 implementation
 
-uses uUtilPadrao, USel_Pessoa, uCalculo_Pedido, uGrava_Pedido,
-  uCadPedidoSimpes_Geracao;
+uses uUtilPadrao, USel_Pessoa, uCalculo_Pedido, uGrava_Pedido, uCadPedidoSimpes_Geracao;
 
 {$R *.dfm}
 
@@ -157,6 +161,9 @@ begin
     fDMCadPedido.sdsPedido_Consulta.CommandText := fDMCadPedido.sdsPedido_Consulta.CommandText +
                                                    ' AND PED.DTEMISSAO <= ' +
                                                    QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
+  if RxDBLookupCombo1.KeyValue > 0 then
+    fDMCadPedido.sdsPedido_Consulta.CommandText := fDMCadPedido.sdsPedido_Consulta.CommandText +
+                                                   ' AND ID_MAPA = ' + RxDBLookupCombo1.Value;
   fDMCadPedido.cdsPedido_Consulta.Open;
 end;
 
@@ -262,7 +269,7 @@ end;
 
 procedure TfrmCadPedidoSimples.btnConsultarClick(Sender: TObject);
 begin
-  prc_Consultar(0);
+  prc_Consultar(cePedInterno.AsInteger);
 end;
 
 procedure TfrmCadPedidoSimples.FormShow(Sender: TObject);
@@ -647,7 +654,7 @@ begin
   fDMCadPedido.cdsPedidoImp.Open;
 
   fDMCadPedido.cdsPedidoImp_Itens.Close;
-  fDMCadPedido.sdsPedidoImp_Itens.ParamByName('ID').AsInteger := fDMCadPedido.cdsPedido_ConsultaID.AsInteger;
+  fDMCadPedido.sdsPedidoImp_Itens.ParamByName('ID').AsInteger := fDMCadPedido.cdsPedidoImpID.AsInteger;
   fDMCadPedido.cdsPedidoImp_Itens.Open;
 end;
 
@@ -657,13 +664,88 @@ begin
 end;
 
 procedure TfrmCadPedidoSimples.Completo1Click(Sender: TObject);
+var
+  vArq: String;
 begin
+  fDmCadPedido.ctPedidoImp_Itens := fDmCadPedido.sdsPedidoImp_Itens.CommandText;
+  fDmCadPedido.sdspedidoimp_itens.CommandText := 'SELECT ((PI.vlr_total / PI.qtd) * PI.qtd_restante) VLR_TOTAL_PARCIAL, ' +
+                                    '((PI.vlr_duplicata / PI.qtd) * PI.qtd_restante) VLR_DUPLICATA_PARCIAL, ' +
+                                    '((PI.vlr_desconto / PI.qtd) * PI.qtd_restante) VLR_DESCONTO_PARCIAL, ' +
+                                    '((PI.vlr_descontorateio / PI.qtd) * PI.qtd_restante) VLR_DESCONTORATEIO_PARCIAL, ' +
+                                    '((PI.vlr_frete / PI.qtd) * PI.qtd_restante) VLR_FRETE_PARCIAL, ' +
+                                    '((PI.vlr_icms / PI.qtd) * PI.qtd_restante) VLR_ICMS_PARCIAL, ' +
+                                    '((PI.vlr_transf / PI.qtd) * PI.qtd_restante) VLR_TRANSF_PARCIAL, ' +
+                                    '((PI.vlr_ipi / PI.qtd) * PI.qtd_restante) VLR_IPI_PARCIAL, ' +
+                                    '((PI.vlr_icmssimples / PI.qtd) * PI.qtd_restante) VLR_ICMSSIMPLES_PARCIAL, ' +
+                                    '((PI.vlr_icmssubst / PI.qtd) * PI.qtd_restante) VLR_ICMSSUBST_PARCIAL, ' +
+                                    '((PI.vlr_descontorateio / PI.qtd) * PI.qtd_restante) VLR_DESCONTO_RATEIO_PARCIAL, ' +
+                                    '((PI.vlr_icmsdiferido / PI.qtd) * PI.qtd_restante) VLR_ICMSDIFERIDO_PARCIAL, ' +
+                                    '((PI.vlr_icms_fcp / PI.qtd) * PI.qtd_restante) VLR_ICMS_FCP_PARCIAL, ' +
+                                    '((PI.vlr_icms_uf_dest / PI.qtd) * PI.qtd_restante) VLR_ICMS_UF_DEST_PARCIAL, ' +
+                                    '((PI.vlr_icms_uf_remet / PI.qtd) * PI.qtd_restante) VLR_ICMS_UF_REMET_PARCIAL, ' +
+                                    '((PI.base_icmssubst / PI.qtd) * PI.qtd_restante) BASE_ICMSSUBST_PARCIAL ' +
+                                    ' , PI.*, MARCA.NOME NOME_MARCA, PT.comprimento, PT.largura, PT.altura, ' +
+                                    'PT.vlr_kg, PT.qtd QTD_TIPO, PT.vlr_unitario VLR_UNITARIO_TIPO, PT.VLR_TOTAL VLR_TOTAL_TIPO, ' +
+                                    'PT.diametro, PT.diametro_ext, PT.diametro_int, PT.parede, PT.peso, PT.complemento_nome, ' +
+                                    'PT.tipo_orcamento, PT.descricao_tipo, NCM.NCM, PT.QTD_FUROS, PRO.PICTOGRAMA, ' +
+                                    'COMB.NOME NOME_COR_COMBINACAO, PRO.FOTO, PTAM.tam_matriz, ATE.nome NOME_ATELIER, ' +
+                                    'PRO.imp_rotulo IMP_ROTULO_PROD, (pi.vlr_total + pi.vlr_desconto + pi.vlr_descontorateio) Vlr_Total_Calc, ' +
+                                    '(pi.vlr_desconto + pi.vlr_descontorateio) Vlr_Desconto_Calc, (pro.pesobruto * pi.qtd_caixa) peso_varejo, PT.ID_MATERIAL, ' +
+                                    'PT.ID_TIPO_MATERIAL, TMAT.NOME NOME_TIPO_MATERIAL, PT.ESPESSURA, PT.DENSIDADE, PT.ALTURA_CORTE, ' +
+                                    'PT.LARGURA_CORTE,MP.NOME NOME_ACABAMENTO, PT.CAMINHO_ARQUIVO_PDF, ' +
+                                    'CASE ' +
+                                    '  WHEN (PLOTE.LOCALIZACAO IS NOT NULL) AND (PLOTE.LOCALIZACAO <> '''') THEN PLOTE.LOCALIZACAO ' +
+                                    '  WHEN (PRO.LOCALIZACAO IS NOT NULL) AND (PRO.LOCALIZACAO <> '''') THEN PRO.LOCALIZACAO ' +
+                                    '  ELSE NULL ' +
+                                    '  END LOCALIZACAO, ' +
+                                    'case ' +
+                                    '  WHEN PI.TIPO_OS = ''OC'' THEN PI.TIPO_OS ' +
+                                    '  WHEN PI.TIPO_OS = ''OP'' THEN PI.TIPO_OS ' +
+                                    '  WHEN PI.TIPO_OS = ''RE'' THEN PI.TIPO_OS ' +
+                                    '  ELSE ''''' +
+                                    '  END DESC_TIPO_OS, PRO.QTD_POR_ROTULO QTD_POR_ROTULO_PROD, ' +
+                                    '  PRO.QTD_EMBALAGEM QTD_EMBALAGEM_PROD, PRO.MEDIDA, UNI.mostrar_grosa, ' +
+                                    '  corp.nome nome_cor_perfil, CORV.nome NOME_COR_VIDRO, ' +
+                                    '  PT.preco_cor_perfil, PT.preco_cor_vidro ' +
+                                    'FROM PEDIDO_ITEM PI ' +
+                                    'inner JOIN PRODUTO PRO ON (PI.ID_PRODUTO = PRO.ID) ' +
+                                    'LEFT JOIN MARCA ON (PRO.ID_MARCA = MARCA.ID) ' +
+                                    'LEFT JOIN PEDIDO_ITEM_TIPO PT ON (PI.ID = PT.ID AND PI.ITEM = PT.ITEM) ' +
+                                    'LEFT JOIN TAB_NCM NCM ON (PRO.ID_NCM = NCM.ID) ' +
+                                    'LEFT JOIN COMBINACAO COMB ON (PI.ID_COR = COMB.ID) ' +
+                                    'LEFT JOIN PRODUTO_TAM PTAM ON (PI.id_produto = PTAM.id AND PI.tamanho = PTAM.tamanho) ' +
+                                    'LEFT JOIN PESSOA ATE ON (PI.id_atelier = ATE.CODIGO ) ' +
+                                    'LEFT JOIN PRODUTO_LOTE PLOTE ON (PI.ID_PRODUTO = PLOTE.ID AND PI.NUM_LOTE_CONTROLE = PLOTE.NUM_LOTE_CONTROLE) ' +
+                                    'LEFT JOIN TIPO_MATERIAL TMAT ON (PT.ID_TIPO_MATERIAL = TMAT.ID) ' +
+                                    'LEFT JOIN MATRIZ_PRECO MP ON MP.ID = PT.ID_ACABAMENTO ' +
+                                    'LEFT JOIN UNIDADE UNI ON PI.UNIDADE = UNI.unidade ' +
+                                    'LEFT JOIN COMBINACAO CORP ON PT.id_cor_perfil = CORP.ID ' +
+                                    'LEFT JOIN COMBINACAO CORV ON PT.id_cor_vidro = CORV.ID ' +
+                                    'WHERE PI.ID = :ID AND ((PI.TIPO_ACESSORIO = ''N'') OR (PI.TIPO_ACESSORIO IS NULL))';
+
+
+  fDMCadPedido.qFilial_Rel.Close;
+  fDMCadPedido.qFilial_Rel.ParamByName('ID').AsInteger      := 1;
+  fDMCadPedido.qFilial_Rel.ParamByName('TIPO').AsInteger    := 2;
+  fDMCadPedido.qFilial_Rel.ParamByName('POSICAO').AsInteger := 1;
+  fDMCadPedido.qFilial_Rel.Open;
+  vArq := fDMCadPedido.qFilial_RelCAMINHO.AsString;
+  if FileExists(vArq) then
+    fDMCadPedido.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatório não localizado! ' + vArq);
+    Exit;
+  end;
+
   fDmCadPedido.cdsPedido_Consulta.First;
   while not fDmCadPedido.cdsPedido_Consulta.Eof do
   begin
+    prc_prepara_print;       
+
+    fDMCadPedido.frxReport1.ShowReport;
     fDmCadPedido.cdsPedido_Consulta.Next;
   end;
-  prc_prepara_print;
 end;
 
 procedure TfrmCadPedidoSimples.SpeedButton2Click(Sender: TObject);
@@ -721,6 +803,11 @@ begin
 
   DateEdit1.Date := Date;
   btnConsultarClick(Sender);
+end;
+
+procedure TfrmCadPedidoSimples.RxDBLookupCombo1Change(Sender: TObject);
+begin
+  fDmCadPedido.cdsRegiao_Venda.IndexFieldNames := 'NOME';
 end;
 
 end.

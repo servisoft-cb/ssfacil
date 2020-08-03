@@ -4184,6 +4184,7 @@ object DMCadPedido: TDMCadPedido
     Top = 358
   end
   object cdsPedidoImp: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
@@ -10876,7 +10877,7 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 42219.680103518500000000
+    ReportOptions.LastChange = 44042.733686087970000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
