@@ -20,12 +20,12 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
     Top = 0
     Width = 984
     Height = 561
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
     ParentBackgroundColor = False
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RZPageControl1Change
     FixedDimension = 19
@@ -428,13 +428,13 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
         Left = 0
         Top = 31
         Width = 980
-        Height = 54
+        Height = 79
         Align = alTop
         TabOrder = 1
         Visible = False
         object Label5: TLabel
           Left = 14
-          Top = 36
+          Top = 58
           Width = 86
           Height = 13
           Alignment = taRightJustify
@@ -442,7 +442,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
         end
         object Label6: TLabel
           Left = 212
-          Top = 36
+          Top = 58
           Width = 25
           Height = 13
           Alignment = taRightJustify
@@ -456,27 +456,35 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           Alignment = taRightJustify
           Caption = 'N'#186' Ped. Interno:'
         end
+        object Label1: TLabel
+          Left = 27
+          Top = 38
+          Width = 73
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Regi'#227'o (pra'#231'a):'
+        end
         object DateEdit1: TDateEdit
           Left = 103
-          Top = 28
-          Width = 90
-          Height = 21
-          NumGlyphs = 2
-          StartOfWeek = Sun
-          TabOrder = 1
-        end
-        object DateEdit2: TDateEdit
-          Left = 239
-          Top = 28
+          Top = 50
           Width = 90
           Height = 21
           NumGlyphs = 2
           StartOfWeek = Sun
           TabOrder = 2
         end
+        object DateEdit2: TDateEdit
+          Left = 239
+          Top = 50
+          Width = 90
+          Height = 21
+          NumGlyphs = 2
+          StartOfWeek = Sun
+          TabOrder = 3
+        end
         object btnConsultar: TNxButton
           Left = 339
-          Top = 19
+          Top = 43
           Width = 177
           Height = 30
           Caption = 'Efetuar Pesquisa'
@@ -542,7 +550,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 3
+          TabOrder = 4
           Transparent = True
           OnClick = btnConsultarClick
         end
@@ -556,12 +564,25 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           DisplayFormat = '0'
           TabOrder = 0
         end
+        object RxDBLookupCombo1: TRxDBLookupCombo
+          Left = 103
+          Top = 28
+          Width = 225
+          Height = 21
+          DropDownCount = 15
+          DisplayEmpty = 'Selecione...'
+          LookupField = 'ID'
+          LookupDisplay = 'NOME'
+          LookupSource = DMCadPedido.dsRegiao_Venda
+          TabOrder = 1
+          OnChange = RxDBLookupCombo1Change
+        end
       end
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 85
+        Top = 110
         Width = 980
-        Height = 453
+        Height = 428
         Align = alClient
         Color = clWhite
         Ctl3D = True
@@ -628,8 +649,9 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           end
           item
             Expanded = False
-            FieldName = 'FANTASIA'
+            FieldName = 'OBS_ROTULO'
             Title.Alignment = taCenter
+            Title.Caption = 'Regi'#227'o'
             Width = 143
             Visible = True
           end
@@ -967,7 +989,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
         Left = 0
         Top = 62
         Width = 980
-        Height = 73
+        Height = 95
         Align = alTop
         Enabled = False
         TabOrder = 2
@@ -1119,6 +1141,14 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           Caption = '...'
           OnClick = SpeedButton2Click
         end
+        object Label2: TLabel
+          Left = 7
+          Top = 79
+          Width = 73
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Regi'#227'o (pra'#231'a):'
+        end
         object DBDateEdit1: TDBDateEdit
           Left = 83
           Top = 27
@@ -1161,10 +1191,25 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           TabOrder = 2
           OnEnter = RxDBLookupCombo2Enter
         end
+        object RxDBLookupCombo4: TRxDBLookupCombo
+          Left = 83
+          Top = 71
+          Width = 225
+          Height = 21
+          DropDownCount = 15
+          DataField = 'ID_MAPA'
+          DataSource = DMCadPedido.dsPedido
+          DisplayEmpty = 'Selecione...'
+          LookupField = 'ID'
+          LookupDisplay = 'NOME'
+          LookupSource = DMCadPedido.dsRegiao_Venda
+          TabOrder = 3
+          OnChange = RxDBLookupCombo1Change
+        end
       end
       object pnlItem: TPanel
         Left = 0
-        Top = 135
+        Top = 157
         Width = 980
         Height = 31
         Align = alTop
@@ -1494,9 +1539,9 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       end
       object SMDBGrid2: TSMDBGrid
         Left = 0
-        Top = 166
+        Top = 188
         Width = 980
-        Height = 314
+        Height = 292
         Align = alClient
         DataSource = DMCadPedido.dsPedido_Itens
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]

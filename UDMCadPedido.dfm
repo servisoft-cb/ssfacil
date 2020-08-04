@@ -7,7 +7,7 @@ object DMCadPedido: TDMCadPedido
   object sdsPedido: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM PEDIDO'#13#10#13#10#13#10#13#10#13#10#13#10#13#10#13#10
+    CommandText = 'SELECT *'#13#10'FROM PEDIDO'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -4184,6 +4184,7 @@ object DMCadPedido: TDMCadPedido
     Top = 358
   end
   object cdsPedidoImp: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
@@ -10877,6 +10878,7 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
     ReportOptions.LastChange = 44046.927582013890000000
+    ReportOptions.LastChange = 44042.733686087970000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint

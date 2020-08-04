@@ -3855,7 +3855,7 @@ type
     vMSGErro: String;
     vMsgErroParc: String;
     ctCommand, ctConsulta, ctProduto, ctDuplicata, ctHistSenha: String;
-    ctConsulta2: String;
+    ctConsulta2, ctPedidoImp_Itens: String;
     ctServico: String;
     ctCliente, ctCFOP: String;
     ctqProximoPedido: String;
@@ -3970,6 +3970,7 @@ begin
   ctServico    := sdsServico.CommandText;
   ctDuplicata  := sdsDuplicata.CommandText;
   ctHistSenha  := sdsHist_Senha.CommandText;
+  ctPedidoImp_Itens := sdsPedidoImp_Itens.CommandText;
   ctqProduto_Cli := qProduto_Cli.SQL.Text;
   vID_Variacao := 0;
   cdsParametros.Close;

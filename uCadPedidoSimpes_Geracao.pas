@@ -71,11 +71,14 @@ begin
     fDmPedido_Reserva.cdsProduto.First;
 
     uGrava_Pedido.prc_Inserir_Ped(fDMCadPedido);
-    fDmCadPedido.cdsPedidoID_CLIENTE.AsInteger  := fDmPedido_Reserva.cdsPessoaCODIGO.AsInteger;
-    fDmCadPedido.cdsPedidoNOME_CLIENTE.AsString := fDmPedido_Reserva.cdsPessoaNOME.AsString;
-    fDmCadPedido.cdsPedidoNUM_PEDIDO.AsInteger  := fDmCadPedido.cdsPedidoID.AsInteger;
+    fDmCadPedido.cdsPedidoID_CLIENTE.AsInteger    := fDmPedido_Reserva.cdsPessoaCODIGO.AsInteger;
+    fDmCadPedido.cdsPedidoNOME_CLIENTE.AsString   := fDmPedido_Reserva.cdsPessoaNOME.AsString;
+    fDmCadPedido.cdsPedidoNUM_PEDIDO.AsInteger    := fDmCadPedido.cdsPedidoID.AsInteger;
+    fDmCadPedido.cdsPedidoPEDIDO_CLIENTE.AsString := fDmCadPedido.cdsPedidoID.AsString;
     fDmCadPedido.cdsPedidoTIPO_REG.AsString     := 'P';
     fDmCadPedido.cdsPedidoDTENTREGA.AsDateTime  := DateEdit1.Date;
+    fDmCadPedido.cdsPedidoOBS_ROTULO.AsString   := RxDBLookupCombo1.Text;
+    fDmCadPedido.cdsPedidoID_MAPA.AsString      := RxDBLookupCombo1.KeyValue;
 
     vItem := 0;
     while not fDmPedido_Reserva.cdsProduto.Eof do
