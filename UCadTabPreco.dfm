@@ -943,6 +943,7 @@ object frmCadTabPreco: TfrmCadTabPreco
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Encerado'
                 Title.Color = clYellow
+                Width = 64
                 Visible = True
               end
               item
@@ -952,6 +953,7 @@ object frmCadTabPreco: TfrmCadTabPreco
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Engomado'
                 Title.Color = clYellow
+                Width = 64
                 Visible = True
               end
               item

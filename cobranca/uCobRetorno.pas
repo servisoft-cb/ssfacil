@@ -628,7 +628,10 @@ begin
       vHistAux := 'LCA ';
       fDmCadDuplicata.cdsDuplicataPAGO_CARTORIO.AsString := 'S';
     end;
-    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG', vHistAux + 'PAGAMENTO DE TITULO (via ret)', fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat, fDMCob_Eletronica.mRetornoVlrJurosPagos.AsFloat, fDMCob_Eletronica.mRetornoVlrDesconto.AsFloat, fDMCadDuplicata.cdsDuplicataVLR_DESPESAS.AsFloat, fDmCadDuplicata.cdsDuplicataVLR_TAXA_BANCARIA.AsFloat, 0, fDMCadDuplicata.cdsDuplicataID_TIPOCOBRANCA.AsInteger);
+    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG', vHistAux + 'PAGAMENTO DE TITULO (via ret)', fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat,
+                                             fDMCob_Eletronica.mRetornoVlrJurosPagos.AsFloat, fDMCob_Eletronica.mRetornoVlrDesconto.AsFloat,
+                                             fDMCadDuplicata.cdsDuplicataVLR_DESPESAS.AsFloat, fDmCadDuplicata.cdsDuplicataVLR_TAXA_BANCARIA.AsFloat, 0,
+                                             fDMCadDuplicata.cdsDuplicataID_TIPOCOBRANCA.AsInteger);
     vComDesconto := '';
     if StrToFloat(FormatFloat('0.00', fDMCob_Eletronica.mRetornoVlrDesconto.AsFloat)) > 0 then
       vComDesconto := 'S';
@@ -885,7 +888,8 @@ begin
             end;
             fDmCadDuplicata.cdsDuplicataARQUIVO_GERADO.AsString := 'N';
 
-            fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT', 'Zerado o nosso numero devido estar duplicado Nº ' + fDmCob_Eletronica.mRetornoNossoNumero.AsString + vTexto, 0, 0, 0, 0, 0, 0,0);
+            fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT', 'Zerado o nosso numero devido estar duplicado Nº ' +
+                                                     fDmCob_Eletronica.mRetornoNossoNumero.AsString + vTexto, 0, 0, 0, 0, 0, 0,0);
 
             fDmCadDuplicata.cdsDuplicata.Post;
             fDmCadDuplicata.cdsDuplicata.ApplyUpdates(0);
