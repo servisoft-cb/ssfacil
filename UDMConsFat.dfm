@@ -1,8 +1,8 @@
 object DMConsFat: TDMConsFat
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 324
-  Top = 132
+  Left = 234
+  Top = 184
   Height = 445
   Width = 817
   object sdsFatAcum: TSQLDataSet
@@ -245,13 +245,13 @@ object DMConsFat: TDMConsFat
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42992.427233402800000000
-    ReportOptions.LastChange = 43885.623335983790000000
+    ReportOptions.CreateDate = 42222.414492245400000000
+    ReportOptions.LastChange = 44048.681275995400000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 88
+    Left = 87
     Top = 177
   end
   object frxDBDataset1: TfrxDBDataset
@@ -1114,5 +1114,74 @@ object DMConsFat: TDMConsFat
     BCDToCurrency = False
     Left = 96
     Top = 336
+  end
+  object sdsCSTICMS_CFOP: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT distinct icms.cod_cst, i.perc_diferimento, i.perc_base_ic' +
+      'ms_red, i.perc_tribicms,'#13#10'cfop.codcfop'#13#10'from notafiscal n'#13#10'inner' +
+      ' join notafiscal_itens i'#13#10'on n.id = i.id'#13#10'inner join tab_csticms' +
+      ' icms'#13#10'on i.id_csticms = icms.id'#13#10'inner join tab_cfop cfop'#13#10'on i' +
+      '.id_cfop = cfop.id'#13#10'where n.tipo_reg = '#39'NTS'#39#13#10'  and n.cancelada ' +
+      '= '#39'N'#39#13#10'  and n.nfedenegada = '#39'N'#39#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 612
+    Top = 35
+  end
+  object dspCSTICMS_CFOP: TDataSetProvider
+    DataSet = sdsCSTICMS_CFOP
+    Left = 644
+    Top = 35
+  end
+  object cdsCSTICMS_CFOP: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'CODCFOP;COD_CST'
+    Params = <>
+    ProviderName = 'dspCSTICMS_CFOP'
+    Left = 676
+    Top = 37
+    object cdsCSTICMS_CFOPCOD_CST: TStringField
+      FieldName = 'COD_CST'
+      Size = 3
+    end
+    object cdsCSTICMS_CFOPPERC_DIFERIMENTO: TFloatField
+      FieldName = 'PERC_DIFERIMENTO'
+      DisplayFormat = '##0.000##'
+    end
+    object cdsCSTICMS_CFOPPERC_BASE_ICMS_RED: TFloatField
+      FieldName = 'PERC_BASE_ICMS_RED'
+      DisplayFormat = '##0.000##'
+    end
+    object cdsCSTICMS_CFOPPERC_TRIBICMS: TFloatField
+      FieldName = 'PERC_TRIBICMS'
+      DisplayFormat = '##0.000##'
+    end
+    object cdsCSTICMS_CFOPCODCFOP: TStringField
+      FieldName = 'CODCFOP'
+      Size = 5
+    end
+  end
+  object dsCSTICMS_CFOP: TDataSource
+    DataSet = cdsCSTICMS_CFOP
+    Left = 708
+    Top = 36
+  end
+  object frxCSTICMS_CFOP: TfrxDBDataset
+    UserName = 'frxCSTICMS_CFOP'
+    OnFirst = frxComprasServicoItemFirst
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'COD_CST=COD_CST'
+      'PERC_DIFERIMENTO=PERC_DIFERIMENTO'
+      'PERC_BASE_ICMS_RED=PERC_BASE_ICMS_RED'
+      'PERC_TRIBICMS=PERC_TRIBICMS'
+      'CODCFOP=CODCFOP')
+    DataSource = dsCSTICMS_CFOP
+    BCDToCurrency = False
+    Left = 732
+    Top = 60
   end
 end

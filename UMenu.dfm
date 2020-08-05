@@ -750,6 +750,10 @@ object fMenu: TfMenu
       end
       object ConsultasRelatrios1: TMenuItem
         Caption = 'Consultas / Relat'#243'rios'
+        object ConsultaCSTICMSxCFOP1: TMenuItem
+          Caption = 'Consulta CST ICMS x CFOP'
+          OnClick = ConsultaCSTICMSxCFOP1Click
+        end
         object ConsultaFaturamento1: TMenuItem
           Caption = 'Consulta Faturamento (Detalhado)'
           OnClick = ConsultaFaturamento1Click

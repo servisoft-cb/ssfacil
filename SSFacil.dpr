@@ -861,7 +861,8 @@ uses
   UDmCadRegioes in 'uDmCadRegioes.pas' {dmCadRegioes: TDataModule},
   UConsOrcamento in 'UConsOrcamento.pas' {frmConsOrcamento},
   UMostrarRegras in 'UMostrarRegras.pas' {frmMostrarRegras},
-  uCadPedidoSimpes_Geracao in 'uCadPedidoSimpes_Geracao.pas' {frmCadPedidoSimples_Geracao};
+  uCadPedidoSimpes_Geracao in 'uCadPedidoSimpes_Geracao.pas' {frmCadPedidoSimples_Geracao},
+  UConsCSTxCFOP in 'UConsCSTxCFOP.pas' {frmConsCSTxCFOP};
 
 {$R *.res}
 

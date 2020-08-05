@@ -180,6 +180,16 @@ type
     cdsConsDataVLR_ISSQN_RETIDO: TFloatField;
     cdsFatAcumTERMINAL: TIntegerField;
     cdsFatAcumSERIE: TStringField;
+    sdsCSTICMS_CFOP: TSQLDataSet;
+    dspCSTICMS_CFOP: TDataSetProvider;
+    cdsCSTICMS_CFOP: TClientDataSet;
+    dsCSTICMS_CFOP: TDataSource;
+    cdsCSTICMS_CFOPCOD_CST: TStringField;
+    cdsCSTICMS_CFOPPERC_DIFERIMENTO: TFloatField;
+    cdsCSTICMS_CFOPPERC_BASE_ICMS_RED: TFloatField;
+    cdsCSTICMS_CFOPPERC_TRIBICMS: TFloatField;
+    cdsCSTICMS_CFOPCODCFOP: TStringField;
+    frxCSTICMS_CFOP: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxReport1BeforePrint(Sender: TfrxReportComponent);
     procedure cdsComprasServicosCalcFields(DataSet: TDataSet);
@@ -188,7 +198,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    ctFatAcum, ctComprasServico, ctConsCliente: String;
+    ctFatAcum, ctComprasServico, ctConsCliente, ctCSTICMS_CFOP: String;
     vDataIni, vDataFim: String;
   end;
 
@@ -203,9 +213,10 @@ uses DmdDatabase;
 
 procedure TDMConsFat.DataModuleCreate(Sender: TObject);
 begin
-  ctFatAcum := sdsFatAcum.CommandText;
+  ctFatAcum        := sdsFatAcum.CommandText;
   ctComprasServico := sdsComprasServicos.CommandText;
-  ctConsCliente := sdsConsCliente.CommandText;
+  ctConsCliente    := sdsConsCliente.CommandText;
+  ctCSTICMS_CFOP   := sdsCSTICMS_CFOP.CommandText;
   cdsFilial.Open;
   cdsCupomTerminal.Open;
 end;
