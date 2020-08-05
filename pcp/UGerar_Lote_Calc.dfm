@@ -1752,7 +1752,6 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
-                  Width = 64
                   Visible = True
                 end
                 item
@@ -1769,7 +1768,6 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
-                  Width = 64
                   Visible = True
                 end
                 item
@@ -1788,7 +1786,6 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
-                  Width = 64
                   Visible = True
                 end>
             end
@@ -1939,7 +1936,6 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
-                  Width = 64
                   Visible = True
                 end
                 item
@@ -1994,7 +1990,6 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
-                  Width = 64
                   Visible = True
                 end
                 item
@@ -2013,7 +2008,6 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
-                  Width = 64
                   Visible = True
                 end
                 item
@@ -2717,7 +2711,6 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             FieldName = 'ID_COMBINACAO'
             Title.Alignment = taCenter
             Title.Caption = 'ID Combina'#231#227'o'
-            Width = 64
             Visible = True
           end>
       end

@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMCadLote, Grids, DBGrids, SMDBGrid,
-  StdCtrls,DB, dbXPress, SqlExpr, RzTabs, CurrEdit, Mask, ToolEdit, RxLookup, Menus, UCBase, ExtCtrls, NxCollection, NxEdit;
+  StdCtrls,DB, dbXPress, SqlExpr, RzTabs, CurrEdit, Mask, ToolEdit, RxLookup, Menus, UCBase, ExtCtrls, NxCollection, NxEdit,
+  RzPanel;
 
 
 type
@@ -40,7 +41,6 @@ type
     CurrencyEdit3: TCurrencyEdit;
     btnImprimir: TNxButton;
     pnlCadastro: TPanel;
-    btnConsultar_Pedidos: TNxButton;
     GroupBox1: TGroupBox;
     SMDBGrid1: TSMDBGrid;
     ckAgrupar: TCheckBox;
@@ -72,6 +72,19 @@ type
     Personalizado1: TMenuItem;
     Personalizado11: TMenuItem;
     Personalizado21: TMenuItem;
+    Panel4: TPanel;
+    RzGroupBox1: TRzGroupBox;
+    Label6: TLabel;
+    Label7: TLabel;
+    Label14: TLabel;
+    Label15: TLabel;
+    Label16: TLabel;
+    DateEdit6: TDateEdit;
+    DateEdit7: TDateEdit;
+    btnConsultar_Pedidos: TNxButton;
+    Edit5: TEdit;
+    DateEdit8: TDateEdit;
+    DateEdit9: TDateEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultar_PedidosClick(Sender: TObject);
@@ -155,13 +168,36 @@ begin
 end;
 
 procedure TfrmGerar_Lote.prc_Consultar;
+var
+  vTextoData: String;
 begin
+  if fDMCadLote.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
+    vTextoData := 'PED.DTENTREGA'
+  else
+    vTextoData := 'PI2.DTENTREGA';
   fDMCadLote.sdsPendente.CommandText := fDMCadLote.ctPendente;
-  fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText
+  if fDMCadLote.qParametros_LoteUSA_GEROU_LOTE_PROD.AsString = 'S' then
+  begin
+    fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText
+                                        + ' AND ((PI2.GEROU_LOTE_PROD = ' + QuotedStr('N') + ') OR (PI2.GEROU_LOTE_PROD IS NULL))'
+  end
+  else
+    fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText
                                         + ' AND NOT EXISTS( SELECT 1 FROM TALAO_PED '
                                         + ' WHERE TALAO_PED.ID_PEDIDO =  PI2.ID AND TALAO_PED.ITEM_PEDIDO = PI2.ITEM) ';
+
   fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText + ' AND PI2.QTD_RESTANTE > 0';
 
+  if DateEdit6.Date > 10 then
+    fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText + ' AND PED.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit6.date));
+  if DateEdit7.Date > 10 then
+    fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText + ' AND PED.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit7.date));
+  if DateEdit8.Date > 10 then
+    fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText + ' AND ' + vTextoData + '  >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit8.date));
+  if DateEdit9.Date > 10 then
+    fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText + ' AND ' + vTextoData + '  <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit9.date));
+  if trim(Edit5.Text) <> '' then
+    fDMCadLote.sdsPendente.CommandText := fDMCadLote.sdsPendente.CommandText + ' AND  CLI.NOME LIKE ' + QuotedStr('%'+Edit5.Text+'%');
   fDMCadLote.cdsPendente.Close;
   fDMCadLote.cdsPendente.Open;
   fDMCadLote.cdsPendente.IndexFieldNames := 'NUM_PEDIDO;ID_PRODUTO;ITEM_ORIGINAL;TAMANHO';
@@ -563,7 +599,10 @@ end;
 procedure TfrmGerar_Lote.RzPageControl2Change(Sender: TObject);
 begin
   if RzPageControl2.ActivePage = TS_Gerar then
+  begin
+    DateEdit6.Date := Date - fDMCadLote.qParametros_LoteQTD_DIAS_DTEMISSAO.AsInteger;
     btnConsultar_PedidosClick(Sender);
+  end;
 end;
 
 procedure TfrmGerar_Lote.FolhaResumo1Click(Sender: TObject);
