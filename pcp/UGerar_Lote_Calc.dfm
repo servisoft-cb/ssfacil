@@ -19,9 +19,9 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
   object RzPageControl2: TRzPageControl
     Left = 0
     Top = 0
-    Width = 912
-    Height = 530
-    ActivePage = TS_Consulta
+    Width = 920
+    Height = 538
+    ActivePage = TS_Gerar
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -29,7 +29,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl2Change
     FixedDimension = 19
@@ -38,7 +38,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 32
         Align = alTop
         Color = 8404992
@@ -194,7 +194,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 908
+        Width = 916
         Height = 105
         Align = alTop
         Color = clSilver
@@ -583,8 +583,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 137
-        Width = 908
-        Height = 245
+        Width = 916
+        Height = 253
         Align = alClient
         Ctl3D = False
         DataSource = DMCadLote.dsmLote
@@ -792,8 +792,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       end
       object VDBGrid1: TVDBGrid
         Left = 0
-        Top = 382
-        Width = 908
+        Top = 390
+        Width = 916
         Height = 125
         Align = alBottom
         Ctl3D = False
@@ -840,7 +840,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 35
         Align = alTop
         Color = 8404992
@@ -921,7 +921,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object pnlCadastro: TPanel
         Left = 0
         Top = 115
-        Width = 908
+        Width = 916
         Height = 76
         Align = alTop
         BevelOuter = bvNone
@@ -930,7 +930,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
         object RzGroupBox2: TRzGroupBox
           Left = 0
           Top = 0
-          Width = 908
+          Width = 916
           Height = 76
           Align = alClient
           BorderColor = clNavy
@@ -1175,7 +1175,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object Panel4: TPanel
         Left = 0
         Top = 35
-        Width = 908
+        Width = 916
         Height = 80
         Align = alTop
         BevelInner = bvRaised
@@ -1184,7 +1184,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
         object RzGroupBox1: TRzGroupBox
           Left = 2
           Top = 2
-          Width = 904
+          Width = 912
           Height = 76
           Align = alClient
           Alignment = taRightJustify
@@ -1438,7 +1438,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object NxPanel1: TNxPanel
         Left = 0
         Top = 191
-        Width = 908
+        Width = 916
         Height = 7
         Align = alTop
         BackgroundStyle = pbTransparent
@@ -1452,8 +1452,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object RzPageControl1: TRzPageControl
         Left = 0
         Top = 198
-        Width = 908
-        Height = 309
+        Width = 916
+        Height = 317
         ActivePage = TS_Item
         Align = alClient
         TabIndex = 0
@@ -1464,8 +1464,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
           object GroupBox1: TGroupBox
             Left = 0
             Top = 0
-            Width = 904
-            Height = 286
+            Width = 912
+            Height = 294
             Align = alClient
             Caption = ' Pendente '
             Font.Charset = DEFAULT_CHARSET
@@ -1478,8 +1478,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             object SMDBGrid1: TSMDBGrid
               Left = 2
               Top = 15
-              Width = 900
-              Height = 252
+              Width = 908
+              Height = 260
               Align = alClient
               Ctl3D = False
               DataSource = DMCadLote.dsPendente
@@ -1752,6 +1752,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
+                  Width = 64
                   Visible = True
                 end
                 item
@@ -1768,6 +1769,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
+                  Width = 64
                   Visible = True
                 end
                 item
@@ -1786,13 +1788,14 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
+                  Width = 64
                   Visible = True
                 end>
             end
             object StaticText1: TStaticText
               Left = 2
-              Top = 267
-              Width = 900
+              Top = 275
+              Width = 908
               Height = 17
               Align = alBottom
               Caption = 'Clicar com o bot'#227'o direito do mouse para selecionar os pedidos'
@@ -1813,8 +1816,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
           object GroupBox2: TGroupBox
             Left = 0
             Top = 0
-            Width = 904
-            Height = 286
+            Width = 912
+            Height = 294
             Align = alClient
             Caption = ' Pendente '
             Font.Charset = DEFAULT_CHARSET
@@ -1827,8 +1830,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             object SMDBGrid5: TSMDBGrid
               Left = 2
               Top = 15
-              Width = 900
-              Height = 252
+              Width = 908
+              Height = 260
               Align = alClient
               Ctl3D = False
               DataSource = DMCadLote.dsPendente_Ped
@@ -1936,6 +1939,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
+                  Width = 64
                   Visible = True
                 end
                 item
@@ -1990,6 +1994,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
+                  Width = 64
                   Visible = True
                 end
                 item
@@ -2008,6 +2013,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
                   Title.Font.Height = -11
                   Title.Font.Name = 'MS Sans Serif'
                   Title.Font.Style = []
+                  Width = 64
                   Visible = True
                 end
                 item
@@ -2031,8 +2037,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             end
             object StaticText2: TStaticText
               Left = 2
-              Top = 267
-              Width = 900
+              Top = 275
+              Width = 908
               Height = 17
               Align = alBottom
               Caption = 'Clicar com o bot'#227'o direito do mouse para selecionar os pedidos'
@@ -2055,7 +2061,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 113
         Align = alTop
         Color = clSilver
@@ -2508,8 +2514,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object SMDBGrid3: TSMDBGrid
         Left = 0
         Top = 113
-        Width = 908
-        Height = 269
+        Width = 916
+        Height = 277
         Align = alClient
         Ctl3D = False
         DataSource = DMCadLote.dsConsulta_Talao_Aux
@@ -2711,13 +2717,14 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
             FieldName = 'ID_COMBINACAO'
             Title.Alignment = taCenter
             Title.Caption = 'ID Combina'#231#227'o'
+            Width = 64
             Visible = True
           end>
       end
       object VDBGrid2: TVDBGrid
         Left = 0
-        Top = 382
-        Width = 908
+        Top = 390
+        Width = 916
         Height = 125
         Align = alBottom
         Ctl3D = False
@@ -2764,7 +2771,7 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object Panel5: TPanel
         Left = 0
         Top = 0
-        Width = 908
+        Width = 916
         Height = 51
         Align = alTop
         BevelInner = bvRaised
@@ -2873,8 +2880,8 @@ object frmGerar_Lote_Calc: TfrmGerar_Lote_Calc
       object SMDBGrid4: TSMDBGrid
         Left = 0
         Top = 51
-        Width = 908
-        Height = 456
+        Width = 916
+        Height = 464
         Align = alClient
         Ctl3D = False
         DataSource = DMCadLote.dsPedido_Ord

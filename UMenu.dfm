@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 627
+    Height = 635
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -146,6 +146,7 @@ object fMenu: TfMenu
         end
         object CondiodePagamento2: TMenuItem
           Caption = 'Condi'#231#227'o de Pagamento'
+          OnClick = CondiesdePagamento1Click
         end
         object CNAE1: TMenuItem
           Caption = 'CNAE'
