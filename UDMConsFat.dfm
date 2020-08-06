@@ -251,7 +251,7 @@ object DMConsFat: TDMConsFat
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 87
+    Left = 88
     Top = 177
   end
   object frxDBDataset1: TfrxDBDataset
@@ -1120,16 +1120,16 @@ object DMConsFat: TDMConsFat
     GetMetadata = False
     CommandText = 
       'SELECT distinct icms.cod_cst, i.perc_diferimento, i.perc_base_ic' +
-      'ms_red, i.perc_tribicms,'#13#10'cfop.codcfop'#13#10'from notafiscal n'#13#10'inner' +
-      ' join notafiscal_itens i'#13#10'on n.id = i.id'#13#10'inner join tab_csticms' +
-      ' icms'#13#10'on i.id_csticms = icms.id'#13#10'inner join tab_cfop cfop'#13#10'on i' +
-      '.id_cfop = cfop.id'#13#10'where n.tipo_reg = '#39'NTS'#39#13#10'  and n.cancelada ' +
-      '= '#39'N'#39#13#10'  and n.nfedenegada = '#39'N'#39#13#10#13#10
+      'ms_red, i.perc_tribicms,'#13#10'cfop.codcfop, ICMS.historico'#13#10'from not' +
+      'afiscal n'#13#10'inner join notafiscal_itens i'#13#10'on n.id = i.id'#13#10'inner ' +
+      'join tab_csticms icms'#13#10'on i.id_csticms = icms.id'#13#10'inner join tab' +
+      '_cfop cfop'#13#10'on i.id_cfop = cfop.id'#13#10'where n.tipo_reg = '#39'NTS'#39#13#10'  ' +
+      'and n.cancelada = '#39'N'#39#13#10'  and n.nfedenegada = '#39'N'#39#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 612
-    Top = 35
+    Top = 34
   end
   object dspCSTICMS_CFOP: TDataSetProvider
     DataSet = sdsCSTICMS_CFOP
@@ -1163,6 +1163,11 @@ object DMConsFat: TDMConsFat
       FieldName = 'CODCFOP'
       Size = 5
     end
+    object cdsCSTICMS_CFOPHISTORICO: TMemoField
+      FieldName = 'HISTORICO'
+      BlobType = ftMemo
+      Size = 1
+    end
   end
   object dsCSTICMS_CFOP: TDataSource
     DataSet = cdsCSTICMS_CFOP
@@ -1178,10 +1183,197 @@ object DMConsFat: TDMConsFat
       'PERC_DIFERIMENTO=PERC_DIFERIMENTO'
       'PERC_BASE_ICMS_RED=PERC_BASE_ICMS_RED'
       'PERC_TRIBICMS=PERC_TRIBICMS'
-      'CODCFOP=CODCFOP')
+      'CODCFOP=CODCFOP'
+      'HISTORICO=HISTORICO')
     DataSource = dsCSTICMS_CFOP
     BCDToCurrency = False
     Left = 732
-    Top = 60
+    Top = 61
+  end
+  object mAuxiliarICMS: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Tipo'
+        DataType = ftString
+        Size = 35
+      end
+      item
+        Name = 'ID_Tipo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'ID_CFOP'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Cod_CFOP'
+        DataType = ftString
+        Size = 5
+      end
+      item
+        Name = 'Cod_CSTICMS'
+        DataType = ftString
+        Size = 3
+      end
+      item
+        Name = 'ID_Lei'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_CSTICMS'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_Produto'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Produto'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'Referencia'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Lei_CST'
+        DataType = ftString
+        Size = 250
+      end
+      item
+        Name = 'Lei'
+        DataType = ftString
+        Size = 250
+      end
+      item
+        Name = 'Lei_Cadastro'
+        DataType = ftString
+        Size = 250
+      end
+      item
+        Name = 'Perc_Trib'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Perc_Diferimento'
+        DataType = ftFloat
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    OnNewRecord = mAuxiliarICMSNewRecord
+    Left = 699
+    Top = 207
+    Data = {
+      9E0100009619E0BD0100000018000000100000000000030000009E0104546970
+      6F01004900000001000557494454480200020023000749445F5469706F040001
+      0000000000044E6F6D6501004900000001000557494454480200020064000749
+      445F43464F50040001000000000008436F645F43464F50010049000000010005
+      57494454480200020005000B436F645F43535449434D53010049000000010005
+      57494454480200020003000649445F4C656904000100000000000A49445F4353
+      5449434D5304000100000000000A49445F50726F6475746F0400010000000000
+      0C4E6F6D655F50726F6475746F01004900000001000557494454480200020064
+      000A5265666572656E6369610100490000000100055749445448020002001400
+      074C65695F435354010049000000010005574944544802000200FA00034C6569
+      010049000000010005574944544802000200FA000C4C65695F43616461737472
+      6F010049000000010005574944544802000200FA0009506572635F5472696208
+      0004000000000010506572635F4469666572696D656E746F0800040000000000
+      0000}
+    object mAuxiliarICMSTipo: TStringField
+      FieldName = 'Tipo'
+      Size = 35
+    end
+    object mAuxiliarICMSID_Tipo: TIntegerField
+      FieldName = 'ID_Tipo'
+    end
+    object mAuxiliarICMSNome: TStringField
+      FieldName = 'Nome'
+      Size = 100
+    end
+    object mAuxiliarICMSID_CFOP: TIntegerField
+      FieldName = 'ID_CFOP'
+    end
+    object mAuxiliarICMSCod_CFOP: TStringField
+      FieldName = 'Cod_CFOP'
+      Size = 5
+    end
+    object mAuxiliarICMSCod_CSTICMS: TStringField
+      FieldName = 'Cod_CSTICMS'
+      Size = 3
+    end
+    object mAuxiliarICMSID_Lei: TIntegerField
+      FieldName = 'ID_Lei'
+    end
+    object mAuxiliarICMSID_CSTICMS: TIntegerField
+      FieldName = 'ID_CSTICMS'
+    end
+    object mAuxiliarICMSID_Produto: TIntegerField
+      FieldName = 'ID_Produto'
+    end
+    object mAuxiliarICMSNome_Produto: TStringField
+      FieldName = 'Nome_Produto'
+      Size = 100
+    end
+    object mAuxiliarICMSReferencia: TStringField
+      FieldName = 'Referencia'
+    end
+    object mAuxiliarICMSLei_CST: TStringField
+      FieldName = 'Lei_CST'
+      Size = 250
+    end
+    object mAuxiliarICMSLei: TStringField
+      FieldName = 'Lei'
+      Size = 250
+    end
+    object mAuxiliarICMSLei_Cadastro: TStringField
+      FieldName = 'Lei_Cadastro'
+      Size = 250
+    end
+    object mAuxiliarICMSPerc_Trib: TFloatField
+      FieldName = 'Perc_Trib'
+    end
+    object mAuxiliarICMSPerc_Diferimento: TFloatField
+      FieldName = 'Perc_Diferimento'
+    end
+  end
+  object dsmAuxiliarICMS: TDataSource
+    DataSet = mAuxiliarICMS
+    Left = 728
+    Top = 209
+  end
+  object frxmAuxiliarICMS: TfrxDBDataset
+    UserName = 'frxmAuxiliarICMS'
+    OnFirst = frxComprasServicoItemFirst
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'Tipo=Tipo'
+      'ID_Tipo=ID_Tipo'
+      'Nome=Nome'
+      'ID_CFOP=ID_CFOP'
+      'Cod_CFOP=Cod_CFOP'
+      'Cod_CSTICMS=Cod_CSTICMS'
+      'ID_Lei=ID_Lei'
+      'ID_CSTICMS=ID_CSTICMS'
+      'ID_Produto=ID_Produto'
+      'Nome_Produto=Nome_Produto'
+      'Referencia=Referencia'
+      'Lei_CST=Lei_CST'
+      'Lei=Lei'
+      'Lei_Cadastro=Lei_Cadastro'
+      'Perc_Trib=Perc_Trib'
+      'Perc_Diferimento=Perc_Diferimento')
+    DataSource = dsmAuxiliarICMS
+    BCDToCurrency = False
+    Left = 751
+    Top = 228
   end
 end

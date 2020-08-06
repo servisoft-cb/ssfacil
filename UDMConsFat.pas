@@ -190,10 +190,31 @@ type
     cdsCSTICMS_CFOPPERC_TRIBICMS: TFloatField;
     cdsCSTICMS_CFOPCODCFOP: TStringField;
     frxCSTICMS_CFOP: TfrxDBDataset;
+    mAuxiliarICMS: TClientDataSet;
+    mAuxiliarICMSTipo: TStringField;
+    mAuxiliarICMSID_Tipo: TIntegerField;
+    mAuxiliarICMSNome: TStringField;
+    mAuxiliarICMSID_CFOP: TIntegerField;
+    mAuxiliarICMSCod_CFOP: TStringField;
+    mAuxiliarICMSCod_CSTICMS: TStringField;
+    mAuxiliarICMSID_Lei: TIntegerField;
+    mAuxiliarICMSID_CSTICMS: TIntegerField;
+    dsmAuxiliarICMS: TDataSource;
+    mAuxiliarICMSID_Produto: TIntegerField;
+    mAuxiliarICMSNome_Produto: TStringField;
+    mAuxiliarICMSReferencia: TStringField;
+    mAuxiliarICMSLei_CST: TStringField;
+    mAuxiliarICMSLei: TStringField;
+    mAuxiliarICMSLei_Cadastro: TStringField;
+    frxmAuxiliarICMS: TfrxDBDataset;
+    mAuxiliarICMSPerc_Trib: TFloatField;
+    mAuxiliarICMSPerc_Diferimento: TFloatField;
+    cdsCSTICMS_CFOPHISTORICO: TMemoField;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxReport1BeforePrint(Sender: TfrxReportComponent);
     procedure cdsComprasServicosCalcFields(DataSet: TDataSet);
     procedure frxComprasServicoItemFirst(Sender: TObject);
+    procedure mAuxiliarICMSNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
   public
@@ -238,6 +259,13 @@ begin
   sdsComprasServico_Item.ParamByName('ID').asInteger := cdsComprasServicosID.asinteger;
   sdsComprasServico_Item.ParamByName('TREG').AsString := cdsComprasServicosTIPO_REGISTRO.AsString;
   cdsComprasServico_Item.Open;
+end;
+
+procedure TDMConsFat.mAuxiliarICMSNewRecord(DataSet: TDataSet);
+begin
+  mAuxiliarICMSLei.AsString := '';
+  mAuxiliarICMSLei_Cadastro.AsString := '';
+  mAuxiliarICMSLei_CST.AsString      := '';
 end;
 
 end.

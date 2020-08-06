@@ -161,6 +161,7 @@ object fMenu: TfMenu
         end
         object ObservaoAuxiliar1: TMenuItem
           Caption = 'Observa'#231#227'o Auxiliar'
+          OnClick = ObservaoAuxiliar1Click
         end
         object Setores1: TMenuItem
           Caption = 'Setores'
