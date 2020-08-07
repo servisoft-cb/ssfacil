@@ -210,6 +210,7 @@ type
     mAuxiliarICMSPerc_Trib: TFloatField;
     mAuxiliarICMSPerc_Diferimento: TFloatField;
     cdsCSTICMS_CFOPHISTORICO: TMemoField;
+    mAuxiliarICMSUF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxReport1BeforePrint(Sender: TfrxReportComponent);
     procedure cdsComprasServicosCalcFields(DataSet: TDataSet);

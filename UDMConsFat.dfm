@@ -246,13 +246,13 @@ object DMConsFat: TDMConsFat
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42222.414492245400000000
-    ReportOptions.LastChange = 44048.681275995400000000
+    ReportOptions.LastChange = 44050.387768796300000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 88
-    Top = 177
+    Top = 176
   end
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxDBDataset1'
@@ -297,7 +297,7 @@ object DMConsFat: TDMConsFat
       'VLR_ISSQN_RETIDO=VLR_ISSQN_RETIDO')
     DataSet = cdsFatAcum
     BCDToCurrency = False
-    Left = 90
+    Left = 91
     Top = 233
   end
   object frxPDFExport1: TfrxPDFExport
@@ -1266,15 +1266,20 @@ object DMConsFat: TDMConsFat
       item
         Name = 'Perc_Diferimento'
         DataType = ftFloat
+      end
+      item
+        Name = 'UF'
+        DataType = ftString
+        Size = 2
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
     OnNewRecord = mAuxiliarICMSNewRecord
-    Left = 699
-    Top = 207
+    Left = 700
+    Top = 203
     Data = {
-      9E0100009619E0BD0100000018000000100000000000030000009E0104546970
+      B50100009619E0BD010000001800000011000000000003000000B50104546970
       6F01004900000001000557494454480200020023000749445F5469706F040001
       0000000000044E6F6D6501004900000001000557494454480200020064000749
       445F43464F50040001000000000008436F645F43464F50010049000000010005
@@ -1287,7 +1292,7 @@ object DMConsFat: TDMConsFat
       010049000000010005574944544802000200FA000C4C65695F43616461737472
       6F010049000000010005574944544802000200FA0009506572635F5472696208
       0004000000000010506572635F4469666572696D656E746F0800040000000000
-      0000}
+      02554601004900000001000557494454480200020002000000}
     object mAuxiliarICMSTipo: TStringField
       FieldName = 'Tipo'
       Size = 35
@@ -1344,6 +1349,10 @@ object DMConsFat: TDMConsFat
     object mAuxiliarICMSPerc_Diferimento: TFloatField
       FieldName = 'Perc_Diferimento'
     end
+    object mAuxiliarICMSUF: TStringField
+      FieldName = 'UF'
+      Size = 2
+    end
   end
   object dsmAuxiliarICMS: TDataSource
     DataSet = mAuxiliarICMS
@@ -1370,7 +1379,8 @@ object DMConsFat: TDMConsFat
       'Lei=Lei'
       'Lei_Cadastro=Lei_Cadastro'
       'Perc_Trib=Perc_Trib'
-      'Perc_Diferimento=Perc_Diferimento')
+      'Perc_Diferimento=Perc_Diferimento'
+      'UF=UF')
     DataSource = dsmAuxiliarICMS
     BCDToCurrency = False
     Left = 751
