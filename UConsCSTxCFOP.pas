@@ -222,6 +222,7 @@ begin
       fDMConsFat.mAuxiliarICMSTipo.AsString        := '02 Pessoa Fiscal';
       fDMConsFat.mAuxiliarICMSID_Tipo.AsInteger    := sds.FieldByName('CODIGO').AsInteger;
       fDMConsFat.mAuxiliarICMSNome.AsString        := sds.FieldByName('NOME').AsString + '  (UF: ' + sds.FieldByName('UF').AsString + ')';
+      fDMConsFat.mAuxiliarICMSUF.AsString          := sds.FieldByName('UF').AsString;
       if sds.FieldByName('id_cst_icms').AsInteger > 0 then
       begin
         fDMConsFat.mAuxiliarICMSID_CSTICMS.AsInteger := sds.FieldByName('id_cst_icms').AsInteger;
@@ -259,6 +260,7 @@ begin
       fDMConsFat.mAuxiliarICMSTipo.AsString         := '03 Pessoa Produto';
       fDMConsFat.mAuxiliarICMSID_Tipo.AsInteger     := sds.FieldByName('CODIGO').AsInteger;
       fDMConsFat.mAuxiliarICMSNome.AsString         := sds.FieldByName('NOME').AsString;
+      fDMConsFat.mAuxiliarICMSUF.AsString           := sds.FieldByName('UF').AsString;
       fDMConsFat.mAuxiliarICMSReferencia.AsString   := sds.FieldByName('REFERENCIA').AsString;
       fDMConsFat.mAuxiliarICMSNome_Produto.AsString := sds.FieldByName('NOME_PRODUTO').AsString;
       fDMConsFat.mAuxiliarICMSID_Produto.AsInteger  := sds.FieldByName('id_produto').AsInteger;
@@ -317,6 +319,7 @@ begin
       fDMConsFat.mAuxiliarICMSTipo.AsString         := '05 NCM Por UF';
       fDMConsFat.mAuxiliarICMSID_Tipo.AsInteger     := sds.FieldByName('id').AsInteger;
       fDMConsFat.mAuxiliarICMSNome.AsString         := 'NCM: ' +  sds.FieldByName('NCM').AsString;
+      fDMConsFat.mAuxiliarICMSUF.AsString           := sds.FieldByName('UF').AsString;
       fDMConsFat.mAuxiliarICMSID_CSTICMS.AsInteger  := sds.FieldByName('id_cst_icms').AsInteger;
       fDMConsFat.mAuxiliarICMSCod_CSTICMS.AsString  := sds.FieldByName('cod_cst').AsString;
       fDMConsFat.mAuxiliarICMSLei_CST.AsString      := sds.FieldByName('Historico').Value;
@@ -325,7 +328,6 @@ begin
       fDMConsFat.mAuxiliarICMS.Post;
       sds.Next;
     end;
-
 
     //NCM Lei (CFOP/CST)
     sds.Close;
@@ -412,6 +414,7 @@ begin
       fDMConsFat.mAuxiliarICMSTipo.AsString         := '08 PRODUTO UF';
       fDMConsFat.mAuxiliarICMSID_Tipo.AsInteger     := sds.FieldByName('id').AsInteger;
       fDMConsFat.mAuxiliarICMSNome.AsString         := sds.FieldByName('nome').AsString;
+      fDMConsFat.mAuxiliarICMSUF.AsString           := sds.FieldByName('uf').AsString;
       fDMConsFat.mAuxiliarICMSReferencia.AsString   := sds.FieldByName('referencia').AsString;
       fDMConsFat.mAuxiliarICMSID_CSTICMS.AsInteger  := sds.FieldByName('id_cst_icms').AsInteger;
       fDMConsFat.mAuxiliarICMSCod_CSTICMS.AsString  := sds.FieldByName('cod_cst').AsString;
