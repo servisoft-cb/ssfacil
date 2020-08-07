@@ -99,6 +99,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       NumGlyphs = 1
       TabOrder = 1
       OnChange = FilenameEdit1Change
+      OnKeyDown = FilenameEdit1KeyDown
     end
     object btnGravar_Pedido: TNxButton
       Left = 519
@@ -273,7 +274,6 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       DataSource = DMGerar_EDI.dsmAuxiliar
       Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
       ParentCtl3D = False
-      ReadOnly = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clNavy
@@ -300,18 +300,28 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 26
+      ColCount = 27
       RowCount = 2
       Columns = <
         item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'Drawback'
+          Title.Alignment = taCenter
+          Width = 58
+          Visible = True
+        end
+        item
           Expanded = False
           FieldName = 'NumOC'
+          ReadOnly = True
           Visible = True
         end
         item
           Alignment = taCenter
           Expanded = False
           FieldName = 'Item'
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Ocorr'#234'ncia'
           Visible = True
@@ -319,6 +329,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
         item
           Expanded = False
           FieldName = 'Item_Cliente'
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Item Cliente'
           Width = 66
@@ -327,21 +338,25 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
         item
           Expanded = False
           FieldName = 'Plano'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'DtEmissao'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'DtEntrega'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'CodProdCli'
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'C'#243'd. Produto no Cliente'
           Width = 107
@@ -351,28 +366,33 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
           Alignment = taRightJustify
           Expanded = False
           FieldName = 'Quantidade'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'Unidade'
+          ReadOnly = True
           Visible = True
         end
         item
           Alignment = taRightJustify
           Expanded = False
           FieldName = 'VlrUnitario'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'Plano2'
+          ReadOnly = True
           Visible = True
         end
         item
           Alignment = taCenter
           Expanded = False
           FieldName = 'CodCorCli'
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'C'#243'd. Cor Cli'
           Visible = True
@@ -380,6 +400,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
         item
           Expanded = False
           FieldName = 'NomeCorCli'
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Nome Cor Cli'
           Width = 269
@@ -388,31 +409,37 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
         item
           Expanded = False
           FieldName = 'NomeProduto'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'CNPJFornecedor'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'Reservado'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'Tamnanho'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'LocalEntrega'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'Fabrica'
+          ReadOnly = True
           Title.Caption = 'F'#225'brica'
           Visible = True
         end
@@ -420,6 +447,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
           Alignment = taCenter
           Expanded = False
           FieldName = 'TipoOperacao'
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Tipo Opera'#231#227'o'
           Width = 56
@@ -428,26 +456,31 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
         item
           Expanded = False
           FieldName = 'PercTransferencia'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'Drawback'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'CondPgto'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'CNPJCliente'
+          ReadOnly = True
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'ID_Produto'
+          ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'ID Prod. Interno'
           Width = 68

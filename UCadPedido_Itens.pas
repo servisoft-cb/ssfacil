@@ -316,6 +316,7 @@ end;
 procedure TfrmCadPedido_Itens.FormShow(Sender: TObject);
 var
   vCODCFOP_Aux: String;
+  vAux : String;
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadPedido);
   //14/04/2020
@@ -518,8 +519,16 @@ begin
 
   //29/08/2019
   dbckDraw.Visible := (fDMCadPedido.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S');
+  
   if (fDMCadPedido.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
-    dbckDraw.Visible := uUtilPadrao.fnc_existe_Drawback(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger);
+  begin
+    //dbckDraw.Visible := uUtilPadrao.fnc_existe_Drawback(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger);
+    vAux := uUtilPadrao.fnc_existe_Drawback(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger);
+    if (copy(vAux,1,1) = 'S') or (copy(vAux,2,1) = 'S') then
+      dbckDraw.Visible := True
+    else
+      dbckDraw.Visible := False;
+  end;
   //*************************
 end;
 
@@ -1675,6 +1684,7 @@ end;
 procedure TfrmCadPedido_Itens.pnlTipo1Exit(Sender: TObject);
 var
   vFinalidadeAux: String;
+  vAux : String;
 begin
   vFinalidadeAux := fDMCadPedido.cdsPedidoFINALIDADE.AsString;
   if trim(vFinalidadeAux) = '' then
@@ -1714,8 +1724,13 @@ begin
   //29/08/2019
   if (fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger <> vID_Produto_Ant) and (fDMCadPedido.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
   begin
-    dbckDraw.Visible := uUtilPadrao.fnc_existe_Drawback(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger);
-    if dbckDraw.Visible then
+    vAux := uUtilPadrao.fnc_existe_Drawback(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger);
+    if (copy(vAux,1,1) = 'S') or (copy(vAux,2,1) = 'S') then
+      dbckDraw.Visible := True
+    else
+      dbckDraw.Visible := False;
+    //if dbckDraw.Visible then
+    if (copy(vAux,2,1) = 'S') then
       fDMCadPedido.cdsPedido_ItensDRAWBACK.AsString := 'S'
     else
       fDMCadPedido.cdsPedido_ItensDRAWBACK.AsString := 'N';
