@@ -93,6 +93,8 @@ type
     N2: TMenuItem;
     Carn2: TMenuItem;
     Promissria2: TMenuItem;
+    Label7: TLabel;
+    RxDBLookupCombo2: TRxDBLookupCombo;
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
@@ -339,7 +341,8 @@ begin
     else
       vComando := ' WHERE CF.TIPO = ' + QuotedStr(fDmCupomFiscal.vTipoCupom);
   end;
-
+  if RxDBLookupCombo2.KeyValue > 0 then
+    vComando := vComando + ' AND CF.FILIAL = ' + RxDBLookupCombo2.Value;
   if vCartao > 0 then
   begin
     vComando := vComando + ' AND CF.NUM_CARTAO = ' + IntToStr(vCartao) + ' AND CF.ID_TIPOCOBRANCA IS NULL';
@@ -376,6 +379,8 @@ begin
     vTotal := 0;
     fDmCupomFiscal.cdsTotais.Close;
     fDmCupomFiscal.sdsTotais.CommandText := fDmCupomFiscal.ctTotais;
+    if RxDBLookupCombo2.KeyValue > 0 then
+      fDmCupomFiscal.sdsTotais.CommandText := fDmCupomFiscal.sdsTotais.CommandText + ' AND FILIAL = ' + RxDBLookupCombo2.Value;
     if RxDBLookupCombo1.Text <> '[Todos]' then
       fDmCupomFiscal.sdsTotais.CommandText := fDmCupomFiscal.sdsTotais.CommandText + ' AND TERMINAL = ' + RxDBLookupCombo1.Value;
     if ComboBox1.ItemIndex > 0 then

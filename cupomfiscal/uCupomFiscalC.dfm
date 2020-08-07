@@ -586,8 +586,8 @@ object fCupomFiscalC: TfCupomFiscalC
       ParentFont = False
     end
     object Label3: TLabel
-      Left = 17
-      Top = 10
+      Left = 19
+      Top = 49
       Width = 35
       Height = 13
       Alignment = taRightJustify
@@ -601,7 +601,7 @@ object fCupomFiscalC: TfCupomFiscalC
     end
     object Label4: TLabel
       Left = 18
-      Top = 89
+      Top = 90
       Width = 34
       Height = 13
       Alignment = taRightJustify
@@ -628,12 +628,26 @@ object fCupomFiscalC: TfCupomFiscalC
       ParentFont = False
     end
     object Label20: TLabel
-      Left = 11
-      Top = 50
+      Left = 334
+      Top = 10
       Width = 43
       Height = 13
       Alignment = taRightJustify
       Caption = 'Terminal:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label7: TLabel
+      Left = 29
+      Top = 10
+      Width = 23
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Filial:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
       Font.Height = -11
@@ -651,7 +665,7 @@ object fCupomFiscalC: TfCupomFiscalC
       ItemHeight = 13
       ItemIndex = 0
       ParentCtl3D = False
-      TabOrder = 4
+      TabOrder = 5
       Text = 'Todos'
       OnExit = ComboBox1Exit
       Items.Strings = (
@@ -664,7 +678,7 @@ object fCupomFiscalC: TfCupomFiscalC
     end
     object CurrencyEdit1: TCurrencyEdit
       Left = 57
-      Top = 81
+      Top = 82
       Width = 221
       Height = 21
       AutoSize = False
@@ -672,7 +686,7 @@ object fCupomFiscalC: TfCupomFiscalC
       DecimalPlaces = 0
       DisplayFormat = '0'
       ParentCtl3D = False
-      TabOrder = 5
+      TabOrder = 6
       OnKeyDown = CurrencyEdit1KeyDown
     end
     object DateEdit1: TDateEdit
@@ -683,7 +697,7 @@ object fCupomFiscalC: TfCupomFiscalC
       Ctl3D = False
       NumGlyphs = 2
       ParentCtl3D = False
-      TabOrder = 1
+      TabOrder = 2
     end
     object DateEdit2: TDateEdit
       Left = 188
@@ -693,11 +707,11 @@ object fCupomFiscalC: TfCupomFiscalC
       Ctl3D = False
       NumGlyphs = 2
       ParentCtl3D = False
-      TabOrder = 2
+      TabOrder = 3
     end
     object btnConsultar: TNxButton
-      Left = 288
-      Top = 51
+      Left = 295
+      Top = 55
       Width = 177
       Height = 30
       Caption = 'Efetuar Pesquisa'
@@ -763,26 +777,27 @@ object fCupomFiscalC: TfCupomFiscalC
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 7
       Transparent = True
       OnClick = btnConsultarClick
     end
     object Edit1: TEdit
       Left = 57
-      Top = 4
+      Top = 42
       Width = 221
-      Height = 19
+      Height = 21
       CharCase = ecUpperCase
       Ctl3D = False
       ParentCtl3D = False
-      TabOrder = 0
+      TabOrder = 4
       OnKeyDown = Edit1KeyDown
     end
     object cbCancelado: TCheckBox
-      Left = 288
-      Top = 2
+      Left = 343
+      Top = 23
       Width = 126
       Height = 17
+      Alignment = taLeftJustify
       Caption = 'Somente Cancelados'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
@@ -790,11 +805,11 @@ object fCupomFiscalC: TfCupomFiscalC
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 8
     end
     object cbPago: TCheckBox
-      Left = 288
-      Top = 34
+      Left = 584
+      Top = 18
       Width = 126
       Height = 17
       Caption = 'Exibir Pagos'
@@ -804,12 +819,12 @@ object fCupomFiscalC: TfCupomFiscalC
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 9
+      TabOrder = 10
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
-      Left = 57
-      Top = 42
-      Width = 221
+      Left = 381
+      Top = 2
+      Width = 90
       Height = 21
       DropDownCount = 8
       Ctl3D = False
@@ -818,13 +833,14 @@ object fCupomFiscalC: TfCupomFiscalC
       LookupDisplay = 'NOME'
       LookupSource = dmCupomFiscal.dsTerminal
       ParentCtl3D = False
-      TabOrder = 3
+      TabOrder = 1
     end
     object cbNEnviados: TCheckBox
-      Left = 288
-      Top = 18
+      Left = 332
+      Top = 38
       Width = 137
       Height = 17
+      Alignment = taLeftJustify
       Caption = 'Somente N'#227'o Enviados'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
@@ -832,31 +848,31 @@ object fCupomFiscalC: TfCupomFiscalC
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 9
       OnClick = cbNEnviadosClick
     end
     object btnRecalcular: TBitBtn
       Left = 616
-      Top = 63
+      Top = 55
       Width = 75
       Height = 27
       Caption = 'Recalcular'
-      TabOrder = 10
+      TabOrder = 11
       Visible = False
       OnClick = btnRecalcularClick
     end
     object btnAjustarICMS: TBitBtn
       Left = 696
-      Top = 63
+      Top = 55
       Width = 105
       Height = 27
       Caption = 'Ajustar ICMS / PIS'
-      TabOrder = 11
+      TabOrder = 12
       Visible = False
       OnClick = btnAjustarICMSClick
     end
     object ckMostrar_Zerados: TCheckBox
-      Left = 440
+      Left = 584
       Top = 2
       Width = 126
       Height = 17
@@ -867,7 +883,7 @@ object fCupomFiscalC: TfCupomFiscalC
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 12
+      TabOrder = 13
     end
     object CheckBox1: TCheckBox
       Left = 865
@@ -881,8 +897,22 @@ object fCupomFiscalC: TfCupomFiscalC
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
-      TabOrder = 13
+      TabOrder = 14
       Visible = False
+    end
+    object RxDBLookupCombo2: TRxDBLookupCombo
+      Left = 57
+      Top = 2
+      Width = 221
+      Height = 21
+      DropDownCount = 8
+      Ctl3D = False
+      DisplayEmpty = '[Todos]'
+      LookupField = 'ID'
+      LookupDisplay = 'NOME'
+      LookupSource = dmCupomFiscal.dsFilial
+      ParentCtl3D = False
+      TabOrder = 0
     end
   end
   object Panel1: TPanel
