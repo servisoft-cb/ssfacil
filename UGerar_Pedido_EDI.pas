@@ -55,6 +55,8 @@ type
     procedure BitBtn1Click(Sender: TObject);
     procedure btnAjustar_ProdCliClick(Sender: TObject);
     procedure btnExcluirItemClick(Sender: TObject);
+    procedure FilenameEdit1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMGerar_EDI: TDMGerar_EDI;
@@ -590,6 +592,7 @@ begin
   //fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger := vID_Variacao;
 
   prc_Mover_Dados;
+  fDMCadPedido.cdsPedido_ItensDRAWBACK.AsString := fDMGerar_EDI.mAuxiliarDrawback.AsString;
 
   if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString = 'I') then
     fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := fnc_Buscar_Comissao_Prod(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger);
@@ -776,9 +779,6 @@ end;
 procedure TfrmGerar_Pedido_EDI.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
-  if (Key = Vk_Return) and (trim(FilenameEdit1.Text) <> '') then
-    prc_Le_EDI
-  else
   if (Shift = [ssCtrl]) and (Key = 87) then //CTRL W
   begin
     btnAjustar_ProdCli.Visible := not(btnAjustar_ProdCli.Visible);
@@ -1191,6 +1191,13 @@ begin
   fDMGerar_EDI.mAuxiliar.Delete;
   if fDMGerar_EDI.mNaoGerado.RecordCount <= 0 then
     vErro := False;
+end;
+
+procedure TfrmGerar_Pedido_EDI.FilenameEdit1KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_Return) and (trim(FilenameEdit1.Text) <> '') then
+    prc_Le_EDI;
 end;
 
 end.

@@ -494,7 +494,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
     Top = 172
     Width = 792
     Height = 418
-    ActivePage = TabSheet2
+    ActivePage = TabSheet1
     ActivePageDefault = TabSheet1
     Align = alClient
     BackgroundColor = clGray
@@ -504,7 +504,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
     ParentBackgroundColor = False
     ParentColor = False
     TabColors.Shadow = clGray
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TextColors.DisabledShadow = 8421440
     TextColors.Selected = clBlue

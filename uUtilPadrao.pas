@@ -96,7 +96,7 @@ uses
   function fnc_Somar_Edit(Valores: string): Double;
   function fnc_Verificar_CFOP_Config(ID_CFOP, ID_CSTICMS: Integer): Boolean;
 
-  function fnc_existe_Drawback(ID_Cliente, ID_Produto: Integer): Boolean;
+  function fnc_existe_Drawback(ID_Cliente, ID_Produto: Integer): String;
 
   //procedure prc_Enviar_Email_Proc(MSG: String);
 
@@ -2262,11 +2262,11 @@ begin
   end;
 end;
 
-function fnc_existe_Drawback(ID_Cliente, ID_Produto: Integer): Boolean;
+function fnc_existe_Drawback(ID_Cliente, ID_Produto: Integer): String;
 var
   sds: TSQLDataSet;
 begin
-  Result   := False;
+  Result   := 'NN';
   sds      := TSQLDataSet.Create(nil);
   try
     sds.SQLConnection := dmDatabase.scoDados;
@@ -2279,8 +2279,14 @@ begin
     sds.ParamByName('CODIGO').AsInteger      := ID_Cliente;
     sds.ParamByName('ID_PRODUTO').AsInteger  := ID_Produto;
     sds.Open;
-    if (sds.FieldByName('DRAW_POSSUI').AsString = 'S') and (sds.FieldByName('DRAWBACK').AsString = 'S') then
-      Result := True;
+    if (sds.FieldByName('DRAW_POSSUI').AsString = 'S') then
+      Result := 'S'
+    else
+      Result := 'N';
+    if (sds.FieldByName('DRAWBACK').AsString = 'S') then
+      Result := Result + 'S'
+    else
+      Result := Result +'N';
   finally
     FreeAndNil(sds);
   end;

@@ -409,6 +409,7 @@ end;
 procedure TfrmCadNotaFiscal_Itens.FormShow(Sender: TObject);
 var
   vID_CFOP : Integer;
+  vAux : String;
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadNotaFiscal);
   if fDMCadNotaFiscal.vState_Item = 'I' then
@@ -564,7 +565,14 @@ begin
   //29/08/2019
   dbckDraw.Visible := (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S');
   if (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
-    dbckDraw.Visible := uUtilPadrao.fnc_existe_Drawback(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger);
+  begin
+    //dbckDraw.Visible := uUtilPadrao.fnc_existe_Drawback(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger);
+    vAux := uUtilPadrao.fnc_existe_Drawback(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger);
+    if (copy(vAux,1,1) = 'S') or (copy(vAux,2,1) = 'S') then
+      dbckDraw.Visible := True
+    else
+      dbckDraw.Visible := False;
+  end;
   //*************************
 
   //11/12/2019
@@ -2008,6 +2016,7 @@ var
   vFinalidadeAux: String;
   vID_VariacaoAux: Integer;
   vID_CFOPAux: Integer;
+  vAux : String;
 begin
   //fDMCadNotaFiscal.vID_Variacao := 0;
   //07/03/2019
@@ -2066,13 +2075,18 @@ begin
 
   //29/08/2019
     if (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger <> vID_Produto_Ant) and (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
-  begin
-    dbckDraw.Visible := uUtilPadrao.fnc_existe_Drawback(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger);
-    if dbckDraw.Visible then
-      fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString := 'S'
-    else
-      fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString := 'N';
-  end;
+    begin
+      //dbckDraw.Visible := uUtilPadrao.fnc_existe_Drawback(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger);
+      vAux := uUtilPadrao.fnc_existe_Drawback(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger);
+      if (copy(vAux,1,1) = 'S') or (copy(vAux,2,1) = 'S') then
+        dbckDraw.Visible := True
+      else
+        dbckDraw.Visible := False;
+      if (copy(vAux,2,1) = 'S') then
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString := 'S'
+      else
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString := 'N';
+    end;
   //*************************
 end;
 
