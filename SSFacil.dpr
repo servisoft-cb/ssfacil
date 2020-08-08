@@ -862,7 +862,8 @@ uses
   UConsOrcamento in 'UConsOrcamento.pas' {frmConsOrcamento},
   UMostrarRegras in 'UMostrarRegras.pas' {frmMostrarRegras},
   uCadPedidoSimpes_Geracao in 'uCadPedidoSimpes_Geracao.pas' {frmCadPedidoSimples_Geracao},
-  UConsCSTxCFOP in 'UConsCSTxCFOP.pas' {frmConsCSTxCFOP};
+  UConsCSTxCFOP in 'UConsCSTxCFOP.pas' {frmConsCSTxCFOP},
+  uUtilDialogs in 'uUtilDialogs.pas';
 
 {$R *.res}
 

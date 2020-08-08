@@ -3200,6 +3200,10 @@ type
     qParametros_PedGRAVAR_FRETE_NO_RECIBO: TStringField;
     qParametros_PedGRAVAR_OBS_NO_RECIBO: TStringField;
     cdsPedidoOBS: TMemoField;
+    sdsNotaFiscalREFAZER_TITULOS: TStringField;
+    cdsNotaFiscalREFAZER_TITULOS: TStringField;
+    mPedAux: TClientDataSet;
+    mPedAuxID: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
@@ -3870,6 +3874,7 @@ begin
   cdsNotaFiscalSOMAR_FRETE_II.AsString          := 'N';
   cdsNotaFiscalBASE_COFINS.AsFloat              := 0;
   cdsNotaFiscalBASE_PIS.AsFloat                 := 0;
+  cdsNotaFiscalREFAZER_TITULOS.AsString         := 'N';
 end;
 
 procedure TDMCadNotaFiscal.cdsNotaFiscalBeforePost(DataSet: TDataSet);

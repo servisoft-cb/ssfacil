@@ -35,6 +35,7 @@ function fnc_Existe_Est_Baixado_LoteMat(ID: Integer): Boolean;  //07/10/2019
 
 function fnc_Possui_Erro(fDMCadNotaFiscal: TDMCadNotaFiscal; NaoContDupl: Boolean = False): Boolean;
 
+function fnc_verifica_tit_pago(ID : Integer) : Boolean;
 
 implementation
 
@@ -52,9 +53,16 @@ var
   vID_ClienteAux: Integer;
   vNomeAux: string;
   Flag: Boolean;
+  vID_NotaAux : Integer;
+  vRefazer_Titulo : String;
+  vTipo_ESAux : String;
 begin
   vGravar := False;
-  vID_ClienteAux := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger;
+  vID_ClienteAux  := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger;
+  vID_NotaAux     := fDMCadNotaFiscal.cdsNotaFiscalID.AsInteger;
+  vRefazer_Titulo := fDMCadNotaFiscal.cdsNotaFiscalREFAZER_TITULOS.AsString;
+  vTipo_ESAux     := fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString;
+  
   if fDMCadNotaFiscal.cdsNotaFiscalNUMNOTA.AsInteger < 1 then
   begin
     sds := TSQLDataSet.Create(nil);
@@ -90,13 +98,6 @@ begin
       except
         raise
       end;
-
-      {sds.Close;
-      sds.NoMetadata    := True;
-      sds.GetMetadata   := False;
-      //sds.CommandText   := ' UPDATE TABELALOC SET FLAG = 1 WHERE TABELA = ' + QuotedStr('NOTAFISCAL');
-      sds.CommandText   := ' UPDATE TABELALOC SET FLAG = ' + IntToStr(vAux) + ' WHERE TABELA = ' + QuotedStr('NOTAFISCAL');
-      sds.ExecSQL();}
 
       if fDMCadNotaFiscal.cdsNotaFiscalTIPO_REG.AsString = 'NTE' then
       begin
@@ -155,18 +156,13 @@ begin
       //****************
       fDMCadNotaFiscal.cdsNotaFiscal.ApplyUpdates(0);
 
-      //27/06/2016
-      //25/06/2015
-      //sdsPRC_Atualiza_DtNota.Close;
-      //sdsPRC_Atualiza_DtNota.ParamByName('C_ID').AsInteger := cdsNotaFiscalID_CLIENTE.AsInteger;
-      //sdsPRC_Atualiza_DtNota.ExecSQL;
-
       dmDatabase.scoDados.Commit(ID);
 
       vGravar := True;
 
       fDMCadNotaFiscal.mSenha.EmptyDataSet;
     except
+      vGravar := fALSE;
       dmDatabase.scoDados.Rollback(ID);
       raise;
     end;
@@ -189,7 +185,28 @@ begin
     fDMCadNotaFiscal.sdsPRC_Atualiza_DtNota.Close;
     fDMCadNotaFiscal.sdsPRC_Atualiza_DtNota.ParamByName('C_ID').AsInteger := vID_ClienteAux;
     fDMCadNotaFiscal.sdsPRC_Atualiza_DtNota.ExecSQL;
+
+    if (vTipo_ESAux = 'S') and (vRefazer_Titulo = 'S') then
+    begin
+      sds := TSQLDataSet.Create(nil);
+      try
+        vNomeAux := 'NOTAFISCAL';
+        sds.SQLConnection := dmDatabase.scoDados;
+        sds.NoMetadata := True;
+        sds.GetMetadata := False;
+        sds.Close;
+        sds.CommandType := ctStoredProc;
+        sds.CommandText := 'PRC_EXCLUI_DUP_PEDIDO';
+        sds.ParamByName('P_ID').AsInteger := vID_NotaAux;
+        sds.ExecSQL;
+      finally
+        FreeAndNil(sds);
+      end;
+
+    end;
+    
   end;
+
 end;
 
 procedure prc_Gravar_Comissao(fDMCadNotaFiscal: TDMCadNotaFiscal; Prazo: string = '');
@@ -910,6 +927,7 @@ begin
       end;
     end;
     fDMCadNotaFiscal.vExiste_MObra := '';
+    fDMCadNotaFiscal.mPedAux.EmptyDataSet;
     fDMCadNotaFiscal.cdsNotaFiscal_Itens.First;
     while not fDMCadNotaFiscal.cdsNotaFiscal_Itens.Eof do
     begin
@@ -929,6 +947,17 @@ begin
           if fDMCadNotaFiscal.cdsNotaFiscal_ItensGRAVACAO_COM_ERRO.AsString = 'CST' then
             vMSgNotificacao := 'Existem itens com notificação de não ter calculado a Substituição Tributária!';
         end;
+        //08/08/2020
+        if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger > 0 then
+        begin
+          if not fDMCadNotaFiscal.mPedAux.Locate('ID', fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger, [loCaseInsensitive]) then
+          begin
+            fDMCadNotaFiscal.mPedAux.Insert;
+            fDMCadNotaFiscal.mPedAuxID.AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger;
+            fDMCadNotaFiscal.mPedAux.Post;
+          end;
+        end;
+        //*************
       end;
       if (fDMCadNotaFiscal.cdsParametrosUSA_CONSUMO.AsString = 'S') then
         prc_Verificar_Consumo(fDMCadNotaFiscal);
@@ -949,6 +978,17 @@ begin
       end;
       fDMCadNotaFiscal.cdsNotaFiscal_Itens.Next;
     end;
+    //08/08/2020
+    fDMCadNotaFiscal.mPedAux.First;
+    while not fDMCadNotaFiscal.mPedAux.Eof do
+    begin
+      if fnc_verifica_tit_pago(fDMCadNotaFiscal.mPedAuxID.AsInteger) then
+        fDMCadNotaFiscal.vMSGNotaFiscal := fDMCadNotaFiscal.vMSGNotaFiscal + '*** Existe título gerado no Pedido e já esta pago!';
+      fDMCadNotaFiscal.mPedAux.Next;
+    end;
+    fDMCadNotaFiscal.mPedAux.EmptyDataSet;
+    //*******************
+
     //10/11/2015
     if (StrToFloat(FormatFloat('0.00',vComissaoAux)) > 0) and (fDMCadNotaFiscal.cdsParametrosTIPO_COMISSAO_PROD.AsString = 'I') then
     begin
@@ -1077,6 +1117,29 @@ begin
   end;
 
 end;
+
+function fnc_verifica_tit_pago(ID : Integer) : Boolean;
+var
+  sds: TSQLDataSet;
+begin
+  Result := False;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata := True;
+    sds.GetMetadata := False;
+    sds.CommandText := 'select count(1) CONTADOR from DUPLICATA D '
+                     + 'where D.ID_PEDIDO = :ID and coalesce(D.VLR_PAGO, 0) > 0 ';
+    sds.ParamByName('ID').AsInteger := ID;
+    sds.Open;
+    if sds.FieldByName('CONTADOR').AsInteger > 0 then
+      Result := True;
+  finally
+    FreeAndNil(sds);
+  end;
+
+end;
+
 
 end.
 

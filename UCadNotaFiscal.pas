@@ -430,6 +430,7 @@ type
     btnGerarSaldo_Usado: TNxButton;
     btnZerarSaldo: TNxButton;
     btnDifal: TNxButton;
+    btnRefazTitulos: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -571,6 +572,7 @@ type
     procedure btnGerarSaldo_UsadoClick(Sender: TObject);
     procedure rxdbCondicaoPgtoExit(Sender: TObject);
     procedure btnDifalClick(Sender: TObject);
+    procedure btnRefazTitulosClick(Sender: TObject);
   private
     { Private declarations }
     vTipoNotaAnt: String;
@@ -684,7 +686,7 @@ implementation
 uses DmdDatabase, rsDBUtils, uUtilPadrao, USel_Pessoa, URecebeXML, uCalculo_NotaFiscal, uNFeComandos, USel_ContaOrc, uUtilCliente,
   uUtilCobranca, DmdDatabase_NFeBD, UDMAprovacao_Ped, UConsPessoa_Fin, UConsPedido_Senha, uGrava_NotaFiscal, UCadNotaFiscal_Custo,
   UMenu, Math, UDMEtiqueta, USel_PreFat, uMenu1, USel_RecNF, uXMLSuframa, UCadNotaFiscal_Alt_CCusto, UConsClienteOBS,
-  UMostrarRegras;
+  UMostrarRegras, uUtilDialogs;
 
 {$R *.dfm}
 
@@ -1411,6 +1413,8 @@ begin
 
   //25/05/2020
   gbxVlr_Adiantado.Visible := (fDMCadNotaFiscal.qParametros_FinUSA_ADTO.AsString = 'S');
+
+  btnRefazTitulos.Visible := (fDMCadNotaFiscal.cdsParametrosCONTROLAR_DUP_PEDIDO.AsString = 'S');
 end;
 
 procedure TfrmCadNotaFiscal.prc_Consultar(ID: Integer);
@@ -3572,6 +3576,7 @@ begin
   if not (fDMCadNotaFiscal.cdsNotaFiscal.State in [dsEdit,dsInsert]) then
     exit;
   SMDBGrid2.DisableScroll;
+  fDMCadNotaFiscal.cdsNotaFiscalREFAZER_TITULOS.AsString := 'N';
   fDMCadNotaFiscal.prc_Le_Itens(fDMCadNotaFiscal,'Z');
   SMDBGrid2.EnableScroll;
 end;
@@ -5537,7 +5542,6 @@ end;
 
 procedure TfrmCadNotaFiscal.btnCopiarRecNFClick(Sender: TObject);
 var
-  vItemAux: Integer;
   ffrmSel_RecNF: TfrmSel_RecNF;
 begin
   if fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString = 'E' then
@@ -5557,7 +5561,6 @@ begin
     fDMCadNotaFiscal.prc_Filtrar_Produto_Cliente(False);
   //****************
 
-  vItemAux := fDMCadNotaFiscal.cdsNotaFiscal_Itens.RecordCount;
   ffrmCadNotaFiscal_Itens := TfrmCadNotaFiscal_Itens.Create(self);
   ffrmCadNotaFiscal_Itens.fDMCadNotaFiscal := fDMCadNotaFiscal;
 
@@ -5844,6 +5847,22 @@ begin
   frmMostrarRegras.vMostrar_Regra := 'DF';
   frmMostrarRegras.ShowModal;
   FreeAndNil(frmMostrarRegras);
+end;
+
+procedure TfrmCadNotaFiscal.btnRefazTitulosClick(Sender: TObject);
+var
+  vOpcao : String;
+begin
+  
+  vOpcao := InputBox_SS('Títulos gerados pelos pedidos', 'Excluir os título gerados pelo Pedido' + #13 +
+                      'e gerar novamente pela Nota Fiscal' + #13 + #13 + 'Informe S=Gerar  N=Não gerar: ');
+  if UpperCase(vOpcao) = 'S' then
+  begin
+    fDMCadNotaFiscal.cdsNotaFiscalREFAZER_TITULOS.AsString := 'S';
+    GerarVlrDuplicata1Click(Sender);
+    btnGerarParcelasClick(Sender);
+  end;
+
 end;
 
 end.

@@ -597,6 +597,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object sdsNotaFiscalPERC_COMISSAO_INT: TFloatField
       FieldName = 'PERC_COMISSAO_INT'
     end
+    object sdsNotaFiscalREFAZER_TITULOS: TStringField
+      FieldName = 'REFAZER_TITULOS'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspNotaFiscal: TDataSetProvider
     DataSet = sdsNotaFiscal
@@ -1274,6 +1279,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsNotaFiscalPERC_COMISSAO_INT: TFloatField
       FieldName = 'PERC_COMISSAO_INT'
+    end
+    object cdsNotaFiscalREFAZER_TITULOS: TStringField
+      FieldName = 'REFAZER_TITULOS'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsNotaFiscal: TDataSource
@@ -15761,5 +15771,18 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     DataSet = mPedido_Peso
     Left = 1220
     Top = 397
+  end
+  object mPedAux: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 1205
+    Top = 278
+    Data = {
+      250000009619E0BD010000001800000001000000000003000000250002494404
+      000100000000000000}
+    object mPedAuxID: TIntegerField
+      FieldName = 'ID'
+    end
   end
 end
