@@ -38,7 +38,7 @@ object fRelVale: TfRelVale
       Left = 26
       Top = 15
       Width = 742
-      Height = 407
+      Height = 495
       DataSource = DmCadVale.dsValeImp
       BeforePrint = RLSubDetail1BeforePrint
       object RLBand1: TRLBand
@@ -1219,7 +1219,7 @@ object fRelVale: TfRelVale
         Left = 0
         Top = 270
         Width = 742
-        Height = 133
+        Height = 218
         DataSource = DmCadVale.dsValeImp_Servico
         object RLBand6: TRLBand
           Left = 0
@@ -1332,7 +1332,7 @@ object fRelVale: TfRelVale
           Left = 0
           Top = 71
           Width = 742
-          Height = 58
+          Height = 98
           BandType = btSummary
           Borders.Sides = sdCustom
           Borders.DrawLeft = True
@@ -1379,8 +1379,7 @@ object fRelVale: TfRelVale
             Left = 338
             Top = 1
             Width = 15
-            Height = 56
-            Align = faHeight
+            Height = 68
             Angle = 90.000000000000000000
             DrawKind = dkLine
           end
@@ -1566,6 +1565,21 @@ object fRelVale: TfRelVale
             Font.Name = 'Arial'
             Font.Style = [fsBold]
             ParentFont = False
+          end
+          object RLDBMemo3: TRLDBMemo
+            Left = 1
+            Top = 69
+            Width = 740
+            Height = 28
+            Behavior = [beSiteExpander]
+            Borders.Sides = sdCustom
+            Borders.DrawLeft = True
+            Borders.DrawTop = True
+            Borders.DrawRight = True
+            Borders.DrawBottom = True
+            DataField = 'OBS'
+            DataSource = DmCadVale.dsValeImp
+            IntegralHeight = True
           end
         end
         object RLBand7: TRLBand

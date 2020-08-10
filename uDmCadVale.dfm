@@ -69,6 +69,16 @@ object DmCadVale: TDmCadVale
     object sdsValeVLR_IPI: TFloatField
       FieldName = 'VLR_IPI'
     end
+    object sdsValeOBS: TMemoField
+      FieldName = 'OBS'
+      BlobType = ftMemo
+      Size = 1
+    end
+    object sdsValeIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspVale: TDataSetProvider
     DataSet = sdsVale
@@ -149,6 +159,16 @@ object DmCadVale: TDmCadVale
     end
     object cdsValeVLR_IPI: TFloatField
       FieldName = 'VLR_IPI'
+    end
+    object cdsValeOBS: TMemoField
+      FieldName = 'OBS'
+      BlobType = ftMemo
+      Size = 1
+    end
+    object cdsValeIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsVale: TDataSource
@@ -499,11 +519,11 @@ object DmCadVale: TDmCadVale
     CommandText = 
       'SELECT V.id, v.num_vale, v.dtemissao, v.id_cliente, v.vlr_total,' +
       ' v.filial, v.faturado,'#13#10'v.faturado_servico, v.vlr_servico, v.vlr' +
-      '_produto, P.NOME NOME_PESSOA,'#13#10'case'#13#10'  when v.faturado = '#39'S'#39' the' +
-      'n '#39'Faturado'#39#13#10'  when v.faturado = '#39'N'#39' then '#39'Pendente'#39#13#10'  when v.' +
-      'faturado = '#39'P'#39' then '#39'Fat.Parcial'#39#13#10'  else '#39#39#13#10'  end DescFaturado' +
-      #13#10#13#10'FROM VALE V'#13#10'INNER JOIN PESSOA P ON (V.ID_CLIENTE = P.CODIGO' +
-      ')'
+      '_produto, P.NOME NOME_PESSOA, V.IMPRESSO,'#13#10'case'#13#10'  when v.fatura' +
+      'do = '#39'S'#39' then '#39'Faturado'#39#13#10'  when v.faturado = '#39'N'#39' then '#39'Pendente' +
+      #39#13#10'  when v.faturado = '#39'P'#39' then '#39'Fat.Parcial'#39#13#10'  else '#39#39#13#10'  end ' +
+      'DescFaturado'#13#10#13#10'FROM VALE V'#13#10'INNER JOIN PESSOA P ON (V.ID_CLIENT' +
+      'E = P.CODIGO)'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -568,6 +588,11 @@ object DmCadVale: TDmCadVale
       Required = True
       FixedChar = True
       Size = 11
+    end
+    object cdsValeConsIMPRESSO: TStringField
+      FieldName = 'IMPRESSO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsValeCons: TDataSource
@@ -1478,9 +1503,9 @@ object DmCadVale: TDmCadVale
       'CLIENTE, P.cidade CIDADE_CLIENTE, P.UF UF_CLIENTE,'#13#10'P.complement' +
       'o_end COMPLEMENTO_END_CLIENTE, P.cep CEP_CLIENTE, P.inscr_est IN' +
       'SCR_EST_CLIENTE,'#13#10'P.dddfone1 DDD_CLIENTE, P.telefone1 FONE_CLIEN' +
-      'TE, V.VLR_DESCONTO, V.VLR_ICMSSUBST, V.VLR_IPI'#13#10'FROM VALE V'#13#10'INN' +
-      'ER JOIN PESSOA P ON (V.ID_CLIENTE = P.CODIGO)'#13#10'INNER JOIN FILIAL' +
-      ' F ON V.filial = F.id'#13#10'WHERE V.ID = :ID'
+      'TE, V.VLR_DESCONTO, V.VLR_ICMSSUBST, V.VLR_IPI, V.OBS'#13#10'FROM VALE' +
+      ' V'#13#10'INNER JOIN PESSOA P ON (V.ID_CLIENTE = P.CODIGO)'#13#10'INNER JOIN' +
+      ' FILIAL F ON V.filial = F.id'#13#10'WHERE V.ID = :ID'
     MaxBlobSize = -1
     Params = <
       item
@@ -1489,8 +1514,8 @@ object DmCadVale: TDmCadVale
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 392
-    Top = 333
+    Left = 393
+    Top = 334
   end
   object dspValeImp: TDataSetProvider
     DataSet = sdsValeImp
@@ -1652,6 +1677,11 @@ object DmCadVale: TDmCadVale
     object cdsValeImpVLR_IPI: TFloatField
       FieldName = 'VLR_IPI'
       DisplayFormat = '###,###,##0.00'
+    end
+    object cdsValeImpOBS: TMemoField
+      FieldName = 'OBS'
+      BlobType = ftMemo
+      Size = 1
     end
   end
   object dsValeImp: TDataSource

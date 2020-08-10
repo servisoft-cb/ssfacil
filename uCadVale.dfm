@@ -1,7 +1,7 @@
 object frmCadVale: TfrmCadVale
-  Left = 296
+  Left = 298
   Top = 77
-  Width = 797
+  Width = 795
   Height = 603
   Caption = 'Cadastro do Vale'
   Color = clBtnFace
@@ -22,8 +22,8 @@ object frmCadVale: TfrmCadVale
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 789
-    Height = 572
+    Width = 779
+    Height = 564
     ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -41,8 +41,8 @@ object frmCadVale: TfrmCadVale
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 106
-        Width = 785
-        Height = 402
+        Width = 775
+        Height = 394
         Align = alClient
         Ctl3D = False
         DataSource = DmCadVale.dsValeCons
@@ -131,7 +131,7 @@ object frmCadVale: TfrmCadVale
       object pnlPesquisa: TPanel
         Left = 0
         Top = 33
-        Width = 785
+        Width = 775
         Height = 73
         Align = alTop
         TabOrder = 0
@@ -284,8 +284,8 @@ object frmCadVale: TfrmCadVale
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 532
-        Width = 785
+        Top = 524
+        Width = 775
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -301,7 +301,7 @@ object frmCadVale: TfrmCadVale
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 785
+        Width = 775
         Height = 33
         Align = alTop
         Color = clSilver
@@ -602,8 +602,8 @@ object frmCadVale: TfrmCadVale
       end
       object Panel4: TPanel
         Left = 0
-        Top = 508
-        Width = 785
+        Top = 500
+        Width = 775
         Height = 24
         Align = alBottom
         Color = clSilver
@@ -629,7 +629,7 @@ object frmCadVale: TfrmCadVale
           ParentFont = False
         end
         object Shape6: TShape
-          Left = 100
+          Left = 101
           Top = 5
           Width = 30
           Height = 16
@@ -648,6 +648,26 @@ object frmCadVale: TfrmCadVale
           Font.Style = []
           ParentFont = False
         end
+        object Shape1: TShape
+          Left = 197
+          Top = 5
+          Width = 30
+          Height = 16
+          Brush.Color = clNavy
+        end
+        object Label21: TLabel
+          Left = 228
+          Top = 8
+          Width = 42
+          Height = 13
+          Caption = 'Impresso'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentFont = False
+        end
       end
     end
     object TS_Cadastro: TRzTabSheet
@@ -655,7 +675,7 @@ object frmCadVale: TfrmCadVale
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 785
+        Width = 775
         Height = 34
         Align = alTop
         Color = 8404992
@@ -881,7 +901,7 @@ object frmCadVale: TfrmCadVale
       object pnlCadastro: TPanel
         Left = 0
         Top = 34
-        Width = 785
+        Width = 775
         Height = 109
         Align = alTop
         Enabled = False
@@ -889,13 +909,13 @@ object frmCadVale: TfrmCadVale
         object pnlNota: TPanel
           Left = 1
           Top = 1
-          Width = 783
+          Width = 773
           Height = 31
           Align = alTop
           Color = clSilver
           TabOrder = 0
           DesignSize = (
-            783
+            773
             31)
           object Label16: TLabel
             Left = 32
@@ -906,7 +926,7 @@ object frmCadVale: TfrmCadVale
             Caption = 'Filial:'
           end
           object Label17: TLabel
-            Left = 632
+            Left = 630
             Top = 14
             Width = 14
             Height = 13
@@ -963,7 +983,7 @@ object frmCadVale: TfrmCadVale
             Caption = 'Data:'
           end
           object DBEdit8: TDBEdit
-            Left = 647
+            Left = 645
             Top = 6
             Width = 97
             Height = 21
@@ -978,7 +998,7 @@ object frmCadVale: TfrmCadVale
         object pnlCliente: TPanel
           Left = 1
           Top = 32
-          Width = 783
+          Width = 773
           Height = 76
           Align = alClient
           TabOrder = 1
@@ -1131,8 +1151,8 @@ object frmCadVale: TfrmCadVale
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 143
-        Width = 785
-        Height = 360
+        Width = 775
+        Height = 352
         ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
@@ -1149,8 +1169,8 @@ object frmCadVale: TfrmCadVale
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 59
-            Width = 781
-            Height = 278
+            Width = 771
+            Height = 270
             Align = alClient
             Ctl3D = False
             DataSource = DmCadVale.dsValeItens
@@ -1324,7 +1344,7 @@ object frmCadVale: TfrmCadVale
           object pnlItem: TPanel
             Left = 0
             Top = 26
-            Width = 781
+            Width = 771
             Height = 33
             Align = alTop
             Color = clSilver
@@ -1628,7 +1648,7 @@ object frmCadVale: TfrmCadVale
           object pnlLocalEstoque: TPanel
             Left = 0
             Top = 0
-            Width = 781
+            Width = 771
             Height = 26
             Align = alTop
             Enabled = False
@@ -1675,8 +1695,8 @@ object frmCadVale: TfrmCadVale
             object SMDBGrid3: TSMDBGrid
               Left = 0
               Top = 33
-              Width = 781
-              Height = 271
+              Width = 771
+              Height = 263
               Align = alClient
               Ctl3D = False
               DataSource = DmCadVale.dsValeServico
@@ -1713,7 +1733,7 @@ object frmCadVale: TfrmCadVale
             object Panel2: TPanel
               Left = 0
               Top = 0
-              Width = 781
+              Width = 771
               Height = 33
               Align = alTop
               Color = clSilver
@@ -2038,8 +2058,8 @@ object frmCadVale: TfrmCadVale
             object SMDBGrid4: TSMDBGrid
               Left = 0
               Top = 33
-              Width = 781
-              Height = 271
+              Width = 771
+              Height = 263
               Align = alClient
               Ctl3D = False
               DataSource = DmCadVale.dsValeServico
@@ -2077,7 +2097,7 @@ object frmCadVale: TfrmCadVale
             object Panel3: TPanel
               Left = 0
               Top = 0
-              Width = 781
+              Width = 771
               Height = 33
               Align = alTop
               Color = clSilver
@@ -2402,8 +2422,8 @@ object frmCadVale: TfrmCadVale
             object SMDBGrid5: TSMDBGrid
               Left = 0
               Top = 33
-              Width = 781
-              Height = 271
+              Width = 771
+              Height = 263
               Align = alClient
               Ctl3D = False
               DataSource = DmCadVale.dsValeServico
@@ -2440,7 +2460,7 @@ object frmCadVale: TfrmCadVale
             object Panel5: TPanel
               Left = 0
               Top = 0
-              Width = 781
+              Width = 771
               Height = 33
               Align = alTop
               Color = clSilver
@@ -2763,7 +2783,7 @@ object frmCadVale: TfrmCadVale
           object pnlServico: TPanel
             Left = 0
             Top = 0
-            Width = 781
+            Width = 771
             Height = 33
             Align = alTop
             Color = clSilver
@@ -2993,8 +3013,8 @@ object frmCadVale: TfrmCadVale
           object SMDBGrid6: TSMDBGrid
             Left = 0
             Top = 33
-            Width = 781
-            Height = 304
+            Width = 771
+            Height = 296
             Align = alClient
             Ctl3D = False
             DataSource = DmCadVale.dsValeServico
@@ -3068,11 +3088,25 @@ object frmCadVale: TfrmCadVale
               end>
           end
         end
+        object TabSheet2: TRzTabSheet
+          Caption = 'Obs.'
+          object DBMemo1: TDBMemo
+            Left = 0
+            Top = 0
+            Width = 771
+            Height = 89
+            Align = alTop
+            DataField = 'OBS'
+            DataSource = DmCadVale.dsVale
+            TabOrder = 0
+            OnExit = DBMemo1Exit
+          end
+        end
       end
       object Panel6: TPanel
         Left = 0
-        Top = 503
-        Width = 785
+        Top = 495
+        Width = 775
         Height = 46
         Align = alBottom
         Color = clSilver

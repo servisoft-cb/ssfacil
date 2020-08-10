@@ -121,6 +121,10 @@ type
     DBEdit5: TDBEdit;
     Label20: TLabel;
     DBEdit10: TDBEdit;
+    TabSheet2: TRzTabSheet;
+    DBMemo1: TDBMemo;
+    Shape1: TShape;
+    Label21: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -154,6 +158,7 @@ type
       Shift: TShiftState);
     procedure RxDBLookupCombo2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure DBMemo1Exit(Sender: TObject);
   private
     { Private declarations }
     vTipoNotaAnt: String;
@@ -622,6 +627,14 @@ begin
 
   vEmail_Assunto_Fortes := 'Vale Nº ' + fDMCadVale.cdsValeImpNUM_Vale.AsString;
   vEmail_Fortes_Corpo   := 'Em anexo Vale Nº ' + fDMCadVale.cdsValeImpNUM_Vale.AsString + #13;
+
+  prc_Posiciona_Vale;
+  begin
+    fDmCadVale.cdsVale.Edit;
+    fDmCadVale.cdsValeIMPRESSO.AsString := 'S';
+    fDmCadVale.cdsVale.Post;
+    fDmCadVale.cdsVale.ApplyUpdates(0);
+  end;
 end;
 
 procedure TfrmCadVale.DBEdit1Exit(Sender: TObject);
@@ -655,6 +668,12 @@ end;
 procedure TfrmCadVale.SMDBGrid1GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
 begin
+  if fDmCadVale.cdsValeConsIMPRESSO.AsString = 'S' then
+  begin
+    Background  := clNavy;
+    AFont.Color := clWhite;
+  end
+  else
   if fDmCadVale.cdsValeConsFATURADO.AsString = 'P' then
     Background := clAqua
   else
@@ -857,6 +876,11 @@ begin
     fDmCadVale.cdsValeID_CLIENTE.AsInteger := vCodPessoa_Pos;
     RxDBLookupCombo2.SetFocus;
   end;
+end;
+
+procedure TfrmCadVale.DBMemo1Exit(Sender: TObject);
+begin
+  fDmCadVale.cdsValeOBS.AsString := Trim(fDmCadVale.cdsValeOBS.AsString);
 end;
 
 end.
