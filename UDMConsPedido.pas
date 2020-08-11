@@ -963,6 +963,22 @@ type
     dsGrupo_Pessoa: TDataSource;
     cdsGrupo_PessoaID: TIntegerField;
     cdsGrupo_PessoaNOME: TStringField;
+    cdsPedidoNOME_GRUPO_PESSOA: TStringField;
+    sdsPedido_GPessoa: TSQLDataSet;
+    dspPedido_GPessoa: TDataSetProvider;
+    cdsPedido_GPessoa: TClientDataSet;
+    dsPedido_GPessoa: TDataSource;
+    cdsPedido_GPessoaREFERENCIA: TStringField;
+    cdsPedido_GPessoaNOME_PRODUTO: TStringField;
+    cdsPedido_GPessoaQTD: TFloatField;
+    cdsPedido_GPessoaQTD_FATURADO: TFloatField;
+    cdsPedido_GPessoaQTD_RESTANTE: TFloatField;
+    cdsPedido_GPessoaNOME_COR_COMBINACAO: TStringField;
+    cdsPedido_GPessoaUNIDADE: TStringField;
+    cdsPedido_GPessoaID_PRODUTO: TIntegerField;
+    cdsPedido_GPessoaNOME_CLIENTE: TStringField;
+    cdsPedido_GPessoaNOME_GRUPO_PESSOA: TStringField;
+    frxPedido_GPessoa: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConsumoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_MatCalcFields(DataSet: TDataSet);
@@ -1003,6 +1019,7 @@ type
     ctCBarra : String;
     ctPedido_Est: String;
     ctPedido_Fat_Acum : String;
+    ctPedido_GPessoa : String;
 
     ctPedido_Nota, ctPedido_Vale, ctBaixa_Pedido, ctPedido_Fut: String;
     ctPedidoTipo : String;
@@ -1045,6 +1062,7 @@ begin
   ctConsPedido_Item_Proc := sdsConsPedido_Item_Proc.CommandText;
   ctPedido_Est := sdsPedido_Est.CommandText;
   ctPedido_Fat_Acum := sdsPedido_Fat_Acum.CommandText;
+  ctPedido_GPessoa := sdsPedido_GPessoa.CommandText;
 
   cdsParametros_Etiq.Close;
   sdsParametros_Etiq.ParamByName('ID').AsInteger := 1;

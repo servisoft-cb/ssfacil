@@ -1169,20 +1169,20 @@ object DMConsPedido: TDMConsPedido
       'VLR_RESTANTE, sum(V.VLR_FATURADO) VLR_FATURADO, sum(V.VLR_CANCEL' +
       'ADO) VLR_CANCELADO,'#13#10'CASE'#13#10'  WHEN coalesce(V.fantasia,'#39#39') = '#39#39' T' +
       'HEN V.nome_cliente'#13#10'  ELSE V.fantasia'#13#10'  END FANTASIA, V.ID_VEND' +
-      'EDOR_INT, V.NOME_VENDEDOR_INT'#13#10'from VPEDIDO_ITEM V'#13#10'left join PE' +
-      'SSOA TRA on V.ID_TRANSPORTADORA = TRA.CODIGO'#13#10'group by V.ID_CLIE' +
-      'NTE, V.ID, V.PEDIDO_CLIENTE, V.DTEMISSAO, V.NUM_PEDIDO, V.ID_VEN' +
-      'DEDOR, V.FILIAL, V.NOME_FILIAL,'#13#10'V.NOME_FILIAL_INT, V.NOME_CLIEN' +
-      'TE, V.CLIENTE_ESTOQUE, V.NOME_VENDEDOR, V.FANTASIA, V.DTENTREGA_' +
-      'ITEM, V.DTENTREGA_PED,'#13#10'V.APROVADO_PED, V.DTAPROVACAO, V.DTFATUR' +
-      'A, V.DTEXPEDICAO, V.NOME_PRODUTO_PROPOSTA, V.ID_TRANSPORTADORA, ' +
-      'TRA.NOME,'#13#10'V.UF, V.CIDADE, V.ID_VENDEDOR_INT, V.NOME_VENDEDOR_IN' +
-      'T'#13#10
+      'EDOR_INT, V.NOME_VENDEDOR_INT, V.nome_grupo_pessoa'#13#10'from VPEDIDO' +
+      '_ITEM V'#13#10'left join PESSOA TRA on V.ID_TRANSPORTADORA = TRA.CODIG' +
+      'O'#13#10'group by V.ID_CLIENTE, V.ID, V.PEDIDO_CLIENTE, V.DTEMISSAO, V' +
+      '.NUM_PEDIDO, V.ID_VENDEDOR, V.FILIAL, V.NOME_FILIAL,'#13#10'V.NOME_FIL' +
+      'IAL_INT, V.NOME_CLIENTE, V.CLIENTE_ESTOQUE, V.NOME_VENDEDOR, V.F' +
+      'ANTASIA, V.DTENTREGA_ITEM, V.DTENTREGA_PED,'#13#10'V.APROVADO_PED, V.D' +
+      'TAPROVACAO, V.DTFATURA, V.DTEXPEDICAO, V.NOME_PRODUTO_PROPOSTA, ' +
+      'V.ID_TRANSPORTADORA, TRA.NOME,'#13#10'V.UF, V.CIDADE, V.ID_VENDEDOR_IN' +
+      'T, V.NOME_VENDEDOR_INT, V.nome_grupo_pessoa'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 40
-    Top = 400
+    Top = 399
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -1341,6 +1341,10 @@ object DMConsPedido: TDMConsPedido
       DisplayLabel = 'Vendedor Interno'
       FieldName = 'NOME_VENDEDOR_INT'
       Size = 60
+    end
+    object cdsPedidoNOME_GRUPO_PESSOA: TStringField
+      FieldName = 'NOME_GRUPO_PESSOA'
+      Size = 40
     end
   end
   object dsPedido: TDataSource
@@ -5874,5 +5878,95 @@ object DMConsPedido: TDMConsPedido
     DataSet = cdsGrupo_Pessoa
     Left = 1019
     Top = 134
+  end
+  object sdsPedido_GPessoa: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select V.REFERENCIA, V.NOME_PRODUTO, sum(V.QTD) QTD, sum(V.QTD_F' +
+      'ATURADO) QTD_FATURADO,'#13#10'sum(V.QTD_RESTANTE) QTD_RESTANTE,'#13#10'     ' +
+      '  V.NOME_COR_COMBINACAO, V.UNIDADE, V.ID_PRODUTO, v.nome_cliente' +
+      ','#13#10'       case'#13#10'         when V.NOME_GRUPO_PESSOA is null then V' +
+      '.NOME_CLIENTE'#13#10'         else V.NOME_GRUPO_PESSOA'#13#10'       end NOM' +
+      'E_GRUPO_PESSOA'#13#10'from VPEDIDO_ITEM V  '#13#10'group by V.REFERENCIA, V.' +
+      'NOME_PRODUTO, V.NOME_COR_COMBINACAO, V.UNIDADE, V.ID_PRODUTO,'#13#10'v' +
+      '.nome_cliente, NOME_GRUPO_PESSOA'#13#10#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 271
+    Top = 394
+  end
+  object dspPedido_GPessoa: TDataSetProvider
+    DataSet = sdsPedido_GPessoa
+    UpdateMode = upWhereKeyOnly
+    Left = 310
+    Top = 394
+  end
+  object cdsPedido_GPessoa: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPedido_GPessoa'
+    Left = 350
+    Top = 394
+    object cdsPedido_GPessoaREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsPedido_GPessoaNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsPedido_GPessoaQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsPedido_GPessoaQTD_FATURADO: TFloatField
+      FieldName = 'QTD_FATURADO'
+    end
+    object cdsPedido_GPessoaQTD_RESTANTE: TFloatField
+      FieldName = 'QTD_RESTANTE'
+    end
+    object cdsPedido_GPessoaNOME_COR_COMBINACAO: TStringField
+      FieldName = 'NOME_COR_COMBINACAO'
+      Size = 60
+    end
+    object cdsPedido_GPessoaUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsPedido_GPessoaID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsPedido_GPessoaNOME_CLIENTE: TStringField
+      FieldName = 'NOME_CLIENTE'
+      Size = 60
+    end
+    object cdsPedido_GPessoaNOME_GRUPO_PESSOA: TStringField
+      FieldName = 'NOME_GRUPO_PESSOA'
+      Size = 60
+    end
+  end
+  object dsPedido_GPessoa: TDataSource
+    DataSet = cdsPedido_GPessoa
+    Left = 390
+    Top = 394
+  end
+  object frxPedido_GPessoa: TfrxDBDataset
+    UserName = 'frxPedido_GPessoa'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'REFERENCIA=REFERENCIA'
+      'NOME_PRODUTO=NOME_PRODUTO'
+      'QTD=QTD'
+      'QTD_FATURADO=QTD_FATURADO'
+      'QTD_RESTANTE=QTD_RESTANTE'
+      'NOME_COR_COMBINACAO=NOME_COR_COMBINACAO'
+      'UNIDADE=UNIDADE'
+      'ID_PRODUTO=ID_PRODUTO'
+      'NOME_CLIENTE=NOME_CLIENTE'
+      'NOME_GRUPO_PESSOA=NOME_GRUPO_PESSOA')
+    DataSource = dsPedido_GPessoa
+    BCDToCurrency = False
+    Left = 402
+    Top = 380
   end
 end

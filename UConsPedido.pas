@@ -53,7 +53,6 @@ type
     TS_Ref: TRzTabSheet;
     SMDBGrid2: TSMDBGrid;
     TS_Ref_Acum: TRzTabSheet;
-    SMDBGrid3: TSMDBGrid;
     btnConsultar: TNxButton;
     btnImprimir: TNxButton;
     TS_Cliente: TRzTabSheet;
@@ -121,6 +120,13 @@ type
     RxDBLookupCombo6: TRxDBLookupCombo;
     Shape: TShape;
     Label68: TLabel;
+    Label36: TLabel;
+    RxDBLookupCombo7: TRxDBLookupCombo;
+    RzPageControl3: TRzPageControl;
+    TS_Ref_Acum_Prod: TRzTabSheet;
+    TS_Ref_Acum_Cli: TRzTabSheet;
+    SMDBGrid3: TSMDBGrid;
+    SMDBGrid11: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -195,6 +201,7 @@ type
     procedure prc_GroupBy(ctTexto: String);
     procedure prc_Montar_RadioGroup2;
     procedure prc_Consultar_Ord_Prod;
+    procedure prc_Consultar_Ref_GPessoa;
 
     procedure prc_Somar_cdsPedido_item;
     procedure prc_Somar_cdsPedido;
@@ -313,6 +320,9 @@ begin
         2 : vComando := vComando + ' AND COALESCE(ITE.ENCOMENDA,' + QuotedStr('N') + ') = ' + QuotedStr('N');
       end;
     end;
+
+    if trim(RxDBLookupCombo7.Text) <> '' then
+      vComando := vComando + ' AND CLI.ID_GRUPO = ' + IntToStr(RxDBLookupCombo7.KeyValue);
 
   end;
   fDMConsPedido.sdsPedido_Item.CommandText := fDMConsPedido.sdsPedido_Item.CommandText + vComando;
@@ -659,7 +669,8 @@ begin
       vComando := vComando + ' AND V.PEDIDO_CLIENTE LIKE ' + QuotedStr('%'+Edit1.Text+'%');
     if CurrencyEdit1.AsInteger > 0 then
       vComando := vComando + ' AND V.NUM_PEDIDO = ' + IntToStr(CurrencyEdit1.AsInteger);
-
+    if RxDBLookupCombo7.Text <> '' then
+      vComando := vComando + ' AND V.ID_GRUPO_PESSOA = ' + IntToStr(RxDBLookupCombo7.KeyValue);
     case RadioGroup2.ItemIndex of
       0: vComando := vComando + ' AND V.QTD_RESTANTE > 0 ';
       1: vComando := vComando + ' AND V.QTD_FATURADO > 0 ';
@@ -863,7 +874,8 @@ begin
       vComando := vComando + ' AND V.PEDIDO_CLIENTE LIKE ' + QuotedStr('%'+Edit1.Text+'%');
     if CurrencyEdit1.AsInteger > 0 then
       vComando := vComando + ' AND V.NUM_PEDIDO = ' + IntToStr(CurrencyEdit1.AsInteger);
-
+    if RxDBLookupCombo7.Text <> '' then
+      vComando := vComando + ' AND V.ID_GRUPO_PESSOA = ' + IntToStr(RxDBLookupCombo7.KeyValue);
     case RadioGroup2.ItemIndex of
       0: vComando := vComando + ' AND V.QTD_RESTANTE > 0 ';
       1: vComando := vComando + ' AND V.QTD_FATURADO > 0 ';
@@ -936,7 +948,12 @@ begin
     prc_Consultar_Ref
   else
   if RzPageControl1.ActivePage = TS_Ref_Acum then
-    prc_Consultar_Ref_Acum
+  begin
+    if RzPageControl3.ActivePage = TS_Ref_Acum_Prod then
+      prc_Consultar_Ref_Acum
+    else
+      prc_Consultar_Ref_GPessoa;
+  end
   else
   if RzPageControl1.ActivePage = TS_Cliente then
     prc_Consultar_Cli
@@ -1016,6 +1033,8 @@ begin
   end;
   if RxDBLookupCombo6.Text <> '' then
     vOpcaoAux := vOpcaoAux + '(Vend.Interno: ' + RxDBLookupCombo6.Text + ')';
+  if RxDBLookupCombo7.Text <> '' then
+    vOpcaoAux := vOpcaoAux + '(Grupo Cliente: ' + RxDBLookupCombo7.Text + ')';
   fDMConsPedido.frxReport1.Variables['DataInicial'] := QuotedStr(DateToStr(DateEdit1.Date));
   if RzPageControl1.ActivePage = TS_Item then
   begin
@@ -1115,15 +1134,31 @@ begin
   else
   if RzPageControl1.ActivePage = TS_Ref_Acum then
   begin
-    SMDBGrid3.DisableScroll;
-    fRelPedido_Ref_Acum := TfRelPedido_Ref_Acum.Create(Self);
-    fRelPedido_Ref_Acum.fDMConsPedido := fDMConsPedido;
-    fRelPedido_Ref_Acum.vImp_Vlr      := ckMostrarPreco.Checked;
-    fRelPedido_Ref_Acum.vOpcaoImp     := vOpcaoAux;
-    fRelPedido_Ref_Acum.RLReport1.PreviewModal;
-    fRelPedido_Ref_Acum.RLReport1.Free;
-    FreeAndNil(fRelPedido_Ref_Acum);
-    SMDBGrid3.EnableScroll;
+    if RzPageControl3.ActivePage = TS_Ref_Acum_Prod then
+    begin
+      SMDBGrid3.DisableScroll;
+      fRelPedido_Ref_Acum := TfRelPedido_Ref_Acum.Create(Self);
+      fRelPedido_Ref_Acum.fDMConsPedido := fDMConsPedido;
+      fRelPedido_Ref_Acum.vImp_Vlr      := ckMostrarPreco.Checked;
+      fRelPedido_Ref_Acum.vOpcaoImp     := vOpcaoAux;
+      fRelPedido_Ref_Acum.RLReport1.PreviewModal;
+      fRelPedido_Ref_Acum.RLReport1.Free;
+      FreeAndNil(fRelPedido_Ref_Acum);
+      SMDBGrid3.EnableScroll;
+    end
+    else
+    begin
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_GPessoa.fr3';
+      if FileExists(vArq) then
+        fDMConsPedido.frxReport1.Report.LoadFromFile(vArq)
+      else
+      begin
+        ShowMessage('Relatorio não localizado! ' + vArq);
+        Exit;
+      end;
+      fDMConsPedido.frxReport1.variables['Opcao_Imp'] := QuotedStr(vOpcaoAux);
+      fDMConsPedido.frxReport1.ShowReport;
+    end;
   end
   else
   if RzPageControl1.ActivePage = TS_Cliente then
@@ -1394,7 +1429,16 @@ begin
   if RzPageControl1.ActivePage = TS_Item then
     prc_Somar_cdsPedido_item
   else
-    prc_Somar_cdsPedido;
+  if RzPageControl1.ActivePage = TS_Pedido then
+    prc_Somar_cdsPedido
+  else
+  begin
+    Label20.Caption := '0';
+    Label21.Caption := '0';
+    Label24.Caption := '0';
+    Label26.Caption := '0';
+  end;
+
 end;
 
 procedure TfrmConsPedido.prc_Somar_cdsPedido;
@@ -1673,6 +1717,75 @@ procedure TfrmConsPedido.RzPageControl1Change(Sender: TObject);
 begin
   Label34.Visible   := ((RzPageControl1.ActivePage = TS_Item) and (fDMConsPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S'));
   ComboBox4.Visible := ((RzPageControl1.ActivePage = TS_Item) and (fDMConsPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S'));
+end;
+
+procedure TfrmConsPedido.prc_Consultar_Ref_GPessoa;
+var
+  vOpcaoDtEntrega: String;
+  vComandoAux: String;
+  i: Integer;
+begin
+  fDMConsPedido.cdsPedido_GPessoa.Close;
+  i := PosEx('GROUP',UpperCase(fDMConsPedido.ctPedido_GPessoa),0);
+  vComandoAux := copy(fDMConsPedido.ctPedido_GPessoa,i,Length(fDMConsPedido.ctPedido_GPessoa) - i + 1);
+  vComando    := copy(fDMConsPedido.ctPedido_GPessoa,1,i-1);
+
+  case RadioGroup1.ItemIndex of
+    0: vComando := vComando + ' WHERE V.TIPO_REG = ' + QuotedStr('P');
+    1: vComando := vComando + ' WHERE V.TIPO_REG = ' + QuotedStr('O');
+    2: vComando := vComando + ' WHERE 1 = 1';
+  end;
+
+  if (fDMConsPedido.qParametrosUSA_APROVACAO_PED.AsString = 'S') and not(ckAprovado.Checked) then
+    vComando := vComando + ' AND V.APROVADO_PED = ' + QuotedStr('A');
+
+  if CurrencyEdit2.AsInteger > 0 then
+    vComando := vComando + ' AND V.NUM_PEDIDO IN (' + vOrdProducao + ')'
+  else
+  begin
+    case ComboBox2.ItemIndex of
+      0: vComando := vComando + ' AND V.CLIENTE_ESTOQUE = ' + QuotedStr('S');
+      1: vComando := vComando + ' AND V.CLIENTE_ESTOQUE = ' + QuotedStr('N');
+    end;
+    if RxDBLookupCombo1.Text <> '' then
+      vComando := vComando + ' AND V.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
+    if RxDBLookupCombo2.Text <> '' then
+      vComando := vComando + ' AND V.ID_CLIENTE = ' + IntToStr(RxDBLookupCombo2.KeyValue);
+    if RxDBLookupCombo3.Text <> '' then
+      vComando := vComando + ' AND V.ID_PRODUTO = ' + IntToStr(RxDBLookupCombo3.KeyValue);
+    if RxDBLookupCombo5.Text <> '' then
+      vComando := vComando + ' AND V.ID_VENDEDOR = ' + IntToStr(RxDBLookupCombo5.KeyValue);
+    if RxDBLookupCombo6.Text <> '' then
+      vComando := vComando + ' AND V.ID_VENDEDOR_INT = ' + IntToStr(RxDBLookupCombo6.KeyValue);
+    if DateEdit1.Date > 10 then
+      vComando := vComando + ' AND V.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
+    if DateEdit2.Date > 10 then
+      vComando := vComando + ' AND V.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
+    vOpcaoDtEntrega := '';
+    if fDMConsPedido.qParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P' then
+      vOpcaoDtEntrega := 'V.DTENTREGA_PED'
+    else
+      vOpcaoDtEntrega := 'V.DTENTREGA_ITEM';
+    if DateEdit3.Date > 10 then
+      vComando := vComando + ' AND ' + vOpcaoDtEntrega + ' >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit3.date));
+    if DateEdit4.Date > 10 then
+      vComando := vComando + ' AND ' + vOpcaoDtEntrega + ' <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit4.date));
+    if trim(Edit1.Text) <> '' then
+      vComando := vComando + ' AND V.PEDIDO_CLIENTE LIKE ' + QuotedStr('%'+Edit1.Text+'%');
+    if CurrencyEdit1.AsInteger > 0 then
+      vComando := vComando + ' AND V.NUM_PEDIDO = ' + IntToStr(CurrencyEdit1.AsInteger);
+    if RxDBLookupCombo7.Text <> '' then
+      vComando := vComando + ' AND V.ID_GRUPO_PESSOA = ' + IntToStr(RxDBLookupCombo7.KeyValue);
+    case RadioGroup2.ItemIndex of
+      0: vComando := vComando + ' AND V.QTD_RESTANTE > 0 ';
+      1: vComando := vComando + ' AND V.QTD_FATURADO > 0 ';
+      2: vComando := vComando + ' AND V.QTD_CANCELADO > 0 ';
+      4: vComando := vComando + ' AND V.QTD_FUT > 0 ';
+    end;
+  end;
+  fDMConsPedido.sdsPedido_GPessoa.CommandText := vComando + '  ' + vComandoAux;
+  fDMConsPedido.cdsPedido_GPessoa.Open;
+  fDMConsPedido.cdsPedido_GPessoa.IndexFieldNames := 'NOME_GRUPO_PESSOA;UNIDADE;REFERENCIA;NOME_PRODUTO;NOME_COR_COMBINACAO';
 end;
 
 end.

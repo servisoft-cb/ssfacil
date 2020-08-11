@@ -171,6 +171,14 @@ object frmConsPedido: TfrmConsPedido
       Alignment = taRightJustify
       Caption = 'Vendedor Interno:'
     end
+    object Label36: TLabel
+      Left = 657
+      Top = 136
+      Width = 82
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Grupo de Cliente:'
+    end
     object Edit1: TEdit
       Left = 739
       Top = 2
@@ -179,7 +187,7 @@ object frmConsPedido: TfrmConsPedido
       CharCase = ecUpperCase
       Ctl3D = True
       ParentCtl3D = False
-      TabOrder = 9
+      TabOrder = 13
       OnKeyDown = Edit1KeyDown
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
@@ -326,7 +334,7 @@ object frmConsPedido: TfrmConsPedido
         'Env. N'#227'o Cobr.'
         'Conferido')
       ParentCtl3D = False
-      TabOrder = 13
+      TabOrder = 20
       OnClick = RadioGroup2Click
     end
     object ComboBox2: TComboBox
@@ -337,7 +345,7 @@ object frmConsPedido: TfrmConsPedido
       Style = csDropDownList
       ItemHeight = 13
       ItemIndex = 1
-      TabOrder = 11
+      TabOrder = 16
       Text = 'N'#227'o Mostrar Ped. Estoque'
       Items.Strings = (
         'Mostrar Somente Ped. Estoque'
@@ -352,7 +360,7 @@ object frmConsPedido: TfrmConsPedido
       AutoSize = False
       DecimalPlaces = 0
       DisplayFormat = '0'
-      TabOrder = 10
+      TabOrder = 14
     end
     object CurrencyEdit2: TCurrencyEdit
       Left = 739
@@ -362,7 +370,7 @@ object frmConsPedido: TfrmConsPedido
       AutoSize = False
       DecimalPlaces = 0
       DisplayFormat = '0'
-      TabOrder = 14
+      TabOrder = 15
     end
     object cbImpCliente: TComboBox
       Left = 739
@@ -372,7 +380,7 @@ object frmConsPedido: TfrmConsPedido
       Style = csDropDownList
       ItemHeight = 13
       ItemIndex = 0
-      TabOrder = 15
+      TabOrder = 17
       Text = 'Fantasia'
       Items.Strings = (
         'Fantasia'
@@ -384,7 +392,7 @@ object frmConsPedido: TfrmConsPedido
       Width = 156
       Height = 17
       Caption = 'Mostrar Pend.de Aprova'#231#227'o'
-      TabOrder = 16
+      TabOrder = 11
       OnClick = ckAprovadoClick
     end
     object Edit2: TEdit
@@ -394,7 +402,7 @@ object frmConsPedido: TfrmConsPedido
       Height = 21
       Ctl3D = True
       ParentCtl3D = False
-      TabOrder = 17
+      TabOrder = 10
       OnKeyDown = Edit1KeyDown
     end
     object RadioGroup1: TRadioGroup
@@ -411,7 +419,7 @@ object frmConsPedido: TfrmConsPedido
         'Or'#231'amento'
         'Todos')
       ParentCtl3D = False
-      TabOrder = 18
+      TabOrder = 21
     end
     object ComboBox4: TComboBox
       Left = 739
@@ -421,7 +429,7 @@ object frmConsPedido: TfrmConsPedido
       Style = csDropDownList
       ItemHeight = 13
       ItemIndex = 0
-      TabOrder = 19
+      TabOrder = 18
       Text = 'Todos'
       Items.Strings = (
         'Todos'
@@ -439,8 +447,23 @@ object frmConsPedido: TfrmConsPedido
       LookupDisplay = 'NOME'
       LookupSource = DMConsPedido.dsVendedor
       ParentCtl3D = False
-      TabOrder = 20
+      TabOrder = 9
       OnEnter = RxDBLookupCombo5Enter
+    end
+    object RxDBLookupCombo7: TRxDBLookupCombo
+      Left = 739
+      Top = 128
+      Width = 259
+      Height = 21
+      DropDownCount = 8
+      Ctl3D = True
+      LookupField = 'ID'
+      LookupDisplay = 'NOME'
+      LookupSource = DMConsPedido.dsGrupo_Pessoa
+      ParentCtl3D = False
+      TabOrder = 19
+      OnEnter = RxDBLookupCombo2Enter
+      OnKeyDown = RxDBLookupCombo2KeyDown
     end
   end
   object RzPageControl1: TRzPageControl
@@ -448,7 +471,7 @@ object frmConsPedido: TfrmConsPedido
     Top = 203
     Width = 1017
     Height = 378
-    ActivePage = TS_RefComb
+    ActivePage = TS_Ref_Acum
     ActivePageDefault = TS_Item
     Align = alClient
     Color = 16755027
@@ -461,7 +484,7 @@ object frmConsPedido: TfrmConsPedido
     ParentColor = False
     ParentFont = False
     TabColors.Unselected = clGray
-    TabIndex = 7
+    TabIndex = 3
     TabOrder = 1
     TextColors.Unselected = 5197647
     OnChange = RzPageControl1Change
@@ -980,7 +1003,7 @@ object frmConsPedido: TfrmConsPedido
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 26
+        ColCount = 27
         RowCount = 2
         Columns = <
           item
@@ -1278,6 +1301,18 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
             Width = 338
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_GRUPO_PESSOA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Grupo Cliente'
+            Title.Font.Charset = DEFAULT_CHARSET
+            Title.Font.Color = clWindowText
+            Title.Font.Height = -11
+            Title.Font.Name = 'MS Sans Serif'
+            Title.Font.Style = []
             Visible = True
           end>
       end
@@ -1752,261 +1787,461 @@ object frmConsPedido: TfrmConsPedido
     object TS_Ref_Acum: TRzTabSheet
       Color = 16755027
       Caption = 'Produto Acumulado'
-      object SMDBGrid3: TSMDBGrid
+      object RzPageControl3: TRzPageControl
         Left = 0
         Top = 0
         Width = 1013
         Height = 355
+        ActivePage = TS_Ref_Acum_Prod
         Align = alClient
-        Ctl3D = False
-        DataSource = DMConsPedido.dsPedido_Ref_Acum
-        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-        ParentCtl3D = False
-        ReadOnly = True
+        BackgroundColor = 8453888
+        ParentBackgroundColor = False
+        ParentColor = False
+        TabIndex = 0
         TabOrder = 0
-        TitleFont.Charset = DEFAULT_CHARSET
-        TitleFont.Color = clWindowText
-        TitleFont.Height = -11
-        TitleFont.Name = 'MS Sans Serif'
-        TitleFont.Style = [fsBold]
-        OnTitleClick = SMDBGrid3TitleClick
-        Flat = True
-        BandsFont.Charset = DEFAULT_CHARSET
-        BandsFont.Color = clWindowText
-        BandsFont.Height = -11
-        BandsFont.Name = 'MS Sans Serif'
-        BandsFont.Style = []
-        Groupings = <>
-        GridStyle.Style = gsCustom
-        GridStyle.OddColor = clWindow
-        GridStyle.EvenColor = clWindow
-        TitleHeight.PixelCount = 24
-        FooterColor = clBtnFace
-        ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
-        OnGetCellParams = SMDBGrid3GetCellParams
-        RegistryKey = 'Software\Scalabium'
-        RegistrySection = 'SMDBGrid'
-        WidthOfIndicator = 11
-        DefaultRowHeight = 17
-        ScrollBars = ssHorizontal
-        ColCount = 13
-        RowCount = 2
-        Columns = <
-          item
-            Expanded = False
-            FieldName = 'REFERENCIA'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Refer'#234'ncia'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Visible = True
+        FixedDimension = 19
+        object TS_Ref_Acum_Prod: TRzTabSheet
+          Caption = 'Produto'
+          object SMDBGrid3: TSMDBGrid
+            Left = 0
+            Top = 0
+            Width = 1009
+            Height = 332
+            Align = alClient
+            Ctl3D = False
+            DataSource = DMConsPedido.dsPedido_Ref_Acum
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = [fsBold]
+            OnTitleClick = SMDBGrid3TitleClick
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsCustom
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+            OnGetCellParams = SMDBGrid3GetCellParams
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 17
+            ScrollBars = ssHorizontal
+            ColCount = 13
+            RowCount = 2
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'REFERENCIA'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Refer'#234'ncia'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_PRODUTO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Nome Produto'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 312
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD_PECA'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Pe'#231'a'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Pedido'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 67
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD_FATURADO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Faturado'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 77
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD_RESTANTE'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Pendente'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 82
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD_CANCELADO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Cancelada'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_RESTANTE'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Pendente'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 98
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_FATURADO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Faturado'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 98
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_CANCELADO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Cancelado'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 98
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_TOTAL'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Total'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 98
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'ID_PRODUTO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'ID Produto'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Visible = True
+              end>
           end
-          item
-            Expanded = False
-            FieldName = 'NOME_PRODUTO'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Nome Produto'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 312
-            Visible = True
+        end
+        object TS_Ref_Acum_Cli: TRzTabSheet
+          Caption = 'Cliente / Unidade'
+          object SMDBGrid11: TSMDBGrid
+            Left = 0
+            Top = 0
+            Width = 1009
+            Height = 332
+            Align = alClient
+            Ctl3D = False
+            DataSource = DMConsPedido.dsPedido_GPessoa
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = [fsBold]
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsCustom
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 17
+            ScrollBars = ssHorizontal
+            ColCount = 9
+            RowCount = 2
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'NOME_GRUPO_PESSOA'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Cliente'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 255
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'REFERENCIA'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Refer'#234'ncia'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_PRODUTO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Nome Produto'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 265
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'UNIDADE'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Unid.'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtde.'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 79
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD_FATURADO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Faturada'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 80
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD_RESTANTE'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Qtd. Pendente'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Width = 86
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_COR_COMBINACAO'
+                Font.Charset = DEFAULT_CHARSET
+                Font.Color = clWindowText
+                Font.Height = -11
+                Font.Name = 'MS Sans Serif'
+                Font.Style = []
+                Title.Alignment = taCenter
+                Title.Caption = 'Nome da Cor'
+                Title.Font.Charset = DEFAULT_CHARSET
+                Title.Font.Color = clWindowText
+                Title.Font.Height = -11
+                Title.Font.Name = 'MS Sans Serif'
+                Title.Font.Style = []
+                Visible = True
+              end>
           end
-          item
-            Expanded = False
-            FieldName = 'QTD_PECA'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Qtd. Pe'#231'a'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'QTD'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Qtd. Pedido'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 67
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'QTD_FATURADO'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Qtd. Faturado'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 77
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'QTD_RESTANTE'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Qtd. Pendente'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 82
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'QTD_CANCELADO'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Qtd. Cancelada'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VLR_RESTANTE'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Vlr. Pendente'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 98
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VLR_FATURADO'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Vlr. Faturado'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 98
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VLR_CANCELADO'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Vlr. Cancelado'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 98
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VLR_TOTAL'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'Vlr. Total'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Width = 98
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'ID_PRODUTO'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clWindowText
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            Title.Alignment = taCenter
-            Title.Caption = 'ID Produto'
-            Title.Font.Charset = DEFAULT_CHARSET
-            Title.Font.Color = clWindowText
-            Title.Font.Height = -11
-            Title.Font.Name = 'MS Sans Serif'
-            Title.Font.Style = []
-            Visible = True
-          end>
+        end
       end
     end
     object TS_Cliente: TRzTabSheet
@@ -4287,7 +4522,7 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'Final:'
     end
     object Label30: TLabel
-      Left = 522
+      Left = 466
       Top = 8
       Width = 84
       Height = 13
@@ -4295,7 +4530,7 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'Dt. Expedi'#231#227'o Ini:'
     end
     object Label31: TLabel
-      Left = 709
+      Left = 653
       Top = 8
       Width = 25
       Height = 13
@@ -4325,7 +4560,7 @@ object frmConsPedido: TfrmConsPedido
       TabOrder = 1
     end
     object DateEdit7: TDateEdit
-      Left = 607
+      Left = 551
       Top = 0
       Width = 100
       Height = 21
@@ -4336,7 +4571,7 @@ object frmConsPedido: TfrmConsPedido
       TabOrder = 2
     end
     object DateEdit8: TDateEdit
-      Left = 735
+      Left = 679
       Top = 0
       Width = 100
       Height = 21
