@@ -541,6 +541,12 @@ type
     cdsPedidoVLR_UNITARIO_IPI: TFloatField;
     sdsPedidoFILIAL: TIntegerField;
     cdsPedidoFILIAL: TIntegerField;
+    sdsValeOBS: TMemoField;
+    cdsValeOBS: TMemoField;
+    cdsValeImpOBS: TMemoField;
+    sdsValeIMPRESSO: TStringField;
+    cdsValeIMPRESSO: TStringField;
+    cdsValeConsIMPRESSO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspValeUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

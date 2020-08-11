@@ -3,8 +3,8 @@ unit uRelVale;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, RLReport, RLRichText, DB, DBTables,
-  RLBarcode, jpeg, UDMCadVale, UDMRel;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, RLReport, RLRichText, DB, DBTables, jpeg, UDMRel,
+  UDMCadVale;
 
 type
   TfRelVale = class(TForm)
@@ -133,6 +133,7 @@ type
     RLDBText43: TRLDBText;
     RLLabel39: TRLLabel;
     RLDBText44: TRLDBText;
+    RLDBMemo3: TRLDBMemo;
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
