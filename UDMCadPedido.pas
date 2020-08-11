@@ -3809,6 +3809,7 @@ type
     cdsRegiao_VendaID: TIntegerField;
     cdsRegiao_VendaNOME: TStringField;
     dsRegiao_Venda: TDataSource;
+    cdsPedidoImp_ItensVLR_TOTAL_COM_IPI: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

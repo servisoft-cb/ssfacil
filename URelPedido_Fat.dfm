@@ -37,24 +37,18 @@ object fRelPedido_Fat: TfRelPedido_Fat
       Left = 30
       Top = 30
       Width = 1063
-      Height = 78
+      Height = 60
       BandType = btHeader
       BeforePrint = RLBand1BeforePrint
-      object RLDraw5: TRLDraw
-        Left = 821
-        Top = 40
-        Width = 242
-        Height = 22
-      end
       object RLDraw1: TRLDraw
         Left = 0
-        Top = 61
+        Top = 43
         Width = 1063
         Height = 17
         Align = faBottom
       end
       object RLLabel1: TRLLabel
-        Left = 417
+        Left = 200
         Top = 2
         Width = 255
         Height = 19
@@ -67,8 +61,8 @@ object fRelPedido_Fat: TfRelPedido_Fat
         ParentFont = False
       end
       object RLLabel21: TRLLabel
-        Left = 964
-        Top = 2
+        Left = 968
+        Top = 0
         Width = 22
         Height = 12
         Caption = 'Pag:'
@@ -80,8 +74,8 @@ object fRelPedido_Fat: TfRelPedido_Fat
         ParentFont = False
       end
       object RLSystemInfo1: TRLSystemInfo
-        Left = 987
-        Top = 3
+        Left = 991
+        Top = 1
         Width = 32
         Height = 12
         Alignment = taCenter
@@ -95,8 +89,8 @@ object fRelPedido_Fat: TfRelPedido_Fat
         ParentFont = False
       end
       object RLLabel22: TRLLabel
-        Left = 944
-        Top = 16
+        Left = 948
+        Top = 14
         Width = 42
         Height = 12
         Caption = 'Emiss'#227'o:'
@@ -108,8 +102,8 @@ object fRelPedido_Fat: TfRelPedido_Fat
         ParentFont = False
       end
       object RLSystemInfo2: TRLSystemInfo
-        Left = 987
-        Top = 16
+        Left = 991
+        Top = 14
         Width = 64
         Height = 12
         Alignment = taCenter
@@ -137,97 +131,62 @@ object fRelPedido_Fat: TfRelPedido_Fat
       end
       object RLLabel4: TRLLabel
         Left = 0
-        Top = 64
+        Top = 45
         Width = 49
         Height = 12
         Caption = 'Refer'#234'ncia'
       end
       object RLLabel5: TRLLabel
         Left = 72
-        Top = 64
+        Top = 45
         Width = 35
         Height = 12
         Caption = 'Produto'
       end
       object RLLabel6: TRLLabel
         Left = 371
-        Top = 64
+        Top = 45
         Width = 17
         Height = 12
         Caption = 'OC'
       end
       object RLLabel8: TRLLabel
         Left = 315
-        Top = 64
+        Top = 45
         Width = 51
         Height = 12
         Caption = 'Ped.Interno'
       end
       object RLLabel9: TRLLabel
         Left = 712
-        Top = 64
+        Top = 45
         Width = 44
         Height = 12
         Caption = 'Qtd. Nota'
       end
-      object RLLabel10: TRLLabel
-        Left = 947
-        Top = 64
-        Width = 66
-        Height = 12
-        Caption = 'Q. J'#225' Faturada'
-      end
-      object RLLabel11: TRLLabel
-        Left = 1007
-        Top = 64
-        Width = 53
-        Height = 12
-        Caption = 'Dt.Entregue'
-      end
-      object RLLabel12: TRLLabel
-        Left = 826
-        Top = 64
-        Width = 52
-        Height = 12
-        Caption = 'Q.Pendente'
-      end
       object RLLabel13: TRLLabel
         Left = 782
-        Top = 64
+        Top = 45
         Width = 37
         Height = 12
         Caption = 'Vlr.Total'
       end
-      object RLLabel14: TRLLabel
-        Left = 882
-        Top = 64
-        Width = 59
-        Height = 12
-        Caption = 'Vlr. Pendente'
-      end
       object RLLabel7: TRLLabel
         Left = 466
-        Top = 64
+        Top = 45
         Width = 32
         Height = 12
         Caption = 'Cliente'
       end
-      object RLLabel23: TRLLabel
-        Left = 896
-        Top = 45
-        Width = 100
-        Height = 12
-        Caption = 'Informa'#231#245'es do Pedido'
-      end
       object RLDraw6: TRLDraw
         Left = 821
-        Top = 63
+        Top = 44
         Width = 1
         Height = 16
       end
       object RLLabel19: TRLLabel
         Left = 657
-        Top = 63
+        Top = 44
         Width = 24
         Height = 12
         Caption = 'Peso'
@@ -235,7 +194,7 @@ object fRelPedido_Fat: TfRelPedido_Fat
     end
     object RLSubDetail1: TRLSubDetail
       Left = 30
-      Top = 108
+      Top = 90
       Width = 1063
       Height = 68
       DataSource = DMConsPedido.dsPedido_Fat
@@ -245,45 +204,6 @@ object fRelPedido_Fat: TfRelPedido_Fat
         Width = 1063
         Height = 15
         BeforePrint = RLBand2BeforePrint
-        object RLDBText1: TRLDBText
-          Left = 1006
-          Top = 2
-          Width = 56
-          Height = 12
-          AutoSize = False
-          DataField = 'DTENTREGA'
-          DataSource = DMConsPedido.dsPedido_Fat
-        end
-        object RLDBText2: TRLDBText
-          Left = 943
-          Top = 2
-          Width = 63
-          Height = 12
-          Alignment = taRightJustify
-          AutoSize = False
-          DataField = 'QTD_FATURADO'
-          DataSource = DMConsPedido.dsPedido_Fat
-        end
-        object RLDBText3: TRLDBText
-          Left = 880
-          Top = 2
-          Width = 63
-          Height = 12
-          Alignment = taRightJustify
-          AutoSize = False
-          DataField = 'VLR_RESTANTE'
-          DataSource = DMConsPedido.dsPedido_Fat
-        end
-        object RLDBText4: TRLDBText
-          Left = 825
-          Top = 2
-          Width = 53
-          Height = 12
-          Alignment = taRightJustify
-          AutoSize = False
-          DataField = 'QTD_RESTANTE'
-          DataSource = DMConsPedido.dsPedido_Fat
-        end
         object RLDBText5: TRLDBText
           Left = 761
           Top = 2
@@ -395,7 +315,7 @@ object fRelPedido_Fat: TfRelPedido_Fat
         Left = 0
         Top = 15
         Width = 1063
-        Height = 32
+        Height = 19
         BandType = btSummary
         object RLDraw3: TRLDraw
           Left = 0
@@ -409,7 +329,7 @@ object fRelPedido_Fat: TfRelPedido_Fat
           Left = 0
           Top = 2
           Width = 1063
-          Height = 30
+          Height = 17
           Align = faClient
         end
         object RLLabel15: TRLLabel
@@ -424,15 +344,15 @@ object fRelPedido_Fat: TfRelPedido_Fat
           Left = 302
           Top = 5
           Width = 118
-          Height = 12
+          Height = 13
           DataField = 'QTD'
           DataSource = DMConsPedido.dsPedido_Fat
           Info = riSum
           ResetAfterPrint = True
         end
         object RLDBResult2: TRLDBResult
-          Left = 302
-          Top = 18
+          Left = 528
+          Top = 6
           Width = 114
           Height = 12
           DataField = 'VLR_TOTAL'
@@ -442,55 +362,18 @@ object fRelPedido_Fat: TfRelPedido_Fat
           ResetAfterPrint = True
         end
         object RLLabel16: TRLLabel
-          Left = 231
-          Top = 18
+          Left = 458
+          Top = 6
           Width = 69
           Height = 12
           Alignment = taRightJustify
           Caption = 'Vlr.Total (Nota):'
         end
-        object RLLabel17: TRLLabel
-          Left = 533
-          Top = 5
-          Width = 63
-          Height = 12
-          Alignment = taRightJustify
-          Caption = 'Qtd.Pendente:'
-        end
-        object RLDBResult3: TRLDBResult
-          Left = 598
-          Top = 5
-          Width = 90
-          Height = 12
-          DataField = 'QTD_RESTANTE'
-          DataSource = DMConsPedido.dsPedido_Fat
-          Info = riSum
-          ResetAfterPrint = True
-        end
-        object RLDBResult4: TRLDBResult
-          Left = 598
-          Top = 18
-          Width = 86
-          Height = 12
-          DataField = 'VLR_RESTANTE'
-          DataSource = DMConsPedido.dsPedido_Fat
-          DisplayMask = '###,###,##0.00'
-          Info = riSum
-          ResetAfterPrint = True
-        end
-        object RLLabel18: TRLLabel
-          Left = 537
-          Top = 18
-          Width = 59
-          Height = 12
-          Alignment = taRightJustify
-          Caption = 'Vlr.Pendente:'
-        end
       end
     end
     object RLSubDetail2: TRLSubDetail
       Left = 30
-      Top = 176
+      Top = 158
       Width = 1063
       Height = 89
       DataSource = DMConsPedido.dsTipoMaterial
@@ -498,11 +381,11 @@ object fRelPedido_Fat: TfRelPedido_Fat
         Left = 0
         Top = 0
         Width = 1063
-        Height = 25
+        Height = 22
         BandType = btHeader
         object RLLabel20: TRLLabel
           Left = 16
-          Top = 4
+          Top = 2
           Width = 262
           Height = 16
           Caption = 'Resumo Por Tipo de Material (Peso)'
@@ -516,7 +399,7 @@ object fRelPedido_Fat: TfRelPedido_Fat
       end
       object RLDetailGrid1: TRLDetailGrid
         Left = 0
-        Top = 25
+        Top = 22
         Width = 1063
         Height = 19
         ColCount = 5

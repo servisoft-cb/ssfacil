@@ -4947,21 +4947,24 @@ object DMCadPedido: TDMCadPedido
       ' QTD_POR_ROTULO_PROD,'#13#10'  PRO.QTD_EMBALAGEM QTD_EMBALAGEM_PROD, P' +
       'RO.MEDIDA, UNI.mostrar_grosa,'#13#10'  corp.nome nome_cor_perfil, CORV' +
       '.nome NOME_COR_VIDRO,'#13#10'  PT.preco_cor_perfil, PT.preco_cor_vidro' +
-      #13#10#13#10'FROM PEDIDO_ITEM PI'#13#10'inner JOIN PRODUTO PRO ON (PI.ID_PRODUT' +
-      'O = PRO.ID)'#13#10'LEFT JOIN MARCA ON (PRO.ID_MARCA = MARCA.ID)'#13#10'LEFT ' +
-      'JOIN PEDIDO_ITEM_TIPO PT ON (PI.ID = PT.ID AND PI.ITEM = PT.ITEM' +
-      ')'#13#10'LEFT JOIN TAB_NCM NCM ON (PRO.ID_NCM = NCM.ID)'#13#10'LEFT JOIN COM' +
-      'BINACAO COMB ON (PI.ID_COR = COMB.ID)'#13#10'LEFT JOIN PRODUTO_TAM PTA' +
-      'M ON (PI.id_produto = PTAM.id AND PI.tamanho = PTAM.tamanho)'#13#10'LE' +
-      'FT JOIN PESSOA ATE ON (PI.id_atelier = ATE.CODIGO )'#13#10'LEFT JOIN P' +
-      'RODUTO_LOTE PLOTE ON (PI.ID_PRODUTO = PLOTE.ID AND PI.NUM_LOTE_C' +
-      'ONTROLE = PLOTE.NUM_LOTE_CONTROLE)'#13#10'LEFT JOIN TIPO_MATERIAL TMAT' +
-      ' ON (PT.ID_TIPO_MATERIAL = TMAT.ID)'#13#10'LEFT JOIN MATRIZ_PRECO MP O' +
-      'N MP.ID = PT.ID_ACABAMENTO'#13#10'LEFT JOIN UNIDADE UNI ON PI.UNIDADE ' +
-      '= UNI.unidade'#13#10'LEFT JOIN COMBINACAO CORP ON PT.id_cor_perfil = C' +
-      'ORP.ID'#13#10'LEFT JOIN COMBINACAO CORV ON PT.id_cor_vidro = CORV.ID'#13#10 +
-      #13#10'WHERE PI.ID = :ID'#13#10'AND ((PI.TIPO_ACESSORIO = '#39'N'#39') OR (PI.TIPO_' +
-      'ACESSORIO IS NULL))'#13#10' AND (PI.QTD > 0)'#13#10
+      ','#13#10'case'#13#10'  when coalesce(PI.vlr_unitario_ipi,0) > 0 THEN (pi.vlr' +
+      '_unitario_ipi * pi.qtd) - (coalesce(pi.vlr_desconto,0) + coalesc' +
+      'e(pi.vlr_descontorateio,0))'#13#10'  else pi.vlr_total'#13#10'  end vlr_tota' +
+      'l_com_ipi'#13#10#13#10'FROM PEDIDO_ITEM PI'#13#10'inner JOIN PRODUTO PRO ON (PI.' +
+      'ID_PRODUTO = PRO.ID)'#13#10'LEFT JOIN MARCA ON (PRO.ID_MARCA = MARCA.I' +
+      'D)'#13#10'LEFT JOIN PEDIDO_ITEM_TIPO PT ON (PI.ID = PT.ID AND PI.ITEM ' +
+      '= PT.ITEM)'#13#10'LEFT JOIN TAB_NCM NCM ON (PRO.ID_NCM = NCM.ID)'#13#10'LEFT' +
+      ' JOIN COMBINACAO COMB ON (PI.ID_COR = COMB.ID)'#13#10'LEFT JOIN PRODUT' +
+      'O_TAM PTAM ON (PI.id_produto = PTAM.id AND PI.tamanho = PTAM.tam' +
+      'anho)'#13#10'LEFT JOIN PESSOA ATE ON (PI.id_atelier = ATE.CODIGO )'#13#10'LE' +
+      'FT JOIN PRODUTO_LOTE PLOTE ON (PI.ID_PRODUTO = PLOTE.ID AND PI.N' +
+      'UM_LOTE_CONTROLE = PLOTE.NUM_LOTE_CONTROLE)'#13#10'LEFT JOIN TIPO_MATE' +
+      'RIAL TMAT ON (PT.ID_TIPO_MATERIAL = TMAT.ID)'#13#10'LEFT JOIN MATRIZ_P' +
+      'RECO MP ON MP.ID = PT.ID_ACABAMENTO'#13#10'LEFT JOIN UNIDADE UNI ON PI' +
+      '.UNIDADE = UNI.unidade'#13#10'LEFT JOIN COMBINACAO CORP ON PT.id_cor_p' +
+      'erfil = CORP.ID'#13#10'LEFT JOIN COMBINACAO CORV ON PT.id_cor_vidro = ' +
+      'CORV.ID'#13#10#13#10'WHERE PI.ID = :ID'#13#10'AND ((PI.TIPO_ACESSORIO = '#39'N'#39') OR ' +
+      '(PI.TIPO_ACESSORIO IS NULL))'#13#10' AND (PI.QTD > 0)'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -4970,8 +4973,8 @@ object DMCadPedido: TDMCadPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 175
-    Top = 401
+    Left = 174
+    Top = 402
   end
   object cdsPedidoImp_Itens: TClientDataSet
     Aggregates = <>
@@ -5587,6 +5590,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedidoImp_ItensVLR_UNITARIO_IPI: TFloatField
       FieldName = 'VLR_UNITARIO_IPI'
+    end
+    object cdsPedidoImp_ItensVLR_TOTAL_COM_IPI: TFloatField
+      FieldName = 'VLR_TOTAL_COM_IPI'
     end
   end
   object dsPedidoImp_Itens: TDataSource
@@ -10877,7 +10883,6 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44046.927582013890000000
     ReportOptions.LastChange = 44042.733686087970000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False

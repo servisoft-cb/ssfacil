@@ -21,18 +21,10 @@ type
     RLLabel6: TRLLabel;
     RLLabel8: TRLLabel;
     RLLabel9: TRLLabel;
-    RLLabel10: TRLLabel;
-    RLLabel11: TRLLabel;
-    RLLabel12: TRLLabel;
     RLLabel13: TRLLabel;
-    RLLabel14: TRLLabel;
     RLDraw1: TRLDraw;
     RLSubDetail1: TRLSubDetail;
     RLBand2: TRLBand;
-    RLDBText1: TRLDBText;
-    RLDBText2: TRLDBText;
-    RLDBText3: TRLDBText;
-    RLDBText4: TRLDBText;
     RLDBText5: TRLDBText;
     RLDBText6: TRLDBText;
     RLDBText8: TRLDBText;
@@ -48,12 +40,6 @@ type
     RLDBResult1: TRLDBResult;
     RLDBResult2: TRLDBResult;
     RLLabel16: TRLLabel;
-    RLLabel17: TRLLabel;
-    RLDBResult3: TRLDBResult;
-    RLDBResult4: TRLDBResult;
-    RLLabel18: TRLLabel;
-    RLDraw5: TRLDraw;
-    RLLabel23: TRLLabel;
     RLDraw6: TRLDraw;
     RLMemo1: TRLMemo;
     RLDBText11: TRLDBText;
@@ -101,14 +87,10 @@ procedure TfRelPedido_Fat.RLReport1BeforePrint(Sender: TObject;
 begin
   oDBUtils.SetDataSourceProperties(Self,fDMConsPedido);
   RLLabel13.Visible := vImp_Vlr;
-  RLLabel14.Visible := vImp_Vlr;
   RLDBText5.Visible := vImp_Vlr;
-  RLDBText3.Visible := vImp_Vlr;
 
   RLLabel16.Visible   := vImp_Vlr;
-  RLLabel18.Visible   := vImp_Vlr;
   RLDBResult2.Visible := vImp_Vlr;
-  RLDBResult4.Visible := vImp_Vlr;
   if vImpCliente_RF = 'R' then
     RLDBText7.DataField := 'NOME_CLIENTE'
   else

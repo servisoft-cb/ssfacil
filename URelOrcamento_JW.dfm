@@ -1030,12 +1030,12 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText23: TRLDBText
-            Left = 929
+            Left = 886
             Top = 0
-            Width = 54
+            Width = 97
             Height = 12
             Alignment = taRightJustify
-            DataField = 'VLR_TOTAL'
+            DataField = 'VLR_TOTAL_COM_IPI'
             DataSource = DMCadPedido.dsPedidoImp_Itens
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack

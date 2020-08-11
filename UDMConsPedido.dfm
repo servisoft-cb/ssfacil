@@ -1353,35 +1353,34 @@ object DMConsPedido: TDMConsPedido
     GetMetadata = False
     CommandText = 
       'select NP.ID ID_NOTA, NP.ITEM ITEM_NOTA, NT.NUMNOTA, NT.DTEMISSA' +
-      'O, NT.SERIE, NT.TIPO_NOTA, PED.PEDIDO_CLIENTE,'#13#10'       NP.ID_PED' +
-      'IDO, PES.NOME, NI.REFERENCIA, NI.NOME_PRODUTO, NI.VLR_UNITARIO, ' +
-      'NI.VLR_DESCONTO, NI.VLR_DESCONTORATEIO,'#13#10'       NI.VLR_TOTAL, NI' +
-      '.QTD, pi.DTENTREGA, pi.QTD QTD_PEDIDO, pi.QTD_FATURADO, pi.QTD_R' +
-      'ESTANTE, NP.ITEM_PEDIDO,'#13#10'       NP.NUM_PEDIDO, NT.FILIAL, PES.N' +
-      'OME NOME_CLIENTE,'#13#10'       ((pi.VLR_UNITARIO - pi.VLR_DESCONTO) *' +
-      ' pi.QTD_RESTANTE) VLR_RESTANTE,'#13#10'       ((pi.VLR_UNITARIO - pi.V' +
-      'LR_DESCONTO) * pi.QTD_FATURADO) VLR_FATURADO,'#13#10'       ((pi.VLR_U' +
-      'NITARIO - pi.VLR_DESCONTO) * pi.QTD_CANCELADO) VLR_CANCELADO, CO' +
-      'MB.NOME NOME_COR_COMBINACAO,'#13#10'       CFOP.CODCFOP, PED.DTEMISSAO' +
-      ' DTEMISSAO_PED,'#13#10'CASE'#13#10'  WHEN PROD.tipo_producao = '#39'T'#39' THEN '#39'Tra' +
-      'n'#231'adeira'#39#13#10'  WHEN PROD.tipo_producao = '#39'E'#39' THEN '#39'Tear'#39#13#10'  end De' +
-      'sc_Tipo_Producao,'#13#10'CASE'#13#10'  WHEN NT.SERIE = '#39'RNF'#39' then '#39'REC'#39#13#10'  E' +
-      'LSE '#39'NF'#39#13#10'  end DESC_NOTA, NI.unidade, PROD.unidade UNIDADE_PROD' +
-      'UTO,'#13#10'  ni.id_produto, uconv.qtd qtd_conversor ,'#13#10'case'#13#10'  when c' +
-      'oalesce(uconv.qtd,0) > 0 then coalesce(PROD.pesobruto,0) * coale' +
-      'sce(NI.qtd,0) * uconv.qtd'#13#10'  else coalesce(PROD.pesobruto,0) * c' +
-      'oalesce(NI.qtd,0)'#13#10'  end PESOBRUTO,'#13#10'case'#13#10'  when coalesce(PES.F' +
-      'ANTASIA,'#39#39') = '#39#39' then pes.nome'#13#10'  else PES.FANTASIA'#13#10'  end FANTA' +
-      'SIA'#13#10'from NOTAFISCAL_PED NP'#13#10'inner join NOTAFISCAL NT on (NP.ID ' +
-      '= NT.ID)'#13#10'inner join NOTAFISCAL_ITENS NI on (NP.ID = NI.ID and N' +
-      'P.ITEM = NI.ITEM)'#13#10'inner join PEDIDO PED on (NP.ID_PEDIDO = PED.' +
-      'ID)'#13#10'inner join PEDIDO_ITEM pi on (NP.ID_PEDIDO = pi.ID and NP.I' +
-      'TEM_PEDIDO = pi.ITEM)'#13#10'inner join PESSOA PES on (PED.ID_CLIENTE ' +
-      '= PES.CODIGO)'#13#10'left join COMBINACAO COMB on pi.ID_COR = COMB.ID ' +
-      ' '#13#10'LEFT JOIN TAB_CFOP CFOP ON (NI.ID_CFOP = CFOP.ID)'#13#10'left join ' +
-      'PRODUTO PROD on NI.ID_PRODUTO = PROD.ID  '#13#10'left join unidade_con' +
-      'v uconv'#13#10'on prod.unidade = uconv.unidade'#13#10'and ni.unidade = uconv' +
-      '.unidade_conv'#13#10
+      'O, NT.SERIE, NT.TIPO_NOTA, PED.PEDIDO_CLIENTE,'#13#10'        NP.ID_PE' +
+      'DIDO, PES.NOME, NI.REFERENCIA, NI.NOME_PRODUTO, NI.VLR_UNITARIO,' +
+      ' NI.VLR_DESCONTO,'#13#10'       NI.VLR_DESCONTORATEIO,  NI.VLR_TOTAL, ' +
+      'NI.QTD,'#13#10'       NP.ITEM_PEDIDO,  NP.NUM_PEDIDO, NT.FILIAL, PES.N' +
+      'OME NOME_CLIENTE,'#13#10'       COMB.NOME NOME_COR_COMBINACAO,'#13#10'      ' +
+      '  CFOP.CODCFOP, PED.DTEMISSAO DTEMISSAO_PED, '#13#10'       case '#13#10'   ' +
+      '      when PROD.TIPO_PRODUCAO = '#39'T'#39' then '#39'Tran'#231'adeira'#39#13#10'        ' +
+      ' when PROD.TIPO_PRODUCAO = '#39'E'#39' then '#39'Tear'#39#13#10'       end DESC_TIPO' +
+      '_PRODUCAO,'#13#10'       case'#13#10'         when NT.SERIE = '#39'RNF'#39' then '#39'RE' +
+      'C'#39#13#10'         else '#39'NF'#39#13#10'       end DESC_NOTA,'#13#10'       NI.UNIDADE' +
+      ', PROD.UNIDADE UNIDADE_PRODUTO,  NI.ID_PRODUTO, UCONV.QTD QTD_CO' +
+      'NVERSOR, '#13#10'       case '#13#10'         when coalesce(UCONV.QTD, 0) > ' +
+      '0 then coalesce(PROD.PESOBRUTO, 0) * coalesce(NI.QTD, 0) * UCONV' +
+      '.QTD '#13#10'         else coalesce(PROD.PESOBRUTO, 0) * coalesce(NI.Q' +
+      'TD, 0) '#13#10'       end PESOBRUTO,'#13#10'       '#13#10'       case '#13#10'         ' +
+      'when coalesce(PES.FANTASIA, '#39#39') = '#39#39' then PES.NOME '#13#10'         el' +
+      'se PES.FANTASIA '#13#10'       end FANTASIA, GP.NOME NOME_GRUPO_PESSOA' +
+      ','#13#10'case'#13#10'  when GP.NOME IS NULL THEN PES.NOME'#13#10'  ELSE GP.NOME'#13#10' ' +
+      ' END NOME_GRUPO_PESSOA2'#13#10#13#10'from NOTAFISCAL_PED NP '#13#10'inner join N' +
+      'OTAFISCAL_ITENS NI on (NP.ID = NI.ID and NP.ITEM = NI.ITEM) '#13#10'in' +
+      'ner join NOTAFISCAL NT on (NI.ID = NT.ID)'#13#10'inner join PEDIDO PED' +
+      ' on (NP.id_pedido = PED.ID)'#13#10'inner join PESSOA PES on (PED.ID_CL' +
+      'IENTE = PES.CODIGO)'#13#10'LEFT JOIN grupo_pessoa GP ON PES.ID_GRUPO =' +
+      ' GP.id'#13#10'left join COMBINACAO COMB on NI.ID_COR = COMB.ID'#13#10'left j' +
+      'oin TAB_CFOP CFOP on (NI.ID_CFOP = CFOP.ID) '#13#10'left join PRODUTO ' +
+      'PROD on NI.ID_PRODUTO = PROD.ID '#13#10'left join UNIDADE_CONV UCONV  ' +
+      'on PROD.UNIDADE = UCONV.UNIDADE  and NI.UNIDADE = UCONV.UNIDADE_' +
+      'CONV '#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1397,8 +1396,8 @@ object DMConsPedido: TDMConsPedido
     Aggregates = <>
     Params = <>
     ProviderName = 'dspPedido_Fat'
-    Left = 120
-    Top = 448
+    Left = 121
+    Top = 449
     object cdsPedido_FatID_NOTA: TIntegerField
       DisplayLabel = 'ID Nota'
       FieldName = 'ID_NOTA'
@@ -1475,40 +1474,9 @@ object DMConsPedido: TDMConsPedido
       DisplayWidth = 10
       FieldName = 'QTD'
     end
-    object cdsPedido_FatDTENTREGA: TDateField
-      DisplayLabel = 'Dt. Entrega'
-      FieldName = 'DTENTREGA'
-    end
-    object cdsPedido_FatQTD_PEDIDO: TFloatField
-      DisplayLabel = 'Qtd. Pedido'
-      FieldName = 'QTD_PEDIDO'
-      DisplayFormat = '0.000##'
-    end
-    object cdsPedido_FatQTD_FATURADO: TFloatField
-      DisplayLabel = 'Qtd. J'#225' Faturado (Pedido)'
-      FieldName = 'QTD_FATURADO'
-      DisplayFormat = '0.000##'
-    end
-    object cdsPedido_FatQTD_RESTANTE: TFloatField
-      DisplayLabel = 'Qtd. Restante'
-      FieldName = 'QTD_RESTANTE'
-      DisplayFormat = '0.000##'
-    end
     object cdsPedido_FatITEM_PEDIDO: TIntegerField
       DisplayLabel = 'Item Pedido'
       FieldName = 'ITEM_PEDIDO'
-    end
-    object cdsPedido_FatVLR_RESTANTE: TFloatField
-      DisplayLabel = 'Vlr. Restante'
-      FieldName = 'VLR_RESTANTE'
-    end
-    object cdsPedido_FatVLR_FATURADO: TFloatField
-      DisplayLabel = 'Vlr. Faturado'
-      FieldName = 'VLR_FATURADO'
-    end
-    object cdsPedido_FatVLR_CANCELADO: TFloatField
-      DisplayLabel = 'Vlr. Cancelado'
-      FieldName = 'VLR_CANCELADO'
     end
     object cdsPedido_FatNUM_PEDIDO: TIntegerField
       DisplayLabel = 'N'#186' Ped. Interno'
@@ -1566,6 +1534,14 @@ object DMConsPedido: TDMConsPedido
     end
     object cdsPedido_FatQTD_CONVERSOR: TFloatField
       FieldName = 'QTD_CONVERSOR'
+    end
+    object cdsPedido_FatNOME_GRUPO_PESSOA: TStringField
+      FieldName = 'NOME_GRUPO_PESSOA'
+      Size = 40
+    end
+    object cdsPedido_FatNOME_GRUPO_PESSOA2: TStringField
+      FieldName = 'NOME_GRUPO_PESSOA2'
+      Size = 60
     end
   end
   object dsPedido_Fat: TDataSource
@@ -2599,14 +2575,14 @@ object DMConsPedido: TDMConsPedido
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42032.577038136600000000
-    ReportOptions.LastChange = 44037.655639259260000000
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 44053.971506539350000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 706
+    Left = 707
     Top = 360
   end
   object frxDBDataset1: TfrxDBDataset
@@ -3909,8 +3885,8 @@ object DMConsPedido: TDMConsPedido
       'SELECT *'
       'FROM PARAMETROS_ETIQ')
     SQLConnection = dmDatabase.scoDados
-    Left = 367
-    Top = 312
+    Left = 374
+    Top = 335
     object qParametros_EtiqID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -4191,12 +4167,6 @@ object DMConsPedido: TDMConsPedido
     Left = 704
     Top = 456
   end
-  object ClientDataSet1: TClientDataSet
-    Aggregates = <>
-    Params = <>
-    Left = 813
-    Top = 139
-  end
   object mNotas_Ped: TClientDataSet
     Active = True
     Aggregates = <>
@@ -4283,12 +4253,13 @@ object DMConsPedido: TDMConsPedido
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT DISTINCT PED.PEDIDO_CLIENTE, PED.NOME_CLIENTE, NF.NUMNOTA' +
-      ', NF.DTEMISSAO, NFP.ITEM, NFP.DTVENCIMENTO, NFP.VLR_VENCIMENTO'#13#10 +
-      'FROM NOTAFISCAL_PARC NFP'#13#10' INNER JOIN NOTAFISCAL NF ON (NFP.ID =' +
-      ' NF.ID)'#13#10' INNER JOIN NOTAFISCAL_PED NFPED ON (NFPED.ID = NF.ID)'#13 +
-      #10' INNER JOIN PEDIDO PED ON (NFPED.ID_PEDIDO = PED.ID)'#13#10'WHERE 0 =' +
-      ' 0'
+      'SELECT DISTINCT PED.PEDIDO_CLIENTE, cli.nome NOME_CLIENTE, NF.NU' +
+      'MNOTA, NF.DTEMISSAO, NFP.ITEM, NFP.DTVENCIMENTO, NFP.VLR_VENCIME' +
+      'NTO'#13#10'FROM NOTAFISCAL_PARC NFP'#13#10' INNER JOIN NOTAFISCAL NF ON (NFP' +
+      '.ID = NF.ID)'#13#10' INNER JOIN NOTAFISCAL_PED NFPED ON (NFPED.ID = NF' +
+      '.ID)'#13#10' INNER JOIN PEDIDO PED ON (NFPED.ID_PEDIDO = PED.ID)'#13#10' INN' +
+      'ER JOIN PESSOA CLI ON NF.ID_CLIENTE = CLI.CODIGO'#13#10'WHERE 0 = 0'#13#10#13 +
+      #10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -5785,5 +5756,123 @@ object DMConsPedido: TDMConsPedido
     BCDToCurrency = False
     Left = 995
     Top = 450
+  end
+  object sdsPedido_Fat_Acum: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select NI.REFERENCIA, NI.NOME_PRODUTO, sum(NI.QTD) QTD, COMB.NOM' +
+      'E NOME_COR_COMBINACAO,'#13#10'       NI.UNIDADE, NI.ID_PRODUTO,'#13#10'     ' +
+      '  case'#13#10'         when GP.NOME is null then PES.NOME'#13#10'         el' +
+      'se GP.NOME'#13#10'       end NOME_GRUPO_PESSOA'#13#10'from NOTAFISCAL_PED NP' +
+      #13#10'inner join NOTAFISCAL_ITENS NI on (NP.ID = NI.ID and NP.ITEM =' +
+      ' NI.ITEM)'#13#10'inner join NOTAFISCAL NT on (NI.ID = NT.ID)'#13#10'inner jo' +
+      'in PESSOA PES on (NT.ID_CLIENTE = PES.CODIGO)'#13#10'INNER JOIN PEDIDO' +
+      ' PED ON NI.id_pedido = PED.ID'#13#10'left join GRUPO_PESSOA GP on PES.' +
+      'ID_GRUPO = GP.ID'#13#10'left join COMBINACAO COMB on NI.ID_COR = COMB.' +
+      'ID'#13#10'left join PRODUTO PROD on NI.ID_PRODUTO = PROD.ID'#13#10'GROUP BY ' +
+      'NI.REFERENCIA, NI.NOME_PRODUTO, COMB.NOME,'#13#10'       NI.UNIDADE, N' +
+      'I.ID_PRODUTO, NOME_GRUPO_PESSOA'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 266
+    Top = 427
+  end
+  object dspPedido_Fat_Acum: TDataSetProvider
+    DataSet = sdsPedido_Fat_Acum
+    UpdateMode = upWhereKeyOnly
+    Left = 306
+    Top = 427
+  end
+  object cdsPedido_Fat_Acum: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPedido_Fat_Acum'
+    Left = 346
+    Top = 427
+    object cdsPedido_Fat_AcumREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsPedido_Fat_AcumNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsPedido_Fat_AcumQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsPedido_Fat_AcumNOME_COR_COMBINACAO: TStringField
+      FieldName = 'NOME_COR_COMBINACAO'
+      Size = 60
+    end
+    object cdsPedido_Fat_AcumUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsPedido_Fat_AcumID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsPedido_Fat_AcumNOME_GRUPO_PESSOA: TStringField
+      FieldName = 'NOME_GRUPO_PESSOA'
+      Size = 60
+    end
+  end
+  object dsPedido_Fat_Acum: TDataSource
+    DataSet = cdsPedido_Fat_Acum
+    Left = 386
+    Top = 427
+  end
+  object frxPedido_Fat_Acum: TfrxDBDataset
+    UserName = 'frxPedido_Fat_Acum'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'REFERENCIA=REFERENCIA'
+      'NOME_PRODUTO=NOME_PRODUTO'
+      'QTD=QTD'
+      'NOME_COR_COMBINACAO=NOME_COR_COMBINACAO'
+      'UNIDADE=UNIDADE'
+      'ID_PRODUTO=ID_PRODUTO'
+      'NOME_GRUPO_PESSOA=NOME_GRUPO_PESSOA')
+    DataSource = dsPedido_Fat_Acum
+    BCDToCurrency = False
+    Left = 406
+    Top = 436
+  end
+  object sdsGrupo_Pessoa: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'select *'#13#10'from grupo_pessoa'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 899
+    Top = 133
+  end
+  object dspGrupo_Pessoa: TDataSetProvider
+    DataSet = sdsGrupo_Pessoa
+    UpdateMode = upWhereKeyOnly
+    Left = 939
+    Top = 133
+  end
+  object cdsGrupo_Pessoa: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'NOME'
+    Params = <>
+    ProviderName = 'dspGrupo_Pessoa'
+    Left = 979
+    Top = 133
+    object cdsGrupo_PessoaID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsGrupo_PessoaNOME: TStringField
+      FieldName = 'NOME'
+      Size = 40
+    end
+  end
+  object dsGrupo_Pessoa: TDataSource
+    DataSet = cdsGrupo_Pessoa
+    Left = 1019
+    Top = 134
   end
 end

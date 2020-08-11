@@ -168,14 +168,7 @@ type
     cdsPedido_FatVLR_DESCONTORATEIO: TFloatField;
     cdsPedido_FatVLR_TOTAL: TFloatField;
     cdsPedido_FatQTD: TFloatField;
-    cdsPedido_FatDTENTREGA: TDateField;
-    cdsPedido_FatQTD_PEDIDO: TFloatField;
-    cdsPedido_FatQTD_FATURADO: TFloatField;
-    cdsPedido_FatQTD_RESTANTE: TFloatField;
     cdsPedido_FatITEM_PEDIDO: TIntegerField;
-    cdsPedido_FatVLR_RESTANTE: TFloatField;
-    cdsPedido_FatVLR_FATURADO: TFloatField;
-    cdsPedido_FatVLR_CANCELADO: TFloatField;
     cdsPedido_FatNUM_PEDIDO: TIntegerField;
     cdsPedido_FatFILIAL: TIntegerField;
     cdsPedido_FatFANTASIA: TStringField;
@@ -588,7 +581,6 @@ type
     qParametros_PedUSA_OPERACAO_SERV: TStringField;
     qParametros_PedUSA_OS_REMESSA: TStringField;
     frxPedido_Item: TfrxDBDataset;
-    ClientDataSet1: TClientDataSet;
     mNotas_Ped: TClientDataSet;
     mNotas_PedID_Pedido: TIntegerField;
     mNotas_PedItem_Pedido: TIntegerField;
@@ -951,6 +943,26 @@ type
     cdsPedido_ItemNUM_ORCAMENTO: TIntegerField;
     cdsPedido_ItemAPROVADO_ORC: TStringField;
     cdsPedido_EstQTD_PESO: TFloatField;
+    cdsPedido_FatNOME_GRUPO_PESSOA: TStringField;
+    cdsPedido_FatNOME_GRUPO_PESSOA2: TStringField;
+    sdsPedido_Fat_Acum: TSQLDataSet;
+    dspPedido_Fat_Acum: TDataSetProvider;
+    cdsPedido_Fat_Acum: TClientDataSet;
+    dsPedido_Fat_Acum: TDataSource;
+    cdsPedido_Fat_AcumREFERENCIA: TStringField;
+    cdsPedido_Fat_AcumNOME_PRODUTO: TStringField;
+    cdsPedido_Fat_AcumQTD: TFloatField;
+    cdsPedido_Fat_AcumNOME_COR_COMBINACAO: TStringField;
+    cdsPedido_Fat_AcumUNIDADE: TStringField;
+    cdsPedido_Fat_AcumID_PRODUTO: TIntegerField;
+    cdsPedido_Fat_AcumNOME_GRUPO_PESSOA: TStringField;
+    frxPedido_Fat_Acum: TfrxDBDataset;
+    sdsGrupo_Pessoa: TSQLDataSet;
+    dspGrupo_Pessoa: TDataSetProvider;
+    cdsGrupo_Pessoa: TClientDataSet;
+    dsGrupo_Pessoa: TDataSource;
+    cdsGrupo_PessoaID: TIntegerField;
+    cdsGrupo_PessoaNOME: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConsumoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_MatCalcFields(DataSet: TDataSet);
@@ -990,6 +1002,7 @@ type
     ctConsPedido_Item_Proc : String;
     ctCBarra : String;
     ctPedido_Est: String;
+    ctPedido_Fat_Acum : String;
 
     ctPedido_Nota, ctPedido_Vale, ctBaixa_Pedido, ctPedido_Fut: String;
     ctPedidoTipo : String;
@@ -1031,6 +1044,7 @@ begin
   ctCliente_Sem_Venda := sdsCliente_Sem_Venda.CommandText;
   ctConsPedido_Item_Proc := sdsConsPedido_Item_Proc.CommandText;
   ctPedido_Est := sdsPedido_Est.CommandText;
+  ctPedido_Fat_Acum := sdsPedido_Fat_Acum.CommandText;
 
   cdsParametros_Etiq.Close;
   sdsParametros_Etiq.ParamByName('ID').AsInteger := 1;
@@ -1059,6 +1073,7 @@ begin
   qParametros_Etiq.Open;
   qParametros_Ser.Open;
   qParametros_Geral.Open;
+  cdsGrupo_Pessoa.Open;
 end;
 
 procedure TDMConsPedido.mConsumoNewRecord(DataSet: TDataSet);

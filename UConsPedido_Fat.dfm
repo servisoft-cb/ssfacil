@@ -91,6 +91,15 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       Alignment = taRightJustify
       Caption = 'Tran'#231'adeira/Tear:'
     end
+    object Label10: TLabel
+      Left = 518
+      Top = 54
+      Width = 67
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Grupo Cliente:'
+      Visible = False
+    end
     object Edit1: TEdit
       Left = 553
       Top = 2
@@ -124,20 +133,6 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       Caption = 'Mostrar Pre'#231'o'
       TabOrder = 8
       OnClick = RadioGroup2Click
-    end
-    object RxDBLookupCombo2: TRxDBLookupCombo
-      Left = 127
-      Top = 24
-      Width = 359
-      Height = 21
-      DropDownCount = 15
-      Ctl3D = True
-      LookupField = 'CODIGO'
-      LookupDisplay = 'NOME'
-      LookupSource = DMConsPedido.dsCliente
-      ParentCtl3D = False
-      TabOrder = 1
-      OnEnter = RxDBLookupCombo2Enter
     end
     object RxDBLookupCombo3: TRxDBLookupCombo
       Left = 247
@@ -211,12 +206,38 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       Style = csDropDownList
       ItemHeight = 13
       ItemIndex = 0
-      TabOrder = 9
+      TabOrder = 10
       Text = 'Ambos'
       Items.Strings = (
         'Ambos'
         'Tran'#231'adeira'
         'Tear')
+    end
+    object edtCliente: TEdit
+      Left = 127
+      Top = 24
+      Width = 359
+      Height = 21
+      CharCase = ecUpperCase
+      Ctl3D = True
+      ParentCtl3D = False
+      TabOrder = 1
+      OnKeyDown = Edit1KeyDown
+    end
+    object RxDBLookupCombo2: TRxDBLookupCombo
+      Left = 586
+      Top = 46
+      Width = 263
+      Height = 21
+      DropDownCount = 15
+      Ctl3D = True
+      LookupField = 'ID'
+      LookupDisplay = 'NOME'
+      LookupSource = DMConsPedido.dsGrupo_Pessoa
+      ParentCtl3D = False
+      TabOrder = 9
+      Visible = False
+      OnEnter = RxDBLookupCombo5Enter
     end
   end
   object RzPageControl1: TRzPageControl
@@ -224,7 +245,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     Top = 146
     Width = 898
     Height = 465
-    ActivePage = TS_Item
+    ActivePage = TS_Item_Acum
     ActivePageDefault = TS_Item
     Align = alClient
     Color = 16755027
@@ -238,9 +259,10 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     ParentColor = False
     ParentFont = False
     TabColors.Unselected = clGray
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TextColors.Unselected = 5197647
+    OnChange = RzPageControl1Change
     FixedDimension = 19
     object TS_Item: TRzTabSheet
       Color = 16755027
@@ -282,13 +304,12 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
-        OnGetCellParams = SMDBGrid1GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 24
+        ColCount = 21
         RowCount = 2
         Columns = <
           item
@@ -371,6 +392,12 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
           end
           item
             Expanded = False
+            FieldName = 'UNIDADE'
+            Title.Caption = 'Unid.'
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'QTD'
             Width = 73
             Visible = True
@@ -401,38 +428,17 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
           end
           item
             Expanded = False
-            FieldName = 'DTENTREGA'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'QTD_PEDIDO'
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'QTD_FATURADO'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'QTD_RESTANTE'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'VLR_RESTANTE'
-            Width = 64
-            Visible = True
-          end
-          item
-            Expanded = False
             FieldName = 'NOME_COR_COMBINACAO'
             Title.Alignment = taCenter
             Title.Caption = 'Cor Combina'#231#227'o'
             Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_GRUPO_PESSOA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Grupo Pessoa'
             Visible = True
           end>
       end
@@ -458,9 +464,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
           Height = 21
           Style = csDropDownList
           ItemHeight = 13
-          ItemIndex = 0
           TabOrder = 0
-          Text = 'Por Pedido'
           Items.Strings = (
             'Por Pedido'
             'Por Nota'
@@ -525,6 +529,119 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
           end>
       end
     end
+    object TS_Item_Acum: TRzTabSheet
+      Color = 16755027
+      Caption = 'Consulta Por Item (Acumulado)'
+      object SMDBGrid5: TSMDBGrid
+        Left = 0
+        Top = 0
+        Width = 894
+        Height = 442
+        Align = alClient
+        Ctl3D = False
+        DataSource = DMConsPedido.dsPedido_Fat_Acum
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        ParentCtl3D = False
+        ParentFont = False
+        ReadOnly = True
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        ColCount = 8
+        RowCount = 2
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'NOME_GRUPO_PESSOA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Grupo Cliente'
+            Title.Color = 13041548
+            Width = 320
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'UNIDADE'
+            Title.Alignment = taCenter
+            Title.Caption = 'Unidade'
+            Title.Color = 13041548
+            Width = 50
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'QTD'
+            Title.Alignment = taCenter
+            Title.Caption = 'Quantidade'
+            Title.Color = 13041548
+            Width = 90
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'REFERENCIA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Refer'#234'ncia'
+            Title.Color = 13041548
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_PRODUTO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Produto'
+            Title.Color = 13041548
+            Width = 292
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_COR_COMBINACAO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Cor'
+            Title.Color = 13041548
+            Width = 266
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'ID_PRODUTO'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Produto'
+            Title.Color = 13041548
+            Visible = True
+          end>
+      end
+    end
     object TS_Pedido: TRzTabSheet
       Color = 16755027
       Caption = 'Pedido (OC)'
@@ -565,7 +682,6 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
-        OnGetCellParams = SMDBGrid1GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 11
@@ -633,7 +749,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       end
     end
     object TS_Fatura: TRzTabSheet
-      Color = 16755027
+      Color = 16759671
       Caption = 'Pedidos - Faturas'
       object SMDBGrid2: TSMDBGrid
         Left = 0
@@ -672,7 +788,6 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
-        OnGetCellParams = SMDBGrid1GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 11
@@ -741,7 +856,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     Color = clSilver
     TabOrder = 2
     object BitBtn1: TBitBtn
-      Left = 127
+      Left = 128
       Top = 4
       Width = 98
       Height = 25
@@ -785,7 +900,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       NumGlyphs = 2
     end
     object BitBtn3: TBitBtn
-      Left = 323
+      Left = 322
       Top = 4
       Width = 98
       Height = 25
