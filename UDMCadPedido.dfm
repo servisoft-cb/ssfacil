@@ -10883,7 +10883,7 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44042.733686087970000000
+    ReportOptions.LastChange = 44054.696876203710000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -14617,7 +14617,8 @@ object DMCadPedido: TDMCadPedido
       'Nome_Produto2=Nome_Produto2'
       'ID_Atelier=ID_Atelier'
       'Nome_Atelier=Nome_Atelier'
-      'NaoImprimir=NaoImprimir')
+      'NaoImprimir=NaoImprimir'
+      'Imp_Rotulo=Imp_Rotulo')
     DataSource = dsmItensImp
     BCDToCurrency = False
     Left = 1068

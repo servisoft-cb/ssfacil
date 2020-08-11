@@ -3,8 +3,7 @@ unit UDMCadVale;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, dbXPress, LogTypes, frxClass, frxDBSet, frxRich, frxExportMail,
-  frxExportPDF;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, dbXPress, LogTypes, frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF;
 
 type
   TDmCadVale = class(TDataModule)

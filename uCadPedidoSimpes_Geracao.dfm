@@ -19,7 +19,7 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
   TextHeight = 13
   object Label1: TLabel
     Left = 74
-    Top = 36
+    Top = 60
     Width = 37
     Height = 13
     Alignment = taRightJustify
@@ -27,15 +27,23 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
   end
   object Label2: TLabel
     Left = 45
-    Top = 60
+    Top = 84
     Width = 66
     Height = 13
     Alignment = taRightJustify
     Caption = 'Data Entrega:'
   end
+  object Label3: TLabel
+    Left = 38
+    Top = 36
+    Width = 73
+    Height = 13
+    Alignment = taRightJustify
+    Caption = 'Representante:'
+  end
   object RxDBLookupCombo1: TRxDBLookupCombo
     Left = 115
-    Top = 28
+    Top = 52
     Width = 272
     Height = 21
     DropDownCount = 15
@@ -43,12 +51,12 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
     LookupField = 'ID'
     LookupDisplay = 'NOME'
     LookupSource = DMCadPedido.dsRegiao_Venda
-    TabOrder = 0
+    TabOrder = 1
     OnEnter = RxDBLookupCombo1Enter
   end
   object btnGerar: TNxButton
-    Left = 158
-    Top = 109
+    Left = 157
+    Top = 153
     Width = 153
     Height = 30
     Caption = 'Gerar Pedidos'
@@ -128,16 +136,29 @@ object frmCadPedidoSimples_Geracao: TfrmCadPedidoSimples_Geracao
       FF00FFFFFF00FFFFFF00FFFFFF00F2F2F200FFFFFF00FFFFFF00F2F2F200}
     GlyphSpacing = 1
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 3
     Transparent = True
     OnClick = btnGerarClick
   end
   object DateEdit1: TDateEdit
     Left = 115
-    Top = 53
+    Top = 77
     Width = 121
     Height = 21
     NumGlyphs = 2
-    TabOrder = 1
+    TabOrder = 2
+  end
+  object RxDBLookupCombo2: TRxDBLookupCombo
+    Left = 115
+    Top = 28
+    Width = 272
+    Height = 21
+    DropDownCount = 15
+    DisplayEmpty = 'Selecione...'
+    LookupField = 'CODIGO'
+    LookupDisplay = 'NOME'
+    LookupSource = DMCadPedido.dsVendedor
+    TabOrder = 0
+    OnEnter = RxDBLookupCombo2Enter
   end
 end

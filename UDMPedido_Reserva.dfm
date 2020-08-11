@@ -1,5 +1,6 @@
 object DMPedido_Reserva: TDMPedido_Reserva
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Left = 539
   Top = 224
   Height = 338
@@ -115,16 +116,9 @@ object DMPedido_Reserva: TDMPedido_Reserva
   object sdsPessoa: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 
-      'SELECT CODIGO , NOME'#13#10'FROM PESSOA'#13#10'WHERE ID_REGIAO_VENDA = :RV1'#13 +
-      #10'AND INATIVO = '#39'N'#39
+    CommandText = 'SELECT CODIGO, NOME'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39
     MaxBlobSize = -1
-    Params = <
-      item
-        DataType = ftInteger
-        Name = 'RV1'
-        ParamType = ptInput
-      end>
+    Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 89
     Top = 97

@@ -47,10 +47,12 @@ type
     cdsProdutoUNIDADE: TStringField;
     cdsPessoaNOME: TStringField;
     cdsProdutoNOME: TStringField;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
+    ctPessoa: String;
 
     procedure prc_localizar(ID: Integer);
 
@@ -116,6 +118,11 @@ begin
   cdsPedido_Reserva.Close;
   sdsPedido_Reserva.ParamByName('ID').AsInteger := ID;
   cdsPedido_Reserva.Open;
+end;
+
+procedure TDMPedido_Reserva.DataModuleCreate(Sender: TObject);
+begin
+  ctPessoa := sdsPessoa.CommandText;
 end;
 
 end.

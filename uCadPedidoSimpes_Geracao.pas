@@ -13,10 +13,13 @@ type
     btnGerar: TNxButton;
     Label2: TLabel;
     DateEdit1: TDateEdit;
+    Label3: TLabel;
+    RxDBLookupCombo2: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure RxDBLookupCombo1Enter(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
+    procedure RxDBLookupCombo2Enter(Sender: TObject);
   private
     { Private declarations }
     fDmPedido_Reserva: TDmPedido_Reserva;
@@ -63,7 +66,12 @@ begin
 
   Screen.Cursor := crHourGlass;
   fDmPedido_Reserva.cdsPessoa.Close;
-  fDmPedido_Reserva.sdsPessoa.ParamByName('RV1').AsInteger := RxDBLookupCombo1.KeyValue;
+  fDmPedido_Reserva.sdsPessoa.CommandText := fDmPedido_Reserva.ctPessoa;
+
+  if RxDBLookupCombo1.KeyValue > 0 then
+    fDmPedido_Reserva.sdsPessoa.CommandText := fDmPedido_Reserva.sdsPessoa.CommandText + ' AND ID_REGIAO_VENDA = ' + RxDBLookupCombo1.Value;
+  if RxDBLookupCombo2.KeyValue > 0 then
+    fDmPedido_Reserva.sdsPessoa.CommandText := fDmPedido_Reserva.sdsPessoa.CommandText + ' AND ID_VENDEDOR = ' + RxDBLookupCombo2.Value;
   fDmPedido_Reserva.cdsPessoa.Open;
   fDmPedido_Reserva.cdsproduto.Open;
   while not fDmPedido_Reserva.cdsPessoa.Eof do
@@ -100,6 +108,12 @@ begin
   end;
   Screen.Cursor := crDefault;
   Close;
+end;
+
+procedure TfrmCadPedidoSimples_Geracao.RxDBLookupCombo2Enter(
+  Sender: TObject);
+begin
+  fDmCadPedido.cdsVendedor.IndexFieldNames := 'NOME';
 end;
 
 end.

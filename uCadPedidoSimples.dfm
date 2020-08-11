@@ -20,12 +20,12 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
     Top = 0
     Width = 984
     Height = 561
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
     ParentBackgroundColor = False
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RZPageControl1Change
     FixedDimension = 19
@@ -1545,7 +1545,6 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
         Align = alClient
         DataSource = DMCadPedido.dsPedido_Itens
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-        ReadOnly = True
         TabOrder = 4
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -1576,32 +1575,42 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
           item
             Expanded = False
             FieldName = 'ITEM'
+            ReadOnly = True
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOMEPRODUTO'
+            ReadOnly = True
             Width = 325
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'QTD'
+            ReadOnly = True
+            Width = 81
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'UNIDADE'
+            ReadOnly = True
+            Width = 58
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VLR_UNITARIO'
+            ReadOnly = True
+            Width = 77
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VLR_TOTAL'
+            ReadOnly = True
+            Width = 80
             Visible = True
           end>
       end
