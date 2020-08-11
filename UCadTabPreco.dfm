@@ -989,7 +989,7 @@ object frmCadTabPreco: TfrmCadTabPreco
             Enabled = False
             TabOrder = 0
             object btnBuscarProduto: TBitBtn
-              Left = 511
+              Left = 512
               Top = 0
               Width = 207
               Height = 25

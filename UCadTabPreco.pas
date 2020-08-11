@@ -407,6 +407,7 @@ end;
 
 procedure TfrmCadTabPreco.btnBuscarProdutoClick(Sender: TObject);
 begin
+  SMDBGrid2.ClearFilter;
   ffrmCadTabPreco_Sel_Produto := TfrmCadTabPreco_Sel_Produto.Create(self);
   ffrmCadTabPreco_Sel_Produto.fDMCadTab_Preco := fDMCadTab_Preco;
   ffrmCadTabPreco_Sel_Produto.ShowModal;
