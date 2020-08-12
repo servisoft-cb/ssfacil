@@ -96,7 +96,9 @@ type
     ctConsProduto : String;
     ctVendCons : String;
     ctConsProdFat : String;
+    ctProdCons: String;
     vTipo_Reg_Cons : String;
+    vSomente_Rep : Boolean;
   end;
 
 var
@@ -117,6 +119,7 @@ begin
   ctConsProduto := sdsConsProduto.CommandText;
   ctVendCons    := sdsVendCons.CommandText;
   ctConsProdFat := sdsConsProdFat.CommandText;
+  ctProdCons    := sdsProdCons.CommandText;
   cdsVendedor.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
@@ -161,6 +164,10 @@ end;
 procedure TDMComissaoVend.prc_Abrir_ProdCons;
 begin
   cdsProdCons.Close;
+  sdsProdCons.CommandText := ctProdCons;
+  if vSomente_Rep then
+   sdsProdCons.CommandText := StringReplace(sdsProdCons.CommandText,'left','inner',[rfReplaceAll, rfIgnoreCase]);
+
   sdsProdCons.ParamByName('ID_VENDEDOR').AsInteger := cdsVendConsCODIGO.AsInteger;
   if vTipo_Reg_Cons = 'T' then
   begin

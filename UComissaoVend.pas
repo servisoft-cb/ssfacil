@@ -37,6 +37,7 @@ type
     btnImprimir: TNxButton;
     RxDBLookupCombo3: TRxDBLookupCombo;
     RadioGroup1: TRadioGroup;
+    CheckBox1: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure RxDBLookupCombo1Change(Sender: TObject);
@@ -163,9 +164,11 @@ begin
   end;
   if CurrencyEdit2.Value <= 0 then
   begin
-    MessageDlg('*** % Comissão não informado!', mtError, [mbOk], 0);
-    CurrencyEdit2.SetFocus;
-    exit;
+    if MessageDlg('Comissão informada esta zerada,  Confirma?' ,mtConfirmation,[mbYes,mbNo],0) = mrNo then
+    begin
+      CurrencyEdit2.SetFocus;
+      exit;
+    end;
   end;
 
   if MessageDlg('Deseja Confirmar os produtos selecionados para o Representante: ' + RxDBLookupCombo2.Text + '?' ,mtConfirmation,[mbYes,mbNo],0) = mrNo then
@@ -229,6 +232,7 @@ begin
     MessageDlg('*** Representante não informado!', mtError, [mbOk], 0);
     exit;
   end;
+  fDMComissaoVend.vSomente_Rep := CheckBox1.Checked;
   fDMComissaoVend.cdsVendCons.Close;
   fDMComissaoVend.sdsVendCons.CommandText := fDMComissaoVend.ctVendCons
                                            + ' AND P.CODIGO = ' + IntToStr(RxDBLookupCombo3.KeyValue);

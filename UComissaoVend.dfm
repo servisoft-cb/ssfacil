@@ -20,10 +20,10 @@ object frmComissaoVend: TfrmComissaoVend
     Top = 0
     Width = 920
     Height = 456
-    ActivePage = TS_Gerar
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Gerar
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Gerar: TRzTabSheet
@@ -210,6 +210,7 @@ object frmComissaoVend: TfrmComissaoVend
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
             Title.Color = 10223515
+            Width = 64
             Visible = True
           end
           item
@@ -266,7 +267,7 @@ object frmComissaoVend: TfrmComissaoVend
           TabOrder = 1
         end
         object btnConfirmar: TNxButton
-          Left = 105
+          Left = 106
           Top = 34
           Width = 366
           Height = 26
@@ -307,7 +308,7 @@ object frmComissaoVend: TfrmComissaoVend
         TabOrder = 0
         object Label10: TLabel
           Left = 117
-          Top = 37
+          Top = 21
           Width = 98
           Height = 13
           Alignment = taRightJustify
@@ -315,7 +316,7 @@ object frmComissaoVend: TfrmComissaoVend
         end
         object btnImprimir: TNxButton
           Left = 487
-          Top = 22
+          Top = 6
           Width = 111
           Height = 26
           Caption = 'Imprimir'
@@ -324,7 +325,7 @@ object frmComissaoVend: TfrmComissaoVend
         end
         object RxDBLookupCombo3: TRxDBLookupCombo
           Left = 216
-          Top = 28
+          Top = 12
           Width = 267
           Height = 21
           DropDownCount = 8
@@ -349,6 +350,14 @@ object frmComissaoVend: TfrmComissaoVend
             'Produto'
             'Semi Acabado')
           TabOrder = 0
+        end
+        object CheckBox1: TCheckBox
+          Left = 219
+          Top = 42
+          Width = 342
+          Height = 17
+          Caption = 'Mostrar somente o que existe no Representante'
+          TabOrder = 3
         end
       end
     end
