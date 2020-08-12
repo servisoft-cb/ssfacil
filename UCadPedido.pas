@@ -1864,7 +1864,7 @@ begin
 
   if not SMDBGrid2.ReadOnly then
   begin
-    for i := 1 to SMDBGrid2.ColCount - 2 do
+    for i := 0 to SMDBGrid2.ColCount - 2 do
     begin
       if (SMDBGrid2.Columns[i].FieldName = 'VLR_UNITARIO') then
         SMDBGrid2.Columns[i].ReadOnly := not(SMDBGrid2.Columns[i].Visible)
