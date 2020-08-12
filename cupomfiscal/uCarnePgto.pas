@@ -339,6 +339,13 @@ var
   vVlrPgto, vVlrDesc, vSaldo: Currency;
   vGeraSaldo: Boolean;
 begin
+  if fDmPagamento.mPagamentos.IsEmpty then
+  begin
+    ShowMessage('Nenhuma forma de pagamento informada!');
+    ceFormaPgto.SetFocus;
+    Exit;
+  end;
+
   if  CheckBox1.Checked then
   begin
     prcPgtoNovo;
@@ -348,12 +355,6 @@ begin
 
   vVlrPago := -1;
 
-  if fDmPagamento.mPagamentos.IsEmpty then
-  begin
-    ShowMessage('Nenhuma forma de pagamento informada!');
-    ceFormaPgto.SetFocus;
-    Exit;
-  end;
   vVlrPago := 0;
   vSaldo   := 0;
   prcVerificarSaldo;
