@@ -116,6 +116,7 @@ type
     procedure prc_prepara_print;
     procedure prc_imprime_DOS;
     function fnc_Verifica_Registro: Boolean;
+    procedure prc_Scroll(DataSet: TDataSet);
   public
     { Public declarations }
   end;
@@ -265,6 +266,7 @@ begin
   DBMemo1.ReadOnly      := not(DBMemo1.ReadOnly);
   pnlCliente.Enabled    := not(pnlCliente.Enabled);
   DBMemo1.Enabled       := not(DBMemo1.Enabled);
+  SMDBGrid2.Columns[2].ReadOnly := not (SMDBGrid2.Columns[2].ReadOnly);
 end;
 
 procedure TfrmCadPedidoSimples.btnConsultarClick(Sender: TObject);
@@ -301,6 +303,8 @@ begin
       if (SMDBGrid2.Columns[i].FieldName = 'TAMANHO') then
         SMDBGrid2.Columns[i].Visible := False;
     end;
+
+  fDmCadPedido.cdsPedido_Itens.AfterScroll := prc_Scroll;
 end;
 
 procedure TfrmCadPedidoSimples.FormClose(Sender: TObject;
@@ -706,7 +710,11 @@ begin
                                     '  END DESC_TIPO_OS, PRO.QTD_POR_ROTULO QTD_POR_ROTULO_PROD, ' +
                                     '  PRO.QTD_EMBALAGEM QTD_EMBALAGEM_PROD, PRO.MEDIDA, UNI.mostrar_grosa, ' +
                                     '  corp.nome nome_cor_perfil, CORV.nome NOME_COR_VIDRO, ' +
-                                    '  PT.preco_cor_perfil, PT.preco_cor_vidro ' +
+                                    '  PT.preco_cor_perfil, PT.preco_cor_vidro, ' +
+                                    'case ' +
+                                    '  when coalesce(PI.vlr_unitario_ipi,0) > 0 THEN (pi.vlr_unitario_ipi * pi.qtd) - (coalesce(pi.vlr_desconto,0) + coalesce(pi.vlr_descontorateio,0)) ' +
+                                    '  else pi.vlr_total ' +
+                                    '  end vlr_total_com_ipi ' +
                                     'FROM PEDIDO_ITEM PI ' +
                                     'inner JOIN PRODUTO PRO ON (PI.ID_PRODUTO = PRO.ID) ' +
                                     'LEFT JOIN MARCA ON (PRO.ID_MARCA = MARCA.ID) ' +
@@ -808,6 +816,17 @@ end;
 procedure TfrmCadPedidoSimples.RxDBLookupCombo1Change(Sender: TObject);
 begin
   fDmCadPedido.cdsRegiao_Venda.IndexFieldNames := 'NOME';
+end;
+
+procedure TfrmCadPedidoSimples.prc_Scroll(DataSet: TDataSet);
+begin
+  if fDmCadPedido.cdsPedido_ItensQTD.AsCurrency > 0 then
+  begin
+    fDmCadPedido.cdsPedido_Itens.Edit;
+    fDmCadPedido.cdsPedido_ItensVLR_TOTAL.AsCurrency := fDmCadPedido.cdsPedido_ItensQTD.AsCurrency *
+                                                        fDmCadPedido.cdsPedido_ItensVLR_UNITARIO.AsCurrency;
+    fDmCadPedido.cdsPedido_Itens.Post;
+  end;
 end;
 
 end.
