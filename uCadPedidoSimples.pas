@@ -66,6 +66,9 @@ type
     RxDBLookupCombo1: TRxDBLookupCombo;
     Label2: TLabel;
     RxDBLookupCombo4: TRxDBLookupCombo;
+    Panel2: TPanel;
+    Label3: TLabel;
+    DBEdit1: TDBEdit;
     procedure btnPesquisarClick(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

@@ -638,6 +638,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
             Expanded = False
             FieldName = 'DTENTREGA'
             Title.Caption = 'Data Entrega'
+            Width = 64
             Visible = True
           end
           item
@@ -664,6 +665,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
             Expanded = False
             FieldName = 'QTD'
             Title.Caption = 'Qtd. Produtos'
+            Width = 64
             Visible = True
           end
           item
@@ -1541,7 +1543,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
         Left = 0
         Top = 188
         Width = 980
-        Height = 292
+        Height = 245
         Align = alClient
         DataSource = DMCadPedido.dsPedido_Itens
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -1616,7 +1618,7 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
       end
       object DBMemo1: TDBMemo
         Left = 0
-        Top = 480
+        Top = 433
         Width = 980
         Height = 58
         Align = alBottom
@@ -1627,6 +1629,31 @@ object frmCadPedidoSimples: TfrmCadPedidoSimples
         ReadOnly = True
         ScrollBars = ssVertical
         TabOrder = 5
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 491
+        Width = 980
+        Height = 47
+        Align = alBottom
+        TabOrder = 6
+        object Label3: TLabel
+          Left = 217
+          Top = 20
+          Width = 50
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Valor total:'
+        end
+        object DBEdit1: TDBEdit
+          Left = 272
+          Top = 12
+          Width = 121
+          Height = 21
+          DataField = 'VLR_TOTAL'
+          DataSource = DMCadPedido.dsPedido
+          TabOrder = 0
+        end
       end
     end
   end
