@@ -1490,7 +1490,7 @@ object frmCadNotaFiscal_Alt_Imp: TfrmCadNotaFiscal_Alt_Imp
             TabOrder = 1
           end
           object DBEdit55: TDBEdit
-            Left = 81
+            Left = 80
             Top = 53
             Width = 87
             Height = 19

@@ -1656,7 +1656,13 @@ begin
 
     //08/07/2017  Unidade tributável
     if (fDMCadNotaFiscal.cdsCFOPUSA_UNIDADE_TRIB.AsString = 'S') and (trim(fDMCadNotaFiscal.cdsNotaFiscal_ItensUNIDADE_TRIB.AsString) <> '') then
-      prc_Unidade_Trib;
+      prc_Unidade_Trib
+    else
+    begin   //13/08/2020
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensUNIDADE_TRIB.AsString     := '';
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_TRIB.AsFloat          := 0;
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO_TRIB.AsFloat := 0;
+    end;  
     //******************
 
     prc_Calculo_GeralItem(fDMCadNotaFiscal,fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat,fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat,
@@ -1752,9 +1758,14 @@ begin
           if (fDMCadNotaFiscal.cdsCFOPUSA_UNIDADE_TRIB.AsString = 'S') and (trim(fDMCadNotaFiscal.cdsNotaFiscal_ItensUNIDADE_TRIB.AsString) <> '') then
           begin
             fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat * fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat));
-            prc_Unidade_Trib;
+            prc_Unidade_Trib
+          end
+          else
+          begin   //13/08/2020
+            fDMCadNotaFiscal.cdsNotaFiscal_ItensUNIDADE_TRIB.AsString     := '';
+            fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_TRIB.AsFloat          := 0;
+            fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO_TRIB.AsFloat := 0;
           end;
-
           //fDMCadNotaFiscal.cdsNotaFiscal_Itens
           vEditar := True;
         end;
@@ -2528,7 +2539,13 @@ begin
       begin
         fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat * fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat));
         prc_Unidade_Trib;
-      end;
+      end
+      else
+      begin   //13/08/2020
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensUNIDADE_TRIB.AsString     := '';
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_TRIB.AsFloat          := 0;
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO_TRIB.AsFloat := 0;
+      end;  
 
       fDMCadNotaFiscal.cdsNotaFiscal_Itens.Post;
 
