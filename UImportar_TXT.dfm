@@ -303,6 +303,14 @@ object frmImportar_TXT: TfrmImportar_TXT
       LookupSource = DMImportarXML.dsFilial
       TabOrder = 4
     end
+    object ckMemo: TCheckBox
+      Left = 397
+      Top = 5
+      Width = 97
+      Height = 17
+      Caption = 'Usar a memo'
+      TabOrder = 7
+    end
   end
   object gbxVendedor: TRzGroupBox
     Left = 0
@@ -569,7 +577,7 @@ object frmImportar_TXT: TfrmImportar_TXT
     Top = 311
     Width = 934
     Height = 237
-    ActivePage = TS_Registros
+    ActivePage = TS_MEMO
     ActivePageDefault = TS_Registros
     Align = alBottom
     BackgroundColor = clSilver
@@ -577,7 +585,7 @@ object frmImportar_TXT: TfrmImportar_TXT
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 2
     TabOrder = 2
     FixedDimension = 19
     object TS_Registros: TRzTabSheet
@@ -1137,6 +1145,18 @@ object frmImportar_TXT: TfrmImportar_TXT
         DataField = 'Marca'
         DataSource = DMImportarXML.dsmOutrosNota
         TabOrder = 3
+      end
+    end
+    object TS_MEMO: TRzTabSheet
+      Caption = 'Memo'
+      object Memo1: TMemo
+        Left = 0
+        Top = 0
+        Width = 930
+        Height = 214
+        Align = alClient
+        ScrollBars = ssBoth
+        TabOrder = 0
       end
     end
   end

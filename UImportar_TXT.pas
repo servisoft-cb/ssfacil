@@ -46,6 +46,9 @@ type
     Label13: TLabel;
     Label14: TLabel;
     RxDBLookupCombo2: TRxDBLookupCombo;
+    TS_MEMO: TRzTabSheet;
+    Memo1: TMemo;
+    ckMemo: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FilenameEdit1Change(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -133,6 +136,7 @@ procedure TfrmImportar_TXT.prc_Le_TXT;
 var
   F: TextFile;
   vEnd_Arquivo: String;
+  i: Integer;
 begin
   vItem_Nota := 0;
   vItem_Imp  := 0;
@@ -155,28 +159,54 @@ begin
   fDMImportarXML.mItensNota_Adi.EmptyDataSet;
   fDMImportarXML.mOutrosNota.EmptyDataSet;
   try
-
-    vCNPJ_Empresa := '';
-    AssignFile(F,vEnd_Arquivo);
-    Reset(F);
-    while not Eof(F) do
+    Memo1.Lines.Clear;
+    Memo1.Lines.LoadFromFile(vEnd_Arquivo);
+    if ckMemo.Checked then
     begin
-      ReadLn(F,Registro);
-      if Copy(Registro,1,1) = 'E' then
-        prc_Gravar_mCliente
-      else
-      if Copy(Registro,1,4) = 'C02|' then
-        vCNPJ_Empresa := Monta_Texto(copy(Registro,5,14),0)
-      else
-      if (Copy(Registro,1,1) = 'H') or (Copy(Registro,1,1) = 'I') or (Copy(Registro,1,1) = 'N') or (Copy(Registro,1,1) = 'O') or
-         (Copy(Registro,1,1) = 'P') or (Copy(Registro,1,1) = 'Q') or (Copy(Registro,1,1) = 'S') then
-        prc_Gravar_mItensNota
-      else
-      if (Copy(Registro,1,3) = 'X26') then
-        prc_Gravar_OutrosNotas;
+      vCNPJ_Empresa := '';
+      for i := 0 to Memo1.Lines.Count - 1 do
+      begin
+        Registro := Memo1.Lines[i];
+        if Copy(Registro,1,1) = 'E' then
+          prc_Gravar_mCliente
+        else
+        if Copy(Registro,1,4) = 'C02|' then
+          vCNPJ_Empresa := Monta_Texto(copy(Registro,5,14),0)
+        else
+        if (Copy(Registro,1,1) = 'H') or (Copy(Registro,1,1) = 'I') or (Copy(Registro,1,1) = 'N') or (Copy(Registro,1,1) = 'O') or
+           (Copy(Registro,1,1) = 'P') or (Copy(Registro,1,1) = 'Q') or (Copy(Registro,1,1) = 'S') then
+          prc_Gravar_mItensNota
+        else
+        if (Copy(Registro,1,3) = 'X26') then
+          prc_Gravar_OutrosNotas;
+      end;
+    end
+    else
+    begin
+      vCNPJ_Empresa := '';
+      AssignFile(F,vEnd_Arquivo);
+      Reset(F);
+      while not Eof(F) do
+      begin
+        ReadLn(F,Registro);
+        if Copy(Registro,1,1) = 'E' then
+          prc_Gravar_mCliente
+        else
+        if Copy(Registro,1,4) = 'C02|' then
+          vCNPJ_Empresa := Monta_Texto(copy(Registro,5,14),0)
+        else
+        if (Copy(Registro,1,1) = 'H') or (Copy(Registro,1,1) = 'I') or (Copy(Registro,1,1) = 'N') or (Copy(Registro,1,1) = 'O') or
+           (Copy(Registro,1,1) = 'P') or (Copy(Registro,1,1) = 'Q') or (Copy(Registro,1,1) = 'S') then
+          prc_Gravar_mItensNota
+        else
+        if (Copy(Registro,1,3) = 'X26') then
+          prc_Gravar_OutrosNotas;
+      end;
     end;
+
   finally
-    CloseFile(F);
+    if not ckMemo.Checked then
+      CloseFile(F);
   end;
   if fDMImportarXML.mRegistro.State in [dsEdit,dsInsert] then
     fDMImportarXML.mRegistro.Post;
@@ -296,7 +326,8 @@ begin
       fDMImportarXML.mItensNotaCFOP.AsString := RxDBLookupCombo1.Text;
     fDMImportarXML.mItensNotaUnidade.AsString     := fnc_Buscar_Campo;
     vCampo                                        := Replace(fnc_Buscar_Campo,'.',',');
-    fDMImportarXML.mItensNotaQtd.AsFloat          := StrToFloat(FormatFloat('0.0000',StrToFloat(vCampo)));
+    if trim(vCampo) <> '' then
+      fDMImportarXML.mItensNotaQtd.AsFloat          := StrToFloat(FormatFloat('0.0000',StrToFloat(vCampo)));
     vCampo                                        := Replace(fnc_Buscar_Campo,'.',',');
     fDMImportarXML.mItensNotaVlrUnitario.AsFloat  := StrToFloat(FormatFloat('0.000000',StrToFloat(vCampo)));
     vCampo                                        := Replace(fnc_Buscar_Campo,'.',',');

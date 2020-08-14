@@ -2580,13 +2580,13 @@ object DMConsPedido: TDMConsPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44053.971506539350000000
+    ReportOptions.LastChange = 44056.913943715280000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 707
+    Left = 706
     Top = 360
   end
   object frxDBDataset1: TfrxDBDataset

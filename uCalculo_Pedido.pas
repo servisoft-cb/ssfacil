@@ -441,7 +441,7 @@ var
 begin
   fDMCadPedido.cdsPedido_Itens.First;
   if (fDMCadPedido.cdsPedido_Itens.RecordCount < 1) or (fDMCadPedido.cdsPedido_Itens.IsEmpty) then
-  begin
+  begin                    
     fDMCadPedido.cdsPedidoBASE_ICMS.AsFloat        := 0;
     fDMCadPedido.cdsPedidoBASE_ICMSSIMPLES.AsFloat := 0;
     fDMCadPedido.cdsPedidoBASE_ICMSSUBST.AsFloat   := 0;
@@ -479,7 +479,7 @@ begin
     vContadorOutros := fDMCadPedido.cdsPedido_Itens.RecordCount;
     vPesoBruto      := 0;
     vPesoLiquido    := 0;
-
+    
     vCalcFrete     := fDMCadPedido.cdsPedidoVLR_FRETE.AsFloat;
     vCalcTotalNota := fDMCadPedido.cdsPedidoVLR_ITENS.AsFloat;
 
@@ -570,10 +570,7 @@ begin
       fDMCadPedido.cdsPedido_Itens.Edit;
 
       fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat     := 0;
-      //17/06/2016
       fDMCadPedido.cdsPedido_ItensVLR_DUPLICATA.AsFloat := 0;
-      //********************
-
       vVlrTotalItens := StrToCurr(FormatCurr('0.00',fDMCadPedido.cdsPedido_ItensQTD.AsFloat * fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat));
 
       if fDMCadPedido.cdsPedidoTIPO_DESCONTO.AsString = 'I' then
@@ -773,9 +770,9 @@ begin
   else
     vVlrTotalItem  := StrToCurr(FormatCurr('0.00',VlrTotal));
 
-  vVlrDescontoItem := 0;
-  vVlrFreteAnt     := 0;
-  vVlrIPIAnt       := 0;
+  vVlrDescontoItem   := 0;
+  vVlrFreteAnt       := 0;
+  vVlrIPIAnt         := 0;
   //***************
   // buscar a quantidade de caixa pra calcular o peso, caso não tenha no pedido.
   if fDMCadPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S' then
@@ -794,6 +791,7 @@ begin
   if fDMCadPedido.cdsPedidoTIPO_DESCONTO.AsString = 'N' then
   begin
     vVlrAux := StrToCurr(FormatCurr('0.00',vVlrTotalItem));
+
     if not fDMCadPedido.cdsPedido_Desconto.IsEmpty then
     begin
       fDMCadPedido.cdsPedido_Desconto.First;

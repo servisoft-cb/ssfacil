@@ -260,7 +260,7 @@ object DMComissaoVend: TDMComissaoVend
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 342
+    Left = 343
     Top = 256
   end
   object dspProdCons: TDataSetProvider

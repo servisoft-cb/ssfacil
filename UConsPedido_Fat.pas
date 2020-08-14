@@ -246,6 +246,7 @@ var
   vOpcaoAux : String;
   vArq : String;
 begin
+  fDMConsPedido.mUnidade.EmptyDataSet;
   vOpcaoAux := '';
   vTipo_Config_Email := 3;
   if RxDBLookupCombo1.Text <> '' then
@@ -326,6 +327,23 @@ begin
   else
   if RzPageControl1.ActivePage = TS_Item_Acum then
   begin
+    SMDBGrid5.DisableScroll;
+    fDMConsPedido.cdsPedido_Fat_Acum.First;
+    while not fDMConsPedido.cdsPedido_Fat_Acum.Eof do
+    begin
+      if fDMConsPedido.mUnidade.Locate('Unidade',fDMConsPedido.cdsPedido_Fat_AcumUNIDADE.AsString,([Locaseinsensitive])) then
+        fDMConsPedido.mUnidade.Edit
+      else
+      begin
+        fDMConsPedido.mUnidade.Insert;
+        fDMConsPedido.mUnidadeUnidade.AsString := fDMConsPedido.cdsPedido_Fat_AcumUNIDADE.AsString;
+      end;
+      fDMConsPedido.mUnidadeQtd.AsFloat := fDMConsPedido.mUnidadeQtd.AsFloat + fDMConsPedido.cdsPedido_Fat_AcumQTD.AsFloat;
+      fDMConsPedido.mUnidade.Post;
+      fDMConsPedido.cdsPedido_Fat_Acum.Next;
+    end;
+    SMDBGrid5.EnableScroll;
+
     fDMConsPedido.cdsPedido_Fat_Acum.First;
     vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Fat_Acum.fr3';
     if FileExists(vArq) then
