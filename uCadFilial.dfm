@@ -24,7 +24,7 @@ object frmCadFilial: TfrmCadFilial
     Top = 0
     Width = 1094
     Height = 599
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadFilial: TfrmCadFilial
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -120,6 +120,7 @@ object frmCadFilial: TfrmCadFilial
             FieldName = 'FONE'
             Title.Alignment = taCenter
             Title.Caption = 'Fone'
+            Width = 64
             Visible = True
           end>
       end
@@ -706,10 +707,10 @@ object frmCadFilial: TfrmCadFilial
         Top = 31
         Width = 1090
         Height = 545
-        ActivePage = TS_Dados
+        ActivePage = TS_NotaServico
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 0
+        TabIndex = 3
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -2768,6 +2769,7 @@ object frmCadFilial: TfrmCadFilial
             Width = 161
             Height = 17
             Caption = 'Enviar NFSe pelo ACBR'
+            DataField = 'ENVIO_NFSE'
             DataSource = DMCadFilial.dsFilial
             TabOrder = 25
             ValueChecked = 'A'
