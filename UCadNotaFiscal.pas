@@ -2797,6 +2797,7 @@ begin
   end
   else
   begin
+    fDMCadNotaFiscal.vTitulo_Gerado_Ped := '';
     ffrmSel_Pedido := TfrmSel_Pedido.Create(self);
     ffrmSel_Pedido.vTipo        := 'NTS';  //para distinguir do vale 'VAL'
     ffrmSel_Pedido.vTipo_RegPed := 'P';
@@ -2805,6 +2806,9 @@ begin
     ffrmSel_Pedido.ffrmCadNotaFiscal_Itens := ffrmCadNotaFiscal_Itens;
     ffrmSel_Pedido.ShowModal;
     FreeAndNil(ffrmSel_Pedido);
+    //14/08/2020
+    if fDMCadNotaFiscal.vTitulo_Gerado_Ped = 'S' then
+      MessageDlg('*** Títulos foram gerados no Pedido. ' +#13 + '   Para refazer na nota, clicar no botão "Refaz Títulos pela Nota"!' , mtInformation, [mbOk], 0);
   end;
   FreeAndNil(ffrmCadNotaFiscal_Itens);
 
@@ -5853,7 +5857,12 @@ procedure TfrmCadNotaFiscal.btnRefazTitulosClick(Sender: TObject);
 var
   vOpcao : String;
 begin
-  
+  if fDMCadNotaFiscal.cdsNotaFiscal_Itens.RecordCount <= 0 then
+  begin
+    MessageDlg('*** Nota sem item informado!' , mtInformation, [mbOk], 0);
+    exit;
+  end;
+
   vOpcao := InputBox_SS('Títulos gerados pelos pedidos', 'Excluir os título gerados pelo Pedido' + #13 +
                       'e gerar novamente pela Nota Fiscal' + #13 + #13 + 'Informe S=Gerar  N=Não gerar: ');
   if UpperCase(vOpcao) = 'S' then

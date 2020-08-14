@@ -934,13 +934,16 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscal_ItensTAMANHO.AsString := fDMCadNotaFiscal.cdsPedidoTAMANHO.AsString;
   //28/11/2014  Pedido futuro
   //if fDMCadNotaFiscal.cdsCFOPBAIXAR_FUT.AsString = 'S' then
-  if (fDMCadNotaFiscal.cdsParametrosCONTROLAR_DUP_PEDIDO.AsString = 'S') then
+  if (fDMCadNotaFiscal.cdsParametrosCONTROLAR_DUP_PEDIDO.AsString = 'S')  then
   begin
     fDMCadNotaFiscal.qDupPedido.Close;
     fDMCadNotaFiscal.qDupPedido.ParamByName('ID_PEDIDO').AsInteger := fDMCadNotaFiscal.cdsPedidoID.AsInteger;
     fDMCadNotaFiscal.qDupPedido.Open;
     if not fDMCadNotaFiscal.qDupPedido.IsEmpty then
+    begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_DUPLICATA.AsString  := 'N';
+      fDMCadNotaFiscal.vTitulo_Gerado_Ped := 'S';
+    end;
     fDMCadNotaFiscal.qDupPedido.Close;
   end;
   if Tag = 11 then

@@ -20,16 +20,16 @@ object frmSel_Pedido: TfrmSel_Pedido
   PixelsPerInch = 96
   TextHeight = 13
   object Splitter1: TSplitter
-    Left = 880
+    Left = 888
     Top = 52
     Width = 8
-    Height = 365
+    Height = 373
     Align = alRight
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1100
+    Width = 1108
     Height = 52
     Align = alTop
     Color = clMoneyGreen
@@ -271,8 +271,8 @@ object frmSel_Pedido: TfrmSel_Pedido
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 52
-    Width = 880
-    Height = 365
+    Width = 888
+    Height = 373
     Align = alClient
     Ctl3D = False
     DataSource = DMCadNotaFiscal.dsPedido
@@ -603,8 +603,8 @@ object frmSel_Pedido: TfrmSel_Pedido
   end
   object Panel2: TPanel
     Left = 0
-    Top = 588
-    Width = 1100
+    Top = 596
+    Width = 1108
     Height = 37
     Align = alBottom
     Color = 8404992
@@ -663,7 +663,7 @@ object frmSel_Pedido: TfrmSel_Pedido
       ParentFont = False
     end
     object btnImportar: TNxButton
-      Left = 4
+      Left = 5
       Top = 3
       Width = 214
       Height = 30
@@ -754,8 +754,8 @@ object frmSel_Pedido: TfrmSel_Pedido
   end
   object SMDBGrid6: TSMDBGrid
     Left = 0
-    Top = 523
-    Width = 1100
+    Top = 531
+    Width = 1108
     Height = 65
     Align = alBottom
     Ctl3D = False
@@ -929,10 +929,10 @@ object frmSel_Pedido: TfrmSel_Pedido
       end>
   end
   object SMDBGrid2: TSMDBGrid
-    Left = 888
+    Left = 896
     Top = 52
     Width = 212
-    Height = 365
+    Height = 373
     TabStop = False
     Align = alRight
     Ctl3D = False
@@ -989,16 +989,16 @@ object frmSel_Pedido: TfrmSel_Pedido
   end
   object pgbItens: TProgressBar
     Left = 0
-    Top = 506
-    Width = 1100
+    Top = 514
+    Width = 1108
     Height = 17
     Align = alBottom
     TabOrder = 5
   end
   object DBMemo1: TDBMemo
     Left = 0
-    Top = 417
-    Width = 1100
+    Top = 425
+    Width = 1108
     Height = 89
     Align = alBottom
     DataField = 'OBS_COMPLEMENTAR'
