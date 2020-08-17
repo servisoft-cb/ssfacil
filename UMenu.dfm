@@ -1,5 +1,5 @@
 object fMenu: TfMenu
-  Left = 234
+  Left = 372
   Top = 5
   Width = 837
   Height = 686
@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 635
+    Height = 627
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -292,6 +292,10 @@ object fMenu: TfMenu
         object ComissodoProdutoPorVendedorCadastro1: TMenuItem
           Caption = 'Comiss'#227'o do Produto Por Vendedor (Cadastro)'
           OnClick = ComissodoProdutoPorVendedorCadastro1Click
+        end
+        object ConfiguraoBalana1: TMenuItem
+          Caption = 'Configura'#231#227'o Balan'#231'a'
+          OnClick = ConfiguraoBalana1Click
         end
       end
       object Produo1: TMenuItem

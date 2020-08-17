@@ -863,7 +863,10 @@ uses
   UMostrarRegras in 'UMostrarRegras.pas' {frmMostrarRegras},
   uCadPedidoSimpes_Geracao in 'uCadPedidoSimpes_Geracao.pas' {frmCadPedidoSimples_Geracao},
   UConsCSTxCFOP in 'UConsCSTxCFOP.pas' {frmConsCSTxCFOP},
-  uUtilDialogs in 'uUtilDialogs.pas';
+  uUtilDialogs in 'uUtilDialogs.pas',
+  uCadConfig_Balanca in 'uCadConfig_Balanca.pas' {frmConfigBalanca},
+  UDMCadConfig_Balanca in 'UDMCadConfig_Balanca.pas' {DMConfig_Balanca: TDataModule},
+  uCadConfig_BalancaArquivo in 'uCadConfig_BalancaArquivo.pas' {frmConfigArquivoBalanca};
 
 {$R *.res}
 
