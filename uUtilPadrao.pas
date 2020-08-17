@@ -55,7 +55,8 @@ uses
   procedure prc_ShellExecute(MSG: String);
 
   procedure prc_Escolhe_Filial;
-  procedure prc_AbreGaveta(vModelo: Word);
+  //procedure prc_AbreGaveta(vModelo: Word);
+  procedure prc_AbreGaveta();
   procedure SetDefaultPrinter(PrinterName: String);
   function DefaultPrinter: String;
   function fnc_Busca_Nome_Filial: String;
@@ -1111,7 +1112,7 @@ begin
     ShowMessage('Filial não informada!');
 end;
 
-procedure prc_AbreGaveta(vModelo: Word);
+{procedure prc_AbreGaveta(vModelo: Word);
 var
   vImpressora: TextFile;
 begin
@@ -1127,6 +1128,16 @@ begin
   end;
 //  CloseFile(vImpressora);
   System.Close(vImpressora);
+end;}
+
+procedure prc_AbreGaveta();
+var
+  vImpressora: TextFile;
+  vCaminho : string;
+begin
+  vCaminho := ExtractFilePath(Application.ExeName) + 'GAVETA.EXE';
+  if FileExists(vCaminho) then
+     WinExec(Pchar(vCaminho),sw_Show);
 end;
 
 procedure SetDefaultPrinter(PrinterName: String);
