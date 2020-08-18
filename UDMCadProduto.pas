@@ -2025,6 +2025,12 @@ type
     sdsProdutoProcessoID_POSICAO: TIntegerField;
     sdsProdutoProcessoORDEM: TIntegerField;
     cdsProdutoProcessoORDEM: TIntegerField;
+    sdsProdutoTIPO_BALANCA: TStringField;
+    sdsProdutoCODIGO_BALANCA: TIntegerField;
+    cdsProdutoTIPO_BALANCA: TStringField;
+    cdsProdutoCODIGO_BALANCA: TIntegerField;
+    qUltimoCodigoBalanca: TSQLQuery;
+    qUltimoCodigoBalancaULTIMO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;

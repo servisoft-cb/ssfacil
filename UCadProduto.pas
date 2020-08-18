@@ -835,6 +835,12 @@ type
     SMDBGrid9: TSMDBGrid;
     SMDBGrid16: TSMDBGrid;
     NxSplitter1: TNxSplitter;
+    GroupBox8: TGroupBox;
+    Label267: TLabel;
+    DBEdit167: TDBEdit;
+    comboTipoBalanca: TRxDBComboBox;
+    Label268: TLabel;
+    BtnGerCodBal: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -1063,6 +1069,7 @@ type
     procedure DBEdit165Exit(Sender: TObject);
     procedure edtANPKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure BtnGerCodBalClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadProduto: TDMCadProduto;
@@ -6677,6 +6684,14 @@ begin
   fDMCadProduto.qTab_CProd_ANP.Close;
   fDMCadProduto.qTab_CProd_ANP.ParamByName('ID').AsInteger := ID;
   fDMCadProduto.qTab_CProd_ANP.Open;
+end;
+
+procedure TfrmCadProduto.BtnGerCodBalClick(Sender: TObject);
+begin
+  fDMCadProduto.qUltimoCodigoBalanca.Close;
+  fDMCadProduto.qUltimoCodigoBalanca.Open;
+  if fDMCadProduto.cdsProdutoCODIGO_BALANCA.AsInteger = 0 then
+    fDMCadProduto.cdsProdutoCODIGO_BALANCA.AsInteger := fDMCadProduto.qUltimoCodigoBalancaULTIMO.AsInteger + 1;
 end;
 
 end.
