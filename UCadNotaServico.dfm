@@ -1,5 +1,5 @@
 object frmCadNotaServico: TfrmCadNotaServico
-  Left = 210
+  Left = 232
   Top = 0
   Width = 1001
   Height = 715
@@ -159,6 +159,7 @@ object frmCadNotaServico: TfrmCadNotaServico
             FieldName = 'SERIE_SUBSTITUIDO'
             Title.Alignment = taCenter
             Title.Caption = 'S'#233'rie Substitu'#237'do'
+            Width = 64
             Visible = True
           end
           item
@@ -226,6 +227,7 @@ object frmCadNotaServico: TfrmCadNotaServico
           item
             Expanded = False
             FieldName = 'NOME_PROVEDOR'
+            Width = 64
             Visible = True
           end
           item
@@ -4099,6 +4101,7 @@ object frmCadNotaServico: TfrmCadNotaServico
                     FieldName = 'lkNome_Conta'
                     Title.Alignment = taCenter
                     Title.Caption = 'Nome Conta'
+                    Width = 64
                     Visible = True
                   end
                   item

@@ -765,7 +765,7 @@ object fCupomTerminal: TfCupomTerminal
           TabOrder = 2
         end
         object RxDBLookupCombo1: TRxDBLookupCombo
-          Left = 96
+          Left = 95
           Top = 69
           Width = 281
           Height = 21

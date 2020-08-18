@@ -75,7 +75,9 @@ object dmCupomTerminal: TdmCupomTerminal
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'select F.ID, F.NOME, F.NOME_INTERNO, F.CNPJ_CPF'#13#10'from FILIAL F  '
+    CommandText = 
+      'select F.ID, F.NOME, F.NOME_INTERNO, F.CNPJ_CPF '#13#10'from FILIAL F ' +
+      ' '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -85,15 +87,18 @@ object dmCupomTerminal: TdmCupomTerminal
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
     Left = 104
+    Top = 121
+  end
+  object dsFilial: TDataSource
+    Left = 216
     Top = 120
   end
   object cdsFilial: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspFilial'
-    OnNewRecord = cdsCupomTerminalNewRecord
-    Left = 160
-    Top = 120
+    Left = 164
+    Top = 123
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -110,10 +115,5 @@ object dmCupomTerminal: TdmCupomTerminal
       FieldName = 'CNPJ_CPF'
       Size = 18
     end
-  end
-  object dsFilial: TDataSource
-    DataSet = cdsFilial
-    Left = 216
-    Top = 120
   end
 end

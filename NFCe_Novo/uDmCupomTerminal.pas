@@ -23,8 +23,8 @@ type
     cdsCupomTerminalFILIAL: TIntegerField;
     sdsFilial: TSQLDataSet;
     dspFilial: TDataSetProvider;
-    cdsFilial: TClientDataSet;
     dsFilial: TDataSource;
+    cdsFilial: TClientDataSet;
     cdsFilialID: TIntegerField;
     cdsFilialNOME: TStringField;
     cdsFilialNOME_INTERNO: TStringField;
