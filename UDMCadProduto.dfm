@@ -509,6 +509,14 @@ object dmCadProduto: TdmCadProduto
     object sdsProdutoPRECO_VAREJO: TFloatField
       FieldName = 'PRECO_VAREJO'
     end
+    object sdsProdutoTIPO_BALANCA: TStringField
+      FieldName = 'TIPO_BALANCA'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsProdutoCODIGO_BALANCA: TIntegerField
+      FieldName = 'CODIGO_BALANCA'
+    end
   end
   object dspProduto: TDataSetProvider
     DataSet = sdsProduto
@@ -1079,6 +1087,14 @@ object dmCadProduto: TdmCadProduto
     end
     object cdsProdutoPRECO_VAREJO: TFloatField
       FieldName = 'PRECO_VAREJO'
+    end
+    object cdsProdutoTIPO_BALANCA: TStringField
+      FieldName = 'TIPO_BALANCA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoCODIGO_BALANCA: TIntegerField
+      FieldName = 'CODIGO_BALANCA'
     end
   end
   object dsProduto: TDataSource
@@ -10850,6 +10866,19 @@ object dmCadProduto: TdmCadProduto
     object qTab_CProd_ANPDESCRICAO: TStringField
       FieldName = 'DESCRICAO'
       Size = 100
+    end
+  end
+  object qUltimoCodigoBalanca: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select max(coalesce(CODIGO_BALANCA, 0)) ultimo'
+      'from PRODUTO')
+    SQLConnection = dmDatabase.scoDados
+    Left = 991
+    Top = 524
+    object qUltimoCodigoBalancaULTIMO: TIntegerField
+      FieldName = 'ULTIMO'
     end
   end
 end
