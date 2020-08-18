@@ -773,8 +773,8 @@ object fCupomTerminal: TfCupomTerminal
           DropDownWidth = 700
           DataField = 'FILIAL'
           DataSource = dmCupomTerminal.dsCupomTerminal
-          LookupField = 'NOME_INTERNO;CNPJ_CPF'
-          LookupDisplay = 'ID'
+          LookupField = 'ID'
+          LookupDisplay = 'NOME_INTERNO;CNPJ_CPF'
           LookupSource = dmCupomTerminal.dsFilial
           TabOrder = 3
         end

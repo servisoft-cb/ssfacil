@@ -23,12 +23,12 @@ type
     cdsCupomTerminalFILIAL: TIntegerField;
     sdsFilial: TSQLDataSet;
     dspFilial: TDataSetProvider;
-    dsFilial: TDataSource;
     cdsFilial: TClientDataSet;
     cdsFilialID: TIntegerField;
     cdsFilialNOME: TStringField;
     cdsFilialNOME_INTERNO: TStringField;
     cdsFilialCNPJ_CPF: TStringField;
+    dsFilial: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsCupomTerminalNewRecord(DataSet: TDataSet);
   private
@@ -77,11 +77,11 @@ begin
       sds.SQLConnection := dmDatabase.scoDados;
       sds.NoMetadata    := True;
       sds.GetMetadata   := False;
-      sds.CommandText   := 'SELECT C.ID FROM CUPOMFISCAL_TERMINAL C WHERE C.SERIE = :SERIE AND FILIAL = :FILIAL ';
+      sds.CommandText   := 'SELECT C.ID FROM CUPOMFISCAL_TERMINAL C WHERE C.SERIE = :SERIE AND FILIAL = :FILIAL  ';
       sds.ParamByName('SERIE').AsString   := cdsCupomTerminalSERIE.AsString;
       sds.ParamByName('FILIAL').AsInteger := cdsCupomTerminalFILIAL.AsInteger;
       sds.Open;
-      if sds.FieldByName('ID').AsInteger <> cdsCupomTerminalID.AsInteger then
+      if (sds.FieldByName('ID').AsInteger > 0) and (sds.FieldByName('ID').AsInteger <> cdsCupomTerminalID.AsInteger) then
         vMsgCupomTerminal := vMsgCupomTerminal + #13 + '*** Série já usada na Filial!';
     finally
       FreeAndNil(sds);

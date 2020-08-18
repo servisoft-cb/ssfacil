@@ -89,15 +89,11 @@ object dmCupomTerminal: TdmCupomTerminal
     Left = 104
     Top = 121
   end
-  object dsFilial: TDataSource
-    Left = 216
-    Top = 120
-  end
   object cdsFilial: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 164
+    Left = 165
     Top = 123
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
@@ -115,5 +111,10 @@ object dmCupomTerminal: TdmCupomTerminal
       FieldName = 'CNPJ_CPF'
       Size = 18
     end
+  end
+  object dsFilial: TDataSource
+    DataSet = cdsFilial
+    Left = 214
+    Top = 122
   end
 end
