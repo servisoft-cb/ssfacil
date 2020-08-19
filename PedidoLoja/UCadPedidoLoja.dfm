@@ -2315,7 +2315,9 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             Align = alTop
             BevelOuter = bvNone
             Color = 13041663
+            Ctl3D = False
             Enabled = False
+            ParentCtl3D = False
             TabOrder = 0
             OnEnter = pnlProdutoEnter
             OnExit = pnlProdutoExit
@@ -2365,7 +2367,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               ParentFont = False
             end
             object Edit1: TEdit
-              Left = 56
+              Left = 55
               Top = 3
               Width = 122
               Height = 19
@@ -2375,7 +2377,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               OnKeyDown = Edit1KeyDown
             end
             object Edit2: TEdit
-              Left = 56
+              Left = 55
               Top = 21
               Width = 122
               Height = 19
@@ -2387,7 +2389,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               OnKeyDown = Edit2KeyDown
             end
             object Edit3: TEdit
-              Left = 177
+              Left = 176
               Top = 21
               Width = 313
               Height = 19
@@ -2399,7 +2401,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               OnKeyDown = Edit3KeyDown
             end
             object edtLote: TEdit
-              Left = 56
+              Left = 55
               Top = 39
               Width = 122
               Height = 19

@@ -866,7 +866,9 @@ uses
   uUtilDialogs in 'uUtilDialogs.pas',
   uCadConfig_Balanca in 'uCadConfig_Balanca.pas' {frmConfigBalanca},
   UDMCadConfig_Balanca in 'UDMCadConfig_Balanca.pas' {DMConfig_Balanca: TDataModule},
-  uCadConfig_BalancaArquivo in 'uCadConfig_BalancaArquivo.pas' {frmConfigArquivoBalanca};
+  uCadConfig_BalancaArquivo in 'uCadConfig_BalancaArquivo.pas' {frmConfigArquivoBalanca},
+  UDMConsPedidoCom in 'UDMConsPedidoCom.pas' {DMConsPedidoCom: TDataModule},
+  UConsPedido_Rep in 'UConsPedido_Rep.pas' {frmConsPedido_Rep};
 
 {$R *.res}
 

@@ -1113,7 +1113,7 @@ begin
   DBCheckBox1.Visible := (fDMCadPedido.qParametros_PedDESABILITAR_OC_PED.AsString <> 'S');
   btnAltDtEntrega.Visible := (fDMCadPedido.qParametros_PedMOSTRAR_ALT_DT_ENTREGA.AsString = 'S');
   Label69.Visible := (fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S');
-  rxdbTipoCobranca2.Visible := (fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S');
+  rxdbTipoCobranca2.Visible := (fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S') or (fDMCadPedido.qParametros_PedMOSTRAR_TIPO_COBR.AsString = 'S');
   //28/01/2017
   Label70.Visible       := (fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S');
   RxDBComboBox2.Visible := (fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S');

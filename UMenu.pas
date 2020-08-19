@@ -367,6 +367,7 @@ type
     ConsultaOramento1: TMenuItem;
     ConsultaCSTICMSxCFOP1: TMenuItem;
     ConfiguraoBalana1: TMenuItem;
+    ConsultaPedidoPorCliente1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);
@@ -640,6 +641,7 @@ type
     procedure ConsultaOramento1Click(Sender: TObject);
     procedure ConsultaCSTICMSxCFOP1Click(Sender: TObject);
     procedure ConfiguraoBalana1Click(Sender: TObject);
+    procedure ConsultaPedidoPorCliente1Click(Sender: TObject);
   private
     { Private declarations }
     vPedLoja: String; //L = Loja, M = Mensal, N = Normal
@@ -702,7 +704,7 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   UConsProdSTRet, UDMCadPlanoMat, UGerar_PlanoMat, UAjusteEstoqueOP_Res, uCadRaca, uCadTipo_Animal, UConsEstoque2, UComissaoVend,
   UConsProdutoNCM, UProg_Terc, UConsPedido_Producao, UConsNCM_CFOP, UANP_Produto, UCadMetas_Comissao, uCupomTerminal, UConsAdto,
   UConsPedido_Res, uConsComissao_Metas, UCadAjuste_Preco, UConsPedido_Est, UConsProduto_Vendedor_Fat, uCadRegiaoVenda,
-  UConsOrcamento, UConsCSTxCFOP, uCadConfig_Balanca;
+  UConsOrcamento, UConsCSTxCFOP, uCadConfig_Balanca, UConsPedido_Rep;
 
 {$R *.dfm}
 
@@ -2322,6 +2324,11 @@ end;
 procedure TfMenu.ConfiguraoBalana1Click(Sender: TObject);
 begin
   OpenForm(TfrmConfigBalanca,wsMaximized);
+end;
+
+procedure TfMenu.ConsultaPedidoPorCliente1Click(Sender: TObject);
+begin
+  OpenForm(TfrmConsPedido_Rep,wsMaximized);
 end;
 
 initialization

@@ -4155,18 +4155,20 @@ object DMCadPedido: TDMCadPedido
       'conta do Remetente'#39#13#10'         WHEN PED.TIPO_FRETE = '#39'5'#39' THEN '#39' 5' +
       ' Transporte Pr'#243'prio por conta do Destinat'#225'rio'#39#13#10'         WHEN PE' +
       'D.TIPO_FRETE = '#39'9'#39' THEN '#39' 9 Sem Frete'#39#13#10'       END DESC_TIPO_FRE' +
-      'TE, vint.nome nome_vendedor_int'#13#10#13#10'FROM PEDIDO PED'#13#10'LEFT JOIN PE' +
-      'SSOA CLI ON PED.ID_CLIENTE = CLI.CODIGO'#13#10'INNER JOIN FILIAL FIL O' +
-      'N (PED.FILIAL = FIL.ID)'#13#10'LEFT JOIN PESSOA TRA ON (PED.ID_TRANSPO' +
-      'RTADORA = TRA.CODIGO)'#13#10'LEFT JOIN PESSOA RED ON (PED.ID_REDESPACH' +
-      'O = RED.CODIGO)'#13#10'LEFT JOIN CONDPGTO COND ON (PED.ID_CONDPGTO = C' +
-      'OND.ID)'#13#10'LEFT JOIN PESSOA VEND ON (PED.ID_VENDEDOR = VEND.CODIGO' +
-      ')'#13#10'LEFT JOIN PESSOA VINT ON (PED.id_vendedor_int = VINT.CODIGO)'#13 +
-      #10'LEFT JOIN FUNCIONARIO FUN ON (PED.ID_FUNCIONARIO = FUN.CODIGO)'#13 +
-      #10'LEFT JOIN MAPA_COMPRAS MAPA ON (PED.ID_MAPA = MAPA.ID)'#13#10'LEFT JO' +
-      'IN PESSOA ATE ON (PED.ID_ATELIER = ATE.CODIGO)'#13#10'LEFT JOIN OPERAC' +
-      'AO_NOTA OPN ON (PED.ID_OPERACAO_NOTA = OPN.ID)'#13#10'LEFT JOIN GRUPO_' +
-      'PESSOA GP ON PED.ID_GRUPO_PESSOA = GP.ID'#13#10'WHERE PED.ID = :ID'#13#10
+      'TE, vint.nome nome_vendedor_int, TCOB.NOME NOME_TIPO_COBRANCA'#13#10#13 +
+      #10'FROM PEDIDO PED'#13#10'LEFT JOIN PESSOA CLI ON PED.ID_CLIENTE = CLI.C' +
+      'ODIGO'#13#10'INNER JOIN FILIAL FIL ON (PED.FILIAL = FIL.ID)'#13#10'LEFT JOIN' +
+      ' PESSOA TRA ON (PED.ID_TRANSPORTADORA = TRA.CODIGO)'#13#10'LEFT JOIN P' +
+      'ESSOA RED ON (PED.ID_REDESPACHO = RED.CODIGO)'#13#10'LEFT JOIN CONDPGT' +
+      'O COND ON (PED.ID_CONDPGTO = COND.ID)'#13#10'LEFT JOIN PESSOA VEND ON ' +
+      '(PED.ID_VENDEDOR = VEND.CODIGO)'#13#10'LEFT JOIN PESSOA VINT ON (PED.i' +
+      'd_vendedor_int = VINT.CODIGO)'#13#10'LEFT JOIN FUNCIONARIO FUN ON (PED' +
+      '.ID_FUNCIONARIO = FUN.CODIGO)'#13#10'LEFT JOIN MAPA_COMPRAS MAPA ON (P' +
+      'ED.ID_MAPA = MAPA.ID)'#13#10'LEFT JOIN PESSOA ATE ON (PED.ID_ATELIER =' +
+      ' ATE.CODIGO)'#13#10'LEFT JOIN OPERACAO_NOTA OPN ON (PED.ID_OPERACAO_NO' +
+      'TA = OPN.ID)'#13#10'LEFT JOIN GRUPO_PESSOA GP ON PED.ID_GRUPO_PESSOA =' +
+      ' GP.ID'#13#10'LEFT JOIN tipocobranca TCOB ON PED.id_tipo_cobranca = TC' +
+      'OB.ID'#13#10#13#10'WHERE PED.ID = :ID'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -4184,14 +4186,13 @@ object DMCadPedido: TDMCadPedido
     Top = 358
   end
   object cdsPedidoImp: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspPedidoImp'
     AfterScroll = cdsPedidoImpAfterScroll
     OnCalcFields = pedidoImpCalcFields
-    Left = 208
+    Left = 209
     Top = 359
     object cdsPedidoImpID: TIntegerField
       FieldName = 'ID'
@@ -4896,6 +4897,17 @@ object DMCadPedido: TDMCadPedido
     object cdsPedidoImpNOME_VENDEDOR_INT: TStringField
       FieldName = 'NOME_VENDEDOR_INT'
       Size = 60
+    end
+    object cdsPedidoImpAMOSTRA: TStringField
+      FieldName = 'AMOSTRA'
+      Size = 1
+    end
+    object cdsPedidoImpID_TIPO_COBRANCA: TIntegerField
+      FieldName = 'ID_TIPO_COBRANCA'
+    end
+    object cdsPedidoImpNOME_TIPO_COBRANCA: TStringField
+      FieldName = 'NOME_TIPO_COBRANCA'
+      Size = 30
     end
   end
   object dsPedidoImp: TDataSource
@@ -10883,13 +10895,13 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44054.696876203710000000
+    ReportOptions.LastChange = 44062.566055810190000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 984
+    Left = 985
     Top = 104
   end
   object frxDBDataset1: TfrxDBDataset
@@ -11079,11 +11091,14 @@ object DMCadPedido: TDMCadPedido
       'COMPL_END_FILIAL=COMPL_END_FILIAL'
       'IMP_ETIQUETA_ROT=IMP_ETIQUETA_ROT'
       'ID_VENDEDOR_INT=ID_VENDEDOR_INT'
-      'NOME_VENDEDOR_INT=NOME_VENDEDOR_INT')
+      'NOME_VENDEDOR_INT=NOME_VENDEDOR_INT'
+      'AMOSTRA=AMOSTRA'
+      'ID_TIPO_COBRANCA=ID_TIPO_COBRANCA'
+      'NOME_TIPO_COBRANCA=NOME_TIPO_COBRANCA')
     DataSource = dsPedidoImp
     BCDToCurrency = False
-    Left = 1113
-    Top = 284
+    Left = 1114
+    Top = 283
   end
   object frxDBDataset2: TfrxDBDataset
     UserName = 'frxPedidoImp_Cli'
@@ -14567,7 +14582,7 @@ object DMCadPedido: TDMCadPedido
     DataSource = dsmRotulos_Prod
     BCDToCurrency = False
     Left = 1120
-    Top = 198
+    Top = 199
   end
   object frxDBDataset14: TfrxDBDataset
     UserName = 'frxmRotulos_Tam'
@@ -15465,6 +15480,11 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_PedUSA_PEDIDO_MENSAL: TStringField
       FieldName = 'USA_PEDIDO_MENSAL'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_PedMOSTRAR_TIPO_COBR: TStringField
+      FieldName = 'MOSTRAR_TIPO_COBR'
       FixedChar = True
       Size = 1
     end
@@ -17874,7 +17894,7 @@ object DMCadPedido: TDMCadPedido
       'Imp_Preco=Imp_Preco')
     DataSource = dsmImpPed
     BCDToCurrency = False
-    Left = 1066
+    Left = 1067
     Top = 148
   end
   object qEtiqImp: TSQLQuery
@@ -18712,7 +18732,7 @@ object DMCadPedido: TDMCadPedido
       'CEI=CEI')
     DataSource = dsTriCCusto
     BCDToCurrency = False
-    Left = 981
+    Left = 982
     Top = 148
   end
   object qPessoa_ProdICMS: TSQLQuery

@@ -3810,6 +3810,10 @@ type
     cdsRegiao_VendaNOME: TStringField;
     dsRegiao_Venda: TDataSource;
     cdsPedidoImp_ItensVLR_TOTAL_COM_IPI: TFloatField;
+    cdsPedidoImpAMOSTRA: TStringField;
+    cdsPedidoImpID_TIPO_COBRANCA: TIntegerField;
+    qParametros_PedMOSTRAR_TIPO_COBR: TStringField;
+    cdsPedidoImpNOME_TIPO_COBRANCA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

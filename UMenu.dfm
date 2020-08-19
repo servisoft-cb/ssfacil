@@ -1,6 +1,6 @@
 object fMenu: TfMenu
-  Left = 372
-  Top = 5
+  Left = 295
+  Top = 3
   Width = 837
   Height = 686
   Caption = 'Menu'
@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 627
+    Height = 635
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -821,6 +821,10 @@ object fMenu: TfMenu
         object ConsultaPedidoProcesso1: TMenuItem
           Caption = 'Consulta Pedido Processo'
           OnClick = ConsultaPedidoProcesso1Click
+        end
+        object ConsultaPedidoPorCliente1: TMenuItem
+          Caption = 'Consulta Pedido Por Cliente'
+          OnClick = ConsultaPedidoPorCliente1Click
         end
         object ConsultaProdutosSemVendasPedidosnoPerodo1: TMenuItem
           Caption = 'Consulta Produtos/Clientes Sem Vendas(Pedidos) no Per'#237'odo'

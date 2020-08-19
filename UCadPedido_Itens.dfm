@@ -412,7 +412,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
     TabOrder = 6
     object BitBtn4: TBitBtn
       Left = 365
-      Top = 5
+      Top = 4
       Width = 98
       Height = 25
       Caption = '(F10) Ca&ncelar'
