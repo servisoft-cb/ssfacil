@@ -563,6 +563,8 @@ type
 
     function fnc_Sem_Comissao(ID : Integer) : String;
 
+    class procedure EnviarEmail(pID_NOTA: Integer);
+
   public
     { Public declarations }
     vQtd_Caixa: Integer;
@@ -4909,6 +4911,14 @@ begin
     FreeAndNil(sds);
   end;
 
+end;
+
+class procedure TfrmCadPedido.EnviarEmail(pID_NOTA: Integer);
+begin
+{  if not Assigned(dmNFSe) then
+    dmNFSe:= TdmNFSe.Create(nil);
+  dmNFSe.SetID_NOTA(pID_NOTA);
+  dmNFSe.EnviarEmailNfse;}
 end;
 
 end.

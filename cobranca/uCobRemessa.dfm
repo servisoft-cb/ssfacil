@@ -1,6 +1,6 @@
 object fCobRemessa: TfCobRemessa
   Left = 147
-  Top = 93
+  Top = 91
   BorderStyle = bsSingle
   Caption = 'fCobRemessa'
   ClientHeight = 493

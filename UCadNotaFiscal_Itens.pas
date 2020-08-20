@@ -1123,10 +1123,27 @@ begin
     else
       fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('DRAWBACK').AsString := 'N';
     if trim(fDMCadNotaFiscal.cdsNotaFiscal_ItensFINALIDADE.AsString) <> '' then
-      fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('FINALIDADE').AsString := fDMCadNotaFiscal.cdsNotaFiscal_ItensFINALIDADE.AsString 
+      fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('FINALIDADE').AsString := fDMCadNotaFiscal.cdsNotaFiscal_ItensFINALIDADE.AsString
     else
       fDMCadNotaFiscal.qPessoa_ProdICMS.ParamByName('FINALIDADE').AsString := 'A';
     fDMCadNotaFiscal.qPessoa_ProdICMS.Open;
+    //20/08/2020  para a SLTextil   onde mesmo se nã informar o produto e estiver marcado que é draback vai usar do cliente as informações
+    if (fDMCadNotaFiscal.qPessoa_ProdICMS.IsEmpty) and (fDMCadNotaFiscal.qPessoa_FiscalDRAW_POSSUI.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString = 'S') then
+    begin
+      if fDMCadNotaFiscal.qPessoa_FiscalDRAW_ID_IPI.AsInteger > 0 then
+      begin
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CSTIPI.AsInteger := fDMCadNotaFiscal.qPessoa_FiscalDRAW_ID_IPI.AsInteger;
+        if fDMCadNotaFiscal.qPessoa_FiscalDRAW_ENQIPI.AsInteger > 0 then
+          fDMCadNotaFiscal.cdsNotaFiscal_ItensID_ENQIPI.AsInteger := fDMCadNotaFiscal.qPessoa_FiscalDRAW_ENQIPI.AsInteger;
+      end;
+      if fDMCadNotaFiscal.qPessoa_FiscalDRAW_ID_PIS_COFINS.AsInteger > 0 then
+      begin
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PIS.AsInteger    := fDMCadNotaFiscal.qPessoa_FiscalDRAW_ID_PIS_COFINS.AsInteger;
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensID_COFINS.AsInteger := fDMCadNotaFiscal.qPessoa_FiscalDRAW_ID_PIS_COFINS.AsInteger;
+      end;
+    end
+    else
+    //******************************
     if not fDMCadNotaFiscal.qPessoa_ProdICMS.IsEmpty then
     begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CSTICMS.AsInteger := fDMCadNotaFiscal.qPessoa_ProdICMSID_CSTICMS.AsInteger;
@@ -1157,15 +1174,15 @@ begin
         begin
           fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PIS.AsInteger    := fDMCadNotaFiscal.qPessoa_FiscalDRAW_ID_PIS_COFINS.AsInteger;
           fDMCadNotaFiscal.cdsNotaFiscal_ItensID_COFINS.AsInteger := fDMCadNotaFiscal.qPessoa_FiscalDRAW_ID_PIS_COFINS.AsInteger;
-          if not fnc_Gerar_Cofins then
-          begin
-            fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_COFINS.AsFloat := 0;
-            fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_PIS.AsFloat    := 0;
-          end;
         end;
         if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.qPessoa_FiscalDRAW_PERC_DESCONTO.AsFloat)) > 0 then
           fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_DESCONTO.AsFloat := StrToFloat(FormatFloat('0.000',fDMCadNotaFiscal.qPessoa_FiscalDRAW_PERC_DESCONTO.AsFloat));
       end;
+    end;
+    if not fnc_Gerar_Cofins then
+    begin
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_COFINS.AsFloat := 0;
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_PIS.AsFloat    := 0;
     end;
   end;
   //*******************
