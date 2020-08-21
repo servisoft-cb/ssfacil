@@ -35,11 +35,13 @@ type
     Label9: TLabel;
     ceBase_Comissao_Prod: TCurrencyEdit;
     ceVlr_Sem_Comissao_Prod: TCurrencyEdit;
+    ckVendedor: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure btnExcelClick(Sender: TObject);
     procedure NxButton1Click(Sender: TObject);
+    procedure ckVendedorClick(Sender: TObject);
   private
     { Private declarations }
     fDMComissaoVend: TDMComissaoVend;
@@ -88,6 +90,9 @@ var
 begin
   fDMComissaoVend.cdsConsProdFat.Close;
   vComando := '';
+  if ckVendedor.Checked then
+    vComando := vComando + ' AND COALESCE(N.ID_VENDEDOR,0) = 0 '
+  else
   if RxDBLookupCombo1.Text <> '' then
     vComando := vComando + ' AND N.ID_VENDEDOR = ' + IntToStr(RxDBLookupCombo1.KeyValue);
   if DateEdit1.Date > 10 then
@@ -185,6 +190,13 @@ begin
   ceVlr_Comissao.Value          := vVlr_Comissao;
   ceBase_Comissao_Prod.Value    := vBase_Comissao_Prod;
   ceVlr_Sem_Comissao_Prod.Value := vVlr_Sem_Comissao_Prod;
+end;
+
+procedure TfrmConsProduto_Vendedor_Fat.ckVendedorClick(Sender: TObject);
+begin
+  RxDBLookupCombo1.Enabled := not(ckVendedor.Checked);
+  if ckVendedor.Checked then
+    RxDBLookupCombo1.ClearValue;
 end;
 
 end.

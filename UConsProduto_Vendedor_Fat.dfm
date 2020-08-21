@@ -19,7 +19,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
     Left = 0
     Top = 0
     Width = 920
-    Height = 50
+    Height = 52
     Align = alTop
     Color = clSilver
     TabOrder = 0
@@ -49,7 +49,7 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
     end
     object btnConsultar: TNxButton
       Left = 382
-      Top = 19
+      Top = 26
       Width = 111
       Height = 26
       Caption = 'Efetuar Pesquisa'
@@ -91,19 +91,28 @@ object frmConsProduto_Vendedor_Fat: TfrmConsProduto_Vendedor_Fat
     end
     object btnExcel: TNxButton
       Left = 494
-      Top = 20
+      Top = 26
       Width = 111
       Height = 26
       Caption = 'Excel'
       TabOrder = 4
       OnClick = btnExcelClick
     end
+    object ckVendedor: TCheckBox
+      Left = 411
+      Top = 3
+      Width = 152
+      Height = 17
+      Caption = 'Sem Vendedor'
+      TabOrder = 5
+      OnClick = ckVendedorClick
+    end
   end
   object SMDBGrid1: TSMDBGrid
     Left = 0
-    Top = 50
+    Top = 52
     Width = 920
-    Height = 306
+    Height = 304
     Align = alClient
     Ctl3D = False
     DataSource = DMComissaoVend.dsConsProdFat
