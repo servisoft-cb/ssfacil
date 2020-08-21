@@ -2946,12 +2946,15 @@ object DMConsFinanceiro: TDMConsFinanceiro
     end
     object cdsDuplicata_CCustoVLR_PARCELA: TFloatField
       FieldName = 'VLR_PARCELA'
+      DisplayFormat = '0.00'
     end
     object cdsDuplicata_CCustoVLR_RESTANTE: TFloatField
       FieldName = 'VLR_RESTANTE'
+      DisplayFormat = '0.00'
     end
     object cdsDuplicata_CCustoVLR_PAGO: TFloatField
       FieldName = 'VLR_PAGO'
+      DisplayFormat = '0.00'
     end
     object cdsDuplicata_CCustoID_PESSOA: TIntegerField
       FieldName = 'ID_PESSOA'
@@ -2977,6 +2980,7 @@ object DMConsFinanceiro: TDMConsFinanceiro
     end
     object cdsDuplicata_CCustoVLR_CCUSTO: TFloatField
       FieldName = 'VLR_CCUSTO'
+      DisplayFormat = '0.00'
     end
     object cdsDuplicata_CCustoPERC_CCUSTO: TFloatField
       FieldName = 'PERC_CCUSTO'
@@ -2986,15 +2990,19 @@ object DMConsFinanceiro: TDMConsFinanceiro
     end
     object cdsDuplicata_CCustoVLR_ENTRADA: TFloatField
       FieldName = 'VLR_ENTRADA'
+      DisplayFormat = '0.00'
     end
     object cdsDuplicata_CCustoVLR_SAIDA: TFloatField
       FieldName = 'VLR_SAIDA'
+      DisplayFormat = '0.00'
     end
     object cdsDuplicata_CCustoVLR_ENTRADA_DUP: TFloatField
       FieldName = 'VLR_ENTRADA_DUP'
+      DisplayFormat = '0.00'
     end
     object cdsDuplicata_CCustoVLR_SAIDA_DUP: TFloatField
       FieldName = 'VLR_SAIDA_DUP'
+      DisplayFormat = '0.00'
     end
     object cdsDuplicata_CCustoagVlr_Entrada: TAggregateField
       FieldName = 'agVlr_Entrada'

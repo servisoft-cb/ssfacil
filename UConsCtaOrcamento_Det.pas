@@ -3,9 +3,8 @@ unit UConsCtaOrcamento_Det;
 interface
 
 uses
-  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, UDMConsFinanceiro, Grids, DBGrids, SMDBGrid, DB, RzTabs,
-  StdCtrls, Mask, DBCtrls, ExtCtrls;
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMConsFinanceiro, Grids, DBGrids, SMDBGrid, DB,
+  RzTabs, StdCtrls, Mask, DBCtrls, ExtCtrls;
 
 type
   TfrmConsCtaOrcamento_Det = class(TForm)
@@ -37,7 +36,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    fDMConsFinanceiro : TDMConsFinanceiro;
+    fDMConsFinanceiro: TDMConsFinanceiro;
   end;
 
 var
