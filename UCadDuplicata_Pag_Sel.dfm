@@ -42,7 +42,7 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
       OnClick = BitBtn4Click
     end
     object BitBtn1: TBitBtn
-      Left = 133
+      Left = 132
       Top = 5
       Width = 98
       Height = 25
@@ -395,6 +395,15 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
       Height = 21
       MaxLength = 70
       TabOrder = 4
+    end
+    object ckVencimento: TCheckBox
+      Left = 297
+      Top = 49
+      Width = 302
+      Height = 17
+      Caption = 'Usar a data de vencimento como a de pagamento'
+      TabOrder = 5
+      OnClick = ckVencimentoClick
     end
   end
 end

@@ -1347,7 +1347,10 @@ begin
           fDMCadDuplicata.cdsDuplicataID_BANCO.AsInteger := fDMCadDuplicata.vID_Banco_Cheque;
         fDMCadDuplicata.cdsDuplicataID_CONTA.AsInteger := fDMCadDuplicata.vID_ContaPgtoSel;
         fDMCadDuplicata.cdsDuplicataID_CONTABIL_OPE_BAIXA.AsInteger := fDMCadDuplicata.vId_Contabil_OP_Baixa;
-        fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime := fDMCadDuplicata.vDtPgtoSel;
+        if fDMCadDuplicata.vUsar_DtVencimento then
+          fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime := fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsDateTime
+        else
+          fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime := fDMCadDuplicata.vDtPgtoSel;
         //06/06/2020
         vVlrPago := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
         if fDMCadDuplicata.qContasTIPO_CONTA.AsString = 'A' then
@@ -1809,7 +1812,8 @@ begin
   ffrmCadDuplicata_Pag_Sel.ShowModal;
   FreeAndNil(ffrmCadDuplicata_Pag_Sel);
 
-  if (fDMCadDuplicata.vDtPgtoSel > 10) and (fDMCadDuplicata.vID_ContaPgtoSel > 0) then
+  if ((fDMCadDuplicata.vDtPgtoSel > 10) and (fDMCadDuplicata.vID_ContaPgtoSel > 0)) or
+     ((fDMCadDuplicata.vUsar_DtVencimento) and (fDMCadDuplicata.vID_ContaPgtoSel > 0)) then
   begin
     fDMCadDuplicata.qContas.Close;
     fDMCadDuplicata.qContas.ParamByName('ID').AsInteger := fDMCadDuplicata.vID_ContaPgtoSel;

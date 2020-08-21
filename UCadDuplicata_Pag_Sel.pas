@@ -34,6 +34,7 @@ type
     Label9: TLabel;
     Edit1: TEdit;
     Label2: TLabel;
+    ckVencimento: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -48,6 +49,7 @@ type
     procedure ceNumChequeExit(Sender: TObject);
     procedure Panel1Exit(Sender: TObject);
     procedure gbxChequeExit(Sender: TObject);
+    procedure ckVencimentoClick(Sender: TObject);
   private
     { Private declarations }
     ffrmCadContas: TfrmCadContas;
@@ -90,7 +92,7 @@ end;
 
 procedure TfrmCadDuplicata_Pag_Sel.BitBtn1Click(Sender: TObject);
 begin
-  if DtPagamento.Date < 10 then
+  if (DtPagamento.Date < 10) and not(ckVencimento.Checked) then
   begin
     MessageDlg('*** Data de pagamento não informada!', mtError, [mbOk], 0);
     exit;
@@ -103,7 +105,11 @@ begin
 
   vConfirmar := True;
 
-  fDMCadDuplicata.vDtPgtoSel       := DtPagamento.Date;
+  if ckVencimento.Checked then
+    fDMCadDuplicata.vDtPgtoSel := 0
+  else
+    fDMCadDuplicata.vDtPgtoSel := DtPagamento.Date;
+  fDMCadDuplicata.vUsar_DtVencimento := ckVencimento.Checked;
   fDMCadDuplicata.vID_ContaPgtoSel := RxDBLookupCombo1.KeyValue;
   if Trim(RxDBLookupCombo12.Text) <> '' then
     fDMCadDuplicata.vId_Contabil_OP_Baixa := RxDBLookupCombo12.KeyValue
@@ -135,7 +141,7 @@ begin
   vMsgErro := '';
   if RxDBLookupCombo1.Text = '' then
     vMsgErro := vMsgErro + #13 + '*** Conta não informada!';
-  if DtPagamento.Date < 10 then
+  if (DtPagamento.Date < 10) and not(ckVencimento.Checked) then
     vMsgErro := vMsgErro + #13 + '*** Data Pagamento não informada!';
   if vMsgErro <> '' then
   begin
@@ -211,7 +217,10 @@ end;
 procedure TfrmCadDuplicata_Pag_Sel.ceNumChequeExit(Sender: TObject);
 begin
   if (ceNumCheque.AsInteger > 10) and (DateEdit1.Date < 10) then
-    DateEdit1.Date := DtPagamento.Date;
+  begin
+    if DtPagamento.Date > 10 then
+      DateEdit1.Date := DtPagamento.Date;
+  end;
 end;
 
 procedure TfrmCadDuplicata_Pag_Sel.Panel1Exit(Sender: TObject);
@@ -253,6 +262,14 @@ begin
     fDMCadDuplicata.mChequeEmitido_Por.AsString := '1';
     fDMCadDuplicata.mCheque.Post;
   end;
+end;
+
+procedure TfrmCadDuplicata_Pag_Sel.ckVencimentoClick(Sender: TObject);
+begin
+  DtPagamento.Enabled := not(ckVencimento.Checked);
+  if ckVencimento.Checked then
+    DtPagamento.Clear;
+
 end;
 
 end.

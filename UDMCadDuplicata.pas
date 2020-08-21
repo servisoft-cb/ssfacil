@@ -1134,6 +1134,7 @@ type
     vDtUltPagamento: TDateTime;//Esta data é usada para o estorno
     vID_ContaPgtoSel: Integer;
     vDtPgtoSel, vDataIni, vDataFim: TDateTime;
+    vUsar_DtVencimento : Boolean;
     vID_FormaPgto: Integer;
     vNum_Cheque: Integer;
     vDtCheque: TDateTime;
@@ -1919,9 +1920,6 @@ begin
   while not mCheque.Eof do
   begin
     vInserir := True;
-    //if (vID_Cheque > 0) and (cdsDuplicataTIPO_ES.AsString = 'S') then
-    //  vInserir := False;
-    //if vID_Cheque <= 0 then
     if (cdsDuplicataTIPO_ES.AsString = 'S') and (mChequeEmitido_Por.AsString = '1') and (mChequeID_Cheque.AsInteger > 0) then
     begin
       prc_Abrir_Cheque(mChequeID_Cheque.AsInteger);
