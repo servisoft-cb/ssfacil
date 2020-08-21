@@ -96,7 +96,7 @@ begin
     Label1.Caption := 'Valor de Sangria:';
 
   if vUsaGaveta then
-    prc_AbreGaveta(1);
+    prc_AbreGaveta();
 end;
 
 procedure TfrmCadFechamento_Sangria.btnConfirmarClick(Sender: TObject);

@@ -23,8 +23,8 @@ object frmCadFechamento2: TfrmCadFechamento2
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 996
-    Height = 661
+    Width = 988
+    Height = 653
     ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -43,8 +43,8 @@ object frmCadFechamento2: TfrmCadFechamento2
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 133
-        Width = 992
-        Height = 464
+        Width = 984
+        Height = 456
         Align = alClient
         BorderStyle = bsNone
         Ctl3D = False
@@ -133,7 +133,7 @@ object frmCadFechamento2: TfrmCadFechamento2
       object pnlPesquisa: TPanel
         Left = 0
         Top = 63
-        Width = 992
+        Width = 984
         Height = 70
         Align = alTop
         Color = clSilver
@@ -293,8 +293,8 @@ object frmCadFechamento2: TfrmCadFechamento2
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 621
-        Width = 992
+        Top = 613
+        Width = 984
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -310,7 +310,7 @@ object frmCadFechamento2: TfrmCadFechamento2
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 992
+        Width = 984
         Height = 63
         Align = alTop
         Color = clSilver
@@ -739,8 +739,8 @@ object frmCadFechamento2: TfrmCadFechamento2
       end
       object Panel4: TPanel
         Left = 0
-        Top = 597
-        Width = 992
+        Top = 589
+        Width = 984
         Height = 24
         Align = alBottom
         Color = clSilver
@@ -832,12 +832,12 @@ object frmCadFechamento2: TfrmCadFechamento2
       object NxSplitter1: TNxSplitter
         Left = 459
         Top = 92
-        Height = 546
+        Height = 538
       end
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 992
+        Width = 984
         Height = 30
         Align = alTop
         Color = 8404992
@@ -1138,8 +1138,8 @@ object frmCadFechamento2: TfrmCadFechamento2
       object SMDBGrid5: TSMDBGrid
         Left = 468
         Top = 92
-        Width = 524
-        Height = 546
+        Width = 516
+        Height = 538
         Align = alClient
         Ctl3D = False
         DataSource = DMCadFechamento.dsFechamento_Itens
@@ -1257,7 +1257,7 @@ object frmCadFechamento2: TfrmCadFechamento2
       object pnlNota: TPanel
         Left = 0
         Top = 30
-        Width = 992
+        Width = 984
         Height = 62
         Align = alTop
         BevelOuter = bvNone
@@ -1407,7 +1407,7 @@ object frmCadFechamento2: TfrmCadFechamento2
         Left = 0
         Top = 92
         Width = 459
-        Height = 546
+        Height = 538
         Align = alLeft
         BorderPen.Width = 0
         UseDockManager = False
@@ -1550,7 +1550,7 @@ object frmCadFechamento2: TfrmCadFechamento2
           Left = 187
           Top = 95
           Width = 200
-          Height = 24
+          Height = 19
           TabStop = False
           Color = 8454143
           Ctl3D = False
@@ -1570,7 +1570,7 @@ object frmCadFechamento2: TfrmCadFechamento2
           Left = 187
           Top = 118
           Width = 200
-          Height = 24
+          Height = 19
           TabStop = False
           Color = 8454143
           Ctl3D = False
@@ -1590,7 +1590,7 @@ object frmCadFechamento2: TfrmCadFechamento2
           Left = 187
           Top = 141
           Width = 200
-          Height = 24
+          Height = 19
           TabStop = False
           Color = 8454143
           Ctl3D = False
@@ -1610,7 +1610,7 @@ object frmCadFechamento2: TfrmCadFechamento2
           Left = 187
           Top = 164
           Width = 200
-          Height = 24
+          Height = 19
           Hint = 'Recebimento de Credi'#225'rio'
           TabStop = False
           Color = 8454143
@@ -1633,7 +1633,7 @@ object frmCadFechamento2: TfrmCadFechamento2
           Left = 187
           Top = 187
           Width = 200
-          Height = 24
+          Height = 19
           TabStop = False
           Color = 8454143
           Ctl3D = False
