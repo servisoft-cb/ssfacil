@@ -1168,7 +1168,7 @@ end;
 
 procedure TfrmCadFechamento.btGavetaClick(Sender: TObject);
 begin
-  prc_AbreGaveta(1);
+  prc_AbreGaveta();
 end;
 
 procedure TfrmCadFechamento.prc_Zerar_Valores(ApagarItens: Boolean = True);

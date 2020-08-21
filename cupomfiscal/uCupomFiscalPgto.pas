@@ -313,7 +313,7 @@ begin
     Exit;
   end;
   if fDmCupomFiscal.cdsTipoCobrancaABRE_GAVETA.AsString = 'S' then
-    prc_AbreGaveta(1);
+    prc_AbreGaveta();
 end;
 
 function TfCupomFiscalPgto.Calcula_Troco: Boolean;
@@ -1221,7 +1221,7 @@ end;
 
 procedure TfCupomFiscalPgto.btGavetaClick(Sender: TObject);
 begin
-  prc_AbreGaveta(1);
+  prc_AbreGaveta();
 end;
 
 procedure TfCupomFiscalPgto.SpeedButton1Click(Sender: TObject);

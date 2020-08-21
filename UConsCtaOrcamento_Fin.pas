@@ -76,7 +76,7 @@ type
     procedure prc_Consultar_CCusto_Orcamento;
     procedure prc_Consultar_Resumo_CCusto;
     procedure prc_Carrega_Combo;
-    procedure prc_duplicata_CCusto(ID_CCusto, ID_Conta_Orcamento : Integer);
+    procedure prc_duplicata_CCusto(ID_CCusto, ID_Conta_Orcamento: Integer);
     procedure prc_CriaExcel(vDados: TDataSource ; Grid :TSMDBGrid);
 
   public
@@ -207,8 +207,8 @@ begin
   end;
 
   case RadioGroup1.ItemIndex of
-    1 : vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('E');
-    2 : vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('S');
+    1: vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('E');
+    2: vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('S');
   end;
 
   fDMConsFinanceiro.sdsConsulta_Conta_Orc.CommandText := vComandoAux2 + vComando + vComandoAux;
@@ -700,8 +700,8 @@ begin
   end;
 
   case RadioGroup1.ItemIndex of
-    1 : vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('E');
-    2 : vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('S');
+    1: vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('E');
+    2: vComando := vComando + ' AND DUP.TIPO_ES = ' + QuotedStr('S');
   end;
   
   Ordem := ' ORDER BY ORC.CODIGO, CC.CODIGO';
@@ -779,17 +779,17 @@ begin
   vComandoAux2 := copy(fDMConsFinanceiro.ctCCustoOrcamento, 1, i - 1);
   vComando := '';
   case EnumDataRelatorio(NxComboBox2.ItemIndex) of
-    tpDataEmissao   : vComandoAux2 := StringReplace(vComandoAux2,'DTULTPAGAMENTO','DTEMISSAO',[rfReplaceAll]);
+    tpDataEmissao  : vComandoAux2 := StringReplace(vComandoAux2,'DTULTPAGAMENTO','DTEMISSAO',[rfReplaceAll]);
     tpDataVencimento: vComandoAux2 := StringReplace(vComandoAux2,'DTULTPAGAMENTO','DTVENCIMENTO',[rfReplaceAll]);
-    tpDataPagamento : vComandoAux2 := StringReplace(vComandoAux2,'DTULTPAGAMENTO','DTPAGAMENTO',[rfReplaceAll]);
+    tpDataPagamento: vComandoAux2 := StringReplace(vComandoAux2,'DTULTPAGAMENTO','DTPAGAMENTO',[rfReplaceAll]);
   end;
   case ComboBox1.ItemIndex of
     0: vComando := vComando + ' AND VD.VALOR_PAGO > 0 ';
     1: vComando := vComando + ' AND VD.VALOR_RESTANTE > 0 ';
   end;
   case RadioGroup1.ItemIndex of
-    1 : vComando := vComando + ' AND VD.VLR_ENTRADA > 0 ';
-    2 : vComando := vComando + ' AND VD.VLR_SAIDA > 0 ';
+    1: vComando := vComando + ' AND VD.VLR_ENTRADA > 0 ';
+    2: vComando := vComando + ' AND VD.VLR_SAIDA > 0 ';
   end;
   fDMConsFinanceiro.sdsCCustoOrcamento.CommandText := vComandoAux2 + vComando + vComandoAux;
   fDMConsFinanceiro.sdsCCustoOrcamento.ParamByName('DTINICIAL').AsDate := DateEdit1.Date;
@@ -836,16 +836,17 @@ begin
   prc_duplicata_CCusto(fDMConsFinanceiro.cdsCCustoOrcamentoID_CENTROCUSTO.AsInteger,fDMConsFinanceiro.cdsCCustoOrcamentoID_CONTA_ORCAMENTO.AsInteger);
 end;
 
-procedure TfrmConsCtaOrcamento_Fin.prc_duplicata_CCusto(ID_CCusto, ID_Conta_Orcamento : Integer);
+procedure TfrmConsCtaOrcamento_Fin.prc_duplicata_CCusto(ID_CCusto, ID_Conta_Orcamento: Integer);
 var
   ffrmConsCtaOrcamento_Det: TfrmConsCtaOrcamento_Det;
-  vFilAux : Integer;
+  vFilAux: Integer;
 begin
   fDMConsFinanceiro.vDtInicial := DateEdit1.Date;
-  fDMConsFinanceiro.vDtFinal := DateEdit2.Date;
+  fDMConsFinanceiro.vDtFinal   := DateEdit2.Date;
   case NxComboBox2.ItemIndex of
     0: fDMConsFinanceiro.vTipo_Data := 'E';
     1: fDMConsFinanceiro.vTipo_Data := 'V';
+    2: fDmConsFinanceiro.vTipo_Data := 'P';
   end;
   vFilAux := 0;
   if RxDBLookupCombo1.Text <> '' then
@@ -891,7 +892,7 @@ begin
   try
     planilha := CreateOleObject('Excel.Application');
     planilha.WorkBooks.add(1);
-    planilha.caption := 'Exportando dados do tela para o Excel';
+    planilha.caption := 'Exportando dados da tela para o Excel';
     planilha.visible := true;
     prc_Preencher_Excel2(planilha, vDados, Grid);
 

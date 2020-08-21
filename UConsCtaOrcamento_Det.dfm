@@ -22,12 +22,12 @@ object frmConsCtaOrcamento_Det: TfrmConsCtaOrcamento_Det
     Top = 0
     Width = 912
     Height = 489
-    ActivePage = TS_Titulos_CCusto
+    ActivePage = TS_Titulos
     Align = alClient
     BackgroundColor = clNavy
     FlatColor = clNavy
     ParentBackgroundColor = False
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 0
     FixedDimension = 19
     object TS_Titulos: TRzTabSheet

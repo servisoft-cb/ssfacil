@@ -603,12 +603,16 @@ begin
   else
     vComando := ' WHERE 0 = 0 ';
   if vTipo_Data = 'E' then
-    vComando := vComando + ' AND D.DTEMISSAO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtInicial))
-              + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtFinal))
+    vComando := vComando + ' AND D.DTEMISSAO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtInicial)) +
+                           ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtFinal))
   else
   if vTipo_Data = 'V' then
-    vComando := vComando + ' AND D.DTVENCIMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtInicial))
-              + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtFinal));
+    vComando := vComando + ' AND D.DTVENCIMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtInicial)) +
+                           ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtFinal))
+  else
+  if vTipo_Data = 'P' then
+    vComando := vComando + ' AND D.DTULTPAGAMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtInicial)) +
+                           ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY',vDtFinal));
 
   vComando := vComando + ' AND DC.ID_CENTROCUSTO = ' + IntToStr(ID_CCusto);
   vComando := vComando + ' AND DC.VALOR > 0 ';
