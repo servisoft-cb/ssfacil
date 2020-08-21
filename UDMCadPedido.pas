@@ -3814,6 +3814,23 @@ type
     cdsPedidoImpID_TIPO_COBRANCA: TIntegerField;
     qParametros_PedMOSTRAR_TIPO_COBR: TStringField;
     cdsPedidoImpNOME_TIPO_COBRANCA: TStringField;
+    qParametros_FinAVISAR_CONDPAGTO: TStringField;
+    qParametros_FinAVISAR_TIPO_COBRANCA: TStringField;
+    qParametros_PedAVISAR_TRANSPORTADORA: TStringField;
+    qFilial_Email: TSQLQuery;
+    qFilial_EmailID_FILIAL: TIntegerField;
+    qFilial_EmailID_CONFIG_EMAIL: TIntegerField;
+    qFilial_EmailNOME_CONFIG: TStringField;
+    qFilial_EmailREMETENTE_NOME: TStringField;
+    qFilial_EmailREMETENTE_EMAIL: TStringField;
+    qFilial_EmailSMTP_CLIENTE: TStringField;
+    qFilial_EmailSMTP_PORTA: TIntegerField;
+    qFilial_EmailSMTP_REQUER_SSL: TStringField;
+    qFilial_EmailSMTP_USUARIO: TStringField;
+    qFilial_EmailSMTP_SENHA: TStringField;
+    qFilial_EmailSOLICITAR_CONFIRMACAO: TStringField;
+    qFilial_EmailBASE: TSmallintField;
+    qFilial_EmailCNPJ_CPF_FILIAL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -5117,6 +5134,7 @@ begin
   cdsPedidoItemTipo_Foto.Close;
   sdsPedidoItemTipoFoto.ParamByName('I1').AsInteger := cdsPedidoImpID.AsInteger;
   cdsPedidoItemTipo_Foto.Open;
+
 end;
 
 end.

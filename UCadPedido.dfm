@@ -1272,7 +1272,7 @@ object frmCadPedido: TfrmCadPedido
           Font.Style = []
           ParentFont = False
         end
-        object Shape: TShape
+        object ShapeConf: TShape
           Left = 663
           Top = 6
           Width = 30
@@ -1332,7 +1332,7 @@ object frmCadPedido: TfrmCadPedido
           Font.Style = []
           ParentFont = False
         end
-        object Shape14: TShape
+        object ShapeConf2: TShape
           Left = 953
           Top = 5
           Width = 30
@@ -7017,7 +7017,7 @@ object frmCadPedido: TfrmCadPedido
     Top = 334
   end
   object PopupMenu1: TPopupMenu
-    Left = 1002
+    Left = 1006
     Top = 94
     object Pedido1: TMenuItem
       Caption = 'Pedido'
@@ -7113,6 +7113,10 @@ object frmCadPedido: TfrmCadPedido
         OnClick = RtuloComEmbalagemRolo1Click
       end
     end
+    object EnviarPorEmail1: TMenuItem
+      Caption = 'Enviar Por Email'
+      OnClick = EnviarPorEmail1Click
+    end
     object N1: TMenuItem
       Caption = '-'
     end
@@ -7166,7 +7170,7 @@ object frmCadPedido: TfrmCadPedido
     end
   end
   object PopupMenu2: TPopupMenu
-    Left = 620
+    Left = 621
     Top = 59
     object CancelarPedido1: TMenuItem
       Caption = 'Cancelar Pedido'

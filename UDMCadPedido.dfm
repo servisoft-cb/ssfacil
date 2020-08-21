@@ -1674,7 +1674,7 @@ object DMCadPedido: TDMCadPedido
   end
   object dsTipoCobranca: TDataSource
     DataSet = cdsTipoCobranca
-    Left = 368
+    Left = 367
     Top = 297
   end
   object sdsContas: TSQLDataSet
@@ -11145,7 +11145,7 @@ object DMCadPedido: TDMCadPedido
     UseMAPI = SMTP
     MAPISendFlag = 0
     Left = 1024
-    Top = 103
+    Top = 104
   end
   object frxDBDataset3: TfrxDBDataset
     UserName = 'frxPedidoImp_Itens'
@@ -15126,7 +15126,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 975
-    Top = 513
+    Top = 512
     object qParametros_PedID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15488,6 +15488,11 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object qParametros_PedAVISAR_TRANSPORTADORA: TStringField
+      FieldName = 'AVISAR_TRANSPORTADORA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsMetas_Acum: TSQLDataSet
     CommandText = 
@@ -15629,6 +15634,16 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_FinUSA_ADTO: TStringField
       FieldName = 'USA_ADTO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_FinAVISAR_CONDPAGTO: TStringField
+      FieldName = 'AVISAR_CONDPAGTO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_FinAVISAR_TIPO_COBRANCA: TStringField
+      FieldName = 'AVISAR_TIPO_COBRANCA'
       FixedChar = True
       Size = 1
     end
@@ -17659,7 +17674,7 @@ object DMCadPedido: TDMCadPedido
       'SELECT *'
       'FROM PARAMETROS_LOTE')
     SQLConnection = dmDatabase.scoDados
-    Left = 1008
+    Left = 1009
     Top = 464
     object qParametros_LoteLOTE_TEXTIL: TStringField
       FieldName = 'LOTE_TEXTIL'
@@ -18111,7 +18126,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE CODIGO = :CODIGO'
       '  AND ID_TIPO_MATERIAL = :ID_TIPO_MATERIAL')
     SQLConnection = dmDatabase.scoDados
-    Left = 1024
+    Left = 1023
     Top = 512
     object qPessoa_TipoMatCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -19906,5 +19921,84 @@ object DMCadPedido: TDMCadPedido
     DataSet = cdsRegiao_Venda
     Left = 1207
     Top = 52
+  end
+  object qFilial_Email: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      
+        'SELECT FE.ID ID_FILIAL, FE.id_config_email, CE.nome_config, CE.r' +
+        'emetente_nome, CE.remetente_email,'
+      
+        'CE.smtp_cliente, CE.smtp_porta, CE.smtp_requer_ssl, CE.smtp_usua' +
+        'rio, CE.smtp_senha,'
+      'CE.solicitar_confirmacao, CE.base, F.cnpj_cpf CNPJ_CPF_FILIAL'
+      'FROM FILIAL_EMAIL FE'
+      'INNER JOIN FILIAL F'
+      'ON FE.ID = F.ID'
+      'INNER JOIN CONFIG_EMAIL CE'
+      'ON FE.id_config_email = CE.id'
+      'WHERE FE.ID = :ID'
+      '   AND FE.TIPO_REG = 2')
+    SQLConnection = dmDatabase.scoDados
+    Left = 1248
+    Top = 264
+    object qFilial_EmailID_FILIAL: TIntegerField
+      FieldName = 'ID_FILIAL'
+      Required = True
+    end
+    object qFilial_EmailID_CONFIG_EMAIL: TIntegerField
+      FieldName = 'ID_CONFIG_EMAIL'
+    end
+    object qFilial_EmailNOME_CONFIG: TStringField
+      FieldName = 'NOME_CONFIG'
+      Required = True
+      Size = 40
+    end
+    object qFilial_EmailREMETENTE_NOME: TStringField
+      FieldName = 'REMETENTE_NOME'
+      Size = 100
+    end
+    object qFilial_EmailREMETENTE_EMAIL: TStringField
+      FieldName = 'REMETENTE_EMAIL'
+      Size = 150
+    end
+    object qFilial_EmailSMTP_CLIENTE: TStringField
+      FieldName = 'SMTP_CLIENTE'
+      Size = 100
+    end
+    object qFilial_EmailSMTP_PORTA: TIntegerField
+      FieldName = 'SMTP_PORTA'
+    end
+    object qFilial_EmailSMTP_REQUER_SSL: TStringField
+      FieldName = 'SMTP_REQUER_SSL'
+      FixedChar = True
+      Size = 1
+    end
+    object qFilial_EmailSMTP_USUARIO: TStringField
+      FieldName = 'SMTP_USUARIO'
+      Size = 100
+    end
+    object qFilial_EmailSMTP_SENHA: TStringField
+      FieldName = 'SMTP_SENHA'
+      Size = 100
+    end
+    object qFilial_EmailSOLICITAR_CONFIRMACAO: TStringField
+      FieldName = 'SOLICITAR_CONFIRMACAO'
+      FixedChar = True
+      Size = 1
+    end
+    object qFilial_EmailBASE: TSmallintField
+      FieldName = 'BASE'
+    end
+    object qFilial_EmailCNPJ_CPF_FILIAL: TStringField
+      FieldName = 'CNPJ_CPF_FILIAL'
+      Size = 18
+    end
   end
 end

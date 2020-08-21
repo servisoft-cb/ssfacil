@@ -291,7 +291,7 @@ type
     Label61: TLabel;
     cbxOpcao: TComboBox;
     Label67: TLabel;
-    Shape: TShape;
+    ShapeConf: TShape;
     Label68: TLabel;
     EtiquetaPorItemdoPedido1: TMenuItem;
     btnAltDtEntrega: TBitBtn;
@@ -364,11 +364,12 @@ type
     SpeedButton9: TSpeedButton;
     N4: TMenuItem;
     ImprimiraListaemExcel1: TMenuItem;
-    Shape14: TShape;
+    ShapeConf2: TShape;
     Label52: TLabel;
     TS_Recibo: TRzTabSheet;
     ppmPedido: TPopupMenu;
     ReciboPagamento1: TMenuItem;
+    EnviarPorEmail1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -496,6 +497,7 @@ type
     procedure SpeedButton9Click(Sender: TObject);
     procedure ImprimiraListaemExcel1Click(Sender: TObject);
     procedure ReciboPagamento1Click(Sender: TObject);
+    procedure EnviarPorEmail1Click(Sender: TObject);
   private
     { Private declarations }
     fLista: TStringList;
@@ -519,6 +521,7 @@ type
     vID_ClienteAnt: Integer;
     vVlrFrete_Ant: Real;
     vInclusao_Edicao: String; //I=Incluir   E=Editar
+    vArqPDF : String;
 
     ffrmMostraPDF: TfrmMostraPDF;
 
@@ -549,7 +552,7 @@ type
 
     procedure prc_scroll(DataSet: TDataSet);
     procedure prc_scroll2(DataSet: TDataSet);
-    procedure prc_Monta_Impressao(vGerar_Tamanho: Boolean);
+    procedure prc_Monta_Impressao(vGerar_Tamanho: Boolean ; Gerar_PDF : Boolean = False);
 
     procedure prc_Controle_Imp(Tipo_Imp: String = 'N');
 
@@ -563,7 +566,9 @@ type
 
     function fnc_Sem_Comissao(ID : Integer) : String;
 
-    class procedure EnviarEmail(pID_NOTA: Integer);
+    procedure EnviarEmailNfse;
+
+    function fnc_Monta_CorpoEmail : TStringList;
 
   public
     { Public declarations }
@@ -579,7 +584,8 @@ uses DmdDatabase, rsDBUtils, uUtilPadrao, uRelPedido, uRelPedido_SulTextil, uRel
   URelPedido_Tam, URelEtiqueta_Nav, URelPedido_Tam2, URelPedido_JW, URelEtiqueta, uUtilCliente, uCalculo_Pedido, UCadPedido_Copia,
   UConsPedido_Nota, UDMConsPedido, UInformar_DtExpedicao, UInformar_Processo_Ped, UConsPedido_Senha, USel_Produto, UCadPedido_Cupom,
   UDMPedidoImp, USel_OS_Proc, UCadPedido_ItensCli, UConsPedido_Real, UImpEtiq_Emb, UTalaoPedProc, uGrava_Pedido, UConsClienteOBS,
-  uImprimir, UConsMotivoNaoAprov, UConsPedido_Producao, UInforma_RecPagto;
+  uImprimir, UConsMotivoNaoAprov, UConsPedido_Producao, UInforma_RecPagto,
+  uDadosEmail;
 
 {$R *.dfm}
 
@@ -1150,6 +1156,11 @@ begin
     Label73.Caption    := 'Material:';
     DBEdit23.DataField := 'OBSMATERIAL';
   end;}
+  ShapeConf.Visible  := (fDMCadPedido.qParametros_PedUSA_CONFERENCIA.AsString = 'S') or (fDMCadPedido.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
+  Label68.Visible    := (fDMCadPedido.qParametros_PedUSA_CONFERENCIA.AsString = 'S') or (fDMCadPedido.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
+  ShapeConf2.Visible := (fDMCadPedido.qParametros_PedUSA_CONFERENCIA.AsString = 'S') or (fDMCadPedido.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
+  Label52.Visible    := (fDMCadPedido.qParametros_PedUSA_CONFERENCIA.AsString = 'S') or (fDMCadPedido.qParametros_PedCONFERENCIA_SIMPLES.AsString = 'S');
+
   btnConsTempo.Visible := (fDMCadPedido.qParametros_GeralUSA_TIPO_MATERIAL.AsString = 'S');
   DBCheckBox5.Visible  := (fDMCadPedido.qParametros_FinUSA_NGR.AsString = 'S');
   DBCheckBox6.Visible  := (fDMCadPedido.qParametros_PedUSA_AMOSTRA.AsString = 'S');
@@ -1344,6 +1355,21 @@ begin
   vIDAux                := fDMCadPedido.cdsPedidoID.AsInteger;
   if fDMCadPedido.qParametros_PedUSA_RETIRADA.AsString = 'S' then
     fDMCadPedido.cdsPedidoNOME_PRODUTO_PROPOSTA.AsString := InputBox('Retirada','Retirada:',fDMCadPedido.cdsPedidoNOME_PRODUTO_PROPOSTA.AsString);
+
+  vMSGAux := '';
+  if ((fDMCadPedido.qParametros_FinAVISAR_CONDPAGTO.AsString = 'S') and (fDMCadPedido.cdsPedidoID_CONDPGTO.AsInteger <= 0)) or
+     ((fDMCadPedido.qParametros_FinAVISAR_TIPO_COBRANCA.AsString = 'S') and (fDMCadPedido.cdsPedidoID_TIPO_COBRANCA.AsInteger <= 0)) or
+     ((fDMCadPedido.qParametros_PedAVISAR_TRANSPORTADORA.AsString = 'S') and (fDMCadPedido.cdsPedidoID_TRANSPORTADORA.AsInteger <= 0)) then
+  begin
+    if (fDMCadPedido.qParametros_FinAVISAR_CONDPAGTO.AsString = 'S') and (fDMCadPedido.cdsPedidoID_CONDPGTO.AsInteger <= 0) then
+      vMSGAux := vMSGAux + ' Não informado a Condição de Pagamento!';
+    if (fDMCadPedido.qParametros_FinAVISAR_TIPO_COBRANCA.AsString = 'S') and (fDMCadPedido.cdsPedidoID_TIPO_COBRANCA.AsInteger <= 0) then
+      vMSGAux := vMSGAux + #13 + ' Não informado o Tipo de Cobrança!';
+    if (fDMCadPedido.qParametros_PedAVISAR_TRANSPORTADORA.AsString = 'S') and (fDMCadPedido.cdsPedidoID_TRANSPORTADORA.AsInteger <= 0) then
+      vMSGAux := vMSGAux + #13 + ' Não informado a Transportadora!';
+    if (MessageDlg(vMSGAux + #13 + #13 + 'Deseja gravar assim mesmo ? ',mtConfirmation,[mbYes,mbNo],0) <> mrYes) then
+      exit;
+  end;
 
   //19/08/2019
   if (fDMCadPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S') then
@@ -3282,7 +3308,7 @@ begin
   FreeAndNil(ffrmGerar_Rotulos);
 end;
 
-procedure TfrmCadPedido.prc_Monta_Impressao(vGerar_Tamanho: Boolean);
+procedure TfrmCadPedido.prc_Monta_Impressao(vGerar_Tamanho: Boolean ; Gerar_PDF : Boolean = False);
 var
   vArq: String;
   vCarimboAux: String;
@@ -3444,7 +3470,18 @@ begin
   end;
   if fDMCadPedido.qParametros_PedIMP_MATERIAL.AsString = 'S' then
     fDMCadPedido.frxReport1.variables['ImpMaterial'] := QuotedStr('S');
-  fDMCadPedido.frxReport1.ShowReport;
+  vArqPDF := '';
+  if not Gerar_PDF then
+    fDMCadPedido.frxReport1.ShowReport
+  else
+  begin
+    vArqPDF := ExtractFilePath(Application.ExeName) + 'Temp\Pedido_' + FormatFloat('000000',fDMCadPedido.cdsPedidoImpNUM_PEDIDO.AsInteger) + '.pdf';
+    fDMCadPedido.frxPDFExport1.FileName := vArqPDF;
+    fDMCadPedido.frxPDFExport1.ShowDialog := False;
+    fDMCadPedido.frxReport1.PrepareReport(False);
+    fDMCadPedido.frxReport1.Export(fDMCadPedido.frxPDFExport1);
+  end;
+
   fDMCadPedido.cdsPedidoImp_Itens.IndexFieldNames := vIndice;
   if trim(fDMCadPedido.vMSGErro) <> '' then
     MessageDlg(fDMCadPedido.vMSGErro, mtInformation, [mbOk], 0);
@@ -4913,12 +4950,128 @@ begin
 
 end;
 
-class procedure TfrmCadPedido.EnviarEmail(pID_NOTA: Integer);
+procedure TfrmCadPedido.EnviarEmailNfse;
+var
+  PathPastaMensal, sXML, Danfe, Para, emailCopia, Titulo, Caminho: string;
+  stl: TStringList;
+  xSSL, xTSL: Boolean;
+  CC: Tstrings;
+
+  aDadosEmail : TDadosEmail;
+  lista_Anexo: TStringList;
+  Mensagem : TStringList;
+  i : Integer;
 begin
-{  if not Assigned(dmNFSe) then
-    dmNFSe:= TdmNFSe.Create(nil);
-  dmNFSe.SetID_NOTA(pID_NOTA);
-  dmNFSe.EnviarEmailNfse;}
+  prc_Posiciona_Imp;
+  prc_Monta_Impressao(False,True);
+
+  Para := SQLLocate('PESSOA','CODIGO','EMAIL_COMPRAS',fDMCadPedido.cdsPedidoImpID_CLIENTE.AsString);
+
+  if trim(Para) = EmptyStr then
+    Para := InputBox('Email','Email Destinatário', '');
+
+  if trim(Para) = EmptyStr then
+  begin
+    MessageDlg('*** Email não enviado, falta informar o destinatário!',mtInformation, [mbOk], 0);
+    Exit;
+  end;
+
+  fDMCadPedido.qFilial_Email.Close;
+  fDMCadPedido.qFilial_Email.ParamByName('ID').AsInteger := fDMCadPedido.cdsFilialID.AsInteger;
+  fDMCadPedido.qFilial_Email.Open;
+
+  //PathPastaMensal := 'z:\';
+  //Danfe := 'Orçamento.jpg';
+  aDadosEmail := TDadosEmail.Create;
+  try
+    aDadosEmail.Destinatario := trim(Para);
+    aDadosEmail.Remetente :=  fDMCadPedido.qFilial_EmailREMETENTE_EMAIL.AsString;
+    aDadosEmail.NomeRemetente := fDMCadPedido.qFilial_EmailREMETENTE_NOME.AsString;
+    aDadosEmail.Assunto := 'Pedido Nº: ' + fDMCadPedido.cdsPedidoImpNUM_PEDIDO.AsString + '   De: ' + fDMCadPedido.cdsPedidoImpNOME_FILIAL.AsString;
+    Mensagem := TStringList.Create();
+    try
+      Mensagem := fnc_Monta_CorpoEmail;
+      for i := 0 to Mensagem.Count - 1 do
+        aDadosEmail.AddMensagem(Mensagem.Strings[i]);
+    finally
+      Mensagem.Free;
+    end;
+
+    //aDadosEmail.AddArquivo(PathPastaMensal + '\' + Danfe);
+    aDadosEmail.AddArquivo(vArqPDF);
+
+    aDadosEmail.Host := fDMCadPedido.qFilial_EmailSMTP_CLIENTE.AsString;
+    aDadosEmail.Port := fDMCadPedido.qFilial_EmailSMTP_PORTA.AsInteger;
+    aDadosEmail.User := fDMCadPedido.qFilial_EmailSMTP_USUARIO.AsString;;
+    aDadosEmail.Password := Descriptografar(fDMCadPedido.qFilial_EmailBASE.AsInteger,
+                                            'ssfacil',
+                                            fDMCadPedido.qFilial_EmailSMTP_SENHA.AsString);
+    aDadosEmail.TSL := True;
+    aDadosEmail.SSL := fDMCadPedido.qFilial_EmailSMTP_REQUER_SSL.AsString = '1';
+    aDadosEmail.NomeDestinatario := SQLLocate('PESSOA','CODIGO','FANTASIA',fDMCadPedido.cdsPedidoImpID_CLIENTE.AsString);
+    aDadosEmail.EnviarMensagem;
+
+  finally
+    aDadosEmail.Free;
+
+    DeleteFile(vArqPDF);
+    
+  end;
+
+  Para := fDMCadPedido.cdsClienteEMAIL_COMPRAS.AsString;
+  // Isql_Tomador.fieldbyname('CLIEA60EMAIL').asstring;
+
+  {Se nao tiver email para o Destinatario aborta}
+  if Para = '' then
+    exit;
+
+  //emailCopia := isqlParametro.fieldbyname('EMPRA60EMAILCOPIA').Value;
+  emailCopia := fDMCadPedido.cdsPedidoImpEMAIL_COMPRAS.AsString;
+end;
+
+function TfrmCadPedido.fnc_Monta_CorpoEmail: TStringList;
+var
+  Mensagem : TStringList;
+begin
+  with Result do
+  begin
+    Mensagem := TStringList.Create();
+    try
+      Mensagem.Clear;
+      Mensagem.Add('');
+      Mensagem.Add('Em Anexo Pedido Nº ' + fDMCadPedido.cdsPedidoImpNUM_PEDIDO.AsString);
+      Mensagem.Add('Remetente: ' + fDMCadPedido.cdsFilialNOME.AsString);
+      if fDMCadPedido.cdsFilialPESSOA.AsString = 'J' then
+        Mensagem.Add('CNPJ: ' + fDMCadPedido.cdsFilialCNPJ_CPF.AsString)
+      else
+        Mensagem.Add('CPF: ' + fDMCadPedido.cdsFilialCNPJ_CPF.AsString);
+      Mensagem.Add(fDMCadPedido.cdsFilialENDERECO.AsString + ', ' + fDMCadPedido.cdsFilialNUM_END.AsString);
+      Mensagem.Add(fDMCadPedido.cdsFilialCIDADE.AsString + ' - ' + fDMCadPedido.cdsFilialUF.AsString);
+      Mensagem.Add('Fone: ' + fDMCadPedido.cdsFilialDDD1.AsString + ' ' + fDMCadPedido.cdsFilialFONE.AsString);
+
+      {if fDMCadNotaServico.cdsFilialNOME_PROVEDOR.AsString <> 'CAMPO BOM' then
+        Mensagem.Add('Cód. Verificação: ' + fDMCadNotaServico.cdsNotaServico_ImpCOD_AUTENCIDADE_RET.AsString);
+      Mensagem.Add('Data Emissão: ' + FormatDateTime('dd/mm/aaaa', fDMCadNotaServico.cdsNotaServico_ImpDTEMISSAO.AsDateTime));
+      Mensagem.Add('Inscrição Municipal: ' + fDMCadNotaServico.cdsNotaServico_ImpINSCMUNICIPAL_FIL.AsString);
+      Mensagem.Add('');
+//      Mensagem.Add('Link para verificação: ' + fDMCadNotaServico.cdsFilialLINKNFSE.AsString);
+//      Mensagem.Add('');
+      Mensagem.Add(fDMCadNotaServico.cdsFilialNOME.AsString);
+      Mensagem.Add(fDMCadNotaServico.cdsFilialCNPJ_CPF.AsString);
+      Mensagem.Add(fDMCadNotaServico.cdsFilialENDERECO.AsString + ', ' + fDMCadNotaServico.cdsFilialNUM_END.AsString);
+      Mensagem.Add(fDMCadNotaServico.cdsFilialCIDADE.AsString + ' - ' + fDMCadNotaServico.cdsFilialUF.AsString);
+      Mensagem.Add('Fone: ' + fDMCadNotaServico.cdsFilialDDD1.AsString + ' ' + fDMCadNotaServico.cdsFilialFONE.AsString);}
+      Result := Mensagem;
+    finally
+//      Mensagem.Free;
+    end;
+  end;
+
+end;
+
+procedure TfrmCadPedido.EnviarPorEmail1Click(Sender: TObject);
+begin
+  EnviarEmailNfse;
 end;
 
 end.
