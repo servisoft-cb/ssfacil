@@ -408,7 +408,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object btnCopiar: TBitBtn
       Left = 6
-      Top = 4
+      Top = 3
       Width = 300
       Height = 25
       Caption = 'Copiar os Itens'
@@ -460,6 +460,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       TitleHeight.PixelCount = 24
       FooterColor = clBtnFace
       ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+      OnGetCellParams = SMDBGrid1GetCellParams
       RegistryKey = 'Software\Scalabium'
       RegistrySection = 'SMDBGrid'
       WidthOfIndicator = 27

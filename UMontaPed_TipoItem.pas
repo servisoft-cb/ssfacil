@@ -71,6 +71,8 @@ type
     procedure SpeedButton3Click(Sender: TObject);
     procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
   private
     { Private declarations }
     ctChapaLocal: string;
@@ -714,6 +716,18 @@ begin
 
     end;
   end;
+end;
+
+procedure TfrmMontaPed_TipoItem.SMDBGrid1GetCellParams(Sender: TObject;
+  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+begin
+  if (StrToFloat(FormatFloat('0.000',mArquivoImportadoQtde.AsFloat)) > 0) and (mArquivoImportadoCodigo_Produto.AsInteger <= 0) and
+    not(mArquivoImportado.State in [dsEdit, dsInsert]) then
+  begin
+    Background  := clRed;
+    AFont.Color := clWhite;
+  end;
+
 end;
 
 end.
