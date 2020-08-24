@@ -65,6 +65,8 @@ type
     ComboFilial: TRxDBLookupCombo;
     edtEmailDestinatario: TEdit;
     btnConfigurar: TRzMenuButton;
+    btnEnviaEmailTeste_Acbr: TBitBtn;
+    SpeedButton1: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -84,6 +86,9 @@ type
     procedure prc_Configurar_Email;
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnEnviaEmailTeste_AcbrClick(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure edSMTPSenhaExit(Sender: TObject);
   private
     { Private declarations }
     fDMCadConfig_Email: TDMCadConfig_Email;
@@ -92,6 +97,10 @@ type
     procedure prc_Gravar_Registro;
     procedure prc_Consultar;
     procedure prc_Limpar_Edit_Consulta;
+
+    procedure EnviarEmailNfse;
+    function fnc_Monta_CorpoEmail : TStringList;
+
   public
     { Public declarations }            
   end;
@@ -101,7 +110,7 @@ var
 
 implementation
 
-uses DmdDatabase, rsDBUtils, uUtilPadrao;
+uses DmdDatabase, rsDBUtils, uUtilPadrao, uDadosEmail;
 
 {$R *.dfm}
 
@@ -381,6 +390,98 @@ begin
   begin
     gpbTesteEmail.Visible := not gpbTesteEmail.Visible;
   end
+end;
+
+procedure TfrmCadConfig_Email.btnEnviaEmailTeste_AcbrClick(
+  Sender: TObject);
+begin
+  EnviarEmailNfse;
+end;
+
+procedure TfrmCadConfig_Email.EnviarEmailNfse;
+var
+  PathPastaMensal, sXML, Danfe, Para, emailCopia, Titulo, Caminho: string;
+  stl: TStringList;
+  xSSL, xTSL: Boolean;
+  CC: Tstrings;
+
+  aDadosEmail : TDadosEmail;
+  lista_Anexo: TStringList;
+  Mensagem : TStringList;
+  i : Integer;
+begin
+  if trim(edtEmailDestinatario.Text) = EmptyStr then
+  begin
+    MessageDlg('*** Email não enviado, falta informar o destinatário!',mtInformation, [mbOk], 0);
+    Exit;
+  end;
+
+  aDadosEmail := TDadosEmail.Create;
+  try
+    aDadosEmail.Destinatario  := trim(edtEmailDestinatario.Text);
+    aDadosEmail.Remetente     := fDMCadConfig_Email.cdsConfig_EmailREMETENTE_EMAIL.AsString;
+    aDadosEmail.NomeRemetente := fDMCadConfig_Email.cdsConfig_EmailREMETENTE_NOME.AsString;
+    aDadosEmail.Assunto       := 'Email Teste ACBr';
+    Mensagem := TStringList.Create();
+    try
+      Mensagem := fnc_Monta_CorpoEmail;
+      for i := 0 to Mensagem.Count - 1 do
+        aDadosEmail.AddMensagem(Mensagem.Strings[i]);
+    finally
+      Mensagem.Free;
+    end;
+
+    //Não testar arquivo anexo
+    //aDadosEmail.AddArquivo(vArqPDF);
+
+    aDadosEmail.Host     := fDMCadConfig_Email.cdsConfig_EmailSMTP_CLIENTE.AsString;
+    aDadosEmail.Port     := fDMCadConfig_Email.cdsConfig_EmailSMTP_PORTA.AsInteger;
+    aDadosEmail.User     := fDMCadConfig_Email.cdsConfig_EmailSMTP_USUARIO.AsString;;
+    aDadosEmail.Password := Descriptografar(fDMCadConfig_Email.cdsConfig_EmailBASE.AsInteger,
+                                            'ssfacil',
+                                            fDMCadConfig_Email.cdsConfig_EmailSMTP_SENHA.AsString);
+    aDadosEmail.TSL := True;
+    aDadosEmail.SSL := fDMCadConfig_Email.cdsConfig_EmailSMTP_REQUER_SSL.AsString = '1';
+    aDadosEmail.NomeDestinatario := 'Email Teste ACBr';
+    aDadosEmail.EnviarMensagem;
+  finally
+    aDadosEmail.Free;
+    //DeleteFile(vArqPDF);
+  end;
+
+   MessageDlg('*** Verifique se o Email foi Enviado!',mtConfirmation, [mbOk], 0);
+end;
+
+function TfrmCadConfig_Email.fnc_Monta_CorpoEmail: TStringList;
+var
+  Mensagem : TStringList;
+begin
+  with Result do
+  begin
+    Mensagem := TStringList.Create();
+    try
+      Mensagem.Clear;
+      Mensagem.Add('');
+      Mensagem.Add('Email enviado como teste dia ' + DateToStr(Date)); 
+      Result := Mensagem;
+    finally
+//      Mensagem.Free;
+    end;
+  end;
+
+end;
+
+procedure TfrmCadConfig_Email.SpeedButton1Click(Sender: TObject);
+begin
+  if edSMTPSenha.PasswordChar = #0 then
+    edSMTPSenha.PasswordChar := '*'
+  else
+    edSMTPSenha.PasswordChar := #0;
+end;
+
+procedure TfrmCadConfig_Email.edSMTPSenhaExit(Sender: TObject);
+begin
+  edSMTPSenha.PasswordChar := '*';
 end;
 
 end.

@@ -22,9 +22,9 @@ object frmCadNFe_Email: TfrmCadNFe_Email
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 738
-    Height = 377
-    ActivePage = TS_Consulta
+    Width = 746
+    Height = 384
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadNFe_Email: TfrmCadNFe_Email
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -40,8 +40,8 @@ object frmCadNFe_Email: TfrmCadNFe_Email
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 89
-        Width = 734
-        Height = 248
+        Width = 742
+        Height = 255
         Align = alClient
         Ctl3D = True
         DataSource = DMCadNFe_Email.dsNFe_Email
@@ -73,7 +73,6 @@ object frmCadNFe_Email: TfrmCadNFe_Email
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 4
         RowCount = 2
         Columns = <
           item
@@ -93,12 +92,21 @@ object frmCadNFe_Email: TfrmCadNFe_Email
             FieldName = 'EMAIL'
             Width = 358
             Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'TIPO'
+            Title.Alignment = taCenter
+            Title.Caption = 'Tipo'
+            Width = 43
+            Visible = True
           end>
       end
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 734
+        Width = 742
         Height = 32
         Align = alTop
         Color = clSilver
@@ -326,8 +334,8 @@ object frmCadNFe_Email: TfrmCadNFe_Email
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 337
-        Width = 734
+        Top = 344
+        Width = 742
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -343,7 +351,7 @@ object frmCadNFe_Email: TfrmCadNFe_Email
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 734
+        Width = 742
         Height = 57
         Align = alTop
         TabOrder = 0
@@ -458,7 +466,7 @@ object frmCadNFe_Email: TfrmCadNFe_Email
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 734
+        Width = 742
         Height = 35
         Align = alTop
         Color = 8404992
@@ -684,8 +692,8 @@ object frmCadNFe_Email: TfrmCadNFe_Email
       object pnlCadastro: TPanel
         Left = 0
         Top = 35
-        Width = 734
-        Height = 319
+        Width = 742
+        Height = 326
         Align = alClient
         Enabled = False
         TabOrder = 0
@@ -712,6 +720,14 @@ object frmCadNFe_Email: TfrmCadNFe_Email
           Height = 13
           Alignment = taRightJustify
           Caption = 'Email:'
+        end
+        object Label1: TLabel
+          Left = 35
+          Top = 59
+          Width = 24
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Tipo:'
         end
         object DBEdit4: TDBEdit
           Left = 576
@@ -744,6 +760,23 @@ object frmCadNFe_Email: TfrmCadNFe_Email
           DataField = 'EMAIL'
           DataSource = DMCadNFe_Email.dsNFe_Email
           TabOrder = 1
+        end
+        object RxDBComboBox1: TRxDBComboBox
+          Left = 61
+          Top = 50
+          Width = 145
+          Height = 21
+          DataField = 'TIPO'
+          DataSource = DMCadNFe_Email.dsNFe_Email
+          EnableValues = False
+          ItemHeight = 13
+          Items.Strings = (
+            'N= Nota Fiscal'
+            'P= Pedido')
+          TabOrder = 3
+          Values.Strings = (
+            'N'
+            'P')
         end
       end
     end

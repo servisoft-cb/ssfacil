@@ -369,7 +369,8 @@ type
     TS_Recibo: TRzTabSheet;
     ppmPedido: TPopupMenu;
     ReciboPagamento1: TMenuItem;
-    EnviarPorEmail1: TMenuItem;
+    N5: TMenuItem;
+    EnviarEmail1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -497,7 +498,7 @@ type
     procedure SpeedButton9Click(Sender: TObject);
     procedure ImprimiraListaemExcel1Click(Sender: TObject);
     procedure ReciboPagamento1Click(Sender: TObject);
-    procedure EnviarPorEmail1Click(Sender: TObject);
+    procedure EnviarEmail1Click(Sender: TObject);
   private
     { Private declarations }
     fLista: TStringList;
@@ -4984,9 +4985,16 @@ begin
   //Danfe := 'Orçamento.jpg';
   aDadosEmail := TDadosEmail.Create;
   try
-    aDadosEmail.Destinatario := trim(Para);
-    aDadosEmail.Remetente :=  fDMCadPedido.qFilial_EmailREMETENTE_EMAIL.AsString;
+    aDadosEmail.Destinatario  := trim(Para);
+    aDadosEmail.Remetente     :=  fDMCadPedido.qFilial_EmailREMETENTE_EMAIL.AsString;
     aDadosEmail.NomeRemetente := fDMCadPedido.qFilial_EmailREMETENTE_NOME.AsString;
+    fDMCadPedido.qNFE_Email.Close;
+    fDMCadPedido.qNFE_Email.Open;
+    while not fDMCadPedido.qNFE_Email.Eof do
+    begin
+      aDadosEmail.AddCC(fDMCadPedido.qNFE_EmailEMAIL.AsString);
+      fDMCadPedido.qNFE_Email.Next;
+    end;
     aDadosEmail.Assunto := 'Pedido Nº: ' + fDMCadPedido.cdsPedidoImpNUM_PEDIDO.AsString + '   De: ' + fDMCadPedido.cdsPedidoImpNOME_FILIAL.AsString;
     Mensagem := TStringList.Create();
     try
@@ -5069,7 +5077,7 @@ begin
 
 end;
 
-procedure TfrmCadPedido.EnviarPorEmail1Click(Sender: TObject);
+procedure TfrmCadPedido.EnviarEmail1Click(Sender: TObject);
 begin
   EnviarEmailNfse;
 end;

@@ -20001,4 +20001,19 @@ object DMCadPedido: TDMCadPedido
       Size = 18
     end
   end
+  object qNFE_Email: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT EMAIL'
+      'FROM NFE_EMAIL'
+      'WHERE TIPO = '#39'P'#39)
+    SQLConnection = dmDatabase.scoDados
+    Left = 1204
+    Top = 489
+    object qNFE_EmailEMAIL: TStringField
+      FieldName = 'EMAIL'
+      Size = 200
+    end
+  end
 end

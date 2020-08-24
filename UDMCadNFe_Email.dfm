@@ -26,6 +26,11 @@ object DMCadNFe_Email: TDMCadNFe_Email
       FieldName = 'EMAIL'
       Size = 200
     end
+    object sdsNFe_EmailTIPO: TStringField
+      FieldName = 'TIPO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspNFe_Email: TDataSetProvider
     DataSet = sdsNFe_Email
@@ -54,6 +59,11 @@ object DMCadNFe_Email: TDMCadNFe_Email
       DisplayLabel = 'Email'
       FieldName = 'EMAIL'
       Size = 200
+    end
+    object cdsNFe_EmailTIPO: TStringField
+      FieldName = 'TIPO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsNFe_Email: TDataSource

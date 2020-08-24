@@ -3831,6 +3831,8 @@ type
     qFilial_EmailSOLICITAR_CONFIRMACAO: TStringField;
     qFilial_EmailBASE: TSmallintField;
     qFilial_EmailCNPJ_CPF_FILIAL: TStringField;
+    qNFE_Email: TSQLQuery;
+    qNFE_EmailEMAIL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

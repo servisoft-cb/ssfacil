@@ -7017,7 +7017,7 @@ object frmCadPedido: TfrmCadPedido
     Top = 334
   end
   object PopupMenu1: TPopupMenu
-    Left = 1006
+    Left = 1005
     Top = 94
     object Pedido1: TMenuItem
       Caption = 'Pedido'
@@ -7113,10 +7113,6 @@ object frmCadPedido: TfrmCadPedido
         OnClick = RtuloComEmbalagemRolo1Click
       end
     end
-    object EnviarPorEmail1: TMenuItem
-      Caption = 'Enviar Por Email'
-      OnClick = EnviarPorEmail1Click
-    end
     object N1: TMenuItem
       Caption = '-'
     end
@@ -7124,6 +7120,13 @@ object frmCadPedido: TfrmCadPedido
       Caption = 'Personalizado'
     end
     object N2: TMenuItem
+      Caption = '-'
+    end
+    object EnviarEmail1: TMenuItem
+      Caption = 'Enviar Email'
+      OnClick = EnviarEmail1Click
+    end
+    object N5: TMenuItem
       Caption = '-'
     end
     object PedidoProduo1: TMenuItem

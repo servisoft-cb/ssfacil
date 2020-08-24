@@ -35,6 +35,8 @@ type
     btnConfirmar: TNxButton;
     btnCancelar: TNxButton;
     btnConsultar: TNxButton;
+    Label1: TLabel;
+    RxDBComboBox1: TRxDBComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

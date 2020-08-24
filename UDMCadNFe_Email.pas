@@ -17,6 +17,8 @@ type
     cdsNFe_EmailID: TIntegerField;
     cdsNFe_EmailNOME: TStringField;
     cdsNFe_EmailEMAIL: TStringField;
+    sdsNFe_EmailTIPO: TStringField;
+    cdsNFe_EmailTIPO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNFe_EmailUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
