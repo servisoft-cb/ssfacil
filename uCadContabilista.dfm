@@ -22,8 +22,8 @@ object frmCadContabilista: TfrmCadContabilista
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 838
-    Height = 562
+    Width = 846
+    Height = 569
     ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -41,8 +41,8 @@ object frmCadContabilista: TfrmCadContabilista
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 66
-        Width = 834
-        Height = 456
+        Width = 842
+        Height = 463
         Align = alClient
         Ctl3D = False
         DataSource = DMCadContabilista.dsContabilista
@@ -124,7 +124,7 @@ object frmCadContabilista: TfrmCadContabilista
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 834
+        Width = 842
         Height = 32
         Align = alTop
         Color = clSilver
@@ -352,8 +352,8 @@ object frmCadContabilista: TfrmCadContabilista
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 522
-        Width = 834
+        Top = 529
+        Width = 842
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -369,7 +369,7 @@ object frmCadContabilista: TfrmCadContabilista
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 834
+        Width = 842
         Height = 34
         Align = alTop
         TabOrder = 3
@@ -469,7 +469,7 @@ object frmCadContabilista: TfrmCadContabilista
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 834
+        Width = 842
         Height = 35
         Align = alTop
         Color = 8404992
@@ -695,8 +695,8 @@ object frmCadContabilista: TfrmCadContabilista
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 35
-        Width = 834
-        Height = 504
+        Width = 842
+        Height = 511
         ActivePage = TS_Dados
         ActivePageDefault = TS_Dados
         Align = alClient

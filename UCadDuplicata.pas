@@ -450,12 +450,15 @@ begin
   if not (fDMCadDuplicata.cdsDuplicata_Consulta.Active) or (fDMCadDuplicata.cdsDuplicata_Consulta.IsEmpty) then
     exit;
 
-  if MessageDlg('Deseja excluir este registro?', mtConfirmation, [mbYes, mbNo], 0) = mrNo then
-    exit;
-
   prc_Posiciona_Duplicata(fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger);
   if (fDMCadDuplicata.cdsDuplicata.IsEmpty) or (fDMCadDuplicata.cdsDuplicataID.AsInteger <> fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger) then
     exit;
+  if (fDMCadDuplicata.cdsDuplicataTIPO_ES.AsString = 'E') and ((trim(fDMCadDuplicata.cdsDuplicataNOSSONUMERO.AsString) <> '') or (fDMCadDuplicata.cdsDuplicataARQUIVO_GERADO.AsString = 'S')) then
+  begin
+    MessageDlg('*** Título com nosso número ou gerado ao banco!' + #13 + '    Não pode ser excluído', mtInformation, [mbOk], 0);
+    exit;
+  end;
+
   fDMCadDuplicata.cdsDuplicata_Hist.Last;
   if fDMCadDuplicata.cdsDuplicata_HistNUMCHEQUE.AsInteger > 0 then
   begin
@@ -467,6 +470,9 @@ begin
     MessageDlg('*** Fatura cancelada!', mtError, [mbOk], 0);
     Exit;
   end;
+
+  if MessageDlg('Deseja excluir este registro?', mtConfirmation, [mbYes, mbNo], 0) = mrNo then
+    exit;
 
   prc_Excluir_Registro;
   btnConsultarClick(Sender);
