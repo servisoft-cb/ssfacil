@@ -86,8 +86,8 @@ begin
   end;
   if (CheckBox1.Checked) and (DateEdit1.Date <= 10) then
   begin
-    MessageDlg('*** Data de entrega não informada!', mtInformation, [mbOk], 0);
-    exit;
+    if MessageDlg('Data de Entrega em branco, confirma?',mtConfirmation,[mbYes,mbNo],0) <> mrYes then
+      Exit;
   end;
   fDMCadPedido.Tag := 1;
   prc_Copiar_Pedido;
@@ -109,7 +109,12 @@ begin
       fDMCadPedido.cdsPedido.FieldByName(fDMCopiaPedido.cdsPedido.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido.Fields[i].Value;
   end;
   if CheckBox1.Checked then
-    fDMCadPedido.cdsPedidoDTENTREGA.AsDateTime := DateEdit1.Date;
+  begin
+    if DateEdit1.Date > 10 then
+      fDMCadPedido.cdsPedidoDTENTREGA.AsDateTime := DateEdit1.Date
+    else
+      fDMCadPedido.cdsPedidoDTENTREGA.Clear;
+  end;
 end;
 
 procedure TfrmCadPedido_Copia.prc_Copiar_Pedido_Itens;
@@ -137,7 +142,12 @@ begin
     fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat    := fDMCadPedido.cdsPedido_ItensQTD.AsFloat;
     fDMCadPedido.cdsPedido_ItensID_MOVESTOQUE.AsInteger := 0;
     if CheckBox1.Checked then
-      fDMCadPedido.cdsPedido_ItensDTENTREGA.AsDateTime := DateEdit1.Date;
+    begin
+      if DateEdit1.Date > 10 then
+        fDMCadPedido.cdsPedido_ItensDTENTREGA.AsDateTime := DateEdit1.Date
+      else
+        fDMCadPedido.cdsPedido_ItensDTENTREGA.Clear;
+    end;
     if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S') then
       fDMCadPedido.cdsPedido_ItensAPROVADO_ITEM.AsString := 'P'
     else

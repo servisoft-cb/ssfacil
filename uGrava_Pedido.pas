@@ -642,7 +642,9 @@ begin
       if (fDMCadPedido.cdsParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P') then
       begin
         if fDMCadPedido.cdsPedidoDTENTREGA.AsDateTime > 10 then
-          fDMCadPedido.sdsPrc_Atualiza_DtEntrega.ParamByName('P_DATA').AsDate  := fDMCadPedido.cdsPedidoDTENTREGA.AsDateTime;
+          fDMCadPedido.sdsPrc_Atualiza_DtEntrega.ParamByName('P_DATA').AsDate  := fDMCadPedido.cdsPedidoDTENTREGA.AsDateTime
+        else
+          fDMCadPedido.sdsPrc_Atualiza_DtEntrega.ParamByName('P_DATA').Clear; //aqui foi colocado 26/08/2020  Cleomar
       end;
       if (fDMCadPedido.qParametros_PedMOSTRAR_TERCEIRO.AsString = 'P') then
       begin

@@ -5323,6 +5323,7 @@ end;
 procedure TfrmCadNotaFiscal.PrFaturamento1Click(Sender: TObject);
 var
   ffrmSel_PreFat: TfrmSel_PreFat;
+  vAux: String;
 begin
   fDMPreFat := TDMPreFat.Create(Self);
 
@@ -5369,6 +5370,18 @@ begin
   ffrmCadNotaFiscal_Itens := TfrmCadNotaFiscal_Itens.Create(self);
   ffrmCadNotaFiscal_Itens.fDMCadNotaFiscal := fDMCadNotaFiscal;
 
+  //26/08/2020
+  ffrmCadNotaFiscal_Itens.dbckDraw.Visible := (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S');
+  if (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
+  begin
+    vAux := uUtilPadrao.fnc_existe_Drawback(fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger);
+    if (copy(vAux,1,1) = 'S') or (copy(vAux,2,1) = 'S') then
+      ffrmCadNotaFiscal_Itens.dbckDraw.Visible := True
+    else
+      ffrmCadNotaFiscal_Itens.dbckDraw.Visible := False;
+  end;
+  //******************
+
   fDMPreFat.cdsPreFat_Itens.First;
   while not fDMPreFat.cdsPreFat_Itens.Eof do
   begin
@@ -5414,6 +5427,9 @@ begin
   ffrmCadNotaFiscal_Itens.RxDBLookupCombo1Exit(ffrmCadNotaFiscal_Itens);
   fDMCadNotaFiscal.vID_Variacao := fnc_Buscar_Regra_CFOP(fDMCadNotaFiscal, fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger);
   fDMCadNotaFiscal.cdsNotaFiscal_ItensID_VARIACAO.AsInteger := fDMCadNotaFiscal.vID_Variacao;
+  //26/08/2020
+  fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString     := fDMCadNotaFiscal.cdsPedidoDRAWBACK.AsString;
+  //*************
   ffrmCadNotaFiscal_Itens.prc_Move_Dados_Itens;
   if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_NCM.AsInteger <= 0 then
     fDMCadNotaFiscal.cdsNotaFiscal_ItensID_NCM.AsInteger := fDMCadNotaFiscal.cdsPedidoID_NCM.AsInteger;

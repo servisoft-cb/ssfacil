@@ -68,7 +68,7 @@ object frmCadPedido_Copia: TfrmCadPedido_Copia
     TabOrder = 0
   end
   object btnCopiar: TBitBtn
-    Left = 135
+    Left = 134
     Top = 102
     Width = 111
     Height = 28

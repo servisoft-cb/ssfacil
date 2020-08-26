@@ -69,6 +69,7 @@ type
     vID_Variacao: Integer;
     vEnd_Arquivo: String;
     vItem_Rem : Integer;
+    vObs_Preco : WideString;
 
     procedure prc_Gravar_mAuxiliar;
     procedure prc_Gravar_mAuxiliar_XML;
@@ -167,6 +168,8 @@ begin
   vAux := (fDMGerar_EDI.qEDI_ConfigVLR_UNITARIO_TAM.AsInteger - fDMGerar_EDI.qEDI_ConfigVLR_UNITARIO_DEC.AsInteger) + fDMGerar_EDI.qEDI_ConfigVLR_UNITARIO_INI.AsInteger;
   fDMGerar_EDI.mAuxiliarVlrUnitario.AsString       := fDMGerar_EDI.mAuxiliarVlrUnitario.AsString + ',' + copy(Registro,vAux,fDMGerar_EDI.qEDI_ConfigVLR_UNITARIO_DEC.AsInteger);
   fDMGerar_EDI.mAuxiliarVlrUnitario.AsString       := FormatFloat('0.0000##',fDMGerar_EDI.mAuxiliarVlrUnitario.AsFloat);
+
+
   fDMGerar_EDI.mAuxiliarCondPgto.AsString          := copy(Registro,fDMGerar_EDI.qEDI_ConfigCOND_PGTO_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigCOND_PGTO_TAM.AsInteger);
   fDMGerar_EDI.mAuxiliarDrawback.AsString          := copy(Registro,fDMGerar_EDI.qEDI_ConfigDRAWBACK_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigDRAWBACK_TAM.AsInteger);
   fDMGerar_EDI.mAuxiliarPlano2.AsString            := copy(Registro,fDMGerar_EDI.qEDI_ConfigPLANO2_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigPLANO2_TAM.AsInteger);
@@ -380,6 +383,8 @@ begin
     exit;
   end;
 
+  vObs_Preco := '';
+
   fDMCadPedido := TDMCadPedido.Create(Self);
   vTipo_Pedido := 'P';
   fDMCadPedido.prc_Abrir_cdsCFOP('S');
@@ -426,7 +431,7 @@ begin
   FreeAndNil(fDMCadPedido);
   if fDMGerar_EDI.mNaoGerado.IsEmpty then
   begin
-    MessageDlg('*** Processo Concluído!', mtConfirmation, [mbOk], 0);
+    MessageDlg('*** Processo Concluído!' + #13 + #13 + vObs_Preco, mtConfirmation, [mbOk], 0);
     prc_Copiar_Arquivo;
   end
   else
@@ -569,7 +574,7 @@ begin
   if fDMCadPedido.cdsPedido_ItensID_COR.AsInteger <= 0 then
     fDMCadPedido.cdsPedido_ItensID_COR.AsInteger := 0;
   //*****************
-  
+
   fDMCadPedido.cdsCliente.Locate('CODIGO',fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,[loCaseInsensitive]);
   fDMCadPedido.cdsUF.Locate('UF',fDMCadPedido.cdsClienteUF.AsString,[loCaseInsensitive]);
 
@@ -645,6 +650,10 @@ begin
     fDMCadPedido.cdsPedido_ItensNUMOS.AsString := fDMGerar_EDI.mAuxiliarPlano2.AsString;
   if fDMGerar_EDI.qClienteUSA_TRANSFICMS.AsString = 'S' then
     fDMCadPedido.cdsPedido_ItensPERC_TRANSF.AsFloat := fDMCadPedido.cdsPedido_ItensPERC_ICMS.AsFloat;
+
+  if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat)) <> StrToFloat(FormatFloat('0.0000',StrToFloat(fDMGerar_EDI.mAuxiliarVlrUnitario.AsString))) then
+    vObs_Preco := vObs_Preco + '      *** (Item:' + fDMGerar_EDI.mAuxiliarItem_Cliente.AsString + '  Preço Tabela: ' + FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat)
+                + '   Preço EDI: ' + FormatFloat('0.0000',fDMGerar_EDI.mAuxiliarVlrUnitario.AsFloat) + ')';
   if CheckBox1.Checked then
     fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat := fDMGerar_EDI.mAuxiliarVlrUnitario.AsFloat;
   fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat * fDMCadPedido.cdsPedido_ItensQTD.AsFloat));

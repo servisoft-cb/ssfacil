@@ -562,7 +562,7 @@ begin
   lblCCusto.Visible        := (fDMCadNotaFiscal.qParametros_NTEUSA_CENTRO_CUSTO.AsString = 'S');
   RxDBlkCCusto.Visible     := (fDMCadNotaFiscal.qParametros_NTEUSA_CENTRO_CUSTO.AsString = 'S');
 
-  //29/08/2019
+  //29/08/2019  aqui Cleomar        26/08/2020
   dbckDraw.Visible := (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S');
   if (fDMCadNotaFiscal.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S') then
   begin
