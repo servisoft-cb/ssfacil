@@ -4,7 +4,7 @@ object DMConsFat: TDMConsFat
   Left = 234
   Top = 184
   Height = 445
-  Width = 817
+  Width = 949
   object sdsFatAcum: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -1385,5 +1385,159 @@ object DMConsFat: TDMConsFat
     BCDToCurrency = False
     Left = 751
     Top = 228
+  end
+  object sdsConsFatConsumo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT N.numnota, N.dtemissao, i.id_produto, pcm.id_material, pc' +
+      'm.id_cor, pcm.qtd_consumo, i.qtd,'#13#10'mat.nome nome_material, i.uni' +
+      'dade UNIDADE_NOTA, mat.tipo_reg, PCM.unidade UNIDADE_MAT,'#13#10'PROD.' +
+      'UNIDADE UNIDADE_PROD'#13#10'FROM NOTAFISCAL N'#13#10'INNER JOIN NOTAFISCAL_I' +
+      'TENS I ON N.ID = I.ID'#13#10'inner join produto PROD on i.id_produto =' +
+      ' prod.id'#13#10'inner join tab_cfop cf on cf.id = i.id_cfop'#13#10'iNNER JOI' +
+      'N PRODUTO_COMB PCOMB ON (I.id_produto = PCOMB.ID AND I.id_cor = ' +
+      'PCOMB.id_cor_combinacao)'#13#10'INNER JOIN PRODUTO_COMB_MAT PCM ON (I.' +
+      'ID_produto = PCM.ID AND PCOMB.ITEM = PCM.ITEM)'#13#10'inner join produ' +
+      'to mat on mat.id = pcm.id_material'#13#10'where n.tipo_reg = '#39'NTS'#39#13#10'  ' +
+      'and n.cancelada = '#39'N'#39#13#10'  and n.nfedenegada = '#39'N'#39#13#10'  and cf.fatur' +
+      'amento = '#39'S'#39#13#10#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 635
+    Top = 324
+  end
+  object dspConsFatConsumo: TDataSetProvider
+    DataSet = sdsConsFatConsumo
+    Left = 697
+    Top = 320
+  end
+  object cdsConsFatConsumo: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsFatConsumo'
+    Left = 763
+    Top = 322
+    object cdsConsFatConsumoNUMNOTA: TIntegerField
+      FieldName = 'NUMNOTA'
+    end
+    object cdsConsFatConsumoDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
+    end
+    object cdsConsFatConsumoID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsConsFatConsumoID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsConsFatConsumoID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsConsFatConsumoQTD_CONSUMO: TFloatField
+      FieldName = 'QTD_CONSUMO'
+    end
+    object cdsConsFatConsumoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsConsFatConsumoNOME_MATERIAL: TStringField
+      FieldName = 'NOME_MATERIAL'
+      Size = 100
+    end
+    object cdsConsFatConsumoTIPO_REG: TStringField
+      FieldName = 'TIPO_REG'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsConsFatConsumoUNIDADE_MAT: TStringField
+      FieldName = 'UNIDADE_MAT'
+      Size = 6
+    end
+    object cdsConsFatConsumoUNIDADE_NOTA: TStringField
+      FieldName = 'UNIDADE_NOTA'
+      Size = 6
+    end
+    object cdsConsFatConsumoUNIDADE_PROD: TStringField
+      FieldName = 'UNIDADE_PROD'
+      Size = 6
+    end
+  end
+  object mConsumo: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID_Material'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Material'
+        DataType = ftString
+        Size = 100
+      end
+      item
+        Name = 'Unidade'
+        DataType = ftString
+        Size = 6
+      end
+      item
+        Name = 'Qtd'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Semi'
+        DataType = ftString
+        Size = 1
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 610
+    Top = 283
+    Data = {
+      910000009619E0BD01000000180000000500000000000300000091000B49445F
+      4D6174657269616C04000100000000000D4E6F6D655F4D6174657269616C0100
+      49000000010005574944544802000200640007556E6964616465010049000000
+      01000557494454480200020006000351746408000400000000000453656D6901
+      004900000001000557494454480200020001000000}
+    object mConsumoID_Material: TIntegerField
+      FieldName = 'ID_Material'
+    end
+    object mConsumoNome_Material: TStringField
+      FieldName = 'Nome_Material'
+      Size = 100
+    end
+    object mConsumoUnidade: TStringField
+      FieldName = 'Unidade'
+      Size = 6
+    end
+    object mConsumoQtd: TFloatField
+      FieldName = 'Qtd'
+      DisplayFormat = '0.0000#'
+    end
+    object mConsumoSemi: TStringField
+      FieldName = 'Semi'
+      Size = 1
+    end
+  end
+  object dsmConsumo: TDataSource
+    DataSet = mConsumo
+    Left = 649
+    Top = 284
+  end
+  object frxmConsumo: TfrxDBDataset
+    UserName = 'frxmConsumo'
+    OnFirst = frxComprasServicoItemFirst
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_Material=ID_Material'
+      'Nome_Material=Nome_Material'
+      'Unidade=Unidade'
+      'Qtd=Qtd'
+      'Semi=Semi')
+    DataSource = dsmConsumo
+    BCDToCurrency = False
+    Left = 684
+    Top = 282
   end
 end

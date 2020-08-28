@@ -869,7 +869,8 @@ uses
   uCadConfig_BalancaArquivo in 'uCadConfig_BalancaArquivo.pas' {frmConfigArquivoBalanca},
   UDMConsPedidoCom in 'UDMConsPedidoCom.pas' {DMConsPedidoCom: TDataModule},
   UConsPedido_Rep in 'UConsPedido_Rep.pas' {frmConsPedido_Rep},
-  uDadosEmail in 'Classes\uDadosEmail.pas';
+  uDadosEmail in 'Classes\uDadosEmail.pas',
+  uConsFatConsumo in 'uConsFatConsumo.pas' {frmConsFatConsumo};
 
 {$R *.res}
 

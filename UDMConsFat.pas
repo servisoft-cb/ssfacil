@@ -211,6 +211,29 @@ type
     mAuxiliarICMSPerc_Diferimento: TFloatField;
     cdsCSTICMS_CFOPHISTORICO: TMemoField;
     mAuxiliarICMSUF: TStringField;
+    sdsConsFatConsumo: TSQLDataSet;
+    dspConsFatConsumo: TDataSetProvider;
+    cdsConsFatConsumo: TClientDataSet;
+    cdsConsFatConsumoNUMNOTA: TIntegerField;
+    cdsConsFatConsumoDTEMISSAO: TDateField;
+    cdsConsFatConsumoID_PRODUTO: TIntegerField;
+    cdsConsFatConsumoID_MATERIAL: TIntegerField;
+    cdsConsFatConsumoID_COR: TIntegerField;
+    cdsConsFatConsumoQTD_CONSUMO: TFloatField;
+    cdsConsFatConsumoQTD: TFloatField;
+    cdsConsFatConsumoNOME_MATERIAL: TStringField;
+    cdsConsFatConsumoTIPO_REG: TStringField;
+    mConsumo: TClientDataSet;
+    mConsumoID_Material: TIntegerField;
+    mConsumoNome_Material: TStringField;
+    mConsumoUnidade: TStringField;
+    mConsumoQtd: TFloatField;
+    dsmConsumo: TDataSource;
+    cdsConsFatConsumoUNIDADE_MAT: TStringField;
+    mConsumoSemi: TStringField;
+    cdsConsFatConsumoUNIDADE_NOTA: TStringField;
+    cdsConsFatConsumoUNIDADE_PROD: TStringField;
+    frxmConsumo: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxReport1BeforePrint(Sender: TfrxReportComponent);
     procedure cdsComprasServicosCalcFields(DataSet: TDataSet);
@@ -221,6 +244,7 @@ type
   public
     { Public declarations }
     ctFatAcum, ctComprasServico, ctConsCliente, ctCSTICMS_CFOP: String;
+    ctConsFatConsumo: String;
     vDataIni, vDataFim: String;
   end;
 
@@ -239,6 +263,7 @@ begin
   ctComprasServico := sdsComprasServicos.CommandText;
   ctConsCliente    := sdsConsCliente.CommandText;
   ctCSTICMS_CFOP   := sdsCSTICMS_CFOP.CommandText;
+  ctConsFatConsumo := sdsConsFatConsumo.CommandText;
   cdsFilial.Open;
   cdsCupomTerminal.Open;
 end;

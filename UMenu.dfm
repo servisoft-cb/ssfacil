@@ -759,6 +759,10 @@ object fMenu: TfMenu
           Caption = 'Consulta CST ICMS x CFOP'
           OnClick = ConsultaCSTICMSxCFOP1Click
         end
+        object ConsultaConsumoFaturamento1: TMenuItem
+          Caption = 'Consulta Consumo (Faturamento)'
+          OnClick = ConsultaConsumoFaturamento1Click
+        end
         object ConsultaFaturamento1: TMenuItem
           Caption = 'Consulta Faturamento (Detalhado)'
           OnClick = ConsultaFaturamento1Click
