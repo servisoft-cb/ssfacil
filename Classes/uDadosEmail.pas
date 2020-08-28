@@ -92,7 +92,7 @@ begin
   // troque pela porta do seu servidor smtp
   FACBrMail.SetTLS := FTSL;
   FACBrMail.SetSSL := FSSL;
-  FACBrMail.DefaultCharset := TMailCharset(27); //UTF8
+  FACBrMail.DefaultCharset := TMailCharset(15); //
   //FACBrMail.IDECharset := TMailCharset(15); //CP1252
   FACBrMail.AddAddress(FDestinatario, FNomeDestinatario);
 
@@ -100,7 +100,7 @@ begin
     FACBrMail.AddCC(FCC.Strings[i]);
 
   for i := 0 to FMensagem.Count - 1 do
-    FACBrMail.AltBody.Add(FMensagem.Strings[i]);
+    FACBrMail.Body.Add(FMensagem.Strings[i]);
 
   for i := 0 to FArquivo.Count -1 do
   begin

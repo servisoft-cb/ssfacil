@@ -1,8 +1,8 @@
 object DMCob_Eletronica: TDMCob_Eletronica
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 24
-  Top = 79
+  Left = 247
+  Top = 70
   Height = 617
   Width = 1182
   object sdsDuplicata: TSQLDataSet
@@ -4710,13 +4710,18 @@ object DMCob_Eletronica: TDMCob_Eletronica
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'select MOSTRAR_COD_CONTABIL from'
+      'select MOSTRAR_COD_CONTABIL, USA_EMAIL_ACBR from'
       'PARAMETROS_GERAL')
     SQLConnection = dmDatabase.scoDados
     Left = 872
     Top = 28
     object qParametros_GeralMOSTRAR_COD_CONTABIL: TStringField
       FieldName = 'MOSTRAR_COD_CONTABIL'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_GeralUSA_EMAIL_ACBR: TStringField
+      FieldName = 'USA_EMAIL_ACBR'
       FixedChar = True
       Size = 1
     end

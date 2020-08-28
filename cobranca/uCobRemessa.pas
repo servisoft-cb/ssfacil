@@ -106,6 +106,7 @@ type
     function fnc_Verificar: Boolean;
     procedure prc_Monta_Corpo_Email;
     procedure prc_Abrir_Filial(ID: Integer);
+    function fnc_Monta_Corpo_Email_Acbr : TStringList;
   public
     { Public declarations }
     fDmCob_Eletronica: TDMCob_Eletronica;
@@ -127,7 +128,7 @@ var
 implementation
 
 uses
-  URelRemessa, DateUtils, uUtilCobranca, uNFeComandos, UCob_Remessa_Alt, UCob_Remessa_Alt_All;
+  URelRemessa, DateUtils, uUtilCobranca, uNFeComandos, UCob_Remessa_Alt, UCob_Remessa_Alt_All, uDadosEmail;
 
 {$R *.dfm}
 
@@ -1387,6 +1388,8 @@ var
   vNomeArqAux: string;
   vMSGAux2: WideString;
   vLocalServidorNFe: string;
+  aDadosEmail : TDadosEmail;
+  i : Integer;
 begin
   //27/11/2015
   //31/01/2017
@@ -1416,7 +1419,6 @@ begin
   vMsgAux := '';
   vMSGAux2 := '';
   Lista_Anexo := TStringList.Create;
-  vCorpo_Email := TStringList.Create;
   vContadorAux := 0;
   vContador_Envio := 0;
   fdmCob_Eletronica.buscaNossoNumero;
@@ -1487,19 +1489,70 @@ begin
       if trim(fDmCob_Eletronica.qFilialLOCALSERVIDORNFE.AsString) <> '' then
         vLocalServidorNFe := fDmCob_Eletronica.qFilialLOCALSERVIDORNFE.AsString;
 
-      try
-        EnviarEmail2(vLocalServidorNFe, vCNPJ_Filial, fDmCob_Eletronica.qFilial_EmailREMETENTE_EMAIL.AsString,
-                     fDmCob_Eletronica.qFilial_EmailREMETENTE_NOME.AsString, fDmCob_Eletronica.qFilial_EmailSMTP_CLIENTE.AsString,
-                     fDmCob_Eletronica.qFilial_EmailSMTP_PORTA.AsString, fDmCob_Eletronica.qFilial_EmailSMTP_REQUER_SSL.AsString,
-                     fDmCob_Eletronica.qFilial_EmailSMTP_USUARIO.AsString, vSenhaEmail, fDmCob_Eletronica.qFilial_EmailSOLICITAR_CONFIRMACAO.AsString,
-                     fDmCob_Eletronica.cdsDuplicataEMAIL_PGTO.AsString, '', 'Boleto Título Nº ' + fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString +
-                     fDmCob_Eletronica.vSeparadorParc + fDmCob_Eletronica.cdsDuplicataPARCELA.AsString, vDadosCorpoEmail, lista_Anexo);
-        vContador_Envio := vContador_Envio + 1;
-        if not fDmCob_Eletronica.vGravou_Hist then
-          fDmCob_Eletronica.prc_Gravar_Historico('E');
-      except
-        MessageDlg('Erro ao enviar email!', mtWarning, [mbOK], 0);
+      if fDmCob_Eletronica.qParametros_GeralUSA_EMAIL_ACBR.AsString = 'S' then
+      begin
+
+        aDadosEmail := TDadosEmail.Create;
+        try
+          aDadosEmail.Destinatario  := Trim(fDmCob_Eletronica.cdsDuplicataEMAIL_PGTO.AsString);
+          aDadosEmail.Remetente     := fDmCob_Eletronica.qFilial_EmailREMETENTE_EMAIL.AsString;
+          aDadosEmail.NomeRemetente := fDmCob_Eletronica.qFilial_EmailREMETENTE_NOME.AsString;
+
+          aDadosEmail.Assunto := 'Boleto Titulo N. ' +
+                                  fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString +
+                                  fDmCob_Eletronica.vSeparadorParc +
+                                  fDmCob_Eletronica.cdsDuplicataPARCELA.AsString;
+
+          vCorpo_Email := TStringList.Create();
+          try
+            vCorpo_Email := fnc_Monta_Corpo_Email_Acbr;
+            for i := 0 to vCorpo_Email.Count - 1 do
+              aDadosEmail.AddMensagem(vCorpo_Email.Strings[i]);
+          finally
+            vCorpo_Email.Free;
+          end;
+
+          aDadosEmail.AddArquivo(ACBrBoleto1.ACBrBoletoFC.NomeArquivo);
+
+          aDadosEmail.Host := fDmCob_Eletronica.qFilial_EmailSMTP_CLIENTE.AsString;
+          aDadosEmail.Port := fDmCob_Eletronica.qFilial_EmailSMTP_PORTA.AsInteger;
+          aDadosEmail.User := fDmCob_Eletronica.qFilial_EmailSMTP_USUARIO.AsString;;
+          aDadosEmail.Password := Descriptografar(fDmCob_Eletronica.qFilial_EmailBASE.AsInteger,
+                                                  'ssfacil',
+                                                  fDmCob_Eletronica.qFilial_EmailSMTP_SENHA.AsString);
+          aDadosEmail.TSL := True;
+          aDadosEmail.SSL := fDmCob_Eletronica.qFilial_EmailSMTP_REQUER_SSL.AsString = '1';
+          aDadosEmail.NomeDestinatario := SQLLocate('PESSOA','CODIGO','FANTASIA',fDmCob_Eletronica.cdsDuplicataID_PESSOA.AsString);
+          aDadosEmail.EnviarMensagem;
+
+        finally
+          aDadosEmail.Free;
+        end;
+
+      end
+      else
+      begin
+        try
+          EnviarEmail2(vLocalServidorNFe,
+                       vCNPJ_Filial,
+                       fDmCob_Eletronica.qFilial_EmailREMETENTE_EMAIL.AsString,
+                       fDmCob_Eletronica.qFilial_EmailREMETENTE_NOME.AsString,
+                       fDmCob_Eletronica.qFilial_EmailSMTP_CLIENTE.AsString,
+                       fDmCob_Eletronica.qFilial_EmailSMTP_PORTA.AsString,
+                       fDmCob_Eletronica.qFilial_EmailSMTP_REQUER_SSL.AsString,
+                       fDmCob_Eletronica.qFilial_EmailSMTP_USUARIO.AsString,
+                       vSenhaEmail, fDmCob_Eletronica.qFilial_EmailSOLICITAR_CONFIRMACAO.AsString,
+                       fDmCob_Eletronica.cdsDuplicataEMAIL_PGTO.AsString, '',
+                       'Boleto Título Nº ' + fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString + fDmCob_Eletronica.vSeparadorParc + fDmCob_Eletronica.cdsDuplicataPARCELA.AsString,
+                       vDadosCorpoEmail,
+                       lista_Anexo);
+        except
+          MessageDlg('Erro ao enviar email!', mtWarning, [mbOK], 0);
+        end;
       end;
+      vContador_Envio := vContador_Envio + 1;
+      if not fDmCob_Eletronica.vGravou_Hist then
+        fDmCob_Eletronica.prc_Gravar_Historico('E');
     end;
     fDmCob_Eletronica.cdsDuplicata.Next;
   end;
@@ -1523,7 +1576,6 @@ begin
     MessageDlg('Erro ao gravar o nosso número atualizado!',mtWarning,[mbOK],0);
   end;}
   FreeAndNil(lista_Anexo);
-  FreeAndNil(vCorpo_Email);
 end;
 
 procedure TfCobRemessa.ACBrMail1MailProcess(const aStatus: TMailStatus);
@@ -1563,11 +1615,11 @@ end;
 procedure TfCobRemessa.prc_Monta_Corpo_Email;
 begin
   vDadosCorpoEmail := '';
-  vDadosCorpoEmail := 'EM ANEXO BOLETO nº ' + fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString + fDmCob_Eletronica.vSeparadorParc +
+  vDadosCorpoEmail := 'EM ANEXO BOLETO n. ' + fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString + fDmCob_Eletronica.vSeparadorParc +
                       fDmCob_Eletronica.cdsDuplicataPARCELA.AsString;
-  vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'Beneficiário: ' + fDmCob_Eletronica.qFilialNOME.AsString;
+  vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'Beneficiario: ' + fDmCob_Eletronica.qFilialNOME.AsString;
   vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'CNPJ:' + fDmCob_Eletronica.qFilialCNPJ_CPF.AsString;
-  vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'Endereço:' + fDmCob_Eletronica.qFilialENDERECO.AsString + ', ' + fDmCob_Eletronica.qFilialNUM_END.AsString;
+  vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'Endereco:' + fDmCob_Eletronica.qFilialENDERECO.AsString + ', ' + fDmCob_Eletronica.qFilialNUM_END.AsString;
   vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'Cidade/UF:' + fDmCob_Eletronica.qFilialCIDADE.AsString + '/' + fDmCob_Eletronica.qFilialUF.AsString;
   vDadosCorpoEmail := vDadosCorpoEmail + #13 + 'Fone:' + fDmCob_Eletronica.qFilialDDD1.AsString + '/' + fDmCob_Eletronica.qFilialFONE.AsString;
   vDadosCorpoEmail := vDadosCorpoEmail + #13 + '';
@@ -1861,6 +1913,24 @@ begin
     fDmCob_Eletronica.cdsDuplicata.Next;
   end;
   fDmCob_Eletronica.frxReport1.ShowReport;
+end;
+
+function TfCobRemessa.fnc_Monta_Corpo_Email_Acbr: TStringList;
+var
+  Mensagem : TStringList;
+begin
+  Mensagem := TStringList.Create;
+  try
+    Mensagem.Clear;
+    Mensagem.Add('EM ANEXO BOLETO n. ' + fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString + fDmCob_Eletronica.vSeparadorParc + fDmCob_Eletronica.cdsDuplicataPARCELA.AsString);
+    Mensagem.Add('Beneficiario: ' + fDmCob_Eletronica.qFilialNOME.AsString);
+    Mensagem.Add('CNPJ:' + fDmCob_Eletronica.qFilialCNPJ_CPF.AsString);
+    Mensagem.Add('Endereco:' + fDmCob_Eletronica.qFilialENDERECO.AsString + ', ' + fDmCob_Eletronica.qFilialNUM_END.AsString);
+    Mensagem.Add('Cidade/UF:' + fDmCob_Eletronica.qFilialCIDADE.AsString + '/' + fDmCob_Eletronica.qFilialUF.AsString);
+    Mensagem.Add('Fone:' + fDmCob_Eletronica.qFilialDDD1.AsString + '/' + fDmCob_Eletronica.qFilialFONE.AsString);
+    Result := Mensagem;
+  finally
+  end;
 end;
 
 end.

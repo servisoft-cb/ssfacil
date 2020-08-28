@@ -873,6 +873,7 @@ type
     sdsDuplicataID_CONTABIL_OPE_BAIXA: TIntegerField;
     cdsDuplicataID_CONTABIL_OPE_BAIXA: TIntegerField;
     qParametros_FinLER_RETORNO: TStringField;
+    qParametros_GeralUSA_EMAIL_ACBR: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mRetornoNewRecord(DataSet: TDataSet);
     procedure RLPreviewSetup1Send(Sender: TObject);
