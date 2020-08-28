@@ -8,7 +8,9 @@ object DMConfig_Balanca: TDMConfig_Balanca
   object sdsConfigBalancaLay: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM CONFIG_BALANCA_LAYOUT'
+    CommandText = 
+      'select ID, ORDEM, trim(CAMPO) CAMPO, POSICAO, TAMANHO, PENDENTE'#13 +
+      #10'from CONFIG_BALANCA_LAYOUT'
     DataSource = cdsMestre
     MaxBlobSize = -1
     Params = <>
@@ -274,5 +276,546 @@ object DMConfig_Balanca: TDMConfig_Balanca
     Options = [poAllowCommandText]
     Left = 56
     Top = 144
+  end
+  object sdsProduto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'Select * from Produto Where CODIGO_BALANCA is not null'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 16
+    Top = 200
+  end
+  object dsProduto: TDataSource
+    DataSet = cdsProduto
+    Left = 112
+    Top = 200
+  end
+  object cdsProduto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspProduto'
+    Left = 80
+    Top = 200
+    object cdsProdutoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsProdutoREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsProdutoNOME: TStringField
+      FieldName = 'NOME'
+      Size = 100
+    end
+    object cdsProdutoPESOLIQUIDO: TFloatField
+      FieldName = 'PESOLIQUIDO'
+    end
+    object cdsProdutoPESOBRUTO: TFloatField
+      FieldName = 'PESOBRUTO'
+    end
+    object cdsProdutoINATIVO: TStringField
+      FieldName = 'INATIVO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoID_CSTIPI: TIntegerField
+      FieldName = 'ID_CSTIPI'
+    end
+    object cdsProdutoPERC_IPI: TFloatField
+      FieldName = 'PERC_IPI'
+    end
+    object cdsProdutoPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
+    object cdsProdutoPRECO_VENDA: TFloatField
+      FieldName = 'PRECO_VENDA'
+    end
+    object cdsProdutoTIPO_REG: TStringField
+      FieldName = 'TIPO_REG'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoPOSSE_MATERIAL: TStringField
+      FieldName = 'POSSE_MATERIAL'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoESTOQUE: TStringField
+      FieldName = 'ESTOQUE'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoMATERIAL_OUTROS: TStringField
+      FieldName = 'MATERIAL_OUTROS'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoUSUARIO: TStringField
+      FieldName = 'USUARIO'
+      Size = 15
+    end
+    object cdsProdutoDTCAD: TDateField
+      FieldName = 'DTCAD'
+    end
+    object cdsProdutoHRCAD: TTimeField
+      FieldName = 'HRCAD'
+    end
+    object cdsProdutoCA: TStringField
+      FieldName = 'CA'
+    end
+    object cdsProdutoCOMPLEMENTO: TStringField
+      FieldName = 'COMPLEMENTO'
+      Size = 200
+    end
+    object cdsProdutoID_NCM: TIntegerField
+      FieldName = 'ID_NCM'
+    end
+    object cdsProdutoORIGEM_PROD: TStringField
+      FieldName = 'ORIGEM_PROD'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoOBS: TMemoField
+      FieldName = 'OBS'
+      BlobType = ftMemo
+      Size = 1
+    end
+    object cdsProdutoCODSITCF: TStringField
+      FieldName = 'CODSITCF'
+      Size = 5
+    end
+    object cdsProdutoPERC_REDUCAOICMS: TFloatField
+      FieldName = 'PERC_REDUCAOICMS'
+    end
+    object cdsProdutoTIPO_VENDA: TStringField
+      FieldName = 'TIPO_VENDA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoPERC_MARGEMLUCRO: TFloatField
+      FieldName = 'PERC_MARGEMLUCRO'
+    end
+    object cdsProdutoUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsProdutoDT_ALTPRECO: TDateField
+      FieldName = 'DT_ALTPRECO'
+    end
+    object cdsProdutoLOCALIZACAO: TStringField
+      FieldName = 'LOCALIZACAO'
+      Size = 30
+    end
+    object cdsProdutoID_GRUPO: TIntegerField
+      FieldName = 'ID_GRUPO'
+    end
+    object cdsProdutoID_SUBGRUPO: TIntegerField
+      FieldName = 'ID_SUBGRUPO'
+    end
+    object cdsProdutoID_MARCA: TIntegerField
+      FieldName = 'ID_MARCA'
+    end
+    object cdsProdutoID_FORNECEDOR: TIntegerField
+      FieldName = 'ID_FORNECEDOR'
+    end
+    object cdsProdutoCOD_BARRA: TStringField
+      FieldName = 'COD_BARRA'
+      Size = 14
+    end
+    object cdsProdutoPERC_IMPORTACAO: TFloatField
+      FieldName = 'PERC_IMPORTACAO'
+    end
+    object cdsProdutoCOD_ANT: TStringField
+      FieldName = 'COD_ANT'
+      Size = 10
+    end
+    object cdsProdutoPERC_REDUCAOICMSSUBST: TFloatField
+      FieldName = 'PERC_REDUCAOICMSSUBST'
+    end
+    object cdsProdutoUSA_GRADE: TStringField
+      FieldName = 'USA_GRADE'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoID_GRADE: TIntegerField
+      FieldName = 'ID_GRADE'
+    end
+    object cdsProdutoUSA_PERC_IMP_INTERESTADUAL: TStringField
+      FieldName = 'USA_PERC_IMP_INTERESTADUAL'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoIMPRIMIR_ETIQUETA_NAV: TStringField
+      FieldName = 'IMPRIMIR_ETIQUETA_NAV'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoCARIMBO: TStringField
+      FieldName = 'CARIMBO'
+      Size = 25
+    end
+    object cdsProdutoPERC_QUEBRAMAT: TFloatField
+      FieldName = 'PERC_QUEBRAMAT'
+    end
+    object cdsProdutoSPED_TIPO_ITEM: TStringField
+      FieldName = 'SPED_TIPO_ITEM'
+      Size = 2
+    end
+    object cdsProdutoQTD_ESTOQUE_MIN: TFloatField
+      FieldName = 'QTD_ESTOQUE_MIN'
+    end
+    object cdsProdutoPERC_PIS: TFloatField
+      FieldName = 'PERC_PIS'
+    end
+    object cdsProdutoPERC_COFINS: TFloatField
+      FieldName = 'PERC_COFINS'
+    end
+    object cdsProdutoPERC_ICMS_IMP: TFloatField
+      FieldName = 'PERC_ICMS_IMP'
+    end
+    object cdsProdutoPERC_IPI_IMP: TFloatField
+      FieldName = 'PERC_IPI_IMP'
+    end
+    object cdsProdutoREFERENCIA_PADRAO: TStringField
+      FieldName = 'REFERENCIA_PADRAO'
+    end
+    object cdsProdutoNUM_FCI: TStringField
+      FieldName = 'NUM_FCI'
+      Size = 40
+    end
+    object cdsProdutoPERC_USADO_FCI: TFloatField
+      FieldName = 'PERC_USADO_FCI'
+    end
+    object cdsProdutoNCM_EX: TStringField
+      FieldName = 'NCM_EX'
+      Size = 2
+    end
+    object cdsProdutoID_SITTRIB_CF: TIntegerField
+      FieldName = 'ID_SITTRIB_CF'
+    end
+    object cdsProdutoID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
+    end
+    object cdsProdutoPRECO_REVENDA: TFMTBCDField
+      FieldName = 'PRECO_REVENDA'
+      Precision = 15
+      Size = 10
+    end
+    object cdsProdutoPRECO_INDUSTRIALIZACAO: TFMTBCDField
+      FieldName = 'PRECO_INDUSTRIALIZACAO'
+      Precision = 15
+      Size = 10
+    end
+    object cdsProdutoPRECO_CONSUMO: TFMTBCDField
+      FieldName = 'PRECO_CONSUMO'
+      Precision = 15
+      Size = 10
+    end
+    object cdsProdutoFOTO: TStringField
+      FieldName = 'FOTO'
+      Size = 150
+    end
+    object cdsProdutoREFERENCIA_SEQ: TIntegerField
+      FieldName = 'REFERENCIA_SEQ'
+    end
+    object cdsProdutoID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsProdutoCALCULAR_2_LADOS: TStringField
+      FieldName = 'CALCULAR_2_LADOS'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoPERC_VIDRO: TFloatField
+      FieldName = 'PERC_VIDRO'
+    end
+    object cdsProdutoID_LINHA: TIntegerField
+      FieldName = 'ID_LINHA'
+    end
+    object cdsProdutoID_CFOP_NFCE: TIntegerField
+      FieldName = 'ID_CFOP_NFCE'
+    end
+    object cdsProdutoUSA_PRECO_COR: TStringField
+      FieldName = 'USA_PRECO_COR'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoUSA_COR: TStringField
+      FieldName = 'USA_COR'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoTRANSFER: TStringField
+      FieldName = 'TRANSFER'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoPRECO_CUSTO_TOTAL: TFloatField
+      FieldName = 'PRECO_CUSTO_TOTAL'
+    end
+    object cdsProdutoID_CONTA_ORCAMENTO: TIntegerField
+      FieldName = 'ID_CONTA_ORCAMENTO'
+    end
+    object cdsProdutoID_LOCAL_ESTOQUE_PROD: TIntegerField
+      FieldName = 'ID_LOCAL_ESTOQUE_PROD'
+    end
+    object cdsProdutoPERC_COMISSAO: TFloatField
+      FieldName = 'PERC_COMISSAO'
+    end
+    object cdsProdutoID_ENQIPI: TIntegerField
+      FieldName = 'ID_ENQIPI'
+    end
+    object cdsProdutoLANCA_LOTE_CONTROLE: TStringField
+      FieldName = 'LANCA_LOTE_CONTROLE'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoCOD_CEST: TStringField
+      FieldName = 'COD_CEST'
+      Size = 7
+    end
+    object cdsProdutoPICTOGRAMA: TStringField
+      FieldName = 'PICTOGRAMA'
+      Size = 150
+    end
+    object cdsProdutoPICTO_CABEDAL: TStringField
+      FieldName = 'PICTO_CABEDAL'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoPICTO_INTERIOR: TStringField
+      FieldName = 'PICTO_INTERIOR'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoPICTO_SOLA: TStringField
+      FieldName = 'PICTO_SOLA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoCOD_PRODUTO_CLI: TStringField
+      FieldName = 'COD_PRODUTO_CLI'
+      Size = 15
+    end
+    object cdsProdutoFILIAL: TIntegerField
+      FieldName = 'FILIAL'
+    end
+    object cdsProdutoBAIXA_ESTOQUE_MAT: TStringField
+      FieldName = 'BAIXA_ESTOQUE_MAT'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoCOD_JUSTNEW: TIntegerField
+      FieldName = 'COD_JUSTNEW'
+    end
+    object cdsProdutoNOME_ORIGINAL: TStringField
+      FieldName = 'NOME_ORIGINAL'
+      Size = 100
+    end
+    object cdsProdutoIMP_ROTULO: TStringField
+      FieldName = 'IMP_ROTULO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoNUM_MS: TStringField
+      FieldName = 'NUM_MS'
+    end
+    object cdsProdutoIMP_CONSUMO_NFE: TStringField
+      FieldName = 'IMP_CONSUMO_NFE'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoGERAR_FCI: TStringField
+      FieldName = 'GERAR_FCI'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoMEDIDA: TStringField
+      FieldName = 'MEDIDA'
+    end
+    object cdsProdutoQTD_EMBALAGEM: TFloatField
+      FieldName = 'QTD_EMBALAGEM'
+    end
+    object cdsProdutoDT_ALT_PRECOCUSTO: TDateField
+      FieldName = 'DT_ALT_PRECOCUSTO'
+    end
+    object cdsProdutoUSA_CARIMBO_OC: TStringField
+      FieldName = 'USA_CARIMBO_OC'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoUSA_NA_BALANCA: TStringField
+      FieldName = 'USA_NA_BALANCA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoMENSAGEM: TStringField
+      FieldName = 'MENSAGEM'
+      Size = 250
+    end
+    object cdsProdutoPERC_DESC_MAX: TFloatField
+      FieldName = 'PERC_DESC_MAX'
+    end
+    object cdsProdutoID_CSTICMS_BRED: TIntegerField
+      FieldName = 'ID_CSTICMS_BRED'
+    end
+    object cdsProdutoTIPO_MAT: TStringField
+      FieldName = 'TIPO_MAT'
+      Size = 1
+    end
+    object cdsProdutoID_PROCESSO_GRUPO: TIntegerField
+      FieldName = 'ID_PROCESSO_GRUPO'
+    end
+    object cdsProdutoTIPO_PRODUCAO: TStringField
+      FieldName = 'TIPO_PRODUCAO'
+      Size = 1
+    end
+    object cdsProdutoCRIADO_OS: TStringField
+      FieldName = 'CRIADO_OS'
+      Size = 1
+    end
+    object cdsProdutoID_MATERIAL_CRU: TIntegerField
+      FieldName = 'ID_MATERIAL_CRU'
+    end
+    object cdsProdutoID_FORMA: TIntegerField
+      FieldName = 'ID_FORMA'
+    end
+    object cdsProdutoTAMANHO: TStringField
+      FieldName = 'TAMANHO'
+      Size = 10
+    end
+    object cdsProdutoTESTE: TStringField
+      FieldName = 'TESTE'
+      Size = 15
+    end
+    object cdsProdutoPRECO_LIQ: TFloatField
+      FieldName = 'PRECO_LIQ'
+    end
+    object cdsProdutoUSA_CLIQ: TStringField
+      FieldName = 'USA_CLIQ'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoQTD_PECA_EMB: TIntegerField
+      FieldName = 'QTD_PECA_EMB'
+    end
+    object cdsProdutoLARGURA: TFloatField
+      FieldName = 'LARGURA'
+    end
+    object cdsProdutoALTURA: TFloatField
+      FieldName = 'ALTURA'
+    end
+    object cdsProdutoESPESSURA: TFloatField
+      FieldName = 'ESPESSURA'
+    end
+    object cdsProdutoMULTIPLICADOR: TFloatField
+      FieldName = 'MULTIPLICADOR'
+    end
+    object cdsProdutoREF2: TStringField
+      FieldName = 'REF2'
+    end
+    object cdsProdutoFATOR_CALCULO: TFloatField
+      FieldName = 'FATOR_CALCULO'
+    end
+    object cdsProdutoREF_ORD: TStringField
+      FieldName = 'REF_ORD'
+    end
+    object cdsProdutoGERAR_WEB: TStringField
+      FieldName = 'GERAR_WEB'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoTAM_CALC: TFloatField
+      FieldName = 'TAM_CALC'
+    end
+    object cdsProdutoCOD_BARRA2: TStringField
+      FieldName = 'COD_BARRA2'
+      Size = 14
+    end
+    object cdsProdutoPOSSUE_LADO: TStringField
+      FieldName = 'POSSUE_LADO'
+      Size = 1
+    end
+    object cdsProdutoUNIDADE2: TStringField
+      FieldName = 'UNIDADE2'
+      Size = 6
+    end
+    object cdsProdutoCAIXINHA: TStringField
+      FieldName = 'CAIXINHA'
+      Size = 30
+    end
+    object cdsProdutoSEPARA_COR: TStringField
+      FieldName = 'SEPARA_COR'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoVALIDADE: TSmallintField
+      FieldName = 'VALIDADE'
+    end
+    object cdsProdutoID_CSTICMS: TIntegerField
+      FieldName = 'ID_CSTICMS'
+    end
+    object cdsProdutoNOME_MODELO: TStringField
+      FieldName = 'NOME_MODELO'
+      Size = 100
+    end
+    object cdsProdutoDESC_MAXIMO: TFloatField
+      FieldName = 'DESC_MAXIMO'
+    end
+    object cdsProdutoQTD_POR_ROTULO: TFloatField
+      FieldName = 'QTD_POR_ROTULO'
+    end
+    object cdsProdutoPERC_ICMS_NFCE: TFloatField
+      FieldName = 'PERC_ICMS_NFCE'
+    end
+    object cdsProdutoTIPO_ALGODAO: TStringField
+      FieldName = 'TIPO_ALGODAO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoCALCULAR_ST: TStringField
+      FieldName = 'CALCULAR_ST'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoPRECO_CUSTO_ANT: TFloatField
+      FieldName = 'PRECO_CUSTO_ANT'
+    end
+    object cdsProdutoCOD_BENEF: TStringField
+      FieldName = 'COD_BENEF'
+      Size = 8
+    end
+    object cdsProdutoTIPO_PRODUTO: TStringField
+      FieldName = 'TIPO_PRODUTO'
+      Size = 4
+    end
+    object cdsProdutoID_PRODUTO_EST: TIntegerField
+      FieldName = 'ID_PRODUTO_EST'
+    end
+    object cdsProdutoINDEXADOR_PRECO: TFloatField
+      FieldName = 'INDEXADOR_PRECO'
+    end
+    object cdsProdutoANP_ID: TIntegerField
+      FieldName = 'ANP_ID'
+    end
+    object cdsProdutoPRECO_VAREJO: TFloatField
+      FieldName = 'PRECO_VAREJO'
+    end
+    object cdsProdutoTIPO_BALANCA: TStringField
+      FieldName = 'TIPO_BALANCA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProdutoCODIGO_BALANCA: TIntegerField
+      FieldName = 'CODIGO_BALANCA'
+    end
+  end
+  object dspProduto: TDataSetProvider
+    DataSet = sdsProduto
+    Options = [poAllowCommandText]
+    Left = 48
+    Top = 200
   end
 end
