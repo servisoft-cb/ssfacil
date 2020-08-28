@@ -137,6 +137,7 @@ uses
   function fnc_Cliente_Estoque(ID_Pedido : Integer) : String;
 
   function FormatarTelefone(Telefone : String):String;
+  function  Preenche(STRI, FloodStr:String; TAM:Integer ; JUST : Integer):String ;
 
 var
   Enter,Esc,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,Q: Word;
@@ -2702,6 +2703,24 @@ begin
      if bZero then //Para ficar com a preferência do usuário, se ele digitou o "0" eu mantenho.
        Result := '0'+Result;
    end;
+end;   
+
+function Preenche(STRI, FloodStr:String; TAM:Integer ; JUST : Integer):String ;
+var
+  Conta : integer ;
+  TotalStr, Aux_Str : String;
+begin
+  Aux_Str := '' ;
+  for Conta := 1 to (Tam-Length(STRI)) do
+  if FloodStr = '' then
+    Aux_Str := Aux_Str + ' '
+  else
+    Aux_Str := Aux_Str + FloodStr ;
+  if JUST = 0 then //Esquerda
+    AUX_STR := AUX_STR + STRI ;
+  if JUST = 2 then //Direita
+    AUX_STR := STRI + AUX_STR ;
+  Preenche := AUX_STR ;
 end;
 
 end.

@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Mask, DBCtrls, StdCtrls, NxCollection, ExtCtrls, Grids, DBGrids,
   SMDBGrid, RzTabs, UDMCadConfig_Balanca, RxDBComb, ToolEdit, DB, UCBase,
-  uCadConfig_BalancaArquivo;
+  uCadConfig_BalancaArquivo, IniFiles, ComCtrls;
 
 type
   TfrmConfigBalanca = class(TForm)
@@ -69,6 +69,8 @@ type
     btnAlterar_Lay: TNxButton;
     btnExcluir_Lay: TNxButton;
     SMDBGrid7: TSMDBGrid;
+    btnGerarArquivo: TNxButton;
+    ProgressBar: TProgressBar;
     procedure FormCreate(Sender: TObject);
     procedure FilePathChange(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -82,6 +84,7 @@ type
     procedure btnInserir_LayClick(Sender: TObject);
     procedure btnAlterar_LayClick(Sender: TObject);
     procedure btnExcluir_LayClick(Sender: TObject);
+    procedure btnGerarArquivoClick(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Inserir_Registro;
@@ -101,7 +104,7 @@ var
 implementation
 
 uses
-  rsDBUtils;
+  rsDBUtils, SqlExpr, DateUtils, uUtilPadrao;
 
 {$R *.dfm}
 
@@ -296,6 +299,102 @@ begin
 
   fDMCadConfig_Balanca.cdsConfigBalancaLay.Delete;
 
+end;
+
+procedure TfrmConfigBalanca.btnGerarArquivoClick(Sender: TObject);
+Var
+  I,TamRegistro:Integer;
+  Registro,LinhaVazia,Separador, STR:String;
+  Arquivo:TextFile;
+begin
+  if (not fDMCadConfig_Balanca.cdsConfigBalancaLay.IsEmpty) Then
+  begin
+      AssignFile(Arquivo,fDMCadConfig_Balanca.cdsConfigBalancaNOMEARQ_TXT.AsString);
+      Rewrite(Arquivo);
+      TamRegistro:=0;
+      fDMCadConfig_Balanca.cdsConfigBalancaLay.First;
+      while not fDMCadConfig_Balanca.cdsConfigBalancaLay.Eof Do
+        Begin
+          TamRegistro := TamRegistro + fDMCadConfig_Balanca.cdsConfigBalancaLayTAMANHO.Value;
+          fDMCadConfig_Balanca.cdsConfigBalancaLay.Next;
+        End;
+      LinhaVazia := '';
+      for I := 1 To TamRegistro Do
+        LinhaVazia := LinhaVazia + ' ';
+
+      with fDMCadConfig_Balanca do
+      begin
+        cdsProduto.Open;
+        cdsProduto.Last;
+        cdsProduto.First;
+        ProgressBar.Min := 1;
+        ProgressBar.Max := cdsProduto.RecordCount;
+        ProgressBar.Visible := True;
+        ProgressBar.Update;
+        ProgressBar.Position := 1;
+        cdsProduto.DisableControls;
+
+        try
+          While Not cdsProduto.Eof Do
+            Begin
+              If cdsProduto.FieldByName('CODIGO_BALANCA').AsInteger > 0 Then
+                Begin
+                  Registro := LinhaVazia;
+                  cdsConfigBalancaLay.First;
+                  While Not cdsConfigBalancaLay.EOF Do
+                    Begin
+                      Case cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).DataType Of
+                        FtInteger  :begin
+                                       Registro := Copy(Registro,1,cdsConfigBalancaLayPOSICAO.Value - 1) +
+                                       Preenche(cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).AsString,'0',cdsConfigBalancaLayTAMANHO.Value,0);
+
+                                    end;
+                        FtString   :begin
+                                      Registro := Copy(Registro,1,cdsConfigBalancaLayPOSICAO.Value - 1) +
+                                      Preenche(cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).asString, '', cdsConfigBalancaLayTAMANHO.Value,2) +
+                                      Copy(Registro,cdsConfigBalancaLayPOSICAO.Value + cdsConfigBalancaLayTAMANHO.Value , TamRegistro - (cdsConfigBalancaLayPOSICAO.Value+cdsConfigBalancaLayTAMANHO.Value));
+                                    end;
+                        FtBCD,
+                        FtFloat    :if cdsConfigBalancaUSA_SEPARADOR.AsString = 'S' then
+                                      begin
+                                        Separador := cdsConfigBalancaTIPO_SEPARADOR.AsString;
+                                        Registro  := Copy(Registro, 1, cdsConfigBalancaLayPOSICAO.Value - 1) +
+                                                     Format('%.'+IntToStr(cdsConfigBalancaLayTAMANHO.Value - 1 - cdsConfigBalancaDECIMAIS.Value)+ 'd' ,[Round(Int(cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).asFloat))]) + Separador +
+                                                     Copy(Format('%.'+IntToStr(cdsConfigBalancaDECIMAIS.Value)+'f',[Frac(cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.AsString).Value)]),3,cdsConfigBalancaDECIMAIS.AsInteger)+
+                                                     Copy(Registro,cdsConfigBalancaLayPOSICAO.Value+ cdsConfigBalancaLayTAMANHO.Value,TamRegistro + 1 - (cdsConfigBalancaLayPOSICAO.Value + cdsConfigBalancaLayTAMANHO.Value));
+                                      end
+                                    else
+                                      Begin
+                                        STR := FormatFloat('#,##0.00',cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).AsFloat);
+                                        While Pos('.',STR) > 0 do
+                                          Delete(STR,Pos('.',STR),1);
+                                        While Pos(',',STR) > 0 do
+                                          Delete(STR,Pos(',',STR),1);
+                                        Registro :=Copy(Registro,1,cdsConfigBalancaLayPOSICAO.Value - 1) +
+                                        Preenche(STR, '0',cdsConfigBalancaLayTAMANHO.Value,0);
+                                      End;
+                      End;
+                      cdsConfigBalancaLay.Next;
+                    end;
+                  WriteLn(Arquivo, Registro);
+                End;
+              cdsProduto.Next;
+              ProgressBar.Position := ProgressBar.Position + 1;
+              ProgressBar.UpDate;
+            End;
+          CloseFile(Arquivo);
+        except
+          Application.MessageBox('Problemas na geração do arquivo, verifique suas configurações !', PChar('Advanced Control Informa'), MB_SYSTEMMODAL + MB_Ok + MB_IconInformation);
+          CloseFile(Arquivo);
+          Abort;
+        end;
+        cdsConfigBalancaLay.EnableControls;
+        cdsProduto.Close;
+      end;
+      Application.MessageBox('Operação Concluida com Sucesso!', PChar('Advanced Control Informa'), MB_SYSTEMMODAL + MB_Ok + MB_IconInformation);
+      ProgressBar.Visible:=False;
+      ProgressBar.UpDate;
+  end;
 end;
 
 end.
