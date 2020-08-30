@@ -870,7 +870,9 @@ uses
   UDMConsPedidoCom in 'UDMConsPedidoCom.pas' {DMConsPedidoCom: TDataModule},
   UConsPedido_Rep in 'UConsPedido_Rep.pas' {frmConsPedido_Rep},
   uDadosEmail in 'Classes\uDadosEmail.pas',
-  uConsFatConsumo in 'uConsFatConsumo.pas' {frmConsFatConsumo};
+  uConsFatConsumo in 'uConsFatConsumo.pas' {frmConsFatConsumo},
+  UDMCompras in 'UDMCompras.pas' {DMCompras: TDataModule},
+  UConsEstoque_Compras in 'UConsEstoque_Compras.pas' {frmConsEstoque_Compras};
 
 {$R *.res}
 

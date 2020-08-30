@@ -561,7 +561,7 @@ object frmCadDocEstoque_Itens: TfrmCadDocEstoque_Itens
       Caption = 'Nome Cor:'
     end
     object RxDBLookupCombo5: TRxDBLookupCombo
-      Left = 138
+      Left = 140
       Top = 1
       Width = 423
       Height = 21

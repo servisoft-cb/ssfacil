@@ -18,7 +18,7 @@ object frmConsEstoque_Producao: TfrmConsEstoque_Producao
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1014
+    Width = 1022
     Height = 54
     Align = alTop
     Color = clSilver
@@ -310,8 +310,8 @@ object frmConsEstoque_Producao: TfrmConsEstoque_Producao
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 54
-    Width = 1014
-    Height = 387
+    Width = 1022
+    Height = 395
     Align = alClient
     Ctl3D = False
     DataSource = DMConsEstoque.dsEstoque_Producao

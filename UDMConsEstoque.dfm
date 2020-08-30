@@ -242,12 +242,12 @@ object DMConsEstoque: TDMConsEstoque
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 89
+    Left = 99
     Top = 103
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
-    Left = 120
+    Left = 130
     Top = 103
   end
   object cdsFilial: TClientDataSet
@@ -255,7 +255,7 @@ object DMConsEstoque: TDMConsEstoque
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 152
+    Left = 162
     Top = 103
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
@@ -272,7 +272,7 @@ object DMConsEstoque: TDMConsEstoque
   end
   object dsFilial: TDataSource
     DataSet = cdsFilial
-    Left = 184
+    Left = 194
     Top = 103
   end
   object sdsEstoque_Mov: TSQLDataSet
