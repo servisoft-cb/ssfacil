@@ -1089,6 +1089,15 @@ var
   vCodAux: Integer;
 begin
   fDMCadPessoa.prc_Abrir_Cidade('');
+
+  if (fDMCadPessoa.cdsPessoaTP_VENDEDOR.AsString = 'S') and (fDMCadPessoa.qParametros_GeralUSA_COD_VENDEDOR.AsString = 'S') and (CurrencyEdit1.AsInteger <= 0) then
+  begin
+    MessageDlg('*** Não informado o código do vendedor específico!', mtError, [mbOk], 0);
+    RzPageControl3.ActivePage := ts_Vendedor;
+    CurrencyEdit1.SetFocus;
+    exit;
+  end;
+
   if fDMCadPessoa.fnc_Erro_Registro then
   begin
     MessageDlg(fDMCadPessoa.vMsgPessoa, mtError, [mbOk], 0);

@@ -1843,6 +1843,7 @@ begin
   if trim(cdsPessoaNOME.AsString) = '' then
     vMsgPessoa := vMsgPessoa + #13 + '*** Nome não informado!';
 
+
   if (trim(cdsPessoaTP_CLIENTE.AsString) <> 'S') and (trim(cdsPessoaTP_FORNECEDOR.AsString) <> 'S') and
      (trim(cdsPessoaTP_VENDEDOR.AsString) <> 'S') and (trim(cdsPessoaTP_TRANSPORTADORA.AsString) <> 'S') and
      (trim(cdsPessoaTP_ATELIER.AsString) <> 'S') and (trim(cdsPessoaTP_ALUNO.AsString) <> 'S') and
