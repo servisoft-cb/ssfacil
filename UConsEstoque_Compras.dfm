@@ -90,7 +90,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'ID'
           Title.Alignment = taCenter
           Title.Caption = 'ID Produto'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 52
           Visible = True
         end
@@ -99,7 +99,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'NOME_PRODUTO'
           Title.Alignment = taCenter
           Title.Caption = 'Nome Produto'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 243
           Visible = True
         end
@@ -108,7 +108,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'UNIDADE'
           Title.Alignment = taCenter
           Title.Caption = 'Unid.'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Visible = True
         end
         item
@@ -116,7 +116,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'NOME_COR'
           Title.Alignment = taCenter
           Title.Caption = 'Nome Cor'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 188
           Visible = True
         end
@@ -125,7 +125,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'ID_FORNECEDOR'
           Title.Alignment = taCenter
           Title.Caption = 'ID Forn.'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 41
           Visible = True
         end
@@ -134,7 +134,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'NOME_FORNECEDOR'
           Title.Alignment = taCenter
           Title.Caption = 'Nome Fornecedor'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 215
           Visible = True
         end
@@ -143,7 +143,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'TAMANHO'
           Title.Alignment = taCenter
           Title.Caption = 'Tamanho'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 59
           Visible = True
         end
@@ -152,7 +152,8 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'QTD_ESTOQUE'
           Title.Alignment = taCenter
           Title.Caption = 'Qtd. Estoque'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
+          Width = 64
           Visible = True
         end
         item
@@ -160,7 +161,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'QTD_OC'
           Title.Alignment = taCenter
           Title.Caption = 'Qtd. OC Pendente'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 80
           Visible = True
         end
@@ -169,7 +170,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'QTD_PEDIDO'
           Title.Alignment = taCenter
           Title.Caption = 'Qtd. Pedido Pendente'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 64
           Visible = True
         end
@@ -197,7 +198,7 @@ object frmConsEstoque_Compras: TfrmConsEstoque_Compras
           FieldName = 'QTD_ESTOQUE_MIN'
           Title.Alignment = taCenter
           Title.Caption = 'Qtd. M'#237'nima'
-          Title.Color = clActiveCaption
+          Title.Color = 15193799
           Width = 77
           Visible = True
         end

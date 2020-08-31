@@ -948,7 +948,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'NOME_CONTATO'
             Title.Alignment = taCenter
             Title.Caption = 'Contato'
-            Width = 64
             Visible = True
           end
           item
@@ -1003,7 +1002,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Cli'
-            Width = 64
             Visible = True
           end
           item
@@ -1012,7 +1010,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_FORNECEDOR'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Forn.'
-            Width = 64
             Visible = True
           end
           item
@@ -1030,7 +1027,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'TP_VENDEDOR'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Repr.'
-            Width = 64
             Visible = True
           end
           item
@@ -1039,7 +1035,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'ORGAO_PUBLICO'
             Title.Alignment = taCenter
             Title.Caption = 'Org'#227'o P'#250'blico'
-            Width = 64
             Visible = True
           end
           item
@@ -1047,7 +1042,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'DTPEDIDO'
             Title.Alignment = taCenter
             Title.Caption = 'Data '#218'lt. Pedido'
-            Width = 64
             Visible = True
           end
           item
@@ -1055,7 +1049,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'DTNOTA'
             Title.Alignment = taCenter
             Title.Caption = 'Data '#218'lt. Faturamento'
-            Width = 64
             Visible = True
           end
           item
@@ -1103,7 +1096,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Nome Grupo'
-            Width = 64
             Visible = True
           end
           item
@@ -1111,7 +1103,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_CONTA_ORCAMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Or'#231'amento'
-            Width = 64
             Visible = True
           end
           item
@@ -1119,7 +1110,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_CLI'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Cliente'
-            Width = 64
             Visible = True
           end
           item
@@ -1127,7 +1117,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_FORN'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Fornecedor'
-            Width = 64
             Visible = True
           end
           item
@@ -1135,7 +1124,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_ORC_TRANSP'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Conta Transp.'
-            Width = 64
             Visible = True
           end
           item
@@ -1150,7 +1138,6 @@ object frmCadPessoa: TfrmCadPessoa
             Expanded = False
             FieldName = 'INSCR_EST'
             Title.Caption = 'Inscr. Estadual'
-            Width = 64
             Visible = True
           end
           item
@@ -1166,7 +1153,6 @@ object frmCadPessoa: TfrmCadPessoa
             FieldName = 'COD_REGIME'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Regime'
-            Width = 64
             Visible = True
           end
           item
@@ -1420,7 +1406,7 @@ object frmCadPessoa: TfrmCadPessoa
         Top = 30
         Width = 1079
         Height = 627
-        ActivePage = TS_Pessoa_Dados
+        ActivePage = TS_Download
         ActivePageDefault = TS_Pessoa_Dados
         Align = alClient
         BackgroundColor = clSilver
@@ -1428,7 +1414,7 @@ object frmCadPessoa: TfrmCadPessoa
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 0
+        TabIndex = 12
         TabOrder = 1
         OnChange = RZPageControlDadosChange
         FixedDimension = 19
@@ -2598,10 +2584,10 @@ object frmCadPessoa: TfrmCadPessoa
             Top = 415
             Width = 1075
             Height = 189
-            ActivePage = ts_Vendedor
+            ActivePage = ts_Contatos
             ActivePageDefault = ts_Contatos
             Align = alBottom
-            TabIndex = 1
+            TabIndex = 0
             TabOrder = 1
             OnChange = RzPageControl3Change
             FixedDimension = 19
@@ -4644,7 +4630,6 @@ object frmCadPessoa: TfrmCadPessoa
                     Expanded = False
                     FieldName = 'OBS'
                     Title.Color = 12320699
-                    Width = 64
                     Visible = True
                   end>
               end
@@ -8221,8 +8206,8 @@ object frmCadPessoa: TfrmCadPessoa
           object DBMemo3: TDBMemo
             Left = 0
             Top = 0
-            Width = 1067
-            Height = 596
+            Width = 1075
+            Height = 604
             Align = alClient
             DataField = 'OBS'
             DataSource = DMCadPessoa.dsPessoa
@@ -8786,6 +8771,141 @@ object frmCadPessoa: TfrmCadPessoa
                 Title.Caption = 'Nome Material'
                 Title.Color = 16777145
                 Width = 479
+                Visible = True
+              end>
+          end
+        end
+        object TS_Download: TRzTabSheet
+          Caption = 'Autoriza'#231#227'o para Download XML'
+          object Panel8: TPanel
+            Left = 0
+            Top = 0
+            Width = 1075
+            Height = 42
+            Align = alTop
+            Color = clSilver
+            Ctl3D = True
+            ParentCtl3D = False
+            TabOrder = 0
+            object Label213: TLabel
+              Left = 4
+              Top = 23
+              Width = 24
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Tipo:'
+            end
+            object Label214: TLabel
+              Left = 164
+              Top = 23
+              Width = 55
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'CNPJ/CPF:'
+            end
+            object NxButton1: TNxButton
+              Left = 419
+              Top = 12
+              Width = 81
+              Height = 26
+              Caption = 'Confirmar'
+              TabOrder = 2
+              OnClick = NxButton1Click
+            end
+            object NxButton2: TNxButton
+              Left = 500
+              Top = 12
+              Width = 81
+              Height = 26
+              Caption = 'Excluir'
+              TabOrder = 3
+              OnClick = NxButton2Click
+            end
+            object cbxTipoPessoaXML: TComboBox
+              Left = 32
+              Top = 14
+              Width = 124
+              Height = 22
+              Style = csOwnerDrawFixed
+              ItemHeight = 16
+              TabOrder = 0
+              Items.Strings = (
+                'F'#237'sica'
+                'Jur'#237'dica')
+            end
+            object edtCNPJXML: TMaskEdit
+              Left = 226
+              Top = 15
+              Width = 191
+              Height = 21
+              TabOrder = 1
+              OnEnter = edtCNPJXMLEnter
+              OnExit = edtCNPJXMLExit
+            end
+          end
+          object SMDBGrid10: TSMDBGrid
+            Left = 0
+            Top = 42
+            Width = 1075
+            Height = 562
+            Align = alClient
+            Ctl3D = False
+            DataSource = DMCadPessoa.dsPessoa_Download
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsCustom
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoBooleanAsCheckBox, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+            FixedCols = 1
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 17
+            ScrollBars = ssHorizontal
+            ColCount = 4
+            RowCount = 2
+            Columns = <
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'ITEM'
+                Title.Alignment = taCenter
+                Title.Caption = 'Item'
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'PESSOA'
+                Title.Alignment = taCenter
+                Title.Caption = 'Pessoa'
+                Width = 62
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'CNPJ_CPF'
+                Title.Alignment = taCenter
+                Title.Caption = 'CNPJ/CPF'
+                Width = 238
                 Visible = True
               end>
           end

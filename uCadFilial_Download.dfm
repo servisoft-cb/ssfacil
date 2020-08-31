@@ -111,7 +111,7 @@ object frmCadFilial_Download: TfrmCadFilial_Download
   end
   object DBEdit2: TDBEdit
     Left = 104
-    Top = 36
+    Top = 37
     Width = 201
     Height = 21
     CharCase = ecUpperCase

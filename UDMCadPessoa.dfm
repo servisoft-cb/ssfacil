@@ -3045,8 +3045,8 @@ object DMCadPessoa: TDMCadPessoa
     StoreDefs = True
     BeforePost = cdsPessoa_Servico_IntBeforePost
     OnNewRecord = cdsPessoa_Servico_IntNewRecord
-    Left = 112
-    Top = 246
+    Left = 104
+    Top = 242
     object cdsPessoa_Servico_IntCODIGO: TIntegerField
       FieldName = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -7129,7 +7129,7 @@ object DMCadPessoa: TDMCadPessoa
     OnCalcFields = cdsPessoa_AnimalCalcFields
     OnNewRecord = cdsPessoa_AnimalNewRecord
     Left = 114
-    Top = 519
+    Top = 520
     object cdsPessoa_AnimalCODIGO: TIntegerField
       FieldName = 'CODIGO'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -7769,5 +7769,101 @@ object DMCadPessoa: TDMCadPessoa
     DataSet = cdsRegiao_Venda
     Left = 781
     Top = 514
+  end
+  object dsPessoa_Download: TDataSource
+    DataSet = cdsPessoa_Download
+    Left = 150
+    Top = 616
+  end
+  object cdsPessoa_Download: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'CODIGO'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'ITEM'
+        Attributes = [faRequired]
+        DataType = ftInteger
+      end
+      item
+        Name = 'PESSOA'
+        Attributes = [faFixed]
+        DataType = ftString
+        Size = 1
+      end
+      item
+        Name = 'CNPJ_CPF'
+        DataType = ftString
+        Size = 18
+      end>
+    IndexDefs = <>
+    IndexFieldNames = 'CODIGO;ITEM'
+    Params = <>
+    ProviderName = 'dspPessoa_Download'
+    StoreDefs = True
+    Left = 113
+    Top = 616
+    object cdsPessoa_DownloadCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPessoa_DownloadITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPessoa_DownloadPESSOA: TStringField
+      FieldName = 'PESSOA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPessoa_DownloadCNPJ_CPF: TStringField
+      FieldName = 'CNPJ_CPF'
+      Size = 18
+    end
+  end
+  object dspPessoa_Download: TDataSetProvider
+    DataSet = sdsPessoa_Download
+    UpdateMode = upWhereKeyOnly
+    Left = 85
+    Top = 616
+  end
+  object sdsPessoa_Download: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM PESSOA_DOWNLOAD'#13#10'WHERE CODIGO = :CODIGO'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 55
+    Top = 616
+    object sdsPessoa_DownloadCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPessoa_DownloadITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPessoa_DownloadPESSOA: TStringField
+      FieldName = 'PESSOA'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPessoa_DownloadCNPJ_CPF: TStringField
+      FieldName = 'CNPJ_CPF'
+      Size = 18
+    end
   end
 end

@@ -1255,6 +1255,11 @@ type
     qICMSDiferidoVLR_ICMS: TFloatField;
     qPedido_ItemQTD_PECA: TIntegerField;
     qICMSDiferidoPERC_DIFERIMENTO_NOTA: TFloatField;
+    qPessoa_Download: TSQLQuery;
+    qPessoa_DownloadCODIGO: TIntegerField;
+    qPessoa_DownloadITEM: TIntegerField;
+    qPessoa_DownloadPESSOA: TStringField;
+    qPessoa_DownloadCNPJ_CPF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);

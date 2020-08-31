@@ -1342,6 +1342,7 @@ var
   Texto2, Texto : String;
   i: Integer;
   vNatureza : String;
+  vGerou_Download : Boolean;
 begin
   vTipo_Consumidor := fDMCadNotaFiscal.cdsClienteTIPO_CONSUMIDOR.AsString;
 
@@ -1565,11 +1566,13 @@ begin
   end;
 
 {* GA  Autorização para obter XML }
+  vGerou_Download := False;
   fDMNFe.qFilial_Download.Close;
   fDMNFe.qFilial_Download.ParamByName('ID').AsInteger := fDMCadNotaFiscal.cdsNotaFiscalFILIAL.AsInteger;
   fDMNFe.qFilial_Download.Open;
   if not fDMNFe.qFilial_Download.IsEmpty then
   begin
+    vGerou_Download := True;
     AutXML := NfeXML.InfNFe.AutXML.Add;
     fDMNFe.qFilial_Download.First;
     while not fDMNFe.qFilial_Download.Eof do
@@ -1581,6 +1584,23 @@ begin
       fDMNFe.qFilial_Download.Next;
     end;
   end;
+  fDMNFe.qPessoa_Download.Close;
+  fDMNFe.qPessoa_Download.ParamByName('CODIGO').AsInteger := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger;
+  fDMNFe.qPessoa_Download.Open;
+  if not fDMNFe.qPessoa_Download.IsEmpty then
+  begin
+    if not vGerou_Download then
+      AutXML := NfeXML.InfNFe.AutXML.Add;
+    while not fDMNFe.qPessoa_Download.Eof do
+    begin
+      if fDMNFe.qPessoa_DownloadPESSOA.AsString = 'J' then
+        AutXML.CNPJ := Monta_Texto(fDMNFe.qPessoa_DownloadCNPJ_CPF.AsString,14)
+      else
+        AutXML.CPF := Monta_Texto(fDMNFe.qPessoa_DownloadCNPJ_CPF.AsString,11);
+      fDMNFe.qPessoa_Download.Next;
+    end;
+  end;
+  
 end;
 
 procedure prc_Monta_ICMS_UF_Destino(fDMNFe : TDMNFe);

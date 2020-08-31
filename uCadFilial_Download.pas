@@ -83,7 +83,6 @@ end;
 procedure TfrmCadFilial_Download.DBEdit2Exit(Sender: TObject);
 var
   vAux: String;
-
 begin
   vAux := Monta_Numero(DBEdit2.Text,0);
   if (trim(vAux) = '') or (copy(vAux,1,9) = '000000000') then

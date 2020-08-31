@@ -6264,8 +6264,8 @@ object DMNFe: TDMNFe
       'select *'
       'from SOFTWAREHOUSE  ')
     SQLConnection = dmDatabase.scoDados
-    Left = 679
-    Top = 508
+    Left = 711
+    Top = 491
     object qSoftWareHouseID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -6325,6 +6325,39 @@ object DMNFe: TDMNFe
     end
     object qICMSDiferidoPERC_DIFERIMENTO_NOTA: TFloatField
       FieldName = 'PERC_DIFERIMENTO_NOTA'
+    end
+  end
+  object qPessoa_Download: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'CODIGO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select *'
+      'from PESSOA_DOWNLOAD'
+      'WHERE CODIGO = :CODIGO ')
+    SQLConnection = dmDatabase.scoDados
+    Left = 668
+    Top = 550
+    object qPessoa_DownloadCODIGO: TIntegerField
+      FieldName = 'CODIGO'
+      Required = True
+    end
+    object qPessoa_DownloadITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object qPessoa_DownloadPESSOA: TStringField
+      FieldName = 'PESSOA'
+      FixedChar = True
+      Size = 1
+    end
+    object qPessoa_DownloadCNPJ_CPF: TStringField
+      FieldName = 'CNPJ_CPF'
+      Size = 18
     end
   end
 end

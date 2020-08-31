@@ -1359,6 +1359,18 @@ type
     dsRegiao_Venda: TDataSource;
     cdsRegiao_VendaID: TIntegerField;
     cdsRegiao_VendaNOME: TStringField;
+    dsPessoa_Download: TDataSource;
+    cdsPessoa_Download: TClientDataSet;
+    dspPessoa_Download: TDataSetProvider;
+    sdsPessoa_Download: TSQLDataSet;
+    sdsPessoa_DownloadCODIGO: TIntegerField;
+    sdsPessoa_DownloadITEM: TIntegerField;
+    sdsPessoa_DownloadPESSOA: TStringField;
+    sdsPessoa_DownloadCNPJ_CPF: TStringField;
+    cdsPessoa_DownloadCODIGO: TIntegerField;
+    cdsPessoa_DownloadITEM: TIntegerField;
+    cdsPessoa_DownloadPESSOA: TStringField;
+    cdsPessoa_DownloadCNPJ_CPF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;

@@ -608,6 +608,15 @@ type
     DBEdit117: TDBEdit;
     Label212: TLabel;
     RxDBLookupCombo48: TRxDBLookupCombo;
+    TS_Download: TRzTabSheet;
+    Panel8: TPanel;
+    SMDBGrid10: TSMDBGrid;
+    Label213: TLabel;
+    Label214: TLabel;
+    NxButton1: TNxButton;
+    NxButton2: TNxButton;
+    cbxTipoPessoaXML: TComboBox;
+    edtCNPJXML: TMaskEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -738,6 +747,10 @@ type
     procedure DBEdit117Exit(Sender: TObject);
     procedure pnlCompras_PedidosEnter(Sender: TObject);
     procedure RxDBLookupCombo48Enter(Sender: TObject);
+    procedure edtCNPJXMLEnter(Sender: TObject);
+    procedure edtCNPJXMLExit(Sender: TObject);
+    procedure NxButton1Click(Sender: TObject);
+    procedure NxButton2Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadPessoa: TDMCadPessoa;
@@ -780,7 +793,7 @@ implementation
 
 uses
   UMenu, DmdDatabase, rsDBUtils, uUtilPadrao, uNFeComandos, URelPessoa, USel_ContaOrc, USel_EnqIPI, USel_Atividade, UVendedor_Config,
-  UCadPessoa_ProdICMS, USel_CBenef, uUtilCliente, uPessoa;
+  UCadPessoa_ProdICMS, USel_CBenef, uUtilCliente, uPessoa, MaskUtils;
 
 {$R *.dfm}
 
@@ -1180,6 +1193,10 @@ begin
     fDMCadPessoa.cdsPessoa_Fil.ApplyUpdates(0);
     fDMCadPessoa.cdsPessoa_RefP.ApplyUpdates(0);
     fDMCadPessoa.cdsPessoa_RefC.ApplyUpdates(0);
+    //31/08/2020
+    if fDMCadPessoa.cdsPessoa_Download.Active then
+      fDMCadPessoa.cdsPessoa_Download.ApplyUpdates(0);
+    //**********
     //13/08/2019
     if fDMCadPessoa.qParametros_NFeUSA_REGRA_CLI_PROD.AsString = 'S' then
       fDMCadPessoa.cdsPessoa_ProdICMS.ApplyUpdates(0);
@@ -1653,6 +1670,10 @@ begin
   fDMCadPessoa.cdsPessoa_Dep.Close;
   fDMCadPessoa.sdsPessoa_Dep.ParamByName('CODIGO').AsInteger := fDMCadPessoa.cdsPessoaCODIGO.AsInteger;
   fDMCadPessoa.cdsPessoa_Dep.Open;
+
+  fDMCadPessoa.cdsPessoa_Download.Close;
+  fDMCadPessoa.sdsPessoa_Download.ParamByName('CODIGO').AsInteger := fDMCadPessoa.cdsPessoaCODIGO.AsInteger;
+  fDMCadPessoa.cdsPessoa_Download.Open;
 
   fDMCadPessoa.cdsPessoa_Ativ.Close;
   fDMCadPessoa.sdsPessoa_Ativ.ParamByName('CODIGO').AsInteger := fDMCadPessoa.cdsPessoaCODIGO.AsInteger;
@@ -3037,6 +3058,64 @@ end;
 procedure TfrmCadPessoa.RxDBLookupCombo48Enter(Sender: TObject);
 begin
   fDMCadPessoa.cdsRegiao_Venda.IndexFieldNames := 'NOME';
+end;
+
+procedure TfrmCadPessoa.edtCNPJXMLEnter(Sender: TObject);
+begin
+  edtCNPJXML.EditMask := '00.000.000/0000-00';
+  if cbxTipoPessoaXML.ItemIndex = 0 then
+    edtCNPJXML.EditMask := '000.000.000-00';
+end;
+
+procedure TfrmCadPessoa.edtCNPJXMLExit(Sender: TObject);
+var
+  vAux: String;
+begin
+  vAux := Monta_Numero(edtCNPJXML.Text,0);
+  if (trim(vAux) = '') then
+    exit;
+  vAux := '';
+  if (cbxTipoPessoaXML.ItemIndex = 1) and not(ValidaCNPJ(edtCNPJXML.Text)) then
+    vAux := 'CNPJ incorreto!'
+  else
+  if (cbxTipoPessoaXML.ItemIndex = 0) and not(ValidaCPF(edtCNPJXML.Text)) then
+    vAux := 'CPF incorreto!';
+  if trim(vAux) <> '' then
+  begin
+    ShowMessage(vAux);
+    edtCNPJXML.Clear;
+    edtCNPJXML.SetFocus;
+  end;
+end;
+
+procedure TfrmCadPessoa.NxButton1Click(Sender: TObject);
+var
+  vItem : Integer;
+begin
+  fDMCadPessoa.cdsPessoa_Download.Last;
+  vItem := fDMCadPessoa.cdsPessoa_DownloadITEM.AsInteger;
+
+  fDMCadPessoa.cdsPessoa_Download.Insert;
+  fDMCadPessoa.cdsPessoa_DownloadCODIGO.AsInteger := fDMCadPessoa.cdsPessoaCODIGO.AsInteger;
+  fDMCadPessoa.cdsPessoa_DownloadITEM.AsInteger   := vItem + 1;
+  case cbxTipoPessoaXML.ItemIndex of
+    0 : fDMCadPessoa.cdsPessoa_DownloadPESSOA.AsString := 'F';
+    1 : fDMCadPessoa.cdsPessoa_DownloadPESSOA.AsString := 'J';
+  end;
+  fDMCadPessoa.cdsPessoa_DownloadCNPJ_CPF.AsString := edtCNPJXML.Text;
+  fDMCadPessoa.cdsPessoa_Download.Post;
+
+  cbxTipoPessoaXML.SetFocus;
+  edtCNPJXML.Clear;
+end;
+
+procedure TfrmCadPessoa.NxButton2Click(Sender: TObject);
+begin
+  if fDMCadPessoa.cdsPessoa_Download.IsEmpty then
+    exit;
+  if MessageDlg('Deseja excluir este registro ' + fDMCadPessoa.cdsPessoa_DownloadCNPJ_CPF.AsString + '?', mtConfirmation, [mbYes, mbNo], 0) <> mrYes then
+    exit;
+  fDMCadPessoa.cdsPessoa_Download.Delete;
 end;
 
 end.
