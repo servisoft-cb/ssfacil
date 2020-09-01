@@ -45,6 +45,8 @@ type
     ckImpAgrupado: TCheckBox;
     ckImpInventario: TCheckBox;
     Label10: TLabel;
+    Label11: TLabel;
+    RxDBLookupCombo3: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -68,6 +70,7 @@ type
     procedure Produto1Click(Sender: TObject);
     procedure Marca1Click(Sender: TObject);
     procedure Produtos1Click(Sender: TObject);
+    procedure RxDBLookupCombo3Enter(Sender: TObject);
   private
     { Private declarations }
     fDMConsEstoque: TDMConsEstoque;
@@ -106,6 +109,8 @@ begin
     fDMConsEstoque.sdsEstoque.CommandText := fDMConsEstoque.ctEstoque + ' WHERE (0 = 0) ';
     if ckInativo.Checked then
       fDMConsEstoque.sdsEstoque.CommandText := AnsiReplaceText(fDMConsEstoque.sdsEstoque.CommandText, 'AND PRO.INATIVO = ' +QuotedStr('N'), '');
+    if RxDBLookupCombo3.KeyValue > 0 then
+      fDMConsEstoque.sdsEstoque.CommandText := fDMConsEstoque.sdsEstoque.CommandText + ' AND AUX.ID_FORNECEDOR = ' + IntToStr(RxDBLookupCombo3.KeyValue);
     if ceIDProduto.AsInteger > 0 then
       fDMConsEstoque.sdsEstoque.CommandText := fDMConsEstoque.sdsEstoque.CommandText + ' AND AUX.ID = ' + ceIDProduto.Text
     else
@@ -559,6 +564,11 @@ begin
     Exit;
   end;
   fDMConsEstoque.frxReport1.ShowReport;          
+end;
+
+procedure TfrmConsEstoque.RxDBLookupCombo3Enter(Sender: TObject);
+begin
+  fDMConsEstoque.cdsPessoa.IndexFieldNames := 'NOME';
 end;
 
 end.

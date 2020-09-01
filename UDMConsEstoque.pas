@@ -713,6 +713,7 @@ type
     cdsEstoque_MovCOMPRIMENTO: TFloatField;
     cdsEstoque_MovLARGURA: TFloatField;
     cdsBalancoNCM: TStringField;
+    cdsEstoqueID_FORNECEDOR: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -801,6 +802,7 @@ begin
   qParametros_Geral.Open;
   qParametros_NTE.Open;
   qParametros_Ped.Open;
+  cdsPessoa.Open;
   //prc_Abrir_Produto('N');
 end;
 

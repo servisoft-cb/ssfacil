@@ -22,13 +22,13 @@ object frmConsEstoque: TfrmConsEstoque
     Left = 0
     Top = 0
     Width = 926
-    Height = 129
+    Height = 158
     Align = alTop
     Color = clSilver
     TabOrder = 0
     object Label1: TLabel
       Left = 240
-      Top = 30
+      Top = 50
       Width = 55
       Height = 13
       Caption = 'Refer'#234'ncia:'
@@ -42,14 +42,14 @@ object frmConsEstoque: TfrmConsEstoque
     end
     object Label3: TLabel
       Left = 262
-      Top = 51
+      Top = 71
       Width = 33
       Height = 13
       Caption = 'Marca:'
     end
     object Label4: TLabel
       Left = 249
-      Top = 72
+      Top = 92
       Width = 45
       Height = 13
       Alignment = taRightJustify
@@ -57,14 +57,14 @@ object frmConsEstoque: TfrmConsEstoque
     end
     object Label5: TLabel
       Left = 536
-      Top = 30
+      Top = 50
       Width = 54
       Height = 13
       Caption = 'ID Produto:'
     end
     object Label6: TLabel
       Left = 223
-      Top = 93
+      Top = 113
       Width = 71
       Height = 13
       Alignment = taRightJustify
@@ -72,7 +72,7 @@ object frmConsEstoque: TfrmConsEstoque
     end
     object Label8: TLabel
       Left = 244
-      Top = 114
+      Top = 134
       Width = 50
       Height = 13
       Alignment = taRightJustify
@@ -80,19 +80,27 @@ object frmConsEstoque: TfrmConsEstoque
     end
     object Label9: TLabel
       Left = 412
-      Top = 114
+      Top = 134
       Width = 25
       Height = 13
       Alignment = taRightJustify
       Caption = 'Final:'
     end
+    object Label11: TLabel
+      Left = 238
+      Top = 29
+      Width = 57
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Fornecedor:'
+    end
     object edtRef: TEdit
       Left = 296
-      Top = 22
+      Top = 42
       Width = 182
       Height = 21
       CharCase = ecUpperCase
-      TabOrder = 1
+      TabOrder = 2
       OnKeyDown = edtRefKeyDown
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
@@ -110,7 +118,7 @@ object frmConsEstoque: TfrmConsEstoque
       Left = 1
       Top = 1
       Width = 96
-      Height = 127
+      Height = 156
       Align = alLeft
       Caption = ' Op'#231#227'o '
       ItemIndex = 0
@@ -119,13 +127,13 @@ object frmConsEstoque: TfrmConsEstoque
         'Negativo'
         'M'#237'nimo'
         'Ambos')
-      TabOrder = 13
+      TabOrder = 14
     end
     object rgTipo: TRadioGroup
       Left = 97
       Top = 1
       Width = 120
-      Height = 127
+      Height = 156
       Align = alLeft
       Caption = ' Tipo '
       ItemIndex = 0
@@ -135,7 +143,7 @@ object frmConsEstoque: TfrmConsEstoque
         'Material Consumo'
         'Semi Acabado'
         'Imobilizado')
-      TabOrder = 14
+      TabOrder = 15
       OnClick = rgTipoClick
     end
     object ckPrecoCusto: TCheckBox
@@ -144,31 +152,31 @@ object frmConsEstoque: TfrmConsEstoque
       Width = 150
       Height = 17
       Caption = 'Mostrar Pre'#231'o Custo'
-      TabOrder = 8
+      TabOrder = 9
       OnClick = rgTipoClick
     end
     object RxDBLookupCombo2: TRxDBLookupCombo
       Left = 296
-      Top = 43
+      Top = 63
       Width = 361
       Height = 21
       DropDownCount = 15
       LookupField = 'ID'
       LookupDisplay = 'NOME'
       LookupSource = DMConsEstoque.dsMarca
-      TabOrder = 3
+      TabOrder = 4
       OnEnter = RxDBLookupCombo2Enter
     end
     object rxdbGrupo: TRxDBLookupCombo
       Left = 296
-      Top = 64
+      Top = 84
       Width = 361
       Height = 21
       DropDownCount = 15
       LookupField = 'ID'
       LookupDisplay = 'NOME_AUX;CODIGO'
       LookupSource = DMConsEstoque.dsGrupo
-      TabOrder = 4
+      TabOrder = 5
       OnEnter = rxdbGrupoEnter
       OnKeyDown = rxdbGrupoKeyDown
     end
@@ -178,12 +186,12 @@ object frmConsEstoque: TfrmConsEstoque
       Width = 150
       Height = 17
       Caption = 'Mostrar Produto Inativo'
-      TabOrder = 10
+      TabOrder = 11
       OnClick = rgTipoClick
     end
     object btnConsultar: TNxButton
       Left = 659
-      Top = 78
+      Top = 73
       Width = 177
       Height = 30
       Caption = 'Efetuar Pesquisa'
@@ -249,19 +257,19 @@ object frmConsEstoque: TfrmConsEstoque
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 12
+      TabOrder = 13
       Transparent = True
       OnClick = btnConsultarClick
     end
     object ceIDProduto: TCurrencyEdit
       Left = 592
-      Top = 22
+      Top = 42
       Width = 65
       Height = 21
       AutoSize = False
       DecimalPlaces = 0
       DisplayFormat = '0'
-      TabOrder = 2
+      TabOrder = 3
       OnKeyDown = ceIDProdutoKeyDown
     end
     object ckPrecoVenda: TCheckBox
@@ -270,40 +278,40 @@ object frmConsEstoque: TfrmConsEstoque
       Width = 150
       Height = 17
       Caption = 'Mostrar Pre'#231'o Venda'
-      TabOrder = 9
+      TabOrder = 10
       OnClick = rgTipoClick
     end
     object rxdbLocalEstoque: TRxDBLookupCombo
       Left = 296
-      Top = 85
+      Top = 105
       Width = 361
       Height = 21
       DropDownCount = 15
       LookupField = 'ID'
       LookupDisplay = 'NOME'
       LookupSource = DMConsEstoque.dsLocal_Estoque
-      TabOrder = 5
+      TabOrder = 6
       OnExit = rxdbLocalEstoqueExit
     end
     object CurrencyEdit1: TCurrencyEdit
       Left = 296
-      Top = 106
-      Width = 81
-      Height = 21
-      AutoSize = False
-      DecimalPlaces = 0
-      DisplayFormat = '0'
-      TabOrder = 6
-    end
-    object CurrencyEdit2: TCurrencyEdit
-      Left = 439
-      Top = 106
+      Top = 126
       Width = 81
       Height = 21
       AutoSize = False
       DecimalPlaces = 0
       DisplayFormat = '0'
       TabOrder = 7
+    end
+    object CurrencyEdit2: TCurrencyEdit
+      Left = 439
+      Top = 126
+      Width = 81
+      Height = 21
+      AutoSize = False
+      DecimalPlaces = 0
+      DisplayFormat = '0'
+      TabOrder = 8
     end
     object ckImpAgrupado: TCheckBox
       Left = 665
@@ -312,15 +320,27 @@ object frmConsEstoque: TfrmConsEstoque
       Height = 17
       Caption = 'Imprimir agrupado por estrutura'
       Enabled = False
-      TabOrder = 11
+      TabOrder = 12
       OnClick = rgTipoClick
+    end
+    object RxDBLookupCombo3: TRxDBLookupCombo
+      Left = 296
+      Top = 21
+      Width = 361
+      Height = 21
+      DropDownCount = 15
+      LookupField = 'CODIGO'
+      LookupDisplay = 'NOME'
+      LookupSource = DMConsEstoque.dsPessoa
+      TabOrder = 1
+      OnEnter = RxDBLookupCombo3Enter
     end
   end
   object SMDBGrid1: TSMDBGrid
     Left = 0
-    Top = 160
+    Top = 189
     Width = 926
-    Height = 347
+    Height = 318
     Align = alClient
     Ctl3D = False
     DataSource = DMConsEstoque.dsEstoque
@@ -569,7 +589,7 @@ object frmConsEstoque: TfrmConsEstoque
   end
   object Panel2: TPanel
     Left = 0
-    Top = 129
+    Top = 158
     Width = 926
     Height = 31
     Align = alTop

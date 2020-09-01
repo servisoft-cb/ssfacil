@@ -157,6 +157,8 @@ type
     Panel10: TPanel;
     Label68: TLabel;
     ComboBox2: TComboBox;
+    Label21: TLabel;
+    RxDBLookupCombo5: TRxDBLookupCombo;
     procedure btnConsultarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -193,6 +195,7 @@ type
     procedure chkGraficoDiaClick(Sender: TObject);
     procedure ComboTipoGraficoDiaChange(Sender: TObject);
     procedure SMDBGrid20TitleClick(Column: TColumn);
+    procedure RxDBLookupCombo5Enter(Sender: TObject);
   private
     { Private declarations }
     fDMConsFaturamento: TDMConsFaturamento;
@@ -550,6 +553,7 @@ var
   vDesc: String;
   vDesc2: String;
   vDescBruto: String;
+  vFornecedor: Integer;
 begin
   if NxComboBox2.ItemIndex = 0 then
     vDescData := 'DTEMISSAO'
@@ -572,6 +576,8 @@ begin
   vDescBruto := '';
   if chkDesconto.Checked then
     vDescBruto := ' + MOV.VLR_DESCONTO';
+  if RxDBLookupCombo5.KeyValue > 0 then
+    vFornecedor := RxDBLookupCombo5.KeyValue;
   fDMConsFaturamento.qFaturamento.Close;
   vComandoAux := 'select sum(' + vDesc + ' ) VLR_TOTAL, sum(MOV.VLR_LIQUIDO_NFSE) VLR_LIQUIDO_NFSE,'
                + 'sum(' + vDesc2 + ') VLR_VENDAS, sum(MOV.VLR_TOTAL - MOV.VLR_ICMSSUBST) VLR_DUPLICATA_ST,'
@@ -592,6 +598,8 @@ begin
     vComandoAux := vComandoAux + ' AND FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
   vComandoAux := vComandoAux + ' AND ' + vDescData + ' BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date))
                              + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
+  if vFornecedor > 0 then
+    vComandoAux := vComandoAux + ' AND ID_FORNECEDOR = ' + IntToStr(vFornecedor);
   fDMConsFaturamento.qFaturamento.SQL.Text := vComandoAux;
   fDMConsFaturamento.qFaturamento.Open;
   
@@ -742,6 +750,8 @@ begin
       vComando := vComando + ' AND V.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
     if RxDBLookupCombo2.Text <> '' then
       vComando := vComando + ' AND V.ID_PESSOA = ' + IntToStr(RxDBLookupCombo2.KeyValue);
+    if RxDBLookupCombo5.Text <> '' then
+      vComando := vComando + ' AND V.ID_FORNECEDOR = ' + IntToStr(RxDBLookupCombo5.KeyValue);
     if (RxDBLookupCombo3.Text <> '') then
       vComando := vComando + ' AND V.ID_PRODUTO = ' + IntToStr(RxDBLookupCombo3.KeyValue);
 
@@ -2299,6 +2309,11 @@ begin
   finally
     fDMConsFaturamento.cdsCupomFiscalAnalitico.EnableControls;
   end;
+end;
+
+procedure TfrmConsFaturamento.RxDBLookupCombo5Enter(Sender: TObject);
+begin
+  fDMConsFaturamento.cdsFornecedor.IndexFieldNames := 'NOME';
 end;
 
 end.

@@ -532,6 +532,7 @@ begin
   cdsCliente.Close;
   cdsProduto.Close;
   qParametros.Close;
+  cdsFornecedor.Close;
 
   cdsFilial.Open;
   cdsCliente.Open;
@@ -539,6 +540,7 @@ begin
   qParametros.Open;
   qParametros_NFe.Open;
   qParametros_Geral.Open;
+  cdsFornecedor.Open;
 end;
 
 procedure TDMConsFaturamento.cdsNotaFiscal_CliCalcFields(
