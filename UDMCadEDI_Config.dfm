@@ -180,6 +180,11 @@ object DMCadEDI_Config: TDMCadEDI_Config
       FixedChar = True
       Size = 1
     end
+    object sdsEdi_ConfigGRAVAR_RESERVADO_OBS: TStringField
+      FieldName = 'GRAVAR_RESERVADO_OBS'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspEdi_Config: TDataSetProvider
     DataSet = sdsEdi_Config
@@ -357,6 +362,11 @@ object DMCadEDI_Config: TDMCadEDI_Config
     end
     object cdsEdi_ConfigUSA_TAMANHO_CPRODUTO: TStringField
       FieldName = 'USA_TAMANHO_CPRODUTO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsEdi_ConfigGRAVAR_RESERVADO_OBS: TStringField
+      FieldName = 'GRAVAR_RESERVADO_OBS'
       FixedChar = True
       Size = 1
     end

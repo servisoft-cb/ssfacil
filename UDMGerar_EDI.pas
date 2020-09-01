@@ -486,6 +486,8 @@ type
     mRemessalargura: TStringField;
     qEDI_ConfigUSA_TAMANHO_CPRODUTO: TStringField;
     qClienteUSA_TAMANHO_EDI_COD: TStringField;
+    qEDI_ConfigGRAVAR_RESERVADO_OBS: TStringField;
+    mAuxiliarReservado_OBS: TMemoField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mAuxiliarNewRecord(DataSet: TDataSet);
   private

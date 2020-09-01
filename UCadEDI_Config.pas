@@ -111,6 +111,7 @@ type
     DBEdit49: TDBEdit;
     DBEdit50: TDBEdit;
     DBCheckBox1: TDBCheckBox;
+    DBCheckBox2: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -321,7 +322,7 @@ end;
 
 procedure TfrmCadEDI_Config.RxDBComboBox2Change(Sender: TObject);
 begin
-  if (RxDBComboBox2.ItemIndex = 0) or (RxDBComboBox2.ItemIndex = 2) then
+  if (RxDBComboBox2.ItemIndex = 0) or (RxDBComboBox2.ItemIndex = 2) or (RxDBComboBox2.Text = 'Aniger') or (RxDBComboBox2.Text = 'Ramarim') then
     Label25.Caption := 'Plano/Remessa 2:'
   else
     Label25.Caption := 'Lote:';

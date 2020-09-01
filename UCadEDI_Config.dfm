@@ -880,12 +880,12 @@ object frmCadEDI_Config: TfrmCadEDI_Config
           Caption = 'Decimais'
         end
         object Label26: TLabel
-          Left = 89
+          Left = 13
           Top = 426
-          Width = 48
+          Width = 124
           Height = 13
           Alignment = taRightJustify
-          Caption = 'Tamanho:'
+          Caption = 'Tamanho (N'#186' do Material):'
         end
         object Label27: TLabel
           Left = 82
@@ -946,7 +946,7 @@ object frmCadEDI_Config: TfrmCadEDI_Config
         end
         object RxDBComboBox2: TRxDBComboBox
           Left = 137
-          Top = 24
+          Top = 25
           Width = 157
           Height = 21
           Style = csDropDownList
@@ -963,7 +963,8 @@ object frmCadEDI_Config: TfrmCadEDI_Config
             'Outros'
             'Ramarim'
             'Wirth XML'
-            'Cooper Shoes')
+            'Cooper Shoes'
+            'Aniger')
           ParentCtl3D = False
           TabOrder = 1
           Values.Strings = (
@@ -974,7 +975,8 @@ object frmCadEDI_Config: TfrmCadEDI_Config
             'OUTRO'
             'RAMARIM'
             'WIRTHXML'
-            'COOPERSHOES')
+            'COOPERSHOES'
+            'ANIGER')
           OnChange = RxDBComboBox2Change
           OnExit = RxDBComboBox2Exit
         end
@@ -1569,14 +1571,26 @@ object frmCadEDI_Config: TfrmCadEDI_Config
           TabOrder = 51
         end
         object DBCheckBox1: TDBCheckBox
-          Left = 395
-          Top = 467
+          Left = 518
+          Top = 455
           Width = 215
           Height = 17
           Caption = 'Usa Tamanho no C'#243'digo do Produto'
           DataField = 'USA_TAMANHO_CPRODUTO'
           DataSource = DMCadEDI_Config.dsEdi_Config
           TabOrder = 52
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
+        object DBCheckBox2: TDBCheckBox
+          Left = 257
+          Top = 438
+          Width = 215
+          Height = 17
+          Caption = 'Usar o Rervado na OBS do Pedido'
+          DataField = 'GRAVAR_RESERVADO_OBS'
+          DataSource = DMCadEDI_Config.dsEdi_Config
+          TabOrder = 53
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
