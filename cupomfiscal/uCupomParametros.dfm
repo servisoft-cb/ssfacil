@@ -1094,7 +1094,7 @@ object fCupomParametros: TfCupomParametros
           Values.Strings = (
             'S'
             'N')
-          OnChange = RxDBComboBox24Change
+          OnExit = RxDBComboBox24Exit
         end
         object RxDBComboBox28: TRxDBComboBox
           Left = 392
