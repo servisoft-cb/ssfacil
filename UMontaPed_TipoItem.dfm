@@ -31,7 +31,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Color = 16777134
     TabOrder = 0
     object lblDiretorio: TLabel
-      Left = 3
+      Left = 20
       Top = 14
       Width = 78
       Height = 13
@@ -40,7 +40,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object btnCarrega: TSpeedButton
       Left = 458
-      Top = 5
+      Top = 11
       Width = 137
       Height = 37
       Caption = 'Carregar Arquivos'
@@ -147,7 +147,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object btnAbrirPDF: TSpeedButton
       Left = 596
-      Top = 4
+      Top = 10
       Width = 137
       Height = 37
       Caption = 'Abrir PDF'
@@ -254,7 +254,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object SpeedButton3: TSpeedButton
       Left = 733
-      Top = 4
+      Top = 10
       Width = 137
       Height = 37
       Caption = 'Liberar'
@@ -273,14 +273,6 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Font.Style = []
       ParentFont = False
     end
-    object Label3: TLabel
-      Left = 13
-      Top = 35
-      Width = 68
-      Height = 13
-      Alignment = taRightJustify
-      Caption = 'Arquivo Excel:'
-    end
     object Label4: TLabel
       Left = 88
       Top = 96
@@ -294,8 +286,16 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Font.Style = []
       ParentFont = False
     end
+    object Label3: TLabel
+      Left = 13
+      Top = 35
+      Width = 68
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Arquivo Excel:'
+    end
     object DirectoryEdit1: TDirectoryEdit
-      Left = 82
+      Left = 99
       Top = 6
       Width = 354
       Height = 21
@@ -334,12 +334,32 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       TabOrder = 3
     end
     object FilenameEdit1: TFilenameEdit
-      Left = 82
+      Left = 99
       Top = 28
       Width = 354
       Height = 21
       NumGlyphs = 1
       TabOrder = 1
+    end
+    object cbxArquivo: TNxComboBox
+      Left = 2
+      Top = 29
+      Width = 96
+      Height = 21
+      Cursor = crArrow
+      TabStop = False
+      Alignment = taRightJustify
+      Color = 16777134
+      TabOrder = 4
+      Text = 'Arquivo Excel:'
+      ReadOnly = True
+      HideFocus = False
+      Style = dsDropDownList
+      AutoCompleteDelay = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'Arquivo Excel:'
+        'Arquivo CSV:')
     end
   end
   object StaticText1: TStaticText

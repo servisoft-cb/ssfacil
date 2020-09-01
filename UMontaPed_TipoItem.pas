@@ -8,7 +8,7 @@ uses
   Provider, DBClient, SqlExpr, RxLookup, Mask, ToolEdit, CurrEdit, ComObj, 
   UDMCopiaPedido, ShellAPI, Menus, uConsProdutoPedido, UCadPedido_Itens, uDMCadPedido,
   uSel_Produto, uMostraPDF, classe.ControlePedidoProjeto, classe.Controle, classe.ConexaoBD,
-  NxCollection;
+  NxCollection, NxEdit;
 
 type
   EnumTipo = (tpChapa, tpInox, tpAluminio);
@@ -49,9 +49,10 @@ type
     btnAbrirPDF: TSpeedButton;
     SpeedButton3: TSpeedButton;
     Label2: TLabel;
-    Label3: TLabel;
     FilenameEdit1: TFilenameEdit;
     Label4: TLabel;
+    cbxArquivo: TNxComboBox;
+    Label3: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -90,6 +91,7 @@ type
     procedure prc_Habilita_Controles;
     procedure prc_Carrega_Excel;
     procedure prc_Le_StringGrid;
+    procedure prc_Carrega_CSV;
 
     function fnc_Buscar_Produto(MM : Real; Tipo : String): Integer;
     function NomeArquivoSemExtensao(Texto: string): string;
@@ -263,7 +265,12 @@ begin
     btnCarrega.Tag := 1;
     ListarArquivos(DirectoryEdit1.Text);
     if (trim(FilenameEdit1.Text) <> '') then
-      prc_Carrega_Excel;
+    begin
+      if cbxArquivo.ItemIndex = 0 then
+        prc_Carrega_Excel
+      else
+        prc_Carrega_CSV;
+    end;
     btnCarrega.Enabled := (mArquivoImportado.IsEmpty);
     btnCarrega.Tag := 0;
   finally
@@ -728,6 +735,58 @@ begin
     AFont.Color := clWhite;
   end;
 
+end;
+
+procedure TfrmMontaPed_TipoItem.prc_Carrega_CSV;
+var
+  Linha : Integer;
+  vTexto: String;
+  vEspessura, vComprimento, vLargura, vQtdCSV : String;
+  Arquivo : TStringList;
+begin
+  vTexto := '';
+  Linha  := 0;
+  Arquivo := TStringList.Create();
+  try
+    Arquivo.LoadFromFile(FilenameEdit1.Text);
+    while Linha < Arquivo.Count - 1 do
+    begin
+      Linha  := Linha + 1;
+      vRegistro_CSV := Arquivo.Strings[Linha];
+      vTexto := fnc_Montar_Campo(';','');
+      if mArquivoImportado.Locate('NomeArquivo',vTexto,([Locaseinsensitive])) then
+      begin
+        mArquivoImportado.Edit;
+        vComprimento := fnc_Montar_Campo(';','');
+        vLargura     := fnc_Montar_Campo(';','');
+        vEspessura   := fnc_Montar_Campo(';','');
+        vQtdCSV      := fnc_Montar_Campo(';','');
+
+        mArquivoImportadoEspessura.AsFloat := StrToFloat(vEspessura);
+
+        mArquivoImportado.Edit;
+
+        mArquivoImportadoComprimento.AsFloat := StrToFloat(vComprimento);
+
+        if not (mArquivoImportado.State in [dsEdit]) then
+          mArquivoImportado.Edit;
+
+        mArquivoImportadoLargura.AsFloat := StrToFloat(vLargura);
+
+        if trim(vQtdCSV) <> '' then
+        begin
+          vSomar := True;
+          mArquivoImportadoQtde.AsFloat := StrToFloat(vQtdCSV);
+          mArquivoImportadoQtdeChange(nil);
+          vSomar := False;
+        end;
+        if (mArquivoImportado.State in [dsEdit]) then
+          mArquivoImportado.Post;
+      end;
+    end;
+  finally
+    FreeAndNil(Arquivo);
+  end;
 end;
 
 end.
