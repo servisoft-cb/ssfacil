@@ -43,7 +43,7 @@ begin
     begin
       vAux := fnc_Limite_Credito(ID_Cliente,ID_Nota,0);
       if StrToFloat(FormatFloat('0.00',Vlr_Limite_Credito)) <= StrToFloat(FormatFloat('0.00',vAux)) then
-        vMSGAlerta := vMSGAlerta + #13 + '*** Valor do crédito já esta acima do permitido!';
+        vMSGAlerta := vMSGAlerta + #13 + '*** Valor do crédito já está acima do permitido!';
     end;
 
     if (sds_Param.FieldByName('ALERTA_VALE').AsString = 'S') then
@@ -248,8 +248,8 @@ begin
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata  := True;
     sds.GetMetadata := False;
-    sds.CommandText := ' SELECT id_Grupo FROM PESSOA CLI  '
-                     + '   WHERE CLI.CODIGO = ' + IntToStr(ID_Fornecedor);
+    sds.CommandText := 'SELECT id_Grupo FROM PESSOA CLI ' +
+                       'WHERE CLI.CODIGO = ' + IntToStr(ID_Fornecedor);
     sds.Open;
     vID_Grupo := sds.FieldByName('ID_GRUPO').AsInteger;
     
