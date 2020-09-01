@@ -1136,6 +1136,31 @@ begin
     fDMCadPessoa.cdsPessoaCIDADE.AsString := RxDBLookupCombo2.Text;
     fDMCadPessoa.cdsPessoaCIDADE_ENT.AsString := RxDBLookupCombo10.Text;
     fDMCadPessoa.cdsPessoaCIDADE_PGTO.AsString := RxDBLookupCombo8.Text;
+
+    //Foi colocado nesse ponto para gravar primeiro
+    if (fDMCadPessoa.cdsPessoaTP_VENDEDOR.AsString = 'S') and (fDMCadPessoa.qParametros_GeralUSA_COD_VENDEDOR.AsString = 'S') then
+    begin
+      if (CurrencyEdit1.AsInteger <= 0) and (fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger > 0) then
+      begin
+        fDMCadPessoa.cdsPessoa_Vend.Delete;
+        fDMCadPessoa.cdsPessoa_Vend.ApplyUpdates(0);
+      end
+      else if (CurrencyEdit1.AsInteger > 0) and (CurrencyEdit1.AsInteger <> fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger) then
+      begin
+        if fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger > 0 then
+          fDMCadPessoa.cdsPessoa_Vend.Edit
+        else if fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger <= 0 then
+        begin
+          fDMCadPessoa.cdsPessoa_Vend.Insert;
+          fDMCadPessoa.cdsPessoa_VendCODIGO.AsInteger := fDMCadPessoa.cdsPessoaCODIGO.AsInteger;
+        end;
+        fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger := CurrencyEdit1.AsInteger;
+        fDMCadPessoa.cdsPessoa_Vend.Post;
+        fDMCadPessoa.cdsPessoa_Vend.ApplyUpdates(0);
+      end;
+    end;
+    //******
+
     fDMCadPessoa.prc_Gravar;
 
     vIPI_Suspenso := fDMCadPessoa.cdsPessoa_FiscalIPI_SUSPENSO.AsString;
@@ -1213,28 +1238,6 @@ begin
     begin
       fDMCadPessoa.cdsPessoa_Fiscal.Delete;
       fDMCadPessoa.cdsPessoa_Fiscal.ApplyUpdates(0);
-    end;
-
-    if (fDMCadPessoa.cdsPessoaTP_VENDEDOR.AsString = 'S') and (fDMCadPessoa.qParametros_GeralUSA_COD_VENDEDOR.AsString = 'S') then
-    begin
-      if (CurrencyEdit1.AsInteger <= 0) and (fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger > 0) then
-      begin
-        fDMCadPessoa.cdsPessoa_Vend.Delete;
-        fDMCadPessoa.cdsPessoa_Vend.ApplyUpdates(0);
-      end
-      else if (CurrencyEdit1.AsInteger > 0) and (CurrencyEdit1.AsInteger <> fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger) then
-      begin
-        if fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger > 0 then
-          fDMCadPessoa.cdsPessoa_Vend.Edit
-        else if fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger <= 0 then
-        begin
-          fDMCadPessoa.cdsPessoa_Vend.Insert;
-          fDMCadPessoa.cdsPessoa_VendCODIGO.AsInteger := fDMCadPessoa.cdsPessoaCODIGO.AsInteger;
-        end;
-        fDMCadPessoa.cdsPessoa_VendCOD_VENDEDOR.AsInteger := CurrencyEdit1.AsInteger;
-        fDMCadPessoa.cdsPessoa_Vend.Post;
-        fDMCadPessoa.cdsPessoa_Vend.ApplyUpdates(0);
-      end;
     end;
 
     dmDatabase.scoDados.Commit(ID);

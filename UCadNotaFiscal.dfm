@@ -25,7 +25,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
     Top = 0
     Width = 1115
     Height = 680
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -35,7 +35,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
     ParentBackgroundColor = False
     ParentColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -61,7 +61,6 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
         OnDblClick = SMDBGrid1DblClick
-        OnKeyDown = SMDBGrid1KeyDown
         OnTitleClick = SMDBGrid1TitleClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
