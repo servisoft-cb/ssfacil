@@ -276,6 +276,11 @@ object DMGerar_EDI: TDMGerar_EDI
       item
         Name = 'Erro_Ped_Lancado'
         DataType = ftBoolean
+      end
+      item
+        Name = 'Reservado_OBS'
+        DataType = ftMemo
+        Size = 1
       end>
     IndexDefs = <
       item
@@ -288,10 +293,10 @@ object DMGerar_EDI: TDMGerar_EDI
     Params = <>
     StoreDefs = True
     OnNewRecord = mAuxiliarNewRecord
-    Left = 383
-    Top = 32
+    Left = 384
+    Top = 33
     Data = {
-      950300009619E0BD01000000180000002000000000000300000095030B434E50
+      CA0300009619E0BD010000001800000021000000000003000000CA030B434E50
       4A436C69656E74650100490000000100055749445448020002001200054E756D
       4F430100490000000100055749445448020002000A00044974656D0400010000
       00000005506C616E6F0100490000000100055749445448020002000A00094474
@@ -319,7 +324,9 @@ object DMGerar_EDI: TDMGerar_EDI
       0100055749445448020002000A000A4E6F6D65436F72436C6901004900000001
       00055749445448020002006400124572726F5F50726F645F4E616F5F4C616E63
       0200030000000000104572726F5F5065645F4C616E6361646F02000300000000
-      0001000D44454641554C545F4F524445520200820000000000}
+      000D52657365727661646F5F4F425304004B0000000200075355425459504502
+      0049000500546578740005574944544802000200010001000D44454641554C54
+      5F4F524445520200820000000000}
     object mAuxiliarCNPJCliente: TStringField
       FieldName = 'CNPJCliente'
       Size = 18
@@ -438,6 +445,11 @@ object DMGerar_EDI: TDMGerar_EDI
     end
     object mAuxiliarErro_Ped_Lancado: TBooleanField
       FieldName = 'Erro_Ped_Lancado'
+    end
+    object mAuxiliarReservado_OBS: TMemoField
+      FieldName = 'Reservado_OBS'
+      BlobType = ftMemo
+      Size = 1
     end
   end
   object dsmAuxiliar: TDataSource
@@ -789,6 +801,11 @@ object DMGerar_EDI: TDMGerar_EDI
     end
     object qEDI_ConfigUSA_TAMANHO_CPRODUTO: TStringField
       FieldName = 'USA_TAMANHO_CPRODUTO'
+      FixedChar = True
+      Size = 1
+    end
+    object qEDI_ConfigGRAVAR_RESERVADO_OBS: TStringField
+      FieldName = 'GRAVAR_RESERVADO_OBS'
       FixedChar = True
       Size = 1
     end

@@ -169,7 +169,6 @@ begin
   fDMGerar_EDI.mAuxiliarVlrUnitario.AsString       := fDMGerar_EDI.mAuxiliarVlrUnitario.AsString + ',' + copy(Registro,vAux,fDMGerar_EDI.qEDI_ConfigVLR_UNITARIO_DEC.AsInteger);
   fDMGerar_EDI.mAuxiliarVlrUnitario.AsString       := FormatFloat('0.0000##',fDMGerar_EDI.mAuxiliarVlrUnitario.AsFloat);
 
-
   fDMGerar_EDI.mAuxiliarCondPgto.AsString          := copy(Registro,fDMGerar_EDI.qEDI_ConfigCOND_PGTO_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigCOND_PGTO_TAM.AsInteger);
   fDMGerar_EDI.mAuxiliarDrawback.AsString          := copy(Registro,fDMGerar_EDI.qEDI_ConfigDRAWBACK_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigDRAWBACK_TAM.AsInteger);
   fDMGerar_EDI.mAuxiliarPlano2.AsString            := copy(Registro,fDMGerar_EDI.qEDI_ConfigPLANO2_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigPLANO2_TAM.AsInteger);
@@ -177,6 +176,7 @@ begin
   vTexto := copy(Registro,fDMGerar_EDI.qEDI_ConfigCNPJ_FORNECEDOR_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigCNPJ_FORNECEDOR_TAM.AsInteger);
   fDMGerar_EDI.mAuxiliarCNPJFornecedor.AsString    := copy(vTexto,1,2) + '.' + copy(vTexto,3,3) + '.' +  copy(vTexto,6,3) + '/' +  copy(vTexto,9,4) + '-' +  copy(vTexto,13,2);
   fDMGerar_EDI.mAuxiliarReservado.AsString         := copy(Registro,fDMGerar_EDI.qEDI_ConfigRESERVADO_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigRESERVADO_TAM.AsInteger);
+  fDMGerar_EDI.mAuxiliarReservado_OBS.Value        := copy(Registro,fDMGerar_EDI.qEDI_ConfigRESERVADO_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigRESERVADO_TAM.AsInteger);
   fDMGerar_EDI.mAuxiliarTamnanho.AsString := '';
   if fDMGerar_EDI.qEDI_ConfigTAMANHO_INI.AsInteger > 0 then
     fDMGerar_EDI.mAuxiliarTamnanho.AsString := copy(Registro,fDMGerar_EDI.qEDI_ConfigTAMANHO_INI.AsInteger,fDMGerar_EDI.qEDI_ConfigTAMANHO_TAM.AsInteger);
@@ -553,6 +553,9 @@ begin
   fDMCadPedido.cdsPedidoNOME_CLIENTE.AsString   := fDMGerar_EDI.qClienteNOME.AsString;
   fDMCadPedido.cdsPedidoTIPO_REG.AsString       := 'P';
   fDMCadPedido.cdsPedidoFATURADO.AsString       := 'N';
+  if fDMGerar_EDI.qEDI_ConfigGRAVAR_RESERVADO_OBS.AsString = 'S' then
+    fDMCadPedido.cdsPedidoOBS.Value := fDMGerar_EDI.mAuxiliarReservado_OBS.Value;
+
 end;
 
 procedure TfrmGerar_Pedido_EDI.prc_Gravar_Pedido_Item;
