@@ -12,8 +12,8 @@ uses
   function fnc_Limite_Compra_Usado(ID_Fornecedor, ID_Pedido: Integer; Data: TDateTime): Real;
   function fnc_Limite_Compra_Cadastrado(ID_Fornecedor: Integer): Real;
   function fnc_Primeiro_Pedido(ID_Cliente: Integer): Integer;
-  function fnc_Verifica_CAE(Codigo : String) : Boolean;
-  function fnc_Saldo_Adto(ID_Pessoa : Integer) : Real;
+  function fnc_Verifica_CAE(Codigo: String): Boolean;
+  function fnc_Saldo_Adto(ID_Pessoa: Integer): Real;
 
 var
   vSenha_Cliente: String;
@@ -43,7 +43,7 @@ begin
     begin
       vAux := fnc_Limite_Credito(ID_Cliente,ID_Nota,0);
       if StrToFloat(FormatFloat('0.00',Vlr_Limite_Credito)) <= StrToFloat(FormatFloat('0.00',vAux)) then
-        vMSGAlerta := vMSGAlerta + #13 + '*** Valor do crédito já esta acima do permitido!';
+        vMSGAlerta := vMSGAlerta + #13 + '*** Valor do crédito já está acima do permitido!';
     end;
 
     if (sds_Param.FieldByName('ALERTA_VALE').AsString = 'S') then
@@ -90,9 +90,9 @@ begin
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata  := True;
     sds.GetMetadata := False;
-    sds.CommandText := 'SELECT SUM(D.VLR_RESTANTE) VLR_RESTANTE FROM DUPLICATA D '
-                     + ' WHERE D.TIPO_ES = ' + QuotedStr('E')
-                     + '   AND D.ID_PESSOA = ' + IntToStr(ID_Cliente);
+    sds.CommandText := 'SELECT SUM(D.VLR_RESTANTE) VLR_RESTANTE FROM DUPLICATA D ' +
+                       'WHERE CANCELADA <> ''S'' AND D.TIPO_ES = ' + QuotedStr('E') +
+                       '  AND D.ID_PESSOA = ' + IntToStr(ID_Cliente);
     if ID_Nota > 0 then
       sds.CommandText := sds.CommandText + '   AND ((D.ID_NOTA <> ' + IntToStr(ID_Nota) + ') OR (D.ID_NOTA IS NULL))';
     if Data > 10 then
@@ -248,8 +248,8 @@ begin
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata  := True;
     sds.GetMetadata := False;
-    sds.CommandText := ' SELECT id_Grupo FROM PESSOA CLI  '
-                     + '   WHERE CLI.CODIGO = ' + IntToStr(ID_Fornecedor);
+    sds.CommandText := 'SELECT id_Grupo FROM PESSOA CLI ' +
+                       'WHERE CLI.CODIGO = ' + IntToStr(ID_Fornecedor);
     sds.Open;
     vID_Grupo := sds.FieldByName('ID_GRUPO').AsInteger;
     
@@ -344,7 +344,7 @@ begin
   end
 end;
 
-function fnc_Verifica_CAE(Codigo : String) : Boolean;
+function fnc_Verifica_CAE(Codigo: String): Boolean;
 var
   sds: TSQLDataSet;
 begin
@@ -366,7 +366,7 @@ begin
   end;
 end;
 
-function fnc_Saldo_Adto(ID_Pessoa : Integer) : Real;
+function fnc_Saldo_Adto(ID_Pessoa: Integer): Real;
 var
   sds: TSQLDataSet;
 begin
