@@ -1600,7 +1600,6 @@ begin
       fDMNFe.qPessoa_Download.Next;
     end;
   end;
-  
 end;
 
 procedure prc_Monta_ICMS_UF_Destino(fDMNFe : TDMNFe);
