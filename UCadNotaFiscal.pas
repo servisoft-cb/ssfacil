@@ -541,7 +541,6 @@ type
     procedure SpeedButton7Click(Sender: TObject);
     procedure btnAlterar_CondPgtoClick(Sender: TObject);
     procedure gbxDuplicataEnter(Sender: TObject);
-    procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure RxDBLookupCombo2Enter(Sender: TObject);
     procedure gbxDuplicataExit(Sender: TObject);
     procedure btnRegravarClick(Sender: TObject);
@@ -684,7 +683,7 @@ var
 implementation
 
 uses DmdDatabase, rsDBUtils, uUtilPadrao, USel_Pessoa, URecebeXML, uCalculo_NotaFiscal, uNFeComandos, USel_ContaOrc, uUtilCliente,
-  uUtilCobranca, DmdDatabase_NFeBD, UDMAprovacao_Ped, UConsPessoa_Fin, UConsPedido_Senha, uGrava_NotaFiscal, UCadNotaFiscal_Custo,
+  uUtilCobranca, DmdDatabase_NFeBD, UDMAprovacao_Ped, UConsPessoa_Fin, uGrava_NotaFiscal, UCadNotaFiscal_Custo,
   UMenu, Math, UDMEtiqueta, USel_PreFat, uMenu1, USel_RecNF, uXMLSuframa, UCadNotaFiscal_Alt_CCusto, UConsClienteOBS,
   UMostrarRegras, uUtilDialogs;
 
@@ -5060,21 +5059,6 @@ begin
       end;
     end;
   end;
-end;
-
-procedure TfrmCadNotaFiscal.SMDBGrid1KeyDown(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
-var
-  ffrmConsPedido_Senha: TfrmConsPedido_Senha;
-begin
-  if (Key = Vk_F12) then
-  begin
-    ffrmConsPedido_Senha := TfrmConsPedido_Senha.Create(self);
-    ffrmConsPedido_Senha.CurrencyEdit1.AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ConsultaNUMNOTA.AsInteger;
-    ffrmConsPedido_Senha.ComboBox1.ItemIndex     := 1;
-    ffrmConsPedido_Senha.ShowModal;
-    FreeAndNil(ffrmConsPedido_Senha);
-  end
 end;
 
 procedure TfrmCadNotaFiscal.RxDBLookupCombo2Enter(Sender: TObject);
