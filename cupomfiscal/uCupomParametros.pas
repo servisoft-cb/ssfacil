@@ -192,10 +192,10 @@ type
     procedure RxDBLookupCombo3Enter(Sender: TObject);
     procedure RxDBLookupCombo4Enter(Sender: TObject);
     procedure RxDBComboBox31Exit(Sender: TObject);
-    procedure RxDBComboBox24Change(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BitBtn1Click(Sender: TObject);
+    procedure RxDBComboBox24Exit(Sender: TObject);
   private
     { Private declarations }
     fDmCupomFiscal: TDmCupomFiscal;
@@ -466,14 +466,6 @@ begin
   Label70.Visible        := RxDBComboBox41.Visible;
 end;
 
-procedure TfCupomParametros.RxDBComboBox24Change(Sender: TObject);
-begin
-  RxDBComboBox35.Visible := fDmCupomFiscal.cdsCupomParametrosUSA_CARNE.AsString = 'S';
-  DBEdit11.Visible       := RxDBComboBox35.Visible;
-  Label60.Visible        := RxDBComboBox11.Visible;
-  Label59.Visible        := RxDBComboBox11.Visible;
-end;
-
 procedure TfCupomParametros.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
@@ -484,6 +476,14 @@ end;
 procedure TfCupomParametros.BitBtn1Click(Sender: TObject);
 begin
   ShowMessage('Campo *Senha* da tabela *Pessoa_Fisica*!');
+end;
+
+procedure TfCupomParametros.RxDBComboBox24Exit(Sender: TObject);
+begin
+  RxDBComboBox35.Visible := fDmCupomFiscal.cdsCupomParametrosUSA_CARNE.AsString = 'S';
+  DBEdit11.Visible       := RxDBComboBox35.Visible;
+  Label60.Visible        := RxDBComboBox35.Visible;
+  Label59.Visible        := RxDBComboBox35.Visible;
 end;
 
 end.
