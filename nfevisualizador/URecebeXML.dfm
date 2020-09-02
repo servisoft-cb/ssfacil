@@ -3463,7 +3463,7 @@ object frmRecebeXML: TfrmRecebeXML
               Left = 749
               Top = 132
               Width = 61
-              Height = 14
+              Height = 13
               Alignment = taRightJustify
               Caption = 'F2 Pesquisar'
               Font.Charset = DEFAULT_CHARSET

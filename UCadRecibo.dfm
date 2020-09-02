@@ -2312,7 +2312,6 @@ object frmCadRecibo: TfrmCadRecibo
                   FieldName = 'lkNome_Conta'
                   Title.Alignment = taCenter
                   Title.Caption = 'Nome Conta'
-                  Width = 64
                   Visible = True
                 end
                 item

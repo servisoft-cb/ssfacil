@@ -22,8 +22,8 @@ object frmCadRecNF: TfrmCadRecNF
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 938
-    Height = 662
+    Width = 946
+    Height = 670
     ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -44,8 +44,8 @@ object frmCadRecNF: TfrmCadRecNF
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 117
-        Width = 934
-        Height = 505
+        Width = 942
+        Height = 513
         Align = alClient
         BorderStyle = bsNone
         Ctl3D = False
@@ -219,7 +219,7 @@ object frmCadRecNF: TfrmCadRecNF
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 934
+        Width = 942
         Height = 85
         Align = alTop
         Color = clSilver
@@ -414,8 +414,8 @@ object frmCadRecNF: TfrmCadRecNF
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 622
-        Width = 934
+        Top = 630
+        Width = 942
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -433,7 +433,7 @@ object frmCadRecNF: TfrmCadRecNF
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 934
+        Width = 942
         Height = 32
         Align = alTop
         Color = clSilver
@@ -816,7 +816,7 @@ object frmCadRecNF: TfrmCadRecNF
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 934
+        Width = 942
         Height = 32
         Align = alTop
         Color = 8404992
@@ -1045,7 +1045,7 @@ object frmCadRecNF: TfrmCadRecNF
       object pnlCadastro: TPanel
         Left = 0
         Top = 32
-        Width = 934
+        Width = 942
         Height = 148
         Align = alTop
         Enabled = False
@@ -1053,7 +1053,7 @@ object frmCadRecNF: TfrmCadRecNF
         object pnlNota: TPanel
           Left = 1
           Top = 1
-          Width = 932
+          Width = 940
           Height = 31
           Align = alTop
           Color = clSilver
@@ -1149,7 +1149,7 @@ object frmCadRecNF: TfrmCadRecNF
         object pnlCliente: TPanel
           Left = 1
           Top = 32
-          Width = 932
+          Width = 940
           Height = 115
           Align = alClient
           TabOrder = 1
@@ -1544,8 +1544,8 @@ object frmCadRecNF: TfrmCadRecNF
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 209
-        Width = 934
-        Height = 402
+        Width = 942
+        Height = 410
         ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
@@ -1563,8 +1563,8 @@ object frmCadRecNF: TfrmCadRecNF
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 58
-            Width = 930
-            Height = 321
+            Width = 938
+            Height = 329
             Align = alClient
             DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -1755,7 +1755,7 @@ object frmCadRecNF: TfrmCadRecNF
           object pnlItem: TPanel
             Left = 0
             Top = 26
-            Width = 930
+            Width = 938
             Height = 32
             Align = alTop
             Color = clSilver
@@ -1991,7 +1991,7 @@ object frmCadRecNF: TfrmCadRecNF
           object pnlLocalEstoque: TPanel
             Left = 0
             Top = 0
-            Width = 930
+            Width = 938
             Height = 26
             Align = alTop
             Enabled = False
@@ -2035,8 +2035,8 @@ object frmCadRecNF: TfrmCadRecNF
           Color = clSilver
           Caption = 'Dados'
           DesignSize = (
-            930
-            379)
+            938
+            387)
           object Label3: TLabel
             Left = 24
             Top = 353
@@ -2742,8 +2742,8 @@ object frmCadRecNF: TfrmCadRecNF
       end
       object Panel10: TPanel
         Left = 0
-        Top = 611
-        Width = 934
+        Top = 619
+        Width = 942
         Height = 28
         Align = alBottom
         Color = clSilver
@@ -2829,7 +2829,7 @@ object frmCadRecNF: TfrmCadRecNF
       object Panel3: TPanel
         Left = 0
         Top = 180
-        Width = 934
+        Width = 942
         Height = 29
         Align = alTop
         Color = clSilver
@@ -2873,8 +2873,8 @@ object frmCadRecNF: TfrmCadRecNF
   end
   object StaticText2: TStaticText
     Left = 0
-    Top = 662
-    Width = 938
+    Top = 670
+    Width = 946
     Height = 17
     Align = alBottom
     Caption = 'F2 Consultar'
