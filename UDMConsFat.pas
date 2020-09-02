@@ -234,6 +234,10 @@ type
     cdsConsFatConsumoUNIDADE_NOTA: TStringField;
     cdsConsFatConsumoUNIDADE_PROD: TStringField;
     frxmConsumo: TfrxDBDataset;
+    cdsFatAcumVLR_TROCA: TFloatField;
+    cdsFatAcumDEV_TROCA: TStringField;
+    cdsConsClienteDEV_TROCA: TStringField;
+    cdsConsDataDEV_TROCA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxReport1BeforePrint(Sender: TfrxReportComponent);
     procedure cdsComprasServicosCalcFields(DataSet: TDataSet);

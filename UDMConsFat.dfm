@@ -9,12 +9,15 @@ object DMConsFat: TDMConsFat
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT V.*,  (V.VLR_TOTAL + V.VLR_IPI) VLR_TOTAL_BRU,'#13#10'(V.VLR_TO' +
-      'TAL) VLR_TOTAL_LIQ'#13#10'FROM VFAT_ACUM V'
+      'select V.*,'#13#10'       (V.VLR_TOTAL + V.VLR_IPI) VLR_TOTAL_BRU,'#13#10'  ' +
+      '     (V.VLR_TOTAL) VLR_TOTAL_LIQ,'#13#10'       case'#13#10'         when V.' +
+      'TIPO_MOV = '#39'TRO'#39' then '#39'TROCA'#39#13#10'         when V.devolucao = '#39'S'#39' t' +
+      'hen '#39'DEV'#39#13#10'         else '#39#39#13#10'       end DEV_TROCA'#13#10'from VFAT_ACU' +
+      'M V'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 88
+    Left = 89
     Top = 48
   end
   object dspFatAcum: TDataSetProvider
@@ -177,6 +180,16 @@ object DMConsFat: TDMConsFat
     object cdsFatAcumSERIE: TStringField
       FieldName = 'SERIE'
       Size = 3
+    end
+    object cdsFatAcumVLR_TROCA: TFloatField
+      FieldName = 'VLR_TROCA'
+      DisplayFormat = '0.00'
+    end
+    object cdsFatAcumDEV_TROCA: TStringField
+      FieldName = 'DEV_TROCA'
+      Required = True
+      FixedChar = True
+      Size = 5
     end
   end
   object dsFatAcum: TDataSource
@@ -644,27 +657,29 @@ object DMConsFat: TDMConsFat
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT  ID_PESSOA, NOME_CLIFORN, SUM(VLR_DUPLICATA) VLR_DUPLICAT' +
-      'A, SUM(VLR_ICMS) VLR_ICMS, SUM(VLR_TOTAL) VLR_TOTAL,'#13#10'       SUM' +
-      '(VLR_ICMSSUBST) VLR_ICMSSUBST, SUM(VLR_IPI) VLR_IPI, SUM(VLR_FRE' +
-      'TE) VLR_FRETE,'#13#10'       SUM(VLR_ICMS_UF_REMET) VLR_ICMS_UF_REMET,' +
-      ' SUM(VLR_ICMS_UF_DEST) VLR_ICMS_UF_DEST, SUM(VLR_DESCONTO) VLR_D' +
-      'ESCONTO,'#13#10'       SUM(VLR_COFINS) VLR_COFINS, SUM(VLR_PIS) VLR_PI' +
-      'S, SUM(VLR_CUSTO) VLR_CUSTO, SUM(VLR_IR_VENDA) VLR_IR_VENDA,'#13#10'  ' +
-      '     SUM(VLR_CSLL_VENDA) VLR_CSLL_VENDA,'#13#10'       (SUM(V.VLR_TOTA' +
-      'L) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE)) VLR_TOTAL_BRU, SUM(V.VLR' +
-      '_DUPLICATA) VLR_TOTAL_LIQ,'#13#10'       sum(coalesce(v.base_fcp_st,0)' +
-      ') BASE_FCP_ST,'#13#10'       sum(coalesce(v.base_icms_fcp,0)) base_icm' +
-      's_fcp,'#13#10'       sum(coalesce(v.base_icms_fcp_dest,0)) base_icms_f' +
-      'cp_dest,'#13#10'       sum(coalesce(v.vlr_icms_fcp_dest,0)) vlr_icms_f' +
-      'cp_dest,'#13#10'       sum(coalesce(v.vlr_icms_fcp,0)) vlr_icms_fcp,'#13#10 +
-      '       sum(coalesce(v.vlr_fcp_st,0)) vlr_fcp_st,'#13#10'       sum(coa' +
-      'lesce(v.vlr_issqn,0)) vlr_issqn,'#13#10'       sum(coalesce(v.vlr_issq' +
-      'n_retido,0)) vlr_issqn_retido'#13#10'FROM VFAT_ACUM V'#13#10
+      'SELECT  DEVOLUCAO, ID_PESSOA, NOME_CLIFORN, SUM(VLR_DUPLICATA) V' +
+      'LR_DUPLICATA, SUM(VLR_ICMS) VLR_ICMS, SUM(VLR_TOTAL) VLR_TOTAL,'#13 +
+      #10'       SUM(VLR_ICMSSUBST) VLR_ICMSSUBST, SUM(VLR_IPI) VLR_IPI, ' +
+      'SUM(VLR_FRETE) VLR_FRETE,'#13#10'       SUM(VLR_ICMS_UF_REMET) VLR_ICM' +
+      'S_UF_REMET, SUM(VLR_ICMS_UF_DEST) VLR_ICMS_UF_DEST, SUM(VLR_DESC' +
+      'ONTO) VLR_DESCONTO,'#13#10'       SUM(VLR_COFINS) VLR_COFINS, SUM(VLR_' +
+      'PIS) VLR_PIS, SUM(VLR_CUSTO) VLR_CUSTO, SUM(VLR_IR_VENDA) VLR_IR' +
+      '_VENDA,'#13#10'       SUM(VLR_CSLL_VENDA) VLR_CSLL_VENDA,'#13#10'       (SUM' +
+      '(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE)) VLR_TOTAL_BRU' +
+      ', SUM(V.VLR_DUPLICATA) VLR_TOTAL_LIQ,'#13#10'       sum(coalesce(v.bas' +
+      'e_fcp_st,0)) BASE_FCP_ST,'#13#10'       sum(coalesce(v.base_icms_fcp,0' +
+      ')) base_icms_fcp,'#13#10'       sum(coalesce(v.base_icms_fcp_dest,0)) ' +
+      'base_icms_fcp_dest,'#13#10'       sum(coalesce(v.vlr_icms_fcp_dest,0))' +
+      ' vlr_icms_fcp_dest,'#13#10'       sum(coalesce(v.vlr_icms_fcp,0)) vlr_' +
+      'icms_fcp,'#13#10'       sum(coalesce(v.vlr_fcp_st,0)) vlr_fcp_st,'#13#10'   ' +
+      '    sum(coalesce(v.vlr_issqn,0)) vlr_issqn,'#13#10'       sum(coalesce' +
+      '(v.vlr_issqn_retido,0)) vlr_issqn_retido,'#13#10'  CASE'#13#10'    WHEN V.ti' +
+      'po_mov = '#39'TRO'#39' then '#39'TROCA'#39#13#10'    WHEN v.devolucao = '#39'S'#39' then '#39'DE' +
+      'V'#39#13#10'    ELSE '#39#39#13#10'    END DEV_TROCA'#13#10#13#10'FROM VFAT_ACUM V'#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 300
+    Left = 302
     Top = 292
   end
   object dspConsCliente: TDataSetProvider
@@ -677,7 +692,7 @@ object DMConsFat: TDMConsFat
     IndexFieldNames = 'ID_PESSOA'
     Params = <>
     ProviderName = 'dspConsCliente'
-    Left = 365
+    Left = 366
     Top = 291
     object cdsConsClienteID_PESSOA: TIntegerField
       FieldName = 'ID_PESSOA'
@@ -786,6 +801,12 @@ object DMConsFat: TDMConsFat
       FieldName = 'VLR_ISSQN_RETIDO'
       DisplayFormat = '##0.00'
     end
+    object cdsConsClienteDEV_TROCA: TStringField
+      FieldName = 'DEV_TROCA'
+      Required = True
+      FixedChar = True
+      Size = 5
+    end
   end
   object dsConsCliente: TDataSource
     DataSet = cdsConsCliente
@@ -832,23 +853,25 @@ object DMConsFat: TDMConsFat
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT DTEMISSAO, SUM(VLR_DUPLICATA) VLR_DUPLICATA, SUM(VLR_ICMS' +
-      ') VLR_ICMS, SUM(VLR_TOTAL) VLR_TOTAL,'#13#10'       SUM(VLR_ICMSSUBST)' +
-      ' VLR_ICMSSUBST, SUM(VLR_IPI) VLR_IPI, SUM(VLR_FRETE) VLR_FRETE,'#13 +
-      #10'       SUM(VLR_ICMS_UF_REMET) VLR_ICMS_UF_REMET, SUM(VLR_ICMS_U' +
-      'F_DEST) VLR_ICMS_UF_DEST, SUM(VLR_DESCONTO) VLR_DESCONTO,'#13#10'     ' +
-      '  SUM(VLR_COFINS) VLR_COFINS, SUM(VLR_PIS) VLR_PIS, SUM(VLR_CUST' +
-      'O) VLR_CUSTO, SUM(VLR_IR_VENDA) VLR_IR_VENDA,'#13#10'       SUM(VLR_CS' +
-      'LL_VENDA) VLR_CSLL_VENDA,'#13#10'       (SUM(V.VLR_TOTAL) + SUM(V.VLR_' +
-      'IPI) + SUM(V.VLR_FRETE)) VLR_TOTAL_BRU, SUM(V.VLR_TOTAL) VLR_TOT' +
-      'AL_LIQ,'#13#10'       sum(coalesce(v.base_fcp_st,0)) BASE_FCP_ST,'#13#10'   ' +
-      '    sum(coalesce(v.base_icms_fcp,0)) base_icms_fcp,'#13#10'       sum(' +
-      'coalesce(v.base_icms_fcp_dest,0)) base_icms_fcp_dest,'#13#10'       su' +
-      'm(coalesce(v.vlr_icms_fcp_dest,0)) vlr_icms_fcp_dest,'#13#10'       su' +
-      'm(coalesce(v.vlr_icms_fcp,0)) vlr_icms_fcp,'#13#10'       sum(coalesce' +
-      '(v.vlr_fcp_st,0)) vlr_fcp_st,'#13#10'       sum(coalesce(v.vlr_issqn,0' +
-      ')) vlr_issqn,'#13#10'       sum(coalesce(v.vlr_issqn_retido,0)) vlr_is' +
-      'sqn_retido'#13#10'FROM VFAT_ACUM V'#13#10
+      'select devolucao, DTEMISSAO, sum(VLR_DUPLICATA) VLR_DUPLICATA, s' +
+      'um(VLR_ICMS) VLR_ICMS, sum(VLR_TOTAL) VLR_TOTAL,'#13#10'       sum(VLR' +
+      '_ICMSSUBST) VLR_ICMSSUBST, sum(VLR_IPI) VLR_IPI, sum(VLR_FRETE) ' +
+      'VLR_FRETE,'#13#10'       sum(VLR_ICMS_UF_REMET) VLR_ICMS_UF_REMET, sum' +
+      '(VLR_ICMS_UF_DEST) VLR_ICMS_UF_DEST, sum(VLR_DESCONTO) VLR_DESCO' +
+      'NTO,'#13#10'       sum(VLR_COFINS) VLR_COFINS, sum(VLR_PIS) VLR_PIS, s' +
+      'um(VLR_CUSTO) VLR_CUSTO, sum(VLR_IR_VENDA) VLR_IR_VENDA,'#13#10'      ' +
+      ' sum(VLR_CSLL_VENDA) VLR_CSLL_VENDA,'#13#10'       (sum(V.VLR_TOTAL) +' +
+      ' sum(V.VLR_IPI) + sum(V.VLR_FRETE)) VLR_TOTAL_BRU, sum(V.VLR_TOT' +
+      'AL) VLR_TOTAL_LIQ,'#13#10'       sum(coalesce(V.BASE_FCP_ST, 0)) BASE_' +
+      'FCP_ST, sum(coalesce(V.BASE_ICMS_FCP, 0)) BASE_ICMS_FCP,'#13#10'      ' +
+      ' sum(coalesce(V.BASE_ICMS_FCP_DEST, 0)) BASE_ICMS_FCP_DEST,'#13#10'   ' +
+      '    sum(coalesce(V.VLR_ICMS_FCP_DEST, 0)) VLR_ICMS_FCP_DEST, sum' +
+      '(coalesce(V.VLR_ICMS_FCP, 0)) VLR_ICMS_FCP,'#13#10'       sum(coalesce' +
+      '(V.VLR_FCP_ST, 0)) VLR_FCP_ST, sum(coalesce(V.VLR_ISSQN, 0)) VLR' +
+      '_ISSQN,'#13#10'       sum(coalesce(V.VLR_ISSQN_RETIDO, 0)) VLR_ISSQN_R' +
+      'ETIDO,'#13#10'  CASE'#13#10'    WHEN V.tipo_mov = '#39'TRO'#39' then '#39'TROCA'#39#13#10'    WH' +
+      'EN v.devolucao = '#39'S'#39' then '#39'DEV'#39#13#10'    ELSE '#39#39#13#10'    END DEV_TROCA'#13 +
+      #10'FROM VFAT_ACUM V'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -970,6 +993,12 @@ object DMConsFat: TDMConsFat
     object cdsConsDataVLR_ISSQN_RETIDO: TFloatField
       FieldName = 'VLR_ISSQN_RETIDO'
       DisplayFormat = '##0.00'
+    end
+    object cdsConsDataDEV_TROCA: TStringField
+      FieldName = 'DEV_TROCA'
+      Required = True
+      FixedChar = True
+      Size = 5
     end
   end
   object dsConsData: TDataSource

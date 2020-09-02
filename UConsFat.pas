@@ -39,7 +39,7 @@ type
     Label41: TLabel;
     Label42: TLabel;
     Label4: TLabel;
-    Label5: TLabel;
+    lblDevolucao: TLabel;
     Label6: TLabel;
     Label8: TLabel;
     btImprimir: TNxButton;
@@ -73,6 +73,8 @@ type
     lblVlr_ISSQN: TLabel;
     Label45: TLabel;
     lblVlr_ISSQN_Retido: TLabel;
+    Label44: TLabel;
+    lblTroca: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -147,6 +149,7 @@ var
   vVlr_Custo: Real;
   vVlr_ICMS_FCP, vVlr_FCP_ST, vVlr_ICMS_FCP_Dest : Real;
   vVlr_ISSQN, vVlr_ISSQN_Retido : Real;
+  vVlr_Troca : Real;
 
 begin
   vVlr_Total := 0;
@@ -160,6 +163,7 @@ begin
   vVlr_Desconto := 0;
   vVlr_Frete := 0;
   vVlr_Devolucao := 0;
+  vVlr_Troca     := 0;
   vVlr_ICMS_UF_Dest := 0;
   vVlr_IR := 0;
   vVlr_CSLL := 0;
@@ -230,26 +234,29 @@ begin
       if fDMConsFat.cdsFatAcumDEVOLUCAO.AsString = 'S' then
         vVlr_Devolucao := vVlr_Devolucao + fDMConsFat.cdsFatAcumVLR_TOTAL_LIQ.AsFloat
       else
+      if fDMConsFat.cdsFatAcumDEV_TROCA.AsString = 'TROCA' then
+        vVlr_Troca := vVlr_Troca + fDMConsFat.cdsFatAcumVLR_TOTAL_LIQ.AsFloat
+      else
       begin
-        vVlr_Total        := vVlr_Total + fDMConsFat.cdsFatAcumVLR_TOTAL.AsFloat;
-        vVlr_Total_Bru    := vVlr_Total_Bru + fDMConsFat.cdsFatAcumVLR_TOTAL_BRU.AsFloat;
-        vVlr_Total_Liq    := vVlr_Total_Liq + fDMConsFat.cdsFatAcumVLR_TOTAL_LIQ.AsFloat;
-        vVlr_IPI          := vVlr_IPI + fDMConsFat.cdsFatAcumVLR_IPI.AsFloat;
-        vVlr_ST           := vVlr_ST + fDMConsFat.cdsFatAcumVLR_ICMSSUBST.AsFloat;
-        vVlr_ICMS         := vVlr_ICMS + fDMConsFat.cdsFatAcumVLR_ICMS.AsFloat;
-        vVlr_PIS          := vVlr_PIS + fDMConsFat.cdsFatAcumVLR_PIS.AsFloat;
-        vVlr_COFINS       := vVlr_COFINS + fDMConsFat.cdsFatAcumVLR_COFINS.AsFloat;
-        vVlr_Desconto     := vVlr_Desconto + fDMConsFat.cdsFatAcumVLR_DESCONTO.AsFloat;
-        vVlr_ICMS_UF_Dest := vVlr_ICMS_UF_Dest + fDMConsFat.cdsFatAcumVLR_ICMS_UF_DEST.AsFloat;
-        vVlr_CSLL         := vVlr_CSLL + fDMConsFat.cdsFatAcumVLR_CSLL_VENDA.AsFloat;
-        vVlr_IR           := vVlr_IR + fDMConsFat.cdsFatAcumVLR_IR_VENDA.AsFloat;
-        vVlr_Custo        := vVlr_Custo + fDMConsFat.cdsFatAcumVLR_CUSTO.AsFloat;
-        vVlr_Frete        := vVlr_Frete + fDMConsFat.cdsFatAcumVLR_FRETE.AsFloat;
-        vVlr_ISSQN        := vVlr_ISSQN + fDMConsFat.cdsFatAcumVLR_ISSQN.AsFloat;
-        vVlr_ISSQN_Retido := vVlr_ISSQN_Retido + fDMConsFat.cdsFatAcumVLR_ISSQN_RETIDO.AsFloat;
+        vVlr_Total         := vVlr_Total + fDMConsFat.cdsFatAcumVLR_TOTAL.AsFloat;
+        vVlr_Total_Bru     := vVlr_Total_Bru + fDMConsFat.cdsFatAcumVLR_TOTAL_BRU.AsFloat;
+        vVlr_Total_Liq     := vVlr_Total_Liq + fDMConsFat.cdsFatAcumVLR_TOTAL_LIQ.AsFloat;
+        vVlr_IPI           := vVlr_IPI + fDMConsFat.cdsFatAcumVLR_IPI.AsFloat;
+        vVlr_ST            := vVlr_ST + fDMConsFat.cdsFatAcumVLR_ICMSSUBST.AsFloat;
+        vVlr_ICMS          := vVlr_ICMS + fDMConsFat.cdsFatAcumVLR_ICMS.AsFloat;
+        vVlr_PIS           := vVlr_PIS + fDMConsFat.cdsFatAcumVLR_PIS.AsFloat;
+        vVlr_COFINS        := vVlr_COFINS + fDMConsFat.cdsFatAcumVLR_COFINS.AsFloat;
+        vVlr_Desconto      := vVlr_Desconto + fDMConsFat.cdsFatAcumVLR_DESCONTO.AsFloat;
+        vVlr_ICMS_UF_Dest  := vVlr_ICMS_UF_Dest + fDMConsFat.cdsFatAcumVLR_ICMS_UF_DEST.AsFloat;
+        vVlr_CSLL          := vVlr_CSLL + fDMConsFat.cdsFatAcumVLR_CSLL_VENDA.AsFloat;
+        vVlr_IR            := vVlr_IR + fDMConsFat.cdsFatAcumVLR_IR_VENDA.AsFloat;
+        vVlr_Custo         := vVlr_Custo + fDMConsFat.cdsFatAcumVLR_CUSTO.AsFloat;
+        vVlr_Frete         := vVlr_Frete + fDMConsFat.cdsFatAcumVLR_FRETE.AsFloat;
+        vVlr_ISSQN         := vVlr_ISSQN + fDMConsFat.cdsFatAcumVLR_ISSQN.AsFloat;
+        vVlr_ISSQN_Retido  := vVlr_ISSQN_Retido + fDMConsFat.cdsFatAcumVLR_ISSQN_RETIDO.AsFloat;
 
-        vVlr_ICMS_FCP := vVlr_ICMS_FCP + fDMConsFat.cdsFatAcumVLR_ICMS_FCP.AsFloat;
-        vVlr_FCP_ST   := vVlr_FCP_ST + fDMConsFat.cdsFatAcumVLR_FCP_ST.AsFloat;
+        vVlr_ICMS_FCP      := vVlr_ICMS_FCP + fDMConsFat.cdsFatAcumVLR_ICMS_FCP.AsFloat;
+        vVlr_FCP_ST        := vVlr_FCP_ST + fDMConsFat.cdsFatAcumVLR_FCP_ST.AsFloat;
         vVlr_ICMS_FCP_Dest := vVlr_ICMS_FCP_Dest + fDMConsFat.cdsFatAcumVLR_ICMS_FCP_DEST.AsFloat;
       end;
       fDMConsFat.cdsFatAcum.Next;
@@ -269,7 +276,11 @@ begin
       vcomando := vcomando + '(SUM(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE) + SUM(V.VLR_DESCONTO)) VLR_TOTAL_BRU'
     else
       vcomando := vcomando + '(SUM(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE)) VLR_TOTAL_BRU';
-
+    vComando := ', CASE '
+              + '   WHEN V.tipo_mov = ' + QuotedStr('TRO') + '  then ' + QuotedStr('TROCA')
+              + '   WHEN v.devolucao = ' + QuotedStr('S') +  ' then ' + QuotedStr('DEV')
+              + ' ELSE ' + QuotedStr('')
+              + ' END DEV_TROCA ';
     vComandoAux := ' FROM VFAT_ACUM V ';
     for i := 1 to 9 do
       vTexto[i] := '';
@@ -316,7 +327,7 @@ begin
       fDMConsFat.sdsConsCliente.CommandText := fDMConsFat.sdsConsCliente.CommandText + ' AND V.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY', NxDatePicker2.date));
     if RxDBLookupCombo2.KeyValue > 0 then
       fDMConsFat.sdsConsCliente.CommandText := fDMConsFat.sdsConsCliente.CommandText + ' AND V.TERMINAL = ' + RxDBLookupCombo2.Value;
-    fDMConsFat.sdsConsCliente.CommandText := fDMConsFat.sdsConsCliente.CommandText + ' GROUP BY ID_PESSOA, NOME_CLIFORN, DEVOLUCAO';
+    fDMConsFat.sdsConsCliente.CommandText := fDMConsFat.sdsConsCliente.CommandText + ' GROUP BY ID_PESSOA, NOME_CLIFORN, DEVOLUCAO, DEV_TROCA';
     fDMConsFat.cdsConsCliente.Open;
     SMDBGrid2.DisableScroll;
     fDMConsFat.cdsConsCliente.First;
@@ -325,6 +336,9 @@ begin
       begin
         if fDMConsFat.cdsConsClienteDEVOLUCAO.AsString = 'S' then
           vVlr_Devolucao := vVlr_Devolucao + fDMConsFat.cdsConsClienteVLR_TOTAL_LIQ.AsFloat
+        else
+        if fDMConsFat.cdsConsClienteDEV_TROCA.AsString = 'TROCA' then
+          vVlr_Troca := vVlr_Troca + fDMConsFat.cdsConsClienteVLR_TOTAL_LIQ.AsFloat
         else
         begin
           vVlr_Total         := vVlr_Total + fDMConsFat.cdsConsClienteVLR_TOTAL.AsFloat;
@@ -360,11 +374,16 @@ begin
     vComando := vComando + ' SUM(VLR_FRETE) VLR_FRETE, SUM(VLR_ICMS_UF_REMET) VLR_ICMS_UF_REMET, SUM(VLR_ICMS_UF_DEST) VLR_ICMS_UF_DEST,';
     vComando := vComando + ' SUM(VLR_DESCONTO) VLR_DESCONTO, SUM(VLR_COFINS) VLR_COFINS, SUM(VLR_PIS) VLR_PIS,';
     vComando := vComando + ' SUM(VLR_CUSTO) VLR_CUSTO, SUM(VLR_IR_VENDA) VLR_IR_VENDA, SUM(VLR_CSLL_VENDA) VLR_CSLL_VENDA, ';
-    vComando := vComando + ' SUM(VLR_ISSQN) VLR_ISSQN, SUM(VLR_ISSQN_RETIDO) VLR_ISSQN_RETIDO, ';
+    vComando := vComando + ' SUM(VLR_ISSQN) VLR_ISSQN, SUM(VLR_ISSQN_RETIDO) VLR_ISSQN_RETIDO, SUM(VLR_TROCA) VLR_TROCA, ';
     if chkAcrescimo.ItemChecked[1] then
       vcomando := vcomando + '(SUM(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE) + SUM(V.VLR_DESCONTO)) VLR_TOTAL_BRU'
     else
       vcomando := vcomando + '(SUM(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE)) VLR_TOTAL_BRU';
+    vComando := ', CASE '
+              + '   WHEN V.tipo_mov = ' + QuotedStr('TRO') + '  then ' + QuotedStr('TROCA')
+              + '   WHEN v.devolucao = ' + QuotedStr('S') +  ' then ' + QuotedStr('DEV')
+              + ' ELSE ' + QuotedStr('')
+              + ' END DEV_TROCA ';
     vComandoAux := ' FROM VFAT_ACUM V ';
     for i := 1 to 9 do
       vTexto[i] := '';
@@ -413,7 +432,7 @@ begin
       fDMConsFat.sdsConsData.CommandText := fDMConsFat.sdsConsData.CommandText + ' AND V.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY', NxDatePicker2.date));
     if RxDBLookupCombo2.KeyValue > 0 then
       fDMConsFat.sdsConsData.CommandText := fDMConsFat.sdsConsData.CommandText + ' AND V.TERMINAL = ' + RxDBLookupCombo2.Value;
-    fDMConsFat.sdsConsData.CommandText := fDMConsFat.sdsConsData.CommandText + ' GROUP BY DTEMISSAO, DEVOLUCAO';
+    fDMConsFat.sdsConsData.CommandText := fDMConsFat.sdsConsData.CommandText + ' GROUP BY DTEMISSAO, DEVOLUCAO, DEV_TROCA ';
     fDMConsFat.cdsConsData.Open;
     SMDBGrid3.DisableScroll;
     fDMConsFat.cdsConsData.First;
@@ -422,6 +441,9 @@ begin
       begin
         if fDMConsFat.cdsConsDataDEVOLUCAO.AsString = 'S' then
           vVlr_Devolucao := vVlr_Devolucao + fDMConsFat.cdsConsDataVLR_TOTAL_LIQ.AsFloat
+        else
+        if fDMConsFat.cdsConsDataDEV_TROCA.AsString = 'TROCA' then
+          vVlr_Troca := vVlr_Troca + fDMConsFat.cdsConsDataVLR_TOTAL_LIQ.AsFloat
         else
         begin
           vVlr_Total := vVlr_Total + fDMConsFat.cdsConsDataVLR_TOTAL.AsFloat;
@@ -457,7 +479,8 @@ begin
   Label26.Caption := FormatFloat('###,###,##0.00', vVlr_Total_Bru);
   Label28.Caption := FormatFloat('###,###,##0.00', vVlr_Total_Liq);
 
-  Label5.Caption  := FormatFloat('###,###,##0.00', vVlr_Devolucao);
+  lblDevolucao.Caption  := FormatFloat('###,###,##0.00', vVlr_Devolucao);
+  lblTroca.Caption      := FormatFloat('###,###,##0.00', vVlr_Troca);
 
   Label32.Caption := FormatFloat('###,###,##0.00', vVlr_IPI);
   Label31.Caption := FormatFloat('###,###,##0.00', vVlr_ST);
@@ -481,7 +504,7 @@ begin
   lblVlr_ISSQN.Caption        := FormatFloat('###,###,##0.00', vVlr_ISSQN);
   lblVlr_ISSQN_Retido.Caption := FormatFloat('###,###,##0.00', vVlr_ISSQN_Retido);
 
-  vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq - vVlr_Devolucao));
+  vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq - vVlr_Devolucao - vVlr_Troca));
   Label8.Caption := FormatFloat('###,###,##0.00', vAux);
 end;
 
