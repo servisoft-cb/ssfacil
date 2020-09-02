@@ -206,6 +206,8 @@ type
     cdsMovimentoESPESSURA: TFloatField;
     sdsMovimentoID_VENDEDOR_INT: TIntegerField;
     cdsMovimentoID_VENDEDOR_INT: TIntegerField;
+    sdsMovimentoVLR_TROCA: TFloatField;
+    cdsMovimentoVLR_TROCA: TFloatField;
     procedure cdsMovimentoReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
@@ -226,7 +228,7 @@ type
                                   Terminal: Integer; Preco_Custo_Total: Real; Retem_PISCOFINS: String;
                                   BASE_FCP_ST, BASE_ICMS_FCP, BASE_ICMS_FCP_DEST, VLR_ICMS_FCP_DEST,VLR_ICMS_FCP,VLR_FCP_ST,
                                   Comprimento, Largura, Espessura: Real;
-                                  ID_Vendedor_Int : Integer): Integer;
+                                  ID_Vendedor_Int : Integer; Vlr_Troca : Real): Integer;
 
     procedure prc_ImprimeVendasCupomW;//WriteLn
     procedure prc_ImprimeVendasCupomC(cAvanco: Word);//Canvas
@@ -277,7 +279,7 @@ function TDMMovimento.fnc_Gravar_Movimento(ID_Mov, Filial, Item,
   Terminal: Integer; Preco_Custo_Total: Real; Retem_PISCOFINS: String;
   BASE_FCP_ST, BASE_ICMS_FCP, BASE_ICMS_FCP_DEST, VLR_ICMS_FCP_DEST,VLR_ICMS_FCP,VLR_FCP_ST,
   Comprimento, Largura, Espessura: Real;
-  ID_Vendedor_Int: Integer): Integer;
+  ID_Vendedor_Int: Integer; Vlr_Troca : Real): Integer;
 var
   vAux: Integer;
 begin
@@ -462,8 +464,11 @@ begin
     cdsMovimentoCOMPRIMENTO.AsFloat        := StrToFloat(FormatFloat('0.00',Comprimento));
     cdsMovimentoLARGURA.AsFloat            := StrToFloat(FormatFloat('0.00',Largura));
     cdsMovimentoESPESSURA.AsFloat          := StrToFloat(FormatFloat('0.00',Espessura));
-
     //********************
+
+    //02/09/2020   Valor da troca quando houver no Cupom
+    cdsMovimentoVLR_TROCA.AsFloat := StrToFloat(FormatFloat('0.00',Vlr_Troca));
+    //*************************
 
     //04/07/2019
     if ID_Vendedor_Int > 0 then
