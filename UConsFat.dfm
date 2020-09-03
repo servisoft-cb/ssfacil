@@ -162,7 +162,7 @@ object frmConsFat: TfrmConsFat
     end
     object btnConsultar: TNxButton
       Left = 287
-      Top = 46
+      Top = 47
       Width = 92
       Height = 24
       Caption = 'Consultar'
@@ -983,7 +983,7 @@ object frmConsFat: TfrmConsFat
           DefaultRowHeight = 17
           ScrollBars = ssHorizontal
           ColCount = 34
-          RowCount = 2
+          RowCount = 23
           Columns = <
             item
               Alignment = taCenter

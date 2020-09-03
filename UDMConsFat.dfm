@@ -30,8 +30,8 @@ object DMConsFat: TDMConsFat
     IndexFieldNames = 'NUM_NOTA;CODCFOP'
     Params = <>
     ProviderName = 'dspFatAcum'
-    Left = 160
-    Top = 49
+    Left = 163
+    Top = 50
     object cdsFatAcumTIPO_MOV: TStringField
       FieldName = 'TIPO_MOV'
       Size = 3
@@ -181,15 +181,14 @@ object DMConsFat: TDMConsFat
       FieldName = 'SERIE'
       Size = 3
     end
-    object cdsFatAcumVLR_TROCA: TFloatField
-      FieldName = 'VLR_TROCA'
-      DisplayFormat = '0.00'
-    end
     object cdsFatAcumDEV_TROCA: TStringField
       FieldName = 'DEV_TROCA'
       Required = True
       FixedChar = True
       Size = 5
+    end
+    object cdsFatAcumVLR_TROCA: TFloatField
+      FieldName = 'VLR_TROCA'
     end
   end
   object dsFatAcum: TDataSource
@@ -258,8 +257,8 @@ object DMConsFat: TDMConsFat
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42222.414492245400000000
-    ReportOptions.LastChange = 44050.387768796300000000
+    ReportOptions.CreateDate = 42992.427233402800000000
+    ReportOptions.LastChange = 44076.980116238420000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -307,7 +306,11 @@ object DMConsFat: TDMConsFat
       'VLR_ICMS_FCP=VLR_ICMS_FCP'
       'VLR_FCP_ST=VLR_FCP_ST'
       'VLR_ISSQN=VLR_ISSQN'
-      'VLR_ISSQN_RETIDO=VLR_ISSQN_RETIDO')
+      'VLR_ISSQN_RETIDO=VLR_ISSQN_RETIDO'
+      'TERMINAL=TERMINAL'
+      'SERIE=SERIE'
+      'DEV_TROCA=DEV_TROCA'
+      'VLR_TROCA=VLR_TROCA')
     DataSet = cdsFatAcum
     BCDToCurrency = False
     Left = 91

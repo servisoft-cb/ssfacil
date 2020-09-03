@@ -180,14 +180,19 @@ begin
       vComando := 'SELECT V.*, (V.VLR_TOTAL + V.VLR_IPI + V.VLR_FRETE + V.VLR_DESCONTO) VLR_TOTAL_BRU '
     else
       vComando := 'SELECT V.*, (V.VLR_TOTAL + V.VLR_IPI + V.VLR_FRETE) VLR_TOTAL_BRU ';
+    vComando := vComando + ', CASE '
+              + '   WHEN V.tipo_mov = ' + QuotedStr('TRO') + '  then ' + QuotedStr('TROCA')
+              + '   WHEN v.devolucao = ' + QuotedStr('S') +  ' then ' + QuotedStr('DEV')
+              + ' ELSE ' + QuotedStr('')
+              + ' END DEV_TROCA ';
 
     vComandoAux := ' FROM VFAT_ACUM V ';
     for i := 1 to 8 do
       vTexto[i] := '';
     if not RzCheckList1.ItemChecked[1] then
-      vTexto[1] := 'V.VLR_TOTAL + V.VLR_IPI'
+      vTexto[1] := ' coalesce(V.VLR_TOTAL,0) + coalesce(V.VLR_IPI,0) '
     else
-      vTexto[1] := 'V.VLR_TOTAL';
+      vTexto[1] := 'coalesce(V.VLR_TOTAL,0) ';
     if not RzCheckList1.ItemChecked[6] then
       vTexto[1] := vTexto[1] + ' + coalesce(V.VLR_FRETE,0)';
     if RzCheckList1.ItemChecked[2] then
@@ -276,7 +281,7 @@ begin
       vcomando := vcomando + '(SUM(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE) + SUM(V.VLR_DESCONTO)) VLR_TOTAL_BRU'
     else
       vcomando := vcomando + '(SUM(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE)) VLR_TOTAL_BRU';
-    vComando := ', CASE '
+    vComando := vComando + ', CASE '
               + '   WHEN V.tipo_mov = ' + QuotedStr('TRO') + '  then ' + QuotedStr('TROCA')
               + '   WHEN v.devolucao = ' + QuotedStr('S') +  ' then ' + QuotedStr('DEV')
               + ' ELSE ' + QuotedStr('')
@@ -379,7 +384,7 @@ begin
       vcomando := vcomando + '(SUM(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE) + SUM(V.VLR_DESCONTO)) VLR_TOTAL_BRU'
     else
       vcomando := vcomando + '(SUM(V.VLR_TOTAL) + SUM(V.VLR_IPI) + SUM(V.VLR_FRETE)) VLR_TOTAL_BRU';
-    vComando := ', CASE '
+    vComando := vComando + ', CASE '
               + '   WHEN V.tipo_mov = ' + QuotedStr('TRO') + '  then ' + QuotedStr('TROCA')
               + '   WHEN v.devolucao = ' + QuotedStr('S') +  ' then ' + QuotedStr('DEV')
               + ' ELSE ' + QuotedStr('')
@@ -513,7 +518,10 @@ var
   vArq: string;
 begin
   if RzPageControl1.ActivePage = ts_Geral then
+  begin
+    fDMConsFat.cdsFatAcum.IndexFieldNames := 'DEV_TROCA;DTEMISSAO;SERIE;NUM_NOTA';
     vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Faturamento.fr3';
+  end;
   if RzPageControl1.ActivePage = ts_Cliente then
   begin
     fDMConsFat.cdsConsCliente.IndexFieldNames := 'DEVOLUCAO;NOME_CLIFORN';
