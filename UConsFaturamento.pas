@@ -555,6 +555,7 @@ var
   vDescBruto: String;
   vFornecedor: Integer;
 begin
+  vFornecedor := 0;
   if NxComboBox2.ItemIndex = 0 then
     vDescData := 'DTEMISSAO'
   else
