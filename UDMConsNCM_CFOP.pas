@@ -31,6 +31,8 @@ type
     frxNCM: TfrxDBDataset;
     frxCFOP: TfrxDBDataset;
     cdsFaturamentoCFOPNOME: TStringField;
+    cdsFaturamentoNCMQTD: TFloatField;
+    cdsFaturamentoCFOPQTD: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

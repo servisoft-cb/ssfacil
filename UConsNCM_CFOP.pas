@@ -90,7 +90,7 @@ var
   vSql : String;
 begin
   fDMConsNCM_CFOP.cdsFaturamentoCFOP.Close;
-  vSql := 'select CFOP.codcfop, CFOP.NOME, sum(MOV.VLR_TOTAL) VLR_TOTAL ';
+  vSql := 'select CFOP.codcfop, CFOP.NOME, sum(MOV.VLR_TOTAL) VLR_TOTAL, SUM(MOV.QTD) QTD ';
   vSql := vSql + 'from MOVIMENTO MOV ';
   vSql := vSql + 'inner join TAB_CFOP CFOP on CFOP.ID = MOV.ID_CFOP ';
   vSql := vSql + 'where MOV.CANCELADO = ' + QuotedStr('N') + ' and ';
@@ -102,7 +102,7 @@ begin
   if dataFinal.Date > 10 then
     vSql := vSql + 'MOV.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',dataFinal.date)) + ' AND ';
   case TEnumTipoMov(comboTipo.ItemIndex) of
-    tpSaida   : vSql := vSql + '(MOV.TIPO_REG = ' + QuotedStr('NTS') + ' or MOV.TIPO_REG = ' + QuotedStr('CFI') + ') ';
+    tpSaida   : vSql := vSql + '(MOV.TIPO_REG = ' + QuotedStr('NTS') + ' or MOV.TIPO_REG = ' + QuotedStr('CFI') + ')  and (MOV.TIPO_ES = ' + QuotedStr('S') + ' )';
     tpEntrada : vSql := vSql + '(MOV.TIPO_REG = ' + QuotedStr('NTE') + ') ';
   end;
   vSql := vSql + 'group by CFOP.CODCFOP, CFOP.NOME ';
@@ -116,7 +116,7 @@ var
   vSql : String;
 begin
   fDMConsNCM_CFOP.cdsFaturamentoNCM.Close;
-  vSql := 'select N.NCM, sum(MOV.VLR_TOTAL) VLR_TOTAL ';
+  vSql := 'select N.NCM, sum(MOV.VLR_TOTAL) VLR_TOTAL, SUM(MOV.QTD) QTD ';
   vSql := vSql + 'from MOVIMENTO MOV ';
   vSql := vSql + 'inner join PRODUTO PROD on MOV.ID_PRODUTO = PROD.ID ';
   vSql := vSql + 'inner join TAB_NCM N on N.ID = PROD.ID_NCM ';
@@ -129,7 +129,7 @@ begin
   if dataFinal.Date > 10 then
     vSql := vSql + 'MOV.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',dataFinal.date)) + ' AND ';
   case TEnumTipoMov(comboTipo.ItemIndex) of
-    tpSaida   : vSql := vSql + '(MOV.TIPO_REG = ' + QuotedStr('NTS') + ' or MOV.TIPO_REG = ' + QuotedStr('CFI') + ') ';
+    tpSaida   : vSql := vSql + '(MOV.TIPO_REG = ' + QuotedStr('NTS') + ' or MOV.TIPO_REG = ' + QuotedStr('CFI') + ') and (MOV.TIPO_ES = ' + QuotedStr('S') + ' )';   
     tpEntrada : vSql := vSql + '(MOV.TIPO_REG = ' + QuotedStr('NTE') + ') ';
   end;  
   vSql := vSql + 'group by N.NCM ';

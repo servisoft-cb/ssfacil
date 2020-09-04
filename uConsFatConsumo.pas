@@ -20,6 +20,8 @@ type
     DateEdit1: TDateEdit;
     DateEdit2: TDateEdit;
     Label2: TLabel;
+    NxComboBox1: TNxComboBox;
+    Label3: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -31,7 +33,7 @@ type
 
     procedure prc_Consultar;
     procedure prc_Le_cdsConsFatConsumo;
-    procedure prc_Gravar_mConsumo(ID : Integer ; Nome, Unidade, Semi : String ; Qtd : Real);
+    procedure prc_Gravar_mConsumo(ID, ID_Cor : Integer ; Nome, Unidade, Semi, Nome_Cor : String ; Qtd : Real);
     procedure prc_Gerar_Consumo_Semi;
 
     function fnc_Busca_Qtd : Real;
@@ -45,7 +47,7 @@ var
 
 implementation
 
-uses rsDBUtils, DB, DmdDatabase;
+uses rsDBUtils, DB, DmdDatabase, uUtilPadrao;
 
 {$R *.dfm}
 
@@ -65,6 +67,10 @@ begin
   if DateEdit2.Date > 10 then
     fDMConsFat.sdsConsFatConsumo.CommandText := fDMConsFat.sdsConsFatConsumo.CommandText +
                                                    ' AND N.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
+  case NxComboBox1.ItemIndex of
+    1 : fDMConsFat.sdsConsFatConsumo.CommandText := fDMConsFat.sdsConsFatConsumo.CommandText + ' AND  PROD.TIPO_PRODUCAO = ' + QuotedStr('T');
+    2 : fDMConsFat.sdsConsFatConsumo.CommandText := fDMConsFat.sdsConsFatConsumo.CommandText + ' AND  PROD.TIPO_PRODUCAO = ' + QuotedStr('E');
+  end;
   fDMConsFat.cdsConsFatConsumo.Open;
 end;
 
@@ -90,9 +96,11 @@ begin
 
 
     prc_Gravar_mConsumo(fDMConsFat.cdsConsFatConsumoID_MATERIAL.AsInteger,
+                        fDMConsFat.cdsConsFatConsumoID_COR.AsInteger, 
                         fDMConsFat.cdsConsFatConsumoNOME_MATERIAL.AsString,
                         UpperCase(fDMConsFat.cdsConsFatConsumoUNIDADE_MAT.AsString),
                         fDMConsFat.cdsConsFatConsumoTIPO_REG.AsString,
+                        fDMConsFat.cdsConsFatConsumoNOME_COR_MAT.AsString,
                         vQtdProduto);
 
     if fDMConsFat.cdsConsFatConsumoTIPO_REG.AsString = 'S' then
@@ -128,14 +136,24 @@ begin
 end;
 
 procedure TfrmConsFatConsumo.btnConsultarClick(Sender: TObject);
+var
+  Form : TForm;
 begin
   if (DateEdit1.Date <= 10) or (DateEdit2.Date <= 10) then
   begin
     MessageDlg('*** É obrigatório informar a data inicial e final!',mtInformation,[mbOk],0);
     Exit;
   end;
-  prc_Consultar;
-  prc_Le_cdsConsFatConsumo;
+  Form := TForm.Create(Application);
+  uUtilPadrao.prc_Form_Aguarde(Form);
+  try
+    SMDBGrid1.DisableScroll;
+    prc_Consultar;
+    prc_Le_cdsConsFatConsumo;
+  finally
+    SMDBGrid1.EnableScroll;
+    FreeAndNil(Form);
+  end;
 end;
 
 procedure TfrmConsFatConsumo.prc_Gerar_Consumo_Semi;
@@ -147,23 +165,28 @@ begin
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata    := True;
     sds.GetMetadata   := False;
-    sds.CommandText   := 'select PC.ID_MATERIAL, PC.UNIDADE, PC.QTD_CONSUMO, MAT.NOME NOME_MATERIAL '
-                       + 'from PRODUTO_CONSUMO PC '
-                       + 'inner join PRODUTO MAT on PC.ID_MATERIAL = MAT.ID '
-                       + 'where PC.ID = :ID ';
-    sds.ParamByName('ID').AsInteger := fDMConsFat.cdsConsFatConsumoID_MATERIAL.AsInteger;
+    sds.CommandText   := 'select PCM.ID_MATERIAL, PCM.UNIDADE, PCM.QTD_CONSUMO, MAT.NOME NOME_MATERIAL, PCM.ID_COR, COMB.NOME NOME_COR '
+                       + 'from PRODUTO_COMB PCOMB '
+                       + 'inner join PRODUTO_COMB_MAT PCM on (PCOMB.ID = PCM.ID and PCOMB.ITEM = PCM.ITEM) '
+                       + 'inner join PRODUTO MAT on MAT.ID = PCM.ID_MATERIAL '
+                       + 'left join COMBINACAO COMB on PCM.ID_COR = COMB.ID '
+                       + 'where PCOMB.ID = :ID and '
+                       + '      PCOMB.ID_COR_COMBINACAO = :ID_COR_COMBINACAO ';
+    sds.ParamByName('ID').AsInteger                := fDMConsFat.cdsConsFatConsumoID_PRODUTO.AsInteger;
+    sds.ParamByName('ID_COR_COMBINACAO').AsInteger := fDMConsFat.cdsConsFatConsumoID_COR.AsInteger;
     sds.Open;
 
     while not sds.Eof do
     begin
       prc_Gravar_mConsumo(sds.FieldByName('ID_MATERIAL').AsInteger,
+                          sds.FieldByName('ID_COR').AsInteger,
                           sds.FieldByName('NOME_MATERIAL').AsString,
                           UpperCase(sds.FieldByName('UNIDADE').AsString),
                           'N',
+                          UpperCase(sds.FieldByName('NOME_COR').AsString),
                           vQtdProduto);
       sds.Next;
     end;
-
 
   finally
     FreeAndNil(sds);
@@ -171,18 +194,19 @@ begin
 
 end;
 
-procedure TfrmConsFatConsumo.prc_Gravar_mConsumo(ID: Integer; Nome,
-  Unidade, Semi: String; Qtd: Real);
+procedure TfrmConsFatConsumo.prc_Gravar_mConsumo(ID, ID_Cor : Integer ; Nome, Unidade, Semi, Nome_Cor : String ; Qtd : Real);
 var
   vQtdAux : Real;  
 begin
-  if fDMConsFat.mConsumo.Locate('ID_Material;Unidade',VarArrayOf([ID,Unidade]),[locaseinsensitive]) then
+  if fDMConsFat.mConsumo.Locate('ID_Material;ID_Cor;Unidade',VarArrayOf([ID,ID_Cor,Unidade]),[locaseinsensitive]) then
     fDMConsFat.mConsumo.Edit
   else
   begin
     fDMConsFat.mConsumo.Insert;
     fDMConsFat.mConsumoID_Material.AsInteger  := ID;
     fDMConsFat.mConsumoNome_Material.AsString := Nome;
+    fDMConsFat.mConsumoID_Cor.AsInteger       := ID_Cor;
+    fDMConsFat.mConsumoNome_Cor.AsString      := Nome_Cor;
     fDMConsFat.mConsumoUnidade.AsString       := Unidade;
     if Semi = 'S' then
       fDMConsFat.mConsumoSemi.AsString := 'S'
@@ -205,6 +229,10 @@ begin
   vOpcaoAux := '';
   if (DateEdit1.Date > 10) and (DateEdit2.Date > 10) then
     vOpcaoAux := vOpcaoAux + '(Dt.Fatura: ' + DateEdit1.Text + ' a ' + DateEdit2.Text + ')';
+  case NxComboBox1.ItemIndex of
+    1 : vOpcaoAux := vOpcaoAux + ' (Trançadeira)';
+    2 : vOpcaoAux := vOpcaoAux + ' (Tear)';
+  end;
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Faturamento_Consumo.fr3';
   if FileExists(vArq) then
     fDMConsFat.frxReport1.Report.LoadFromFile(vArq)

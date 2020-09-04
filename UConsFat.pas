@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, NxCollection, StdCtrls, NxEdit, RxLookup,
-  RzLstBox, RzChkLst, Grids, DBGrids, SMDBGrid, UDMConsFat, ExtCtrls, ComObj, DB, DateUtils, RzTabs;
+  RzLstBox, RzChkLst, Grids, DBGrids, SMDBGrid, UDMConsFat, ExtCtrls, ComObj, DB, DateUtils, RzTabs, SqlExpr;
 
 type
   TfrmConsFat = class(TForm)
@@ -75,6 +75,8 @@ type
     lblVlr_ISSQN_Retido: TLabel;
     Label44: TLabel;
     lblTroca: TLabel;
+    Label5: TLabel;
+    lblRecibo_Troca: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -86,6 +88,7 @@ type
     fDMConsFat: TDMConsFat;
     procedure prc_Consultar;
     procedure prc_CriaExcel(vDados: TDataSource);
+    function fnc_Calcular_Recibo_Troca : Real;    
   public
     { Public declarations }
   end;
@@ -96,7 +99,7 @@ var
 implementation
 
 uses
-  rsDBUtils, StrUtils, uUtilPadrao;
+  rsDBUtils, StrUtils, uUtilPadrao, DmdDatabase;
 
 {$R *.dfm}
 
@@ -150,7 +153,7 @@ var
   vVlr_ICMS_FCP, vVlr_FCP_ST, vVlr_ICMS_FCP_Dest : Real;
   vVlr_ISSQN, vVlr_ISSQN_Retido : Real;
   vVlr_Troca : Real;
-
+  vVlr_Recibo_Troca : Real;
 begin
   vVlr_Total := 0;
   vVlr_Total_Bru := 0;
@@ -509,7 +512,10 @@ begin
   lblVlr_ISSQN.Caption        := FormatFloat('###,###,##0.00', vVlr_ISSQN);
   lblVlr_ISSQN_Retido.Caption := FormatFloat('###,###,##0.00', vVlr_ISSQN_Retido);
 
-  vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq - vVlr_Devolucao - vVlr_Troca));
+  vVlr_Recibo_Troca       := fnc_Calcular_Recibo_Troca;
+  lblRecibo_Troca.Caption := FormatFloat('###,###,##0.00', vVlr_Recibo_Troca);
+
+  vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq + vVlr_Recibo_Troca - vVlr_Devolucao - vVlr_Troca ));
   Label8.Caption := FormatFloat('###,###,##0.00', vAux);
 end;
 
@@ -597,6 +603,32 @@ begin
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then
       SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
+end;
+
+function TfrmConsFat.fnc_Calcular_Recibo_Troca: Real;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 0;
+
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.GetMetadata   := False;
+    sds.NoMetadata    := True;
+    sds.Close;
+    sds.CommandText   := 'SELECT SUM(R.valor) VALOR_RECIBO FROM cupomfiscal_rect R INNER JOIN CUPOMFISCAL C ON R.id = C.id_recibo_troca  WHERE 0 = 0 ' ;
+    if RxDBLookupCombo1.Text <> '' then
+      sds.CommandText := sds.CommandText + ' AND C.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
+    if NxDatePicker1.Date > 10 then
+      sds.CommandText := sds.CommandText + ' AND R.DATA >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY', NxDatePicker1.date));
+    if NxDatePicker2.Date > 10 then
+      sds.CommandText := sds.CommandText + ' AND R.DATA >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY', NxDatePicker2.date));
+    sds.Open;
+    Result := StrToFloat(FormatFloat('0.00',sds.FieldByName('VALOR_RECIBO').AsFloat));
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.

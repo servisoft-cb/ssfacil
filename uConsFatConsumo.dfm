@@ -17,9 +17,9 @@ object frmConsFatConsumo: TfrmConsFatConsumo
   TextHeight = 13
   object pnlPrincipal: TAdvPanel
     Left = 0
-    Top = 37
+    Top = 56
     Width = 920
-    Height = 410
+    Height = 391
     Align = alClient
     BevelWidth = 10
     Font.Charset = DEFAULT_CHARSET
@@ -49,7 +49,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       Left = 10
       Top = 10
       Width = 900
-      Height = 390
+      Height = 371
       Align = alClient
       Ctl3D = False
       DataSource = DMConsFat.dsmConsumo
@@ -80,7 +80,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 6
+      ColCount = 7
       RowCount = 2
       Columns = <
         item
@@ -98,7 +98,16 @@ object frmConsFatConsumo: TfrmConsFatConsumo
           Title.Alignment = taCenter
           Title.Caption = 'Nome Material'
           Title.Color = clActiveCaption
-          Width = 449
+          Width = 387
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Nome_Cor'
+          Title.Alignment = taCenter
+          Title.Caption = 'Cor'
+          Title.Color = clActiveCaption
+          Width = 184
           Visible = True
         end
         item
@@ -133,7 +142,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
     Left = 0
     Top = 0
     Width = 920
-    Height = 37
+    Height = 56
     Align = alTop
     BorderPen.Style = psClear
     UseDockManager = False
@@ -149,7 +158,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       Transparent = True
     end
     object Label2: TLabel
-      Left = 256
+      Left = 280
       Top = 16
       Width = 25
       Height = 13
@@ -157,25 +166,34 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       Caption = 'Final:'
       Transparent = True
     end
+    object Label3: TLabel
+      Left = 102
+      Top = 34
+      Width = 24
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Tipo:'
+      Transparent = True
+    end
     object btnConsultar: TNxButton
-      Left = 386
-      Top = 7
+      Left = 418
+      Top = 30
       Width = 114
       Caption = 'Efetuar Pesquisa'
-      TabOrder = 2
+      TabOrder = 3
       OnClick = btnConsultarClick
     end
     object btnImprimir: TNxButton
-      Left = 500
-      Top = 7
+      Left = 532
+      Top = 30
       Width = 114
       Caption = 'Imprimir'
-      TabOrder = 3
+      TabOrder = 4
       OnClick = btnImprimirClick
     end
     object DateEdit1: TDateEdit
       Left = 127
-      Top = 8
+      Top = 9
       Width = 100
       Height = 21
       Ctl3D = False
@@ -184,7 +202,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       TabOrder = 0
     end
     object DateEdit2: TDateEdit
-      Left = 283
+      Left = 307
       Top = 8
       Width = 100
       Height = 21
@@ -192,6 +210,21 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       NumGlyphs = 2
       ParentCtl3D = False
       TabOrder = 1
+    end
+    object NxComboBox1: TNxComboBox
+      Left = 127
+      Top = 28
+      Width = 100
+      Height = 21
+      TabOrder = 2
+      Text = 'Ambos'
+      HideFocus = False
+      AutoCompleteDelay = 0
+      ItemIndex = 0
+      Items.Strings = (
+        'Ambos'
+        'Tran'#231'adeira'
+        'Tear')
     end
   end
 end
