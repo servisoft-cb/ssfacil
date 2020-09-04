@@ -257,8 +257,8 @@ object DMConsFat: TDMConsFat
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42992.427233402800000000
-    ReportOptions.LastChange = 44076.980116238420000000
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 44071.572781794000000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -1425,19 +1425,20 @@ object DMConsFat: TDMConsFat
       'SELECT N.numnota, N.dtemissao, i.id_produto, pcm.id_material, pc' +
       'm.id_cor, pcm.qtd_consumo, i.qtd,'#13#10'mat.nome nome_material, i.uni' +
       'dade UNIDADE_NOTA, mat.tipo_reg, PCM.unidade UNIDADE_MAT,'#13#10'PROD.' +
-      'UNIDADE UNIDADE_PROD'#13#10'FROM NOTAFISCAL N'#13#10'INNER JOIN NOTAFISCAL_I' +
-      'TENS I ON N.ID = I.ID'#13#10'inner join produto PROD on i.id_produto =' +
-      ' prod.id'#13#10'inner join tab_cfop cf on cf.id = i.id_cfop'#13#10'iNNER JOI' +
-      'N PRODUTO_COMB PCOMB ON (I.id_produto = PCOMB.ID AND I.id_cor = ' +
-      'PCOMB.id_cor_combinacao)'#13#10'INNER JOIN PRODUTO_COMB_MAT PCM ON (I.' +
-      'ID_produto = PCM.ID AND PCOMB.ITEM = PCM.ITEM)'#13#10'inner join produ' +
-      'to mat on mat.id = pcm.id_material'#13#10'where n.tipo_reg = '#39'NTS'#39#13#10'  ' +
-      'and n.cancelada = '#39'N'#39#13#10'  and n.nfedenegada = '#39'N'#39#13#10'  and cf.fatur' +
-      'amento = '#39'S'#39#13#10#13#10#13#10#13#10
+      'UNIDADE UNIDADE_PROD, COMB.NOME NOME_COR_MAT, I.ID_COR ID_COR_PR' +
+      'ODUTO'#13#10'FROM NOTAFISCAL N'#13#10'INNER JOIN NOTAFISCAL_ITENS I ON N.ID ' +
+      '= I.ID'#13#10'inner join produto PROD on i.id_produto = prod.id'#13#10'inner' +
+      ' join tab_cfop cf on cf.id = i.id_cfop'#13#10'iNNER JOIN PRODUTO_COMB ' +
+      'PCOMB ON (I.id_produto = PCOMB.ID AND I.id_cor = PCOMB.id_cor_co' +
+      'mbinacao)'#13#10'INNER JOIN PRODUTO_COMB_MAT PCM ON (I.ID_produto = PC' +
+      'M.ID AND PCOMB.ITEM = PCM.ITEM)'#13#10'inner join produto mat on mat.i' +
+      'd = pcm.id_material'#13#10'LEFT JOIN COMBINACAO COMB ON PCM.id_cor = C' +
+      'OMB.ID'#13#10'where n.tipo_reg = '#39'NTS'#39#13#10'  and n.cancelada = '#39'N'#39#13#10'  and' +
+      ' n.nfedenegada = '#39'N'#39#13#10'  and cf.faturamento = '#39'S'#39#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 635
+    Left = 636
     Top = 324
   end
   object dspConsFatConsumo: TDataSetProvider
@@ -1493,6 +1494,13 @@ object DMConsFat: TDMConsFat
       FieldName = 'UNIDADE_PROD'
       Size = 6
     end
+    object cdsConsFatConsumoNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsFatConsumoID_COR_PRODUTO: TIntegerField
+      FieldName = 'ID_COR_PRODUTO'
+    end
   end
   object mConsumo: TClientDataSet
     Active = True
@@ -1520,18 +1528,29 @@ object DMConsFat: TDMConsFat
         Name = 'Semi'
         DataType = ftString
         Size = 1
+      end
+      item
+        Name = 'ID_Cor'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Cor'
+        DataType = ftString
+        Size = 60
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 610
-    Top = 283
+    Left = 613
+    Top = 284
     Data = {
-      910000009619E0BD01000000180000000500000000000300000091000B49445F
+      BD0000009619E0BD010000001800000007000000000003000000BD000B49445F
       4D6174657269616C04000100000000000D4E6F6D655F4D6174657269616C0100
       49000000010005574944544802000200640007556E6964616465010049000000
       01000557494454480200020006000351746408000400000000000453656D6901
-      004900000001000557494454480200020001000000}
+      004900000001000557494454480200020001000649445F436F72040001000000
+      0000084E6F6D655F436F720100490000000100055749445448020002003C0000
+      00}
     object mConsumoID_Material: TIntegerField
       FieldName = 'ID_Material'
     end
@@ -1551,6 +1570,13 @@ object DMConsFat: TDMConsFat
       FieldName = 'Semi'
       Size = 1
     end
+    object mConsumoID_Cor: TIntegerField
+      FieldName = 'ID_Cor'
+    end
+    object mConsumoNome_Cor: TStringField
+      FieldName = 'Nome_Cor'
+      Size = 60
+    end
   end
   object dsmConsumo: TDataSource
     DataSet = mConsumo
@@ -1566,7 +1592,9 @@ object DMConsFat: TDMConsFat
       'Nome_Material=Nome_Material'
       'Unidade=Unidade'
       'Qtd=Qtd'
-      'Semi=Semi')
+      'Semi=Semi'
+      'ID_Cor=ID_Cor'
+      'Nome_Cor=Nome_Cor')
     DataSource = dsmConsumo
     BCDToCurrency = False
     Left = 684

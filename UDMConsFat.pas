@@ -238,6 +238,10 @@ type
     cdsConsClienteDEV_TROCA: TStringField;
     cdsConsDataDEV_TROCA: TStringField;
     cdsFatAcumVLR_TROCA: TFloatField;
+    mConsumoID_Cor: TIntegerField;
+    mConsumoNome_Cor: TStringField;
+    cdsConsFatConsumoNOME_COR_MAT: TStringField;
+    cdsConsFatConsumoID_COR_PRODUTO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxReport1BeforePrint(Sender: TfrxReportComponent);
     procedure cdsComprasServicosCalcFields(DataSet: TDataSet);
