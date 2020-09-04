@@ -155,7 +155,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42032.577038136600000000
-    ReportOptions.LastChange = 43817.700983599530000000
+    ReportOptions.LastChange = 44078.601508935190000000
     ScriptLanguage = 'PascalScript'
     ScriptText.Strings = (
       ''
@@ -167,8 +167,8 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
     Top = 40
     Datasets = <
       item
-        DataSet = frxCFOP
-        DataSetName = 'frxCFOP'
+        DataSet = frxNCM
+        DataSetName = 'frxNCM'
       end>
     Variables = <
       item
@@ -205,16 +205,16 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
       object MasterData2: TfrxMasterData
         FillType = ftBrush
         Height = 18.897650000000000000
-        Top = 166.299320000000000000
+        Top = 158.740260000000000000
         Width = 733.228820000000000000
         OnBeforePrint = 'MasterData2OnBeforePrint'
         AllowSplit = True
-        DataSet = frxCFOP
-        DataSetName = 'frxCFOP'
+        DataSet = frxNCM
+        DataSetName = 'frxNCM'
         RowCount = 0
         Stretched = True
         object Memo3: TfrxMemoView
-          Left = 430.086890000000000000
+          Left = 241.110390000000000000
           Top = 2.559060000000000000
           Width = 173.858131020000000000
           Height = 11.338590000000000000
@@ -228,7 +228,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
           Font.Style = [fsBold]
           HAlign = haRight
           Memo.UTF8 = (
-            '[frxCFOP."VLR_TOTAL"]')
+            '[frxNCM."VLR_TOTAL"]')
           ParentFont = False
         end
         object Memo12: TfrxMemoView
@@ -244,29 +244,32 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
           Font.Style = [fsBold]
           HAlign = haCenter
           Memo.UTF8 = (
-            '[frxCFOP."CODCFOP"]')
+            '[frxNCM."NCM"]')
           ParentFont = False
         end
         object Memo7: TfrxMemoView
-          Left = 60.472480000000000000
+          Left = 464.882190000000000000
           Top = 3.779530000000000000
-          Width = 325.039580000000000000
+          Width = 173.858131020000000000
           Height = 11.338590000000000000
-          DataSetName = 'frxEstoque_Mov'
+          StretchMode = smMaxHeight
+          DisplayFormat.FormatStr = '%2.4n'
+          DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          HAlign = haRight
           Memo.UTF8 = (
-            '[frxCFOP."NOME"]')
+            '[frxNCM."QTD"]')
           ParentFont = False
         end
       end
       object Header1: TfrxHeader
         FillType = ftBrush
         Height = 22.677180000000000000
-        Top = 120.944960000000000000
+        Top = 117.165430000000000000
         Width = 733.228820000000000000
         object Shape1: TfrxShapeView
           Left = -0.220470000000000000
@@ -275,7 +278,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
           Height = 18.897650000000000000
         end
         object Memo10: TfrxMemoView
-          Left = 430.086890000000000000
+          Left = 241.110390000000000000
           Top = 6.614100000000000000
           Width = 173.858131020000000000
           Height = 11.338590000000000000
@@ -303,28 +306,31 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
           Font.Style = [fsBold]
           HAlign = haCenter
           Memo.UTF8 = (
-            'CFOP')
+            'NCM')
           ParentFont = False
         end
         object Memo6: TfrxMemoView
-          Left = 60.472480000000000000
-          Top = 6.614100000000000000
-          Width = 325.039580000000000000
+          Left = 464.882190000000000000
+          Top = 7.559060000000000000
+          Width = 173.858131020000000000
           Height = 11.338590000000000000
+          DisplayFormat.FormatStr = '%2.2n'
+          DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Arial'
           Font.Style = [fsBold]
+          HAlign = haRight
           Memo.UTF8 = (
-            'Descri'#195#167#195#163'o')
+            'Valor')
           ParentFont = False
         end
       end
       object Footer1: TfrxFooter
         FillType = ftBrush
         Height = 22.677180000000000000
-        Top = 207.874150000000000000
+        Top = 196.535560000000000000
         Width = 733.228820000000000000
         object Line3: TfrxLineView
           Top = 3.779530000000000000
@@ -333,7 +339,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
           Frame.Typ = [ftTop]
         end
         object Memo4: TfrxMemoView
-          Left = 332.598640000000000000
+          Left = 3.779530000000000000
           Top = 7.559060000000000000
           Width = 52.913420000000000000
           Height = 11.338590000000000000
@@ -348,11 +354,12 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
           ParentFont = False
         end
         object SysMemo3: TfrxSysMemoView
-          Left = 430.086641020000000000
+          Left = 241.110141020000000000
           Top = 7.559060000000000000
           Width = 173.858380000000000000
           Height = 11.338590000000000000
           DisplayFormat.FormatStr = '%2.2n'
+          DisplayFormat.Kind = fkNumeric
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -367,7 +374,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
       object PageFooter1: TfrxPageFooter
         FillType = ftBrush
         Height = 15.118120000000000000
-        Top = 291.023810000000000000
+        Top = 275.905690000000000000
         Width = 733.228820000000000000
         object Memo5: TfrxMemoView
           Left = 627.401980000000000000
@@ -401,7 +408,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
           Font.Style = [fsBold, fsUnderline]
           HAlign = haCenter
           Memo.UTF8 = (
-            'Relat'#195#179'rio do Movimento por CFOP')
+            'Relat'#195#179'rio do Movimento por NCM')
           ParentFont = False
         end
         object SysMemo1: TfrxSysMemoView
