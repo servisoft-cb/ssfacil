@@ -9,12 +9,13 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select N.NCM, sum(MOV.VLR_TOTAL) VLR_TOTAL'#13#10'from MOVIMENTO MOV'#13#10 +
-      'left join PRODUTO PROD on MOV.ID_PRODUTO = PROD.ID'#13#10'left join TA' +
-      'B_NCM N on N.ID = PROD.ID_NCM'#13#10'left join TAB_CFOP TCFOP on (MOV.' +
-      'ID_CFOP = TCFOP.ID)'#13#10'where MOV.CANCELADO = '#39'N'#39' and'#13#10'      MOV.DE' +
-      'NEGADA = '#39'N'#39' and'#13#10'      (MOV.TIPO_REG = '#39'NTS'#39' or MOV.TIPO_REG = ' +
-      #39'CFI'#39')'#13#10'group by N.NCM, MOV.TIPO_REG'#13#10'order by VLR_TOTAL desc  '
+      'select N.NCM, sum(MOV.VLR_TOTAL) VLR_TOTAL, SUM(QTD) QTD'#13#10'from M' +
+      'OVIMENTO MOV'#13#10'left join PRODUTO PROD on MOV.ID_PRODUTO = PROD.ID' +
+      #13#10'left join TAB_NCM N on N.ID = PROD.ID_NCM'#13#10'left join TAB_CFOP ' +
+      'TCFOP on (MOV.ID_CFOP = TCFOP.ID)'#13#10'where MOV.CANCELADO = '#39'N'#39' and' +
+      #13#10'      MOV.DENEGADA = '#39'N'#39' and'#13#10'      (MOV.TIPO_REG = '#39'NTS'#39' or M' +
+      'OV.TIPO_REG = '#39'CFI'#39')'#13#10'group by N.NCM, MOV.TIPO_REG'#13#10'order by VLR' +
+      '_TOTAL desc  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -31,7 +32,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
     Aggregates = <>
     Params = <>
     ProviderName = 'dspFaturamentoNCM'
-    Left = 96
+    Left = 95
     Top = 18
     object cdsFaturamentoNCMNCM: TStringField
       DisplayWidth = 20
@@ -45,15 +46,22 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
       DisplayFormat = ',0.00'
       EditFormat = ',0.00'
     end
+    object cdsFaturamentoNCMQTD: TFloatField
+      DisplayLabel = 'Quantidade'
+      DisplayWidth = 20
+      FieldName = 'QTD'
+      DisplayFormat = '0.000#'
+    end
   end
   object sdsFaturamentoCFOP: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select CFOP.codcfop, CFOP.NOME, sum(MOV.VLR_TOTAL) VLR_TOTAL'#13#10'fr' +
-      'om MOVIMENTO MOV'#13#10'inner join TAB_CFOP CFOP on CFOP.ID = MOV.ID_C' +
-      'FOP'#13#10'where MOV.CANCELADO = '#39'N'#39' and'#13#10'      MOV.DENEGADA = '#39'N'#39#13#10'gr' +
-      'oup by CFOP.codcfop, CFOP.NOME'#13#10'order by VLR_TOTAL desc'
+      'select CFOP.codcfop, CFOP.NOME, sum(MOV.VLR_TOTAL) VLR_TOTAL, SU' +
+      'M(MOV.QTD) QTD'#13#10'from MOVIMENTO MOV'#13#10'inner join TAB_CFOP CFOP on ' +
+      'CFOP.ID = MOV.ID_CFOP'#13#10'where MOV.CANCELADO = '#39'N'#39' and'#13#10'      MOV.' +
+      'DENEGADA = '#39'N'#39#13#10'group by CFOP.codcfop, CFOP.NOME'#13#10'order by VLR_T' +
+      'OTAL desc'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -89,6 +97,12 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
       FieldName = 'VLR_TOTAL'
       DisplayFormat = ',0.00'
       EditFormat = ',0.00'
+    end
+    object cdsFaturamentoCFOPQTD: TFloatField
+      DisplayLabel = 'Qtde.'
+      DisplayWidth = 15
+      FieldName = 'QTD'
+      DisplayFormat = '0.000#'
     end
   end
   object sdsFilial: TSQLDataSet
@@ -485,10 +499,11 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
     CloseDataSource = False
     FieldAliases.Strings = (
       'NCM=NCM'
-      'VLR_TOTAL=VLR_TOTAL')
+      'VLR_TOTAL=VLR_TOTAL'
+      'QTD=QTD')
     DataSet = cdsFaturamentoNCM
     BCDToCurrency = False
-    Left = 328
+    Left = 329
     Top = 88
   end
   object frxCFOP: TfrxDBDataset
@@ -497,7 +512,8 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
     FieldAliases.Strings = (
       'CODCFOP=CODCFOP'
       'NOME=NOME'
-      'VLR_TOTAL=VLR_TOTAL')
+      'VLR_TOTAL=VLR_TOTAL'
+      'QTD=QTD')
     DataSet = cdsFaturamentoCFOP
     BCDToCurrency = False
     Left = 376

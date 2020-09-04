@@ -17,7 +17,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 912
+    Width = 920
     Height = 68
     Align = alTop
     BevelOuter = bvNone
@@ -66,7 +66,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
       LookupDisplay = 'NOME_INTERNO'
       LookupSource = DMConsNCM_CFOP.dsFilial
       ParentCtl3D = False
-      TabOrder = 2
+      TabOrder = 0
     end
     object dataInicial: TDateEdit
       Left = 103
@@ -77,7 +77,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
       NumGlyphs = 2
       ParentCtl3D = False
       StartOfWeek = Sun
-      TabOrder = 0
+      TabOrder = 2
     end
     object dataFinal: TDateEdit
       Left = 231
@@ -88,7 +88,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
       NumGlyphs = 2
       ParentCtl3D = False
       StartOfWeek = Sun
-      TabOrder = 1
+      TabOrder = 3
     end
     object NxComboBox2: TNxComboBox
       Left = 13
@@ -98,7 +98,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
       Cursor = crArrow
       Alignment = taRightJustify
       Color = clSilver
-      TabOrder = 3
+      TabOrder = 1
       Text = 'Dt. Emiss'#227'o'
       ReadOnly = True
       HideFocus = False
@@ -177,7 +177,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 6
       Transparent = True
       OnClick = btnConsultarClick
     end
@@ -249,7 +249,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
         FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 5
+      TabOrder = 7
       Transparent = True
       OnClick = btnImprimirClick
     end
@@ -259,7 +259,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
       Width = 219
       Height = 21
       Cursor = crArrow
-      TabOrder = 6
+      TabOrder = 4
       Text = 'Notas/Cupons'
       ReadOnly = True
       HideFocus = False
@@ -276,7 +276,7 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
       Width = 113
       Height = 21
       Cursor = crArrow
-      TabOrder = 7
+      TabOrder = 5
       Text = 'NCM'
       ReadOnly = True
       OnChange = comboNCMCFOPChange
@@ -286,14 +286,15 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
       ItemIndex = 0
       Items.Strings = (
         'NCM'
-        'CFOP')
+        'CFOP'
+        ' ')
     end
   end
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 68
-    Width = 912
-    Height = 373
+    Width = 920
+    Height = 381
     ActivePage = ts_Consulta
     Align = alClient
     BackgroundColor = clGray
@@ -315,8 +316,8 @@ object frmConsNCM_CFOP: TfrmConsNCM_CFOP
       object gridNCM: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 908
-        Height = 350
+        Width = 916
+        Height = 358
         Align = alClient
         Ctl3D = False
         DataSource = dsPadrao

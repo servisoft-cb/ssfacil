@@ -40,7 +40,7 @@ object dmDatabase: TdmDatabase
     MaxBlobSize = -1
     Params = <>
     SQLConnection = scoDados
-    Left = 104
+    Left = 106
     Top = 80
   end
   object scoAtualiza: TSQLConnection
