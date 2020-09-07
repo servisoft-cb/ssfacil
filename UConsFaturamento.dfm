@@ -356,14 +356,6 @@ object frmConsFaturamento: TfrmConsFaturamento
       Caption = 'Somar Descontos'
       TabOrder = 10
     end
-    object ckUsarTotal2: TCheckBox
-      Left = 578
-      Top = 2
-      Width = 97
-      Height = 17
-      Caption = 'Usar o Total 2'
-      TabOrder = 11
-    end
     object RxDBLookupCombo5: TRxDBLookupCombo
       Left = 572
       Top = 41
@@ -376,7 +368,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       LookupDisplay = 'NOME'
       LookupSource = DMConsFaturamento.dsFornecedor
       ParentCtl3D = False
-      TabOrder = 12
+      TabOrder = 11
       OnEnter = RxDBLookupCombo5Enter
     end
   end

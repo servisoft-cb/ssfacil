@@ -113,7 +113,6 @@ type
     chkDesconto: TCheckBox;
     Label13: TLabel;
     chkVendedor_Int: TCheckBox;
-    ckUsarTotal2: TCheckBox;
     pg_CupomFiscal: TRzPageControl;
     ts_CupomFiscalSintetico: TRzTabSheet;
     ts_CupomFiscalAnalitico: TRzTabSheet;
