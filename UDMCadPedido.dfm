@@ -446,7 +446,7 @@ object DMCadPedido: TDMCadPedido
     ProviderName = 'dspPedido'
     BeforePost = cdsPedidoBeforePost
     OnNewRecord = cdsPedidoNewRecord
-    Left = 55
+    Left = 56
     Top = 5
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
