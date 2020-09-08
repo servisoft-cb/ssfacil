@@ -33,7 +33,7 @@ type
 
     procedure prc_Consultar;
     procedure prc_Le_cdsConsFatConsumo;
-    procedure prc_Gravar_mConsumo(ID, ID_Cor : Integer ; Nome, Unidade, Semi, Nome_Cor : String ; Qtd : Real);
+    procedure prc_Gravar_mConsumo(ID, ID_Cor : Integer ; Nome, Unidade, Semi, Nome_Cor : String ; Qtd, Qtd_Consumo : Real);
     procedure prc_Gerar_Consumo_Semi;
 
     function fnc_Busca_Qtd : Real;
@@ -101,7 +101,7 @@ begin
                         UpperCase(fDMConsFat.cdsConsFatConsumoUNIDADE_MAT.AsString),
                         fDMConsFat.cdsConsFatConsumoTIPO_REG.AsString,
                         fDMConsFat.cdsConsFatConsumoNOME_COR_MAT.AsString,
-                        vQtdProduto);
+                        vQtdProduto,fDMConsFat.cdsConsFatConsumoQTD_CONSUMO.AsFloat);
 
     if fDMConsFat.cdsConsFatConsumoTIPO_REG.AsString = 'S' then
       prc_Gerar_Consumo_Semi;
@@ -172,7 +172,7 @@ begin
                        + 'left join COMBINACAO COMB on PCM.ID_COR = COMB.ID '
                        + 'where PCOMB.ID = :ID and '
                        + '      PCOMB.ID_COR_COMBINACAO = :ID_COR_COMBINACAO ';
-    sds.ParamByName('ID').AsInteger                := fDMConsFat.cdsConsFatConsumoID_PRODUTO.AsInteger;
+    sds.ParamByName('ID').AsInteger                := fDMConsFat.cdsConsFatConsumoID_MATERIAL.AsInteger;
     sds.ParamByName('ID_COR_COMBINACAO').AsInteger := fDMConsFat.cdsConsFatConsumoID_COR.AsInteger;
     sds.Open;
 
@@ -184,7 +184,8 @@ begin
                           UpperCase(sds.FieldByName('UNIDADE').AsString),
                           'N',
                           UpperCase(sds.FieldByName('NOME_COR').AsString),
-                          vQtdProduto);
+                          vQtdProduto,
+                          sds.FieldByName('QTD_CONSUMO').AsFloat);
       sds.Next;
     end;
 
@@ -194,9 +195,9 @@ begin
 
 end;
 
-procedure TfrmConsFatConsumo.prc_Gravar_mConsumo(ID, ID_Cor : Integer ; Nome, Unidade, Semi, Nome_Cor : String ; Qtd : Real);
+procedure TfrmConsFatConsumo.prc_Gravar_mConsumo(ID, ID_Cor : Integer ; Nome, Unidade, Semi, Nome_Cor : String ; Qtd, Qtd_Consumo : Real);
 var
-  vQtdAux : Real;  
+  vQtdAux : Real;
 begin
   if fDMConsFat.mConsumo.Locate('ID_Material;ID_Cor;Unidade',VarArrayOf([ID,ID_Cor,Unidade]),[locaseinsensitive]) then
     fDMConsFat.mConsumo.Edit
@@ -214,7 +215,8 @@ begin
       fDMConsFat.mConsumoSemi.AsString := 'N';
     fDMConsFat.mConsumoQtd.AsFloat := 0;
   end;
-  vQtdAux := StrToFloat(FormatFloat('0.0000',fDMConsFat.cdsConsFatConsumoQTD_CONSUMO.AsFloat * Qtd));
+  vQtdAux := StrToFloat(FormatFloat('0.0000',Qtd_Consumo * Qtd));
+
   fDMConsFat.mConsumoQtd.AsFloat := fDMConsFat.mConsumoQtd.AsFloat + vQtdAux;
   fDMConsFat.mConsumo.Post;
   if Semi = 'S' then
