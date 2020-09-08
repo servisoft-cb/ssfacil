@@ -777,7 +777,7 @@ begin
     if NxDatePicker4.Text <> '' then
       fDMCadDuplicata.sdsDuplicata_Consulta.CommandText := fDMCadDuplicata.sdsDuplicata_Consulta.CommandText + ' AND DUP.DTVENCIMENTO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY', NxDatePicker4.date));
     if NOT CheckBox1.Checked then
-      fDMCadDuplicata.sdsDuplicata_Consulta.CommandText := fDMCadDuplicata.sdsDuplicata_Consulta.CommandText + ' AND DUP.CANCELADA = ''N''';
+      fDMCadDuplicata.sdsDuplicata_Consulta.CommandText := fDMCadDuplicata.sdsDuplicata_Consulta.CommandText + ' AND (DUP.CANCELADA = ''N'' or DUP.CANCELADA IS NULL)';
     if RzCheckList1.ItemChecked[0] then
     begin
       case RadioGroup2.ItemIndex of
