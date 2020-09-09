@@ -312,7 +312,7 @@ object frmSel_Vale: TfrmSel_Vale
     Color = 8404992
     TabOrder = 2
     object btnImportar: TNxButton
-      Left = 4
+      Left = 5
       Top = 4
       Width = 214
       Height = 30
