@@ -1800,7 +1800,7 @@ begin
                                                    fDmCupomFiscal.cdsCupomFiscalID_VENDEDOR.AsInteger,
                                                    fDmCupomFiscal.cdsCupom_ItensID_COR_COMBINACO.AsInteger,
                                                    fDmCupomFiscal.cdsCupomFiscalPERC_VENDEDOR.AsFloat,0,0,vTerminal,0,'N',
-                                                   0,0,0,0,0,0,0,0,0,0);
+                                                   0,0,0,0,0,0,0,0,0,0,0);
       fDmCupomFiscal.cdsCupom_Itens.Post;
       fDmCupomFiscal.cdsCupom_Itens.ApplyUpdates(0);
     end;
@@ -2297,7 +2297,7 @@ begin
                                                    fDmCupomFiscal.cdsCupomFiscalID_VENDEDOR.AsInteger,
                                                    fDmCupomFiscal.cdsCupom_ItensID_COR_COMBINACO.AsInteger,
                                                    fDmCupomFiscal.cdsCupomFiscalPERC_VENDEDOR.AsFloat,0,0,vTerminal,0,'N',
-                                                   0,0,0,0,0,0,0,0,0,0);
+                                                   0,0,0,0,0,0,0,0,0,0,0);
     end;
     if (fDmCupomFiscal.cdsCupom_ItensID_MOVESTOQUE.AsInteger <> vID_Estoque) or (fDmCupomFiscal.cdsCupom_ItensID_MOVIMENTO.AsInteger <> vID_Mov) then
     begin
