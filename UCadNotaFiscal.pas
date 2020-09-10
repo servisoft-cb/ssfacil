@@ -3157,8 +3157,9 @@ begin
     end;
     if vFlag then
     begin
-      fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO.AsFloat := 0;
-      fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR.AsInteger := fDMCadNotaFiscal.cdsClienteID_VENDEDOR.AsInteger;
+      fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO.AsFloat     := 0;
+      fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR.AsInteger     := fDMCadNotaFiscal.cdsClienteID_VENDEDOR.AsInteger;
+      fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger := fDMCadNotaFiscal.cdsClienteID_VENDEDOR_INT.AsInteger;
       fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_PAGAR_NOTA.AsFloat := StrToFloat(FormatFloat('0.00',0));
       if fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR.AsInteger > 0 then
       begin
@@ -3168,6 +3169,10 @@ begin
           fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO.AsFloat := fDMCadNotaFiscal.cdsVendedorPERC_COMISSAO_VEND.AsFloat;
         if fDMCadNotaFiscal.cdsVendedorTIPO_COMISSAO.AsString = 'P' then
           fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_PAGAR_NOTA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsParametrosPERC_COMISSAO_PAGA_NOTA.AsFloat));
+      end;
+      if fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger > 0 then
+      begin
+        fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_INT.AsFloat := fDMCadNotaFiscal.cdsVendedorPERC_COMISSAO_VEND.AsFloat;
       end;
     end;
     //******************************
