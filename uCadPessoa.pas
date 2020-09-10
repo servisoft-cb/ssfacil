@@ -617,6 +617,10 @@ type
     NxButton2: TNxButton;
     cbxTipoPessoaXML: TComboBox;
     edtCNPJXML: TMaskEdit;
+    Label215: TLabel;
+    DBEdit118: TDBEdit;
+    Label216: TLabel;
+    DBEdit119: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);

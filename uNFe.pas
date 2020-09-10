@@ -3953,6 +3953,7 @@ var
   vObsAux: String;
   vNumLoteCont_Ant: String;
   vTextoLote: String;
+  vDesc_ProdCliente, vDesc_OS : String;
 begin
   fDMCadNotaFiscal.cdsProduto.Close;
   fDMCadNotaFiscal.cdsProduto.Open;
@@ -3972,6 +3973,18 @@ begin
   fDMNFe.mItensNFe.EmptyDataSet;
   fDMNFe.mDadosAdicionaisNFe.EmptyDataSet;
   fDMNFe.mNotaDevolvidaNFe.EmptyDataSet;
+
+  //09/09/2020
+  fDMNFe.qCliente.Close;
+  fDMNFe.qCliente.ParamByName('CODIGO').AsInteger := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger;
+  fDMNFe.qCliente.Open;
+  vDesc_ProdCliente := '';
+  vDesc_OS          := '';
+  if trim(fDMNFe.qClienteINFADI_DESC_CPROD.AsString) <> '' then
+    vDesc_ProdCliente := fDMNFe.qClienteINFADI_DESC_CPROD.AsString;
+  if trim(fDMNFe.qClienteINFADI_DESC_OS.AsString) <> '' then
+    vDesc_OS := fDMNFe.qClienteINFADI_DESC_OS.AsString;
+  //*************************
 
   //vPerc_Trib_Maior := 0;
   vVlr_Trib_Itens      := 0;
@@ -4483,7 +4496,10 @@ begin
         end;
         if vCodProdutoNFe <> '' then
         begin
-          texto2 := 'Prod. Cliente : ';
+          if trim(vDesc_ProdCliente) <> '' then
+            texto2 := vDesc_ProdCliente + ': '
+          else
+            texto2 := 'Prod. Cliente: ';
           vTextoDetNFe := vTextoDetNFe + '(' + texto2 + vCodProdutoNfe + ')';
         end
         else
@@ -4544,7 +4560,6 @@ begin
         //fDMNFe.mItensNFeInfAdicionais.Value := fDMCadNotaFiscal.cdsNotaFiscal_ItensOBS_COMPLEMENTAR.AsString;
       end;
       //**************
-
       if vTextoDetNFe <> '' then
         fDMNFe.mItensNFeInfAdicionais.Value := vTextoDetNFe + ' ';
       Texto1 := '';
@@ -4557,24 +4572,27 @@ begin
           if trim(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) <> '' then
             Texto1 := '(' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ')';
           if trim(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OC.AsString) <> '' then
-            Texto1 := Texto1 +  '(OC: ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OC.AsString) + ')';
+            Texto1 := Texto1 + '(OC: ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OC.AsString) + ')';
         end;
       end
       else
       if fDMCadNotaFiscal.cdsNotaFiscal_ItensIMP_OC_NOTA.AsString <> 'N' then
       begin
         if (fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OC.AsString <> '') then
-          Texto1 := Texto1 + '(OC: ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OC.AsString) + ' ';
+          Texto1 := Texto1 + 'OC: ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OC.AsString) + ' ';
         if (fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString <> '') then
         begin
           texto2 := UpperCase(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString);
+          if trim(vDesc_OS) <> '' then
+            Texto1 := Texto1 + vDesc_OS + ': ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ' '
+          else
           if PosEx('REM',texto2) > 0 then
             Texto1 := Texto1 + 'OS: ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ' '
           else
             Texto1 := Texto1 + 'OS/REM: ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ' ';
         end;
         if trim(Texto1) <> '' then
-          Texto1 := Texto1 + ')';
+          Texto1 := '(' + Texto1 + ')';
         Texto1 := TrimRight(Texto1);
       end;
       //24/05/2017

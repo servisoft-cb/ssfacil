@@ -1260,6 +1260,8 @@ type
     qPessoa_DownloadITEM: TIntegerField;
     qPessoa_DownloadPESSOA: TStringField;
     qPessoa_DownloadCNPJ_CPF: TStringField;
+    qClienteINFADI_DESC_CPROD: TStringField;
+    qClienteINFADI_DESC_OS: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mItensNFeBeforePost(DataSet: TDataSet);
     procedure mDadosAdicionaisNFeBeforePost(DataSet: TDataSet);
