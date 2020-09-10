@@ -102,7 +102,10 @@ begin
     begin
       uCalculo_NotaFiscal.prc_Posicionar_Regra_Empresa(fDMCadNotaFiscal,fDMCadNotaFiscal.cdsNotaFiscal_ItensID_OPERACAO_NOTA.AsInteger,vFinalidadeAux);
       if (fDMCadNotaFiscal.vID_CFOP <= 0) and (vID_CFOPAux > 0) then
-        fDMCadNotaFiscal.vID_CFOP := vID_CFOPAux;
+        fDMCadNotaFiscal.vID_CFOP := vID_CFOPAux
+      else
+      if (fDMCadNotaFiscal.vID_CFOP <= 0) and (RxDBLookupCombo1.Text <> '') then
+        fDMCadNotaFiscal.vID_CFOP := RxDBLookupCombo1.KeyValue;
       fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger := fDMCadNotaFiscal.vID_CFOP;
     end;
 

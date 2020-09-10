@@ -1420,7 +1420,7 @@ object frmCadPessoa: TfrmCadPessoa
         Top = 30
         Width = 1079
         Height = 627
-        ActivePage = TS_Pessoa_Financeiro
+        ActivePage = TS_Compras
         ActivePageDefault = TS_Pessoa_Dados
         Align = alClient
         BackgroundColor = clSilver
@@ -1428,7 +1428,7 @@ object frmCadPessoa: TfrmCadPessoa
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 3
+        TabIndex = 4
         TabOrder = 1
         OnChange = RZPageControlDadosChange
         FixedDimension = 19
@@ -6871,7 +6871,7 @@ object frmCadPessoa: TfrmCadPessoa
             TabOrder = 0
             OnEnter = pnlCompras_PedidosEnter
             object Label84: TLabel
-              Left = 106
+              Left = 130
               Top = 17
               Width = 21
               Height = 13
@@ -6879,7 +6879,7 @@ object frmCadPessoa: TfrmCadPessoa
               Caption = 'EDI:'
             end
             object Label69: TLabel
-              Left = 43
+              Left = 67
               Top = 39
               Width = 84
               Height = 13
@@ -6887,7 +6887,7 @@ object frmCadPessoa: TfrmCadPessoa
               Caption = 'Contato Compras:'
             end
             object Label70: TLabel
-              Left = 55
+              Left = 79
               Top = 60
               Width = 72
               Height = 13
@@ -6895,7 +6895,7 @@ object frmCadPessoa: TfrmCadPessoa
               Caption = 'Email Compras:'
             end
             object Label93: TLabel
-              Left = 87
+              Left = 111
               Top = 81
               Width = 41
               Height = 13
@@ -6903,7 +6903,7 @@ object frmCadPessoa: TfrmCadPessoa
               Caption = 'Carimbo:'
             end
             object Label194: TLabel
-              Left = 85
+              Left = 109
               Top = 102
               Width = 43
               Height = 13
@@ -6911,7 +6911,7 @@ object frmCadPessoa: TfrmCadPessoa
               Caption = 'Caixinha:'
             end
             object Label153: TLabel
-              Left = 352
+              Left = 376
               Top = 77
               Width = 286
               Height = 13
@@ -6924,21 +6924,21 @@ object frmCadPessoa: TfrmCadPessoa
               ParentFont = False
             end
             object Label196: TLabel
-              Left = 29
+              Left = 53
               Top = 123
               Width = 99
               Height = 13
               Caption = 'Imp. Etiqueta R'#243'tulo:'
             end
             object Label211: TLabel
-              Left = 62
+              Left = 86
               Top = 144
               Width = 65
               Height = 13
               Caption = 'Unid. Padr'#227'o:'
             end
             object RxDBLookupCombo27: TRxDBLookupCombo
-              Left = 130
+              Left = 154
               Top = 9
               Width = 265
               Height = 21
@@ -6952,7 +6952,7 @@ object frmCadPessoa: TfrmCadPessoa
               OnChange = RxDBLookupCombo27Change
             end
             object DBEdit42: TDBEdit
-              Left = 130
+              Left = 154
               Top = 31
               Width = 640
               Height = 21
@@ -6961,7 +6961,7 @@ object frmCadPessoa: TfrmCadPessoa
               TabOrder = 1
             end
             object DBEdit43: TDBEdit
-              Left = 131
+              Left = 155
               Top = 52
               Width = 640
               Height = 21
@@ -6971,7 +6971,7 @@ object frmCadPessoa: TfrmCadPessoa
               TabOrder = 2
             end
             object DBEdit51: TDBEdit
-              Left = 131
+              Left = 155
               Top = 73
               Width = 214
               Height = 21
@@ -6981,7 +6981,7 @@ object frmCadPessoa: TfrmCadPessoa
               TabOrder = 3
             end
             object DBEdit108: TDBEdit
-              Left = 131
+              Left = 155
               Top = 94
               Width = 214
               Height = 21
@@ -6991,7 +6991,7 @@ object frmCadPessoa: TfrmCadPessoa
               TabOrder = 4
             end
             object DBCheckBox30: TDBCheckBox
-              Left = 639
+              Left = 663
               Top = 115
               Width = 281
               Height = 17
@@ -7009,7 +7009,7 @@ object frmCadPessoa: TfrmCadPessoa
               ValueUnchecked = 'N'
             end
             object DBCheckBox26: TDBCheckBox
-              Left = 639
+              Left = 663
               Top = 146
               Width = 265
               Height = 17
@@ -7027,7 +7027,7 @@ object frmCadPessoa: TfrmCadPessoa
               ValueUnchecked = 'N'
             end
             object DBCheckBox35: TDBCheckBox
-              Left = 639
+              Left = 663
               Top = 194
               Width = 279
               Height = 17
@@ -7045,7 +7045,7 @@ object frmCadPessoa: TfrmCadPessoa
               ValueUnchecked = 'N'
             end
             object DBCheckBox34: TDBCheckBox
-              Left = 639
+              Left = 663
               Top = 174
               Width = 265
               Height = 21
@@ -7063,7 +7063,7 @@ object frmCadPessoa: TfrmCadPessoa
               ValueUnchecked = 'N'
             end
             object DBCheckBox32: TDBCheckBox
-              Left = 639
+              Left = 663
               Top = 160
               Width = 265
               Height = 17
@@ -7081,16 +7081,32 @@ object frmCadPessoa: TfrmCadPessoa
               ValueUnchecked = 'N'
             end
             object RzGroupBox2: TRzGroupBox
-              Left = 133
+              Left = 155
               Top = 168
-              Width = 233
-              Height = 73
+              Width = 378
+              Height = 107
               Caption = 'Imprimir na DANFE'
               FlatColor = clBlack
               TabOrder = 7
+              object Label215: TLabel
+                Left = 50
+                Top = 67
+                Width = 98
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Descri'#231#227'o C'#243'd.Prod:'
+              end
+              object Label216: TLabel
+                Left = 30
+                Top = 88
+                Width = 118
+                Height = 13
+                Alignment = taRightJustify
+                Caption = 'Descri'#231#227'o Remessa/OS:'
+              end
               object DBCheckBox27: TDBCheckBox
-                Left = 23
-                Top = 24
+                Left = 22
+                Top = 20
                 Width = 185
                 Height = 17
                 Caption = 'Cor do cliente'
@@ -7107,8 +7123,8 @@ object frmCadPessoa: TfrmCadPessoa
                 ValueUnchecked = 'N'
               end
               object DBCheckBox23: TDBCheckBox
-                Left = 24
-                Top = 49
+                Left = 23
+                Top = 36
                 Width = 193
                 Height = 16
                 Caption = 'C'#243'digo do produto do cliente'
@@ -7118,9 +7134,27 @@ object frmCadPessoa: TfrmCadPessoa
                 ValueChecked = 'S'
                 ValueUnchecked = 'N'
               end
+              object DBEdit118: TDBEdit
+                Left = 149
+                Top = 61
+                Width = 214
+                Height = 21
+                DataField = 'INFADI_DESC_CPROD'
+                DataSource = DMCadPessoa.dsPessoa
+                TabOrder = 2
+              end
+              object DBEdit119: TDBEdit
+                Left = 150
+                Top = 82
+                Width = 214
+                Height = 21
+                DataField = 'INFADI_DESC_OS'
+                DataSource = DMCadPessoa.dsPessoa
+                TabOrder = 3
+              end
             end
             object RxDBComboBox18: TRxDBComboBox
-              Left = 131
+              Left = 155
               Top = 115
               Width = 165
               Height = 21
@@ -7138,7 +7172,7 @@ object frmCadPessoa: TfrmCadPessoa
                 'C')
             end
             object DBCheckBox29: TDBCheckBox
-              Left = 639
+              Left = 663
               Top = 131
               Width = 177
               Height = 17
@@ -7156,7 +7190,7 @@ object frmCadPessoa: TfrmCadPessoa
               ValueUnchecked = 'N'
             end
             object DBEdit117: TDBEdit
-              Left = 131
+              Left = 155
               Top = 136
               Width = 94
               Height = 21

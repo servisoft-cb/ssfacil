@@ -161,6 +161,13 @@ begin
     vComando := vComando + ' AND NT.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
   if trim(Edit1.Text) <> '' then
     vComando := vComando + ' AND PED.PEDIDO_CLIENTE LIKE ' + QuotedStr('%'+Edit1.Text+'%');
+  if ComboBox2.Visible then
+  begin
+    case ComboBox2.ItemIndex of
+      1 : vComando := vComando + ' AND PROD.TIPO_PRODUCAO = ' + QuotedStr('T');
+      2 : vComando := vComando + ' AND PROD.TIPO_PRODUCAO = ' + QuotedStr('E');
+    end;
+  end;
   fDMConsPedido.sdsPedido_FatPed.CommandText := vComando + '  ' + vComandoAux;
   fDMConsPedido.cdsPedido_FatPed.Open;
   fDMConsPedido.cdsPedido_FatPed.IndexFieldNames := 'PEDIDO_CLIENTE;DTEMISSAO';
@@ -514,6 +521,13 @@ begin
     vComando := vComando + ' AND PED.PEDIDO_CLIENTE LIKE ' + QuotedStr('%'+Edit1.Text+'%');
   if RxDBLookupCombo2.Text <> '' then
     vComando := vComando + ' AND GP.ID = ' + IntToStr(RxDBLookupCombo2.KeyValue);
+  if ComboBox2.Visible then
+  begin
+    case ComboBox2.ItemIndex of
+      1 : vComando := vComando + ' AND PROD.TIPO_PRODUCAO = ' + QuotedStr('T');
+      2 : vComando := vComando + ' AND PROD.TIPO_PRODUCAO = ' + QuotedStr('E');
+    end;
+  end;
   fDMConsPedido.sdsPedido_Fat_Acum.CommandText := vComando + '  ' + vComandoAux;
   fDMConsPedido.cdsPedido_Fat_Acum.Open;
   fDMConsPedido.cdsPedido_Fat_Acum.IndexFieldNames := 'NOME_GRUPO_PESSOA;UNIDADE;REFERENCIA;NOME_PRODUTO;NOME_COR_COMBINACAO';
@@ -521,8 +535,10 @@ end;
 
 procedure TfrmConsPedido_Fat.RzPageControl1Change(Sender: TObject);
 begin
-  Label10.Visible := (RzPageControl1.ActivePage = TS_Item_Acum);
+  Label10.Visible          := (RzPageControl1.ActivePage = TS_Item_Acum);
   RxDBLookupCombo2.Visible := (RzPageControl1.ActivePage = TS_Item_Acum);
+  Label9.Visible    := (RzPageControl1.ActivePage <> TS_Fatura);
+  ComboBox2.Visible := (RzPageControl1.ActivePage <> TS_Fatura);
 end;
 
 end.

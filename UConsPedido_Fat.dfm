@@ -245,7 +245,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     Top = 146
     Width = 898
     Height = 465
-    ActivePage = TS_Item_Acum
+    ActivePage = TS_Fatura
     ActivePageDefault = TS_Item
     Align = alClient
     Color = 16755027
@@ -259,7 +259,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     ParentColor = False
     ParentFont = False
     TabColors.Unselected = clGray
-    TabIndex = 1
+    TabIndex = 3
     TabOrder = 1
     TextColors.Unselected = 5197647
     OnChange = RzPageControl1Change
@@ -324,6 +324,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
             FieldName = 'DESC_TIPO_PRODUCAO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Produ'#231#227'o'
+            Width = 64
             Visible = True
           end
           item
@@ -393,6 +394,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
             Expanded = False
             FieldName = 'UNIDADE'
             Title.Caption = 'Unid.'
+            Width = 64
             Visible = True
           end
           item
@@ -430,6 +432,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
             FieldName = 'NOME_COR_COMBINACAO'
             Title.Alignment = taCenter
             Title.Caption = 'Cor Combina'#231#227'o'
+            Width = 64
             Visible = True
           end
           item
@@ -437,6 +440,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
             FieldName = 'NOME_GRUPO_PESSOA'
             Title.Alignment = taCenter
             Title.Caption = 'Nome Grupo Pessoa'
+            Width = 64
             Visible = True
           end>
       end

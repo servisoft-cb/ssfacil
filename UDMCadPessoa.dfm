@@ -635,6 +635,12 @@ object DMCadPessoa: TDMCadPessoa
       FixedChar = True
       Size = 1
     end
+    object sdsPessoaINFADI_DESC_CPROD: TStringField
+      FieldName = 'INFADI_DESC_CPROD'
+    end
+    object sdsPessoaINFADI_DESC_OS: TStringField
+      FieldName = 'INFADI_DESC_OS'
+    end
   end
   object dspPessoa: TDataSetProvider
     DataSet = sdsPessoa
@@ -1318,6 +1324,12 @@ object DMCadPessoa: TDMCadPessoa
       FieldName = 'USA_PRECO_VAREJO'
       FixedChar = True
       Size = 1
+    end
+    object cdsPessoaINFADI_DESC_CPROD: TStringField
+      FieldName = 'INFADI_DESC_CPROD'
+    end
+    object cdsPessoaINFADI_DESC_OS: TStringField
+      FieldName = 'INFADI_DESC_OS'
     end
   end
   object dsPessoa: TDataSource

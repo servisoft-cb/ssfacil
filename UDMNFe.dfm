@@ -1071,6 +1071,12 @@ object DMNFe: TDMNFe
       FixedChar = True
       Size = 1
     end
+    object qClienteINFADI_DESC_CPROD: TStringField
+      FieldName = 'INFADI_DESC_CPROD'
+    end
+    object qClienteINFADI_DESC_OS: TStringField
+      FieldName = 'INFADI_DESC_OS'
+    end
   end
   object qTipoCobranca: TSQLQuery
     MaxBlobSize = -1

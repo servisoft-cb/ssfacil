@@ -1371,6 +1371,10 @@ type
     cdsPessoa_DownloadITEM: TIntegerField;
     cdsPessoa_DownloadPESSOA: TStringField;
     cdsPessoa_DownloadCNPJ_CPF: TStringField;
+    sdsPessoaINFADI_DESC_CPROD: TStringField;
+    sdsPessoaINFADI_DESC_OS: TStringField;
+    cdsPessoaINFADI_DESC_CPROD: TStringField;
+    cdsPessoaINFADI_DESC_OS: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;

@@ -377,7 +377,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     Top = 112
     Width = 1349
     Height = 346
-    ActivePage = TS_Cliente
+    ActivePage = TS_Cupom
     ActivePageDefault = TS_Cliente
     Align = alClient
     BackgroundColor = clGray
@@ -390,7 +390,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     ParentBackgroundColor = False
     ParentFont = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 7
     TabOrder = 2
     TextColors.Selected = clBlue
     FixedDimension = 19
