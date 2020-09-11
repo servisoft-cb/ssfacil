@@ -181,6 +181,11 @@ object DMCadTipoCobranca: TDMCadTipoCobranca
       FixedChar = True
       Size = 1
     end
+    object sdsTipoCobrancaRECIBO_TROCA: TStringField
+      FieldName = 'RECIBO_TROCA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspTipoCobranca: TDataSetProvider
     DataSet = sdsTipoCobranca
@@ -373,6 +378,11 @@ object DMCadTipoCobranca: TDMCadTipoCobranca
     end
     object cdsTipoCobrancaMOSTRAR_APP: TStringField
       FieldName = 'MOSTRAR_APP'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsTipoCobrancaRECIBO_TROCA: TStringField
+      FieldName = 'RECIBO_TROCA'
       FixedChar = True
       Size = 1
     end

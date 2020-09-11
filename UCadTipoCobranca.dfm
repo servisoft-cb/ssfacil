@@ -1,8 +1,8 @@
 object frmCadTipoCobranca: TfrmCadTipoCobranca
   Left = 194
-  Top = 59
+  Top = 28
   Width = 914
-  Height = 653
+  Height = 684
   Caption = 'Cadastro de Tipo de Cobran'#231'a'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,8 +21,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
     Left = 0
     Top = 0
     Width = 906
-    Height = 622
-    ActivePage = TS_Consulta
+    Height = 653
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -30,7 +30,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -39,7 +39,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
         Left = 0
         Top = 67
         Width = 902
-        Height = 515
+        Height = 546
         Align = alClient
         Ctl3D = False
         DataSource = DMCadTipoCobranca.dsTipoCobranca
@@ -408,7 +408,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 582
+        Top = 613
         Width = 902
         Height = 17
         Align = alBottom
@@ -796,7 +796,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
         Left = 0
         Top = 30
         Width = 902
-        Height = 569
+        Height = 600
         Align = alClient
         Enabled = False
         TabOrder = 0
@@ -1319,9 +1319,9 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
         end
         object Panel3: TPanel
           Left = 1
-          Top = 301
+          Top = 353
           Width = 900
-          Height = 267
+          Height = 246
           Align = alBottom
           TabOrder = 34
           object Panel12: TPanel
@@ -1563,7 +1563,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
             Left = 1
             Top = 33
             Width = 898
-            Height = 233
+            Height = 212
             Align = alClient
             Ctl3D = False
             DataSource = DMCadTipoCobranca.dsTipoCobranca_Itens
@@ -1693,6 +1693,18 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           DataField = 'MOSTRAR_APP'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
           TabOrder = 35
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
+        object DBCheckBox26: TDBCheckBox
+          Left = 384
+          Top = 294
+          Width = 201
+          Height = 17
+          Caption = 'Recibo de Troca (SSNFCe)'
+          DataField = 'RECIBO_TROCA'
+          DataSource = DMCadTipoCobranca.dsTipoCobranca
+          TabOrder = 36
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
