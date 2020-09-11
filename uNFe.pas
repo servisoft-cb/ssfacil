@@ -4497,10 +4497,10 @@ begin
         if vCodProdutoNFe <> '' then
         begin
           if trim(vDesc_ProdCliente) <> '' then
-            texto2 := vDesc_ProdCliente + ': '
+            texto2 := vDesc_ProdCliente + ':"' + vCodProdutoNfe + '"'
           else
-            texto2 := 'Prod. Cliente: ';
-          vTextoDetNFe := vTextoDetNFe + '(' + texto2 + vCodProdutoNfe + ')';
+            texto2 := 'Prod.Cliente:' + vCodProdutoNfe;
+          vTextoDetNFe := vTextoDetNFe + '(' + texto2 + ')';
         end
         else
         if (fDMCadNotaFiscal.cdsClienteIMP_COR_CLIENTE.AsString = 'S') then
@@ -4584,12 +4584,12 @@ begin
         begin
           texto2 := UpperCase(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString);
           if trim(vDesc_OS) <> '' then
-            Texto1 := Texto1 + vDesc_OS + ': ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ' '
+            Texto1 := Texto1 + vDesc_OS + ':"' + (fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + '"'
           else
           if PosEx('REM',texto2) > 0 then
-            Texto1 := Texto1 + 'OS: ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ' '
+            Texto1 := Texto1 + 'OS:' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ' '
           else
-            Texto1 := Texto1 + 'OS/REM: ' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ' ';
+            Texto1 := Texto1 + 'OS/REM:' + TirarAcento(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUMERO_OS.AsString) + ' ';
         end;
         if trim(Texto1) <> '' then
           Texto1 := '(' + Texto1 + ')';
@@ -4597,7 +4597,7 @@ begin
       end;
       //24/05/2017
       if (trim(fDMCadNotaFiscal.cdsNotaFiscal_ItensNUM_TALAO.AsString) <> '') and ((fDMCadNotaFiscal.qParametros_PedUSA_NUM_TALAO.AsString = 'I') or (fDMCadNotaFiscal.qParametros_PedUSA_NUM_TALAO.AsString = 'P')) then
-        Texto1 := Texto1 + '(LOTE: ' + fDMCadNotaFiscal.cdsNotaFiscal_ItensNUM_TALAO.AsString +')';
+        Texto1 := Texto1 + '(LOTE:' + fDMCadNotaFiscal.cdsNotaFiscal_ItensNUM_TALAO.AsString +')';
       if texto1 <> '' then
       begin
         if Trim(fDMNFe.mItensNFeInfAdicionais.Value) = '' then
