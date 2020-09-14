@@ -581,6 +581,7 @@ type
     vID_CFOP_Ant: Integer;
     vFinalidade_Ant: String;
     vPreFat : Boolean;
+    vMSG_PreFat_Erro : String;
 
     fDMCadNotaFiscal: TDMCadNotaFiscal;
     //fDMCadExtComissao: TDMCadExtComissao;
@@ -5337,6 +5338,7 @@ begin
     exit;
   end;
 
+  vMSG_PreFat_Erro := '';
   vFilial := fDMPreFat.cdsPreFatFILIAL.AsInteger;
   vPreFat := True;
   btnInserirClick(Self);
@@ -5371,12 +5373,15 @@ begin
   end;
   //******************
 
+  vMSG_PreFat_Erro := '';
   fDMPreFat.cdsPreFat_Itens.First;
   while not fDMPreFat.cdsPreFat_Itens.Eof do
   begin
     prc_Gravar_Itens_PreFat;
     fDMPreFat.cdsPreFat_Itens.Next;
   end;
+  if trim(vMSG_PreFat_Erro) <> '' then
+    MessageDlg('Abaixo os Pedidos que não foram copiados (Pedido por ID) ' + #13 + #13 + vMSG_PreFat_Erro , mtError, [mbOk], 0);
   FreeAndNil(fDMPreFat);
   //15/08/2019
   btnCalcular_ValoresClick(Sender);
@@ -5400,6 +5405,12 @@ begin
                                           + ' AND PI.ID = ' + IntToStr(fDMPreFat.cdsPreFat_ItensID_PEDIDO.AsInteger)
                                           + ' AND PI.ITEM = ' + IntToStr(fDMPreFat.cdsPreFat_ItensITEM_PEDIDO.AsInteger);
   fDMCadNotaFiscal.cdsPedido.Open;
+  if fDMCadNotaFiscal.cdsPedido.RecordCount <= 0 then
+  begin
+    vMSG_PreFat_Erro := vMSG_PreFat_Erro + #13 + '*** ID Pedido: ' + fDMPreFat.cdsPreFat_ItensID_PEDIDO.AsString + '   Item: ' + fDMPreFat.cdsPreFat_ItensITEM_PEDIDO.AsString;
+    exit;
+  end;
+
   if fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger <= 0 then
     fDMCadNotaFiscal.cdsNotaFiscalID_CFOP.AsInteger := fDMCadNotaFiscal.cdsPedidoID_CFOP.AsInteger;
 
