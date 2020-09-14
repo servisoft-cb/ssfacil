@@ -473,6 +473,29 @@ type
     cdsNotaFiscalFANTASIA: TStringField;
     qParametros_Cupom: TSQLQuery;
     qParametros_CupomUSA_PEDIDO: TStringField;
+    sdsGrupo_Pessoa: TSQLDataSet;
+    dspGrupo_Pessoa: TDataSetProvider;
+    cdsGrupo_Pessoa: TClientDataSet;
+    cdsGrupo_PessoaID: TIntegerField;
+    cdsGrupo_PessoaNOME: TStringField;
+    dsGrupo_Pessoa: TDataSource;
+    cdsNotaFiscalID_GRUPO_PESSOA: TIntegerField;
+    cdsNotaFiscalNOME_GRUPO_PESSOA: TStringField;
+    sdsNotaFiscal_Cli_Grupo: TSQLDataSet;
+    dspNotaFiscal_Cli_Grupo: TDataSetProvider;
+    cdsNotaFiscal_Cli_Grupo: TClientDataSet;
+    dsNotaFiscal_Cli_Grupo: TDataSource;
+    cdsNotaFiscal_Cli_GrupoCANCELADO: TStringField;
+    cdsNotaFiscal_Cli_GrupoTIPO_MOV: TStringField;
+    cdsNotaFiscal_Cli_GrupoVLR_TOTAL: TFloatField;
+    cdsNotaFiscal_Cli_GrupoQTD: TFloatField;
+    cdsNotaFiscal_Cli_GrupoVLR_LIQUIDO_NFSE: TFloatField;
+    cdsNotaFiscal_Cli_GrupoVLR_VENDAS: TFloatField;
+    cdsNotaFiscal_Cli_GrupoVLR_ICMSSUBST: TFloatField;
+    cdsNotaFiscal_Cli_GrupoID_GRUPO_PESSOA: TIntegerField;
+    cdsNotaFiscal_Cli_GrupoNOME_GRUPO_PESSOA: TStringField;
+    cdsNotaFiscal_Cli_GrupoclPerc_SobreFat: TFloatField;
+    frxNotaFiscal_Cli_Grupo: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscal_CliCalcFields(DataSet: TDataSet);
     procedure dspNotaFiscal_CliUpdateError(Sender: TObject;
@@ -492,6 +515,7 @@ type
     procedure cdsProduto_UFCalcFields(DataSet: TDataSet);
     procedure cdsGrupo_UFCalcFields(DataSet: TDataSet);
     procedure cdsNotaFiscal_Cli_Cid_DetCalcFields(DataSet: TDataSet);
+    procedure cdsNotaFiscal_Cli_GrupoCalcFields(DataSet: TDataSet);
   private
     { Private declarations }
     function fnc_Calcula_Perc_SobreFat(Valor: Real): Real;
@@ -674,6 +698,12 @@ begin
     cdsNotaFiscal_Cli_Cid_DetclPerc_SobreFat.AsFloat := StrToFloat(FormatFloat('0.000',vAux));
   end;
 
+end;
+
+procedure TDMConsFaturamento.cdsNotaFiscal_Cli_GrupoCalcFields(
+  DataSet: TDataSet);
+begin
+  cdsNotaFiscal_Cli_GrupoclPerc_SobreFat.AsFloat := fnc_Calcula_Perc_SobreFat(cdsNotaFiscal_Cli_GrupoVLR_TOTAL.AsFloat);
 end;
 
 end.

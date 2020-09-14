@@ -190,6 +190,9 @@ object DMConsFat: TDMConsFat
     object cdsFatAcumVLR_TROCA: TFloatField
       FieldName = 'VLR_TROCA'
     end
+    object cdsFatAcumVLR_RATEIO_RECIBO: TFloatField
+      FieldName = 'VLR_RATEIO_RECIBO'
+    end
   end
   object dsFatAcum: TDataSource
     DataSet = cdsFatAcum

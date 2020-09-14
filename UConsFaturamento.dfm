@@ -87,6 +87,14 @@ object frmConsFaturamento: TfrmConsFaturamento
       Alignment = taRightJustify
       Caption = 'Fornecedor:'
     end
+    object Label22: TLabel
+      Left = 504
+      Top = 9
+      Width = 67
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Grupo Cliente:'
+    end
     object RxDBLookupCombo1: TRxDBLookupCombo
       Left = 103
       Top = 21
@@ -98,7 +106,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       LookupDisplay = 'NOME_INTERNO'
       LookupSource = DMConsFaturamento.dsFilial
       ParentCtl3D = False
-      TabOrder = 2
+      TabOrder = 3
     end
     object RxDBLookupCombo2: TRxDBLookupCombo
       Left = 103
@@ -111,7 +119,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       LookupDisplay = 'NOME'
       LookupSource = DMConsFaturamento.dsCliente
       ParentCtl3D = False
-      TabOrder = 3
+      TabOrder = 4
       OnEnter = RxDBLookupCombo2Enter
       OnKeyDown = RxDBLookupCombo2KeyDown
     end
@@ -126,7 +134,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       LookupDisplay = 'NOME'
       LookupSource = DMConsFaturamento.dsProduto
       ParentCtl3D = False
-      TabOrder = 5
+      TabOrder = 6
       OnChange = RxDBLookupCombo3Change
       OnEnter = RxDBLookupCombo3Enter
     end
@@ -141,7 +149,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       LookupDisplay = 'REFERENCIA'
       LookupSource = DMConsFaturamento.dsProduto
       ParentCtl3D = False
-      TabOrder = 4
+      TabOrder = 5
       OnChange = RxDBLookupCombo4Change
       OnEnter = RxDBLookupCombo4Enter
     end
@@ -154,7 +162,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       NumGlyphs = 2
       ParentCtl3D = False
       StartOfWeek = Sun
-      TabOrder = 0
+      TabOrder = 1
     end
     object DateEdit2: TDateEdit
       Left = 231
@@ -165,7 +173,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       NumGlyphs = 2
       ParentCtl3D = False
       StartOfWeek = Sun
-      TabOrder = 1
+      TabOrder = 2
     end
     object NxComboBox2: TNxComboBox
       Left = 13
@@ -175,7 +183,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       Cursor = crArrow
       Alignment = taRightJustify
       Color = clSilver
-      TabOrder = 6
+      TabOrder = 0
       Text = 'Dt. Emiss'#227'o'
       ReadOnly = True
       HideFocus = False
@@ -187,7 +195,7 @@ object frmConsFaturamento: TfrmConsFaturamento
         'Dt. Entrada')
     end
     object btnConsultar: TNxButton
-      Left = 484
+      Left = 485
       Top = 65
       Width = 170
       Height = 30
@@ -254,7 +262,7 @@ object frmConsFaturamento: TfrmConsFaturamento
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 7
+      TabOrder = 10
       Transparent = True
       OnClick = btnConsultarClick
     end
@@ -328,7 +336,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       ParentFont = False
       PopupMenu = PopupMenu1
       ShowArrow = True
-      TabOrder = 8
+      TabOrder = 11
       Transparent = True
     end
     object cbImpCliente: TNxComboBox
@@ -337,7 +345,7 @@ object frmConsFaturamento: TfrmConsFaturamento
       Width = 244
       Height = 21
       Cursor = crArrow
-      TabOrder = 9
+      TabOrder = 8
       Text = 'Raz'#227'o Social'
       ReadOnly = True
       HideFocus = False
@@ -354,10 +362,10 @@ object frmConsFaturamento: TfrmConsFaturamento
       Width = 159
       Height = 17
       Caption = 'Somar Descontos'
-      TabOrder = 10
+      TabOrder = 12
     end
     object RxDBLookupCombo5: TRxDBLookupCombo
-      Left = 572
+      Left = 571
       Top = 41
       Width = 244
       Height = 21
@@ -368,7 +376,21 @@ object frmConsFaturamento: TfrmConsFaturamento
       LookupDisplay = 'NOME'
       LookupSource = DMConsFaturamento.dsFornecedor
       ParentCtl3D = False
-      TabOrder = 11
+      TabOrder = 9
+      OnEnter = RxDBLookupCombo5Enter
+    end
+    object RxDBLookupCombo6: TRxDBLookupCombo
+      Left = 572
+      Top = 1
+      Width = 244
+      Height = 21
+      DropDownCount = 15
+      Ctl3D = False
+      LookupField = 'ID'
+      LookupDisplay = 'NOME'
+      LookupSource = DMConsFaturamento.dsGrupo_Pessoa
+      ParentCtl3D = False
+      TabOrder = 7
       OnEnter = RxDBLookupCombo5Enter
     end
   end
@@ -391,7 +413,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     ParentFont = False
     TabColors.Shadow = clSilver
     TabIndex = 7
-    TabOrder = 2
+    TabOrder = 1
     TextColors.Selected = clBlue
     FixedDimension = 19
     object TS_Cliente: TRzTabSheet
@@ -401,7 +423,7 @@ object frmConsFaturamento: TfrmConsFaturamento
         Top = 0
         Width = 1345
         Height = 323
-        ActivePage = TS_Cliente_Acum
+        ActivePage = TS_Cliente_Grupo
         ActivePageDefault = TS_Cliente_Acum
         Align = alClient
         Color = 16755027
@@ -410,11 +432,11 @@ object frmConsFaturamento: TfrmConsFaturamento
         Font.Height = -11
         Font.Name = 'MS Sans Serif'
         Font.Style = []
-        FlatColor = clSilver
+        FlatColor = 16744576
         ParentColor = False
         ParentFont = False
         TabColors.Unselected = clGray
-        TabIndex = 0
+        TabIndex = 4
         TabOrder = 0
         TextColors.Unselected = 5197647
         FixedDimension = 19
@@ -883,6 +905,110 @@ object frmConsFaturamento: TfrmConsFaturamento
                 Expanded = False
                 FieldName = 'clPerc_SobreFat'
                 Width = 106
+                Visible = True
+              end>
+          end
+        end
+        object TS_Cliente_Grupo: TRzTabSheet
+          Color = 16755027
+          Caption = 'Por Grupo de Cliente'
+          object SMDBGrid21: TSMDBGrid
+            Left = 0
+            Top = 0
+            Width = 1341
+            Height = 300
+            Align = alClient
+            Ctl3D = False
+            DataSource = DMConsFaturamento.dsNotaFiscal_Cli_Grupo
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 0
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsCustom
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 17
+            ScrollBars = ssHorizontal
+            ColCount = 9
+            RowCount = 2
+            Columns = <
+              item
+                Expanded = False
+                FieldName = 'ID_GRUPO_PESSOA'
+                Title.Alignment = taCenter
+                Title.Caption = 'ID Grupo'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'NOME_GRUPO_PESSOA'
+                Title.Alignment = taCenter
+                Title.Caption = 'Nome Grupo'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_TOTAL'
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Total'
+                Width = 82
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_ICMSSUBST'
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. ST'
+                Width = 101
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_VENDAS'
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Vendas'
+                Width = 102
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'QTD'
+                Title.Alignment = taCenter
+                Title.Caption = 'Quantidade'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_LIQUIDO_NFSE'
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Servi'#231'o'
+                Width = 107
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'clPerc_SobreFat'
+                Title.Alignment = taCenter
+                Title.Caption = '% Sobre Faturamento'
+                Width = 124
                 Visible = True
               end>
           end
@@ -3372,7 +3498,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     Height = 27
     Align = alBottom
     Color = 16769217
-    TabOrder = 3
+    TabOrder = 2
     object Label1: TLabel
       Left = 594
       Top = 9
@@ -3478,7 +3604,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     Align = alTop
     BevelOuter = bvNone
     Color = clSilver
-    TabOrder = 1
+    TabOrder = 5
     object Label10: TLabel
       Left = 34
       Top = 6
@@ -3554,7 +3680,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     Height = 25
     Align = alBottom
     Color = 16769217
-    TabOrder = 4
+    TabOrder = 3
     object Label15: TLabel
       Left = 15
       Top = 10
@@ -3723,7 +3849,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     Height = 27
     Align = alBottom
     Color = 16769217
-    TabOrder = 5
+    TabOrder = 4
     Visible = False
     object Label17: TLabel
       Left = 594

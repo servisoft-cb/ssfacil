@@ -242,6 +242,7 @@ type
     mConsumoNome_Cor: TStringField;
     cdsConsFatConsumoNOME_COR_MAT: TStringField;
     cdsConsFatConsumoID_COR_PRODUTO: TIntegerField;
+    cdsFatAcumVLR_RATEIO_RECIBO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure frxReport1BeforePrint(Sender: TfrxReportComponent);
     procedure cdsComprasServicosCalcFields(DataSet: TDataSet);

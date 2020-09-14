@@ -77,6 +77,8 @@ type
     lblTroca: TLabel;
     Label5: TLabel;
     lblRecibo_Troca: TLabel;
+    Label46: TLabel;
+    lblRecibo_Usado: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -154,6 +156,7 @@ var
   vVlr_ISSQN, vVlr_ISSQN_Retido : Real;
   vVlr_Troca : Real;
   vVlr_Recibo_Troca : Real;
+  vVlr_Recibo_Usado : Real;
 begin
   vVlr_Total := 0;
   vVlr_Total_Bru := 0;
@@ -176,7 +179,7 @@ begin
   vVlr_ICMS_FCP_Dest := 0;
   vVlr_ISSQN         := 0;
   vVlr_ISSQN_Retido  := 0;
-
+  vVlr_Recibo_Usado  := 0;
   if RzPageControl1.ActivePage = ts_Geral then
   begin
     if chkAcrescimo.ItemChecked[1] then
@@ -266,6 +269,8 @@ begin
         vVlr_ICMS_FCP      := vVlr_ICMS_FCP + fDMConsFat.cdsFatAcumVLR_ICMS_FCP.AsFloat;
         vVlr_FCP_ST        := vVlr_FCP_ST + fDMConsFat.cdsFatAcumVLR_FCP_ST.AsFloat;
         vVlr_ICMS_FCP_Dest := vVlr_ICMS_FCP_Dest + fDMConsFat.cdsFatAcumVLR_ICMS_FCP_DEST.AsFloat;
+
+        vVlr_Recibo_Usado := vVlr_Recibo_Usado + fDMConsFat.cdsFatAcumVLR_RATEIO_RECIBO.AsFloat;
       end;
       fDMConsFat.cdsFatAcum.Next;
     end;
@@ -512,11 +517,14 @@ begin
   lblVlr_ISSQN.Caption        := FormatFloat('###,###,##0.00', vVlr_ISSQN);
   lblVlr_ISSQN_Retido.Caption := FormatFloat('###,###,##0.00', vVlr_ISSQN_Retido);
 
-  vVlr_Recibo_Troca       := fnc_Calcular_Recibo_Troca;
-  lblRecibo_Troca.Caption := FormatFloat('###,###,##0.00', vVlr_Recibo_Troca);
+  //vVlr_Recibo_Troca       := fnc_Calcular_Recibo_Troca;
+  //lblRecibo_Troca.Caption := FormatFloat('###,###,##0.00', vVlr_Recibo_Troca);
 
-  vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq + vVlr_Recibo_Troca - vVlr_Devolucao - vVlr_Troca ));
+  //vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq + vVlr_Recibo_Troca - vVlr_Devolucao - vVlr_Troca ));
+  vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq - vVlr_Recibo_Usado - vVlr_Devolucao - vVlr_Troca ));
   Label8.Caption := FormatFloat('###,###,##0.00', vAux);
+
+  lblRecibo_Usado.Caption := FormatFloat('###,###,##0.00', vVlr_Recibo_Usado);
 end;
 
 procedure TfrmConsFat.btImprimirClick(Sender: TObject);

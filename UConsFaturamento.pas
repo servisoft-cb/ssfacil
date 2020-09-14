@@ -158,6 +158,10 @@ type
     ComboBox2: TComboBox;
     Label21: TLabel;
     RxDBLookupCombo5: TRxDBLookupCombo;
+    TS_Cliente_Grupo: TRzTabSheet;
+    Label22: TLabel;
+    RxDBLookupCombo6: TRxDBLookupCombo;
+    SMDBGrid21: TSMDBGrid;
     procedure btnConsultarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -200,7 +204,6 @@ type
     fDMConsFaturamento: TDMConsFaturamento;
     ColunaOrdenada: String;
     vComando: String;
-    vOpcaoImp: String;
     vOpcaoVendedor: String;
     vOpcaoVendedor_Group: String;
 
@@ -211,6 +214,8 @@ type
     procedure prc_Consultar_Nota_Cli_UF; //05/10/2015
     procedure prc_Consultar_Nota_Cli_Cid; //05/10/2015
     procedure prc_Consultar_Nota_Cli_Cid_Det; //24/10/2018
+    procedure prc_Consultar_Nota_Cli_Grupo;
+    
     procedure prc_Consultar_Faturamento;
     procedure prc_Monta_Condicao;
     procedure prc_Consultar_Nota_Prod;
@@ -236,6 +241,8 @@ type
     procedure prc_Imprimir_Nota_Cli_UF;
     procedure prc_Imprimir_Nota_Cli_Cid;
     procedure prc_Imprimir_Nota_Cli_Cid_Det;
+    procedure prc_Imprimir_Nota_Cli_Grupo;
+
     procedure prc_Imprimir_Nota_Prod;
     procedure prc_Imprimir_Nota_DT;
     procedure prc_Imprimir_Produto_Det;
@@ -289,6 +296,9 @@ begin
     else
     if RzPageControl3.ActivePage = TS_Cliente_Cid then
       prc_Consultar_Nota_Cli_Cid
+    else
+    if RzPageControl3.ActivePage = TS_Cliente_Grupo then
+      prc_Consultar_Nota_Cli_Grupo
     else
       prc_Consultar_Nota_Cli_Cid_Det;
   end
@@ -412,6 +422,7 @@ var
 begin
   fDMConsFaturamento := TDMConsFaturamento.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMConsFaturamento);
+  fDMConsFaturamento.cdsGrupo_Pessoa.Open;
   fDMConsFaturamento.cdsFilial.First;
   if (fDMConsFaturamento.cdsFilial.RecordCount < 2) and (fDMConsFaturamento.cdsFilialID.AsInteger > 0) then
     RxDBLookupCombo1.KeyValue := fDMConsFaturamento.cdsFilialID.AsInteger;
@@ -600,6 +611,8 @@ begin
                              + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
   if vFornecedor > 0 then
     vComandoAux := vComandoAux + ' AND ID_FORNECEDOR = ' + IntToStr(vFornecedor);
+  if RxDBLookupCombo6.Text <> '' then
+    vComandoAux := vComandoAux + ' AND ID_GRUPO_PESSOA = ' + IntToStr(RxDBLookupCombo6.KeyValue);
   fDMConsFaturamento.qFaturamento.SQL.Text := vComandoAux;
   fDMConsFaturamento.qFaturamento.Open;
   
@@ -687,6 +700,8 @@ begin
       vComando := vComando + ' AND ' + vDescData + ' >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
     if DateEdit2.Date > 10 then
       vComando := vComando + ' AND ' + vDescData + ' <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
+    if RxDBLookupCombo6.Text <> '' then
+      vComando := vComando + ' AND CLI.ID_GRUPO = ' + IntToStr(RxDBLookupCombo6.KeyValue);
   end
   else
   //20/09/2019
@@ -754,6 +769,10 @@ begin
       vComando := vComando + ' AND V.ID_FORNECEDOR = ' + IntToStr(RxDBLookupCombo5.KeyValue);
     if (RxDBLookupCombo3.Text <> '') then
       vComando := vComando + ' AND V.ID_PRODUTO = ' + IntToStr(RxDBLookupCombo3.KeyValue);
+    //13/09/2020
+    if RxDBLookupCombo6.Text <> '' then
+      vComando := vComando + ' AND V.ID_GRUPO_PESSOA = ' + IntToStr(RxDBLookupCombo6.KeyValue);
+    //*********************
 
     if DateEdit1.Date > 10 then
       vComando := vComando + ' AND V.' + vDescData + ' >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
@@ -1794,6 +1813,9 @@ begin
     if RzPageControl3.ActivePage = TS_Cliente_Cid then
       prc_Imprimir_Nota_Cli_Cid
     else
+    if RzPageControl3.ActivePage = TS_Cliente_Grupo then
+      prc_Imprimir_Nota_Cli_Grupo
+    else
       prc_Imprimir_Nota_Cli_Cid_Det;
   end
   else
@@ -2314,6 +2336,46 @@ end;
 procedure TfrmConsFaturamento.RxDBLookupCombo5Enter(Sender: TObject);
 begin
   fDMConsFaturamento.cdsFornecedor.IndexFieldNames := 'NOME';
+end;
+
+procedure TfrmConsFaturamento.prc_Consultar_Nota_Cli_Grupo;
+var
+  vDesc: string;
+begin
+  vDesc := fnc_Monta_SQL_Vlr;
+  fDMConsFaturamento.cdsNotaFiscal_Cli_Grupo.Close;
+  fDMConsFaturamento.cdsNotaFiscal_Cli_Grupo.IndexFieldNames := '';
+  fDMConsFaturamento.sdsNotaFiscal_Cli_Grupo.CommandText := 'select V.CANCELADO, V.TIPO_MOV, '
+                                                            + ' sum(V.VLR_TOTAL) VLR_TOTAL, sum(V.QTD) QTD, sum(V.VLR_LIQUIDO_NFSE) VLR_LIQUIDO_NFSE, '
+                                                            + ' sum(V.VLR_TOTAL - V.VLR_LIQUIDO_NFSE) VLR_VENDAS, sum(V.VLR_ICMSSUBST) VLR_ICMSSUBST, V.ID_GRUPO_PESSOA, '
+                                                            + ' V.NOME_GRUPO_PESSOA ';
+  fDMConsFaturamento.sdsNotaFiscal_Cli_Grupo.CommandText := fDMConsFaturamento.sdsNotaFiscal_Cli_Grupo.CommandText + vComando
+                                                            + 'group by V.CANCELADO, V.TIPO_MOV, V.ID_GRUPO_PESSOA, V.NOME_GRUPO_PESSOA '
+                                                            + 'order by VLR_TOTAL desc ';
+  fDMConsFaturamento.cdsNotaFiscal_Cli_Grupo.Open;
+end;
+
+procedure TfrmConsFaturamento.prc_Imprimir_Nota_Cli_Grupo;
+var
+  vArq: String;
+begin
+  fDMConsFaturamento.cdsNotaFiscal_Cli_Grupo.First;
+  if not(fDMConsFaturamento.cdsNotaFiscal_Cli_Grupo.Active) then
+  begin
+    MessageDlg('*** Deve ser feita a consulta primeiro!', mtInformation, [mbOk], 0);
+    exit;
+  end;
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Faturamento_Cli_Grupo.fr3';
+  if FileExists(vArq) then
+    fDMConsFaturamento.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatorio não localizado! ' + vArq);
+    Exit;
+  end;
+  SMDBGrid21.DisableScroll;
+  fDMConsFaturamento.frxReport1.ShowReport;
+  SMDBGrid21.EnableScroll;
 end;
 
 end.

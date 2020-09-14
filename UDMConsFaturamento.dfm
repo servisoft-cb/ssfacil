@@ -818,13 +818,15 @@ object DMConsFaturamento: TDMConsFaturamento
       '.FANTASIA,'#13#10'       (select sum(I.VLR_TOTAL)'#13#10'        from NOTAFI' +
       'SCAL_ITENS I'#13#10'        inner join TAB_CFOP CFOP on I.ID_CFOP = CF' +
       'OP.ID'#13#10'        where I.ID = NT.ID and'#13#10'              CFOP.FATURA' +
-      'MENTO = '#39'S'#39') VLR_FATURAMENTO'#13#10'from NOTAFISCAL NT'#13#10'inner join PES' +
-      'SOA CLI on (NT.ID_CLIENTE = CLI.CODIGO)'#13#10'left join PESSOA VEN on' +
-      ' (NT.ID_VENDEDOR = VEN.CODIGO)'#13#10'where NT.CANCELADA = '#39'N'#39' and'#13#10'  ' +
-      '    NT.NFEDENEGADA = '#39'N'#39' and'#13#10'      (select sum(I.VLR_TOTAL)'#13#10'  ' +
-      '     from NOTAFISCAL_ITENS I'#13#10'       inner join TAB_CFOP CFOP on' +
-      ' I.ID_CFOP = CFOP.ID'#13#10'       where I.ID = NT.ID and'#13#10'           ' +
-      '  CFOP.FATURAMENTO = '#39'S'#39') > 0'#13#10
+      'MENTO = '#39'S'#39') VLR_FATURAMENTO, CLI.ID_GRUPO ID_GRUPO_PESSOA, GP.N' +
+      'OME NOME_GRUPO_PESSOA'#13#10'from NOTAFISCAL NT'#13#10'inner join PESSOA CLI' +
+      ' on (NT.ID_CLIENTE = CLI.CODIGO)'#13#10'left join GRUPO_PESSOA GP on C' +
+      'LI.ID_GRUPO = GP.ID'#13#10'left join PESSOA VEN on (NT.ID_VENDEDOR = V' +
+      'EN.CODIGO)'#13#10'where NT.CANCELADA = '#39'N'#39' and'#13#10'      NT.NFEDENEGADA =' +
+      ' '#39'N'#39' and'#13#10'      (select sum(I.VLR_TOTAL)'#13#10'       from NOTAFISCAL' +
+      '_ITENS I'#13#10'       inner join TAB_CFOP CFOP on I.ID_CFOP = CFOP.ID' +
+      #13#10'       where I.ID = NT.ID and'#13#10'             CFOP.FATURAMENTO =' +
+      ' '#39'S'#39') > 0   '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -905,6 +907,13 @@ object DMConsFaturamento: TDMConsFaturamento
     object cdsNotaFiscalFANTASIA: TStringField
       FieldName = 'FANTASIA'
       Size = 30
+    end
+    object cdsNotaFiscalID_GRUPO_PESSOA: TIntegerField
+      FieldName = 'ID_GRUPO_PESSOA'
+    end
+    object cdsNotaFiscalNOME_GRUPO_PESSOA: TStringField
+      FieldName = 'NOME_GRUPO_PESSOA'
+      Size = 40
     end
   end
   object dsNotaFiscal: TDataSource
@@ -1315,7 +1324,7 @@ object DMConsFaturamento: TDMConsFaturamento
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42222.414492245400000000
-    ReportOptions.LastChange = 42866.037645347200000000
+    ReportOptions.LastChange = 44087.908832731500000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -2850,5 +2859,138 @@ object DMConsFaturamento: TDMConsFaturamento
       FixedChar = True
       Size = 1
     end
+  end
+  object sdsGrupo_Pessoa: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'select *'#13#10'from grupo_pessoa'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 899
+    Top = 133
+  end
+  object dspGrupo_Pessoa: TDataSetProvider
+    DataSet = sdsGrupo_Pessoa
+    UpdateMode = upWhereKeyOnly
+    Left = 939
+    Top = 133
+  end
+  object cdsGrupo_Pessoa: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'NOME'
+    Params = <>
+    ProviderName = 'dspGrupo_Pessoa'
+    Left = 979
+    Top = 133
+    object cdsGrupo_PessoaID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsGrupo_PessoaNOME: TStringField
+      FieldName = 'NOME'
+      Size = 40
+    end
+  end
+  object dsGrupo_Pessoa: TDataSource
+    DataSet = cdsGrupo_Pessoa
+    Left = 1019
+    Top = 134
+  end
+  object sdsNotaFiscal_Cli_Grupo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select V.CANCELADO, V.TIPO_MOV,'#13#10'       sum(V.VLR_TOTAL) VLR_TOT' +
+      'AL, sum(V.QTD) QTD, sum(V.VLR_LIQUIDO_NFSE) VLR_LIQUIDO_NFSE,'#13#10' ' +
+      '      sum(V.VLR_TOTAL - V.VLR_LIQUIDO_NFSE) VLR_VENDAS, sum(V.VL' +
+      'R_ICMSSUBST) VLR_ICMSSUBST, V.ID_GRUPO_PESSOA,'#13#10'       V.NOME_GR' +
+      'UPO_PESSOA'#13#10'from VCONSFATURAMENTO V'#13#10'group by V.CANCELADO, V.TIP' +
+      'O_MOV, V.ID_GRUPO_PESSOA, V.NOME_GRUPO_PESSOA'#13#10'order by VLR_TOTA' +
+      'L desc  '#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 466
+    Top = 413
+  end
+  object dspNotaFiscal_Cli_Grupo: TDataSetProvider
+    DataSet = sdsNotaFiscal_Cli_Grupo
+    OnUpdateError = dspNotaFiscal_CliUpdateError
+    Left = 499
+    Top = 413
+  end
+  object cdsNotaFiscal_Cli_Grupo: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspNotaFiscal_Cli_Grupo'
+    OnCalcFields = cdsNotaFiscal_Cli_GrupoCalcFields
+    Left = 533
+    Top = 413
+    object cdsNotaFiscal_Cli_GrupoCANCELADO: TStringField
+      FieldName = 'CANCELADO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsNotaFiscal_Cli_GrupoTIPO_MOV: TStringField
+      FieldName = 'TIPO_MOV'
+      Size = 3
+    end
+    object cdsNotaFiscal_Cli_GrupoVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+      DisplayFormat = '###,###,##0.00'
+    end
+    object cdsNotaFiscal_Cli_GrupoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsNotaFiscal_Cli_GrupoVLR_LIQUIDO_NFSE: TFloatField
+      FieldName = 'VLR_LIQUIDO_NFSE'
+      DisplayFormat = '###,###,##0.00'
+    end
+    object cdsNotaFiscal_Cli_GrupoVLR_VENDAS: TFloatField
+      FieldName = 'VLR_VENDAS'
+      DisplayFormat = '###,###,##0.00'
+    end
+    object cdsNotaFiscal_Cli_GrupoVLR_ICMSSUBST: TFloatField
+      FieldName = 'VLR_ICMSSUBST'
+      DisplayFormat = '###,###,##0.00'
+    end
+    object cdsNotaFiscal_Cli_GrupoID_GRUPO_PESSOA: TIntegerField
+      FieldName = 'ID_GRUPO_PESSOA'
+    end
+    object cdsNotaFiscal_Cli_GrupoNOME_GRUPO_PESSOA: TStringField
+      FieldName = 'NOME_GRUPO_PESSOA'
+      Size = 60
+    end
+    object cdsNotaFiscal_Cli_GrupoclPerc_SobreFat: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'clPerc_SobreFat'
+      DisplayFormat = '###,###,##0.000'
+      Calculated = True
+    end
+  end
+  object dsNotaFiscal_Cli_Grupo: TDataSource
+    DataSet = cdsNotaFiscal_Cli_Grupo
+    Left = 562
+    Top = 413
+  end
+  object frxNotaFiscal_Cli_Grupo: TfrxDBDataset
+    UserName = 'frxNotaFiscal_Cli_Grupo'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'CANCELADO=CANCELADO'
+      'TIPO_MOV=TIPO_MOV'
+      'VLR_TOTAL=VLR_TOTAL'
+      'QTD=QTD'
+      'VLR_LIQUIDO_NFSE=VLR_LIQUIDO_NFSE'
+      'VLR_VENDAS=VLR_VENDAS'
+      'VLR_ICMSSUBST=VLR_ICMSSUBST'
+      'ID_GRUPO_PESSOA=ID_GRUPO_PESSOA'
+      'NOME_GRUPO_PESSOA=NOME_GRUPO_PESSOA'
+      'clPerc_SobreFat=clPerc_SobreFat')
+    DataSource = dsNotaFiscal_Cli_Grupo
+    BCDToCurrency = False
+    Left = 839
+    Top = 496
   end
 end
