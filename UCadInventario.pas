@@ -241,6 +241,8 @@ begin
 
   RzPageControl1.ActivePage := TS_Cadastro;
 
+  fDMCadInventario.cdsProduto.Close;
+
   prc_Habilita;
 end;
 
@@ -352,6 +354,8 @@ begin
     MessageDlg('*** Inventário já finalizado!', mtError, [mbOk], 0);
     exit;
   end;
+
+  fDMCadInventario.cdsProduto.Close;
 
   fDMCadInventario.cdsInventario.Edit;
   prc_Habilita;

@@ -551,8 +551,8 @@ object DMConsEstoque: TDMConsEstoque
       #13#10'SUM(EM.QTD_ENT * EM.vlr_unitario) VLR_ENTRADA,'#13#10'SUM(EM.QTD_SAI' +
       ' * EM.vlr_unitario) VLR_SAIDA,'#13#10'pro.unidade'#13#10'FROM ESTOQUE_MOV EM' +
       #13#10'INNER JOIN PRODUTO PRO'#13#10'ON EM.ID_PRODUTO = PRO.ID'#13#10'WHERE PRO.E' +
-      'STOQUE = '#39'S'#39#13#10'  AND PRO.INATIVO = '#39'N'#39#13#10'GROUP BY EM.id_produto, P' +
-      'RO.nome, PRO.REFERENCIA, pro.unidade'
+      'STOQUE = '#39'S'#39#13#10'GROUP BY EM.id_produto, PRO.nome, PRO.REFERENCIA, ' +
+      'pro.unidade'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -2297,8 +2297,8 @@ object DMConsEstoque: TDMConsEstoque
     CommandText = 
       'SELECT EM.id_produto, PRO.nome NOMEPRODUTO, PRO.REFERENCIA,'#13#10'SUM' +
       '(QTD2) SALDO'#13#10'FROM ESTOQUE_MOV EM'#13#10'INNER JOIN PRODUTO PRO'#13#10'ON EM' +
-      '.ID_PRODUTO = PRO.ID'#13#10'GROUP BY EM.id_produto, PRO.nome, PRO.REFE' +
-      'RENCIA'#13#10
+      '.ID_PRODUTO = PRO.ID'#13#10'WHERE PRO.ESTOQUE = '#39'S'#39#13#10'GROUP BY EM.id_pr' +
+      'oduto, PRO.nome, PRO.REFERENCIA'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
