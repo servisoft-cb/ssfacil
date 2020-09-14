@@ -35,6 +35,8 @@ type
 
     procedure prc_Gravar_Itens;
 
+    function fnc_existe_prod : Boolean;
+
   public
     { Public declarations }
     fDMCadInventario: TDMCadInventario;
@@ -168,6 +170,21 @@ begin
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then
       SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
+end;
+
+function TfrmCadInventario_Prod.fnc_existe_prod: Boolean;
+  //sds: TSQLDataSet;
+begin
+  {Result := False;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText := ' UPDATE TABELALOC SET FLAG = 1 WHERE TABELA = ' + QuotedStr('ESTOQUE_MOV');
+    sds.ExecSQL();
+   }
+
 end;
 
 end.
