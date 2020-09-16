@@ -358,7 +358,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label29: TLabel
       Left = 95
-      Top = 167
+      Top = 135
       Width = 32
       Height = 13
       Alignment = taRightJustify
@@ -373,7 +373,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label30: TLabel
       Left = 98
-      Top = 183
+      Top = 151
       Width = 29
       Height = 13
       Alignment = taRightJustify
@@ -388,7 +388,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label31: TLabel
       Left = 187
-      Top = 183
+      Top = 151
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -403,7 +403,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label32: TLabel
       Left = 187
-      Top = 167
+      Top = 135
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -418,7 +418,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label33: TLabel
       Left = 187
-      Top = 199
+      Top = 167
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -433,7 +433,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label34: TLabel
       Left = 81
-      Top = 199
+      Top = 167
       Width = 46
       Height = 13
       Alignment = taRightJustify
@@ -448,7 +448,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label35: TLabel
       Left = 92
-      Top = 351
+      Top = 319
       Width = 35
       Height = 13
       Alignment = taRightJustify
@@ -463,7 +463,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label36: TLabel
       Left = 187
-      Top = 351
+      Top = 319
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -478,7 +478,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label37: TLabel
       Left = 67
-      Top = 367
+      Top = 335
       Width = 60
       Height = 13
       Alignment = taRightJustify
@@ -493,7 +493,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label38: TLabel
       Left = 187
-      Top = 367
+      Top = 335
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -508,7 +508,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label39: TLabel
       Left = 59
-      Top = 455
+      Top = 423
       Width = 68
       Height = 13
       Alignment = taRightJustify
@@ -523,7 +523,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label40: TLabel
       Left = 187
-      Top = 455
+      Top = 423
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -538,7 +538,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label41: TLabel
       Left = 83
-      Top = 439
+      Top = 407
       Width = 44
       Height = 13
       Alignment = taRightJustify
@@ -553,7 +553,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label42: TLabel
       Left = 187
-      Top = 439
+      Top = 407
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -598,7 +598,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label6: TLabel
       Left = 12
-      Top = 131
+      Top = 105
       Width = 115
       Height = 13
       Alignment = taRightJustify
@@ -613,7 +613,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label8: TLabel
       Left = 187
-      Top = 131
+      Top = 105
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -628,7 +628,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label9: TLabel
       Left = 51
-      Top = 215
+      Top = 183
       Width = 76
       Height = 13
       Alignment = taRightJustify
@@ -643,7 +643,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label10: TLabel
       Left = 187
-      Top = 215
+      Top = 183
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -658,7 +658,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label11: TLabel
       Left = 99
-      Top = 391
+      Top = 359
       Width = 28
       Height = 13
       Alignment = taRightJustify
@@ -673,7 +673,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label12: TLabel
       Left = 83
-      Top = 407
+      Top = 375
       Width = 44
       Height = 13
       Alignment = taRightJustify
@@ -688,7 +688,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label13: TLabel
       Left = 187
-      Top = 407
+      Top = 375
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -703,7 +703,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label14: TLabel
       Left = 187
-      Top = 391
+      Top = 359
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -718,7 +718,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label15: TLabel
       Left = 19
-      Top = 487
+      Top = 455
       Width = 108
       Height = 13
       Alignment = taRightJustify
@@ -733,7 +733,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label16: TLabel
       Left = 187
-      Top = 487
+      Top = 455
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -748,7 +748,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label7: TLabel
       Left = 23
-      Top = 271
+      Top = 239
       Width = 102
       Height = 13
       Alignment = taRightJustify
@@ -763,7 +763,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label18: TLabel
       Left = 70
-      Top = 255
+      Top = 223
       Width = 55
       Height = 13
       Alignment = taRightJustify
@@ -778,7 +778,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label19: TLabel
       Left = 53
-      Top = 239
+      Top = 207
       Width = 72
       Height = 13
       Alignment = taRightJustify
@@ -793,7 +793,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label20: TLabel
       Left = 185
-      Top = 238
+      Top = 206
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -808,7 +808,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label21: TLabel
       Left = 185
-      Top = 255
+      Top = 223
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -823,7 +823,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label22: TLabel
       Left = 185
-      Top = 271
+      Top = 239
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -838,7 +838,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label43: TLabel
       Left = 60
-      Top = 303
+      Top = 271
       Width = 65
       Height = 13
       Alignment = taRightJustify
@@ -853,7 +853,7 @@ object frmConsFat: TfrmConsFat
     end
     object lblVlr_ISSQN: TLabel
       Left = 185
-      Top = 303
+      Top = 271
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -868,7 +868,7 @@ object frmConsFat: TfrmConsFat
     end
     object Label45: TLabel
       Left = 20
-      Top = 319
+      Top = 287
       Width = 105
       Height = 13
       Alignment = taRightJustify
@@ -883,7 +883,7 @@ object frmConsFat: TfrmConsFat
     end
     object lblVlr_ISSQN_Retido: TLabel
       Left = 185
-      Top = 319
+      Top = 287
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -897,12 +897,12 @@ object frmConsFat: TfrmConsFat
       Transparent = True
     end
     object Label44: TLabel
-      Left = 81
+      Left = 7
       Top = 69
-      Width = 46
+      Width = 120
       Height = 13
       Alignment = taRightJustify
-      Caption = 'V.Troca:'
+      Caption = 'V.Troca (Devolu'#231#227'o):'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -11
@@ -926,39 +926,9 @@ object frmConsFat: TfrmConsFat
       ParentFont = False
       Transparent = True
     end
-    object Label5: TLabel
-      Left = 49
-      Top = 87
-      Width = 78
-      Height = 13
-      Alignment = taRightJustify
-      Caption = 'Recibo Troca:'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Verdana'
-      Font.Style = []
-      ParentFont = False
-      Transparent = True
-    end
-    object lblRecibo_Troca: TLabel
-      Left = 187
-      Top = 87
-      Width = 25
-      Height = 13
-      Alignment = taRightJustify
-      Caption = '0,00'
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'Verdana'
-      Font.Style = []
-      ParentFont = False
-      Transparent = True
-    end
     object Label46: TLabel
       Left = 17
-      Top = 108
+      Top = 87
       Width = 110
       Height = 13
       Alignment = taRightJustify
@@ -973,7 +943,7 @@ object frmConsFat: TfrmConsFat
     end
     object lblRecibo_Usado: TLabel
       Left = 187
-      Top = 108
+      Top = 87
       Width = 25
       Height = 13
       Alignment = taRightJustify
