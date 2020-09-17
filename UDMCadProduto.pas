@@ -2031,6 +2031,7 @@ type
     cdsProdutoCODIGO_BALANCA: TIntegerField;
     qUltimoCodigoBalanca: TSQLQuery;
     qUltimoCodigoBalancaULTIMO: TIntegerField;
+    qParametros_ProdGERAR_CODBARRA_ID: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
@@ -2785,6 +2786,10 @@ begin
   if (cdsProdutoTIPO_MAT.AsString = 'P') or (cdsProdutoTIPO_MAT.AsString = 'R') or
      (cdsProdutoTIPO_MAT.AsString = 'O') or (cdsProdutoTIPO_MAT.AsString = 'C') then
     cdsProdutoSEPARA_COR.AsString := 'S';
+  //17/09/2020
+  if (qParametros_ProdGERAR_CODBARRA_ID.AsString = 'S') and (trim(cdsProdutoCOD_BARRA.AsString) = '') then
+    cdsProdutoCOD_BARRA.AsString := Monta_Numero(cdsProdutoID.AsString,6);
+  //*********************
 end;
 
 procedure TdmCadProduto.DoLogAdditionalValues(ATableName: string;

@@ -7244,6 +7244,11 @@ object dmCadProduto: TdmCadProduto
       FixedChar = True
       Size = 1
     end
+    object qParametros_ProdGERAR_CODBARRA_ID: TStringField
+      FieldName = 'GERAR_CODBARRA_ID'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsProduto_Cad_Ant: TSQLDataSet
     NoMetadata = True

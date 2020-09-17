@@ -3204,6 +3204,7 @@ type
     cdsNotaFiscalREFAZER_TITULOS: TStringField;
     mPedAux: TClientDataSet;
     mPedAuxID: TIntegerField;
+    qParametros_ProdGERAR_CODBARRA_ID: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
