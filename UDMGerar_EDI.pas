@@ -488,6 +488,10 @@ type
     qClienteUSA_TAMANHO_EDI_COD: TStringField;
     qEDI_ConfigGRAVAR_RESERVADO_OBS: TStringField;
     mAuxiliarReservado_OBS: TMemoField;
+    mAuxiliarEncerado: TStringField;
+    qParametros_Lote: TSQLQuery;
+    qParametros_LoteLOTE_TEXTIL: TStringField;
+    mAuxiliarVlrUnitario_Interno: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mAuxiliarNewRecord(DataSet: TDataSet);
   private

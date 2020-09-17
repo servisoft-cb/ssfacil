@@ -2086,6 +2086,12 @@ begin
   begin
     Background  := clMaroon;
     AFont.Color := clWhite;
+  end
+  else
+  if StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat)) <= 0 then
+  begin
+    Background  := clYellow;
+    AFont.Color := clBlack;
   end;
 end;
 

@@ -64,11 +64,11 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       Caption = 'Opera'#231#227'o de Venda:'
     end
     object Label4: TLabel
-      Left = 736
+      Left = 735
       Top = 30
-      Width = 137
+      Width = 144
       Height = 13
-      Caption = 'Com Erro (Pedido j'#225' lan'#231'ado)'
+      Caption = 'Com Aviso (Pedido j'#225' lan'#231'ado)'
     end
     object Shape2: TShape
       Left = 704
@@ -274,6 +274,8 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       DataSource = DMGerar_EDI.dsmAuxiliar
       Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
       ParentCtl3D = False
+      ParentShowHint = False
+      ShowHint = True
       TabOrder = 0
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clNavy
@@ -300,9 +302,18 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 27
+      ColCount = 28
       RowCount = 2
       Columns = <
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'Encerado'
+          Title.Alignment = taCenter
+          Title.Caption = 'Encerado (S/G/N) Engomado'
+          Width = 98
+          Visible = True
+        end
         item
           Alignment = taCenter
           Expanded = False
@@ -312,9 +323,11 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'NumOC'
           ReadOnly = True
+          Width = 88
           Visible = True
         end
         item
@@ -327,6 +340,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'Item_Cliente'
           ReadOnly = True
@@ -336,18 +350,21 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'Plano'
           ReadOnly = True
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'DtEmissao'
           ReadOnly = True
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'DtEntrega'
           ReadOnly = True
@@ -370,6 +387,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
           Visible = True
         end
         item
+          Alignment = taCenter
           Expanded = False
           FieldName = 'Unidade'
           ReadOnly = True

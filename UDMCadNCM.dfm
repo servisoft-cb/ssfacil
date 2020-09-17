@@ -122,7 +122,7 @@ object DMCadNCM: TDMCadNCM
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 88
+    Left = 87
     Top = 24
     object sdsNCMID: TIntegerField
       FieldName = 'ID'

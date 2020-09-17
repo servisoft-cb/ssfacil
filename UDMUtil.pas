@@ -77,6 +77,8 @@ begin
   Result := 0;
   if ID_Cor <= 0 then
     ID_Cor := 0;
+  if  UpperCase(Encerado) = 'E' then
+    Encerado := 'S';
   sds := TSQLDataSet.Create(nil);
   try
     sds.SQLConnection := dmDatabase.scoDados;

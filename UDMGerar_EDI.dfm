@@ -281,6 +281,15 @@ object DMGerar_EDI: TDMGerar_EDI
         Name = 'Reservado_OBS'
         DataType = ftMemo
         Size = 1
+      end
+      item
+        Name = 'Encerado'
+        DataType = ftString
+        Size = 1
+      end
+      item
+        Name = 'VlrUnitario_Interno'
+        DataType = ftFloat
       end>
     IndexDefs = <
       item
@@ -294,9 +303,9 @@ object DMGerar_EDI: TDMGerar_EDI
     StoreDefs = True
     OnNewRecord = mAuxiliarNewRecord
     Left = 384
-    Top = 33
+    Top = 34
     Data = {
-      CA0300009619E0BD010000001800000021000000000003000000CA030B434E50
+      030400009619E0BD01000000180000002300000000000300000003040B434E50
       4A436C69656E74650100490000000100055749445448020002001200054E756D
       4F430100490000000100055749445448020002000A00044974656D0400010000
       00000005506C616E6F0100490000000100055749445448020002000A00094474
@@ -325,8 +334,10 @@ object DMGerar_EDI: TDMGerar_EDI
       00055749445448020002006400124572726F5F50726F645F4E616F5F4C616E63
       0200030000000000104572726F5F5065645F4C616E6361646F02000300000000
       000D52657365727661646F5F4F425304004B0000000200075355425459504502
-      0049000500546578740005574944544802000200010001000D44454641554C54
-      5F4F524445520200820000000000}
+      0049000500546578740005574944544802000200010008456E63657261646F01
+      0049000000010005574944544802000200010013566C72556E69746172696F5F
+      496E7465726E6F080004000000000001000D44454641554C545F4F5244455202
+      00820000000000}
     object mAuxiliarCNPJCliente: TStringField
       FieldName = 'CNPJCliente'
       Size = 18
@@ -450,6 +461,13 @@ object DMGerar_EDI: TDMGerar_EDI
       FieldName = 'Reservado_OBS'
       BlobType = ftMemo
       Size = 1
+    end
+    object mAuxiliarEncerado: TStringField
+      FieldName = 'Encerado'
+      Size = 1
+    end
+    object mAuxiliarVlrUnitario_Interno: TFloatField
+      FieldName = 'VlrUnitario_Interno'
     end
   end
   object dsmAuxiliar: TDataSource
@@ -2366,6 +2384,21 @@ object DMGerar_EDI: TDMGerar_EDI
     object mOCItensentrega: TDataSetField
       FieldName = 'entrega'
       UnNamed = True
+    end
+  end
+  object qParametros_Lote: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'select LOTE_TEXTIL'
+      'from PARAMETROS_LOTE  ')
+    SQLConnection = dmDatabase.scoDados
+    Left = 383
+    Top = 265
+    object qParametros_LoteLOTE_TEXTIL: TStringField
+      FieldName = 'LOTE_TEXTIL'
+      FixedChar = True
+      Size = 1
     end
   end
 end
