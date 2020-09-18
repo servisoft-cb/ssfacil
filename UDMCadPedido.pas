@@ -3996,6 +3996,7 @@ begin
   ctHistSenha  := sdsHist_Senha.CommandText;
   ctPedidoImp_Itens := sdsPedidoImp_Itens.CommandText;
   ctqProduto_Cli := qProduto_Cli.SQL.Text;
+
   vID_Variacao := 0;
   cdsParametros.Close;
   cdsFilial.Close;
