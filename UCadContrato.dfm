@@ -22,9 +22,9 @@ object frmCadContrato: TfrmCadContrato
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 923
-    Height = 664
-    ActivePage = TS_Cadastro
+    Width = 931
+    Height = 672
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadContrato: TfrmCadContrato
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -41,8 +41,8 @@ object frmCadContrato: TfrmCadContrato
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 95
-        Width = 919
-        Height = 529
+        Width = 927
+        Height = 537
         Align = alClient
         BorderStyle = bsNone
         Ctl3D = False
@@ -78,7 +78,7 @@ object frmCadContrato: TfrmCadContrato
         WidthOfIndicator = 23
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 19
+        ColCount = 21
         RowCount = 2
         Columns = <
           item
@@ -217,12 +217,27 @@ object frmCadContrato: TfrmCadContrato
             FieldName = 'ID_CLIENTE'
             Title.Alignment = taCenter
             Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_CONTA_ORC'
+            Title.Alignment = taCenter
+            Title.Caption = 'Conta Or'#231'amento'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'NOME_CONTA_ORC_P'
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Conta Or'#231'amento Principal'
+            Width = 64
+            Visible = True
           end>
       end
       object pnlPesquisa: TPanel
         Left = 0
         Top = 30
-        Width = 919
+        Width = 927
         Height = 65
         Align = alTop
         Color = clSilver
@@ -400,8 +415,8 @@ object frmCadContrato: TfrmCadContrato
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 624
-        Width = 919
+        Top = 632
+        Width = 927
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -417,7 +432,7 @@ object frmCadContrato: TfrmCadContrato
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 919
+        Width = 927
         Height = 30
         Align = alTop
         Color = clSilver
@@ -651,7 +666,7 @@ object frmCadContrato: TfrmCadContrato
           Width = 153
           Height = 28
           Align = alLeft
-          Caption = 'Imprimir'
+          Caption = 'Contrato'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -724,7 +739,7 @@ object frmCadContrato: TfrmCadContrato
           Width = 153
           Height = 28
           Align = alLeft
-          Caption = 'Imprimir Lista'
+          Caption = 'Imprimir'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -16
@@ -787,9 +802,10 @@ object frmCadContrato: TfrmCadContrato
             FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
+          PopupMenu = PopupMenu1
+          ShowArrow = True
           TabOrder = 4
           Transparent = True
-          OnClick = NxButton1Click
         end
       end
     end
@@ -798,7 +814,7 @@ object frmCadContrato: TfrmCadContrato
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 919
+        Width = 927
         Height = 30
         Align = alTop
         Color = 8404992
@@ -1027,8 +1043,8 @@ object frmCadContrato: TfrmCadContrato
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 173
-        Width = 919
-        Height = 468
+        Width = 927
+        Height = 476
         ActivePage = TabSheet1
         ActivePageDefault = TabSheet1
         Align = alClient
@@ -1040,8 +1056,8 @@ object frmCadContrato: TfrmCadContrato
           object RzPageControl3: TRzPageControl
             Left = 0
             Top = 193
-            Width = 915
-            Height = 252
+            Width = 923
+            Height = 260
             ActivePage = TabSheet4
             ActivePageDefault = TabSheet4
             Align = alClient
@@ -1054,7 +1070,7 @@ object frmCadContrato: TfrmCadContrato
                 Left = 0
                 Top = 0
                 Width = 32
-                Height = 229
+                Height = 237
                 Align = alLeft
                 Color = clNavy
                 TabOrder = 0
@@ -1286,8 +1302,8 @@ object frmCadContrato: TfrmCadContrato
               object SMDBGrid2: TSMDBGrid
                 Left = 32
                 Top = 0
-                Width = 879
-                Height = 229
+                Width = 887
+                Height = 237
                 Align = alClient
                 Ctl3D = False
                 DataSource = DMCadOS.dsOS_Servico_Int
@@ -1520,8 +1536,8 @@ object frmCadContrato: TfrmCadContrato
               object SMDBGrid3: TSMDBGrid
                 Left = 32
                 Top = 0
-                Width = 879
-                Height = 229
+                Width = 887
+                Height = 237
                 Align = alClient
                 Ctl3D = False
                 DataSource = DMCadOS.dsOS_Material
@@ -1620,7 +1636,7 @@ object frmCadContrato: TfrmCadContrato
                 Left = 0
                 Top = 0
                 Width = 32
-                Height = 229
+                Height = 237
                 Align = alLeft
                 Color = clNavy
                 TabOrder = 1
@@ -1853,8 +1869,8 @@ object frmCadContrato: TfrmCadContrato
               object SMDBGrid4: TSMDBGrid
                 Left = 0
                 Top = 0
-                Width = 911
-                Height = 229
+                Width = 919
+                Height = 237
                 Align = alClient
                 DataSource = DMCadOS.dsOS_Servico_Int_Mes
                 Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -1914,8 +1930,8 @@ object frmCadContrato: TfrmCadContrato
               object SMDBGrid5: TSMDBGrid
                 Left = 0
                 Top = 0
-                Width = 911
-                Height = 229
+                Width = 919
+                Height = 237
                 Align = alClient
                 Ctl3D = False
                 DataSource = DMCadOS.dsOS_Servico_Hist
@@ -2070,13 +2086,13 @@ object frmCadContrato: TfrmCadContrato
           object Panel3: TPanel
             Left = 0
             Top = 0
-            Width = 915
+            Width = 923
             Height = 193
             Align = alTop
             Caption = 'Panel3'
             TabOrder = 0
             DesignSize = (
-              915
+              923
               193)
             object RzGroupBox7: TRzGroupBox
               Left = 310
@@ -2758,8 +2774,8 @@ object frmCadContrato: TfrmCadContrato
         object TabSheet2: TRzTabSheet
           Caption = ' Outros '
           DesignSize = (
-            915
-            445)
+            923
+            453)
           object RzGroupBox4: TRzGroupBox
             Left = 10
             Top = 9
@@ -2997,7 +3013,7 @@ object frmCadContrato: TfrmCadContrato
       object pnlCliente: TPanel
         Left = 0
         Top = 61
-        Width = 919
+        Width = 927
         Height = 112
         Align = alTop
         Enabled = False
@@ -3347,7 +3363,7 @@ object frmCadContrato: TfrmCadContrato
       object pnlNota: TPanel
         Left = 0
         Top = 30
-        Width = 919
+        Width = 927
         Height = 31
         Align = alTop
         Color = clSilver
@@ -3391,5 +3407,21 @@ object frmCadContrato: TfrmCadContrato
     NotAllowed = naDisabled
     Left = 746
     Top = 158
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 618
+    Top = 223
+    object Lista1: TMenuItem
+      Caption = 'Lista'
+      OnClick = Lista1Click
+    end
+    object PorContasdeOrcamento1: TMenuItem
+      Caption = 'Por Contas de Or'#231'camento'
+      OnClick = PorContasdeOrcamento1Click
+    end
+    object Excel1: TMenuItem
+      Caption = 'Excel'
+      OnClick = Excel1Click
+    end
   end
 end
