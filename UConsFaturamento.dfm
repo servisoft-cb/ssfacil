@@ -195,7 +195,7 @@ object frmConsFaturamento: TfrmConsFaturamento
         'Dt. Entrada')
     end
     object btnConsultar: TNxButton
-      Left = 485
+      Left = 484
       Top = 65
       Width = 170
       Height = 30
@@ -423,7 +423,7 @@ object frmConsFaturamento: TfrmConsFaturamento
         Top = 0
         Width = 1345
         Height = 323
-        ActivePage = TS_Cliente_Grupo
+        ActivePage = TS_Cliente_Acum
         ActivePageDefault = TS_Cliente_Acum
         Align = alClient
         Color = 16755027
@@ -436,7 +436,7 @@ object frmConsFaturamento: TfrmConsFaturamento
         ParentColor = False
         ParentFont = False
         TabColors.Unselected = clGray
-        TabIndex = 4
+        TabIndex = 0
         TabOrder = 0
         TextColors.Unselected = 5197647
         FixedDimension = 19
@@ -2261,10 +2261,11 @@ object frmConsFaturamento: TfrmConsFaturamento
       Caption = 'Cupom Fiscal'
       object pg_CupomFiscal: TRzPageControl
         Left = 0
-        Top = 0
+        Top = 33
         Width = 1345
-        Height = 323
+        Height = 290
         ActivePage = ts_CupomFiscalSintetico
+        ActivePageDefault = ts_CupomFiscalSintetico
         Align = alClient
         TabIndex = 0
         TabOrder = 0
@@ -2275,7 +2276,7 @@ object frmConsFaturamento: TfrmConsFaturamento
             Left = 0
             Top = 0
             Width = 1341
-            Height = 300
+            Height = 267
             Align = alClient
             Ctl3D = False
             DataSource = DMConsFaturamento.dsCupomFiscal
@@ -2307,9 +2308,18 @@ object frmConsFaturamento: TfrmConsFaturamento
             WidthOfIndicator = 11
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 8
+            ColCount = 9
             RowCount = 2
             Columns = <
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'TIPO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Tipo'
+                Width = 39
+                Visible = True
+              end
               item
                 Expanded = False
                 FieldName = 'FILIAL'
@@ -2370,7 +2380,7 @@ object frmConsFaturamento: TfrmConsFaturamento
             Left = 0
             Top = 0
             Width = 970
-            Height = 300
+            Height = 267
             Align = alClient
             TabOrder = 0
             object pnlTop: TPanel
@@ -2379,6 +2389,7 @@ object frmConsFaturamento: TfrmConsFaturamento
               Width = 968
               Height = 34
               Align = alTop
+              Color = clSilver
               TabOrder = 0
               DesignSize = (
                 968
@@ -2472,17 +2483,19 @@ object frmConsFaturamento: TfrmConsFaturamento
               Left = 1
               Top = 35
               Width = 968
-              Height = 264
+              Height = 231
               Align = alClient
+              Ctl3D = False
               DataSource = DMConsFaturamento.dsCupomFiscalAnalitico
               Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+              ParentCtl3D = False
               TabOrder = 1
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clWindowText
               TitleFont.Height = -11
               TitleFont.Name = 'MS Sans Serif'
               TitleFont.Style = []
-              Flat = False
+              Flat = True
               BandsFont.Charset = DEFAULT_CHARSET
               BandsFont.Color = clWindowText
               BandsFont.Height = -11
@@ -2508,14 +2521,14 @@ object frmConsFaturamento: TfrmConsFaturamento
             Left = 970
             Top = 0
             Width = 371
-            Height = 300
+            Height = 267
             Align = alRight
             TabOrder = 1
             object DBChart1: TDBChart
               Left = 1
               Top = 1
               Width = 369
-              Height = 298
+              Height = 265
               AllowPanning = pmNone
               AllowZoom = False
               BackWall.Brush.Color = clWhite
@@ -2612,7 +2625,7 @@ object frmConsFaturamento: TfrmConsFaturamento
             Left = 0
             Top = 0
             Width = 970
-            Height = 300
+            Height = 267
             Align = alClient
             TabOrder = 0
             object Panel8: TPanel
@@ -2621,6 +2634,7 @@ object frmConsFaturamento: TfrmConsFaturamento
               Width = 968
               Height = 34
               Align = alTop
+              Color = clSilver
               TabOrder = 0
               DesignSize = (
                 968
@@ -2677,10 +2691,12 @@ object frmConsFaturamento: TfrmConsFaturamento
               Left = 1
               Top = 35
               Width = 968
-              Height = 264
+              Height = 231
               Align = alClient
+              Ctl3D = False
               DataSource = DMConsFaturamento.dsCupomFiscalAnaliticoDia
               Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+              ParentCtl3D = False
               TabOrder = 1
               TitleFont.Charset = DEFAULT_CHARSET
               TitleFont.Color = clWindowText
@@ -2688,7 +2704,7 @@ object frmConsFaturamento: TfrmConsFaturamento
               TitleFont.Name = 'MS Sans Serif'
               TitleFont.Style = []
               OnTitleClick = SMDBGrid20TitleClick
-              Flat = False
+              Flat = True
               BandsFont.Charset = DEFAULT_CHARSET
               BandsFont.Color = clWindowText
               BandsFont.Height = -11
@@ -2714,14 +2730,14 @@ object frmConsFaturamento: TfrmConsFaturamento
             Left = 970
             Top = 0
             Width = 371
-            Height = 300
+            Height = 267
             Align = alRight
             TabOrder = 1
             object DBChart2: TDBChart
               Left = 1
               Top = 1
               Width = 369
-              Height = 298
+              Height = 265
               AllowPanning = pmNone
               AllowZoom = False
               BackWall.Brush.Color = clWhite
@@ -2822,6 +2838,41 @@ object frmConsFaturamento: TfrmConsFaturamento
               end
             end
           end
+        end
+      end
+      object NxPanel1: TNxPanel
+        Left = 0
+        Top = 0
+        Width = 1345
+        Height = 33
+        Align = alTop
+        UseDockManager = False
+        ParentBackground = False
+        TabOrder = 1
+        object cbTipoCupom: TNxComboBox
+          Left = 6
+          Top = 5
+          Width = 178
+          Height = 21
+          Cursor = crArrow
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+          TabOrder = 0
+          Text = 'Cupons NFCe Enviados'
+          ReadOnly = True
+          HideFocus = False
+          Style = dsDropDownList
+          AutoCompleteDelay = 0
+          ItemIndex = 0
+          Items.Strings = (
+            'Cupons NFCe Enviados'
+            'Cupons NFCe'
+            'Cupons CNF'
+            'Cupons CNF/NFCe')
         end
       end
     end
@@ -3664,14 +3715,6 @@ object frmConsFaturamento: TfrmConsFaturamento
       Caption = 'Total sem Devolu'#231#245'es'
       TabOrder = 4
     end
-    object chkCupomEnv: TCheckBox
-      Left = 786
-      Top = 1
-      Width = 159
-      Height = 17
-      Caption = 'Somente Cupons Enviados'
-      TabOrder = 5
-    end
   end
   object Panel5: TPanel
     Left = 0
@@ -3950,7 +3993,7 @@ object frmConsFaturamento: TfrmConsFaturamento
   end
   object PopupMenu1: TPopupMenu
     Left = 825
-    Top = 18
+    Top = 19
     object Imprimir1: TMenuItem
       Caption = 'Imprimir'
       OnClick = Imprimir1Click

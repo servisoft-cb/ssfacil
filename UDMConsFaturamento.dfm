@@ -1000,10 +1000,10 @@ object DMConsFaturamento: TDMConsFaturamento
     GetMetadata = False
     CommandText = 
       'SELECT NT.FILIAL, NT.DTEMISSAO, NT.NUMCUPOM, NT.ID_CLIENTE, CLI.' +
-      'NOME NOME_CLIENTE,'#13#10'NT.VLR_TOTAL, VEN.NOME NOME_VENDEDOR'#13#10'FROM C' +
-      'UPOMFISCAL NT'#13#10'LEFT JOIN PESSOA CLI ON (NT.ID_CLIENTE = CLI.CODI' +
-      'GO)'#13#10'LEFT JOIN PESSOA VEN ON (NT.ID_VENDEDOR = VEN.CODIGO)'#13#10'WHER' +
-      'E NT.CANCELADO = '#39'N'#39
+      'NOME NOME_CLIENTE,'#13#10'NT.VLR_TOTAL, VEN.NOME NOME_VENDEDOR, NT.TIP' +
+      'O'#13#10'FROM CUPOMFISCAL NT'#13#10'LEFT JOIN PESSOA CLI ON (NT.ID_CLIENTE =' +
+      ' CLI.CODIGO)'#13#10'LEFT JOIN PESSOA VEN ON (NT.ID_VENDEDOR = VEN.CODI' +
+      'GO)'#13#10'WHERE NT.CANCELADO = '#39'N'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1045,6 +1045,10 @@ object DMConsFaturamento: TDMConsFaturamento
     object cdsCupomFiscalNOME_VENDEDOR: TStringField
       FieldName = 'NOME_VENDEDOR'
       Size = 60
+    end
+    object cdsCupomFiscalTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 3
     end
   end
   object dsCupomFiscal: TDataSource

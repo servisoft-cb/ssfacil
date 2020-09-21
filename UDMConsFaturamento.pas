@@ -496,6 +496,7 @@ type
     cdsNotaFiscal_Cli_GrupoNOME_GRUPO_PESSOA: TStringField;
     cdsNotaFiscal_Cli_GrupoclPerc_SobreFat: TFloatField;
     frxNotaFiscal_Cli_Grupo: TfrxDBDataset;
+    cdsCupomFiscalTIPO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscal_CliCalcFields(DataSet: TDataSet);
     procedure dspNotaFiscal_CliUpdateError(Sender: TObject;

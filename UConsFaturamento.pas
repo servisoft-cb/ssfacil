@@ -102,7 +102,6 @@ type
     SMDBGrid16: TSMDBGrid;
     TS_ReciboNF: TRzTabSheet;
     SMDBGrid17: TSMDBGrid;
-    chkCupomEnv: TCheckBox;
     TS_Cliente_Cid_Det: TRzTabSheet;
     SMDBGrid18: TSMDBGrid;
     RzPageControl5: TRzPageControl;
@@ -162,6 +161,8 @@ type
     Label22: TLabel;
     RxDBLookupCombo6: TRxDBLookupCombo;
     SMDBGrid21: TSMDBGrid;
+    NxPanel1: TNxPanel;
+    cbTipoCupom: TNxComboBox;
     procedure btnConsultarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -471,7 +472,6 @@ begin
   CheckBox6.Visible    := (fDMConsFaturamento.qParametros_NFeMOSTRAR_VLR_DEVOL_CONS.AsString = 'S');
   Label12.Visible      := (fDMConsFaturamento.qParametros_NFeMOSTRAR_VLR_DEVOL_CONS.AsString = 'S');
   ceDevolucoes.Visible := (fDMConsFaturamento.qParametros_NFeMOSTRAR_VLR_DEVOL_CONS.AsString = 'S');
-  chkCupomEnv.Visible  := (fDMConsFaturamento.qParametrosUSA_CUPOM_FISCAL.AsString = 'S');
   //**************
   chkVendedor_Int.Visible := (fDMConsFaturamento.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S');
 
@@ -680,8 +680,12 @@ begin
       vComando := vComando + ' AND ' + vDescData + ' >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
     if DateEdit2.Date > 10 then
       vComando := vComando + ' AND ' + vDescData + ' <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
-    if chkCupomEnv.Checked then
-      vComando := vComando + ' AND NT.NFEPROTOCOLO is not null';
+    case cbTipoCupom.ItemIndex of
+      0 : vComando := vComando + ' AND NT.NFEPROTOCOLO is not null';
+      1 : vComando := vComando + ' AND NT.TIPO = ' + QuotedStr('NFC');
+      2 : vComando := vComando + ' AND NT.TIPO = ' + QuotedStr('CNF');
+      3 : vComando := vComando + ' AND (NT.TIPO = ' + QuotedStr('CNF') + ' or NT.TIPO = ' + QuotedStr('NFC') + ')';
+    end;
   end
   else
   if (RzPageControl1.ActivePage = TS_Nota) or (RzPageControl1.ActivePage = TS_ReciboNF) then
@@ -1232,13 +1236,13 @@ var
 begin
   fDMConsFaturamento.cdsCupomFiscal.Close;
   fDMConsFaturamento.sdsCupomFiscal.CommandText := 'SELECT NT.FILIAL, NT.DTEMISSAO, NT.NUMCUPOM, NT.ID_CLIENTE, CLI.NOME NOME_CLIENTE, '
-                                                 + 'NT.VLR_TOTAL, VEN.NOME NOME_VENDEDOR '
+                                                 + 'NT.VLR_TOTAL, VEN.NOME NOME_VENDEDOR, NT.TIPO '
                                                  + 'FROM CUPOMFISCAL NT '
                                                  + 'LEFT JOIN PESSOA CLI ON (NT.ID_CLIENTE = CLI.CODIGO) '
                                                  + 'LEFT JOIN PESSOA VEN ON (NT.ID_VENDEDOR = VEN.CODIGO) '
-                                                 + 'WHERE NT.CANCELADO = ' + QuotedStr('N')
+                                                 + 'WHERE NT.CANCELADO = ' + QuotedStr('N') + ' AND COALESCE(NT.NFEDENEGADA,' + QuotedStr('N') + ') = ' + QuotedStr('N')
                                                  + vComando
-                                                 + ' ORDER BY NT.FILIAL, NT.NUMCUPOM ';
+                                                 + ' ORDER BY NT.FILIAL, NT.TIPO, NT.NUMCUPOM ';
   fDMConsFaturamento.cdsCupomFiscal.Open;
 end;
 
@@ -1250,6 +1254,7 @@ begin
     exit;
   end;
   SMDBGrid8.DisableScroll;
+  fDMConsFaturamento.cdsCupomFiscal.IndexFieldNames := 'TIPO;NUMCUPOM';
   fRelFat_Cupom                    := TfRelFat_Cupom.Create(Self);
   fRelFat_Cupom.fDMConsFaturamento := fDMConsFaturamento;
   fRelFat_Cupom.RLReport1.PreviewModal;
@@ -2202,11 +2207,12 @@ begin
   vSelect := 'select first(' + edtQtdeProduto.Text +') SUM(NTI.QTD) QTD,SUM(NTI.VLR_TOTAL)VLR_TOTAL,P.REFERENCIA,' + vNome + ' NOME, NT.FILIAL '
               + 'from CUPOMFISCAL NT '
               + 'inner join CUPOMFISCAL_ITENS NTI on NTI.ID = NT.ID '
-              + 'inner join PRODUTO P on NTI.ID_PRODUTO = P.ID '
+              + 'inner join PRODUTO P on NTI.ID_PRODUTO = P.ID '                 
               + 'inner join PESSOA CLI on (NT.ID_CLIENTE = CLI.CODIGO) '
               + 'left join PESSOA VEN on (NT.ID_VENDEDOR = VEN.CODIGO) '
               + 'left join COMBINACAO COMB on NTI.ID_COR_COMBINACO = COMB.ID '
-              + 'where NT.CANCELADO = ' + QuotedStr('N')
+             // + 'where NT.CANCELADO = ' + QuotedStr('N')
+              + 'WHERE NT.CANCELADO = ' + QuotedStr('N') + ' AND COALESCE(NT.NFEDENEGADA,' + QuotedStr('N') + ') = ' + QuotedStr('N')
               + vComando
               + ' group by P.REFERENCIA, NT.FILIAL,' +  vNome;
   case tEnumTipo(rdgTipo.ItemIndex) of

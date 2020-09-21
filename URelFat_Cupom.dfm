@@ -190,109 +190,195 @@ object fRelFat_Cupom: TfRelFat_Cupom
       Width = 742
       Height = 146
       DataSource = DMConsFaturamento.dsCupomFiscal
-      object RLBand2: TRLBand
+      object RLGroup1: TRLGroup
         Left = 0
         Top = 0
         Width = 742
-        Height = 17
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -9
-        Font.Name = 'Arial'
-        Font.Style = []
-        ParentFont = False
-        object RLDBText1: TRLDBText
-          Left = 19
-          Top = 2
-          Width = 78
-          Height = 12
-          Alignment = taRightJustify
-          AutoSize = False
-          DataField = 'NUMCUPOM'
-          DataSource = DMConsFaturamento.dsCupomFiscal
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Arial'
-          Font.Style = []
-          ParentFont = False
-        end
-        object RLDBText2: TRLDBText
-          Left = 1
-          Top = 2
-          Width = 18
-          Height = 12
-          Alignment = taCenter
-          AutoSize = False
-          DataField = 'FILIAL'
-          DataSource = DMConsFaturamento.dsCupomFiscal
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Arial'
-          Font.Style = []
-          ParentFont = False
-        end
-        object RLDraw2: TRLDraw
+        Height = 77
+        DataFields = 'TIPO'
+        object RLBand2: TRLBand
           Left = 0
-          Top = 15
+          Top = 29
           Width = 742
-          Height = 2
-          Align = faBottom
-          DrawKind = dkLine
-          Pen.Style = psDot
-        end
-        object RLDBText7: TRLDBText
-          Left = 637
-          Top = 2
-          Width = 97
-          Height = 12
-          Alignment = taRightJustify
-          AutoSize = False
-          DataField = 'VLR_TOTAL'
-          DataSource = DMConsFaturamento.dsCupomFiscal
+          Height = 17
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Arial'
           Font.Style = []
           ParentFont = False
+          object RLDBText1: TRLDBText
+            Left = 19
+            Top = 2
+            Width = 78
+            Height = 12
+            Alignment = taRightJustify
+            AutoSize = False
+            DataField = 'NUMCUPOM'
+            DataSource = DMConsFaturamento.dsCupomFiscal
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
+          object RLDBText2: TRLDBText
+            Left = 1
+            Top = 2
+            Width = 18
+            Height = 12
+            Alignment = taCenter
+            AutoSize = False
+            DataField = 'FILIAL'
+            DataSource = DMConsFaturamento.dsCupomFiscal
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
+          object RLDraw2: TRLDraw
+            Left = 0
+            Top = 15
+            Width = 742
+            Height = 2
+            Align = faBottom
+            DrawKind = dkLine
+            Pen.Style = psDot
+          end
+          object RLDBText7: TRLDBText
+            Left = 637
+            Top = 2
+            Width = 97
+            Height = 12
+            Alignment = taRightJustify
+            AutoSize = False
+            DataField = 'VLR_TOTAL'
+            DataSource = DMConsFaturamento.dsCupomFiscal
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
+          object RLDBText10: TRLDBText
+            Left = 143
+            Top = 2
+            Width = 64
+            Height = 12
+            Alignment = taCenter
+            AutoSize = False
+            DataField = 'DTEMISSAO'
+            DataSource = DMConsFaturamento.dsCupomFiscal
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
+          object RLDBText11: TRLDBText
+            Left = 224
+            Top = 2
+            Width = 393
+            Height = 12
+            AutoSize = False
+            DataField = 'NOME_CLIENTE'
+            DataSource = DMConsFaturamento.dsCupomFiscal
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
         end
-        object RLDBText10: TRLDBText
-          Left = 143
-          Top = 2
-          Width = 64
-          Height = 12
-          Alignment = taCenter
-          AutoSize = False
-          DataField = 'DTEMISSAO'
-          DataSource = DMConsFaturamento.dsCupomFiscal
+        object RLBand3: TRLBand
+          Left = 0
+          Top = 46
+          Width = 742
+          Height = 14
+          BandType = btSummary
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
           Font.Name = 'Arial'
           Font.Style = []
           ParentFont = False
+          BeforePrint = RLBand3BeforePrint
+          object RLLabel5: TRLLabel
+            Left = 455
+            Top = 0
+            Width = 90
+            Height = 11
+            Caption = 'Total Por Tipo ===>'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLDBResult1: TRLDBResult
+            Left = 549
+            Top = 0
+            Width = 185
+            Height = 12
+            Alignment = taRightJustify
+            AutoSize = False
+            DataField = 'VLR_TOTAL'
+            DataSource = DMConsFaturamento.dsCupomFiscal
+            DisplayMask = '###,###,###,##0.00'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            Info = riSum
+            ParentFont = False
+          end
         end
-        object RLDBText11: TRLDBText
-          Left = 224
-          Top = 2
-          Width = 393
-          Height = 12
-          AutoSize = False
-          DataField = 'NOME_CLIENTE'
-          DataSource = DMConsFaturamento.dsCupomFiscal
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlack
-          Font.Height = -9
-          Font.Name = 'Arial'
-          Font.Style = []
-          ParentFont = False
+        object RLBand4: TRLBand
+          Left = 0
+          Top = 0
+          Width = 742
+          Height = 29
+          BandType = btHeader
+          object RLLabel7: TRLLabel
+            Left = 75
+            Top = 8
+            Width = 37
+            Height = 14
+            Caption = 'Tipo:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLDBText3: TRLDBText
+            Left = 116
+            Top = 7
+            Width = 38
+            Height = 14
+            DataField = 'TIPO'
+            DataSource = DMConsFaturamento.dsCupomFiscal
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -12
+            Font.Name = 'Verdana'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
         end
       end
-      object RLBand3: TRLBand
+      object RLBand5: TRLBand
         Left = 0
-        Top = 17
+        Top = 77
         Width = 742
         Height = 14
         BandType = btSummary
@@ -303,7 +389,7 @@ object fRelFat_Cupom: TfRelFat_Cupom
         Font.Style = []
         ParentFont = False
         BeforePrint = RLBand3BeforePrint
-        object RLLabel3: TRLLabel
+        object RLLabel8: TRLLabel
           Left = 4
           Top = 0
           Width = 82
@@ -317,7 +403,7 @@ object fRelFat_Cupom: TfRelFat_Cupom
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object RLLabel4: TRLLabel
+        object RLLabel10: TRLLabel
           Left = 89
           Top = 0
           Width = 82
@@ -330,12 +416,13 @@ object fRelFat_Cupom: TfRelFat_Cupom
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object RLLabel5: TRLLabel
-          Left = 496
+        object RLLabel13: TRLLabel
+          Left = 469
           Top = 0
-          Width = 48
+          Width = 75
           Height = 11
-          Caption = 'Total ===>'
+          Alignment = taRightJustify
+          Caption = 'Total Geral ===>'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
           Font.Height = -9
@@ -343,7 +430,7 @@ object fRelFat_Cupom: TfRelFat_Cupom
           Font.Style = [fsBold]
           ParentFont = False
         end
-        object RLDBResult1: TRLDBResult
+        object RLDBResult2: TRLDBResult
           Left = 549
           Top = 0
           Width = 185
