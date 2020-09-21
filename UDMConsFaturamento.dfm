@@ -1018,6 +1018,7 @@ object DMConsFaturamento: TDMConsFaturamento
   end
   object cdsCupomFiscal: TClientDataSet
     Aggregates = <>
+    AggregatesActive = True
     Params = <>
     ProviderName = 'dspCupomFiscal'
     Left = 112
@@ -1049,6 +1050,11 @@ object DMConsFaturamento: TDMConsFaturamento
     object cdsCupomFiscalTIPO: TStringField
       FieldName = 'TIPO'
       Size = 3
+    end
+    object cdsCupomFiscalvlrConsulta: TAggregateField
+      FieldName = 'vlrConsulta'
+      Active = True
+      Expression = 'sum(VLR_TOTAL)'
     end
   end
   object dsCupomFiscal: TDataSource
@@ -2735,6 +2741,7 @@ object DMConsFaturamento: TDMConsFaturamento
   end
   object cdsCupomFiscalAnalitico: TClientDataSet
     Aggregates = <>
+    AggregatesActive = True
     IndexFieldNames = 'QTD'
     Params = <>
     ProviderName = 'dspCupomFiscalAnalitico'
@@ -2763,6 +2770,11 @@ object DMConsFaturamento: TDMConsFaturamento
       DisplayLabel = 'Filial'
       FieldName = 'FILIAL'
     end
+    object cdsCupomFiscalAnaliticoVlrConsulta: TAggregateField
+      FieldName = 'VlrConsulta'
+      Active = True
+      Expression = 'SUM(VLR_TOTAL)'
+    end
   end
   object dsCupomFiscalAnalitico: TDataSource
     DataSet = cdsCupomFiscalAnalitico
@@ -2782,17 +2794,17 @@ object DMConsFaturamento: TDMConsFaturamento
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'FILIAL'
         ParamType = ptInput
       end
       item
-        DataType = ftUnknown
+        DataType = ftDate
         Name = 'DATAINICIAL'
         ParamType = ptInput
       end
       item
-        DataType = ftUnknown
+        DataType = ftDate
         Name = 'DATAFINAL'
         ParamType = ptInput
       end>
@@ -2809,6 +2821,7 @@ object DMConsFaturamento: TDMConsFaturamento
   end
   object cdsCupomFiscalAnaliticoDia: TClientDataSet
     Aggregates = <>
+    AggregatesActive = True
     IndexFieldNames = 'QTD'
     Params = <>
     ProviderName = 'dspCupomFiscalAnaliticoDia'
@@ -2827,6 +2840,11 @@ object DMConsFaturamento: TDMConsFaturamento
     object cdsCupomFiscalAnaliticoDiaDTEMISSAO: TDateField
       DisplayLabel = 'Data Emiss'#227'o'
       FieldName = 'DTEMISSAO'
+    end
+    object cdsCupomFiscalAnaliticoDiaVlrConsulta: TAggregateField
+      FieldName = 'VlrConsulta'
+      Active = True
+      Expression = 'SUM(VLR_TOTAL)'
     end
   end
   object dsCupomFiscalAnaliticoDia: TDataSource
