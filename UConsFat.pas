@@ -75,8 +75,6 @@ type
     lblVlr_ISSQN_Retido: TLabel;
     Label44: TLabel;
     lblTroca: TLabel;
-    Label5: TLabel;
-    lblRecibo_Troca: TLabel;
     Label46: TLabel;
     lblRecibo_Usado: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -154,8 +152,7 @@ var
   vVlr_Custo: Real;
   vVlr_ICMS_FCP, vVlr_FCP_ST, vVlr_ICMS_FCP_Dest : Real;
   vVlr_ISSQN, vVlr_ISSQN_Retido : Real;
-  vVlr_Troca : Real;
-  vVlr_Recibo_Troca : Real;
+  vVlr_Troca_Usada : Real;
   vVlr_Recibo_Usado : Real;
 begin
   vVlr_Total := 0;
@@ -169,7 +166,7 @@ begin
   vVlr_Desconto := 0;
   vVlr_Frete := 0;
   vVlr_Devolucao := 0;
-  vVlr_Troca     := 0;
+  vVlr_Troca_Usada  := 0;
   vVlr_ICMS_UF_Dest := 0;
   vVlr_IR := 0;
   vVlr_CSLL := 0;
@@ -245,9 +242,6 @@ begin
       if fDMConsFat.cdsFatAcumDEVOLUCAO.AsString = 'S' then
         vVlr_Devolucao := vVlr_Devolucao + fDMConsFat.cdsFatAcumVLR_TOTAL_LIQ.AsFloat
       else
-      if fDMConsFat.cdsFatAcumDEV_TROCA.AsString = 'TROCA' then
-        vVlr_Troca := vVlr_Troca + fDMConsFat.cdsFatAcumVLR_TOTAL_LIQ.AsFloat
-      else
       begin
         vVlr_Total         := vVlr_Total + fDMConsFat.cdsFatAcumVLR_TOTAL.AsFloat;
         vVlr_Total_Bru     := vVlr_Total_Bru + fDMConsFat.cdsFatAcumVLR_TOTAL_BRU.AsFloat;
@@ -271,6 +265,7 @@ begin
         vVlr_ICMS_FCP_Dest := vVlr_ICMS_FCP_Dest + fDMConsFat.cdsFatAcumVLR_ICMS_FCP_DEST.AsFloat;
 
         vVlr_Recibo_Usado := vVlr_Recibo_Usado + fDMConsFat.cdsFatAcumVLR_RATEIO_RECIBO.AsFloat;
+        vVlr_Troca_Usada  := vVlr_Troca_Usada + fDMConsFat.cdsFatAcumVLR_RATEIO_TROCA.AsFloat;
       end;
       fDMConsFat.cdsFatAcum.Next;
     end;
@@ -350,9 +345,6 @@ begin
         if fDMConsFat.cdsConsClienteDEVOLUCAO.AsString = 'S' then
           vVlr_Devolucao := vVlr_Devolucao + fDMConsFat.cdsConsClienteVLR_TOTAL_LIQ.AsFloat
         else
-        if fDMConsFat.cdsConsClienteDEV_TROCA.AsString = 'TROCA' then
-          vVlr_Troca := vVlr_Troca + fDMConsFat.cdsConsClienteVLR_TOTAL_LIQ.AsFloat
-        else
         begin
           vVlr_Total         := vVlr_Total + fDMConsFat.cdsConsClienteVLR_TOTAL.AsFloat;
           vVlr_Total_Bru     := vVlr_Total_Bru + fDMConsFat.cdsConsClienteVLR_TOTAL_BRU.AsFloat;
@@ -373,6 +365,7 @@ begin
           vVlr_ICMS_FCP_Dest := vVlr_ICMS_FCP_Dest + fDMConsFat.cdsConsClienteVLR_ICMS_FCP_DEST.AsFloat;
           vVlr_ISSQN         := vVlr_ISSQN + fDMConsFat.cdsConsClienteVLR_ISSQN.AsFloat;
           vVlr_ISSQN_Retido  := vVlr_ISSQN_Retido + fDMConsFat.cdsConsClienteVLR_ISSQN_RETIDO.AsFloat;
+
         end;
       end;
       fDMConsFat.cdsConsCliente.Next;
@@ -455,9 +448,6 @@ begin
         if fDMConsFat.cdsConsDataDEVOLUCAO.AsString = 'S' then
           vVlr_Devolucao := vVlr_Devolucao + fDMConsFat.cdsConsDataVLR_TOTAL_LIQ.AsFloat
         else
-        if fDMConsFat.cdsConsDataDEV_TROCA.AsString = 'TROCA' then
-          vVlr_Troca := vVlr_Troca + fDMConsFat.cdsConsDataVLR_TOTAL_LIQ.AsFloat
-        else
         begin
           vVlr_Total := vVlr_Total + fDMConsFat.cdsConsDataVLR_TOTAL.AsFloat;
           vVlr_Total_Bru := vVlr_Total_Bru + fDMConsFat.cdsConsDataVLR_TOTAL_BRU.AsFloat;
@@ -493,7 +483,6 @@ begin
   Label28.Caption := FormatFloat('###,###,##0.00', vVlr_Total_Liq);
 
   lblDevolucao.Caption  := FormatFloat('###,###,##0.00', vVlr_Devolucao);
-  lblTroca.Caption      := FormatFloat('###,###,##0.00', vVlr_Troca);
 
   Label32.Caption := FormatFloat('###,###,##0.00', vVlr_IPI);
   Label31.Caption := FormatFloat('###,###,##0.00', vVlr_ST);
@@ -521,10 +510,11 @@ begin
   //lblRecibo_Troca.Caption := FormatFloat('###,###,##0.00', vVlr_Recibo_Troca);
 
   //vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq + vVlr_Recibo_Troca - vVlr_Devolucao - vVlr_Troca ));
-  vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq - vVlr_Recibo_Usado - vVlr_Devolucao - vVlr_Troca ));
+  vAux := StrToFloat(FormatFloat('0.00', vVlr_Total_Liq - vVlr_Recibo_Usado - vVlr_Devolucao - vVlr_Troca_Usada));
   Label8.Caption := FormatFloat('###,###,##0.00', vAux);
 
   lblRecibo_Usado.Caption := FormatFloat('###,###,##0.00', vVlr_Recibo_Usado);
+  lblTroca.Caption        := FormatFloat('###,###,##0.00', vVlr_Troca_Usada);
 end;
 
 procedure TfrmConsFat.btImprimirClick(Sender: TObject);

@@ -121,6 +121,8 @@ begin
 end;
 
 procedure TfrmGerar_Pedido_EDI.FormShow(Sender: TObject);
+var
+  i : Integer;
 begin
   fDMGerar_EDI := TDMGerar_EDI.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMGerar_EDI);
@@ -129,6 +131,12 @@ begin
   fDMGerar_EDI.prc_Abre_Operacao;
   RxDBLookupCombo1.KeyValue := fDMGerar_EDI.qParametrosID_OPERACAO_VENDA.AsInteger;
   CheckBox1.Checked         := (fDMGerar_EDI.qParametros_PedEDI_USAR_PRECO_TAB.AsString <> 'S');
+  fDMGerar_EDI.qParametros_Lote.Open;
+  for i := 0 to SMDBGrid3.ColCount - 2 do
+  begin
+    if SMDBGrid3.Columns[i].FieldName = 'Encerado' then
+      SMDBGrid3.Columns[i].Visible := (fDMGerar_EDI.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
+  end;
 end;
 
 procedure TfrmGerar_Pedido_EDI.prc_Gravar_mAuxiliar;
@@ -137,6 +145,7 @@ var
   vTexto: String;
   vTexto2 : String;
   i : Integer;
+  vPrecoAux: Real;
 begin
   fDMGerar_EDI.mAuxiliar.Insert;
   fDMGerar_EDI.mAuxiliarCNPJCliente.AsString       := vCNPJ_Cliente;
@@ -282,6 +291,7 @@ begin
     fDMGerar_EDI.mAuxiliarErro.AsBoolean := True;
     vErro := True;
   end;
+  fDMGerar_EDI.mAuxiliarEncerado.AsString := 'N';
   fDMGerar_EDI.mAuxiliar.Post;
 end;
 
@@ -317,8 +327,6 @@ begin
     begin
       ReadLn(F,Registro);
       Registro := TirarAcento(Registro);
-      //03/02/2014 foi alterado porque estava repetindo o mesmo cnpj para todos os pedidos
-      //if (vCNPJ_Cliente = '') and not(fnc_Verifica_Cliente) then
       if not(fnc_Verifica_Cliente('')) then
       begin
         vErro := True;
@@ -598,7 +606,9 @@ begin
 
   //fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger     := fDMCadPedido.cdsPedidoID_CFOP.AsInteger;
   //fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger := vID_Variacao;
-
+  //17/09/2020
+  fDMCadPedido.cdsPedido_ItensENCERADO.AsString := fDMGerar_EDI.mAuxiliarEncerado.AsString;
+  //*****************
   prc_Mover_Dados;
   fDMCadPedido.cdsPedido_ItensDRAWBACK.AsString := fDMGerar_EDI.mAuxiliarDrawback.AsString;
 
@@ -724,7 +734,9 @@ begin
     vPrecoAux := StrToFloat(FormatFloat('0.00000',vPreco_Pos))
   else
   if fDMCadPedido.cdsClienteID_TAB_PRECO.AsInteger > 0 then
-    vPrecoAux := DMUtil.fnc_Buscar_Preco(fDMCadPedido.cdsClienteID_TAB_PRECO.AsInteger,fDMCadPedido.cdsProdutoID.AsInteger,0,'N');
+    //17/09/2020
+    //vPrecoAux := DMUtil.fnc_Buscar_Preco(fDMCadPedido.cdsClienteID_TAB_PRECO.AsInteger,fDMCadPedido.cdsProdutoID.AsInteger,0,'N');
+    vPrecoAux := DMUtil.fnc_Buscar_Preco(fDMCadPedido.cdsClienteID_TAB_PRECO.AsInteger,fDMCadPedido.cdsProdutoID.AsInteger,0,fDMCadPedido.cdsPedido_ItensENCERADO.AsString);
   if StrToFloat(FormatFloat('0.0000',vPrecoAux)) > 0 then
     fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat := StrToFloat(FormatFloat('0.000000',vPrecoAux))
   else

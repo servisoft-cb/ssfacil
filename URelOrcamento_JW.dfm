@@ -897,9 +897,9 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           ParentFont = False
         end
         object RLDraw4: TRLDraw
-          Left = 0
+          Left = 521
           Top = 171
-          Width = 1071
+          Width = 549
           Height = 21
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -908,7 +908,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           Font.Style = []
         end
         object RLLabel32: TRLLabel
-          Left = 9
+          Left = 529
           Top = 175
           Width = 63
           Height = 12
@@ -922,11 +922,52 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           ParentFont = False
         end
         object RLDBText41: TRLDBText
-          Left = 76
+          Left = 595
           Top = 175
-          Width = 53
+          Width = 470
           Height = 12
+          AutoSize = False
           DataField = 'NOME_TRA'
+          DataSource = DMCadPedido.dsPedidoImp
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDraw12: TRLDraw
+          Left = 0
+          Top = 171
+          Width = 525
+          Height = 21
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+        end
+        object RLLabel39: TRLLabel
+          Left = 15
+          Top = 175
+          Width = 45
+          Height = 12
+          Alignment = taRightJustify
+          Caption = 'Vendedor:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDBText43: TRLDBText
+          Left = 64
+          Top = 175
+          Width = 448
+          Height = 12
+          AutoSize = False
+          DataField = 'NOME_VENDEDOR'
           DataSource = DMCadPedido.dsPedidoImp
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack

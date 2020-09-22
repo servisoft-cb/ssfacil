@@ -1032,6 +1032,11 @@ type
     sdsOSIMPRIME_CONTRATO_POR_ITEM: TStringField;
     cdsOSIMPRIME_CONTRATO_POR_ITEM: TStringField;
     frxBIFFExport1: TfrxBIFFExport;
+    cdsOS_ConsultaCLIENTE_CONTA_ID: TIntegerField;
+    cdsOS_ConsultaCOD_CONTA_ORC: TStringField;
+    cdsOS_ConsultaNOME_CONTA_ORC: TStringField;
+    cdsOS_ConsultaNOME_CONTA_ORC_P: TStringField;
+    cdsOS_ConsultaCOD_CONTA_ORC_P: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspOSUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

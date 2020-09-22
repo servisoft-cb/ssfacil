@@ -1002,6 +1002,7 @@ object fMenu: TfMenu
         end
         object ConsultaNotasServio1: TMenuItem
           Caption = 'Consulta Notas Servi'#231'o'
+          OnClick = ConsultaNotasServio1Click
         end
         object OrdemdeServioConsulta1: TMenuItem
           Caption = 'Ordem de Servi'#231'o (Consulta)'

@@ -74,7 +74,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 22
+        ColCount = 23
         RowCount = 2
         Columns = <
           item
@@ -157,6 +157,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'VLR_DESPESAS'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Despesas'
+            Width = 64
             Visible = True
           end
           item
@@ -164,6 +165,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'VLR_JUROSPAGOS'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Juros Pagos'
+            Width = 64
             Visible = True
           end
           item
@@ -180,6 +182,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'TRANSFERENCIA_ICMS'
             Title.Alignment = taCenter
             Title.Caption = 'Transf. ICMS'
+            Width = 64
             Visible = True
           end
           item
@@ -201,6 +204,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'COD_BANCO'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Banco'
+            Width = 64
             Visible = True
           end
           item
@@ -242,6 +246,13 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             Title.Alignment = taCenter
             Title.Caption = 'Conta Or'#231'amento'
             Width = 213
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'CNPJ_CPF'
+            Title.Alignment = taCenter
+            Title.Caption = 'CNPJ/CPF'
             Visible = True
           end>
       end
@@ -466,9 +477,10 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
+          PopupMenu = PopupMenu2
+          ShowArrow = True
           TabOrder = 2
           Transparent = True
-          OnClick = NxButton1Click
         end
       end
       object Panel3: TPanel
@@ -807,6 +819,18 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
     object PorClienteFornecedor1: TMenuItem
       Caption = 'Por Cliente/Fornecedor'
       OnClick = PorClienteFornecedor1Click
+    end
+  end
+  object PopupMenu2: TPopupMenu
+    Left = 726
+    Top = 230
+    object Listadaconsulta1: TMenuItem
+      Caption = 'Lista da consulta'
+      OnClick = Listadaconsulta1Click
+    end
+    object AuditorFinanceiro1: TMenuItem
+      Caption = 'Auditor Financeiro'
+      OnClick = AuditorFinanceiro1Click
     end
   end
 end

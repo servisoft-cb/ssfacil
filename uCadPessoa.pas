@@ -621,6 +621,7 @@ type
     DBEdit118: TDBEdit;
     Label216: TLabel;
     DBEdit119: TDBEdit;
+    SpeedButton12: TSpeedButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -755,6 +756,7 @@ type
     procedure edtCNPJXMLExit(Sender: TObject);
     procedure NxButton1Click(Sender: TObject);
     procedure NxButton2Click(Sender: TObject);
+    procedure SpeedButton12Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadPessoa: TDMCadPessoa;
@@ -774,7 +776,7 @@ type
     procedure prc_Configurarr_vTipoPessoa;
     procedure prc_Limpar_Edit_Consulta;
     procedure prc_Abrir_Pessoas_Outras;
-    procedure prc_Chamar_frmSel_ContaOrc(Campo: string; Codigo: Integer);
+    procedure prc_Chamar_frmSel_ContaOrc(Campo: string; Codigo: Integer ; Tipo_RD : String = '');
     procedure prc_Posiciona_Pessoa;
     procedure prc_Inserir_mResumo(Tipo, Codigo, Nome: string);
     procedure prc_Abrir_EnqIPI(ID: Integer);
@@ -1829,13 +1831,20 @@ end;
 procedure TfrmCadPessoa.RxDBLookupCombo18KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if (Key = Vk_F2) then
-    prc_Chamar_frmSel_ContaOrc('CLIENTE_CONTA_ID', fDMCadPessoa.cdsPessoaCLIENTE_CONTA_ID.AsInteger);
+    prc_Chamar_frmSel_ContaOrc('CLIENTE_CONTA_ID', fDMCadPessoa.cdsPessoaCLIENTE_CONTA_ID.AsInteger,'R');
 end;
 
-procedure TfrmCadPessoa.prc_Chamar_frmSel_ContaOrc(Campo: string; Codigo: Integer);
+procedure TfrmCadPessoa.prc_Chamar_frmSel_ContaOrc(Campo: string; Codigo: Integer ; Tipo_RD : String = '');
 begin
   vID_ContaOrcamento_Pos := Codigo;
   frmSel_ContaOrc := TfrmSel_ContaOrc.Create(Self);
+  if Tipo_RD = 'R' then
+    frmSel_ContaOrc.ComboBox2.ItemIndex := 0
+  else
+  if Tipo_RD = 'D' then
+    frmSel_ContaOrc.ComboBox2.ItemIndex := 1
+  else
+    frmSel_ContaOrc.ComboBox2.ItemIndex := 2;
   frmSel_ContaOrc.ShowModal;
   fDMCadPessoa.cdsPessoa.FieldByName(Campo).AsInteger := vID_ContaOrcamento_Pos;
 end;
@@ -1843,7 +1852,7 @@ end;
 procedure TfrmCadPessoa.RxDBLookupCombo19KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
 begin
   if (Key = Vk_F2) then
-    prc_Chamar_frmSel_ContaOrc('FORNECEDOR_CONTA_ID', fDMCadPessoa.cdsPessoaFORNECEDOR_CONTA_ID.AsInteger);
+    prc_Chamar_frmSel_ContaOrc('FORNECEDOR_CONTA_ID', fDMCadPessoa.cdsPessoaFORNECEDOR_CONTA_ID.AsInteger,'D');
 end;
 
 procedure TfrmCadPessoa.RxDBLookupCombo20KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
@@ -3123,6 +3132,12 @@ begin
   if MessageDlg('Deseja excluir este registro ' + fDMCadPessoa.cdsPessoa_DownloadCNPJ_CPF.AsString + '?', mtConfirmation, [mbYes, mbNo], 0) <> mrYes then
     exit;
   fDMCadPessoa.cdsPessoa_Download.Delete;
+end;
+
+procedure TfrmCadPessoa.SpeedButton12Click(Sender: TObject);
+begin
+  fDMCadPessoa.cdsContaOrcamento.Close;
+  fDMCadPessoa.cdsContaOrcamento.Open;
 end;
 
 end.

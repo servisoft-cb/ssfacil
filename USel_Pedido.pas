@@ -967,6 +967,9 @@ begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_DESC_ESTOQUE.AsFloat := StrToFloat(FormatFloat('0.0000',fnc_Desc_Estoque));
       if fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_DESC_ESTOQUE.AsFloat > fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat then
         fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_DESC_ESTOQUE.AsFloat := fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat;
+      if fDMCadNotaFiscal.cdsPedidoID_MOVESTOQUE.AsInteger > 0 then
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N'
+      else
       if StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_DESC_ESTOQUE.AsFloat)) >= StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat)) then
         fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N'
       else

@@ -990,4 +990,61 @@ object DMCadInventario: TDMCadInventario
       Required = True
     end
   end
+  object mNaoGravados: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID_Produto'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_Cor'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Tamanho'
+        DataType = ftString
+        Size = 10
+      end
+      item
+        Name = 'Data'
+        DataType = ftDate
+      end
+      item
+        Name = 'Num_Inventario'
+        DataType = ftInteger
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 749
+    Top = 454
+    Data = {
+      7C0000009619E0BD0100000018000000050000000000030000007C000A49445F
+      50726F6475746F04000100000000000649445F436F7204000100000000000754
+      616D616E686F0100490000000100055749445448020002000A00044461746104
+      000600000000000E4E756D5F496E76656E746172696F04000100000000000000}
+    object mNaoGravadosID_Produto: TIntegerField
+      FieldName = 'ID_Produto'
+    end
+    object mNaoGravadosID_Cor: TIntegerField
+      FieldName = 'ID_Cor'
+    end
+    object mNaoGravadosTamanho: TStringField
+      FieldName = 'Tamanho'
+      Size = 10
+    end
+    object mNaoGravadosData: TDateField
+      FieldName = 'Data'
+    end
+    object mNaoGravadosNum_Inventario: TIntegerField
+      FieldName = 'Num_Inventario'
+    end
+  end
+  object dsmNaoGravados: TDataSource
+    DataSet = mNaoGravados
+    Left = 794
+    Top = 453
+  end
 end

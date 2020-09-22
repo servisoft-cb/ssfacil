@@ -371,6 +371,7 @@ type
     ReciboPagamento1: TMenuItem;
     N5: TMenuItem;
     EnviarEmail1: TMenuItem;
+    ckSelItem: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -2086,6 +2087,12 @@ begin
   begin
     Background  := clMaroon;
     AFont.Color := clWhite;
+  end
+  else
+  if StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat)) <= 0 then
+  begin
+    Background  := clYellow;
+    AFont.Color := clBlack;
   end;
 end;
 
@@ -2326,6 +2333,8 @@ begin
 end;
 
 procedure TfrmCadPedido.prc_Posiciona_Imp;
+var
+  vItem1, vItem2 : String;
 begin
   fDMCadPedido.cdsFilial.Locate('ID',fDMCadPedido.cdsPedido_ConsultaFILIAL.AsInteger,[loCaseInsensitive]);
 
@@ -2336,6 +2345,15 @@ begin
   fDMCadPedido.cdsPedidoImp_Itens.Close;
   fDMCadPedido.sdsPedidoImp_Itens.ParamByName('ID').AsInteger := fDMCadPedido.cdsPedido_ConsultaID.AsInteger;
   fDMCadPedido.cdsPedidoImp_Itens.Open;
+
+  fDMCadPedido.cdsPedidoImp_Itens.Filtered := False;
+  if ckSelItem.Checked then
+  begin
+    vItem1 := Monta_Texto(InputBox('Item Inicial','Item Inicial:','0'),1);
+    vItem2 := Monta_Texto(InputBox('Item Final','Item Final:','99999'),1);
+    fDMCadPedido.cdsPedidoImp_Itens.Filter := 'ITEM >= ' + vItem1 + ' and ITEM <= ' + vItem2;
+    fDMCadPedido.cdsPedidoImp_Itens.Filtered := True;
+  end;
   fDMCadPedido.cdsPedidoImp_Itens.First;
 
   if ckImpAcumulado.Checked then
@@ -3473,7 +3491,9 @@ begin
     fDMCadPedido.frxReport1.variables['ImpMaterial'] := QuotedStr('S');
   vArqPDF := '';
   if not Gerar_PDF then
-    fDMCadPedido.frxReport1.ShowReport
+  begin
+    fDMCadPedido.frxReport1.ShowReport;
+  end
   else
   begin
     vArqPDF := ExtractFilePath(Application.ExeName) + 'Temp\Pedido_' + FormatFloat('000000',fDMCadPedido.cdsPedidoImpNUM_PEDIDO.AsInteger) + '.pdf';

@@ -49,6 +49,9 @@ type
     PopupMenu1: TPopupMenu;
     PorDatadeLiquidao1: TMenuItem;
     PorClienteFornecedor1: TMenuItem;
+    PopupMenu2: TPopupMenu;
+    Listadaconsulta1: TMenuItem;
+    AuditorFinanceiro1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -62,9 +65,10 @@ type
     procedure btnRecalcularClick(Sender: TObject);
     procedure RxDBLookupCombo4KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
-    procedure NxButton1Click(Sender: TObject);
     procedure PorDatadeLiquidao1Click(Sender: TObject);
     procedure PorClienteFornecedor1Click(Sender: TObject);
+    procedure Listadaconsulta1Click(Sender: TObject);
+    procedure AuditorFinanceiro1Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadDuplicata          : TDMCadDuplicata;
@@ -74,6 +78,8 @@ type
     procedure prc_Consultar;
     procedure prc_Le_cdsPagto;
     procedure prc_Gerar_Lista_Excel(planilha: Variant);
+    procedure prc_Gerar_Lista_Excel_Auditor(planilha: Variant);
+
     procedure prc_Monta_Cab;
 
   public
@@ -282,28 +288,6 @@ begin
   end;
 end;
 
-procedure TfrmConsDuplicata_Pag.NxButton1Click(Sender: TObject);
-var
-  planilha: variant;
-  vTexto: string;
-begin
-  Screen.Cursor := crHourGlass;
-  fDMCadDuplicata.cdsPagto.First;
-
-  planilha := CreateoleObject('Excel.Application');
-  planilha.WorkBooks.add(1);
-  planilha.caption := 'Exportando dados do dbGrid para o Excel';
-  planilha.visible := true;
-
-  prc_Gerar_Lista_Excel(planilha);
-
-  planilha.columns.Autofit;
-  vTexto := ExtractFilePath(Application.ExeName);
-
-  Planilha.ActiveWorkBook.SaveAs(vTexto + 'Pagamentos.XLS');
-  Screen.Cursor := crDefault;
-end;
-
 procedure TfrmConsDuplicata_Pag.prc_Gerar_Lista_Excel(planilha: Variant);
 var
   linha, coluna: integer;
@@ -318,7 +302,6 @@ begin
   linha := 2;
   ColunaP := 0;
   i2 := 0;
-//  arrumar aqui
 
   for coluna := 1 to fDMCadDuplicata.cdsPagto.FieldCount do
   begin
@@ -445,6 +428,107 @@ begin
   fDMCadDuplicata.frxReport1.variables['TIPO']     := QuotedStr(vOpcao_ES);
   fDMCadDuplicata.frxReport1.variables['ImpOpcao'] := QuotedStr(vOpcao_Imp);
   fDMCadDuplicata.frxReport1.ShowReport;
+end;
+
+procedure TfrmConsDuplicata_Pag.Listadaconsulta1Click(Sender: TObject);
+var
+  planilha: variant;
+  vTexto: string;
+begin
+  Screen.Cursor := crHourGlass;
+  fDMCadDuplicata.cdsPagto.First;
+
+  planilha := CreateoleObject('Excel.Application');
+  planilha.WorkBooks.add(1);
+  planilha.caption := 'Exportando dados do dbGrid para o Excel';
+  planilha.visible := true;
+
+  prc_Gerar_Lista_Excel(planilha);
+
+  planilha.columns.Autofit;
+  vTexto := ExtractFilePath(Application.ExeName);
+
+  Planilha.ActiveWorkBook.SaveAs(vTexto + 'Pagamentos.XLS');
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmConsDuplicata_Pag.AuditorFinanceiro1Click(Sender: TObject);
+var
+  planilha: variant;
+  vTexto: string;
+begin
+  Screen.Cursor := crHourGlass;
+  fDMCadDuplicata.cdsPagto.First;
+
+  planilha := CreateoleObject('Excel.Application');
+  try
+    planilha.WorkBooks.add(1);
+    planilha.caption := 'Exportando dados do dbGrid para o Excel';
+    planilha.visible := true;
+
+    prc_Gerar_Lista_Excel_Auditor(planilha);
+
+    planilha.columns.Autofit;
+    vTexto := ExtractFilePath(Application.ExeName);
+
+  finally
+    Planilha.ActiveWorkBook.SaveAs(vTexto + 'Auditor.XLS');
+    Screen.Cursor := crDefault;
+  end;
+end;
+
+procedure TfrmConsDuplicata_Pag.prc_Gerar_Lista_Excel_Auditor(
+  planilha: Variant);
+var
+  linha, coluna: integer;
+  valorCampo: string;
+  vNome_Grupo: string;
+  vFlag: Boolean;
+  ColunaP: Integer;
+  i2: Integer;
+  ano, mes, dia: Word;
+  vTexto: string;
+begin
+  linha := 0;
+  i2 := 0;
+  fDMCadDuplicata.cdsPagto.First;
+  while not fDMCadDuplicata.cdsPagto.Eof do
+  begin
+    linha := Linha + 1;
+    for coluna := 1 to fDMCadDuplicata.cdsPagto.FieldCount do
+    begin
+      vTexto := fDMCadDuplicata.cdsPagto.Fields[coluna - 1].AsString;
+      if trim(vTexto) <> '' then
+        valorcampo := fDMCadDuplicata.cdsPagto.Fields[coluna - 1].Value
+      else
+        valorcampo := '';
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'CNPJ_CPF') then
+        planilha.cells[linha, 1] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'DTVENCIMENTO') then
+        planilha.cells[linha, 2] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'DTLANCAMENTO') then
+        planilha.cells[linha, 3] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'NOME_TIPO_COBRANCA') then
+        planilha.cells[linha, 4] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'VLR_PARCELA') then
+      begin
+        //planilha.Cells[linha, 5].NumberFormat := 'R$ #.##0,00_);(R$ #.##0,000##)';
+        planilha.cells[linha, 5] := StrToFloat(valorCampo)
+      end
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'VLR_PAGAMENTO') then
+      begin
+        //planilha.Cells[linha, 6].NumberFormat := 'R$ #.##0,00_);(R$ #.##0,000##)';
+        planilha.cells[linha, 6] := StrToFloat(valorCampo);
+      end;
+      //planilha.cells[linha, colunaP].font.size := 11; // Tamanho da Fonte
+    end;
+    fDMCadDuplicata.cdsPagto.Next;
+  end;
 end;
 
 end.

@@ -460,6 +460,7 @@ type
     vCODCFOP_NFCe: String;
     vFilial_Local: Integer;
     vGerar_Estoque: String;
+    vExiste_Prod_Novo : Boolean;
 
     ffrmRecebeXML_ConsItens: TfrmRecebeXML_ConsItens;
     ffrmSel_Produto: TfrmSel_Produto;
@@ -920,6 +921,7 @@ begin
   fDMRecebeXML.mItensNota.EmptyDataSet;
   fDMRecebeXML.mParc.EmptyDataSet;
 
+  vExiste_Prod_Novo := False;
   fDMRecebeXML.cdsDetalhe.First;
   while not fDMRecebeXML.cdsDetalhe.Eof do
   begin
@@ -954,6 +956,11 @@ begin
       fDMRecebeXML.mParc.Post;
     end;
   end;
+
+  if (vExiste_Prod_Novo) and (fDMRecebeXML.qParametros_RecXMLAVISAR_PRODUTO_NOVO.AsString = 'S') then
+    MessageDlg('*** Existe produto novo, favor verificar!' + #13 + #13+
+               '    Não fazendo o relacionamento com um produto interno, ' +#13 +
+               ' o sistema vai criar um novo registro do produto '  , mtInformation, [mbOk], 0);
 end;
 
 procedure TfrmRecebeXML.Grava_mItensNota;
@@ -1243,6 +1250,9 @@ begin
       fDMRecebeXML.mItensNotaANP_ID.AsInteger := StrToInt(vTexto);
   end;
   //********************
+
+  if fDMRecebeXML.mItensNotaCodProdutoInterno.AsInteger <= 0 then
+    vExiste_Prod_Novo := True;
 
   fDMRecebeXML.mItensNota.Post;
 end;
@@ -3421,8 +3431,16 @@ begin
     end
     else
     begin
-      Label4.Visible := False;
-      Label4.Caption := 'Mensagem';
+      if (vExiste_Prod_Novo) and (fDMRecebeXML.qParametros_RecXMLAVISAR_PRODUTO_NOVO.AsString = 'S') then
+      begin
+        Label4.Visible := True;
+        Label4.Caption := 'Verificar Produtos Novos';
+      end
+      else
+      begin
+        Label4.Visible := False;
+        Label4.Caption := 'Mensagem';
+      end;
     end;
   end;
 end;

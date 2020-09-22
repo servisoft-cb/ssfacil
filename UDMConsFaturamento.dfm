@@ -1000,10 +1000,10 @@ object DMConsFaturamento: TDMConsFaturamento
     GetMetadata = False
     CommandText = 
       'SELECT NT.FILIAL, NT.DTEMISSAO, NT.NUMCUPOM, NT.ID_CLIENTE, CLI.' +
-      'NOME NOME_CLIENTE,'#13#10'NT.VLR_TOTAL, VEN.NOME NOME_VENDEDOR'#13#10'FROM C' +
-      'UPOMFISCAL NT'#13#10'LEFT JOIN PESSOA CLI ON (NT.ID_CLIENTE = CLI.CODI' +
-      'GO)'#13#10'LEFT JOIN PESSOA VEN ON (NT.ID_VENDEDOR = VEN.CODIGO)'#13#10'WHER' +
-      'E NT.CANCELADO = '#39'N'#39
+      'NOME NOME_CLIENTE,'#13#10'NT.VLR_TOTAL, VEN.NOME NOME_VENDEDOR, NT.TIP' +
+      'O'#13#10'FROM CUPOMFISCAL NT'#13#10'LEFT JOIN PESSOA CLI ON (NT.ID_CLIENTE =' +
+      ' CLI.CODIGO)'#13#10'LEFT JOIN PESSOA VEN ON (NT.ID_VENDEDOR = VEN.CODI' +
+      'GO)'#13#10'WHERE NT.CANCELADO = '#39'N'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1018,6 +1018,7 @@ object DMConsFaturamento: TDMConsFaturamento
   end
   object cdsCupomFiscal: TClientDataSet
     Aggregates = <>
+    AggregatesActive = True
     Params = <>
     ProviderName = 'dspCupomFiscal'
     Left = 112
@@ -1045,6 +1046,15 @@ object DMConsFaturamento: TDMConsFaturamento
     object cdsCupomFiscalNOME_VENDEDOR: TStringField
       FieldName = 'NOME_VENDEDOR'
       Size = 60
+    end
+    object cdsCupomFiscalTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 3
+    end
+    object cdsCupomFiscalvlrConsulta: TAggregateField
+      FieldName = 'vlrConsulta'
+      Active = True
+      Expression = 'sum(VLR_TOTAL)'
     end
   end
   object dsCupomFiscal: TDataSource
@@ -2731,6 +2741,7 @@ object DMConsFaturamento: TDMConsFaturamento
   end
   object cdsCupomFiscalAnalitico: TClientDataSet
     Aggregates = <>
+    AggregatesActive = True
     IndexFieldNames = 'QTD'
     Params = <>
     ProviderName = 'dspCupomFiscalAnalitico'
@@ -2759,6 +2770,11 @@ object DMConsFaturamento: TDMConsFaturamento
       DisplayLabel = 'Filial'
       FieldName = 'FILIAL'
     end
+    object cdsCupomFiscalAnaliticoVlrConsulta: TAggregateField
+      FieldName = 'VlrConsulta'
+      Active = True
+      Expression = 'SUM(VLR_TOTAL)'
+    end
   end
   object dsCupomFiscalAnalitico: TDataSource
     DataSet = cdsCupomFiscalAnalitico
@@ -2778,17 +2794,17 @@ object DMConsFaturamento: TDMConsFaturamento
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'FILIAL'
         ParamType = ptInput
       end
       item
-        DataType = ftUnknown
+        DataType = ftDate
         Name = 'DATAINICIAL'
         ParamType = ptInput
       end
       item
-        DataType = ftUnknown
+        DataType = ftDate
         Name = 'DATAFINAL'
         ParamType = ptInput
       end>
@@ -2805,6 +2821,7 @@ object DMConsFaturamento: TDMConsFaturamento
   end
   object cdsCupomFiscalAnaliticoDia: TClientDataSet
     Aggregates = <>
+    AggregatesActive = True
     IndexFieldNames = 'QTD'
     Params = <>
     ProviderName = 'dspCupomFiscalAnaliticoDia'
@@ -2823,6 +2840,11 @@ object DMConsFaturamento: TDMConsFaturamento
     object cdsCupomFiscalAnaliticoDiaDTEMISSAO: TDateField
       DisplayLabel = 'Data Emiss'#227'o'
       FieldName = 'DTEMISSAO'
+    end
+    object cdsCupomFiscalAnaliticoDiaVlrConsulta: TAggregateField
+      FieldName = 'VlrConsulta'
+      Active = True
+      Expression = 'SUM(VLR_TOTAL)'
     end
   end
   object dsCupomFiscalAnaliticoDia: TDataSource

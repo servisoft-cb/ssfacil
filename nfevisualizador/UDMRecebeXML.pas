@@ -2390,6 +2390,7 @@ type
     sdsNotaFiscalID_CONTA_ORCAMENTO: TIntegerField;
     cdsNotaFiscalID_CONTA_ORCAMENTO: TIntegerField;
     mItensNotaNome_CentroCusto: TStringField;
+    qParametros_RecXMLAVISAR_PRODUTO_NOVO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscalUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

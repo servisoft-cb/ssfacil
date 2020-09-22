@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons, Grids,
   DBGrids, SMDBGrid, FMTBcd, DB, Provider, DBClient, SqlExpr, UDMConsFaturamento, RxLookup, UCBase, Mask, ToolEdit, RzPanel,
-  RzTabs, CurrEdit, NxEdit, NxCollection, ComObj, Menus, TeEngine, Series, TeeProcs, Chart, DbChart, ComCtrls;
+  RzTabs, CurrEdit, NxEdit, NxCollection, ComObj, Menus, TeEngine, Series, TeeProcs, Chart, DbChart, ComCtrls,
+  DBCtrls;
 
 type
   tEnumGrafico = (tpPizza, tpColuna, tpLinha);
@@ -102,7 +103,6 @@ type
     SMDBGrid16: TSMDBGrid;
     TS_ReciboNF: TRzTabSheet;
     SMDBGrid17: TSMDBGrid;
-    chkCupomEnv: TCheckBox;
     TS_Cliente_Cid_Det: TRzTabSheet;
     SMDBGrid18: TSMDBGrid;
     RzPageControl5: TRzPageControl;
@@ -146,13 +146,6 @@ type
     BarSeries1: TBarSeries;
     LineSeries1: TLineSeries;
     rdgOrdenarDia: TRadioGroup;
-    Panel9: TPanel;
-    Label17: TLabel;
-    Label19: TLabel;
-    Label20: TLabel;
-    CurrencyEdit1: TCurrencyEdit;
-    CurrencyEdit2: TCurrencyEdit;
-    ceVlrPedidos: TCurrencyEdit;
     Panel10: TPanel;
     Label68: TLabel;
     ComboBox2: TComboBox;
@@ -162,6 +155,11 @@ type
     Label22: TLabel;
     RxDBLookupCombo6: TRxDBLookupCombo;
     SMDBGrid21: TSMDBGrid;
+    NxPanel1: TNxPanel;
+    cbTipoCupom: TNxComboBox;
+    Panel9: TPanel;
+    Label17: TLabel;
+    ceVlrConsulta: TCurrencyEdit;
     procedure btnConsultarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -278,6 +276,8 @@ uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, URelEstoque, URelFat_Cli, URelF
 
 procedure TfrmConsFaturamento.btnConsultarClick(Sender: TObject);
 begin
+  ceVlrConsulta.Clear;
+
   //if fMenu.vTipo_Reg_Cons_Fat = 'NTS' then
   if (DateEdit1.Date < 10) or (DateEdit2.Date < 10) then
   begin
@@ -471,7 +471,6 @@ begin
   CheckBox6.Visible    := (fDMConsFaturamento.qParametros_NFeMOSTRAR_VLR_DEVOL_CONS.AsString = 'S');
   Label12.Visible      := (fDMConsFaturamento.qParametros_NFeMOSTRAR_VLR_DEVOL_CONS.AsString = 'S');
   ceDevolucoes.Visible := (fDMConsFaturamento.qParametros_NFeMOSTRAR_VLR_DEVOL_CONS.AsString = 'S');
-  chkCupomEnv.Visible  := (fDMConsFaturamento.qParametrosUSA_CUPOM_FISCAL.AsString = 'S');
   //**************
   chkVendedor_Int.Visible := (fDMConsFaturamento.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S');
 
@@ -609,8 +608,8 @@ begin
     vComandoAux := vComandoAux + ' AND FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
   vComandoAux := vComandoAux + ' AND ' + vDescData + ' BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date))
                              + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
-  if vFornecedor > 0 then
-    vComandoAux := vComandoAux + ' AND ID_FORNECEDOR = ' + IntToStr(vFornecedor);
+  //if vFornecedor > 0 then
+  //  vComandoAux := vComandoAux + ' AND ID_FORNECEDOR = ' + IntToStr(vFornecedor);
   if RxDBLookupCombo6.Text <> '' then
     vComandoAux := vComandoAux + ' AND ID_GRUPO_PESSOA = ' + IntToStr(RxDBLookupCombo6.KeyValue);
   fDMConsFaturamento.qFaturamento.SQL.Text := vComandoAux;
@@ -680,8 +679,12 @@ begin
       vComando := vComando + ' AND ' + vDescData + ' >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
     if DateEdit2.Date > 10 then
       vComando := vComando + ' AND ' + vDescData + ' <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
-    if chkCupomEnv.Checked then
-      vComando := vComando + ' AND NT.NFEPROTOCOLO is not null';
+    case cbTipoCupom.ItemIndex of
+      0 : vComando := vComando + ' AND NT.NFEPROTOCOLO is not null';
+      1 : vComando := vComando + ' AND NT.TIPO = ' + QuotedStr('NFC');
+      2 : vComando := vComando + ' AND NT.TIPO = ' + QuotedStr('CNF');
+      3 : vComando := vComando + ' AND (NT.TIPO = ' + QuotedStr('CNF') + ' or NT.TIPO = ' + QuotedStr('NFC') + ')';
+    end;
   end
   else
   if (RzPageControl1.ActivePage = TS_Nota) or (RzPageControl1.ActivePage = TS_ReciboNF) then
@@ -1232,14 +1235,16 @@ var
 begin
   fDMConsFaturamento.cdsCupomFiscal.Close;
   fDMConsFaturamento.sdsCupomFiscal.CommandText := 'SELECT NT.FILIAL, NT.DTEMISSAO, NT.NUMCUPOM, NT.ID_CLIENTE, CLI.NOME NOME_CLIENTE, '
-                                                 + 'NT.VLR_TOTAL, VEN.NOME NOME_VENDEDOR '
+                                                 + 'NT.VLR_TOTAL, VEN.NOME NOME_VENDEDOR, NT.TIPO '
                                                  + 'FROM CUPOMFISCAL NT '
                                                  + 'LEFT JOIN PESSOA CLI ON (NT.ID_CLIENTE = CLI.CODIGO) '
                                                  + 'LEFT JOIN PESSOA VEN ON (NT.ID_VENDEDOR = VEN.CODIGO) '
-                                                 + 'WHERE NT.CANCELADO = ' + QuotedStr('N')
+                                                 + 'WHERE NT.CANCELADO = ' + QuotedStr('N') + ' AND COALESCE(NT.NFEDENEGADA,' + QuotedStr('N') + ') = ' + QuotedStr('N') + ' '
                                                  + vComando
-                                                 + ' ORDER BY NT.FILIAL, NT.NUMCUPOM ';
+                                                 + ' ORDER BY NT.FILIAL, NT.TIPO, NT.NUMCUPOM ';
   fDMConsFaturamento.cdsCupomFiscal.Open;
+  if not fDMConsFaturamento.cdsCupomFiscal.IsEmpty then
+    ceVlrConsulta.Text := FormatFloat('0.00',fDMConsFaturamento.cdsCupomFiscalvlrConsulta.Value);
 end;
 
 procedure TfrmConsFaturamento.prc_Imprimir_Cupom;
@@ -1250,6 +1255,7 @@ begin
     exit;
   end;
   SMDBGrid8.DisableScroll;
+  fDMConsFaturamento.cdsCupomFiscal.IndexFieldNames := 'TIPO;NUMCUPOM';
   fRelFat_Cupom                    := TfRelFat_Cupom.Create(Self);
   fRelFat_Cupom.fDMConsFaturamento := fDMConsFaturamento;
   fRelFat_Cupom.RLReport1.PreviewModal;
@@ -2202,11 +2208,12 @@ begin
   vSelect := 'select first(' + edtQtdeProduto.Text +') SUM(NTI.QTD) QTD,SUM(NTI.VLR_TOTAL)VLR_TOTAL,P.REFERENCIA,' + vNome + ' NOME, NT.FILIAL '
               + 'from CUPOMFISCAL NT '
               + 'inner join CUPOMFISCAL_ITENS NTI on NTI.ID = NT.ID '
-              + 'inner join PRODUTO P on NTI.ID_PRODUTO = P.ID '
+              + 'inner join PRODUTO P on NTI.ID_PRODUTO = P.ID '                 
               + 'inner join PESSOA CLI on (NT.ID_CLIENTE = CLI.CODIGO) '
               + 'left join PESSOA VEN on (NT.ID_VENDEDOR = VEN.CODIGO) '
               + 'left join COMBINACAO COMB on NTI.ID_COR_COMBINACO = COMB.ID '
-              + 'where NT.CANCELADO = ' + QuotedStr('N')
+             // + 'where NT.CANCELADO = ' + QuotedStr('N')
+              + 'WHERE NT.CANCELADO = ' + QuotedStr('N') + ' AND COALESCE(NT.NFEDENEGADA,' + QuotedStr('N') + ') = ' + QuotedStr('N') + ' ' 
               + vComando
               + ' group by P.REFERENCIA, NT.FILIAL,' +  vNome;
   case tEnumTipo(rdgTipo.ItemIndex) of
@@ -2216,6 +2223,8 @@ begin
   fDMConsFaturamento.cdsCupomFiscalAnalitico.Close;
   fDMConsFaturamento.cdsCupomFiscalAnalitico.CommandText := vSelect;
   fDMConsFaturamento.cdsCupomFiscalAnalitico.Open;
+  if not fDMConsFaturamento.cdsCupomFiscalAnalitico.IsEmpty then
+    ceVlrConsulta.Text := FormatFloat('0.00',fDMConsFaturamento.cdsCupomFiscalAnaliticovlrConsulta.Value);
 end;
 
 procedure TfrmConsFaturamento.chkGraficoVisibleClick(Sender: TObject);
@@ -2253,7 +2262,7 @@ begin
   vSelect := 'select sum(NTI.QTD) QTD, sum(NTI.VLR_TOTAL) VLR_TOTAL, NT.DTEMISSAO '
            + 'from CUPOMFISCAL NT '
            + 'inner join CUPOMFISCAL_ITENS NTI on NTI.ID = NT.ID '
-           + 'where NT.CANCELADO = ' + QuotedStr('N')
+           + 'WHERE NT.CANCELADO = ' + QuotedStr('N') + ' AND COALESCE(NT.NFEDENEGADA,' + QuotedStr('N') + ') = ' + QuotedStr('N') + ' '
            + vComando
            + ' group by NT.DTEMISSAO ';
   case tEnumTipo(rdgOrdenarDia.ItemIndex) of
@@ -2264,6 +2273,8 @@ begin
   fDMConsFaturamento.cdsCupomFiscalAnaliticoDia.Close;
   fDMConsFaturamento.cdsCupomFiscalAnaliticoDia.CommandText := vSelect;
   fDMConsFaturamento.cdsCupomFiscalAnaliticoDia.Open;
+  if not fDMConsFaturamento.cdsCupomFiscalAnaliticoDia.IsEmpty then
+    ceVlrConsulta.Text := FormatFloat('0.00',fDMConsFaturamento.cdsCupomFiscalAnaliticoDiavlrConsulta.Value);
 end;
 
 procedure TfrmConsFaturamento.chkGraficoDiaClick(Sender: TObject);

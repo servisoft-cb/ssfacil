@@ -141,6 +141,10 @@ type
     Label25: TLabel;
     FilenameEdit1: TFilenameEdit;
     DBCheckBox3: TDBCheckBox;
+    PopupMenu1: TPopupMenu;
+    Lista1: TMenuItem;
+    PorContasdeOrcamento1: TMenuItem;
+    Excel1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -173,7 +177,9 @@ type
     procedure RxDBLookupCombo10KeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure btnInserirMatClick(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
-    procedure NxButton1Click(Sender: TObject);
+    procedure Lista1Click(Sender: TObject);
+    procedure PorContasdeOrcamento1Click(Sender: TObject);
+    procedure Excel1Click(Sender: TObject);
   private
     { Private declarations }
     vTipoNotaAnt: string;
@@ -192,6 +198,8 @@ type
     function fnc_Cancelar: Boolean;
     procedure prc_Limpar_Edit_Consulta;
     procedure prc_Opcao_Habilita;
+    procedure prc_CriaExcel(vDados: TDataSource);
+
   public
     { Public declarations }
   end;
@@ -644,10 +652,11 @@ end;
 procedure TfrmCadContrato.SMDBGrid1TitleClick(Column: TColumn);
 var
   i: Integer;
-  ColunaOrdenada: string;
 begin
-  ColunaOrdenada := Column.FieldName;
-  fDMCadOS.cdsOS_Consulta.IndexFieldNames := Column.FieldName;
+  if Column.FieldName = 'NOME_CONTA_ORC_P' then
+    fDMCadOS.cdsOS_Consulta.IndexFieldNames := Column.FieldName + ';NOME_CONTA_ORC'
+  else
+    fDMCadOS.cdsOS_Consulta.IndexFieldNames := Column.FieldName;
   Column.Title.Color := clBtnShadow;
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[i] = Column) then
@@ -911,7 +920,7 @@ begin
   RxDBLookupCombo5.Visible := (fDMCadOS.cdsFilialNOME_PROVEDOR.AsString <> 'CAMPO BOM');
 end;
 
-procedure TfrmCadContrato.NxButton1Click(Sender: TObject);
+procedure TfrmCadContrato.Lista1Click(Sender: TObject);
 var
   vArq: string;
 begin
@@ -932,6 +941,51 @@ begin
   fDMCadOS.cdsOS.Close;
   fDMCadOS.cdsOS.Filter := '';
   fDMCadOS.cdsOS.Filtered := False;
+end;
+
+procedure TfrmCadContrato.PorContasdeOrcamento1Click(Sender: TObject);
+var
+  vArq: string;
+begin
+  fDMCadOS.cdsOS_Consulta.IndexFieldNames := 'NOME_CONTA_ORC_P;NOME_CONTA_ORC;NOME_CLIENTE';
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Contrato_Conta_Orc.fr3';
+  if FileExists(vArq) then
+    fDMCadOS.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatório não localizado! ' + vArq);
+    Exit;
+  end;
+  fDMCadOS.frxReport1.ShowReport;
+end;
+
+procedure TfrmCadContrato.Excel1Click(Sender: TObject);
+begin
+  prc_CriaExcel(SMDBGrid1.DataSource);
+end;
+
+procedure TfrmCadContrato.prc_CriaExcel(vDados: TDataSource);
+var
+  planilha: variant;
+  vTexto: string;
+begin
+  Screen.Cursor := crHourGlass;
+  vDados.DataSet.First;
+
+  planilha := CreateOleObject('Excel.Application');
+  planilha.WorkBooks.add(1);
+  planilha.caption := 'Exportando dados do tela para o Excel';
+  planilha.visible := true;
+
+  prc_Preencher_Excel2(planilha, vDados, SMDBGrid1);
+
+  planilha.columns.Autofit;
+  vTexto := ExtractFilePath(Application.ExeName);
+
+  vTexto := vTexto + Name; 
+
+  Planilha.ActiveWorkBook.SaveAs(vTexto);
+  Screen.Cursor := crDefault;
 end;
 
 end.

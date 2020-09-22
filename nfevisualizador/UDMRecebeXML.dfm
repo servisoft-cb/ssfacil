@@ -1871,7 +1871,7 @@ object DMRecebeXML: TDMRecebeXML
     DataSetField = cdsDeclaracaoImportacaoadi
     Params = <>
     Left = 929
-    Top = 424
+    Top = 425
     object cdsAdicoesnAdicao: TIntegerField
       FieldName = 'nAdicao'
     end
@@ -9346,6 +9346,11 @@ object DMRecebeXML: TDMRecebeXML
       FixedChar = True
       Size = 1
     end
+    object qParametros_RecXMLAVISAR_PRODUTO_NOVO: TStringField
+      FieldName = 'AVISAR_PRODUTO_NOVO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qParametros_OC: TSQLQuery
     MaxBlobSize = -1
@@ -9777,8 +9782,8 @@ object DMRecebeXML: TDMRecebeXML
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspContas'
-    Left = 432
-    Top = 186
+    Left = 433
+    Top = 184
     object cdsContasID: TIntegerField
       FieldName = 'ID'
       Required = True

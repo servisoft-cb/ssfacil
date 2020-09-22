@@ -32,7 +32,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         Left = 0
         Top = 85
         Width = 999
-        Height = 412
+        Height = 282
         Align = alClient
         Ctl3D = False
         DataSource = DMCadInventario.dsProduto
@@ -141,7 +141,6 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Grupo'
-            Width = 64
             Visible = True
           end>
       end
@@ -155,7 +154,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         TabOrder = 1
         object btnConfirmar: TNxButton
           Left = 2
-          Top = 2
+          Top = 1
           Width = 291
           Height = 30
           Hint = 'Importar os produtos selecionados'
@@ -318,6 +317,190 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
           Height = 21
           CharCase = ecUpperCase
           TabOrder = 2
+        end
+      end
+      object NxFlipPanel1: TNxFlipPanel
+        Left = 0
+        Top = 367
+        Width = 999
+        Height = 130
+        Align = alBottom
+        Caption = 
+          'Produtos n'#227'o gravados no invent'#225'rio atual, pois j'#225' constam em in' +
+          'vent'#225'rios n'#227'o encerrados'
+        CollapseGlyph.Data = {
+          7A010000424D7A01000000000000360000002800000009000000090000000100
+          2000000000004401000000000000000000000000000000000000604830406048
+          30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+          90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+          30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D8C0FFF0D0C0FFD0B8
+          A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D0
+          C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+          30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFFFFF0
+          F0FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFF8FFFFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+          A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+        Color = clSilver
+        ExpandGlyph.Data = {
+          7A010000424D7A01000000000000360000002800000009000000090000000100
+          2000000000004401000000000000000000000000000000000000604830406048
+          30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+          90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+          30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FF604830FFF0D8C0FFF0D0C0FFD0B8
+          A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FF604830FFF0D8D0FFF0D0
+          C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+          30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFF6048
+          30FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+          FFFF604830FFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+          A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = []
+        HeaderFont.Charset = DEFAULT_CHARSET
+        HeaderFont.Color = clRed
+        HeaderFont.Height = -13
+        HeaderFont.Name = 'Verdana'
+        HeaderFont.Style = [fsBold]
+        ParentFont = False
+        ParentHeaderFont = False
+        FullHeight = 0
+        object SMDBGrid2: TSMDBGrid
+          Left = 0
+          Top = 18
+          Width = 999
+          Height = 112
+          Align = alClient
+          Ctl3D = False
+          DataSource = DMCadInventario.dsmNaoGravados
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = []
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+          ParentCtl3D = False
+          ParentFont = False
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -13
+          TitleFont.Name = 'Verdana'
+          TitleFont.Style = []
+          Flat = True
+          BandsFont.Charset = DEFAULT_CHARSET
+          BandsFont.Color = clWindowText
+          BandsFont.Height = -11
+          BandsFont.Name = 'MS Sans Serif'
+          BandsFont.Style = []
+          Groupings = <>
+          GridStyle.Style = gsCustom
+          GridStyle.OddColor = clWindow
+          GridStyle.EvenColor = clWindow
+          TitleHeight.PixelCount = 24
+          FooterColor = clBtnFace
+          ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+          RegistryKey = 'Software\Scalabium'
+          RegistrySection = 'SMDBGrid'
+          WidthOfIndicator = 11
+          DefaultRowHeight = 16
+          ScrollBars = ssHorizontal
+          ColCount = 6
+          RowCount = 2
+          Columns = <
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'ID_Produto'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clRed
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Caption = 'ID Produto'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Width = 76
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'ID_Cor'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clRed
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Caption = 'ID Cor'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'Tamanho'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clRed
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'Data'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clRed
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'Num_Inventario'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clRed
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Caption = 'N'#186' Invent'#225'rio'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Width = 99
+              Visible = True
+            end>
         end
       end
     end

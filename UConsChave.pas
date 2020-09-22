@@ -24,6 +24,8 @@ type
     cdsConsultaDTEMISSAO: TDateField;
     dsConsulta: TDataSource;
     Label2: TLabel;
+    cdsConsultaNOME_CLIENTE: TStringField;
+    StaticText1: TStaticText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure CurrencyEdit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);

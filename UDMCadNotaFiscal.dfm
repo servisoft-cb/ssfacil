@@ -13815,6 +13815,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
+    object qParametros_ProdGERAR_CODBARRA_ID: TStringField
+      FieldName = 'GERAR_CODBARRA_ID'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qParametros_Geral: TSQLQuery
     MaxBlobSize = -1
@@ -15448,7 +15453,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 944
-    Top = 138
+    Top = 139
     object qNTEProdImpID: TIntegerField
       FieldName = 'ID'
       Required = True

@@ -819,7 +819,8 @@ begin
     if (SMDBGrid2.Columns[i].FieldName = 'Qtd_Ant') then
       SMDBGrid2.Columns[i].Visible := CheckBox2.Checked;
   end;
-  CheckBox3.Visible := CheckBox2.Checked;
+  //14/09/2020  Verificar qual é essa funcionalidade do CheckBox3 ???
+  //CheckBox3.Visible := CheckBox2.Checked;
 end;
 
 procedure TfrmConsEstoque_Mov.prc_Consultar_Ant;
@@ -838,7 +839,8 @@ begin
   fDMConsEstoque.cdsEstoque_Ant.First;
   while not fDMConsEstoque.cdsEstoque_Ant.Eof do
   begin
-    if (StrToFloat(FormatFloat('0.00000',fDMConsEstoque.cdsEstoque_AntSALDO.AsFloat)) > 0) or (CheckBox3.Checked) then
+    //14/09/2020  tirado pois estava dando diferença no cálculo quando o saldo era negativo
+    //if (StrToFloat(FormatFloat('0.00000',fDMConsEstoque.cdsEstoque_AntSALDO.AsFloat)) > 0) or (CheckBox3.Checked) then
     begin
       if fDMConsEstoque.mAuxEst_Acum.Locate('ID_Produto',fDMConsEstoque.cdsEstoque_AntID_PRODUTO.AsInteger,[loCaseInsensitive]) then
         fDMConsEstoque.mAuxEst_Acum.Edit

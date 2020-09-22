@@ -1097,6 +1097,7 @@ type
     qContasID: TIntegerField;
     qContasNOME: TStringField;
     qContasTIPO_CONTA: TStringField;
+    cdsPagtoCNPJ_CPF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);

@@ -4201,7 +4201,7 @@ begin
       fDMNFe.mItensNFeCodAuxiliar.AsString := vCodAuxiliar;
       fDMNFe.mItensNFeCodBarra.AsString    := '';
       //02/05/2018
-      if fDMNFe.qParametros_NFeENVAR_CODBARRA.AsString = 'S' then
+      if (fDMNFe.qParametros_NFeENVAR_CODBARRA.AsString = 'S') and (trim(fDMCadNotaFiscal.qParametros_ProdGERAR_CODBARRA_ID.AsString) <> 'S')   then
       begin
         if (fDMCadNotaFiscal.cdsProdutoUSA_GRADE.AsString = 'S') and (trim(fDMCadNotaFiscal.cdsNotaFiscal_ItensTAMANHO.AsString) <> '') then
         begin

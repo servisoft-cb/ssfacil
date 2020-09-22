@@ -4,7 +4,7 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMCadInventario, Grids, DBGrids, Mask, 
-  SMDBGrid, ExtCtrls, NxCollection, ComCtrls, StdCtrls, ToolEdit, CurrEdit;
+  SMDBGrid, ExtCtrls, NxCollection, ComCtrls, StdCtrls, ToolEdit, CurrEdit, SqlExpr;
 
 type
   TfrmCadInventario_Prod = class(TForm)
@@ -23,6 +23,8 @@ type
     CurrencyEdit1: TCurrencyEdit;
     Label3: TLabel;
     Edit2: TEdit;
+    NxFlipPanel1: TNxFlipPanel;
+    SMDBGrid2: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -32,8 +34,11 @@ type
     { Private declarations }
     vVazio: Boolean;
     vItem_Inventario: Integer;
+    vMSGProd : String;
 
     procedure prc_Gravar_Itens;
+
+    function fnc_existe_prod : Boolean;
 
   public
     { Public declarations }
@@ -45,7 +50,7 @@ var
 
 implementation
 
-uses DB, rsDBUtils;
+uses DB, rsDBUtils, DmdDatabase;
 
 {$R *.dfm}
 
@@ -59,6 +64,8 @@ end;
 procedure TfrmCadInventario_Prod.btnConfirmarClick(Sender: TObject);
 begin
   SMDBGrid1.DisableScroll;
+  fDMCadInventario.mNaoGravados.EmptyDataSet;
+  NxFlipPanel1.Expanded := False;
   vVazio := False;
   fDMCadInventario.cdsInventario_Itens.Last;
   vItem_Inventario := fDMCadInventario.cdsInventario_ItensITEM.AsInteger;
@@ -72,11 +79,13 @@ begin
   while not fDMCadInventario.cdsProduto.Eof do
   begin
     ProgressBar1.Position := ProgressBar1.Position + 1; 
-    if SMDBGrid1.SelectedRows.CurrentRowSelected then
+    if (SMDBGrid1.SelectedRows.CurrentRowSelected) and not(fnc_existe_prod) then
       prc_Gravar_Itens;
     fDMCadInventario.cdsProduto.Next;
   end;
   SMDBGrid1.EnableScroll;
+  if fDMCadInventario.mNaoGravados.RecordCount > 0 then
+    NxFlipPanel1.Expanded := True;
 end;
 
 procedure TfrmCadInventario_Prod.prc_Gravar_Itens;
@@ -140,6 +149,7 @@ begin
       SMDBGrid1.Columns[i].Visible := (fDMCadInventario.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
   end;
   Panel2.Visible := True; //(fDMCadInventario.qParametros_EstINVENTARIO_ESTMOV.AsString = 'S'); em 03/03/20 Inácio
+  NxFlipPanel1.Expanded := False;
 end;
 
 procedure TfrmCadInventario_Prod.NxButton3Click(Sender: TObject);
@@ -168,6 +178,52 @@ begin
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then
       SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
+end;
+
+function TfrmCadInventario_Prod.fnc_existe_prod: Boolean;
+var
+  sds: TSQLDataSet;
+begin
+  Result := False;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'select V.ID, V.FILIAL, V.DATA, V.NUM_INVENTARIO from INVENTARIO V '
+                       + 'inner join INVENTARIO_ITENS I on V.ID = I.ID '
+                       + 'where I.ID_PRODUTO = :ID_PRODUTO and '
+                       + 'V.FILIAL = :FILIAL and '
+                       + '(I.ID_COR = :ID_COR or :ID_COR = 0) and '
+                       + '(I.TAMANHO = :TAMANHO or :TAMANHO = ' + QuotedStr('') + ') and '
+                       + 'coalesce(V.GERADO_ESTOQUE, ' +QuotedStr('N') + ') = ' +QuotedStr('N');
+    sds.ParamByName('ID_PRODUTO').AsInteger := fDMCadInventario.cdsProdutoID.AsInteger;
+    sds.ParamByName('FILIAL').AsInteger     := fDMCadInventario.cdsInventarioFILIAL.AsInteger;
+    if fDMCadInventario.cdsProdutoID_COR_COMBINACAO.AsInteger > 0 then
+      sds.ParamByName('ID_COR').AsInteger := fDMCadInventario.cdsProdutoID_COR_COMBINACAO.AsInteger
+    else
+      sds.ParamByName('ID_COR').AsInteger := 0;
+    if trim(fDMCadInventario.cdsProdutoTAMANHO.AsString) <> '' then
+      sds.ParamByName('TAMANHO').AsString := fDMCadInventario.cdsProdutoTAMANHO.AsString
+    else
+      sds.ParamByName('TAMANHO').AsString := '';
+    sds.Open;
+    if sds.FieldByName('ID').AsInteger > 0 then
+    begin
+      Result := True;
+      fDMCadInventario.mNaoGravados.Insert;
+      fDMCadInventario.mNaoGravadosID_Produto.AsInteger     := fDMCadInventario.cdsProdutoID.AsInteger;
+      fDMCadInventario.mNaoGravadosID_Cor.AsInteger         := fDMCadInventario.cdsProdutoID_COR_COMBINACAO.AsInteger;
+      fDMCadInventario.mNaoGravadosTamanho.AsString         := fDMCadInventario.cdsProdutoTAMANHO.AsString;
+      fDMCadInventario.mNaoGravadosData.AsDateTime          := sds.FieldByName('DATA').AsDateTime;
+      fDMCadInventario.mNaoGravadosNum_Inventario.AsInteger := sds.FieldByName('NUM_INVENTARIO').AsInteger;
+      fDMCadInventario.mNaoGravados.Post;
+    end;
+
+  finally
+    FreeAndNil(sds);
+  end;
+
 end;
 
 end.

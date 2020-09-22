@@ -2,9 +2,9 @@ object DMConsFat: TDMConsFat
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Left = 234
-  Top = 184
-  Height = 445
-  Width = 949
+  Top = 186
+  Height = 443
+  Width = 948
   object sdsFatAcum: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -193,6 +193,9 @@ object DMConsFat: TDMConsFat
     object cdsFatAcumVLR_RATEIO_RECIBO: TFloatField
       FieldName = 'VLR_RATEIO_RECIBO'
     end
+    object cdsFatAcumVLR_RATEIO_TROCA: TFloatField
+      FieldName = 'VLR_RATEIO_TROCA'
+    end
   end
   object dsFatAcum: TDataSource
     DataSet = cdsFatAcum
@@ -261,7 +264,7 @@ object DMConsFat: TDMConsFat
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44081.594102326390000000
+    ReportOptions.LastChange = 44081.813881145800000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint

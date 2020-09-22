@@ -20,9 +20,9 @@ object frmConsCSTxCFOP: TfrmConsCSTxCFOP
     Top = 0
     Width = 920
     Height = 449
-    ActivePage = TS_Usadas
+    ActivePage = TS_Cadastro
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Usadas: TRzTabSheet

@@ -480,12 +480,16 @@ object DMCadOS: TDMCadOS
     GetMetadata = False
     CommandText = 
       'SELECT OS.*, CLI.NOME NOME_CLIENTE, SER.NOME NOME_SERVICO, AC.co' +
-      'digo COD_ATIVIDADE_CID, SER.CODIGO COD_SERVICO, CNPJ_CPF, ENDERE' +
-      'CO, NUM_END, COMPLEMENTO_END, BAIRRO, CID.UF, CID.NOME CIDADE_NO' +
-      'ME'#13#10'FROM OS'#13#10'LEFT JOIN PESSOA CLI ON (OS.ID_CLIENTE = CLI.CODIGO' +
-      ')'#13#10'LEFT JOIN SERVICO SER ON (OS.ID_SERVICO = SER.ID)'#13#10'LEFT JOIN ' +
-      'ATIVIDADE_CID AC ON (OS.ID_ATIVIDADE_CID = AC.ID)'#13#10'LEFT JOIN CID' +
-      'ADE CID ON (CLI.ID_CIDADE = CID.ID)'
+      'digo COD_ATIVIDADE_CID, SER.CODIGO COD_SERVICO,'#13#10'CNPJ_CPF, ENDER' +
+      'ECO, NUM_END, COMPLEMENTO_END, BAIRRO, CID.UF, CID.NOME CIDADE_N' +
+      'OME,'#13#10'CLI.cliente_conta_id, ORC.codigo COD_CONTA_ORC, ORC.descri' +
+      'cao NOME_CONTA_ORC, ORCP.descricao NOME_CONTA_ORC_P, ORCP.CODIGO' +
+      ' COD_CONTA_ORC_P'#13#10'FROM OS'#13#10'LEFT JOIN PESSOA CLI ON (OS.ID_CLIENT' +
+      'E = CLI.CODIGO)'#13#10'LEFT JOIN SERVICO SER ON (OS.ID_SERVICO = SER.I' +
+      'D)'#13#10'LEFT JOIN ATIVIDADE_CID AC ON (OS.ID_ATIVIDADE_CID = AC.ID)'#13 +
+      #10'LEFT JOIN CIDADE CID ON (CLI.ID_CIDADE = CID.ID)'#13#10'LEFT JOIN con' +
+      'ta_orcamento ORC on CLI.cliente_conta_id = ORC.ID'#13#10'LEFT JOIN CON' +
+      'TA_ORCAMENTO ORCP ON ORC.superior = ORCP.id'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -502,8 +506,8 @@ object DMCadOS: TDMCadOS
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOS_Consulta'
-    Left = 392
-    Top = 16
+    Left = 380
+    Top = 19
     object cdsOS_ConsultaID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -756,6 +760,23 @@ object DMCadOS: TDMCadOS
     end
     object cdsOS_ConsultaDTAJUSTE: TDateField
       FieldName = 'DTAJUSTE'
+    end
+    object cdsOS_ConsultaCLIENTE_CONTA_ID: TIntegerField
+      FieldName = 'CLIENTE_CONTA_ID'
+    end
+    object cdsOS_ConsultaCOD_CONTA_ORC: TStringField
+      FieldName = 'COD_CONTA_ORC'
+    end
+    object cdsOS_ConsultaNOME_CONTA_ORC: TStringField
+      FieldName = 'NOME_CONTA_ORC'
+      Size = 50
+    end
+    object cdsOS_ConsultaNOME_CONTA_ORC_P: TStringField
+      FieldName = 'NOME_CONTA_ORC_P'
+      Size = 50
+    end
+    object cdsOS_ConsultaCOD_CONTA_ORC_P: TStringField
+      FieldName = 'COD_CONTA_ORC_P'
     end
   end
   object dsOS_Consulta: TDataSource
@@ -2737,6 +2758,7 @@ object DMCadOS: TDMCadOS
     end
   end
   object frxReport1: TfrxReport
+    Tag = 1
     Version = '5.6.8'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
@@ -2744,12 +2766,13 @@ object DMCadOS: TDMCadOS
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42054.579274733800000000
-    ReportOptions.LastChange = 43900.366712731480000000
+    ReportOptions.CreateDate = 42222.414492245400000000
+    ReportOptions.LastChange = 44093.660149502310000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
+    OnReportPrint = 'frxReportOnReportPrint'
     Left = 856
-    Top = 416
+    Top = 417
   end
   object mExtrato: TClientDataSet
     Active = True
@@ -3371,9 +3394,73 @@ object DMCadOS: TDMCadOS
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxDBDataset1'
     CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'TIPO_REG=TIPO_REG'
+      'ID_CLIENTE=ID_CLIENTE'
+      'DTEMISSAO=DTEMISSAO'
+      'VLR_PRODUTO=VLR_PRODUTO'
+      'VLR_SERVICO=VLR_SERVICO'
+      'VLR_TOTAL=VLR_TOTAL'
+      'ID_SERVICO=ID_SERVICO'
+      'ID_SERVICO_INT=ID_SERVICO_INT'
+      'PERC_INSS=PERC_INSS'
+      'PERC_ISS=PERC_ISS'
+      'PERC_IR=PERC_IR'
+      'RETEM_INSS=RETEM_INSS'
+      'RETEM_ISS=RETEM_ISS'
+      'RETEM_IR=RETEM_IR'
+      'DTCONTRATO_INI=DTCONTRATO_INI'
+      'DTCONTRATO_FIN=DTCONTRATO_FIN'
+      'DTPREVISTA_REN=DTPREVISTA_REN'
+      'DTRENOVACAO=DTRENOVACAO'
+      'DTPRAZO_ENT=DTPRAZO_ENT'
+      'DTENTREGA=DTENTREGA'
+      'PERC_RENOVACAO=PERC_RENOVACAO'
+      'NUM_OS=NUM_OS'
+      'OBS=OBS'
+      'NOME_CLIENTE=NOME_CLIENTE'
+      'NOME_SERVICO=NOME_SERVICO'
+      'FILIAL=FILIAL'
+      'DISCRIMINACAO=DISCRIMINACAO'
+      'ID_ATIVIDADE_CID=ID_ATIVIDADE_CID'
+      'CNAE=CNAE'
+      'DIA_VENCIMENTO=DIA_VENCIMENTO'
+      'ID_CONTA=ID_CONTA'
+      'ID_TIPO_COBRANCA=ID_TIPO_COBRANCA'
+      'DTVENCIMENTO_CERTIFICADO=DTVENCIMENTO_CERTIFICADO'
+      'PERIODO_CERTIFICADO=PERIODO_CERTIFICADO'
+      'TIPO_CERTIFICADO=TIPO_CERTIFICADO'
+      'NUM_CONTRATO=NUM_CONTRATO'
+      'COD_ATIVIDADE_CID=COD_ATIVIDADE_CID'
+      'COD_SERVICO=COD_SERVICO'
+      'MOTIVO_ENCERRAMENTO=MOTIVO_ENCERRAMENTO'
+      'ID_NATUREZA=ID_NATUREZA'
+      'RETEM_CSLL=RETEM_CSLL'
+      'RETEM_PISCOFINS=RETEM_PISCOFINS'
+      'ID_CONDPGTO=ID_CONDPGTO'
+      'DTENCERRAMENTO=DTENCERRAMENTO'
+      'COMARCA=COMARCA'
+      'NOME_SINDICO=NOME_SINDICO'
+      'CPF_SINDICO=CPF_SINDICO'
+      'CNPJ_CPF=CNPJ_CPF'
+      'ENDERECO=ENDERECO'
+      'NUM_END=NUM_END'
+      'COMPLEMENTO_END=COMPLEMENTO_END'
+      'BAIRRO=BAIRRO'
+      'UF=UF'
+      'CIDADE_NOME=CIDADE_NOME'
+      'OPCAO_VENCIMENTO_MREF=OPCAO_VENCIMENTO_MREF'
+      'ANO_CONTRATO=ANO_CONTRATO'
+      'DTAJUSTE=DTAJUSTE'
+      'CLIENTE_CONTA_ID=CLIENTE_CONTA_ID'
+      'COD_CONTA_ORC=COD_CONTA_ORC'
+      'NOME_CONTA_ORC=NOME_CONTA_ORC'
+      'NOME_CONTA_ORC_P=NOME_CONTA_ORC_P'
+      'COD_CONTA_ORC_P=COD_CONTA_ORC_P')
     DataSource = dsOS_Consulta
     BCDToCurrency = False
-    Left = 856
+    Left = 833
     Top = 464
   end
   object frxDBDataset2: TfrxDBDataset
@@ -5013,6 +5100,6 @@ object DMCadOS: TDMCadOS
     Pictures = True
     ParallelPages = 0
     Left = 896
-    Top = 464
+    Top = 465
   end
 end

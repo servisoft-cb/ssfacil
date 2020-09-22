@@ -188,6 +188,13 @@ type
     cdsEstoque_LotePERC_IPI: TFloatField;
     qProd3: TSQLQuery;
     qProd3ID: TIntegerField;
+    mNaoGravados: TClientDataSet;
+    mNaoGravadosID_Produto: TIntegerField;
+    mNaoGravadosID_Cor: TIntegerField;
+    mNaoGravadosTamanho: TStringField;
+    mNaoGravadosData: TDateField;
+    dsmNaoGravados: TDataSource;
+    mNaoGravadosNum_Inventario: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsInventarioNewRecord(DataSet: TDataSet);
     procedure dspInventarioUpdateError(Sender: TObject;

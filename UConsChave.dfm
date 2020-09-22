@@ -1,11 +1,11 @@
 object frmConsChave: TfrmConsChave
-  Left = 359
+  Left = 345
   Top = 158
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmConsChave'
   ClientHeight = 449
-  ClientWidth = 611
+  ClientWidth = 768
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,7 +21,7 @@ object frmConsChave: TfrmConsChave
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 611
+    Width = 768
     Height = 36
     Align = alTop
     BevelOuter = bvNone
@@ -30,18 +30,30 @@ object frmConsChave: TfrmConsChave
     ParentCtl3D = False
     TabOrder = 0
     object Label1: TLabel
-      Left = 31
+      Left = 19
       Top = 13
-      Width = 41
-      Height = 13
+      Width = 55
+      Height = 14
       Caption = 'N'#186' Nota:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
     end
     object Label2: TLabel
       Left = 165
       Top = 13
-      Width = 144
-      Height = 13
+      Width = 195
+      Height = 14
       Caption = 'Pressione Enter para consultar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
     end
     object CurrencyEdit1: TCurrencyEdit
       Left = 76
@@ -51,6 +63,12 @@ object frmConsChave: TfrmConsChave
       AutoSize = False
       DecimalPlaces = 0
       DisplayFormat = '0'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -12
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
       TabOrder = 0
       OnKeyDown = CurrencyEdit1KeyDown
     end
@@ -58,8 +76,8 @@ object frmConsChave: TfrmConsChave
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 36
-    Width = 611
-    Height = 413
+    Width = 768
+    Height = 395
     Align = alClient
     Ctl3D = False
     DataSource = dsConsulta
@@ -92,6 +110,7 @@ object frmConsChave: TfrmConsChave
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
+    ColCount = 6
     RowCount = 2
     Columns = <
       item
@@ -101,6 +120,11 @@ object frmConsChave: TfrmConsChave
         Title.Alignment = taCenter
         Title.Caption = 'N'#186' Nota'
         Title.Color = 9830399
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -12
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = []
         Width = 78
         Visible = True
       end
@@ -111,6 +135,11 @@ object frmConsChave: TfrmConsChave
         Title.Alignment = taCenter
         Title.Caption = 'S'#233'rie'
         Title.Color = 9830399
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -12
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = []
         Width = 38
         Visible = True
       end
@@ -121,7 +150,12 @@ object frmConsChave: TfrmConsChave
         Title.Alignment = taCenter
         Title.Caption = 'Data Emiss'#227'o'
         Title.Color = 9830399
-        Width = 94
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -12
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = []
+        Width = 92
         Visible = True
       end
       item
@@ -130,15 +164,50 @@ object frmConsChave: TfrmConsChave
         Title.Alignment = taCenter
         Title.Caption = 'Chave Acesso'
         Title.Color = 9830399
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -12
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = []
         Width = 295
         Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'NOME_CLIENTE'
+        Title.Alignment = taCenter
+        Title.Caption = 'Nome'
+        Title.Color = 9830399
+        Title.Font.Charset = DEFAULT_CHARSET
+        Title.Font.Color = clWindowText
+        Title.Font.Height = -12
+        Title.Font.Name = 'Verdana'
+        Title.Font.Style = []
+        Visible = True
       end>
+  end
+  object StaticText1: TStaticText
+    Left = 0
+    Top = 431
+    Width = 768
+    Height = 18
+    Align = alBottom
+    Caption = 'Duplo Clique ou Enter para copiar a Chave'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clMaroon
+    Font.Height = -12
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 2
   end
   object sdsConsulta: TSQLDataSet
     CommandText = 
       'SELECT N.ID, N.numnota, N.serie, N.filial, N.nfechaveacesso, N.D' +
-      'TEMISSAO'#13#10'FROM NOTAFISCAL N'#13#10'WHERE N.NUMNOTA = :NUMNOTA'#13#10'  AND N' +
-      '.FILIAL = :FILIAL'#13#10'  AND N.TIPO_REG = '#39'NTS'#39#13#10
+      'TEMISSAO,'#13#10'CLI.nome NOME_CLIENTE'#13#10'FROM NOTAFISCAL N'#13#10'INNER JOIN ' +
+      'PESSOA CLI'#13#10'ON N.ID_CLIENTE = CLI.CODIGO'#13#10'WHERE N.NUMNOTA = :NUM' +
+      'NOTA'#13#10'  AND N.FILIAL = :FILIAL'#13#10'  AND (N.TIPO_REG = '#39'NTS'#39' or  N.' +
+      'TIPO_REG = '#39'NTE'#39')'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -186,6 +255,10 @@ object frmConsChave: TfrmConsChave
     end
     object cdsConsultaDTEMISSAO: TDateField
       FieldName = 'DTEMISSAO'
+    end
+    object cdsConsultaNOME_CLIENTE: TStringField
+      FieldName = 'NOME_CLIENTE'
+      Size = 60
     end
   end
   object dsConsulta: TDataSource
