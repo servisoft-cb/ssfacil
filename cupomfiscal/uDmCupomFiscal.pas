@@ -1557,6 +1557,8 @@ type
     cdsTipoCobrancaPADRAO_NFC: TStringField;
     sdsDuplicataCANCELADA: TStringField;
     cdsDuplicataCANCELADA: TStringField;
+    sdsCupomParametrosIMP_COD_REF: TStringField;
+    cdsCupomParametrosIMP_COD_REF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mCupomBeforeDelete(DataSet: TDataSet);
     procedure cdsPedidoCalcFields(DataSet: TDataSet);
@@ -3229,9 +3231,8 @@ begin
       cdsCupom_Itens.Next;
       Continue;
     end;
-    if cdsCupomParametrosUSA_COD_REF.AsString = 'C' then
-      vCodRef := cdsCupom_ItensID_PRODUTO.AsString
-    else
+    vCodRef := cdsCupom_ItensID_PRODUTO.AsString;
+    if cdsCupomParametrosIMP_COD_REF.AsString = 'R' then
       vCodRef := cdsCupom_ItensREFERENCIA.AsString;
     if vModelo = 'modCanvas' then
       ImpNaoFiscalC('VendeItem',vCodRef,
