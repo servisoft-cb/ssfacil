@@ -524,7 +524,26 @@ begin
       begin
         //planilha.Cells[linha, 6].NumberFormat := 'R$ #.##0,00_);(R$ #.##0,000##)';
         planilha.cells[linha, 6] := StrToFloat(valorCampo);
-      end;
+      end
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'NOME_PESSOA') then
+        planilha.cells[linha, 6] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'NUMDUPLICATA') then
+        planilha.cells[linha, 7] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'SERIE') then
+        planilha.cells[linha, 8] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'PARCELA') then
+        planilha.cells[linha, 9] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'DTEMISSAO') then
+        planilha.cells[linha, 10] := valorCampo
+      else
+      if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'VLR_JUROSPAGOS') then
+        planilha.cells[linha, 11] := valorCampo;
+
       //planilha.cells[linha, colunaP].font.size := 11; // Tamanho da Fonte
     end;
     fDMCadDuplicata.cdsPagto.Next;

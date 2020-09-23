@@ -253,6 +253,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'CNPJ_CPF'
             Title.Alignment = taCenter
             Title.Caption = 'CNPJ/CPF'
+            Width = 64
             Visible = True
           end>
       end
