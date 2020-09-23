@@ -5484,6 +5484,10 @@ begin
   fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString := fDMCadNotaFiscal.cdsPedidoDRAWBACK.AsString;
   //*********************
 
+  //23/09/2020
+  fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_PACOTE.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsPedidoCONV_UNIDADE.AsFloat));
+  //*****************
+  
   ffrmCadNotaFiscal_Itens.vNotaSelecionada   := False;
   ffrmCadNotaFiscal_Itens.vPedidoSelecionado := True;
   ffrmCadNotaFiscal_Itens.BitBtn1Click(ffrmCadNotaFiscal_Itens);

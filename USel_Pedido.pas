@@ -714,7 +714,9 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscal_ItensLARGURA.AsFloat         := fDMCadNotaFiscal.cdsPedidoLARGURA.AsFloat;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensESPESSURA.AsFloat       := fDMCadNotaFiscal.cdsPedidoESPESSURA.AsFloat;
 
-    fDMCadNotaFiscal.cdsPedidocon
+    //23/09/2020
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_PACOTE.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsPedidoCONV_UNIDADE.AsFloat));
+    //***************
 
     //29/08/2019
     fDMCadNotaFiscal.cdsNotaFiscal_ItensDRAWBACK.AsString := fDMCadNotaFiscal.cdsPedidoDRAWBACK.AsString;
