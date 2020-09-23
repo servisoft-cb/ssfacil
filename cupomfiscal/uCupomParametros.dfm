@@ -487,7 +487,7 @@ object fCupomParametros: TfCupomParametros
             ParentFont = False
           end
           object Label27: TLabel
-            Left = 10
+            Left = 11
             Top = 107
             Width = 154
             Height = 13
@@ -535,6 +535,14 @@ object fCupomParametros: TfCupomParametros
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
+          end
+          object Label75: TLabel
+            Left = 241
+            Top = 107
+            Width = 115
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Identificador de produto:'
           end
           object RxDBComboBox22: TRxDBComboBox
             Left = 166
@@ -613,7 +621,7 @@ object fCupomParametros: TfCupomParametros
             Items.Strings = (
               'SIM'
               'N'#195'O')
-            TabOrder = 5
+            TabOrder = 6
             Values.Strings = (
               'S'
               'N')
@@ -631,10 +639,28 @@ object fCupomParametros: TfCupomParametros
             Items.Strings = (
               'SIM'
               'N'#195'O')
-            TabOrder = 6
+            TabOrder = 7
             Values.Strings = (
               'S'
               'N')
+          end
+          object RxDBComboBox45: TRxDBComboBox
+            Left = 358
+            Top = 99
+            Width = 90
+            Height = 21
+            Style = csDropDownList
+            DataField = 'IMP_VENDAS_FECHAMENTO'
+            DataSource = dmCupomFiscal.dsCupomParametros
+            EnableValues = True
+            ItemHeight = 13
+            Items.Strings = (
+              'Id'
+              'Refer'#234'ncia')
+            TabOrder = 5
+            Values.Strings = (
+              'C'
+              'R')
           end
         end
         object GroupBox8: TGroupBox
