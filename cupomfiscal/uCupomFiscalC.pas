@@ -1711,7 +1711,8 @@ begin
     fDmCupomFiscal.cdsCupom_Itens.First;
     while not fDmCupomFiscal.cdsCupom_Itens.Eof do
     begin
-      if fDmCupomFiscal.cdsCupom_ItensID_MOVESTOQUE.AsInteger > 0 then
+      if (fDmCupomFiscal.cdsCupom_ItensID_MOVESTOQUE.AsInteger > 0) and
+      (fDmCupomFiscal.cdsCupom_ItensID_MOVIMENTO.AsInteger > 0) then
       begin
         fDmCupomFiscal.cdsCupom_Itens.Next;
         Continue;
