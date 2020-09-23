@@ -90,6 +90,7 @@ type
       Shift: TShiftState);
     procedure Edit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure Edit1Exit(Sender: TObject);
   private
     { Private declarations }
     ffrmCadProduto: TfrmCadProduto;
@@ -773,6 +774,24 @@ procedure TfrmCadDocEstoque_Itens.Edit1KeyDown(Sender: TObject;
 begin
   if (Key = Vk_Return) and (Trim(Edit1.Text) <> '') then
   begin
+    if pnlCor.Visible then
+      RxDBLookupCombo5.SetFocus
+    else
+      RxDBLookupCombo3.SetFocus;
+  end;
+end;
+
+function TfrmCadDocEstoque_Itens.fnc_Verificar_Cod_Barras: Boolean;
+begin
+  Result := False;
+  if fDMCadDocEstoque.cdsProduto.Locate('COD_BARRA',Edit1.Text,[loCaseInsensitive]) then
+    Result := True;
+end;
+
+procedure TfrmCadDocEstoque_Itens.Edit1Exit(Sender: TObject);
+begin
+  if (Trim(Edit1.Text) <> '') then
+  begin
     if not fnc_Verificar_Cod_Barras then
     begin
       MessageDlg('*** Código de Barras não encontrado!', mtError, [mbOk], 0);
@@ -782,19 +801,8 @@ begin
     begin
       fDMCadDocEstoque.cdsDocEstoque_ItensID_PRODUTO.AsInteger := fDMCadDocEstoque.cdsProdutoID.AsInteger;
       Panel1Exit(Sender);
-      if pnlCor.Visible then
-        RxDBLookupCombo5.SetFocus
-      else
-        RxDBLookupCombo3.SetFocus;
     end;
   end;
-end;
-
-function TfrmCadDocEstoque_Itens.fnc_Verificar_Cod_Barras: Boolean;
-begin
-  Result := False;
-  if fDMCadDocEstoque.cdsProduto.Locate('COD_BARRA',Edit1.Text,[loCaseInsensitive]) then
-    Result := True;
 end;
 
 end.

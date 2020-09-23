@@ -639,6 +639,7 @@ object frmCadDocEstoque_Itens: TfrmCadDocEstoque_Itens
       Width = 153
       Height = 21
       TabOrder = 0
+      OnExit = Edit1Exit
       OnKeyDown = Edit1KeyDown
     end
   end
