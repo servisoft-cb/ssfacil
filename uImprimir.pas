@@ -8,6 +8,8 @@ uses
   procedure prc_Cabecalho_Mat(Endereco: String);
   procedure prc_Detalhe_Mat(vDetalhe: String);
   procedure prc_Rodape_Mat;
+  procedure prc_Encerrar_Imp;
+  
   function fnc_Monta_Tamanho(Tamanho: Integer; vDetalhe, Posicao, vCaracter: String): String; //Posicao = D  Direita    E=Esquerda
 
 var
@@ -35,11 +37,14 @@ begin
   else
   if vPagMatricial > 1 then
   begin
-    while vLinhaMatricial < 66 do
+    prc_Rodape_Mat;
+    vLinhaMatricial := 0;
+
+    {while vLinhaMatricial < 66 do
      begin
        vLinhaMatricial := vLinhaMatricial + 1;
        Writeln(fArq);
-     end;
+     end;}
   end;
 end;
 
@@ -59,7 +64,7 @@ begin
     vLinhaMatricial := vLinhaMatricial + 1;
     Writeln(FArq);
   end;
-  CloseFile(FArq);
+  //CloseFile(FArq);
 end;
 
 function fnc_Monta_Tamanho(Tamanho: Integer; vDetalhe, Posicao, vCaracter: String): String; //Posicao = D  Direita    E=Esquerda
@@ -75,6 +80,11 @@ begin
       vDetalhe := vDetalhe + vCaracter;
   end;
   Result := vDetalhe;
+end;
+
+procedure prc_Encerrar_Imp;
+begin
+  CloseFile(FArq);
 end;
 
 end.
