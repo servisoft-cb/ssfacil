@@ -707,13 +707,21 @@ begin
         if fDMCadPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S' then
           vVlrAux := fDMCadPedido.cdsProdutoPESOBRUTO.AsFloat * fDMCadPedido.cdsPedido_ItensQTD_CAIXA.AsFloat
         else
+        begin
+        if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsFloat)) > 0 then
+          vVlrAux := fDMCadPedido.cdsProdutoPESOBRUTO.AsFloat * (fDMCadPedido.cdsPedido_ItensQTD.AsFloat * fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsFloat)
+        else
           vVlrAux := fDMCadPedido.cdsProdutoPESOBRUTO.AsFloat * fDMCadPedido.cdsPedido_ItensQTD.AsFloat;
+        end;
         vPesoBruto := StrToFloat(FormatFloat('0.00000',vPesoBruto + vVlrAux));
       end;
       if (StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsProdutoPESOLIQUIDO.AsFloat)) > 0)  and (StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat)) > 0) then
       begin
         if fDMCadPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S' then
           vVlrAux := fDMCadPedido.cdsProdutoPESOLIQUIDO.AsFloat * fDMCadPedido.cdsPedido_ItensQTD_CAIXA.AsFloat
+        else
+        if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsFloat)) > 0 then
+          vVlrAux := fDMCadPedido.cdsProdutoPESOLIQUIDO.AsFloat * (fDMCadPedido.cdsPedido_ItensQTD.AsFloat * fDMCadPedido.cdsPedido_ItensCONV_UNIDADE.AsFloat)
         else
           vVlrAux := fDMCadPedido.cdsProdutoPESOLIQUIDO.AsFloat * fDMCadPedido.cdsPedido_ItensQTD.AsFloat;
         vPesoLiquido := StrToFloat(FormatFloat('0.00000',vPesoLiquido + vVlrAux));

@@ -8120,15 +8120,15 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       'O, pi.PERC_DESCONTO, pi.DTCONFERENCIA,'#13#10'       pi.COMPRIMENTO_VO' +
       'LUME, PRO.MEDIDA, pi.CALCULARICMSSOBREIPI, pi.VLR_UNITARIO_IPI, ' +
       'PE.FILIAL, coalesce(pi.PESO_AJUSTADO,'#39'N'#39') PESO_AJUSTADO,'#13#10'      ' +
-      ' PE.end_arq_pagto, PE.id_operacao_nota, PE.finalidade, PE.OBS'#13#10'f' +
-      'rom PEDIDO PE'#13#10'inner join PEDIDO_ITEM pi on (PE.ID = pi.ID)'#13#10'inn' +
-      'er join PESSOA CLI on (PE.ID_CLIENTE = CLI.CODIGO)'#13#10'inner join P' +
-      'RODUTO PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left join COMBINACAO COM' +
-      'B on (pi.ID_COR = COMB.ID)'#13#10'left join GRUPO GR on PRO.ID_GRUPO =' +
-      ' GR.ID'#13#10'left join PESSOA_FISCAL PF on PE.ID_CLIENTE = PF.CODIGO'#13 +
-      #10'left join ORDEMSERVICO O on pi.ID_OS_SERV = O.ID'#13#10'left join PED' +
-      'IDO_ITEM_TIPO PIT on pi.ID = PIT.ID and pi.ITEM = PIT.ITEM'#13#10'wher' +
-      'e pi.QTD_RESTANTE > 0'#13#10#13#10#13#10'  '
+      ' PE.end_arq_pagto, PE.id_operacao_nota, PE.finalidade, PE.OBS, P' +
+      'I.CONV_UNIDADE'#13#10'from PEDIDO PE'#13#10'inner join PEDIDO_ITEM pi on (PE' +
+      '.ID = pi.ID)'#13#10'inner join PESSOA CLI on (PE.ID_CLIENTE = CLI.CODI' +
+      'GO)'#13#10'inner join PRODUTO PRO on (pi.ID_PRODUTO = PRO.ID)'#13#10'left jo' +
+      'in COMBINACAO COMB on (pi.ID_COR = COMB.ID)'#13#10'left join GRUPO GR ' +
+      'on PRO.ID_GRUPO = GR.ID'#13#10'left join PESSOA_FISCAL PF on PE.ID_CLI' +
+      'ENTE = PF.CODIGO'#13#10'left join ORDEMSERVICO O on pi.ID_OS_SERV = O.' +
+      'ID'#13#10'left join PEDIDO_ITEM_TIPO PIT on pi.ID = PIT.ID and pi.ITEM' +
+      ' = PIT.ITEM'#13#10'where pi.QTD_RESTANTE > 0'#13#10#13#10#13#10'  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -8531,6 +8531,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'OBS'
       BlobType = ftMemo
       Size = 1
+    end
+    object cdsPedidoCONV_UNIDADE: TFloatField
+      FieldName = 'CONV_UNIDADE'
     end
   end
   object dsPedido: TDataSource

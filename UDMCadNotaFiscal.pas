@@ -3205,6 +3205,7 @@ type
     mPedAux: TClientDataSet;
     mPedAuxID: TIntegerField;
     qParametros_ProdGERAR_CODBARRA_ID: TStringField;
+    cdsPedidoCONV_UNIDADE: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

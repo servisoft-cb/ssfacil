@@ -596,10 +596,11 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedidoPESOBRUTO: TFloatField
       FieldName = 'PESOBRUTO'
-      DisplayFormat = '0.00'
+      DisplayFormat = '0.00##'
     end
     object cdsPedidoPESOLIQUIDO: TFloatField
       FieldName = 'PESOLIQUIDO'
+      DisplayFormat = '0.00##'
     end
     object cdsPedidoCALCULARICMSSOBREIPI: TStringField
       FieldName = 'CALCULARICMSSOBREIPI'
