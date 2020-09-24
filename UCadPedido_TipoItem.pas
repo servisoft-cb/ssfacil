@@ -509,7 +509,7 @@ begin
         vVlr_Acabamento := StrToFloat(FormatFloat('0.00',(((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat * fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat) / 1000)) * vVlr_Acabamento));
 
       vVlr_Calculado  := vVlr_Calculado + vVlr_Acabamento;
-      vVlr_Acabamento := 0;
+      //vVlr_Acabamento := 0;
     end;
   end;
   vVlr_RedondoMod := 0;
@@ -590,8 +590,8 @@ begin
   end;
 
   vVlr_Calculado_Aux := vVlr_Calculado;
-  if vVlr_Acabamento > 0 then
-    vVlr_Calculado := vVlr_Calculado + ((vVlr_Calculado_Aux * vVlr_Acabamento) / 100);
+  //if vVlr_Acabamento > 0 then
+  //  vVlr_Calculado := vVlr_Calculado + ((vVlr_Calculado_Aux * vVlr_Acabamento) / 100);
   if vVlr_RedondoMod > 0 then
     vVlr_Calculado := vVlr_Calculado + ((vVlr_Calculado_Aux * vVlr_RedondoMod) / 100);
   //Foi colocado este calculo direto no final  11/02/2015
@@ -652,14 +652,25 @@ begin
     end
     else
     begin
-      vAux := (fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000);
-      //26/11/2019
-      vAux_Cor2 := 0;
-      if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat)) > 0 then
-        vAux_Cor2 := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
-              * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
-      //*****************
-      vVlr_Calculado := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * vAux)) + vAux_Cor2;
+      if vTipo_Calculo <> 'C' then
+      begin
+        vAux := (fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000);
+        vAux_Cor2 := 0;
+        if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat)) > 0 then
+          vAux_Cor2 := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
+                * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
+        vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Produto * vAux)) + vAux_Cor2 + vVlr_Acabamento;
+      end
+      else
+      begin
+        vAux := (fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000);
+        vAux_Cor2 := 0;
+        if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat)) > 0 then
+          vAux_Cor2 := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
+                * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
+        vVlr_Calculado := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * vAux)) + vAux_Cor2;
+      end;
+
       
       //vVlr_Calculado := vVlr_Calculado + (vVlr_Calculado_Aux * vAux
     end;

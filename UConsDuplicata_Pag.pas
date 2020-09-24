@@ -52,6 +52,7 @@ type
     PopupMenu2: TPopupMenu;
     Listadaconsulta1: TMenuItem;
     AuditorFinanceiro1: TMenuItem;
+    AuditorFinanceirocsv1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -69,6 +70,7 @@ type
     procedure PorClienteFornecedor1Click(Sender: TObject);
     procedure Listadaconsulta1Click(Sender: TObject);
     procedure AuditorFinanceiro1Click(Sender: TObject);
+    procedure AuditorFinanceirocsv1Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadDuplicata          : TDMCadDuplicata;
@@ -516,13 +518,13 @@ begin
       else
       if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'VLR_PARCELA') then
       begin
-        //planilha.Cells[linha, 5].NumberFormat := 'R$ #.##0,00_);(R$ #.##0,000##)';
+        planilha.Cells[linha, 5].NumberFormat := 'R$ #.##0,00_);(R$ #.##0,000##)';
         planilha.cells[linha, 5] := StrToFloat(valorCampo)
       end
       else
       if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'VLR_PAGAMENTO') then
       begin
-        //planilha.Cells[linha, 6].NumberFormat := 'R$ #.##0,00_);(R$ #.##0,000##)';
+        planilha.Cells[linha, 6].NumberFormat := 'R$ #.##0,00_);(R$ #.##0,000##)';
         planilha.cells[linha, 6] := StrToFloat(valorCampo);
       end
       else
@@ -542,11 +544,47 @@ begin
         planilha.cells[linha, 10] := valorCampo
       else
       if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'VLR_JUROSPAGOS') then
+      begin
+        planilha.Cells[linha, 11].NumberFormat := 'R$ #.##0,00_);(R$ #.##0,000##)';
         planilha.cells[linha, 11] := valorCampo;
+      end;
 
       //planilha.cells[linha, colunaP].font.size := 11; // Tamanho da Fonte
     end;
     fDMCadDuplicata.cdsPagto.Next;
+  end;
+end;
+
+procedure TfrmConsDuplicata_Pag.AuditorFinanceirocsv1Click(Sender: TObject);
+var
+  vLista : TStringList;
+  vTexto : String;
+  vArq : String;
+begin
+  vLista := TStringList.Create;
+  try
+    fDMCadDuplicata.cdsPagto.First;
+    while not fDMCadDuplicata.cdsPagto.Eof do
+    begin
+      vTexto := fDMCadDuplicata.cdsPagtoCNPJ_CPF.AsString + ';';
+      vTexto := vTexto + fDMCadDuplicata.cdsPagtoDTVENCIMENTO.AsString + ';';
+      vTexto := vTexto + fDMCadDuplicata.cdsPagtoDTLANCAMENTO.AsString + ';';
+      vTexto := vTexto + fDMCadDuplicata.cdsPagtoNOME_TIPOCOBRANCA.AsString + ';';
+      vTexto := vTexto + 'R$' + FormatFloat('###,###,###,##0.00',fDMCadDuplicata.cdsPagtoVLR_PARCELA.AsFloat) + ';';
+      vTexto := vTexto + 'R$' + FormatFloat('###,###,###,##0.00',fDMCadDuplicata.cdsPagtoVLR_PAGAMENTO.AsFloat) + ';';
+      vTexto := vTexto + fDMCadDuplicata.cdsPagtoNOME_PESSOA.AsString + ';';
+      vTexto := vTexto + fDMCadDuplicata.cdsPagtoNUMDUPLICATA.AsString + ';';
+      vTexto := vTexto + fDMCadDuplicata.cdsPagtoSERIE.AsString + ';';
+      vTexto := vTexto + fDMCadDuplicata.cdsPagtoPARCELA.AsString + ';';
+      vTexto := vTexto + fDMCadDuplicata.cdsPagtoDTEMISSAO.AsString + ';';
+      vTexto := vTexto + 'R$' + FormatFloat('###,###,###,##0.00',fDMCadDuplicata.cdsPagtoVLR_JUROSPAGOS.AsFloat) + ';';
+      vLista.Add(vTexto);
+      fDMCadDuplicata.cdsPagto.Next;
+    end;
+  finally
+    vArq := ExtractFilePath(Application.ExeName) + 'Auditor.csv';
+    vLista.SaveToFile(vArq);
+    MessageDlg('*** Arquivo Auditor.csv gerado!', mtConfirmation, [mbOk], 0);
   end;
 end;
 

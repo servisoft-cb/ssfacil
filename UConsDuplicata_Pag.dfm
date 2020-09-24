@@ -833,5 +833,9 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
       Caption = 'Auditor Financeiro'
       OnClick = AuditorFinanceiro1Click
     end
+    object AuditorFinanceirocsv1: TMenuItem
+      Caption = 'Auditor Financeiro (.csv)'
+      OnClick = AuditorFinanceirocsv1Click
+    end
   end
 end
