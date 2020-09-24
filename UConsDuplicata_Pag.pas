@@ -508,10 +508,18 @@ begin
         planilha.cells[linha, 1] := valorCampo
       else
       if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'DTVENCIMENTO') then
-        planilha.cells[linha, 2] := valorCampo
+      begin
+        planilha.Cells[linha, 2].NumberFormat := '@';
+        DecodeDate(StrToDate(valorCampo),ano,mes,dia);
+        planilha.cells[linha, 2] := FormatFloat('00',dia) + '/' + FormatFloat('00',mes) + '/' + FormatFloat('0000',ano);
+      end
       else
       if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'DTLANCAMENTO') then
-        planilha.cells[linha, 3] := valorCampo
+      begin
+        planilha.Cells[linha, 3].NumberFormat := '@';
+        DecodeDate(StrToDate(valorCampo),ano,mes,dia);
+        planilha.cells[linha, 3] := FormatFloat('00',dia) + '/' + FormatFloat('00',mes) + '/' + FormatFloat('0000',ano);
+      end
       else
       if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'NOME_TIPO_COBRANCA') then
         planilha.cells[linha, 4] := valorCampo
@@ -541,7 +549,11 @@ begin
         planilha.cells[linha, 9] := valorCampo
       else
       if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'DTEMISSAO') then
-        planilha.cells[linha, 10] := valorCampo
+      begin
+        planilha.Cells[linha, 10].NumberFormat := '@';
+        DecodeDate(StrToDate(valorCampo),ano,mes,dia);
+        planilha.cells[linha, 10] := FormatFloat('00',dia) + '/' + FormatFloat('00',mes) + '/' + FormatFloat('0000',ano);
+      end
       else
       if (fDMCadDuplicata.cdsPagto.Fields[coluna - 1].FieldName = 'VLR_JUROSPAGOS') then
       begin
