@@ -272,6 +272,9 @@ type
     RxDBLookupCombo14: TRxDBLookupCombo;
     DBEdit25: TDBEdit;
     SpeedButton8: TSpeedButton;
+    PopupMenu5: TPopupMenu;
+    Devoluo1: TMenuItem;
+    EstornoPagtoDevoluo1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure OnShow(Sender: TObject);
@@ -296,7 +299,6 @@ type
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure btnPagamentoClick(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
-    procedure btnEstornoClick(Sender: TObject);
     procedure btnRecalcularClick(Sender: TObject);
     procedure edtNumDuplicataKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure RxDBLookupCombo3Exit(Sender: TObject);
@@ -366,6 +368,7 @@ type
     procedure SpeedButton6Click(Sender: TObject);
     procedure Gerarcomissoconformeconsultatodasatjgeradas1Click(
       Sender: TObject);
+    procedure EstornoPagtoDevoluo1Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadDuplicata: TDMCadDuplicata;
@@ -1192,57 +1195,6 @@ begin
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then
       SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
-end;
-
-procedure TfrmCadDuplicata.btnEstornoClick(Sender: TObject);
-var
-  vItemAux: Integer;
-  vDescAux: string;
-begin
-  if not (fDMCadDuplicata.cdsDuplicata_Consulta.Active) or (fDMCadDuplicata.cdsDuplicata_Consulta.IsEmpty) or (fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger <= 0) then
-    exit;
-  if fDMCadDuplicata.cdsDuplicata_ConsultaTIPO_MOV.AsString = 'H' then
-  begin
-    MessageDlg('*** Este registro é de cheque!', mtError, [mbOk], 0);
-    exit;
-  end;
-
-  prc_Posiciona_Duplicata(fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger);
-  fDMCadDuplicata.vDtUltPagamento := 0;
-  vItemAux := 0;
-  fDMCadDuplicata.cdsDuplicata_Hist.Last;
-  while not fDMCadDuplicata.cdsDuplicata_Hist.Bof do
-  begin
-    if (vItemAux <= 0) and ((fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG') or (fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'DEV')) then
-    begin
-      vItemAux := fDMCadDuplicata.cdsDuplicata_HistITEM.AsInteger;
-    end
-    else if (fDMCadDuplicata.vDtUltPagamento < 10) and ((fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG') or (fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'DEV')) then
-    begin
-      fDMCadDuplicata.vDtUltPagamento := fDMCadDuplicata.cdsDuplicata_HistDTLANCAMENTO.AsDateTime;
-      fDMCadDuplicata.cdsDuplicata_Hist.First;
-    end;
-    fDMCadDuplicata.cdsDuplicata_Hist.Prior;
-  end;
-  if vItemAux <= 0 then
-  begin
-    MessageDlg('*** Não existe pagamento/devolução para estorno!', mtInformation, [mbOk], 0);
-    exit;
-  end;
-  fDMCadDuplicata.cdsDuplicata_Hist.Locate('ITEM', vItemAux, [loCaseInsensitive]);
-  if fDMCadDuplicata.cdsDuplicata_HistNUMCHEQUE.AsInteger > 0 then
-  begin
-    MessageDlg('*** Estorno só pode ser feito pelo cadastro dos cheques!', mtInformation, [mbOk], 0);
-    exit;
-  end;
-  if fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG' then
-    vDescAux := 'do pagamento?'
-  else
-    vDescAux := 'da devolução?';
-  if MessageDlg('Deseja fazer o estorno ' + vDescAux, mtConfirmation, [mbYes, mbNo], 0) = mrYes then
-    fDMCadDuplicata.prc_Estorno_Pag;
-  prc_Consultar;
-  btnEstorno.Enabled := False;
 end;
 
 procedure TfrmCadDuplicata.prc_Le_cdsDuplicata_Consulta;
@@ -3381,6 +3333,57 @@ begin
     fDMCadDuplicata.cdsDuplicata_Consulta.Next;
   end;
   SMDBGrid1.EnableScroll;
+end;
+
+procedure TfrmCadDuplicata.EstornoPagtoDevoluo1Click(Sender: TObject);
+var
+  vItemAux: Integer;
+  vDescAux: string;
+begin
+  if not (fDMCadDuplicata.cdsDuplicata_Consulta.Active) or (fDMCadDuplicata.cdsDuplicata_Consulta.IsEmpty) or (fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger <= 0) then
+    exit;
+  if fDMCadDuplicata.cdsDuplicata_ConsultaTIPO_MOV.AsString = 'H' then
+  begin
+    MessageDlg('*** Este registro é de cheque!', mtError, [mbOk], 0);
+    exit;
+  end;
+
+  prc_Posiciona_Duplicata(fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger);
+  fDMCadDuplicata.vDtUltPagamento := 0;
+  vItemAux := 0;
+  fDMCadDuplicata.cdsDuplicata_Hist.Last;
+  while not fDMCadDuplicata.cdsDuplicata_Hist.Bof do
+  begin
+    if (vItemAux <= 0) and ((fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG') or (fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'DEV')) then
+    begin
+      vItemAux := fDMCadDuplicata.cdsDuplicata_HistITEM.AsInteger;
+    end
+    else if (fDMCadDuplicata.vDtUltPagamento < 10) and ((fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG') or (fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'DEV')) then
+    begin
+      fDMCadDuplicata.vDtUltPagamento := fDMCadDuplicata.cdsDuplicata_HistDTLANCAMENTO.AsDateTime;
+      fDMCadDuplicata.cdsDuplicata_Hist.First;
+    end;
+    fDMCadDuplicata.cdsDuplicata_Hist.Prior;
+  end;
+  if vItemAux <= 0 then
+  begin
+    MessageDlg('*** Não existe pagamento/devolução para estorno!', mtInformation, [mbOk], 0);
+    exit;
+  end;
+  fDMCadDuplicata.cdsDuplicata_Hist.Locate('ITEM', vItemAux, [loCaseInsensitive]);
+  if fDMCadDuplicata.cdsDuplicata_HistNUMCHEQUE.AsInteger > 0 then
+  begin
+    MessageDlg('*** Estorno só pode ser feito pelo cadastro dos cheques!', mtInformation, [mbOk], 0);
+    exit;
+  end;
+  if fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG' then
+    vDescAux := 'do pagamento?'
+  else
+    vDescAux := 'da devolução?';
+  if MessageDlg('Deseja fazer o estorno ' + vDescAux, mtConfirmation, [mbYes, mbNo], 0) = mrYes then
+    fDMCadDuplicata.prc_Estorno_Pag;
+  prc_Consultar;
+  btnEstorno.Enabled := False;
 end;
 
 end.

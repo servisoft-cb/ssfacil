@@ -2032,6 +2032,7 @@ type
     qUltimoCodigoBalanca: TSQLQuery;
     qUltimoCodigoBalancaULTIMO: TIntegerField;
     qParametros_ProdGERAR_CODBARRA_ID: TStringField;
+    qParametros_ProdATUALIZAR_COMB_AUT: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;

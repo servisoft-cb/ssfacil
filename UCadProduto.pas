@@ -841,6 +841,7 @@ type
     comboTipoBalanca: TRxDBComboBox;
     Label268: TLabel;
     BtnGerCodBal: TSpeedButton;
+    btnAtualiza_Consumo_Comb: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -1070,6 +1071,7 @@ type
     procedure edtANPKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BtnGerCodBalClick(Sender: TObject);
+    procedure btnAtualiza_Consumo_CombClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadProduto: TDMCadProduto;
@@ -3178,6 +3180,9 @@ begin
   else
   if (Shift = [ssCtrl]) and (Key = 109) and (btnInserir_Serie.Enabled) and (RzPageControl2.ActivePage = TS_Serie) then
     btnExcluir_SerieClick(Sender)
+  else
+  if (Shift = [ssCtrl]) and (Key = 82) then
+    btnAtualiza_Consumo_Comb.Visible := not(btnAtualiza_Consumo_Comb.Visible)
   else
   if (Shift = [ssCtrl]) and (Key = 82) and (RzPageControl1.ActivePage = TS_Consulta) then
   begin
@@ -6692,6 +6697,37 @@ begin
   fDMCadProduto.qUltimoCodigoBalanca.Open;
   if fDMCadProduto.cdsProdutoCODIGO_BALANCA.AsInteger = 0 then
     fDMCadProduto.cdsProdutoCODIGO_BALANCA.AsInteger := fDMCadProduto.qUltimoCodigoBalancaULTIMO.AsInteger + 1;
+end;
+
+procedure TfrmCadProduto.btnAtualiza_Consumo_CombClick(Sender: TObject);
+begin
+    if trim(fDMCadProduto.qParametros_ProdATUALIZAR_COMB_AUT.AsString) <> 'S' then
+      if MessageDlg('Deseja alterar as combinações conforme o consumo?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+        exit;
+
+    fDMCadProduto.cdsProduto_Comb.First;
+    while not fDMCadProduto.cdsProduto_Comb.Eof do
+    begin
+      fDMCadProduto.cdsProduto_Comb_Mat.First;
+      while not fDMCadProduto.cdsProduto_Comb_Mat.Eof do
+      begin
+        if fDMCadProduto.cdsProduto_Comb_MatITEM_MAT.AsInteger = fDMCadProduto.cdsProduto_ConsumoITEM.AsInteger then
+        begin
+          fDMCadProduto.cdsProduto_Comb_Mat.Edit;
+          if fDMCadProduto.cdsProduto_Comb_MatID_MATERIAL.AsInteger <> fDMCadProduto.cdsProduto_ConsumoID_MATERIAL.AsInteger then
+            fDMCadProduto.cdsProduto_Comb_MatID_MATERIAL.AsInteger := fDMCadProduto.cdsProduto_ConsumoID_MATERIAL.AsInteger;
+          if fDMCadProduto.cdsProduto_Comb_MatID_POSICAO.AsInteger <> fDMCadProduto.cdsProduto_ConsumoID_POSICAO.AsInteger then
+            fDMCadProduto.cdsProduto_Comb_MatID_POSICAO.AsInteger := fDMCadProduto.cdsProduto_ConsumoID_POSICAO.AsInteger;  
+          if fDMCadProduto.cdsProduto_Comb_MatID_SETOR.AsInteger <> fDMCadProduto.cdsProduto_ConsumoID_SETOR.AsInteger then
+            fDMCadProduto.cdsProduto_Comb_MatID_SETOR.AsInteger := fDMCadProduto.cdsProduto_ConsumoID_SETOR.AsInteger;
+          fDMCadProduto.cdsProduto_Comb_MatQTD_CONSUMO.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadProduto.cdsProduto_ConsumoQTD_CONSUMO.AsFloat));
+          fDMCadProduto.cdsProduto_Comb_MatQTD_UNIDADE.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadProduto.cdsProduto_ConsumoQTD_UNIDADE.AsFloat));
+          fDMCadProduto.cdsProduto_Comb_Mat.Post;
+        end;
+        fDMCadProduto.cdsProduto_Comb_Mat.Next;
+      end;
+      fDMCadProduto.cdsProduto_Comb.Next;
+    end;
 end;
 
 end.

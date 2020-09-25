@@ -872,7 +872,8 @@ uses
   uDadosEmail in 'Classes\uDadosEmail.pas',
   uConsFatConsumo in 'uConsFatConsumo.pas' {frmConsFatConsumo},
   UDMCompras in 'UDMCompras.pas' {DMCompras: TDataModule},
-  UConsEstoque_Compras in 'UConsEstoque_Compras.pas' {frmConsEstoque_Compras};
+  UConsEstoque_Compras in 'UConsEstoque_Compras.pas' {frmConsEstoque_Compras},
+  UCadDuplicata_Dev in 'UCadDuplicata_Dev.pas' {frmCadDuplicata_Dev};
 
 {$R *.res}
 

@@ -7027,7 +7027,7 @@ object dmCadProduto: TdmCadProduto
       'FROM PARAMETROS_PROD')
     SQLConnection = dmDatabase.scoDados
     Left = 1132
-    Top = 360
+    Top = 361
     object qParametros_ProdUSA_PRODUTO_FILIAL: TStringField
       FieldName = 'USA_PRODUTO_FILIAL'
       FixedChar = True
@@ -7246,6 +7246,11 @@ object dmCadProduto: TdmCadProduto
     end
     object qParametros_ProdGERAR_CODBARRA_ID: TStringField
       FieldName = 'GERAR_CODBARRA_ID'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_ProdATUALIZAR_COMB_AUT: TStringField
+      FieldName = 'ATUALIZAR_COMB_AUT'
       FixedChar = True
       Size = 1
     end

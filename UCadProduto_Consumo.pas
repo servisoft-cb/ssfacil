@@ -246,7 +246,6 @@ begin
       prc_Atualiza_Comb;
     //***************
 
-
   except
     on E: exception do
     begin
@@ -458,7 +457,7 @@ begin
   begin
     if fDMCadProduto.cdsProduto_Comb.RecordCount > 0 then
     begin
-      if MessageDlg('Deseja incluir o material nas combinações existentes?',mtConfirmation,[mbYes,mbNo],0) = mrYes then
+      if (fDMCadProduto.qParametros_ProdATUALIZAR_COMB_AUT.AsString = 'S') or (MessageDlg('Deseja incluir o material nas combinações existentes?',mtConfirmation,[mbYes,mbNo],0) = mrYes) then
         prc_Inserir_Mat_Comb;
     end;
     exit;
@@ -469,8 +468,9 @@ begin
     or (vID_Posicao_Loc <> fDMCadProduto.cdsProduto_ConsumoID_POSICAO.AsInteger)
     or (vID_Setor_Loc <> fDMCadProduto.cdsProduto_ConsumoID_SETOR.AsInteger) then
   begin
-    if MessageDlg('Deseja alterar as combinações conforme o consumo?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
-      exit;
+    if trim(fDMCadProduto.qParametros_ProdATUALIZAR_COMB_AUT.AsString) <> 'S' then
+      if MessageDlg('Deseja alterar as combinações conforme o consumo?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+        exit;
 
     fDMCadProduto.cdsProduto_Comb.First;
     while not fDMCadProduto.cdsProduto_Comb.Eof do
