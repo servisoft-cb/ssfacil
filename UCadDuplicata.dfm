@@ -1545,7 +1545,7 @@ object frmCadDuplicata: TfrmCadDuplicata
         object btnPagamento: TNxButton
           Left = 1
           Top = 1
-          Width = 194
+          Width = 178
           Height = 28
           Cursor = crHandPoint
           Align = alLeft
@@ -1553,7 +1553,7 @@ object frmCadDuplicata: TfrmCadDuplicata
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Glyph.Data = {
@@ -1640,9 +1640,9 @@ object frmCadDuplicata: TfrmCadDuplicata
           OnClick = btnPagamentoClick
         end
         object btnPagtoSelecionado: TNxButton
-          Left = 195
+          Left = 179
           Top = 1
-          Width = 194
+          Width = 178
           Height = 28
           Cursor = crHandPoint
           Align = alLeft
@@ -1650,7 +1650,7 @@ object frmCadDuplicata: TfrmCadDuplicata
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           Glyph.Data = {
@@ -1737,36 +1737,37 @@ object frmCadDuplicata: TfrmCadDuplicata
           OnClick = btnPagtoSelecionadoClick
         end
         object btnEstorno: TNxButton
-          Left = 389
+          Left = 357
           Top = 1
-          Width = 194
+          Width = 178
           Height = 28
           Cursor = crHandPoint
           Align = alLeft
-          Caption = 'Estorno Pagto.'
+          Caption = 'Outras Op'#231#245'es'
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           GlyphSpacing = 5
           ParentFont = False
+          PopupMenu = PopupMenu5
+          ShowArrow = True
           TabOrder = 2
           Transparent = True
-          OnClick = btnEstornoClick
         end
         object NxButton1: TNxButton
-          Left = 772
+          Left = 713
           Top = 1
-          Width = 168
+          Width = 178
           Height = 28
           Cursor = crHandPoint
           Align = alLeft
           Caption = 'Gerar comiss'#227'o'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           GlyphSpacing = 5
@@ -1778,9 +1779,9 @@ object frmCadDuplicata: TfrmCadDuplicata
           Visible = False
         end
         object btnDescontada: TNxButton
-          Left = 583
+          Left = 535
           Top = 1
-          Width = 189
+          Width = 178
           Height = 28
           Cursor = crHandPoint
           Align = alLeft
@@ -1788,7 +1789,7 @@ object frmCadDuplicata: TfrmCadDuplicata
           Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
-          Font.Height = -16
+          Font.Height = -15
           Font.Name = 'Arial'
           Font.Style = []
           GlyphSpacing = 5
@@ -4663,5 +4664,16 @@ object frmCadDuplicata: TfrmCadDuplicata
     Genero = gMasculino
     Left = 984
     Top = 104
+  end
+  object PopupMenu5: TPopupMenu
+    Left = 700
+    Top = 329
+    object Devoluo1: TMenuItem
+      Caption = 'Devolu'#231#227'o'
+    end
+    object EstornoPagtoDevoluo1: TMenuItem
+      Caption = 'Estorno Pagto/Devolu'#231#227'o'
+      OnClick = EstornoPagtoDevoluo1Click
+    end
   end
 end
