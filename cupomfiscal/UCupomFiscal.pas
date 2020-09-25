@@ -534,12 +534,13 @@ begin
     prc_EnterCodigo;
 
     if (Trim(Edit1.Text) <> '') and (fDmCupomFiscal.cdsCupomParametrosUSA_COR_TAMANHO.AsString = 'S') then
-    begin
-      Edit3.Clear;
-      prc_CorTamanho;
-      Edit3.Text         := Trim(Edit1.Text + ' ' + fDmCupomFiscal.vCombinacao + ' ' + RxDBLookupCombo1.Text);
-      pnlTamanho.Visible := True;
-    end;              
+      if (not fdmCupomFiscal.cdsCombinacao.IsEmpty) and (not dmCupomFiscal.cdsTamanho.IsEmpty) then
+      begin
+        Edit3.Clear;
+        prc_CorTamanho;
+        Edit3.Text         := Trim(Edit1.Text + ' ' + fDmCupomFiscal.vCombinacao + ' ' + RxDBLookupCombo1.Text);
+        pnlTamanho.Visible := True;
+      end;
   end;
 end;
 
