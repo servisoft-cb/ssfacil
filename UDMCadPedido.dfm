@@ -12,7 +12,7 @@ object DMCadPedido: TDMCadPedido
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 24
-    Top = 3
+    Top = 5
     object sdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -430,6 +430,11 @@ object DMCadPedido: TDMCadPedido
     end
     object sdsPedidoID_CENTROCUSTO: TIntegerField
       FieldName = 'ID_CENTROCUSTO'
+    end
+    object sdsPedidoREORDEM: TStringField
+      FieldName = 'REORDEM'
+      FixedChar = True
+      Size = 1
     end
   end
   object dspPedido: TDataSetProvider
@@ -913,6 +918,11 @@ object DMCadPedido: TDMCadPedido
     object cdsPedidoID_CENTROCUSTO: TIntegerField
       FieldName = 'ID_CENTROCUSTO'
     end
+    object cdsPedidoREORDEM: TStringField
+      FieldName = 'REORDEM'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsPedido: TDataSource
     DataSet = cdsPedido
@@ -1054,38 +1064,39 @@ object DMCadPedido: TDMCadPedido
       'DTRECEBIMENTO, NUM_ORDPROD,'#13#10'       PED.CONFERIDO, PED.SELECIONA' +
       'DO, PED.IMPRESSO, VEND.NOME NOME_VENDEDOR, OPN.NOME NOME_OPERACA' +
       'O,'#13#10'       PED.FINANCEIRO_CONF, PED.AMOSTRA, CLI.CNPJ_CPF, PED.I' +
-      'D_VENDEDOR_INT, VEND2.NOME NOME_VENDEDOR_INT,'#13#10'       case(selec' +
-      't max(PP.ITEM)'#13#10'            from PEDIDO_PROCESSO PP'#13#10'           ' +
-      ' where PP.ID = PED.ID)'#13#10'         when '#39'1'#39' then '#39'Cadastro'#39#13#10'     ' +
-      '    when '#39'5'#39' then '#39'Lib.Expedi'#231#227'o'#39#13#10'         when '#39'10'#39' then '#39'Fatu' +
-      'rado'#39#13#10'         when '#39'15'#39' then '#39'Lib.Transporte'#39#13#10'       end DESC' +
-      'RICAO_STATUS,'#13#10'       (select'#13#10'               case'#13#10'            ' +
-      '     when sum(TOT_PED) = 0 then '#39'N'#39#13#10'                 when sum(T' +
-      'OT_PED) >= sum(TOT_ITENS) then '#39'S'#39#13#10'                 else '#39'P'#39#13#10' ' +
-      '              end'#13#10'        from (select count(1) TOT_ITENS, 0 TO' +
-      'T_PED'#13#10'              from PEDIDO_ITEM PIT'#13#10'              where P' +
-      'IT.ID = PED.ID'#13#10'              union all'#13#10'              select 0 ' +
-      'TOT_ITENS, count(1) TOT_PED'#13#10'              from (select ID_PEDID' +
-      'O, ITEM_PEDIDO'#13#10'                    from LOTE_PED LPD'#13#10'         ' +
-      '           where LPD.ID_PEDIDO = PED.ID'#13#10'                    gro' +
-      'up by ID_PEDIDO, ITEM_PEDIDO))) GEROU_PRODUCAO,'#13#10'       (select ' +
-      'count(1) CONT_TALAO'#13#10'        from TALAO_PED TP'#13#10'        where TP' +
-      '.ID_PEDIDO = PED.ID) CONT_TALAO,'#13#10'       (select count(1) CONT_T' +
-      'ALAO2'#13#10'        from LOTE_PED_CALC LPC'#13#10'        where LPC.ID_PEDI' +
-      'DO = PED.ID) CONT_TALAO2,'#13#10'       (select coalesce(sum(PRECO_CUS' +
-      'TO * QTD), 0)'#13#10'        from PEDIDO_ITEM'#13#10'        where ID = PED.' +
-      'ID) VALOR_CUSTO,'#13#10'        (SELECT COUNT(1) CONTADOR_PROCESSO FRO' +
-      'M pedido_item_processo WHERE ID = PED.ID)'#13#10'        CONTADOR_PROC' +
-      'ESSO,'#13#10'CASE'#13#10'  WHEN (AX.end_arq_pagto IS NOT NULL) AND (AX.end_a' +
-      'rq_oc IS NOT NULL) THEN '#39'REC/OC'#39#13#10'  WHEN (AX.end_arq_pagto IS NO' +
-      'T NULL) THEN '#39'REC'#39#13#10'  WHEN (AX.end_arq_oc IS NOT NULL) THEN '#39'OC'#39 +
-      #13#10'  ELSE '#39#39#13#10'  END DESC_ARQ_ANEXO'#13#10#13#10'from PEDIDO PED'#13#10'left join ' +
-      'PESSOA CLI on PED.ID_CLIENTE = CLI.CODIGO'#13#10'left join PESSOA TRA ' +
-      'on PED.ID_TRANSPORTADORA = TRA.CODIGO'#13#10'left join PEDIDO_APROV AP' +
-      ' on PED.ID = AP.ID'#13#10'left join PESSOA VEND on PED.ID_VENDEDOR = V' +
-      'END.CODIGO'#13#10'left join OPERACAO_NOTA OPN on PED.ID_OPERACAO_NOTA ' +
-      '= OPN.ID  '#13#10'LEFT JOIN PESSOA VEND2 ON PED.ID_VENDEDOR_INT = VEND' +
-      '2.CODIGO'#13#10'LEFT JOIN PEDIDO_ANEXO AX ON PED.ID = AX.ID'#13#10#13#10
+      'D_VENDEDOR_INT, VEND2.NOME NOME_VENDEDOR_INT,'#13#10'       COALESCE(P' +
+      'ED.REORDEM,'#39'N'#39') REORDEM, '#13#10'       case(select max(PP.ITEM)'#13#10'    ' +
+      '        from PEDIDO_PROCESSO PP'#13#10'            where PP.ID = PED.I' +
+      'D)'#13#10'         when '#39'1'#39' then '#39'Cadastro'#39#13#10'         when '#39'5'#39' then '#39'L' +
+      'ib.Expedi'#231#227'o'#39#13#10'         when '#39'10'#39' then '#39'Faturado'#39#13#10'         when' +
+      ' '#39'15'#39' then '#39'Lib.Transporte'#39#13#10'       end DESCRICAO_STATUS,'#13#10'     ' +
+      '  (select'#13#10'               case'#13#10'                 when sum(TOT_PE' +
+      'D) = 0 then '#39'N'#39#13#10'                 when sum(TOT_PED) >= sum(TOT_I' +
+      'TENS) then '#39'S'#39#13#10'                 else '#39'P'#39#13#10'               end'#13#10' ' +
+      '       from (select count(1) TOT_ITENS, 0 TOT_PED'#13#10'             ' +
+      ' from PEDIDO_ITEM PIT'#13#10'              where PIT.ID = PED.ID'#13#10'    ' +
+      '          union all'#13#10'              select 0 TOT_ITENS, count(1) ' +
+      'TOT_PED'#13#10'              from (select ID_PEDIDO, ITEM_PEDIDO'#13#10'    ' +
+      '                from LOTE_PED LPD'#13#10'                    where LPD' +
+      '.ID_PEDIDO = PED.ID'#13#10'                    group by ID_PEDIDO, ITE' +
+      'M_PEDIDO))) GEROU_PRODUCAO,'#13#10'       (select count(1) CONT_TALAO'#13 +
+      #10'        from TALAO_PED TP'#13#10'        where TP.ID_PEDIDO = PED.ID)' +
+      ' CONT_TALAO,'#13#10'       (select count(1) CONT_TALAO2'#13#10'        from ' +
+      'LOTE_PED_CALC LPC'#13#10'        where LPC.ID_PEDIDO = PED.ID) CONT_TA' +
+      'LAO2,'#13#10'       (select coalesce(sum(PRECO_CUSTO * QTD), 0)'#13#10'     ' +
+      '   from PEDIDO_ITEM'#13#10'        where ID = PED.ID) VALOR_CUSTO,'#13#10'  ' +
+      '      (SELECT COUNT(1) CONTADOR_PROCESSO FROM pedido_item_proces' +
+      'so WHERE ID = PED.ID)'#13#10'        CONTADOR_PROCESSO,'#13#10'CASE'#13#10'  WHEN ' +
+      '(AX.end_arq_pagto IS NOT NULL) AND (AX.end_arq_oc IS NOT NULL) T' +
+      'HEN '#39'REC/OC'#39#13#10'  WHEN (AX.end_arq_pagto IS NOT NULL) THEN '#39'REC'#39#13#10 +
+      '  WHEN (AX.end_arq_oc IS NOT NULL) THEN '#39'OC'#39#13#10'  ELSE '#39#39#13#10'  END D' +
+      'ESC_ARQ_ANEXO'#13#10#13#10'from PEDIDO PED'#13#10'left join PESSOA CLI on PED.ID' +
+      '_CLIENTE = CLI.CODIGO'#13#10'left join PESSOA TRA on PED.ID_TRANSPORTA' +
+      'DORA = TRA.CODIGO'#13#10'left join PEDIDO_APROV AP on PED.ID = AP.ID'#13#10 +
+      'left join PESSOA VEND on PED.ID_VENDEDOR = VEND.CODIGO'#13#10'left joi' +
+      'n OPERACAO_NOTA OPN on PED.ID_OPERACAO_NOTA = OPN.ID  '#13#10'LEFT JOI' +
+      'N PESSOA VEND2 ON PED.ID_VENDEDOR_INT = VEND2.CODIGO'#13#10'LEFT JOIN ' +
+      'PEDIDO_ANEXO AX ON PED.ID = AX.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1322,6 +1333,11 @@ object DMCadPedido: TDMCadPedido
       Required = True
       FixedChar = True
       Size = 6
+    end
+    object cdsPedido_ConsultaREORDEM: TStringField
+      FieldName = 'REORDEM'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPedido_Consulta: TDataSource

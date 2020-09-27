@@ -3833,6 +3833,9 @@ type
     qFilial_EmailCNPJ_CPF_FILIAL: TStringField;
     qNFE_Email: TSQLQuery;
     qNFE_EmailEMAIL: TStringField;
+    sdsPedidoREORDEM: TStringField;
+    cdsPedidoREORDEM: TStringField;
+    cdsPedido_ConsultaREORDEM: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -4220,6 +4223,7 @@ begin
   cdsPedidoVLR_DESCONTO_ITEM.AsFloat := 0;
   cdsPedidoNGR.AsString              := 'N';
   cdsPedidoCONTROLA_RESERVA.AsString := qParametros_PedUSA_RESERVA_EST.AsString;
+  cdsPedidoREORDEM.AsString          := 'N';
 end;
 
 procedure TDMCadPedido.cdsPedidoBeforePost(DataSet: TDataSet);

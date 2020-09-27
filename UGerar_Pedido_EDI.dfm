@@ -43,14 +43,14 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
     end
     object Shape1: TShape
       Left = 704
-      Top = 13
+      Top = 21
       Width = 28
       Height = 15
       Brush.Color = clRed
     end
     object Label2: TLabel
       Left = 736
-      Top = 16
+      Top = 24
       Width = 155
       Height = 13
       Caption = 'Com Erro (Prod. n'#227'o encontrado)'
@@ -65,28 +65,28 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
     end
     object Label4: TLabel
       Left = 735
-      Top = 30
+      Top = 38
       Width = 144
       Height = 13
       Caption = 'Com Aviso (Pedido j'#225' lan'#231'ado)'
     end
     object Shape2: TShape
       Left = 704
-      Top = 27
+      Top = 35
       Width = 28
       Height = 15
       Brush.Color = clYellow
     end
     object Shape3: TShape
       Left = 704
-      Top = 41
+      Top = 49
       Width = 28
       Height = 15
       Brush.Color = 4227327
     end
     object Label6: TLabel
       Left = 736
-      Top = 44
+      Top = 52
       Width = 58
       Height = 13
       Caption = 'Outros Erros'
@@ -217,7 +217,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
     object ckExportacao: TCheckBox
       Left = 472
       Top = 4
-      Width = 177
+      Width = 128
       Height = 17
       Caption = 'Cliente Exporta'#231#227'o'
       TabOrder = 5
@@ -240,6 +240,14 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       TabOrder = 7
       Visible = False
       OnClick = btnExcluirItemClick
+    end
+    object ckReordem: TCheckBox
+      Left = 624
+      Top = 4
+      Width = 74
+      Height = 17
+      Caption = 'Reordem'
+      TabOrder = 8
     end
   end
   object gbxVendedor: TRzGroupBox

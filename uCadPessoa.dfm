@@ -1420,7 +1420,7 @@ object frmCadPessoa: TfrmCadPessoa
         Top = 30
         Width = 1079
         Height = 627
-        ActivePage = TS_Pessoa_Financeiro
+        ActivePage = TS_Pessoa_Dados
         ActivePageDefault = TS_Pessoa_Dados
         Align = alClient
         BackgroundColor = clSilver
@@ -1428,7 +1428,7 @@ object frmCadPessoa: TfrmCadPessoa
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 3
+        TabIndex = 0
         TabOrder = 1
         OnChange = RZPageControlDadosChange
         FixedDimension = 19
@@ -2598,10 +2598,10 @@ object frmCadPessoa: TfrmCadPessoa
             Top = 415
             Width = 1075
             Height = 189
-            ActivePage = ts_Contatos
+            ActivePage = ts_Vendedor
             ActivePageDefault = ts_Contatos
             Align = alBottom
-            TabIndex = 0
+            TabIndex = 1
             TabOrder = 1
             OnChange = RzPageControl3Change
             FixedDimension = 19

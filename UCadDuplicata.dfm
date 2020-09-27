@@ -77,6 +77,7 @@ object frmCadDuplicata: TfrmCadDuplicata
         RegistrySection = 'SMDBGrid'
         OnChangeSelection = SMDBGrid1ChangeSelection
         WidthOfIndicator = 27
+        OnFilterChanged = SMDBGrid1FilterChanged
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
         ColCount = 43
@@ -133,6 +134,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'DTFINANCEIRO'
             Title.Caption = 'Data Financeira'
+            Width = 64
             Visible = True
           end
           item
@@ -209,6 +211,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_RESTANTE'
             Title.Alignment = taCenter
+            Width = 64
             Visible = True
           end
           item
@@ -228,6 +231,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_DESPESAS'
             Title.Alignment = taCenter
+            Width = 64
             Visible = True
           end
           item
@@ -258,12 +262,14 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'PERC_BASE_COMISSAO'
             Title.Alignment = taCenter
             Title.Caption = '% Base Comiss'#227'o'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VLR_DEVOLUCAO'
             Title.Alignment = taCenter
+            Width = 64
             Visible = True
           end
           item
@@ -271,6 +277,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'VLR_DESCONTO'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Desconto'
+            Width = 64
             Visible = True
           end
           item
@@ -288,6 +295,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TIPO_LANCAMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Lan'#231'amento'
+            Width = 64
             Visible = True
           end
           item
@@ -296,6 +304,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TRANSFERENCIA_ICMS'
             Title.Alignment = taCenter
             Title.Caption = 'Transf. ICMS'
+            Width = 64
             Visible = True
           end
           item
@@ -309,6 +318,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'NOME_BANCO'
             Title.Caption = 'Banco'
+            Width = 64
             Visible = True
           end
           item
@@ -370,6 +380,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TITULO_CARTORIO'
             Title.Alignment = taCenter
             Title.Caption = 'Em Cart'#243'rio'
+            Width = 64
             Visible = True
           end
           item
@@ -378,6 +389,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'PROTESTADO'
             Title.Alignment = taCenter
             Title.Caption = 'Protestado'
+            Width = 64
             Visible = True
           end
           item
@@ -400,6 +412,7 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_ADTO_USADO'
             Title.Alignment = taCenter
+            Width = 64
             Visible = True
           end>
       end
@@ -795,69 +808,69 @@ object frmCadDuplicata: TfrmCadDuplicata
           Caption = 'Final:'
         end
         object Shape1: TShape
-          Left = 861
+          Left = 893
           Top = 5
           Width = 23
           Height = 14
           Brush.Color = clGreen
         end
         object Label33: TLabel
-          Left = 890
+          Left = 922
           Top = 5
           Width = 37
           Height = 13
           Caption = 'Quitado'
         end
         object Label34: TLabel
-          Left = 890
+          Left = 922
           Top = 18
           Width = 42
           Height = 13
           Caption = 'Atrasado'
         end
         object Shape2: TShape
-          Left = 861
+          Left = 893
           Top = 18
           Width = 23
           Height = 14
           Brush.Color = clRed
         end
         object Shape3: TShape
-          Left = 861
+          Left = 893
           Top = 31
           Width = 23
           Height = 14
         end
         object Label35: TLabel
-          Left = 890
+          Left = 922
           Top = 31
           Width = 46
           Height = 13
           Caption = 'Pendente'
         end
         object Shape4: TShape
-          Left = 861
+          Left = 893
           Top = 44
           Width = 23
           Height = 14
           Brush.Color = clSilver
         end
         object Label47: TLabel
-          Left = 890
+          Left = 922
           Top = 44
           Width = 26
           Height = 13
           Caption = 'ICMS'
         end
         object Shape5: TShape
-          Left = 861
+          Left = 893
           Top = 57
           Width = 23
           Height = 14
           Brush.Color = 8454143
         end
         object Label49: TLabel
-          Left = 890
+          Left = 922
           Top = 57
           Width = 95
           Height = 13
@@ -880,14 +893,14 @@ object frmCadDuplicata: TfrmCadDuplicata
           Caption = 'Tipo Cobran'#231'a:'
         end
         object Shape6: TShape
-          Left = 861
+          Left = 893
           Top = 70
           Width = 23
           Height = 14
           Brush.Color = 16777147
         end
         object Label56: TLabel
-          Left = 890
+          Left = 922
           Top = 70
           Width = 54
           Height = 13
@@ -902,28 +915,28 @@ object frmCadDuplicata: TfrmCadDuplicata
           Caption = 'Op'#231#227'o:'
         end
         object Shape7: TShape
-          Left = 861
+          Left = 893
           Top = 83
           Width = 23
           Height = 14
           Brush.Color = 11053311
         end
         object Label58: TLabel
-          Left = 890
+          Left = 922
           Top = 83
           Width = 57
           Height = 13
           Caption = 'Em Protesto'
         end
         object Shape8: TShape
-          Left = 861
+          Left = 893
           Top = 96
           Width = 23
           Height = 14
           Brush.Color = clBlue
         end
         object Label16: TLabel
-          Left = 890
+          Left = 922
           Top = 96
           Width = 112
           Height = 13
@@ -953,14 +966,14 @@ object frmCadDuplicata: TfrmCadDuplicata
           Caption = 'Aprovado:'
         end
         object Shape9: TShape
-          Left = 861
+          Left = 893
           Top = 109
           Width = 23
           Height = 14
           Brush.Color = 5483007
         end
         object Label64: TLabel
-          Left = 890
+          Left = 922
           Top = 109
           Width = 68
           Height = 13
@@ -973,6 +986,20 @@ object frmCadDuplicata: TfrmCadDuplicata
           Height = 13
           Alignment = taRightJustify
           Caption = 'Nosso N'#250'mero:'
+        end
+        object Shape10: TShape
+          Left = 892
+          Top = 122
+          Width = 23
+          Height = 14
+          Brush.Color = 9276871
+        end
+        object Label69: TLabel
+          Left = 922
+          Top = 122
+          Width = 52
+          Height = 13
+          Caption = 'Devolu'#231#227'o'
         end
         object edtNumDuplicata: TEdit
           Left = 317
@@ -3739,24 +3766,28 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Expanded = False
                 FieldName = 'VLR_PAGAMENTO'
                 Title.Color = 16777170
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_JUROSPAGOS'
                 Title.Color = 16777170
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_DESCONTOS'
                 Title.Color = 16777170
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_DESPESAS'
                 Title.Color = 16777170
+                Width = 64
                 Visible = True
               end
               item
@@ -3770,12 +3801,14 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Expanded = False
                 FieldName = 'VLR_DEVOLUCAO'
                 Title.Color = 16777170
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_JUROSCALCULADO'
                 Title.Color = 16777170
+                Width = 64
                 Visible = True
               end
               item
@@ -3824,6 +3857,7 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Cr'#233'dito Usado'
                 Title.Color = 16777170
+                Width = 64
                 Visible = True
               end>
           end
@@ -4626,8 +4660,8 @@ object frmCadDuplicata: TfrmCadDuplicata
     GroupName = 'Duplicata'
     UserControl = fMenu.UserControl1
     NotAllowed = naDisabled
-    Left = 897
-    Top = 60
+    Left = 996
+    Top = 68
   end
   object PopupMenu4: TPopupMenu
     Left = 737
@@ -4642,14 +4676,15 @@ object frmCadDuplicata: TfrmCadDuplicata
     MoedaNoPlural = 'Reais'
     TipoDoTexto = ttMaiuscula
     Genero = gMasculino
-    Left = 984
-    Top = 104
+    Left = 994
+    Top = 103
   end
   object PopupMenu5: TPopupMenu
     Left = 697
-    Top = 328
+    Top = 327
     object Devoluo1: TMenuItem
       Caption = 'Devolu'#231#227'o'
+      OnClick = Devoluo1Click
     end
     object EstornoPagtoDevoluo1: TMenuItem
       Caption = 'Estorno Pagto/Devolu'#231#227'o'

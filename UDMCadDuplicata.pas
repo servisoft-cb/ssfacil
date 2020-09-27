@@ -1801,28 +1801,34 @@ var
   vDtComissao: TDateTime;
   vIDAux: Integer;
 begin
-  Result := 0;
+  Result   := 0;
+  if (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR.AsInteger,[loCaseInsensitive])) and
+     (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR_INT.AsInteger,[loCaseInsensitive]))  then
+    exit;
+  vBaseAux := StrToFloat(FormatFloat('0.00',cdsDuplicata_HistVLR_PAGAMENTO.AsFloat));
+  if Tipo = 'DEV' then
+  begin
+    vBaseAux := StrToFloat(FormatFloat('0.00',cdsDuplicata_HistVLR_DEVOLUCAO.AsFloat));
+    if (cdsVendedorTIPO_COMISSAO.AsString <> 'N') and (cdsVendedorTIPO_COMISSAO.AsString <> 'P') then
+      exit;
+  end
+  else
+  if (cdsVendedorTIPO_COMISSAO.AsString <> 'D') and (cdsVendedorTIPO_COMISSAO.AsString <> 'P') then
+    exit;
 
+  if StrToFloat(FormatFloat('0.00',vBaseAux)) <= 0 then
+    exit;
   if ((StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO.AsFloat)) <= 0) or
      ((cdsDuplicataID_VENDEDOR.AsInteger <= 0) or (cdsDuplicataID_VENDEDOR.IsNull))) and
      ((StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO_INT.AsFloat)) <= 0) or
      ((cdsDuplicataID_VENDEDOR_INT.AsInteger <= 0) or (cdsDuplicataID_VENDEDOR_INT.IsNull))) then
     exit;
 
-  if (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR.AsInteger,[loCaseInsensitive])) and
-     (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR_INT.AsInteger,[loCaseInsensitive]))  then
-    exit;
-
-  if (cdsVendedorTIPO_COMISSAO.AsString <> 'D') and (cdsVendedorTIPO_COMISSAO.AsString <> 'P') then
-    exit;
-
   fDMCadExtComissao := TDMCadExtComissao.Create(Self);
 
   try
     if (StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO_PAGAR_NOTA.AsFloat)) > 0) then
-      vBaseAux := StrToFloat(FormatFloat('0.00',cdsDuplicata_HistVLR_PAGAMENTO.AsFloat * cdsDuplicataPERC_COMISSAO_PAGAR_NOTA.AsFloat / 100))
-    else
-      vBaseAux := StrToFloat(FormatFloat('0.00',cdsDuplicata_HistVLR_PAGAMENTO.AsFloat));
+      vBaseAux := StrToFloat(FormatFloat('0.00',vBaseAux * cdsDuplicataPERC_COMISSAO_PAGAR_NOTA.AsFloat / 100));
     //08/05/2019
     if ((qParametros_ComUSA_CONFIG_IND.AsString = 'N') and ((qParametros_ComCOMISSAO_DESCONTAR.AsString = 'S') or (qParametros_ComCOMISSAO_DESCONTAR_PIS.AsString = 'S')))
       or ((qParametros_ComUSA_CONFIG_IND.AsString = 'S') and (uUtilPadrao.fnc_Vendedor_Desc_Com(cdsDuplicataID_VENDEDOR.AsInteger))) then
@@ -1851,7 +1857,7 @@ begin
                                                    cdsDuplicataID_PESSOA.AsInteger,cdsDuplicataPARCELA.AsInteger,cdsDuplicataID_NOTA_SERVICO.AsInteger,
                                                    cdsDuplicataNUMRPS.AsInteger,cdsDuplicataID_Cupom.AsInteger,
                                                    StrToFloat(FormatFloat('0.00',vBaseAux)),0,
-                                                   StrToFloat(FormatFloat('0.000',cdsDuplicataPERC_COMISSAO.AsFloat)),0,cdsDuplicataID_DESCONTADA.AsInteger);
+                                                   StrToFloat(FormatFloat('0.0000',cdsDuplicataPERC_COMISSAO.AsFloat)),0,cdsDuplicataID_DESCONTADA.AsInteger);
     if (cdsDuplicataID_VENDEDOR_INT.AsInteger > 0) and (cdsDuplicataPERC_COMISSAO_INT.AsFloat > 0) then //vendedor interno FEPAM
       Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,Tipo,cdsDuplicataSERIE.AsString,'',0,vDtComissao,
                                                      cdsDuplicataFILIAL.AsInteger,cdsDuplicataID_VENDEDOR_INT.AsInteger,
@@ -1859,7 +1865,7 @@ begin
                                                      cdsDuplicataID_PESSOA.AsInteger,cdsDuplicataPARCELA.AsInteger,cdsDuplicataID_NOTA_SERVICO.AsInteger,
                                                      cdsDuplicataNUMRPS.AsInteger,cdsDuplicataID_Cupom.AsInteger,
                                                      StrToFloat(FormatFloat('0.00',vBaseAux)),0,
-                                                     StrToFloat(FormatFloat('0.000',cdsDuplicataPERC_COMISSAO_INT.AsFloat)),0,
+                                                     StrToFloat(FormatFloat('0.0000',cdsDuplicataPERC_COMISSAO_INT.AsFloat)),0,
                                                      cdsDuplicataID_DESCONTADA.AsInteger);
 
   except

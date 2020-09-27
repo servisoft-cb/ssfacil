@@ -107,7 +107,7 @@ object DMCadExtComissao: TDMCadExtComissao
     OnNewRecord = cdsExtComissaoNewRecord
     OnReconcileError = cdsExtComissaoReconcileError
     Left = 232
-    Top = 24
+    Top = 25
     object cdsExtComissaoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -268,7 +268,7 @@ object DMCadExtComissao: TDMCadExtComissao
     object cdsConsultaPERC_COMISSAO: TFloatField
       DisplayLabel = '% Comiss'#227'o'
       FieldName = 'PERC_COMISSAO'
-      DisplayFormat = '0.00'
+      DisplayFormat = '0.00###'
     end
     object cdsConsultaVLR_COMISSAO: TFloatField
       DisplayLabel = 'Vlr. Comiss'#227'o'

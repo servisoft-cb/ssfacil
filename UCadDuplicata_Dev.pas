@@ -86,7 +86,7 @@ begin
   vMsgErro := '';
   if DtDevolucao.Date <= 10 then
     vMsgErro := vMsgErro + #13 + '*** Data de devolução não informada!';
-  if DtDevolucao.Date <= fDMCadDuplicata.cdsDuplicataDTEMISSAO.AsDateTime then
+  if DtDevolucao.Date < fDMCadDuplicata.cdsDuplicataDTEMISSAO.AsDateTime then
     vMsgErro := vMsgErro + #13 + '*** Data de devolução não pode ser menor que a data de emissão!';
   if (ceVlrDevolucao.Value <= 0) then
     vMsgErro := vMsgErro + #13 + '*** Valor de Devolução não informada!';
@@ -132,7 +132,8 @@ begin
   try
     if not(fDMCadDuplicata.cdsDuplicata.State in [dsEdit,dsInsert]) then
       fDMCadDuplicata.cdsDuplicata.Edit;
-    fDMCadDuplicata.cdsDuplicataVLR_DEVOLUCAO.AsFloat := fDMCadDuplicata.cdsDuplicataVLR_DEVOLUCAO.AsFloat + ceVlrDevolucao.Value;
+    fDMCadDuplicata.cdsDuplicataVLR_DEVOLUCAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_DEVOLUCAO.AsFloat + ceVlrDevolucao.Value));
+    fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat  := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat - ceVlrDevolucao.Value));
     fDMCadDuplicata.cdsDuplicata.Post;
     if trim(edtHistorico.Text) = '' then
       edtHistorico.Text := 'DEVOLUÇÃO';

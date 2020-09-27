@@ -275,6 +275,8 @@ type
     PopupMenu5: TPopupMenu;
     Devoluo1: TMenuItem;
     EstornoPagtoDevoluo1: TMenuItem;
+    Shape10: TShape;
+    Label69: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure OnShow(Sender: TObject);
@@ -369,6 +371,8 @@ type
     procedure Gerarcomissoconformeconsultatodasatjgeradas1Click(
       Sender: TObject);
     procedure EstornoPagtoDevoluo1Click(Sender: TObject);
+    procedure SMDBGrid1FilterChanged(Sender: TObject);
+    procedure Devoluo1Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadDuplicata: TDMCadDuplicata;
@@ -427,7 +431,7 @@ implementation
 uses
   DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, uRelPagarReceber, uRelPagarReceber2, URelCheque_Copia, USel_ContaOrc, USel_Pessoa,
   uUtilCobranca, UCadDuplicata_Desc, uRelPagarReceber3, UChequeDupHist, UCadDuplicata_Cob, uMenu1, uRelRecibo_Pgto, USel_CentroCusto,
-  uUtilCliente, UConsAdto;
+  uUtilCliente, UConsAdto, UCadDuplicata_Dev;
 
 {$R *.dfm}
 
@@ -1090,7 +1094,15 @@ begin
   end
   else if fDMCadDuplicata.cdsDuplicata_ConsultaTRANSFERENCIA_ICMS.AsString = 'S' then
     Background := clSilver
-  else if fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat <= 0 then
+  else
+  if (StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicata_ConsultaVLR_PAGO.AsFloat)) <= 0)
+    and (StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicata_ConsultaVLR_DEVOLUCAO.AsFloat)) > 0) then
+  begin
+    Background  := $008D8DC7;
+    AFont.Color := clWhite;
+  end
+  else
+  if fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat <= 0 then
   begin
     Background := clGreen;
     AFont.Color := clWhite;
@@ -1966,7 +1978,10 @@ procedure TfrmCadDuplicata.SMDBGrid1ChangeSelection(Sender: TObject);
 begin
   btnPagamento.Enabled := ((SMDBGrid1.SelectedRows.Count = 1) and (vUser_Pagto) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0));
   btnPagtoSelecionado.Enabled := ((SMDBGrid1.SelectedRows.Count > 0) and (vUser_Pagto) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0));
-  EstornoPagtoDevoluo1.Enabled := ((SMDBGrid1.SelectedRows.Count = 1) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_PAGO.AsFloat)) > 0) and (vUser_Estorno));
+  EstornoPagtoDevoluo1.Enabled := ((SMDBGrid1.SelectedRows.Count = 1)
+                                  and ((StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_PAGO.AsFloat)) > 0)
+                                        or (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_DEVOLUCAO.AsFloat)) > 0))
+                                  and (vUser_Estorno));
   btnDescontada.Enabled := ((SMDBGrid1.SelectedRows.Count > 0) and ((StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0) or (fDMCadDuplicata.cdsDuplicata_ConsultaCONFIRMA_PGTO.AsString <> 'S')));
   Devoluo1.Enabled := ((SMDBGrid1.SelectedRows.Count = 1) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0) and (vUser_Devol));
 end;
@@ -3388,6 +3403,34 @@ begin
     fDMCadDuplicata.prc_Estorno_Pag;
   prc_Consultar;
   EstornoPagtoDevoluo1.Enabled := False;
+end;
+
+procedure TfrmCadDuplicata.SMDBGrid1FilterChanged(Sender: TObject);
+begin
+  SMDBGrid1.UnSelectAllClick(Sender);
+end;
+
+procedure TfrmCadDuplicata.Devoluo1Click(Sender: TObject);
+var
+  ffrmCadDuplicata_Dev: TfrmCadDuplicata_Dev;
+  vIDAux : Integer;
+begin
+  if fDMCadDuplicata.cdsPessoaCODIGO.AsInteger <> fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger then
+    fDMCadDuplicata.cdsPessoa.Locate('CODIGO', fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger, [loCaseInsensitive]);
+  prc_Posiciona_Duplicata(fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger);
+  if StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) <= 0 then
+  begin
+    MessageDlg('*** Título sem valor pendente!', mtInformation, [mbOk], 0);
+    exit;
+  end;
+  vIDAux := fDMCadDuplicata.cdsDuplicataID.AsInteger;
+
+  ffrmCadDuplicata_Dev := TfrmCadDuplicata_Dev.Create(self);
+  ffrmCadDuplicata_Dev.fDMCadDuplicata := fDMCadDuplicata;
+  ffrmCadDuplicata_Dev.ShowModal;
+  FreeAndNil(ffrmCadDuplicata_Dev);
+  prc_Consultar(vIDAux);
+  Devoluo1.Enabled := False;
 end;
 
 end.

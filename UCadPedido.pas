@@ -372,6 +372,7 @@ type
     N5: TMenuItem;
     EnviarEmail1: TMenuItem;
     ckSelItem: TCheckBox;
+    DBCheckBox7: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -1390,7 +1391,10 @@ begin
   end;
   //********************
 
-  if fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger < 1 then
+  if fDMCadPedido.cdsPedidoREORDEM.AsString = 'S' then
+    MessageDlg('Para Lembrar..... Pedido REORDEM não vai gerar comissão!',mtConfirmation, [mbOk], 0);
+
+  if (fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger < 1) or (fDMCadPedido.cdsPedidoREORDEM.AsString = 'S') then
     fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := 0;
 
   if RxDBLookupCombo3.Text <> '' then
@@ -1752,7 +1756,7 @@ begin
   if fDMCadPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S' then
     fDMCadPedido.cdsPedidoID_VENDEDOR_INT.AsInteger := fDMCadPedido.cdsClienteID_VENDEDOR_INT.AsInteger;
   //****************
-  if fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger > 0 then
+  if (fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger > 0) and (trim(fDMCadPedido.cdsPedidoREORDEM.AsString) <> 'S') then
   begin
     fDMCadPedido.cdsVendedor.Locate('CODIGO',fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger,[loCaseInsensitive]);
     if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsClientePERC_COMISSAO.AsFloat)) > 0 then
@@ -2090,7 +2094,7 @@ begin
     AFont.Color := clWhite;
   end
   else
-  if StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat)) <= 0 then
+  if (StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat)) <= 0) and (fDMCadPedido.cdsPedido_ItensITEM.AsInteger > 0) then
   begin
     Background  := clYellow;
     AFont.Color := clBlack;
@@ -2243,7 +2247,7 @@ procedure TfrmCadPedido.RxDBLookupCombo6Exit(Sender: TObject);
 begin
   if fDMCadPedido.cdsClienteCODIGO.AsInteger <> fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger then
     fDMCadPedido.cdsCliente.Locate('CODIGO',fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,[loCaseInsensitive]);
-  if (fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger > 0) then
+  if (fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger > 0) and (trim(fDMCadPedido.cdsPedidoREORDEM.AsString) <> 'S') then
   begin
     if (fDMCadPedido.cdsClienteID_VENDEDOR.AsInteger > 0) and
        (fDMCadPedido.cdsClienteID_VENDEDOR.AsInteger = fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger) and

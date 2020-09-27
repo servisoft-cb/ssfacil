@@ -43,6 +43,7 @@ type
     Shape3: TShape;
     Label6: TLabel;
     btnExcluirItem: TNxButton;
+    ckReordem: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FilenameEdit1Change(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -485,6 +486,10 @@ begin
   fDMCadPedido.cdsFilial.Locate('ID',fDMCadPedido.cdsPedidoFILIAL.AsInteger,[loCaseInsensitive]);
   fDMCadPedido.cdsPedidoDTEMISSAO.AsString      := fDMGerar_EDI.mAuxiliarDtEmissao.AsString;
   fDMCadPedido.cdsPedidoPEDIDO_CLIENTE.AsString := fDMGerar_EDI.mAuxiliarNumOC.AsString;
+  if ckReordem.Checked then
+    fDMCadPedido.cdsPedidoREORDEM.AsString := 'S'
+  else
+    fDMCadPedido.cdsPedidoREORDEM.AsString := 'N';
   fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger    := fDMGerar_EDI.mAuxiliarID_Cliente.AsInteger;
   if fDMGerar_EDI.qClienteID_TRANSPORTADORA.AsInteger > 0 then
     fDMCadPedido.cdsPedidoID_TRANSPORTADORA.AsInteger := fDMGerar_EDI.qClienteID_TRANSPORTADORA.AsInteger;
@@ -495,13 +500,19 @@ begin
   if fDMGerar_EDI.qClienteID_VENDEDOR.AsInteger > 0 then
     fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger := fDMGerar_EDI.qClienteID_VENDEDOR.AsInteger;
 
-  if fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger > 0 then
+  if fDMCadPedido.cdsPedidoREORDEM.AsString <> 'S' then
   begin
-    if StrToFloat(FormatFloat('0.00',fDMGerar_EDI.qClientePERC_COMISSAO.AsFloat)) > 0 then
-      fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMGerar_EDI.qClientePERC_COMISSAO.AsFloat))
-    else
-      fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMGerar_EDI.qClientePERC_COMISSAO_VEND.AsFloat));
-  end;
+    if fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger > 0 then
+    begin
+      if StrToFloat(FormatFloat('0.00',fDMGerar_EDI.qClientePERC_COMISSAO.AsFloat)) > 0 then
+        fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMGerar_EDI.qClientePERC_COMISSAO.AsFloat))
+      else
+        fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',fDMGerar_EDI.qClientePERC_COMISSAO_VEND.AsFloat));
+    end;
+  end
+  else
+    fDMCadPedido.cdsPedidoPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',0));
+
   fDMCadPedido.cdsPedidoTIPO_FRETE.AsString := fDMGerar_EDI.qClienteTIPO_FRETE.AsString;
 
   //CFOP
@@ -612,8 +623,12 @@ begin
   prc_Mover_Dados;
   fDMCadPedido.cdsPedido_ItensDRAWBACK.AsString := fDMGerar_EDI.mAuxiliarDrawback.AsString;
 
-  if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString = 'I') then
-    fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := fnc_Buscar_Comissao_Prod(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger);
+  fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := 0;
+  if fDMCadPedido.cdsPedidoREORDEM.AsString <> 'S' then
+  begin
+    if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString = 'I') then
+      fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := fnc_Buscar_Comissao_Prod(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger);
+  end;
 
   fDMCadPedido.cdsTab_CSTICMS.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger,([Locaseinsensitive]));
   fDMCadPedido.cdsTab_CSTIPI.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger,([Locaseinsensitive]));
