@@ -133,7 +133,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'DTFINANCEIRO'
             Title.Caption = 'Data Financeira'
-            Width = 64
             Visible = True
           end
           item
@@ -210,7 +209,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_RESTANTE'
             Title.Alignment = taCenter
-            Width = 64
             Visible = True
           end
           item
@@ -230,7 +228,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_DESPESAS'
             Title.Alignment = taCenter
-            Width = 64
             Visible = True
           end
           item
@@ -261,14 +258,12 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'PERC_BASE_COMISSAO'
             Title.Alignment = taCenter
             Title.Caption = '% Base Comiss'#227'o'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VLR_DEVOLUCAO'
             Title.Alignment = taCenter
-            Width = 64
             Visible = True
           end
           item
@@ -276,7 +271,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'VLR_DESCONTO'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Desconto'
-            Width = 64
             Visible = True
           end
           item
@@ -294,7 +288,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TIPO_LANCAMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Lan'#231'amento'
-            Width = 64
             Visible = True
           end
           item
@@ -303,7 +296,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TRANSFERENCIA_ICMS'
             Title.Alignment = taCenter
             Title.Caption = 'Transf. ICMS'
-            Width = 64
             Visible = True
           end
           item
@@ -317,7 +309,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'NOME_BANCO'
             Title.Caption = 'Banco'
-            Width = 64
             Visible = True
           end
           item
@@ -379,7 +370,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TITULO_CARTORIO'
             Title.Alignment = taCenter
             Title.Caption = 'Em Cart'#243'rio'
-            Width = 64
             Visible = True
           end
           item
@@ -388,7 +378,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'PROTESTADO'
             Title.Alignment = taCenter
             Title.Caption = 'Protestado'
-            Width = 64
             Visible = True
           end
           item
@@ -411,7 +400,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_ADTO_USADO'
             Title.Alignment = taCenter
-            Width = 64
             Visible = True
           end>
       end
@@ -1736,7 +1724,7 @@ object frmCadDuplicata: TfrmCadDuplicata
           Transparent = True
           OnClick = btnPagtoSelecionadoClick
         end
-        object btnEstorno: TNxButton
+        object btnOutrasOpcoes: TNxButton
           Left = 357
           Top = 1
           Width = 178
@@ -1744,7 +1732,6 @@ object frmCadDuplicata: TfrmCadDuplicata
           Cursor = crHandPoint
           Align = alLeft
           Caption = 'Outras Op'#231#245'es'
-          Enabled = False
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlue
           Font.Height = -15
@@ -3752,28 +3739,24 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Expanded = False
                 FieldName = 'VLR_PAGAMENTO'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_JUROSPAGOS'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_DESCONTOS'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_DESPESAS'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
@@ -3787,14 +3770,12 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Expanded = False
                 FieldName = 'VLR_DEVOLUCAO'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_JUROSCALCULADO'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
@@ -3843,7 +3824,6 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Cr'#233'dito Usado'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end>
           end
@@ -4604,7 +4584,7 @@ object frmCadDuplicata: TfrmCadDuplicata
   end
   object PopupMenu2: TPopupMenu
     Left = 721
-    Top = 216
+    Top = 215
     object MenuItem4: TMenuItem
       Caption = 'Gerar Cobran'#231'a'
       OnClick = MenuItem4Click
@@ -4666,8 +4646,8 @@ object frmCadDuplicata: TfrmCadDuplicata
     Top = 104
   end
   object PopupMenu5: TPopupMenu
-    Left = 700
-    Top = 329
+    Left = 697
+    Top = 328
     object Devoluo1: TMenuItem
       Caption = 'Devolu'#231#227'o'
     end

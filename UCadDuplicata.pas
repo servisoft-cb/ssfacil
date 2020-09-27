@@ -78,7 +78,7 @@ type
     btnConsultar: TNxButton;
     btnPagamento: TNxButton;
     btnPagtoSelecionado: TNxButton;
-    btnEstorno: TNxButton;
+    btnOutrasOpcoes: TNxButton;
     NxButton1: TNxButton;
     NxDatePicker1: TNxDatePicker;
     NxDatePicker2: TNxDatePicker;
@@ -379,7 +379,7 @@ type
     ffrmCadDuplicata_EscTipo: TfrmCadDuplicata_EscTipo;
     vCodCliente_Ant: Integer;
     vCodVendedor_Ant: Integer;
-    vUser_Pagto, vUser_Estorno: Boolean;
+    vUser_Pagto, vUser_Estorno, vUser_Devol: Boolean;
     vTipo_ES_Loc: string;
     vOpcaoImp: string;
     vTipo_Relatorio: String;
@@ -522,7 +522,7 @@ begin
       cdsDuplicataPARCELA.AsInteger := 1;
 
     vObs_Original := cdsDuplicataDESCRICAO.AsString;
-    prc_Gravar;
+    prc_Gravar(0);
     if cdsDuplicata.State in [dsEdit, dsInsert] then
     begin
       MessageDlg(vMsgErro, mtError, [mbOk], 0);
@@ -691,11 +691,14 @@ begin
     NxDatePicker4.Date := NxDatePicker4.Date + 6;
   end;
 
-  vUser_Estorno := btnEstorno.Enabled;
+  vUser_Estorno := EstornoPagtoDevoluo1.Enabled;
+  vUser_Devol   := Devoluo1.Enabled;
+
   vUser_Pagto := btnPagamento.Enabled;
   btnPagamento.Enabled := False;
   btnPagtoSelecionado.Enabled := False;
-  btnEstorno.Enabled := False;
+  EstornoPagtoDevoluo1.Enabled := False;
+  Devoluo1.Enabled             := False;
   fDMCadDuplicata.mTitulos.EmptyDataSet;
   //23/11/2015
   if (fDMCadDuplicata.qParametros_FinCONTROLAR_DUP_USUARIO.AsString = 'S') then
@@ -1336,7 +1339,7 @@ begin
         else
           vHist := 'PAGAMENTO COM CHEQUE Nº ' + fDMCadDuplicata.mChequeNum_Cheque.AsString;
         //fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG', vHist, fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat, 0, 0, 0, 0, 0, fDMCadDuplicata.vID_FormaPgto);
-        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG', vHist, vVlrPago , 0, 0, 0, 0, 0,fDMCadDuplicata.vID_FormaPgto);
+        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG', vHist, vVlrPago , 0, 0, 0, 0, 0,fDMCadDuplicata.vID_FormaPgto,0,0);
         //Foi colocado na versão .390
         if fDMCadDuplicata.mCheque.RecordCount <= 0 then
           //fDMCadDuplicata.prc_Gravar_Financeiro(fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat, 'P', fDMCadDuplicata.vID_FormaPgto);
@@ -1963,8 +1966,9 @@ procedure TfrmCadDuplicata.SMDBGrid1ChangeSelection(Sender: TObject);
 begin
   btnPagamento.Enabled := ((SMDBGrid1.SelectedRows.Count = 1) and (vUser_Pagto) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0));
   btnPagtoSelecionado.Enabled := ((SMDBGrid1.SelectedRows.Count > 0) and (vUser_Pagto) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0));
-  btnEstorno.Enabled := ((SMDBGrid1.SelectedRows.Count = 1) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_PAGO.AsFloat)) > 0) and (vUser_Estorno));
+  EstornoPagtoDevoluo1.Enabled := ((SMDBGrid1.SelectedRows.Count = 1) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_PAGO.AsFloat)) > 0) and (vUser_Estorno));
   btnDescontada.Enabled := ((SMDBGrid1.SelectedRows.Count > 0) and ((StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0) or (fDMCadDuplicata.cdsDuplicata_ConsultaCONFIRMA_PGTO.AsString <> 'S')));
+  Devoluo1.Enabled := ((SMDBGrid1.SelectedRows.Count = 1) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0) and (vUser_Devol));
 end;
 
 procedure TfrmCadDuplicata.NxButton2Click(Sender: TObject);
@@ -2106,7 +2110,7 @@ begin
         fDMCadDuplicata.cdsDuplicata.Edit;
         fDMCadDuplicata.cdsDuplicataCONFIRMA_PGTO.AsString := 'S';
         fDMCadDuplicata.cdsDuplicata.Post;
-        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT', 'CONFIRMAÇÃO DO PAGAMENTO DESCONTADO', 0, 0, 0, 0, 0, 0, 0);
+        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT', 'CONFIRMAÇÃO DO PAGAMENTO DESCONTADO', 0, 0, 0, 0, 0, 0, 0,0,0);
         fDMCadDuplicata.cdsDuplicata.ApplyUpdates(0);
       end;
     end;
@@ -2145,7 +2149,7 @@ begin
         fDMCadDuplicata.cdsDuplicataID_TIPOCOBRANCA.AsInteger := 0;
 
         vHist := 'EXCLUIDA DA COBRANÇA DESCONTADA Nº ' + IntToStr(fDMCadDuplicata.cdsDuplicataID_DESCONTADA.AsInteger) + ' DEVIDO AO NÃO PAGAMENTO PELO CLIENTE';
-        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT', vHist, 0, 0, 0, 0, 0, 0, 0, 0);
+        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT', vHist, 0, 0, 0, 0, 0, 0, 0, 0,0);
         fDMCadDuplicata.cdsDuplicataID_DESCONTADA.AsInteger := 0;
 
         fDMCadDuplicata.cdsDuplicataVLR_JUROSPAGOS.AsFloat := 0;
@@ -2277,7 +2281,7 @@ begin
         if fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger <= 0 then
         begin
           fDMCadDuplicata.cdsDuplicata_Hist.Edit;
-          fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao;
+          fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG');
           fDMCadDuplicata.cdsDuplicata_Hist.Post;
           fDMCadDuplicata.cdsDuplicata_Hist.ApplyUpdates(0);
         end;
@@ -2301,7 +2305,7 @@ begin
         //if fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger = 0 then
         begin
           fDMCadDuplicata.cdsDuplicata_Hist.Edit;
-          fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao;
+          fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG');
           fDMCadDuplicata.cdsDuplicata_Hist.Post;
           fDMCadDuplicata.cdsDuplicata_Hist.ApplyUpdates(0);
         end;
@@ -3325,7 +3329,7 @@ begin
       if fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG' then
       begin
         fDMCadDuplicata.cdsDuplicata_Hist.Edit;
-        fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao(fnc_Existe_Comissao);
+        fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG', fnc_Existe_Comissao);
         fDMCadDuplicata.cdsDuplicata_Hist.Post;
         fDMCadDuplicata.cdsDuplicata_Hist.ApplyUpdates(0);
       end;
@@ -3383,7 +3387,7 @@ begin
   if MessageDlg('Deseja fazer o estorno ' + vDescAux, mtConfirmation, [mbYes, mbNo], 0) = mrYes then
     fDMCadDuplicata.prc_Estorno_Pag;
   prc_Consultar;
-  btnEstorno.Enabled := False;
+  EstornoPagtoDevoluo1.Enabled := False;
 end;
 
 end.

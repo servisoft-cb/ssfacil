@@ -250,7 +250,7 @@ begin
         fDMCadDuplicata.cdsDuplicataID_TIPOCOBRANCA.AsInteger := RxDBLookupCombo2.KeyValue;
 
         vHist := 'BAIXA DESCONTADO DATA ' + DateEdit1.Text;
-        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',vHist,fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat,0,0,0,0,0,RxDBLookupCombo2.KeyValue,fDMCadDuplicata.cdsDuplicataID_DESCONTADA.AsInteger);
+        fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',vHist,fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat,0,0,0,0,0,RxDBLookupCombo2.KeyValue,fDMCadDuplicata.cdsDuplicataID_DESCONTADA.AsInteger,0);
 
         fDMCadDuplicata.cdsDuplicataVLR_JUROSPAGOS.AsFloat    := 0;
         fDMCadDuplicata.cdsDuplicataVLR_DESCONTO.AsFloat      := 0;
@@ -281,7 +281,7 @@ begin
           fDMCadDuplicata.cdsDuplicataID_TIPOCOBRANCA.AsInteger := 0;
 
           vHist := 'EXCLUIDA DA COBRANÇA DESCONTADA Nº ' + IntToStr(vID_Descontada);
-          fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT',vHist,0,0,0,0,0,0,0,0);
+          fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT',vHist,0,0,0,0,0,0,0,0,0);
 
           fDMCadDuplicata.cdsDuplicataVLR_JUROSPAGOS.AsFloat    := 0;
           fDMCadDuplicata.cdsDuplicataVLR_MULTA.AsFloat         := 0;

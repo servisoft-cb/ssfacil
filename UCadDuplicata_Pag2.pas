@@ -240,7 +240,7 @@ begin
     else
       vIDAux := 0;
 
-    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',Edit1.Text,cePagamento.Value,ceJuros.Value,ceDesconto.Value,ceDespesas.Value,ceTaxaBancaria.Value,ceMulta.Value,vIDAux);
+    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',Edit1.Text,cePagamento.Value,ceJuros.Value,ceDesconto.Value,ceDespesas.Value,ceTaxaBancaria.Value,ceMulta.Value,vIDAux,0,0);
 
     //Foi incluida na versão .390
     if ((fDMCadDuplicata.mCheque.RecordCount <= 0) or ((fDMCadDuplicata.mCheque.RecordCount > 0) and (fDMCadDuplicata.cdsDuplicataTIPO_ES.AsString = 'E'))) then

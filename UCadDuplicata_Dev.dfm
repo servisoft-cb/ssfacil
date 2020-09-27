@@ -14,7 +14,6 @@ object frmCadDuplicata_Dev: TfrmCadDuplicata_Dev
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
-  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -111,8 +110,6 @@ object frmCadDuplicata_Dev: TfrmCadDuplicata_Dev
       DisplayFormat = '0.00'
       ParentCtl3D = False
       TabOrder = 1
-      OnEnter = ceVlrDevolucaoEnter
-      OnExit = ceVlrDevolucaoExit
       OnKeyPress = ceVlrDevolucaoKeyPress
     end
     object edtHistorico: TEdit
@@ -136,7 +133,6 @@ object frmCadDuplicata_Dev: TfrmCadDuplicata_Dev
       ParentCtl3D = False
       StartOfWeek = Sun
       TabOrder = 0
-      OnExit = DtDevolucaoExit
     end
     object RxDBLookupCombo12: TRxDBLookupCombo
       Left = 122

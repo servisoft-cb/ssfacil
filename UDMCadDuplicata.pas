@@ -1159,12 +1159,12 @@ type
 
     procedure prc_Localizar(ID: Integer);
     procedure prc_Inserir;
-    procedure prc_Gravar;
+    procedure prc_Gravar(DtDevolucao : TDateTime);
     procedure prc_Gravar_PagtoAdto;
     procedure prc_Excluir;
     procedure prc_Excluir_Dup_CCusto;
     procedure prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Desconto,
-      Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer = 0; ID_Descontada: Integer = 0 );
+      Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer; ID_Descontada: Integer ; Data : TDateTime );
     procedure prc_Gravar_Financeiro(Valor: Real; Tipo: String; ID_Forma_Pagamento: Integer = 0;
       ComDesconto: String = '');//P=Pagamento  J=Juros  D=Despesas  M=Multa
     procedure prc_Estorno_Pag(Usar_Transaction: Boolean = True);
@@ -1172,7 +1172,7 @@ type
     procedure prc_Abrir_Pessoa(Tipo: String);
 
     function fnc_Erro_Registro(Automatica: Boolean = False): Boolean;
-    function fnc_Gravar_ExtComissao(Regravar: Boolean = False): Integer;
+    function fnc_Gravar_ExtComissao(Tipo : String ; Regravar: Boolean = False): Integer;
 
     function fnc_Proxima_Duplicata: Integer;
 
@@ -1236,7 +1236,7 @@ begin
   cdsDuplicata.ApplyUpdates(0);
 end;
 
-procedure TDMCadDuplicata.prc_Gravar;
+procedure TDMCadDuplicata.prc_Gravar(DtDevolucao : TDateTime);
 var
   vVlrAux: Real;
   vPerc: Real;
@@ -1288,7 +1288,7 @@ begin
   end;
 
   cdsDuplicata.Post;
-  prc_Gravar_Dupicata_Hist('ENT','ENTRADA DO TITULOS',cdsDuplicataVLR_PARCELA.AsFloat,0,0,0,0,0,0);
+  prc_Gravar_Dupicata_Hist('ENT','ENTRADA DO TITULOS',cdsDuplicataVLR_PARCELA.AsFloat,0,0,0,0,0,0,0,0);
 
   cdsDuplicata.ApplyUpdates(0);
 end;
@@ -1420,7 +1420,7 @@ begin
 end;
 
 procedure TDMCadDuplicata.prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_Pagamento, Vlr_Juros, Vlr_Desconto,
-  Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer = 0; ID_Descontada: Integer = 0);
+      Vlr_Despesa, Vlr_Taxa, Vlr_Multa: Real; ID_Forma_Pagamento: Integer; ID_Descontada: Integer ; Data : TDateTime );
 var
   vItemAux: Integer;
   vID_ExtComissao: Integer;
@@ -1459,6 +1459,13 @@ begin
     if cdsContasID.AsInteger <> cdsDuplicataID_CONTA.AsInteger then
       cdsContas.Locate('ID',cdsDuplicataID_CONTA.AsInteger,([Locaseinsensitive]));
   end;
+  if Tipo = 'DEV' then
+  begin
+    cdsDuplicata_HistDTLANCAMENTO.AsDateTime := Data;
+    cdsDuplicata_HistVLR_DEVOLUCAO.AsFloat   := StrToFloat(FormatFloat('0.00',Vlr_Pagamento));
+    cdsDuplicata_HistCOMPLEMENTO.AsString    := Historico; 
+  end
+  else
   if Tipo = 'ENT' then
   begin
     if trim(Historico) = '' then
@@ -1496,7 +1503,7 @@ begin
     //***************
   end;
   cdsDuplicata_HistID_FORMA_PAGAMENTO.AsInteger := ID_Forma_Pagamento;
-  if (Tipo = 'PAG')and (cdsDuplicataTIPO_ES.AsString = 'S') and not(mCheque.IsEmpty) then
+  if (Tipo = 'PAG') and (cdsDuplicataTIPO_ES.AsString = 'S') and not(mCheque.IsEmpty) then
   begin
     cdsDuplicata_HistNUMCHEQUE.AsInteger          := mChequeNum_Cheque.AsInteger;
     cdsDuplicata_HistDTPREVISAO_CHEQUE.AsDateTime := mChequeDtBomPara.AsDateTime;
@@ -1504,13 +1511,16 @@ begin
   cdsDuplicata_Hist.Post;
 
   //Gravar comissão, foi incluido dia 07/01/2013
-  if Tipo <> 'PAG' then
+  if (Tipo <> 'PAG') and (Tipo <> 'DEV') then
     exit;
 
-  vID_ExtComissao := fnc_Gravar_ExtComissao;
+  vID_ExtComissao := fnc_Gravar_ExtComissao(Tipo);
   cdsDuplicata_Hist.Edit;
   cdsDuplicata_HistID_COMISSAO.AsInteger := vID_ExtComissao;
   cdsDuplicata_Hist.Post;
+
+  if Tipo <> 'PAG' then
+    exit;
 
   //Foi tirado esse IF no dia 04/01/2018 para gravar os cheques recebidos de clientes
   //if cdsDuplicataTIPO_ES.AsString = 'S' then
@@ -1785,7 +1795,7 @@ begin
   dmDatabase.prc_UpdateError(DataSet.Name,UpdateKind,E);
 end;
 
-function TDMCadDuplicata.fnc_Gravar_ExtComissao(Regravar: Boolean = False): Integer;
+function TDMCadDuplicata.fnc_Gravar_ExtComissao(Tipo : String ; Regravar: Boolean = False): Integer;
 var
   vBaseAux: real;
   vDtComissao: TDateTime;
@@ -1832,8 +1842,10 @@ begin
     if Regravar then
       vIDAux := cdsDuplicata_HistID_COMISSAO.AsInteger;
     //********************
+    if Tipo = 'PAG' then
+      Tipo := 'ENT';
 
-    Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,'ENT',cdsDuplicataSERIE.AsString,'',0,vDtComissao,
+    Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,Tipo,cdsDuplicataSERIE.AsString,'',0,vDtComissao,
                                                    cdsDuplicataFILIAL.AsInteger,cdsDuplicataID_VENDEDOR.AsInteger,
                                                    0,cdsDuplicataID.AsInteger,cdsDuplicata_HistITEM.AsInteger,cdsDuplicataNUMNOTA.AsInteger,
                                                    cdsDuplicataID_PESSOA.AsInteger,cdsDuplicataPARCELA.AsInteger,cdsDuplicataID_NOTA_SERVICO.AsInteger,
@@ -1841,7 +1853,7 @@ begin
                                                    StrToFloat(FormatFloat('0.00',vBaseAux)),0,
                                                    StrToFloat(FormatFloat('0.000',cdsDuplicataPERC_COMISSAO.AsFloat)),0,cdsDuplicataID_DESCONTADA.AsInteger);
     if (cdsDuplicataID_VENDEDOR_INT.AsInteger > 0) and (cdsDuplicataPERC_COMISSAO_INT.AsFloat > 0) then //vendedor interno FEPAM
-      Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,'ENT',cdsDuplicataSERIE.AsString,'',0,vDtComissao,
+      Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,Tipo,cdsDuplicataSERIE.AsString,'',0,vDtComissao,
                                                      cdsDuplicataFILIAL.AsInteger,cdsDuplicataID_VENDEDOR_INT.AsInteger,
                                                      0,cdsDuplicataID.AsInteger,cdsDuplicata_HistITEM.AsInteger,cdsDuplicataNUMNOTA.AsInteger,
                                                      cdsDuplicataID_PESSOA.AsInteger,cdsDuplicataPARCELA.AsInteger,cdsDuplicataID_NOTA_SERVICO.AsInteger,
@@ -2220,7 +2232,7 @@ begin
       cdsDuplicataID_CONTA_ORCAMENTO.Clear;
     cdsDuplicataTIPO_MOV.AsString         := vTipo_Mov;
     cdsDuplicataVLR_TAXA_BANCARIA.AsFloat := StrToFloat(FormatFloat('0.00',0));
-    prc_Gravar;
+    prc_Gravar(0);
     vNumDup_Fin := cdsDuplicataID.AsInteger;
     mGerarDup.Next;
   end;
@@ -2425,7 +2437,7 @@ begin
   end;
 
   cdsDuplicata.Post;
-  prc_Gravar_Dupicata_Hist('ENT','ENTRADA DO TITULOS',cdsDuplicataVLR_PARCELA.AsFloat,0,0,0,0,0,0);
+  prc_Gravar_Dupicata_Hist('ENT','ENTRADA DO TITULOS',cdsDuplicataVLR_PARCELA.AsFloat,0,0,0,0,0,0,0,0);
 
   cdsDuplicata.ApplyUpdates(0);
 end;

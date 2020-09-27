@@ -3719,42 +3719,6 @@ object fMenu: TfMenu
         GroupName = 'Conta Or'#231'amento'
       end
       item
-        FormName = 'frmCadDuplicata'
-        CompName = 'btnInserir'
-        Caption = 'Inserir'
-        GroupName = 'Duplicata'
-      end
-      item
-        FormName = 'frmCadDuplicata'
-        CompName = 'btnExcluir'
-        Caption = 'Excluir'
-        GroupName = 'Duplicata'
-      end
-      item
-        FormName = 'frmCadDuplicata'
-        CompName = 'btnAlterar'
-        Caption = 'Alterar'
-        GroupName = 'Duplicata'
-      end
-      item
-        FormName = 'frmCadDuplicata'
-        CompName = 'btnPagamento'
-        Caption = 'Pagamento'
-        GroupName = 'Duplicata'
-      end
-      item
-        FormName = 'frmCadDuplicata'
-        CompName = 'btnEstorno'
-        Caption = 'Estorno'
-        GroupName = 'Duplicata'
-      end
-      item
-        FormName = 'frmCadDuplicata'
-        CompName = 'btnCobranca'
-        Caption = 'Cobran'#231'a'
-        GroupName = 'Duplicata'
-      end
-      item
         FormName = 'fMenu1'
         CompName = 'Label5'
         Caption = 'Hoje (Valores)'
@@ -4509,6 +4473,48 @@ object fMenu: TfMenu
         CompName = 'btnExcluir_Comissao'
         Caption = 'Excluir Comiss'#227'o'
         GroupName = 'Produtos'
+      end
+      item
+        FormName = 'frmCadDuplicata'
+        CompName = 'btnInserir'
+        Caption = 'Inserir'
+        GroupName = 'Duplicata'
+      end
+      item
+        FormName = 'frmCadDuplicata'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Duplicata'
+      end
+      item
+        FormName = 'frmCadDuplicata'
+        CompName = 'btnAlterar'
+        Caption = 'Alterar'
+        GroupName = 'Duplicata'
+      end
+      item
+        FormName = 'frmCadDuplicata'
+        CompName = 'btnPagamento'
+        Caption = 'Pagamento'
+        GroupName = 'Duplicata'
+      end
+      item
+        FormName = 'frmCadDuplicata'
+        CompName = 'btnCobranca'
+        Caption = 'Cobran'#231'a'
+        GroupName = 'Duplicata'
+      end
+      item
+        FormName = 'frmCadDuplicata'
+        CompName = 'EstornoPagtoDevoluo1'
+        Caption = 'Estorno Pagto/Devolu'#231#227'o'
+        GroupName = 'Duplicata'
+      end
+      item
+        FormName = 'frmCadDuplicata'
+        CompName = 'Devoluo1'
+        Caption = 'Devolu'#231#227'o'
+        GroupName = 'Duplicata'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

@@ -120,9 +120,9 @@ begin
   end;
   fDMCadDuplicata.cdsDuplicata_Cob.Post;
   if fDMCadDuplicata.cdsDuplicata_CobDT_VENCIMENTO.AsDateTime > 10 then
-    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT',RxDBLookupCombo2.Text + ' ' + fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsString,0,0,0,0,0,0,0,0)
+    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT',RxDBLookupCombo2.Text + ' ' + fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsString,0,0,0,0,0,0,0,0,0)
   else
-    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT',RxDBLookupCombo2.Text,0,0,0,0,0,0,0,0);
+    fDMCadDuplicata.prc_Gravar_Dupicata_Hist('OUT',RxDBLookupCombo2.Text,0,0,0,0,0,0,0,0,0);
   fDMCadDuplicata.cdsDuplicata_Cob.Edit;
   fDMCadDuplicata.cdsDuplicata_CobID_DUPLICATA_HIST.AsInteger := fDMCadDuplicata.cdsDuplicata_HistITEM.AsInteger;
   fDMCadDuplicata.cdsDuplicata_Cob.Post;
