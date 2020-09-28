@@ -1124,9 +1124,11 @@ begin
                                                 + 'NT.BASE_ICMS, NT.VLR_ICMS, (' + vDesc + ') VLR_DUPLICATA, NT.VLR_NOTA, NT.VLR_IPI, '
                                                 + 'NT.VLR_ITENS, NT.VLR_IPI, NT.DTSAIDAENTRADA, NT.VLR_ICMSSUBST, VEN.NOME NOME_VENDEDOR, CLI.FANTASIA,'
                                                 + '(SELECT SUM(I.VLR_TOTAL) FROM NOTAFISCAL_ITENS I INNER JOIN TAB_CFOP CFOP ON I.ID_CFOP = CFOP.ID '
-                                                + 'WHERE I.ID = NT.ID AND CFOP.FATURAMENTO = '+QuotedStr('S') +') VLR_FATURAMENTO '
+                                                + 'WHERE I.ID = NT.ID AND CFOP.FATURAMENTO = '+QuotedStr('S') +') VLR_FATURAMENTO, '
+                                                + 'CLI.ID_GRUPO ID_GRUPO_PESSOA, GP.NOME NOME_GRUPO_PESSOA '
                                                 + 'FROM NOTAFISCAL NT '
                                                 + 'INNER JOIN PESSOA CLI ON (NT.ID_CLIENTE = CLI.CODIGO) '
+                                                + 'LEFT JOIN GRUPO_PESSOA GP on CLI.ID_GRUPO = GP.ID '
                                                 + 'LEFT JOIN PESSOA VEN ON (NT.ID_VENDEDOR = VEN.CODIGO) '
                                                 + 'WHERE NT.CANCELADA = ' + QuotedStr('N') + ' AND NT.nfedenegada = ' + QuotedStr('N')
                                                 + ' AND (SELECT SUM(I.VLR_TOTAL) FROM NOTAFISCAL_ITENS I INNER JOIN '

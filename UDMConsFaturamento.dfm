@@ -843,8 +843,8 @@ object DMConsFaturamento: TDMConsFaturamento
     Aggregates = <>
     Params = <>
     ProviderName = 'dspNotaFiscal'
-    Left = 112
-    Top = 258
+    Left = 111
+    Top = 257
     object cdsNotaFiscalFILIAL: TIntegerField
       FieldName = 'FILIAL'
     end
