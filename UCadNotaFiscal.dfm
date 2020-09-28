@@ -25,7 +25,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
     Top = 0
     Width = 1115
     Height = 680
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -35,7 +35,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
     ParentBackgroundColor = False
     ParentColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -5476,7 +5476,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             Enabled = False
             TabOrder = 0
             object Label27: TLabel
-              Left = 303
+              Left = 199
               Top = 46
               Width = 67
               Height = 13
@@ -5646,6 +5646,14 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Alignment = taRightJustify
               Caption = 'Base COFINS:'
             end
+            object Label122: TLabel
+              Left = 372
+              Top = 46
+              Width = 54
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Desc.Itens:'
+            end
             object pnlValores: TPanel
               Left = 1
               Top = 1
@@ -5714,9 +5722,9 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               end
             end
             object DBEdit9: TDBEdit
-              Left = 374
+              Left = 270
               Top = 38
-              Width = 150
+              Width = 94
               Height = 21
               CharCase = ecUpperCase
               DataField = 'VLR_DESCONTO'
@@ -5728,7 +5736,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             object DBEdit10: TDBEdit
               Left = 114
               Top = 38
-              Width = 150
+              Width = 78
               Height = 21
               CharCase = ecUpperCase
               DataField = 'PERC_DESCONTO'
@@ -6943,6 +6951,18 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               TabOrder = 38
               Transparent = True
               OnClick = btnDifalClick
+            end
+            object DBEdit81: TDBEdit
+              Left = 430
+              Top = 38
+              Width = 94
+              Height = 21
+              CharCase = ecUpperCase
+              DataField = 'VLR_DESCONTO_ITENS'
+              DataSource = DMCadNotaFiscal.dsNotaFiscal
+              MaxLength = 18
+              ReadOnly = True
+              TabOrder = 39
             end
           end
           object btnSubstTributaria: TNxButton

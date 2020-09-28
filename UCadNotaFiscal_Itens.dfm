@@ -4,7 +4,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
   Width = 800
   Height = 655
   BorderIcons = [biSystemMenu]
-  Caption = 'Cadastro dos Itens da Nota'
+  Caption = 'Itens da Nota Fiscal'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -45,7 +45,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
     end
     object BitBtn1: TBitBtn
       Left = 275
-      Top = 5
+      Top = 4
       Width = 98
       Height = 25
       Caption = '(F7) &Confirmar'
@@ -1843,7 +1843,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
         OnExit = DBEdit11Exit
       end
       object DBEdit12: TDBEdit
-        Left = 72
+        Left = 73
         Top = 197
         Width = 94
         Height = 21
@@ -2393,6 +2393,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
               FieldName = 'VLR_AFRMM'
               Title.Alignment = taCenter
               Title.Caption = 'Valor AFRMM'
+              Width = 64
               Visible = True
             end
             item
@@ -2401,6 +2402,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
               FieldName = 'TIPO_INTERMEDIO'
               Title.Alignment = taCenter
               Title.Caption = 'Tipo Interm'#233'dio'
+              Width = 64
               Visible = True
             end
             item
@@ -2409,6 +2411,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
               FieldName = 'CNPJ'
               Title.Alignment = taCenter
               Title.Caption = 'CNPJ Terceiro'
+              Width = 64
               Visible = True
             end
             item
@@ -2417,6 +2420,7 @@ object frmCadNotaFiscal_Itens: TfrmCadNotaFiscal_Itens
               FieldName = 'UF_TERCEIRO'
               Title.Alignment = taCenter
               Title.Caption = 'UF Terceiro'
+              Width = 64
               Visible = True
             end>
         end

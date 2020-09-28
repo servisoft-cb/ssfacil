@@ -1605,8 +1605,8 @@ begin
       else
         fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CSTICMS.Clear;
     end;
-    if (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTO.AsFloat)) > 0) or (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_DESCONTO.AsFloat)) > 0) then
-      fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESCONTO.AsString := 'I';
+    //if (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTO.AsFloat)) > 0) or (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_DESCONTO.AsFloat)) > 0) then
+    //  fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESCONTO.AsString := 'I';
 
     fDMCadNotaFiscal.cdsNotaFiscal_ItensCOD_BARRA.AsString := '';
     //28/11/2019
@@ -1795,6 +1795,17 @@ begin
     //*****
 
     fDMCadNotaFiscal.cdsNotaFiscal_Itens.Post;
+
+    //27/09/2020
+    if fDMCadNotaFiscal.cdsNotaFiscal_Desconto.RecordCount > 0 then
+    begin
+      //fDMCadNotaFiscal.cdsNotaFiscal_Desconto.First;
+      //while not fDMCadNotaFiscal.cdsNotaFiscal_Desconto.Eof do
+      //  fDMCadNotaFiscal.cdsNotaFiscal_Desconto.Delete;
+    end;
+    fDMCadNotaFiscal.cdsNotaFiscalPERC_DESCONTO.AsFloat := StrToFloat(FormatFloat('0.00',0));
+    fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat  := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsFloat));
+    //*****************
 
     if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_NTE.AsInteger > 0 then
       fDMCadNotaFiscal.prc_Ajustar_NDevolvida;

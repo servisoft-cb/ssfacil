@@ -431,6 +431,8 @@ type
     btnZerarSaldo: TNxButton;
     btnDifal: TNxButton;
     btnRefazTitulos: TNxButton;
+    DBEdit81: TDBEdit;
+    Label122: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);

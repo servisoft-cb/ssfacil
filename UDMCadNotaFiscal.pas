@@ -3206,6 +3206,8 @@ type
     mPedAuxID: TIntegerField;
     qParametros_ProdGERAR_CODBARRA_ID: TStringField;
     cdsPedidoCONV_UNIDADE: TFloatField;
+    sdsNotaFiscalVLR_DESCONTO_ITENS: TFloatField;
+    cdsNotaFiscalVLR_DESCONTO_ITENS: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

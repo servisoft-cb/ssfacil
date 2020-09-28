@@ -602,6 +602,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
+    object sdsNotaFiscalVLR_DESCONTO_ITENS: TFloatField
+      FieldName = 'VLR_DESCONTO_ITENS'
+    end
   end
   object dspNotaFiscal: TDataSetProvider
     DataSet = sdsNotaFiscal
@@ -618,7 +621,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     ProviderName = 'dspNotaFiscal'
     BeforePost = cdsNotaFiscalBeforePost
     OnNewRecord = cdsNotaFiscalNewRecord
-    Left = 79
+    Left = 80
     Top = 9
     object cdsNotaFiscalID: TIntegerField
       FieldName = 'ID'
@@ -1284,6 +1287,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FieldName = 'REFAZER_TITULOS'
       FixedChar = True
       Size = 1
+    end
+    object cdsNotaFiscalVLR_DESCONTO_ITENS: TFloatField
+      FieldName = 'VLR_DESCONTO_ITENS'
     end
   end
   object dsNotaFiscal: TDataSource

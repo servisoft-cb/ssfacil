@@ -13,7 +13,7 @@ type
     DBEdit23: TDBEdit;
     Label48: TLabel;
     CurrencyEdit1: TCurrencyEdit;
-    CurrencyEdit2: TCurrencyEdit;
+    ceVlrDesconto: TCurrencyEdit;
     SMDBGrid1: TSMDBGrid;
     Label1: TLabel;
     cePercentual: TCurrencyEdit;
@@ -22,12 +22,14 @@ type
     Panel1: TPanel;
     BitBtn1: TBitBtn;
     BitBtn2: TBitBtn;
+    Label2: TLabel;
+    ceVlrDesconto_Itens: TCurrencyEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure BitBtn1Click(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure BitBtn2Click(Sender: TObject);
     procedure CurrencyEdit1Exit(Sender: TObject);
-    procedure CurrencyEdit2Exit(Sender: TObject);
+    procedure ceVlrDescontoExit(Sender: TObject);
     procedure BitBtn7Click(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
   private
@@ -60,14 +62,14 @@ var
   vVlrDuplAux, vAux: Currency;
   vVlrDesconto: Currency;
 begin
-  vVlrDescAux := fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency;
+  vVlrDescAux := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency - fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsFloat));
 
   vVlrDesconto := 0;
   //21/10/2015
   if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) <= 0 then
-    vVlrDuplAux := fDMCadNotaFiscal.cdsNotaFiscalVLR_NOTA.AsFloat + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat
+    vVlrDuplAux := fDMCadNotaFiscal.cdsNotaFiscalVLR_NOTA.AsFloat + vVlrDescAux - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat
   else
-    vVlrDuplAux  := fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsCurrency + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat;
+    vVlrDuplAux := fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsCurrency + vVlrDescAux - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat;
   fDMCadNotaFiscal.cdsNotaFiscal_Desconto.First;
   while not fDMCadNotaFiscal.cdsNotaFiscal_Desconto.Eof do
     begin
@@ -81,26 +83,18 @@ begin
   if vVlrDesconto > 0 then
   begin
     fDMCadNotaFiscal.cdsNotaFiscal_Desconto.First;
-    CurrencyEdit2.Value := vVlrDesconto;
+    ceVlrDesconto.Value := vVlrDesconto;
     if fDMCadNotaFiscal.cdsNotaFiscal_Desconto.RecordCount < 2 then
       CurrencyEdit1.Value := fDMCadNotaFiscal.cdsNotaFiscal_DescontoPERC_DESCONTO.AsFloat
     else
-      CurrencyEdit2Exit(Sender);
+      ceVlrDescontoExit(Sender);
   end;
 
   fDMCadNotaFiscal.cdsNotaFiscalPERC_DESCONTO.AsFloat := CurrencyEdit1.Value;;
-  fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat  := CurrencyEdit2.Value;
+  fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat  := StrToFloat(FormatFloat('0.00',ceVlrDesconto.Value + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsFloat));
 
-  if (CurrencyEdit1.Value > 0) and (CurrencyEdit2.Value > 0) and (trim(fDMCadNotaFiscal.cdsNotaFiscalDESCRICAO_DESC.AsString) = '') then
+  if (CurrencyEdit1.Value > 0) and (ceVlrDesconto.Value > 0) and (trim(fDMCadNotaFiscal.cdsNotaFiscalDESCRICAO_DESC.AsString) = '') then
     fDMCadNotaFiscal.cdsNotaFiscalDESCRICAO_DESC.AsString := 'Desconto: ';
-
-  if fDMCadNotaFiscal.cdsNotaFiscal.State in [dsEdit,dsInsert] then
-  begin
-    if StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat)) > 0 then
-      fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESCONTO.AsString := 'N'
-    else
-      fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESCONTO.AsString := '';
-  end;
 
   Close;
 end;
@@ -109,7 +103,9 @@ procedure TfrmCadNotaFiscal_Desconto.FormShow(Sender: TObject);
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadNotaFiscal);
   CurrencyEdit1.Value := fDMCadNotaFiscal.cdsNotaFiscalPERC_DESCONTO.AsCurrency;
-  CurrencyEdit2.Value := fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency;
+  ceVlrDesconto.Value := fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency - fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsCurrency;
+  ceVlrDesconto_Itens.Value := fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsCurrency;
+
   if (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency)) > 0) and (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalPERC_DESCONTO.AsFloat)) <= 0) then
     CurrencyEdit1.Value := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalPERC_DESCONTOORIG.AsFloat));
 end;
@@ -120,31 +116,34 @@ begin
 end;
 
 procedure TfrmCadNotaFiscal_Desconto.CurrencyEdit1Exit(Sender: TObject);
+var
+  vDescAux : Real;
 begin
-  CurrencyEdit2.Value := 0;
+  vDescAux := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsFloat));
+  ceVlrDesconto.Value := 0;
   if CurrencyEdit1.Value > 0 then
   begin
-    CurrencyEdit2.Value := (fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsCurrency + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat) *
+    ceVlrDesconto.Value := (fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsCurrency + vDescAux - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat) *
                            CurrencyEdit1.Value / 100;
     if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) > 0 then
-      CurrencyEdit2.Value := (fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsCurrency + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat)
+      ceVlrDesconto.Value := (fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsCurrency + vDescAux - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat)
                            * CurrencyEdit1.Value / 100
     else
-      CurrencyEdit2.Value := (fDMCadNotaFiscal.cdsNotaFiscalVLR_NOTA.AsFloat + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat)
-                           * CurrencyEdit1.Value / 100;
-      //CurrencyEdit2.Value := (fDMCadNotaFiscal.cdsNotaFiscalVLR_NOTA.AsCurrency + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat) *
-        //                     CurrencyEdit1.Value / 100;
+      ceVlrDesconto.Value := (fDMCadNotaFiscal.cdsNotaFiscalVLR_NOTA.AsFloat + vDescAux - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat) * CurrencyEdit1.Value / 100;
   end;
 end;
 
-procedure TfrmCadNotaFiscal_Desconto.CurrencyEdit2Exit(Sender: TObject);
+procedure TfrmCadNotaFiscal_Desconto.ceVlrDescontoExit(Sender: TObject);
+var
+  vDescAux : Real;
 begin
-  if CurrencyEdit2.Value > 0 then
+  vDescAux := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsFloat));
+  if ceVlrDesconto.Value > 0 then
   begin
     if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsFloat)) > 0 then
-      CurrencyEdit1.Value := CurrencyEdit2.Value * 100 / (fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsCurrency + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsCurrency - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat)
+      CurrencyEdit1.Value := StrToFloat(FormatFloat('0.0000',ceVlrDesconto.Value * 100 / (fDMCadNotaFiscal.cdsNotaFiscalVLR_DUPLICATA.AsCurrency + vDescAux - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat)))
     else
-      CurrencyEdit1.Value := CurrencyEdit1.Value * 100 / (fDMCadNotaFiscal.cdsNotaFiscalVLR_NOTA.AsFloat + fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat);
+      CurrencyEdit1.Value := StrToFloat(FormatFloat('0.0000',CurrencyEdit1.Value * 100 / (fDMCadNotaFiscal.cdsNotaFiscalVLR_NOTA.AsFloat + vDescAux - fDMCadNotaFiscal.cdsNotaFiscalVLR_IPI.AsFloat)));
   end
   else
     CurrencyEdit1.Clear;
