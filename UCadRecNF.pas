@@ -127,6 +127,8 @@ type
     RxDBLookupCombo2: TRxDBLookupCombo;
     Label7: TLabel;
     DBEdit1: TDBEdit;
+    Label8: TLabel;
+    DBEdit2: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);

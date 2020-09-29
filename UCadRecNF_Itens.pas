@@ -436,8 +436,7 @@ begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensNOME_COR_COMBINACAO.AsString := RxDBLookupCombo14.Text;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensCOD_IPI.Clear;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensCOD_CST.Clear;
-    if (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTO.AsFloat)) > 0) or (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_DESCONTO.AsFloat)) > 0) then
-      fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESCONTO.AsString := 'I';
+    fDMCadNotaFiscal.cdsNotaFiscalTIPO_DESCONTO.AsString   := '';
     fDMCadNotaFiscal.cdsNotaFiscal_ItensCOD_BARRA.AsString := '';
 
     //08/07/2014  Quantidade por pacote
@@ -553,7 +552,10 @@ begin
         begin
           fDMCadNotaFiscal.cdsTab_NCM.Close;
           fDMCadNotaFiscal.cdsTab_NCM.Open;
-          prc_Calcular_Desconto_Novo(fDMCadNotaFiscal,False);
+          //28/09/2020
+          //prc_Calcular_Desconto_Novo(fDMCadNotaFiscal,False);
+          prc_Calcular_Desconto_RNF(fDMCadNotaFiscal,False);
+
         end;
       end;
     end;

@@ -24,7 +24,7 @@ object frmCadRecNF: TfrmCadRecNF
     Top = 0
     Width = 946
     Height = 670
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -34,7 +34,7 @@ object frmCadRecNF: TfrmCadRecNF
     ParentBackgroundColor = False
     ParentColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -178,6 +178,7 @@ object frmCadRecNF: TfrmCadRecNF
             FieldName = 'TIPO_PRAZO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Prazo'
+            Width = 64
             Visible = True
           end
           item
@@ -213,6 +214,7 @@ object frmCadRecNF: TfrmCadRecNF
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
+            Width = 64
             Visible = True
           end>
       end
@@ -1546,7 +1548,7 @@ object frmCadRecNF: TfrmCadRecNF
         Top = 209
         Width = 942
         Height = 410
-        ActivePage = RzTabSheet1
+        ActivePage = TabSheet2
         ActivePageDefault = RzTabSheet1
         Align = alClient
         BackgroundColor = clSilver
@@ -1554,7 +1556,7 @@ object frmCadRecNF: TfrmCadRecNF
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 1
         FixedDimension = 19
         object RzTabSheet1: TRzTabSheet
@@ -1653,6 +1655,7 @@ object frmCadRecNF: TfrmCadRecNF
               item
                 Expanded = False
                 FieldName = 'UNIDADE'
+                Width = 64
                 Visible = True
               end
               item
@@ -2629,7 +2632,7 @@ object frmCadRecNF: TfrmCadRecNF
             end
           end
           object RzGroupBox2: TRzGroupBox
-            Left = 4
+            Left = 5
             Top = 272
             Width = 470
             Height = 78
@@ -2650,7 +2653,7 @@ object frmCadRecNF: TfrmCadRecNF
             VisualStyle = vsGradient
             object Label28: TLabel
               Left = 218
-              Top = 22
+              Top = 18
               Width = 60
               Height = 13
               Alignment = taRightJustify
@@ -2658,11 +2661,19 @@ object frmCadRecNF: TfrmCadRecNF
             end
             object Label27: TLabel
               Left = 211
-              Top = 43
+              Top = 39
               Width = 67
               Height = 13
               Alignment = taRightJustify
               Caption = 'Vlr. Desconto:'
+            end
+            object Label8: TLabel
+              Left = 185
+              Top = 60
+              Width = 93
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Vlr. Desconto Itens:'
             end
             object btnDesconto: TBitBtn
               Left = 5
@@ -2699,7 +2710,7 @@ object frmCadRecNF: TfrmCadRecNF
             end
             object DBEdit10: TDBEdit
               Left = 282
-              Top = 14
+              Top = 10
               Width = 95
               Height = 21
               CharCase = ecUpperCase
@@ -2711,7 +2722,7 @@ object frmCadRecNF: TfrmCadRecNF
             end
             object DBEdit9: TDBEdit
               Left = 282
-              Top = 35
+              Top = 31
               Width = 127
               Height = 21
               CharCase = ecUpperCase
@@ -2720,6 +2731,19 @@ object frmCadRecNF: TfrmCadRecNF
               MaxLength = 18
               ReadOnly = True
               TabOrder = 3
+            end
+            object DBEdit2: TDBEdit
+              Left = 282
+              Top = 52
+              Width = 127
+              Height = 21
+              CharCase = ecUpperCase
+              Color = clSilver
+              DataField = 'VLR_DESCONTO_ITENS'
+              DataSource = DMCadNotaFiscal.dsNotaFiscal
+              MaxLength = 18
+              ReadOnly = True
+              TabOrder = 4
             end
           end
           object DBEdit14: TDBEdit
