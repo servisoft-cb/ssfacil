@@ -917,6 +917,7 @@ var
   vDup: Real;
   Node_Tpag: IXMLNode;
   vTexto: String;
+  vTexto2: String;
 begin
   fDMRecebeXML.mItensNota.EmptyDataSet;
   fDMRecebeXML.mParc.EmptyDataSet;
@@ -943,8 +944,9 @@ begin
     XMLDocument1.LoadFromFile(OpenDialog1.FileName);
     XMLDocument1.Active;
     Node_Tpag := XMLDocument1.DocumentElement;
-    vTexto := Node_Tpag.ChildNodes['NFe'].ChildNodes['infNFe'].ChildNodes['pag'].ChildNodes['detPag'].ChildNodes['vPag'].NodeValue;
-    if vTexto <> '' then
+    vTexto  := Node_Tpag.ChildNodes['NFe'].ChildNodes['infNFe'].ChildNodes['pag'].ChildNodes['detPag'].ChildNodes['vPag'].NodeValue;
+    vTexto2 := Node_Tpag.ChildNodes['NFe'].ChildNodes['infNFe'].ChildNodes['pag'].ChildNodes['detPag'].ChildNodes['tPag'].NodeValue;
+    if (vTexto <> '') and (vTexto2 <> '90') then
     begin
       vDup := StrToFloat(Replace(vTexto,'.',','));
       fDMRecebeXML.mParc.Insert;
@@ -3261,6 +3263,7 @@ var
   vAux: String;
   vAux2: String;
   vID_LocalAux: Integer;
+  vSemPagamento : Boolean;
 begin
   lbStatusContasPagar.Font.Color := clBlack;
 
@@ -3302,6 +3305,10 @@ begin
     oNFeStream := TMemoryStream.Create;
     oNFe.LoadFromFile(vArquivoAux);
     oNFe.SaveToStream(oNFeStream);
+
+    vSemPagamento := False;
+    if posex('<tPag>90</tPag>', onfe.Text) > 0 then
+      vSemPagamento := True;
 
     vFlag := False;
     i := 0;
@@ -3357,10 +3364,15 @@ begin
     else
       vUsaConfigNatOper2 := 'N';
 
-    case fDMRecebeXML.cdsCabecalhoindPag.AsInteger of
-      0: edTipoPagamento.Text := '0 - Pagamento à vista';
-      1: edTipoPagamento.Text := '1 - Pagamento a prazo';
-      2: edTipoPagamento.Text := '2 - Outros';
+    if vSemPagamento then
+      edTipoPagamento.Text := '2 - Outros'
+    else
+    begin
+      case fDMRecebeXML.cdsCabecalhoindPag.AsInteger of
+        0: edTipoPagamento.Text := '0 - Pagamento à vista';
+        1: edTipoPagamento.Text := '1 - Pagamento a prazo';
+        2: edTipoPagamento.Text := '2 - Outros';
+      end;
     end;
     case fDMRecebeXML.cdsCabecalhofinNFe.AsInteger of
       1: edFinalidade.Text := '1 - Normal';

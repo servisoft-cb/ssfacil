@@ -162,8 +162,8 @@ object DMRecebeXML: TDMRecebeXML
   object XMLTransformProvider1: TXMLTransformProvider
     TransformRead.TransformationFile = 'C:\Delphi7\SSFacil\EXE\nfe_v2.00_ToDp.xtr'
     XMLDataFile = 
-      'C:\Users\cleomar\Desktop\Devolu'#231#227'o Combust'#237'vel\NFe_TONGRAX COMER' +
-      'CIO DE LUBRIFICANTES LTDA_001_35013.xml'
+      'C:\Users\cleomar\Desktop\202009\NFe_STANDARD CHEMICAL INDUSTRIA ' +
+      'QUIMICA LTDA_002_3418.xml'
     CacheData = True
     Left = 1211
     Top = 251
@@ -172,7 +172,7 @@ object DMRecebeXML: TDMRecebeXML
     Aggregates = <>
     Params = <>
     ProviderName = 'XMLTransformProvider1'
-    Left = 831
+    Left = 830
     Top = 329
     object cdsCabecalhoversao: TStringField
       FieldName = 'versao'
