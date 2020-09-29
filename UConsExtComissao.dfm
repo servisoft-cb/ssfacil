@@ -141,7 +141,7 @@ object frmConsExtComissao: TfrmConsExtComissao
           TabOrder = 1
         end
         object RzGroupBox1: TRzGroupBox
-          Left = 690
+          Left = 539
           Top = 3
           Width = 191
           Height = 99
@@ -351,25 +351,91 @@ object frmConsExtComissao: TfrmConsExtComissao
           DisplayFormat = '0'
           TabOrder = 7
         end
-        object BitBtn1: TBitBtn
-          Left = 528
-          Top = 76
-          Width = 134
-          Height = 25
-          Caption = 'Recalcular Cfe. a Base'
+        object RzGroupBox2: TRzGroupBox
+          Left = 747
+          Top = 2
+          Width = 191
+          Height = 99
+          BorderColor = clNavy
+          BorderInner = fsButtonUp
+          BorderOuter = fsBump
+          Caption = ' Valores Totais  do Per'#237'odo '
+          Color = 14737632
+          Ctl3D = True
+          FlatColor = clNavy
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNavy
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentCtl3D = False
+          ParentFont = False
           TabOrder = 8
           Visible = False
-          OnClick = BitBtn1Click
-        end
-        object DateEdit3: TDateEdit
-          Left = 541
-          Top = 48
-          Width = 120
-          Height = 21
-          NumGlyphs = 2
-          TabOrder = 9
-          Text = '28/01/2016'
-          Visible = False
+          VisualStyle = vsGradient
+          object Label6: TLabel
+            Left = 10
+            Top = 16
+            Width = 69
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Saldo Anterior:'
+          end
+          object Label9: TLabel
+            Left = 6
+            Top = 51
+            Width = 73
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Adiantamentos:'
+          end
+          object Label13: TLabel
+            Left = 84
+            Top = 16
+            Width = 97
+            Height = 13
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = '0,00'
+          end
+          object Label17: TLabel
+            Left = 84
+            Top = 48
+            Width = 97
+            Height = 13
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = '0,00'
+          end
+          object Label21: TLabel
+            Left = 42
+            Top = 84
+            Width = 37
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Saldo:'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clNavy
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object Label22: TLabel
+            Left = 85
+            Top = 81
+            Width = 97
+            Height = 13
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = '0,00'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clNavy
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
         end
       end
       object RzPageControl2: TRzPageControl
@@ -377,10 +443,10 @@ object frmConsExtComissao: TfrmConsExtComissao
         Top = 105
         Width = 1036
         Height = 559
-        ActivePage = TS_Detalhado
+        ActivePage = TS_Resumido
         ActivePageDefault = TS_Resumido
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -859,11 +925,13 @@ object frmConsExtComissao: TfrmConsExtComissao
               item
                 Expanded = False
                 FieldName = 'DTCADASTRO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'ID'
+                Width = 64
                 Visible = True
               end
               item
@@ -887,6 +955,29 @@ object frmConsExtComissao: TfrmConsExtComissao
                 Width = 300
                 Visible = True
               end>
+          end
+        end
+        object TS_Ajustes: TRzTabSheet
+          Caption = 'TS_Ajustes'
+          object DateEdit3: TDateEdit
+            Left = 41
+            Top = 35
+            Width = 120
+            Height = 21
+            NumGlyphs = 2
+            TabOrder = 0
+            Text = '28/01/2016'
+            Visible = False
+          end
+          object BitBtn1: TBitBtn
+            Left = 34
+            Top = 66
+            Width = 134
+            Height = 25
+            Caption = 'Recalcular Cfe. a Base'
+            TabOrder = 1
+            Visible = False
+            OnClick = BitBtn1Click
           end
         end
       end

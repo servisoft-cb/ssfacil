@@ -3286,6 +3286,8 @@ begin
     vVlrTotalItens      := 0;
     vDescontoItem_Novo  := 0;
     vDesconto_Rateio    := 0;
+    if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat)) <= 0 then
+      Continue;
 
     if fDMCadNotaFiscal.cdsProdutoID.AsInteger <> fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger then
       fDMCadNotaFiscal.cdsProduto.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger,([Locaseinsensitive]));
@@ -3327,18 +3329,24 @@ begin
       begin
         if StrToFloat(FormatFloat('0.00',vDesconto_Nota)) > 0 then
         begin
-          vPercAux := StrToFloat(FormatFloat('0.00000',((vVlrTotalItens - vDescontoItem_Novo) / vVlrDuplicata) * 100));
-          if fDMCadNotaFiscal.cdsParametrosARREDONDAR_5.AsString = 'B' then
-            vDesconto_Rateio := StrToCurr(FormatCurr('0.00',(vPercAux * vDesconto_Nota_Orig) / 100))
+          if (vContador = 0) and (StrToFloat(FormatFloat('0.00',vDesconto_Nota)) = StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat * fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat))) then
+            vDesconto_Rateio := StrToFloat(FormatFloat('0.00',vDesconto_Nota))
           else
-            vDesconto_Rateio := StrToFloat(FormatFloat('0.00',(vPercAux * vDesconto_Nota_Orig) / 100));
-          if StrToFloat(FormatFloat('0.00',vDesconto_Rateio)) > StrToFloat(FormatFloat('0.00',vDesconto_Nota)) then
-            vDesconto_Rateio := StrToFloat(FormatFloat('0.00',vDesconto_Nota));
+          begin
+            vPercAux := StrToFloat(FormatFloat('0.00000',((vVlrTotalItens - vDescontoItem_Novo) / vVlrDuplicata) * 100));
+            if fDMCadNotaFiscal.cdsParametrosARREDONDAR_5.AsString = 'B' then
+              vDesconto_Rateio := StrToCurr(FormatCurr('0.00',(vPercAux * vDesconto_Nota_Orig) / 100))
+            else
+              vDesconto_Rateio := StrToFloat(FormatFloat('0.00',(vPercAux * vDesconto_Nota_Orig) / 100));
+            if StrToFloat(FormatFloat('0.00',vDesconto_Rateio)) > StrToFloat(FormatFloat('0.00',vDesconto_Nota)) then
+              vDesconto_Rateio := StrToFloat(FormatFloat('0.00',vDesconto_Nota));
+          end;
         end;
         if fDMCadNotaFiscal.cdsParametrosARREDONDAR_5.AsString = 'B' then
           vDesconto_Nota := StrToCurr(FormatCurr('0.00',vDesconto_Nota - vDesconto_Rateio))
         else
           vDesconto_Nota := StrToFloat(FormatFloat('0.00',vDesconto_Nota - vDesconto_Rateio));
+
       end;
     end;
     //****************
@@ -3347,9 +3355,9 @@ begin
 
     fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTO.AsFloat       := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTO.AsFloat + vDescontoItem_Novo));
     fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTORATEIO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTORATEIO.AsFloat + vDesconto_Rateio));
-    
+
     vDescAux := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTO.AsFloat + fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_DESCONTORATEIO.AsFloat));
-    vDescontoItem_Total := vDescAux; 
+    vDescontoItem_Total := vDescAux;
     fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',(fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat *
                                                              fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat) - vDescAux));
 

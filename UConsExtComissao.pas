@@ -53,8 +53,16 @@ type
     Label4: TLabel;
     Shape1: TShape;
     Label5: TLabel;
-    BitBtn1: TBitBtn;
+    TS_Ajustes: TRzTabSheet;
     DateEdit3: TDateEdit;
+    BitBtn1: TBitBtn;
+    RzGroupBox2: TRzGroupBox;
+    Label6: TLabel;
+    Label9: TLabel;
+    Label13: TLabel;
+    Label17: TLabel;
+    Label21: TLabel;
+    Label22: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -144,6 +152,7 @@ begin
   Label4.Visible        := (fDMCadExtComissao.qParametros_FinUSA_METAS_VENDEDOR.AsString = 'S');
   CurrencyEdit1.Visible := (fDMCadExtComissao.qParametros_FinUSA_METAS_VENDEDOR.AsString = 'S');
   CurrencyEdit2.Visible := (fDMCadExtComissao.qParametros_FinUSA_METAS_VENDEDOR.AsString = 'S');
+  TS_Ajustes.TabVisible := False;
 
   for i := 1 to SMDBGrid1.ColCount - 2 do
   begin
@@ -457,8 +466,9 @@ procedure TfrmConsExtComissao.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Shift = [ssCtrl]) and (Key = 87) then
   begin
-    BitBtn1.Visible   := not (BitBtn1.Visible);
-    DateEdit3.Visible := not (DateEdit3.Visible);
+    TS_Ajustes.TabVisible := not(TS_Ajustes.TabVisible);
+    BitBtn1.Visible       := not (BitBtn1.Visible);
+    DateEdit3.Visible     := not (DateEdit3.Visible);
   end;
 end;
 
