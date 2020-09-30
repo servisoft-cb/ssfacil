@@ -71,6 +71,12 @@ type
     RLDBText17: TRLDBText;
     RLLabel20: TRLLabel;
     RLDBMemo1: TRLDBMemo;
+    RLDraw10: TRLDraw;
+    RLMemo2: TRLMemo;
+    RLDraw11: TRLDraw;
+    RLMemo3: TRLMemo;
+    RLDBText18: TRLDBText;
+    RLDBText19: TRLDBText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand2BeforePrint(Sender: TObject; var PrintIt: Boolean);
@@ -92,6 +98,7 @@ type
     vNomeEmp : String;
     vImp_Nota : Boolean;
     vImp_Separar_Vend : Boolean;
+    vDtInicial : TDateTime;
 
   end;
 
@@ -123,6 +130,8 @@ begin
     RLDBText17.Width := 217
   else
     RLDBText17.Width := 300;
+  RLMemo2.Lines.Clear;
+  RLMemo2.Lines.Text := 'Saldo anterior a data ' + DateToStr(vDtInicial);
 end;
 
 procedure TfRelExtComissao.RLBand2BeforePrint(Sender: TObject; var PrintIt: Boolean);

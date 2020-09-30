@@ -59,10 +59,8 @@ type
     RzGroupBox2: TRzGroupBox;
     Label6: TLabel;
     Label9: TLabel;
-    Label13: TLabel;
-    Label17: TLabel;
-    Label21: TLabel;
-    Label22: TLabel;
+    lblSaldoAnt: TLabel;
+    lblSaldoTotal: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -102,6 +100,9 @@ type
     procedure prc_Posiciona_Registro;
 
     procedure prc_Calcular_Comissao;
+
+    procedure prc_Montar_Saldo_Ant;
+
   public
     { Public declarations }
   end;
@@ -112,7 +113,7 @@ var
 implementation
 
 uses DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, Variants, DBClient,
-  DateUtils;
+  DateUtils, VarUtils;
 
 {$R *.dfm}
 
@@ -188,6 +189,8 @@ begin
 end;
 
 procedure TfrmConsExtComissao.btnConsultarClick(Sender: TObject);
+var
+  i : Integer;
 begin
   if CurrencyEdit1.AsInteger < 2010 then
   begin
@@ -201,12 +204,32 @@ begin
     CurrencyEdit2.SetFocus;
     exit;
   end;
+  if DateEdit1.Date <= 10 then
+  begin
+    MessageDlg('*** Data inícial não informada!', mtInformation, [mbOk], 0);
+    DateEdit1.SetFocus;
+    exit;
+  end;
+  if DateEdit2.Date <= 10 then
+  begin
+    MessageDlg('*** Data final não informada!', mtInformation, [mbOk], 0);
+    DateEdit2.SetFocus;
+    exit;
+  end;
   fDMCadExtComissao.vAno := CurrencyEdit1.AsInteger;
   fDMCadExtComissao.vMes := CurrencyEdit2.AsInteger;
   SMDBGrid1.UnSelectAllClick(SMDBGrid1);
   fDMCadExtComissao.cdsConsulta.Filtered := False;
   prc_Consultar(0);
   prc_Monta_Valores;
+  Label6.Caption := 'Saldo anterior a data: ' + DateEdit1.Text;
+  Label9.Caption := 'Saldo Total até a data: ' + DateEdit2.Text;
+  for i := 1 to SMDBGrid1.ColCount - 2 do
+  begin
+    if (SMDBGrid1.Columns[i].FieldName = 'Saldo_Ant') then
+      SMDBGrid1.Columns[i].Title.Caption := 'Saldo anterior a data ' + DateEdit1.Text;
+  end;
+
 end;
 
 procedure TfrmConsExtComissao.FormDestroy(Sender: TObject);
@@ -260,6 +283,7 @@ end;
 procedure TfrmConsExtComissao.prc_Monta_Valores;
 var
   vSaldo : Real;
+  vAux : Real;
 begin
   fDMCadExtComissao.vEntrada_Ext      := 0;
   fDMCadExtComissao.vPagamento_Ext    := 0;
@@ -267,6 +291,8 @@ begin
   fDMCadExtComissao.vDevolucao_Ext    := 0;
   SMDBGrid1.DisableScroll;
   fDMCadExtComissao.prc_Le_cdsConsulta;
+
+  prc_Montar_Saldo_Ant;
   
   SMDBGrid1.EnableScroll;
   vSaldo := StrToFloat(FormatFloat('0.00',fDMCadExtComissao.vEntrada_Ext - fDMCadExtComissao.vPagamento_Ext - fDMCadExtComissao.vAdiantamento_Ext - fDMCadExtComissao.vDevolucao_Ext));
@@ -275,6 +301,24 @@ begin
   lblAdiantamento.Caption := FormatFloat('###,###,##0.00',fDMCadExtComissao.vAdiantamento_Ext);
   lblDevolucao.Caption    := FormatFloat('###,###,##0.00',fDMCadExtComissao.vDevolucao_Ext);
   lblSaldo.Caption        := FormatFloat('###,###,##0.00',vSaldo);
+  if StrToFloat(FormatFloat('0.00',fDMCadExtComissao.vSaldo_Ant)) < 0 then
+    lblSaldoAnt.Font.Color := clRed
+  else
+  if StrToFloat(FormatFloat('0.00',fDMCadExtComissao.vSaldo_Ant)) > 0 then
+    lblSaldoAnt.Font.Color := clNavy
+  else
+    lblSaldoAnt.Font.Color := clBlack;
+  lblSaldoAnt.Caption     := FormatFloat('###,###,##0.00',fDMCadExtComissao.vSaldo_Ant);
+  vSaldo := StrToFloat(FormatFloat('0.00',fDMCadExtComissao.vSaldo_Ant + vSaldo));
+
+  if StrToFloat(FormatFloat('0.00',vSaldo)) < 0 then
+    lblSaldoTotal.Font.Color := clRed
+  else
+  if StrToFloat(FormatFloat('0.00',vSaldo)) > 0 then
+    lblSaldoTotal.Font.Color := clNavy
+  else
+    lblSaldoTotal.Font.Color := clBlack;
+  lblSaldoTotal.Caption   := FormatFloat('###,###,##0.00',vSaldo);
 end;
 
 procedure TfrmConsExtComissao.prc_Posiciona_Registro;
@@ -300,14 +344,32 @@ end;
 
 procedure TfrmConsExtComissao.SMDBGrid1GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+var
+  vCor : TColor;
 begin
   if StrToFloat(FormatFloat('0.00',fDMCadExtComissao.mExtComissao_RedVlr_Vendas.AsFloat)) < StrToFloat(FormatFloat('0.00',fDMCadExtComissao.mExtComissao_RedVlr_Meta_Vendas.AsFloat)) then
     AFont.Color := clRed;
-  if (Field = fDMCadExtComissao.mExtComissao_RedVlr_Comissao) then
+  if (Field = fDMCadExtComissao.mExtComissao_RedVlr_Comissao) or (Field = fDMCadExtComissao.mExtComissao_RedSaldo_Ant) or (Field = fDMCadExtComissao.mExtComissao_RedSaldo_Total) then
+  begin
+    if not Field.IsNull then
+    begin
+      if StrToFloat(FormatFloat('0.00',Field.Value)) < 0 then
+        vCor := clRed
+      else
+      if StrToFloat(FormatFloat('0.00',Field.Value)) > 0 then
+        vCor := clNavy
+      else
+        vCor := clBlack;
+      AFont.Color := vCor;
+    end;
+    AFont.Style := [fsBold];
+    if (Field <> fDMCadExtComissao.mExtComissao_RedVlr_Comissao)  then
+      Background  := clWhite;
+  end;
+  if (Field = fDMCadExtComissao.mExtComissao_RedVlr_Comissao)  then
   begin
     Background  := clMoneyGreen;
     AFont.Style := [fsBold];
-    AFont.Color := clBlack;
   end;
 end;
 
@@ -420,6 +482,7 @@ begin
   fDMCadExtComissao.cdsConsulta.IndexFieldNames := 'DTBASE;TIPO_REG';
 
   fRelExtComissao   := TfRelExtComissao.Create(Self);
+  fRelExtComissao.vDtInicial := DateEdit1.Date;
   fRelExtComissao.fDMCadExtComissao := fDMCadExtComissao;
   fRelExtComissao.vImp_Nota := CheckBox1.Checked;
   fRelExtComissao.vImp_Separar_Vend := CheckBox2.Checked;
@@ -508,6 +571,28 @@ begin
   end;
   fDMCadExtComissao.cdsExtComissao.ApplyUpdates(0);
   ShowMessage('Ajuste Concluído!');
+end;
+
+procedure TfrmConsExtComissao.prc_Montar_Saldo_Ant;
+var
+  vFilialAux : Integer;
+begin
+  fDMCadExtComissao.vSaldo_Ant := 0;
+  vFilialAux := 0;
+  if RxDBLookupCombo1.Text <> '' then
+    vFilialAux := RxDBLookupCombo1.KeyValue;
+  fDMCadExtComissao.mExtComissao_Red.First;
+  while not fDMCadExtComissao.mExtComissao_Red.Eof do
+  begin
+    fDMCadExtComissao.mExtComissao_Red.Edit;
+    fDMCadExtComissao.mExtComissao_RedSaldo_Ant.AsFloat := fDMCadExtComissao.fnc_Saldo_Ant(fDMCadExtComissao.mExtComissao_RedID_Vendedor.AsInteger,
+                                                       vFilialAux,DateEdit1.Date);
+    fDMCadExtComissao.mExtComissao_RedSaldo_Total.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadExtComissao.mExtComissao_RedSaldo_Ant.AsFloat
+                                                           + fDMCadExtComissao.mExtComissao_RedVlr_Comissao.AsFloat));
+    fDMCadExtComissao.mExtComissao_Red.Post;
+    fDMCadExtComissao.vSaldo_Ant := StrToFloat(FormatFloat('0.00',fDMCadExtComissao.vSaldo_Ant + fDMCadExtComissao.mExtComissao_RedSaldo_Ant.AsFloat));
+    fDMCadExtComissao.mExtComissao_Red.Next;
+  end;
 end;
 
 end.

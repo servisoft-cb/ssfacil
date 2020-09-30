@@ -352,14 +352,13 @@ object frmConsExtComissao: TfrmConsExtComissao
           TabOrder = 7
         end
         object RzGroupBox2: TRzGroupBox
-          Left = 747
+          Left = 748
           Top = 2
           Width = 191
           Height = 99
           BorderColor = clNavy
           BorderInner = fsButtonUp
           BorderOuter = fsBump
-          Caption = ' Valores Totais  do Per'#237'odo '
           Color = 14737632
           Ctl3D = True
           FlatColor = clNavy
@@ -371,49 +370,33 @@ object frmConsExtComissao: TfrmConsExtComissao
           ParentCtl3D = False
           ParentFont = False
           TabOrder = 8
-          Visible = False
           VisualStyle = vsGradient
           object Label6: TLabel
-            Left = 10
+            Left = 8
             Top = 16
-            Width = 69
+            Width = 169
             Height = 13
-            Alignment = taRightJustify
+            Alignment = taCenter
+            AutoSize = False
             Caption = 'Saldo Anterior:'
           end
           object Label9: TLabel
-            Left = 6
-            Top = 51
-            Width = 73
+            Left = 8
+            Top = 52
+            Width = 169
             Height = 13
-            Alignment = taRightJustify
-            Caption = 'Adiantamentos:'
-          end
-          object Label13: TLabel
-            Left = 84
-            Top = 16
-            Width = 97
-            Height = 13
-            Alignment = taRightJustify
+            Alignment = taCenter
             AutoSize = False
-            Caption = '0,00'
+            Caption = 'Saldo At'#233' a data'
           end
-          object Label17: TLabel
-            Left = 84
-            Top = 48
-            Width = 97
-            Height = 13
-            Alignment = taRightJustify
-            AutoSize = False
-            Caption = '0,00'
-          end
-          object Label21: TLabel
+          object lblSaldoAnt: TLabel
             Left = 42
-            Top = 84
-            Width = 37
+            Top = 31
+            Width = 109
             Height = 13
-            Alignment = taRightJustify
-            Caption = 'Saldo:'
+            Alignment = taCenter
+            AutoSize = False
+            Caption = '0,00'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clNavy
             Font.Height = -11
@@ -421,12 +404,12 @@ object frmConsExtComissao: TfrmConsExtComissao
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object Label22: TLabel
-            Left = 85
-            Top = 81
-            Width = 97
+          object lblSaldoTotal: TLabel
+            Left = 43
+            Top = 66
+            Width = 109
             Height = 13
-            Alignment = taRightJustify
+            Alignment = taCenter
             AutoSize = False
             Caption = '0,00'
             Font.Charset = DEFAULT_CHARSET
@@ -491,7 +474,7 @@ object frmConsExtComissao: TfrmConsExtComissao
             WidthOfIndicator = 27
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 10
+            ColCount = 12
             RowCount = 2
             Columns = <
               item
@@ -519,9 +502,17 @@ object frmConsExtComissao: TfrmConsExtComissao
               end
               item
                 Expanded = False
+                FieldName = 'Saldo_Ant'
+                Title.Alignment = taCenter
+                Title.Caption = 'Saldo anterior a Data 99/99/9999'
+                Width = 99
+                Visible = True
+              end
+              item
+                Expanded = False
                 FieldName = 'Base_Comissao'
                 Title.Caption = 'Base Comiss'#227'o'
-                Width = 82
+                Width = 90
                 Visible = True
               end
               item
@@ -529,14 +520,22 @@ object frmConsExtComissao: TfrmConsExtComissao
                 Expanded = False
                 FieldName = 'Vlr_Comissao'
                 Title.Alignment = taCenter
-                Title.Caption = 'Vlr. Comiss'#227'o a Pagar'
+                Title.Caption = 'Vlr. Comiss'#227'o a Pagar no Per'#237'odo'
                 Title.Color = clMoneyGreen
                 Title.Font.Charset = DEFAULT_CHARSET
                 Title.Font.Color = clWindowText
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = [fsBold]
-                Width = 104
+                Width = 101
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Saldo_Total'
+                Title.Alignment = taCenter
+                Title.Caption = 'Saldo Total (Anterior + Per'#237'odo)'
+                Width = 113
                 Visible = True
               end
               item
@@ -609,7 +608,7 @@ object frmConsExtComissao: TfrmConsExtComissao
               Visible = False
             end
             object btnImprimir: TNxButton
-              Left = 154
+              Left = 155
               Top = 2
               Width = 151
               Height = 29
@@ -925,13 +924,11 @@ object frmConsExtComissao: TfrmConsExtComissao
               item
                 Expanded = False
                 FieldName = 'DTCADASTRO'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'ID'
-                Width = 64
                 Visible = True
               end
               item

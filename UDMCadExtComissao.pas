@@ -336,6 +336,10 @@ type
     cdsConsultaOBS_PEDIDO: TStringField;
     qParametros_ComMOSTRAR_PED: TStringField;
     qParametros_ComCOMISSAO_DESCONTAR_PIS: TStringField;
+    mExtComissao_RedSaldo_Ant: TFloatField;
+    mExtComissao_RedSaldo_Total: TFloatField;
+    mImp_ReduzidoSaldo_Ant: TFloatField;
+    mImp_ReduzidoSaldo_Total: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsExtComissaoNewRecord(DataSet: TDataSet);
     procedure mExtComissao_RedNewRecord(DataSet: TDataSet);
@@ -363,6 +367,7 @@ type
     ctPedido_Vend: String;
     vEntrada_Ext, vPagamento_Ext, vAdiantamento_Ext, vDevolucao_Ext: Real;
     vPrevisao_Dup_Ext, vPrevisao_Ped_Ext: Real;
+    vSaldo_Ant : Real;
     vAno, vMes: Integer;
 
     procedure prc_Localizar(ID: Integer);
@@ -383,7 +388,10 @@ type
                                 Base_Comissao, Vlr_Comissao, Perc_Comissao: Real; ID_Recibo, ID_Descontada: Integer): Integer;
 
     function fnc_Busca_Metas(Ano,Mes,ID_Vendedor: Integer): Real;
-    function fnc_Busca_Vendas(Ano,Mes,ID_Vendedor: Integer): Real;   
+    function fnc_Busca_Vendas(Ano,Mes,ID_Vendedor: Integer): Real;
+
+    function fnc_Saldo_Ant(ID_Vendedor, Filial : Integer ; Data : TDateTime) : Real;
+
   end;
 
 var
@@ -610,6 +618,8 @@ begin
 end;
 
 procedure TDMCadExtComissao.prc_Gravar_mExtComissao_Red;
+var
+  vAux: Real;
 begin
   if mExtComissao_Red.Locate('ID_VENDEDOR',cdsConsultaID_VENDEDOR.AsInteger,[loCaseInsensitive]) then
     mExtComissao_Red.Edit
@@ -811,6 +821,8 @@ begin
   mExtComissao_RedBase_Previsao_Ped.AsFloat := 0;
   mExtComissao_RedVlr_Previsao_Ped.AsFloat  := 0;
   mExtComissao_RedVlr_Previsao_Dup.AsFloat  := 0;
+  mExtComissao_RedSaldo_Ant.AsFloat         := 0;
+  mExtComissao_RedSaldo_Total.AsFloat       := 0;
 end;
 
 procedure TDMCadExtComissao.cdsPrevisaoCalcFields(DataSet: TDataSet);
@@ -975,6 +987,37 @@ procedure TDMCadExtComissao.DoLogAdditionalValues(ATableName: string;
   var AValues: TArrayLogData; var UserName: string);
 begin
   UserName := vUsuario;
+end;
+
+function TDMCadExtComissao.fnc_Saldo_Ant(ID_Vendedor, Filial : Integer ; Data : TDateTime) : Real;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 0;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.GetMetadata   := False;
+    sds.NoMetadata    := True;
+    sds.CommandText   := 'SELECT SUM(AUX.VLR_COMISSAO) VLR_COMISSAO '
+                       + 'FROM (select EXT.tipo_reg, '
+                       + 'case '
+                       + ' when EXT.TIPO_REG = ' + QuotedStr('ENT') + '  then SUM(EXT.vlr_comissao) '
+                       + '   ELSE SUM(EXT.vlr_comissao * -1) '
+                       + '   END VLR_COMISSAO '
+                       + 'from EXTCOMISSAO EXT '
+                       + 'WHERE EXT.ID_VENDEDOR = :ID_VENDEDOR '
+                       + '  AND EXT.DTBASE < :DATA ';
+    if Filial > 0 then
+      sds.CommandText := sds.CommandText + ' AND EXT.FILIAL = ' + IntToStr(Filial);
+    sds.CommandText := sds.CommandText + ' group by ext.tipo_reg ) AUX ';
+    sds.ParamByName('ID_VENDEDOR').AsInteger := ID_Vendedor;
+    sds.ParamByName('DATA').AsDate           := Data;
+    sds.Open;
+    Result := StrToFloat(FormatFloat('0.00',sds.FieldByName('VLR_COMISSAO').AsFloat));
+  finally
+    FreeAndNil(sds);
+  end;
 end;
 
 end.

@@ -37,44 +37,44 @@ object fRelExtComissao: TfRelExtComissao
       Left = 30
       Top = 30
       Width = 734
-      Height = 66
+      Height = 78
       BandType = btHeader
       BeforePrint = RLBand1BeforePrint
       object RLDraw9: TRLDraw
         Left = 665
         Top = 38
         Width = 68
-        Height = 29
+        Height = 40
       end
       object RLDraw8: TRLDraw
         Left = 598
         Top = 38
         Width = 68
-        Height = 29
+        Height = 40
       end
       object RLDraw7: TRLDraw
         Left = 524
         Top = 38
         Width = 75
-        Height = 29
+        Height = 40
       end
       object RLDraw6: TRLDraw
         Left = 457
         Top = 38
         Width = 68
-        Height = 29
+        Height = 40
       end
       object RLDraw5: TRLDraw
         Left = 378
         Top = 38
         Width = 80
-        Height = 29
+        Height = 40
       end
       object RLDraw4: TRLDraw
-        Left = 299
+        Left = 141
         Top = 38
         Width = 80
-        Height = 29
+        Height = 40
       end
       object RLLabel21: TRLLabel
         Left = 645
@@ -167,15 +167,15 @@ object fRelExtComissao: TfRelExtComissao
         Caption = 'Base Comiss'#227'o'
       end
       object RLMemo1: TRLMemo
-        Left = 304
+        Left = 146
         Top = 39
         Width = 73
-        Height = 24
+        Height = 36
         Alignment = taRightJustify
         Behavior = [beSiteExpander]
         Lines.Strings = (
           'Valor Comiss'#227'o'
-          'a Pagar')
+          'a Pagar no Per'#237'odo')
       end
       object RLLabel5: TRLLabel
         Left = 467
@@ -205,10 +205,45 @@ object fRelExtComissao: TfRelExtComissao
         Height = 12
         Caption = 'Vlr.Devol.'
       end
+      object RLDraw10: TRLDraw
+        Left = 220
+        Top = 38
+        Width = 80
+        Height = 40
+      end
+      object RLMemo2: TRLMemo
+        Left = 225
+        Top = 39
+        Width = 73
+        Height = 35
+        Alignment = taRightJustify
+        AutoSize = False
+        Behavior = [beSiteExpander]
+        Lines.Strings = (
+          'Saldo Anterior')
+      end
+      object RLDraw11: TRLDraw
+        Left = 299
+        Top = 38
+        Width = 80
+        Height = 40
+      end
+      object RLMemo3: TRLMemo
+        Left = 302
+        Top = 39
+        Width = 73
+        Height = 35
+        Alignment = taRightJustify
+        AutoSize = False
+        Behavior = [beSiteExpander]
+        Lines.Strings = (
+          'Saldo Total'
+          '(Ant. + Per'#237'odo)')
+      end
     end
     object RLSubDetail1: TRLSubDetail
       Left = 30
-      Top = 96
+      Top = 108
       Width = 734
       Height = 363
       DataSource = DMCadExtComissao.dsmImp_Reduzido
@@ -216,19 +251,19 @@ object fRelExtComissao: TfRelExtComissao
         Left = 0
         Top = 0
         Width = 734
-        Height = 16
+        Height = 23
         BeforePrint = RLBand2BeforePrint
         object RLDBText1: TRLDBText
           Left = 2
           Top = 2
-          Width = 289
+          Width = 141
           Height = 12
           AutoSize = False
           DataField = 'NomeVendedor'
           DataSource = DMCadExtComissao.dsmImp_Reduzido
         end
         object RLDBText2: TRLDBText
-          Left = 303
+          Left = 146
           Top = 2
           Width = 73
           Height = 12
@@ -239,7 +274,7 @@ object fRelExtComissao: TfRelExtComissao
         end
         object RLDBText3: TRLDBText
           Left = 377
-          Top = 2
+          Top = 1
           Width = 73
           Height = 12
           Alignment = taRightJustify
@@ -249,7 +284,7 @@ object fRelExtComissao: TfRelExtComissao
         end
         object RLDBText4: TRLDBText
           Left = 451
-          Top = 2
+          Top = 1
           Width = 73
           Height = 12
           Alignment = taRightJustify
@@ -259,7 +294,7 @@ object fRelExtComissao: TfRelExtComissao
         end
         object RLDBText5: TRLDBText
           Left = 525
-          Top = 2
+          Top = 1
           Width = 73
           Height = 12
           Alignment = taRightJustify
@@ -269,7 +304,7 @@ object fRelExtComissao: TfRelExtComissao
         end
         object RLDBText6: TRLDBText
           Left = 599
-          Top = 2
+          Top = 1
           Width = 66
           Height = 12
           Alignment = taRightJustify
@@ -279,7 +314,7 @@ object fRelExtComissao: TfRelExtComissao
         end
         object RLDBText7: TRLDBText
           Left = 666
-          Top = 2
+          Top = 1
           Width = 66
           Height = 12
           Alignment = taRightJustify
@@ -295,10 +330,30 @@ object fRelExtComissao: TfRelExtComissao
           Align = faTop
           DrawKind = dkLine
         end
+        object RLDBText18: TRLDBText
+          Left = 220
+          Top = 2
+          Width = 73
+          Height = 12
+          Alignment = taRightJustify
+          AutoSize = False
+          DataField = 'Saldo_Ant'
+          DataSource = DMCadExtComissao.dsmImp_Reduzido
+        end
+        object RLDBText19: TRLDBText
+          Left = 300
+          Top = 2
+          Width = 73
+          Height = 12
+          Alignment = taRightJustify
+          AutoSize = False
+          DataField = 'Saldo_Total'
+          DataSource = DMCadExtComissao.dsmImp_Reduzido
+        end
       end
       object RLSubDetail2: TRLSubDetail
         Left = 0
-        Top = 16
+        Top = 23
         Width = 734
         Height = 241
         DataSource = DMCadExtComissao.dsConsulta

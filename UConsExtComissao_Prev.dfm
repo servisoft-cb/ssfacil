@@ -22,8 +22,8 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 1030
-    Height = 680
+    Width = 1038
+    Height = 687
     ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -40,7 +40,7 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
       object Panel3: TPanel
         Left = 0
         Top = 0
-        Width = 1026
+        Width = 1034
         Height = 77
         Align = alTop
         TabOrder = 0
@@ -74,21 +74,6 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
           Height = 13
           Alignment = taRightJustify
           Caption = 'Vendedor:'
-        end
-        object btnConsultar: TBitBtn
-          Left = 329
-          Top = 43
-          Width = 75
-          Height = 25
-          Caption = 'Consultar'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = []
-          ParentFont = False
-          TabOrder = 4
-          OnClick = btnConsultarClick
         end
         object RxDBLookupCombo1: TRxDBLookupCombo
           Left = 95
@@ -150,7 +135,7 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
           Font.Style = []
           ParentCtl3D = False
           ParentFont = False
-          TabOrder = 5
+          TabOrder = 4
           VisualStyle = vsGradient
           object Label14: TLabel
             Left = 39
@@ -240,16 +225,25 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
             ParentFont = False
           end
         end
+        object btnConsultar: TNxButton
+          Left = 330
+          Top = 44
+          Width = 139
+          Height = 26
+          Caption = 'Efetuar Pesquisa'
+          TabOrder = 5
+          OnClick = btnConsultarClick
+        end
       end
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 77
-        Width = 1026
-        Height = 580
-        ActivePage = TS_Resumido
+        Width = 1034
+        Height = 587
+        ActivePage = TS_Detalhado
         ActivePageDefault = TS_Resumido
         Align = alClient
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -258,8 +252,8 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
           object SMDBGrid1: TSMDBGrid
             Left = 0
             Top = 32
-            Width = 1022
-            Height = 508
+            Width = 1030
+            Height = 515
             Align = alClient
             Ctl3D = True
             DataSource = DMCadExtComissao.dsmExtComissao_Red
@@ -361,7 +355,7 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
           object Panel2: TPanel
             Left = 0
             Top = 0
-            Width = 1022
+            Width = 1030
             Height = 32
             Align = alTop
             Color = clSilver
@@ -402,8 +396,8 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
           end
           object StaticText1: TStaticText
             Left = 0
-            Top = 540
-            Width = 1022
+            Top = 547
+            Width = 1030
             Height = 17
             Align = alBottom
             BorderStyle = sbsSunken
@@ -422,7 +416,7 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
           object Panel1: TPanel
             Left = 0
             Top = 0
-            Width = 1022
+            Width = 1030
             Height = 29
             Align = alTop
             Color = clSilver
@@ -446,8 +440,8 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
           object gbxDuplicatas: TRzGroupBox
             Left = 0
             Top = 321
-            Width = 1022
-            Height = 236
+            Width = 1030
+            Height = 243
             Align = alClient
             BorderColor = 8453888
             BorderInner = fsButtonUp
@@ -467,8 +461,8 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
             object SMDBGrid2: TSMDBGrid
               Left = 5
               Top = 18
-              Width = 1012
-              Height = 213
+              Width = 1020
+              Height = 220
               Align = alClient
               Ctl3D = False
               DataSource = DMCadExtComissao.dsmPrevPedido
@@ -550,7 +544,7 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
           object RzGroupBox2: TRzGroupBox
             Left = 0
             Top = 29
-            Width = 1022
+            Width = 1030
             Height = 292
             Align = alTop
             BorderColor = clNavy
@@ -571,7 +565,7 @@ object frmConsExtComissao_Prev: TfrmConsExtComissao_Prev
             object SMDBGrid3: TSMDBGrid
               Left = 5
               Top = 18
-              Width = 1012
+              Width = 1020
               Height = 269
               Align = alClient
               Ctl3D = False

@@ -5,14 +5,13 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadExtComissao,
   DBGrids, ExtCtrls, StdCtrls, DB, RzTabs, DBCtrls, ToolEdit, UCBase, RxLookup, Mask, CurrEdit, RxDBComb, RXDBCtrl,
-  RzPanel, URelExtComissao_Prev;
+  RzPanel, URelExtComissao_Prev, NxCollection;
 
 type
   TfrmConsExtComissao_Prev = class(TForm)
     RzPageControl1: TRzPageControl;
     TS_Consulta: TRzTabSheet;
     Panel3: TPanel;
-    btnConsultar: TBitBtn;
     Label15: TLabel;
     RxDBLookupCombo1: TRxDBLookupCombo;
     Label18: TLabel;
@@ -44,6 +43,7 @@ type
     lblDuplicata: TLabel;
     Label5: TLabel;
     lblPedido: TLabel;
+    btnConsultar: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
