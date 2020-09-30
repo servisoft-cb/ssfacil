@@ -440,7 +440,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
     Top = 133
     Width = 941
     Height = 385
-    ActivePage = TS_Produto_Acum
+    ActivePage = TS_Produto_Det
     ActivePageDefault = TS_Produto_Det
     Align = alClient
     BackgroundColor = clGray
@@ -453,7 +453,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
     ParentBackgroundColor = False
     ParentFont = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     TextColors.Selected = clBlue
     OnChange = RzPageControl1Change
@@ -801,15 +801,15 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
         TabOrder = 1
         VisualStyle = vsGradient
         object Label5: TLabel
-          Left = 8
+          Left = 9
           Top = 16
-          Width = 88
+          Width = 144
           Height = 13
-          Caption = 'Total Entradas:'
+          Caption = 'Entradas Conforme Filtro:'
         end
         object lblEntrada: TLabel
-          Left = 98
-          Top = 16
+          Left = 155
+          Top = 17
           Width = 93
           Height = 13
           AutoSize = False
@@ -822,15 +822,15 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           ParentFont = False
         end
         object Label6: TLabel
-          Left = 216
-          Top = 16
-          Width = 78
+          Left = 286
+          Top = 17
+          Width = 134
           Height = 13
-          Caption = 'Total Sa'#237'das:'
+          Caption = 'Sa'#237'das Conforme Filtro:'
         end
         object lblSaida: TLabel
-          Left = 296
-          Top = 16
+          Left = 424
+          Top = 18
           Width = 93
           Height = 13
           AutoSize = False
@@ -843,15 +843,16 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           ParentFont = False
         end
         object Label9: TLabel
-          Left = 458
-          Top = 16
-          Width = 37
+          Left = 527
+          Top = 17
+          Width = 175
           Height = 13
-          Caption = 'Saldo:'
+          Alignment = taRightJustify
+          Caption = 'Saldo Conforme o Filtro Acima:'
         end
         object lblSaldo: TLabel
-          Left = 498
-          Top = 16
+          Left = 707
+          Top = 17
           Width = 93
           Height = 13
           AutoSize = False
@@ -864,8 +865,8 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           ParentFont = False
         end
         object NxButton1: TNxButton
-          Left = 662
-          Top = 11
+          Left = 813
+          Top = 10
           Width = 75
           Caption = 'Calcular'
           TabOrder = 0

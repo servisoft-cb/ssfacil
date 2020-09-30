@@ -373,6 +373,16 @@ begin
     FreeAndNil(Form);
   end;
   SMDBGrid1.EnableScroll;
+  if (DateEdit1.Date > 10) and (DateEdit2.Date > 10) then
+    Label9.Caption := 'Saldo de ' + DateEdit1.Text + ' até ' + DateEdit2.Text
+  else
+  if (DateEdit1.Date > 10) then
+    Label9.Caption := 'Saldo de ' + DateEdit1.Text + ' até ' + DateToStr(Date)
+  else
+  if (DateEdit2.Date > 10) then
+    Label9.Caption := 'Saldo até ' + DateEdit2.Text
+  else
+    Label9.Caption := 'Saldo' + DateEdit2.Text;
 end;
 
 procedure TfrmConsEstoque_Mov.prc_Consultar_Acum;

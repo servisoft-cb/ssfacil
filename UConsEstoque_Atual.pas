@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons, Grids, Mask, 
   DBGrids, SMDBGrid, FMTBcd, DB, Provider, DBClient, SqlExpr, UDMConsEstoque, RxLookup, UCBase, NxCollection, ToolEdit, CurrEdit,
-  UConsProduto_Pes, UConsEstoque_Mov, Menus, StrUtils, RzTabs;
+  UConsProduto_Pes, UConsEstoque_Prod_Mov, Menus, StrUtils, RzTabs;
 
 type
   TfrmConsEstoque_Atual = class(TForm)
@@ -72,7 +72,7 @@ type
     fDMConsEstoque: TDMConsEstoque;
     ColunaOrdenada: String;
     ffrmConsProduto_Pes: TfrmConsProduto_Pes;
-    ffrmConsEstoque_Mov : TfrmConsEstoque_Mov;
+    ffrmConsEstoque_Prod_Mov : TfrmConsEstoque_Prod_Mov;
     vOpcaoImp : String;
 
     procedure prc_Consultar;
@@ -318,30 +318,20 @@ var
 begin
   if (Key = Vk_F6) and not(fDMConsEstoque.cdsEstoque_Atual.IsEmpty) then
   begin
-    case rgTipo.ItemIndex of
-      0: vTipoReg := 'P';
-      1: vTipoReg := 'M';
-      2: vTipoReg := 'C';
-      3: vTipoReg := 'S';
-      4: vTipoReg := 'I';
-    end;
     vId := fDMConsEstoque.cdsEstoque_AtualID_PRODUTO.AsInteger;
     vIndexName  := fDMConsEstoque.cdsEstoque_Atual.IndexFieldNames;
     vIndexValue := fDMConsEstoque.cdsEstoque_Atual.FieldByName(vIndexName).AsString;
-    ceIDProduto.AsInteger := vId;
-    ffrmConsEstoque_Mov   := TfrmConsEstoque_Mov.Create(self);
-    ffrmConsEstoque_Mov.ckInativo.Checked := ckInativo.Checked;
-    vControleExterno      := True;
+    ffrmConsEstoque_Prod_Mov   := TfrmConsEstoque_Prod_Mov.Create(self);
     if Trim(RxDBLookupCombo1.Text) <> '' then
-      ffrmConsEstoque_Mov.RxDBLookupCombo1.KeyValue := RxDBLookupCombo1.KeyValue;
-    ffrmConsEstoque_Mov.ceIDProduto.AsInteger := ceIDProduto.AsInteger;
-    ffrmConsEstoque_Mov.edtRef.Text := edtRef.Text;
-    ffrmConsEstoque_Mov.WindowState := wsMaximized;
-    ffrmConsEstoque_Mov.vID_Cor_Loc := fDMConsEstoque.cdsEstoque_AtualID_COR.AsInteger;
-    ffrmConsEstoque_Mov.RadioGroup1.ItemIndex := 2;
-    ffrmConsEstoque_Mov.ShowModal;
-    ceIDProduto.Clear;
-    FreeAndNil(frmConsEstoque_Mov);
+    begin
+      ffrmConsEstoque_Prod_Mov.vFilial_Loc := RxDBLookupCombo1.KeyValue;
+      ffrmConsEstoque_Prod_Mov.Edit1.Text  := RxDBLookupCombo1.Text;
+    end;
+    ffrmConsEstoque_Prod_Mov.Edit2.Text  := fDMConsEstoque.cdsEstoque_AtualID_PRODUTO.AsString;
+    ffrmConsEstoque_Prod_Mov.Edit3.Text  := fDMConsEstoque.cdsEstoque_AtualNOME_PRODUTO.AsString;
+    ffrmConsEstoque_Prod_Mov.vID_Cor_Loc := fDMConsEstoque.cdsEstoque_AtualID_COR.AsInteger;
+    ffrmConsEstoque_Prod_Mov.ShowModal;
+    FreeAndNil(frmConsEstoque_Prod_Mov);
   end;
 end;
 

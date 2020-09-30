@@ -1,6 +1,6 @@
 object frmConsEstoque_Atual: TfrmConsEstoque_Atual
-  Left = 179
-  Top = 93
+  Left = 198
+  Top = 104
   BorderStyle = bsSingle
   Caption = 'Consulta Estoque'
   ClientHeight = 517
