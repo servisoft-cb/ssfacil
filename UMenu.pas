@@ -370,6 +370,7 @@ type
     ConsultaPedidoPorCliente1: TMenuItem;
     ConsultaConsumoFaturamento1: TMenuItem;
     ConsultaEstoquexComprasxPedidos1: TMenuItem;
+    ConsultaMovimentoEstoqueComSaldoAnterior1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);
@@ -646,6 +647,8 @@ type
     procedure ConsultaPedidoPorCliente1Click(Sender: TObject);
     procedure ConsultaConsumoFaturamento1Click(Sender: TObject);
     procedure ConsultaEstoquexComprasxPedidos1Click(Sender: TObject);
+    procedure ConsultaMovimentoEstoqueComSaldoAnterior1Click(
+      Sender: TObject);
   private
     { Private declarations }
     vPedLoja: String; //L = Loja, M = Mensal, N = Normal
@@ -709,7 +712,7 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   UConsProdutoNCM, UProg_Terc, UConsPedido_Producao, UConsNCM_CFOP, UANP_Produto, UCadMetas_Comissao, uCupomTerminal, UConsAdto,
   UConsPedido_Res, uConsComissao_Metas, UCadAjuste_Preco, UConsPedido_Est, UConsProduto_Vendedor_Fat, uCadRegiaoVenda,
   UConsOrcamento, UConsCSTxCFOP, uCadConfig_Balanca, UConsPedido_Rep,
-  uConsFatConsumo, UConsEstoque_Compras;
+  uConsFatConsumo, UConsEstoque_Compras, UConsEstoque_Prod_Mov;
 
 {$R *.dfm}
 
@@ -2344,6 +2347,12 @@ end;
 procedure TfMenu.ConsultaEstoquexComprasxPedidos1Click(Sender: TObject);
 begin
   OpenForm(TfrmConsEstoque_Compras,wsMaximized);
+end;
+
+procedure TfMenu.ConsultaMovimentoEstoqueComSaldoAnterior1Click(
+  Sender: TObject);
+begin
+  OpenForm(TfrmConsEstoque_Prod_Mov,wsMaximized);
 end;
 
 initialization

@@ -714,6 +714,9 @@ type
     cdsEstoque_MovLARGURA: TFloatField;
     cdsBalancoNCM: TStringField;
     cdsEstoqueID_FORNECEDOR: TIntegerField;
+    cdsEstoqueTIPO_REG_COMB: TStringField;
+    cdsEstoqueID_COR: TIntegerField;
+    cdsEstoqueID_COR_COMBINACAO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

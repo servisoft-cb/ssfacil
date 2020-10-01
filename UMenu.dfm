@@ -550,11 +550,11 @@ object fMenu: TfMenu
           Caption = '-'
         end
         object ConsultaEstoque1: TMenuItem
-          Caption = 'Consulta Estoque'
+          Caption = 'Consulta Estoque F'#237'sico'
           OnClick = ConsultaEstoque1Click
         end
         object ConsultaEstoqueDeTerceirosEmTerceiros1: TMenuItem
-          Caption = 'Consulta Estoque / De Terceiros / Em Terceiros'
+          Caption = 'Consulta Estoque F'#237'sico (Geral / De Terceiros / Em Terceiros)'
           OnClick = ConsultaEstoqueDeTerceirosEmTerceiros1Click
         end
         object ConsultaEstoqueClienteExtrato1: TMenuItem
@@ -562,8 +562,12 @@ object fMenu: TfMenu
           OnClick = ConsultaEstoqueClienteExtrato1Click
         end
         object ConsultaEstoqueMovimento1: TMenuItem
-          Caption = 'Consulta Estoque (Movimento)'
+          Caption = 'Consulta Movimento Produtos (no Estoque)'
           OnClick = ConsultaEstoqueMovimento1Click
+        end
+        object ConsultaMovimentoEstoqueComSaldoAnterior1: TMenuItem
+          Caption = 'Consulta Movimento Produto Com Saldo Anterior'
+          OnClick = ConsultaMovimentoEstoqueComSaldoAnterior1Click
         end
         object ConsultaEstoqueLoteControle1: TMenuItem
           Caption = 'Consulta Estoque (Lote Controle)'

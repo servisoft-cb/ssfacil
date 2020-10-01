@@ -951,7 +951,7 @@ object DMCadPedido: TDMCadPedido
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspVendedor'
-    Left = 344
+    Left = 345
     Top = 43
     object cdsVendedorCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -15130,6 +15130,11 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_UsuarioPERMITE_CANC_PED_OP: TStringField
       FieldName = 'PERMITE_CANC_PED_OP'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_UsuarioPERMITE_ALT_PRECO_PED: TStringField
+      FieldName = 'PERMITE_ALT_PRECO_PED'
       FixedChar = True
       Size = 1
     end

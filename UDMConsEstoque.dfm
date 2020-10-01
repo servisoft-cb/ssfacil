@@ -232,6 +232,17 @@ object DMConsEstoque: TDMConsEstoque
     object cdsEstoqueID_FORNECEDOR: TIntegerField
       FieldName = 'ID_FORNECEDOR'
     end
+    object cdsEstoqueTIPO_REG_COMB: TStringField
+      FieldName = 'TIPO_REG_COMB'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsEstoqueID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsEstoqueID_COR_COMBINACAO: TIntegerField
+      FieldName = 'ID_COR_COMBINACAO'
+    end
   end
   object dsEstoque: TDataSource
     DataSet = cdsEstoque
@@ -2367,7 +2378,7 @@ object DMConsEstoque: TDMConsEstoque
     Params = <>
     ProviderName = 'dspEstoque_Med'
     OnCalcFields = cdsBalancoCalcFields
-    Left = 360
+    Left = 359
     Top = 264
     object cdsEstoque_MedQTD: TFloatField
       FieldName = 'QTD'
@@ -4207,9 +4218,11 @@ object DMConsEstoque: TDMConsEstoque
     end
     object cdsEstoque_MovVLR_UNITARIO: TFloatField
       FieldName = 'VLR_UNITARIO'
+      DisplayFormat = '0.000##'
     end
     object cdsEstoque_MovQTD: TFloatField
       FieldName = 'QTD'
+      DisplayFormat = '0.00##'
     end
     object cdsEstoque_MovPERC_ICMS: TFloatField
       FieldName = 'PERC_ICMS'

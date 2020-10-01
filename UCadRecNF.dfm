@@ -1548,7 +1548,7 @@ object frmCadRecNF: TfrmCadRecNF
         Top = 209
         Width = 942
         Height = 410
-        ActivePage = TabSheet2
+        ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
         BackgroundColor = clSilver
@@ -1556,7 +1556,7 @@ object frmCadRecNF: TfrmCadRecNF
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 1
         FixedDimension = 19
         object RzTabSheet1: TRzTabSheet
@@ -1638,6 +1638,7 @@ object frmCadRecNF: TfrmCadRecNF
                 FieldName = 'NUM_LOTE_CONTROLE'
                 Title.Alignment = taCenter
                 Title.Caption = 'N'#186' Lote Controle'
+                Width = 64
                 Visible = True
               end
               item
@@ -1655,7 +1656,6 @@ object frmCadRecNF: TfrmCadRecNF
               item
                 Expanded = False
                 FieldName = 'UNIDADE'
-                Width = 64
                 Visible = True
               end
               item

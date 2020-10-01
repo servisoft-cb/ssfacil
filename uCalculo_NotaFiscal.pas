@@ -3287,7 +3287,10 @@ begin
     vDescontoItem_Novo  := 0;
     vDesconto_Rateio    := 0;
     if StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_TOTAL.AsFloat)) <= 0 then
+    begin
+      fDMCadNotaFiscal.cdsNotaFiscal_Itens.Next;
       Continue;
+    end;
 
     if fDMCadNotaFiscal.cdsProdutoID.AsInteger <> fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger then
       fDMCadNotaFiscal.cdsProduto.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger,([Locaseinsensitive]));

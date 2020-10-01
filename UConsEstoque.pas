@@ -47,6 +47,7 @@ type
     Label10: TLabel;
     Label11: TLabel;
     RxDBLookupCombo3: TRxDBLookupCombo;
+    Label12: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -91,7 +92,8 @@ var
 
 implementation
 
-uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, URelEstoque, URelInventario, USel_Grupo, USel_Produto, uConsProduto_Compras, StrUtils;
+uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, URelEstoque, URelInventario, USel_Grupo, USel_Produto, uConsProduto_Compras, StrUtils,
+  UConsEstoque_Prod_Mov;
 
 {$R *.dfm}
 
@@ -430,6 +432,22 @@ var
 begin
   if (Key = Vk_F6) and not(fDMConsEstoque.cdsEstoque.IsEmpty) then
   begin
+    vId := fDMConsEstoque.cdsEstoqueID.AsInteger;
+    //vIndexName  := fDMConsEstoque.cdsEstoque.IndexFieldNames;
+    frmConsEstoque_Prod_Mov   := TfrmConsEstoque_Prod_Mov.Create(self);
+    if Trim(RxDBLookupCombo1.Text) <> '' then
+    begin
+      frmConsEstoque_Prod_Mov.vFilial_Loc := RxDBLookupCombo1.KeyValue;
+      frmConsEstoque_Prod_Mov.Edit1.Text  := RxDBLookupCombo1.Text;
+    end;
+    frmConsEstoque_Prod_Mov.CurrencyEdit1.Text := fDMConsEstoque.cdsEstoqueID.AsString;
+    frmConsEstoque_Prod_Mov.Edit3.Text         := fDMConsEstoque.cdsEstoqueNOMEPRODUTO.AsString;
+    frmConsEstoque_Prod_Mov.vID_Cor_Loc        := fDMConsEstoque.cdsEstoqueID_COR_COMBINACAO.AsInteger;
+    frmConsEstoque_Prod_Mov.ShowModal;
+    FreeAndNil(frmConsEstoque_Prod_Mov);
+  end;
+  if (Key = Vk_F7) and not(fDMConsEstoque.cdsEstoque.IsEmpty) then
+  begin
     case rgTipo.ItemIndex of
       0: vTipoReg := 'P';
       1: vTipoReg := 'M';
@@ -439,8 +457,6 @@ begin
     end;
     vId := fDMConsEstoque.cdsEstoqueID.AsInteger;
     vIndexName  := fDMConsEstoque.cdsEstoque.IndexFieldNames;
-    //Ver com Russimar 
-    //vIndexValue := fDMConsEstoque.cdsEstoque.FieldByName(vIndexName).AsString;
     ceIDProduto.AsInteger := vId;
     ffrmConsEstoque_Mov   := TfrmConsEstoque_Mov.Create(self);
     vControleExterno      := True;
@@ -450,8 +466,6 @@ begin
     ffrmConsEstoque_Mov.WindowState := wsMaximized;
     ffrmConsEstoque_Mov.ShowModal;
     ceIDProduto.Clear;
-//    fDMConsEstoque.cdsEstoque.IndexFieldNames := 'ID';
-//    fDMConsEstoque.cdsEstoque.FindKey([vId]);
     FreeAndNil(frmConsEstoque_Mov);
   end;
   if (Key = Vk_F8) and not(fDMConsEstoque.cdsEstoque.IsEmpty) then

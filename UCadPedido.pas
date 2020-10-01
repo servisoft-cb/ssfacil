@@ -373,6 +373,7 @@ type
     EnviarEmail1: TMenuItem;
     ckSelItem: TCheckBox;
     DBCheckBox7: TDBCheckBox;
+    btnAltPreco: TBitBtn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -501,6 +502,7 @@ type
     procedure ImprimiraListaemExcel1Click(Sender: TObject);
     procedure ReciboPagamento1Click(Sender: TObject);
     procedure EnviarEmail1Click(Sender: TObject);
+    procedure btnAltPrecoClick(Sender: TObject);
   private
     { Private declarations }
     fLista: TStringList;
@@ -1124,6 +1126,8 @@ begin
   DBEdit4.Visible := (fDMCadPedido.qParametros_PedDESABILITAR_OC_PED.AsString <> 'S');
   DBCheckBox1.Visible := (fDMCadPedido.qParametros_PedDESABILITAR_OC_PED.AsString <> 'S');
   btnAltDtEntrega.Visible := (fDMCadPedido.qParametros_PedMOSTRAR_ALT_DT_ENTREGA.AsString = 'S');
+  btnAltPreco.Visible     := (fDMCadPedido.qParametros_UsuarioPERMITE_ALT_PRECO_PED.AsString = 'S');
+
   Label69.Visible := (fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S');
   rxdbTipoCobranca2.Visible := (fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S') or (fDMCadPedido.qParametros_PedMOSTRAR_TIPO_COBR.AsString = 'S');
   //28/01/2017
@@ -1870,6 +1874,7 @@ begin
   btnExcluirParcelas.Enabled  := not(btnExcluirParcelas.Enabled);
   btnCopiar_Item.Enabled      := not(btnCopiar_Item.Enabled);
   btnAltDtEntrega.Enabled     := not(btnAltDtEntrega.Enabled);
+  btnAltPreco.Enabled         := not(btnAltPreco.Enabled);
 
   btnInserir_Trilhos.Enabled := not(btnInserir_Trilhos.Enabled);
   btnAlterar_Trilhos.Enabled := not(btnAlterar_Trilhos.Enabled);
@@ -5115,6 +5120,35 @@ begin
   uImprimir.prc_Detalhe_Mat(' ');
   uImprimir.prc_Detalhe_Mat(uImprimir.fnc_Monta_Tamanho(135,'-','E','-'));
   uImprimir.prc_Detalhe_Mat('   Qtde  Unid.   Cód. Produto                                           Bitola              Marca           It   Preco %Desc      Total');
+end;
+
+procedure TfrmCadPedido.btnAltPrecoClick(Sender: TObject);
+var
+  vTexto: String;
+  vItemAux : Integer;
+begin
+  if fDMCadPedido.cdsPedido_Itens.IsEmpty then
+    exit;
+  if not(fDMCadPedido.qParametros_UsuarioPERMITE_ALT_PRECO_PED.AsString = 'S') then
+    exit;
+  if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) <= 0 then
+  begin
+    MessageDlg('*** Já possui faturamento completo!',mtInformation, [mbOk], 0);
+    exit;
+  end;
+  vTexto := InputBox('Preço Unitário','Favor informar o Novo Preço: ', '');
+  if trim(vTexto) = '' then
+    exit;
+
+  vItemAux := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;  
+  fDMCadPedido.cdsPedido_Itens.Edit;
+  fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsString := vTexto;
+  fDMCadPedido.cdsPedido_Itens.Post;
+
+  btnCalcular_ValoresClick(Sender);
+
+  fDMCadPedido.cdsPedido_Itens.Locate('ITEM',vItemAux,[loCaseInsensitive]);
+
 end;
 
 end.

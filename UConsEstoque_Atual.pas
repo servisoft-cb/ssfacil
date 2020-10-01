@@ -327,11 +327,11 @@ begin
       ffrmConsEstoque_Prod_Mov.vFilial_Loc := RxDBLookupCombo1.KeyValue;
       ffrmConsEstoque_Prod_Mov.Edit1.Text  := RxDBLookupCombo1.Text;
     end;
-    ffrmConsEstoque_Prod_Mov.Edit2.Text  := fDMConsEstoque.cdsEstoque_AtualID_PRODUTO.AsString;
-    ffrmConsEstoque_Prod_Mov.Edit3.Text  := fDMConsEstoque.cdsEstoque_AtualNOME_PRODUTO.AsString;
-    ffrmConsEstoque_Prod_Mov.vID_Cor_Loc := fDMConsEstoque.cdsEstoque_AtualID_COR.AsInteger;
+    ffrmConsEstoque_Prod_Mov.CurrencyEdit1.Text := fDMConsEstoque.cdsEstoque_AtualID_PRODUTO.AsString;
+    ffrmConsEstoque_Prod_Mov.Edit3.Text         := fDMConsEstoque.cdsEstoque_AtualNOME_PRODUTO.AsString;
+    ffrmConsEstoque_Prod_Mov.vID_Cor_Loc        := fDMConsEstoque.cdsEstoque_AtualID_COR.AsInteger;
     ffrmConsEstoque_Prod_Mov.ShowModal;
-    FreeAndNil(frmConsEstoque_Prod_Mov);
+    FreeAndNil(ffrmConsEstoque_Prod_Mov);
   end;
 end;
 

@@ -116,7 +116,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
       TabOrder = 1
     end
     object btnConsultar: TNxButton
-      Left = 109
+      Left = 110
       Top = 73
       Width = 175
       Height = 30
@@ -232,13 +232,13 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
       Height = 20
       TabStop = False
       AutoSize = False
-      Color = clActiveCaption
       Ctl3D = False
       DecimalPlaces = 0
       DisplayFormat = '0'
       ParentCtl3D = False
       TabOrder = 5
       OnExit = CurrencyEdit1Exit
+      OnKeyDown = CurrencyEdit1KeyDown
     end
   end
   object pnlPrincipal: TAdvPanel
@@ -306,7 +306,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
       RegistryKey = 'Software\Scalabium'
       RegistrySection = 'SMDBGrid'
       WidthOfIndicator = 11
-      DefaultRowHeight = 19
+      DefaultRowHeight = 16
       ScrollBars = ssHorizontal
       ColCount = 37
       RowCount = 2
@@ -389,10 +389,38 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         end
         item
           Expanded = False
-          FieldName = 'NOMEPRODUTO'
-          Title.Caption = 'Nome Produto'
+          FieldName = 'UNIDADE'
+          Title.Caption = 'Unidade'
           Title.Color = 12910472
-          Width = 178
+          Width = 48
+          Visible = True
+        end
+        item
+          Color = 16777088
+          Expanded = False
+          FieldName = 'QTD'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'Tahoma'
+          Font.Style = [fsBold]
+          Title.Alignment = taCenter
+          Title.Caption = 'Quantidade'
+          Title.Color = 12910472
+          Title.Font.Charset = DEFAULT_CHARSET
+          Title.Font.Color = clWindowText
+          Title.Font.Height = -11
+          Title.Font.Name = 'Tahoma'
+          Title.Font.Style = [fsBold]
+          Width = 87
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VLR_UNITARIO'
+          Title.Caption = 'Vlr. Unit'#225'rio'
+          Title.Color = 12910472
+          Width = 79
           Visible = True
         end
         item
@@ -401,6 +429,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Comprimento'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -439,40 +468,6 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         end
         item
           Expanded = False
-          FieldName = 'REFERENCIA'
-          Title.Alignment = taCenter
-          Title.Caption = 'Refer'#234'ncia'
-          Title.Color = 12910472
-          Width = 92
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'VLR_UNITARIO'
-          Title.Caption = 'Vlr. Unit'#225'rio'
-          Title.Color = 12910472
-          Width = 79
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'UNIDADE'
-          Title.Caption = 'Unidade'
-          Title.Color = 12910472
-          Width = 48
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'QTD'
-          Title.Alignment = taCenter
-          Title.Caption = 'Quantidade'
-          Title.Color = 12910472
-          Width = 87
-          Visible = True
-        end
-        item
-          Expanded = False
           FieldName = 'PRECO_CUSTO'
           Title.Alignment = taCenter
           Title.Caption = 'Pre'#231'o Custo'
@@ -485,6 +480,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Pre'#231'o Custo Total'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -494,6 +490,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'N'#186' Lote Controle'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -523,6 +520,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           FieldName = 'VLR_DESCONTO'
           Title.Caption = 'Vlr. Desconto'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -538,6 +536,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'S'#233'rie Nota'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -553,6 +552,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Unid. da Nota'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -561,6 +561,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Qtd. da Nota'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -569,6 +570,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Vlr. Unit'#225'rio da Nota'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -581,12 +583,12 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Visible = True
         end
         item
-          Alignment = taCenter
           Expanded = False
-          FieldName = 'ID'
+          FieldName = 'REFERENCIA'
           Title.Alignment = taCenter
-          Title.Caption = 'ID Estoque'
+          Title.Caption = 'Refer'#234'ncia'
           Title.Color = 12910472
+          Width = 92
           Visible = True
         end
         item
@@ -595,6 +597,15 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'C'#243'd. Produto'
           Title.Color = 12910472
+          Width = 64
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'NOMEPRODUTO'
+          Title.Caption = 'Nome Produto'
+          Title.Color = 12910472
+          Width = 178
           Visible = True
         end
         item
@@ -611,6 +622,15 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           FieldName = 'ID_COR'
           Title.Alignment = taCenter
           Title.Caption = 'ID Cor'
+          Title.Color = 12910472
+          Visible = True
+        end
+        item
+          Alignment = taCenter
+          Expanded = False
+          FieldName = 'ID'
+          Title.Alignment = taCenter
+          Title.Caption = 'ID Estoque'
           Title.Color = 12910472
           Visible = True
         end>
@@ -638,17 +658,17 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
       TabOrder = 1
       VisualStyle = vsGradient
       object Label5: TLabel
-        Left = 9
-        Top = 49
+        Left = 107
+        Top = 18
         Width = 144
         Height = 13
         Alignment = taRightJustify
         Caption = 'Entradas Conforme Filtro:'
       end
       object lblEntrada: TLabel
-        Left = 155
-        Top = 49
-        Width = 93
+        Left = 254
+        Top = 18
+        Width = 119
         Height = 13
         AutoSize = False
         Caption = '0'
@@ -660,16 +680,16 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         ParentFont = False
       end
       object Label6: TLabel
-        Left = 286
-        Top = 49
+        Left = 115
+        Top = 35
         Width = 134
         Height = 13
         Caption = 'Sa'#237'das Conforme Filtro:'
       end
       object lblSaida: TLabel
-        Left = 424
-        Top = 49
-        Width = 93
+        Left = 253
+        Top = 35
+        Width = 119
         Height = 13
         AutoSize = False
         Caption = '0'
@@ -681,7 +701,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         ParentFont = False
       end
       object Label9: TLabel
-        Left = 527
+        Left = 74
         Top = 49
         Width = 175
         Height = 13
@@ -689,9 +709,9 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         Caption = 'Saldo Conforme o Filtro Acima:'
       end
       object lblSaldo: TLabel
-        Left = 707
+        Left = 254
         Top = 49
-        Width = 93
+        Width = 149
         Height = 13
         AutoSize = False
         Caption = '0'
@@ -703,7 +723,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         ParentFont = False
       end
       object Label2: TLabel
-        Left = 617
+        Left = 513
         Top = 10
         Width = 85
         Height = 13
@@ -711,9 +731,9 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         Caption = 'Saldo Anterior:'
       end
       object Label7: TLabel
-        Left = 707
+        Left = 603
         Top = 10
-        Width = 93
+        Width = 149
         Height = 13
         AutoSize = False
         Caption = '0'
@@ -725,9 +745,9 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         ParentFont = False
       end
       object Label8: TLabel
-        Left = 707
-        Top = 26
-        Width = 93
+        Left = 603
+        Top = 35
+        Width = 149
         Height = 13
         AutoSize = False
         Caption = '0'
@@ -739,8 +759,8 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
         ParentFont = False
       end
       object Label10: TLabel
-        Left = 626
-        Top = 26
+        Left = 522
+        Top = 35
         Width = 76
         Height = 13
         Alignment = taRightJustify

@@ -537,7 +537,6 @@ object frmConsEstoque: TfrmConsEstoque
         FieldName = 'PRECO_VENDA'
         Title.Alignment = taCenter
         Title.Caption = 'Pre'#231'o Venda'
-        Width = 64
         Visible = True
       end
       item
@@ -545,7 +544,6 @@ object frmConsEstoque: TfrmConsEstoque
         FieldName = 'LOCALIZACAO'
         Title.Alignment = taCenter
         Title.Caption = 'Localiza'#231#227'o'
-        Width = 64
         Visible = True
       end
       item
@@ -609,11 +607,24 @@ object frmConsEstoque: TfrmConsEstoque
       ParentFont = False
     end
     object Label10: TLabel
-      Left = 432
+      Left = 521
       Top = 7
       Width = 102
       Height = 19
       Caption = 'F8 - Compras'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clGreen
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = [fsBold]
+      ParentFont = False
+    end
+    object Label12: TLabel
+      Left = 432
+      Top = 7
+      Width = 64
+      Height = 19
+      Caption = 'F7 - Mov'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clGreen
       Font.Height = -16
@@ -769,7 +780,7 @@ object frmConsEstoque: TfrmConsEstoque
       OnClick = NxButton1Click
     end
     object ckImpInventario: TCheckBox
-      Left = 560
+      Left = 680
       Top = 8
       Width = 233
       Height = 17

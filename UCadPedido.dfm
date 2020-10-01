@@ -3116,9 +3116,9 @@ object frmCadPedido: TfrmCadPedido
               OnClick = btnExcluir_ItensClick
             end
             object btnCopiar_Item: TBitBtn
-              Left = 601
+              Left = 546
               Top = 4
-              Width = 108
+              Width = 81
               Height = 25
               Caption = 'Copiar Item'
               Enabled = False
@@ -3132,8 +3132,8 @@ object frmCadPedido: TfrmCadPedido
               OnClick = btnCopiar_ItemClick
             end
             object btnAltDtEntrega: TBitBtn
-              Left = 709
-              Top = 5
+              Left = 629
+              Top = 4
               Width = 80
               Height = 25
               Caption = 'Alt.Dt.Entrega'
@@ -3174,6 +3174,16 @@ object frmCadPedido: TfrmCadPedido
               Caption = 'Cons. Tempo'
               TabOrder = 7
               OnClick = btnConsTempoClick
+            end
+            object btnAltPreco: TBitBtn
+              Left = 711
+              Top = 4
+              Width = 78
+              Height = 25
+              Caption = 'Alt. Pre'#231'o'
+              Enabled = False
+              TabOrder = 8
+              OnClick = btnAltPrecoClick
             end
           end
           object pnlMaterial: TPanel

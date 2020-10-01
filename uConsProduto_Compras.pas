@@ -4,16 +4,17 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMConsEstoque, StdCtrls, Grids, DBGrids,
-  SMDBGrid, ExtCtrls;
+  SMDBGrid, ExtCtrls, AdvPanel;
 
 type
   TfrmConsProduto_Compras = class(TForm)
     Panel1: TPanel;
-    SMDBGrid1: TSMDBGrid;
     Label1: TLabel;
     lblUltPreco: TLabel;
     Label2: TLabel;
     lblID: TLabel;
+    pnlPrincipal: TAdvPanel;
+    SMDBGrid1: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);

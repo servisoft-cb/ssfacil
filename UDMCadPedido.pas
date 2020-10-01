@@ -3836,6 +3836,7 @@ type
     sdsPedidoREORDEM: TStringField;
     cdsPedidoREORDEM: TStringField;
     cdsPedido_ConsultaREORDEM: TStringField;
+    qParametros_UsuarioPERMITE_ALT_PRECO_PED: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

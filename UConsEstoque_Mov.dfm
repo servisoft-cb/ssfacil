@@ -464,7 +464,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
         Left = 0
         Top = 30
         Width = 937
-        Height = 140
+        Height = 128
         Align = alClient
         Ctl3D = False
         DataSource = DMConsEstoque.dsEstoque_Mov
@@ -566,7 +566,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'DTMOVIMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Movimento'
-            Width = 64
             Visible = True
           end
           item
@@ -581,7 +580,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'COMPRIMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'Comprimento'
-            Width = 64
             Visible = True
           end
           item
@@ -656,7 +654,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'PRECO_CUSTO_TOTAL'
             Title.Alignment = taCenter
             Title.Caption = 'Pre'#231'o Custo Total'
-            Width = 64
             Visible = True
           end
           item
@@ -665,7 +662,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'NUM_LOTE_CONTROLE'
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Lote Controle'
-            Width = 64
             Visible = True
           end
           item
@@ -691,7 +687,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             Expanded = False
             FieldName = 'VLR_DESCONTO'
             Title.Caption = 'Vlr. Desconto'
-            Width = 64
             Visible = True
           end
           item
@@ -705,7 +700,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'SERIE'
             Title.Alignment = taCenter
             Title.Caption = 'S'#233'rie Nota'
-            Width = 64
             Visible = True
           end
           item
@@ -719,7 +713,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'UNIDADE_ORIG'
             Title.Alignment = taCenter
             Title.Caption = 'Unid. da Nota'
-            Width = 64
             Visible = True
           end
           item
@@ -727,7 +720,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'QTD_ORIG'
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. da Nota'
-            Width = 64
             Visible = True
           end
           item
@@ -735,7 +727,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'VLR_UNITARIOORIG'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Unit'#225'rio da Nota'
-            Width = 64
             Visible = True
           end
           item
@@ -759,7 +750,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'ID_PRODUTO'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Produto'
-            Width = 64
             Visible = True
           end
           item
@@ -780,9 +770,9 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
       end
       object RzGroupBox2: TRzGroupBox
         Left = 0
-        Top = 324
+        Top = 312
         Width = 937
-        Height = 38
+        Height = 50
         Align = alBottom
         BorderColor = clBlue
         BorderInner = fsButtonUp
@@ -810,7 +800,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
         object lblEntrada: TLabel
           Left = 155
           Top = 17
-          Width = 93
+          Width = 151
           Height = 13
           AutoSize = False
           Caption = '0'
@@ -822,16 +812,16 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           ParentFont = False
         end
         object Label6: TLabel
-          Left = 286
-          Top = 17
+          Left = 19
+          Top = 33
           Width = 134
           Height = 13
           Caption = 'Sa'#237'das Conforme Filtro:'
         end
         object lblSaida: TLabel
-          Left = 424
-          Top = 18
-          Width = 93
+          Left = 155
+          Top = 34
+          Width = 151
           Height = 13
           AutoSize = False
           Caption = '0'
@@ -843,17 +833,17 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           ParentFont = False
         end
         object Label9: TLabel
-          Left = 527
-          Top = 17
+          Left = 471
+          Top = 25
           Width = 175
           Height = 13
           Alignment = taRightJustify
           Caption = 'Saldo Conforme o Filtro Acima:'
         end
         object lblSaldo: TLabel
-          Left = 707
-          Top = 17
-          Width = 93
+          Left = 651
+          Top = 25
+          Width = 179
           Height = 13
           AutoSize = False
           Caption = '0'
@@ -865,8 +855,8 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           ParentFont = False
         end
         object NxButton1: TNxButton
-          Left = 813
-          Top = 10
+          Left = 852
+          Top = 12
           Width = 75
           Caption = 'Calcular'
           TabOrder = 0
@@ -935,7 +925,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
       end
       object DBGrid11: TDBGrid
         Left = 0
-        Top = 170
+        Top = 158
         Width = 937
         Height = 154
         Align = alBottom
@@ -960,13 +950,11 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           item
             Expanded = False
             FieldName = 'Codigo_Grupo'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Nome_Grupo'
-            Width = 64
             Visible = True
           end
           item
@@ -977,7 +965,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           item
             Expanded = False
             FieldName = 'Obs'
-            Width = 64
             Visible = True
           end
           item
@@ -993,25 +980,21 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           item
             Expanded = False
             FieldName = 'Codigo_CentroCusto'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Nome_CentroCusto'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Codigo_Superior'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Nome_Superior'
-            Width = 64
             Visible = True
           end>
       end
@@ -1402,7 +1385,6 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'REFERENCIA'
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
-            Width = 64
             Visible = True
           end
           item
