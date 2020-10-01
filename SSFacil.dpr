@@ -874,7 +874,8 @@ uses
   UDMCompras in 'UDMCompras.pas' {DMCompras: TDataModule},
   UConsEstoque_Compras in 'UConsEstoque_Compras.pas' {frmConsEstoque_Compras},
   UCadDuplicata_Dev in 'UCadDuplicata_Dev.pas' {frmCadDuplicata_Dev},
-  UConsEstoque_Prod_Mov in 'UConsEstoque_Prod_Mov.pas' {frmConsEstoque_Prod_Mov};
+  UConsEstoque_Prod_Mov in 'UConsEstoque_Prod_Mov.pas' {frmConsEstoque_Prod_Mov},
+  UAltPrecoPedido in 'UAltPrecoPedido.pas' {frmAltPrecoPedido};
 
 {$R *.res}
 

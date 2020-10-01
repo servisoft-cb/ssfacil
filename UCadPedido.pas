@@ -591,7 +591,7 @@ uses DmdDatabase, rsDBUtils, uUtilPadrao, uRelPedido, uRelPedido_SulTextil, uRel
   UConsPedido_Nota, UDMConsPedido, UInformar_DtExpedicao, UInformar_Processo_Ped, UConsPedido_Senha, USel_Produto, UCadPedido_Cupom,
   UDMPedidoImp, USel_OS_Proc, UCadPedido_ItensCli, UConsPedido_Real, UImpEtiq_Emb, UTalaoPedProc, uGrava_Pedido, UConsClienteOBS,
   uImprimir, UConsMotivoNaoAprov, UConsPedido_Producao, UInforma_RecPagto,
-  uDadosEmail;
+  uDadosEmail, UAltPrecoPedido;
 
 {$R *.dfm}
 
@@ -5124,31 +5124,22 @@ end;
 
 procedure TfrmCadPedido.btnAltPrecoClick(Sender: TObject);
 var
-  vTexto: String;
   vItemAux : Integer;
 begin
   if fDMCadPedido.cdsPedido_Itens.IsEmpty then
     exit;
-  if not(fDMCadPedido.qParametros_UsuarioPERMITE_ALT_PRECO_PED.AsString = 'S') then
-    exit;
   if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) <= 0 then
   begin
-    MessageDlg('*** Já possui faturamento completo!',mtInformation, [mbOk], 0);
+    MessageDlg('*** Não existe quantidade pendente!',mtError, [mbOk], 0);
     exit;
   end;
-  vTexto := InputBox('Preço Unitário','Favor informar o Novo Preço: ', '');
-  if trim(vTexto) = '' then
-    exit;
-
-  vItemAux := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;  
-  fDMCadPedido.cdsPedido_Itens.Edit;
-  fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsString := vTexto;
-  fDMCadPedido.cdsPedido_Itens.Post;
-
+  vItemAux := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+  frmAltPrecoPedido := TfrmAltPrecoPedido.Create(self);
+  frmAltPrecoPedido.fDMCadPedido   := fDMCadPedido;
+  frmAltPrecoPedido.ShowModal;
+  FreeAndNil(frmAltPrecoPedido);
   btnCalcular_ValoresClick(Sender);
-
-  fDMCadPedido.cdsPedido_Itens.Locate('ITEM',vItemAux,[loCaseInsensitive]);
-
+  fDMCadPedido.cdsPedido_Itens.Locate('ID',vFilial,[loCaseInsensitive]);
 end;
 
 end.

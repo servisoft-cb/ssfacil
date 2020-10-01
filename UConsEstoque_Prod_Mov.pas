@@ -172,6 +172,13 @@ procedure TfrmConsEstoque_Prod_Mov.btnConsultarClick(Sender: TObject);
 var
   Form: TForm;
 begin
+  if CurrencyEdit1.AsInteger <= 0 then
+  begin
+    MessageDlg('*** ID Produto não informado!', mtError, [mbOk], 0);
+    CurrencyEdit1.SetFocus;
+    exit;
+  end;
+
   vSaldo := 0;
   vSaldo_Original := 0;
   SMDBGrid1.DisableScroll;
