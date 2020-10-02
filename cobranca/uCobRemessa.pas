@@ -1046,7 +1046,14 @@ begin
   if not fnc_Verificar then
     exit;
   if (cbImpressao.ItemIndex = 0) and (cbImpressao.Visible) then
-    exit;
+  begin
+    if MessageDlg('Emissão pelo banco, deseja alterar para Emissão beneficiário?',mtConfirmation,[mbYes,mbNo],0) = mrYes  then
+    begin
+      cbImpressao.ItemIndex := 1;
+    end
+    else
+      exit;
+  end;
 
   vTipo_Config_Email := 3;
   fDmCob_Eletronica.vValor_Com_Juros := 0;
