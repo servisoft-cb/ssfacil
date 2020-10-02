@@ -277,6 +277,8 @@ type
     EstornoPagtoDevoluo1: TMenuItem;
     Shape10: TShape;
     Label69: TLabel;
+    GravardeComissoqueestanocadastrodoClientenasDuplicatasVendedorInterno1: TMenuItem;
+    GerarcomissoconformeconsultaVendedorInterno1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure OnShow(Sender: TObject);
@@ -373,6 +375,10 @@ type
     procedure EstornoPagtoDevoluo1Click(Sender: TObject);
     procedure SMDBGrid1FilterChanged(Sender: TObject);
     procedure Devoluo1Click(Sender: TObject);
+    procedure GravardeComissoqueestanocadastrodoClientenasDuplicatasVendedorInterno1Click(
+      Sender: TObject);
+    procedure GerarcomissoconformeconsultaVendedorInterno1Click(
+      Sender: TObject);
   private
     { Private declarations }
     fDMCadDuplicata: TDMCadDuplicata;
@@ -404,7 +410,7 @@ type
     procedure prc_Opcao_Registro;
     procedure prc_Gerar_mTitulos;
     procedure prc_Verifica_Usuario;
-    function fnc_Existe_Comissao: Boolean;
+    function fnc_Existe_Comissao(ID_Vendedor : Integer): Boolean;
     procedure prc_Gerar_Bordero_Excel(planilha: Variant);
     procedure prc_Gerar_Lista_Excel(planilha: Variant);
     procedure prc_Monta_Cab(Extrato: Boolean = False);
@@ -2296,7 +2302,7 @@ begin
         if fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger <= 0 then
         begin
           fDMCadDuplicata.cdsDuplicata_Hist.Edit;
-          fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG');
+          fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG','P',False);
           fDMCadDuplicata.cdsDuplicata_Hist.Post;
           fDMCadDuplicata.cdsDuplicata_Hist.ApplyUpdates(0);
         end;
@@ -2316,11 +2322,10 @@ begin
       fDMCadDuplicata.cdsDuplicata_Hist.Last;
       if fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG' then
       begin
-        if not fnc_Existe_Comissao then
-        //if fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger = 0 then
+        if not fnc_Existe_Comissao(fDMCadDuplicata.cdsDuplicataID_VENDEDOR.AsInteger) then
         begin
           fDMCadDuplicata.cdsDuplicata_Hist.Edit;
-          fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG');
+          fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG','P',False);
           fDMCadDuplicata.cdsDuplicata_Hist.Post;
           fDMCadDuplicata.cdsDuplicata_Hist.ApplyUpdates(0);
         end;
@@ -2330,7 +2335,7 @@ begin
   end;
 end;
 
-function TfrmCadDuplicata.fnc_Existe_Comissao: Boolean;
+function TfrmCadDuplicata.fnc_Existe_Comissao(ID_Vendedor : Integer): Boolean;
 var
   sds: TSQLDataSet;
 begin
@@ -2340,11 +2345,13 @@ begin
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata := True;
     sds.GetMetadata := False;
-    sds.CommandText := 'SELECT ID FROM EXTCOMISSAO WHERE ID_DUPLICATA = :ID_DUPLICATA AND ITEM_DUPLICATA_HIST = :ITEM_DUPLICATA_HIST';
-    sds.ParamByName('ID_DUPLICATA').AsInteger := fDMCadDuplicata.cdsDuplicata_HistID.AsInteger;
+    sds.CommandText := 'SELECT ID, ID_VENDEDOR FROM EXTCOMISSAO WHERE ID_DUPLICATA = :ID_DUPLICATA '
+                     + ' AND ITEM_DUPLICATA_HIST = :ITEM_DUPLICATA_HIST AND ID_VENDEDOR = :ID_VENDEDOR ';
+    sds.ParamByName('ID_DUPLICATA').AsInteger        := fDMCadDuplicata.cdsDuplicata_HistID.AsInteger;
     sds.ParamByName('ITEM_DUPLICATA_HIST').AsInteger := fDMCadDuplicata.cdsDuplicata_HistITEM.AsInteger;
+    sds.ParamByName('ID_VENDEDOR').AsInteger         := ID_Vendedor;
     sds.Open;
-    if sds.FieldByName('ID').AsInteger > 0 then
+    if (sds.FieldByName('ID').AsInteger > 0) then
       Result := True;
   finally
     FreeAndNil(sds);
@@ -3344,7 +3351,8 @@ begin
       if fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG' then
       begin
         fDMCadDuplicata.cdsDuplicata_Hist.Edit;
-        fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG', fnc_Existe_Comissao);
+
+        fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG','P',fnc_Existe_Comissao(fDMCadDuplicata.cdsDuplicataID_VENDEDOR.AsInteger));
         fDMCadDuplicata.cdsDuplicata_Hist.Post;
         fDMCadDuplicata.cdsDuplicata_Hist.ApplyUpdates(0);
       end;
@@ -3431,6 +3439,67 @@ begin
   FreeAndNil(ffrmCadDuplicata_Dev);
   prc_Consultar(vIDAux);
   Devoluo1.Enabled := False;
+end;
+
+procedure TfrmCadDuplicata.GravardeComissoqueestanocadastrodoClientenasDuplicatasVendedorInterno1Click(
+  Sender: TObject);
+var
+  vPerc: Real;
+begin
+  SMDBGrid1.DisableScroll;
+  fDMCadDuplicata.cdsDuplicata_Consulta.First;
+  while not fDMCadDuplicata.cdsDuplicata_Consulta.Eof do
+  begin
+    fDMCadDuplicata.qPessoa.Close;
+    fDMCadDuplicata.qPessoa.ParamByName('CODIGO').AsInteger := fDMCadDuplicata.cdsDuplicata_ConsultaID_PESSOA.AsInteger;
+    fDMCadDuplicata.qPessoa.Open;
+    if (fDMCadDuplicata.qPessoaID_VENDEDOR_INT.AsInteger > 0) and (StrToFloat(FormatFloat('0.0000',fDMCadDuplicata.qPessoaPERC_COMISSAO_INT.AsFloat)) > 0) then
+    begin
+      prc_Posiciona_Duplicata(fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger);
+      if not(fDMCadDuplicata.cdsDuplicata.IsEmpty) and (StrToFloat(FormatFloat('0.0000',fDMCadDuplicata.cdsDuplicataPERC_COMISSAO_INT.AsFloat)) <= 0) then
+      begin
+        fDMCadDuplicata.cdsDuplicata.Edit;
+        fDMCadDuplicata.cdsDuplicataID_VENDEDOR_INT.AsInteger  := fDMCadDuplicata.qPessoaID_VENDEDOR_INT.AsInteger;
+        fDMCadDuplicata.cdsDuplicataPERC_COMISSAO_INT.AsFloat  := StrToFloat(FormatFloat('0.0000',fDMCadDuplicata.qPessoaPERC_COMISSAO_INT.AsFloat));
+        fDMCadDuplicata.cdsDuplicata.Post;
+        fDMCadDuplicata.cdsDuplicata.ApplyUpdates(0);
+      end;
+    end;
+    fDMCadDuplicata.cdsDuplicata_Consulta.Next;
+  end;
+  SMDBGrid1.EnableScroll;
+  MessageDlg('*** Geração Concluída!', mtInformation, [mbOk], 0);
+end;
+
+procedure TfrmCadDuplicata.GerarcomissoconformeconsultaVendedorInterno1Click(
+  Sender: TObject);
+begin
+  SMDBGrid1.DisableScroll;
+  fDMCadDuplicata.cdsDuplicata_Consulta.First;
+  while not fDMCadDuplicata.cdsDuplicata_Consulta.Eof do
+  begin
+    if (fDMCadDuplicata.cdsDuplicata_ConsultaID_VENDEDOR_INT.AsInteger > 0) and (StrToFloat(FormatFloat('0.0000',fDMCadDuplicata.cdsDuplicata_ConsultaPERC_COMISSAO_INT.AsFloat)) > 0) then
+    begin
+      prc_Posiciona_Duplicata(fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger);
+      if not fnc_Existe_Comissao(fDMCadDuplicata.cdsDuplicata_ConsultaID_VENDEDOR_INT.AsInteger) then
+      begin
+        fDMCadDuplicata.cdsDuplicata_Hist.Last;
+        if fDMCadDuplicata.cdsDuplicata_HistTIPO_HISTORICO.AsString = 'PAG' then
+        begin
+          if not fnc_Existe_Comissao(fDMCadDuplicata.cdsDuplicataID_VENDEDOR_INT.AsInteger) then
+          begin
+            fDMCadDuplicata.cdsDuplicata_Hist.Edit;
+            fDMCadDuplicata.cdsDuplicata_HistID_COMISSAO.AsInteger := fDMCadDuplicata.fnc_Gravar_ExtComissao('PAG','I',False);
+            fDMCadDuplicata.cdsDuplicata_Hist.Post;
+            fDMCadDuplicata.cdsDuplicata_Hist.ApplyUpdates(0);
+          end;
+        end;
+      end;
+    end;
+    fDMCadDuplicata.cdsDuplicata_Consulta.Next;
+  end;
+  SMDBGrid1.EnableScroll;
+  MessageDlg('*** Geração Concluída!', mtInformation, [mbOk], 0);
 end;
 
 end.

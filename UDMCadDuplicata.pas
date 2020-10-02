@@ -1098,6 +1098,12 @@ type
     qContasNOME: TStringField;
     qContasTIPO_CONTA: TStringField;
     cdsPagtoCNPJ_CPF: TStringField;
+    qPessoaID_VENDEDOR_INT: TIntegerField;
+    qPessoaPERC_COMISSAO_INT: TFloatField;
+    cdsDuplicata_ConsultaID_VENDEDOR_INT: TIntegerField;
+    cdsDuplicata_ConsultaPERC_COMISSAO_INT: TFloatField;
+    sdsDuplicata_HistID_COMISSAO_INT: TIntegerField;
+    cdsDuplicata_HistID_COMISSAO_INT: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
@@ -1172,7 +1178,7 @@ type
     procedure prc_Abrir_Pessoa(Tipo: String);
 
     function fnc_Erro_Registro(Automatica: Boolean = False): Boolean;
-    function fnc_Gravar_ExtComissao(Tipo : String ; Regravar: Boolean = False): Integer;
+    function fnc_Gravar_ExtComissao(Tipo : String ; Tipo_Vendedor : String ; Regravar: Boolean): Integer;
 
     function fnc_Proxima_Duplicata: Integer;
 
@@ -1424,6 +1430,7 @@ procedure TDMCadDuplicata.prc_Gravar_Dupicata_Hist(Tipo, Historico: String; Vlr_
 var
   vItemAux: Integer;
   vID_ExtComissao: Integer;
+  vID_ExtComissao_Int : Integer;  
   vExiste_Hist: Boolean;
 begin
   cdsDuplicata_Hist.Last;
@@ -1514,9 +1521,15 @@ begin
   if (Tipo <> 'PAG') and (Tipo <> 'DEV') then
     exit;
 
-  vID_ExtComissao := fnc_Gravar_ExtComissao(Tipo);
+  vID_ExtComissao     := 0;
+  vID_ExtComissao_Int := 0;
+  if (cdsDuplicataID_VENDEDOR.AsInteger > 0) and (StrToFloat(FormatFloat('0.0000',cdsDuplicataPERC_COMISSAO.AsFloat)) > 0) then
+    vID_ExtComissao := fnc_Gravar_ExtComissao(Tipo,'P',False);
+  if (cdsDuplicataID_VENDEDOR_INT.AsInteger > 0) and (StrToFloat(FormatFloat('0.0000',cdsDuplicataPERC_COMISSAO_INT.AsFloat)) > 0) then
+    vID_ExtComissao_Int := fnc_Gravar_ExtComissao(Tipo,'I',False);
   cdsDuplicata_Hist.Edit;
-  cdsDuplicata_HistID_COMISSAO.AsInteger := vID_ExtComissao;
+  cdsDuplicata_HistID_COMISSAO.AsInteger     := vID_ExtComissao;
+  cdsDuplicata_HistID_COMISSAO_INT.AsInteger := vID_ExtComissao_Int;
   cdsDuplicata_Hist.Post;
 
   if Tipo <> 'PAG' then
@@ -1795,16 +1808,19 @@ begin
   dmDatabase.prc_UpdateError(DataSet.Name,UpdateKind,E);
 end;
 
-function TDMCadDuplicata.fnc_Gravar_ExtComissao(Tipo : String ; Regravar: Boolean = False): Integer;
+function TDMCadDuplicata.fnc_Gravar_ExtComissao(Tipo : String ; Tipo_Vendedor : String ; Regravar: Boolean): Integer;
 var
   vBaseAux: real;
   vDtComissao: TDateTime;
   vIDAux: Integer;
 begin
   Result   := 0;
-  if (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR.AsInteger,[loCaseInsensitive])) and
-     (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR_INT.AsInteger,[loCaseInsensitive]))  then
-    exit;
+  if Tipo_Vendedor = 'P' then
+    if (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR.AsInteger,[loCaseInsensitive])) then
+      exit;
+  if Tipo_Vendedor = 'I' then
+    if (not cdsVendedor.Locate('CODIGO',cdsDuplicataID_VENDEDOR_INT.AsInteger,[loCaseInsensitive]))  then
+      exit;
   vBaseAux := StrToFloat(FormatFloat('0.00',cdsDuplicata_HistVLR_PAGAMENTO.AsFloat));
   if Tipo = 'DEV' then
   begin
@@ -1818,10 +1834,10 @@ begin
 
   if StrToFloat(FormatFloat('0.00',vBaseAux)) <= 0 then
     exit;
-  if ((StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO.AsFloat)) <= 0) or
-     ((cdsDuplicataID_VENDEDOR.AsInteger <= 0) or (cdsDuplicataID_VENDEDOR.IsNull))) and
-     ((StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO_INT.AsFloat)) <= 0) or
-     ((cdsDuplicataID_VENDEDOR_INT.AsInteger <= 0) or (cdsDuplicataID_VENDEDOR_INT.IsNull))) then
+
+  if (Tipo_Vendedor = 'P') and ((StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO.AsFloat)) <= 0) or (cdsDuplicataID_VENDEDOR.AsInteger <= 0)) then
+    exit;
+  if (Tipo_Vendedor = 'I') and ((StrToFloat(FormatFloat('0.00',cdsDuplicataPERC_COMISSAO_INT.AsFloat)) <= 0) or (cdsDuplicataID_VENDEDOR_INT.AsInteger <= 0)) then
     exit;
 
   fDMCadExtComissao := TDMCadExtComissao.Create(Self);
@@ -1845,35 +1861,42 @@ begin
 
     //25/11/2019
     vIDAux := 0;
-    if Regravar then
-      vIDAux := cdsDuplicata_HistID_COMISSAO.AsInteger;
+    if (Regravar) and (Tipo_Vendedor = 'P') then
+      vIDAux := cdsDuplicata_HistID_COMISSAO.AsInteger
+    else
+      vIDAux := cdsDuplicata_HistID_COMISSAO_INT.AsInteger;
     //********************
     if Tipo = 'PAG' then
       Tipo := 'ENT';
-
-    Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,Tipo,cdsDuplicataSERIE.AsString,'',0,vDtComissao,
-                                                   cdsDuplicataFILIAL.AsInteger,cdsDuplicataID_VENDEDOR.AsInteger,
-                                                   0,cdsDuplicataID.AsInteger,cdsDuplicata_HistITEM.AsInteger,cdsDuplicataNUMNOTA.AsInteger,
-                                                   cdsDuplicataID_PESSOA.AsInteger,cdsDuplicataPARCELA.AsInteger,cdsDuplicataID_NOTA_SERVICO.AsInteger,
-                                                   cdsDuplicataNUMRPS.AsInteger,cdsDuplicataID_Cupom.AsInteger,
-                                                   StrToFloat(FormatFloat('0.00',vBaseAux)),0,
-                                                   StrToFloat(FormatFloat('0.0000',cdsDuplicataPERC_COMISSAO.AsFloat)),0,cdsDuplicataID_DESCONTADA.AsInteger);
-    if (cdsDuplicataID_VENDEDOR_INT.AsInteger > 0) and (cdsDuplicataPERC_COMISSAO_INT.AsFloat > 0) then //vendedor interno FEPAM
+    //if cdsDuplicataID_VENDEDOR.AsInteger > 0 then
+    if (Tipo_Vendedor = 'P') then
       Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,Tipo,cdsDuplicataSERIE.AsString,'',0,vDtComissao,
-                                                     cdsDuplicataFILIAL.AsInteger,cdsDuplicataID_VENDEDOR_INT.AsInteger,
+                                                     cdsDuplicataFILIAL.AsInteger,cdsDuplicataID_VENDEDOR.AsInteger,
                                                      0,cdsDuplicataID.AsInteger,cdsDuplicata_HistITEM.AsInteger,cdsDuplicataNUMNOTA.AsInteger,
                                                      cdsDuplicataID_PESSOA.AsInteger,cdsDuplicataPARCELA.AsInteger,cdsDuplicataID_NOTA_SERVICO.AsInteger,
                                                      cdsDuplicataNUMRPS.AsInteger,cdsDuplicataID_Cupom.AsInteger,
                                                      StrToFloat(FormatFloat('0.00',vBaseAux)),0,
-                                                     StrToFloat(FormatFloat('0.0000',cdsDuplicataPERC_COMISSAO_INT.AsFloat)),0,
-                                                     cdsDuplicataID_DESCONTADA.AsInteger);
+                                                     StrToFloat(FormatFloat('0.0000',cdsDuplicataPERC_COMISSAO.AsFloat)),0,cdsDuplicataID_DESCONTADA.AsInteger);
+    if Tipo_Vendedor = 'I' then
+    begin
+      if (cdsDuplicataID_VENDEDOR_INT.AsInteger > 0) and (cdsDuplicataPERC_COMISSAO_INT.AsFloat > 0) then //vendedor interno FEPAM
+        Result := fDMCadExtComissao.fnc_Mover_Comissao(vIDAux,Tipo,cdsDuplicataSERIE.AsString,'',0,vDtComissao,
+                                                       cdsDuplicataFILIAL.AsInteger,cdsDuplicataID_VENDEDOR_INT.AsInteger,
+                                                       0,cdsDuplicataID.AsInteger,cdsDuplicata_HistITEM.AsInteger,cdsDuplicataNUMNOTA.AsInteger,
+                                                       cdsDuplicataID_PESSOA.AsInteger,cdsDuplicataPARCELA.AsInteger,cdsDuplicataID_NOTA_SERVICO.AsInteger,
+                                                       cdsDuplicataNUMRPS.AsInteger,cdsDuplicataID_Cupom.AsInteger,
+                                                       StrToFloat(FormatFloat('0.00',vBaseAux)),0,
+                                                       StrToFloat(FormatFloat('0.0000',cdsDuplicataPERC_COMISSAO_INT.AsFloat)),0,
+                                                       cdsDuplicataID_DESCONTADA.AsInteger);
+    end;
 
+    FreeAndNil(fDMCadExtComissao);
   except
     Result := 0;
+    FreeAndNil(fDMCadExtComissao);
     raise;
   end;
 
-  FreeAndNil(fDMCadExtComissao);
 end;
 
 function TDMCadDuplicata.fnc_Erro_Registro(Automatica: Boolean = False ): Boolean;

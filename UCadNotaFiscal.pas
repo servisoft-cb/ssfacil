@@ -3174,9 +3174,7 @@ begin
           fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_PAGAR_NOTA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsParametrosPERC_COMISSAO_PAGA_NOTA.AsFloat));
       end;
       if fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger > 0 then
-      begin
-        fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_INT.AsFloat := fDMCadNotaFiscal.cdsVendedorPERC_COMISSAO_VEND.AsFloat;
-      end;
+        fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_INT.AsFloat := fDMCadNotaFiscal.cdsClientePERC_COMISSAO_INT.AsFloat;
     end;
     //******************************
     //if (fDMCadNotaFiscal.cdsNotaFiscal.State in [dsInsert]) then

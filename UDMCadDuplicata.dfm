@@ -293,7 +293,7 @@ object DMCadDuplicata: TDMCadDuplicata
     BeforePost = cdsDuplicataBeforePost
     OnNewRecord = cdsDuplicataNewRecord
     Left = 139
-    Top = 9
+    Top = 8
     object cdsDuplicataID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -683,6 +683,9 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsDuplicata_HistID_ADTO_USADO: TIntegerField
       FieldName = 'ID_ADTO_USADO'
     end
+    object sdsDuplicata_HistID_COMISSAO_INT: TIntegerField
+      FieldName = 'ID_COMISSAO_INT'
+    end
   end
   object cdsDuplicata_Hist: TClientDataSet
     Aggregates = <>
@@ -821,6 +824,9 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object cdsDuplicata_HistID_ADTO_USADO: TIntegerField
       FieldName = 'ID_ADTO_USADO'
+    end
+    object cdsDuplicata_HistID_COMISSAO_INT: TIntegerField
+      FieldName = 'ID_COMISSAO_INT'
     end
   end
   object dsDuplicata_Hist: TDataSource
@@ -1213,7 +1219,7 @@ object DMCadDuplicata: TDMCadDuplicata
     ProviderName = 'dspDuplicata_Consulta'
     OnCalcFields = cdsDuplicata_ConsultaCalcFields
     Left = 328
-    Top = 8
+    Top = 9
     object cdsDuplicata_ConsultaID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1582,6 +1588,13 @@ object DMCadDuplicata: TDMCadDuplicata
       DisplayLabel = 'Vlr. Cr'#233'dito Usado'
       FieldName = 'VLR_ADTO_USADO'
       DisplayFormat = '###,###,##0.00'
+    end
+    object cdsDuplicata_ConsultaID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object cdsDuplicata_ConsultaPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
+      DisplayFormat = '0.0000'
     end
   end
   object dsDuplicata_Consulta: TDataSource
@@ -3013,7 +3026,7 @@ object DMCadDuplicata: TDMCadDuplicata
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT CODIGO, NOME'
+      'SELECT CODIGO, NOME, ID_VENDEDOR_INT, PERC_COMISSAO_INT'
       'FROM PESSOA'
       'WHERE CODIGO = :CODIGO')
     SQLConnection = dmDatabase.scoDados
@@ -3026,6 +3039,12 @@ object DMCadDuplicata: TDMCadDuplicata
     object qPessoaNOME: TStringField
       FieldName = 'NOME'
       Size = 60
+    end
+    object qPessoaID_VENDEDOR_INT: TIntegerField
+      FieldName = 'ID_VENDEDOR_INT'
+    end
+    object qPessoaPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
     end
   end
   object qFeriado: TSQLQuery

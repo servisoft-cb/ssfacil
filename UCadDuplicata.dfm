@@ -80,7 +80,7 @@ object frmCadDuplicata: TfrmCadDuplicata
         OnFilterChanged = SMDBGrid1FilterChanged
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 43
+        ColCount = 45
         RowCount = 2
         Columns = <
           item
@@ -134,7 +134,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'DTFINANCEIRO'
             Title.Caption = 'Data Financeira'
-            Width = 64
             Visible = True
           end
           item
@@ -211,7 +210,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_RESTANTE'
             Title.Alignment = taCenter
-            Width = 64
             Visible = True
           end
           item
@@ -231,7 +229,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_DESPESAS'
             Title.Alignment = taCenter
-            Width = 64
             Visible = True
           end
           item
@@ -262,14 +259,12 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'PERC_BASE_COMISSAO'
             Title.Alignment = taCenter
             Title.Caption = '% Base Comiss'#227'o'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'VLR_DEVOLUCAO'
             Title.Alignment = taCenter
-            Width = 64
             Visible = True
           end
           item
@@ -277,7 +272,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'VLR_DESCONTO'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Desconto'
-            Width = 64
             Visible = True
           end
           item
@@ -295,7 +289,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TIPO_LANCAMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Lan'#231'amento'
-            Width = 64
             Visible = True
           end
           item
@@ -304,7 +297,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TRANSFERENCIA_ICMS'
             Title.Alignment = taCenter
             Title.Caption = 'Transf. ICMS'
-            Width = 64
             Visible = True
           end
           item
@@ -318,7 +310,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'NOME_BANCO'
             Title.Caption = 'Banco'
-            Width = 64
             Visible = True
           end
           item
@@ -380,7 +371,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'TITULO_CARTORIO'
             Title.Alignment = taCenter
             Title.Caption = 'Em Cart'#243'rio'
-            Width = 64
             Visible = True
           end
           item
@@ -389,7 +379,6 @@ object frmCadDuplicata: TfrmCadDuplicata
             FieldName = 'PROTESTADO'
             Title.Alignment = taCenter
             Title.Caption = 'Protestado'
-            Width = 64
             Visible = True
           end
           item
@@ -412,7 +401,20 @@ object frmCadDuplicata: TfrmCadDuplicata
             Expanded = False
             FieldName = 'VLR_ADTO_USADO'
             Title.Alignment = taCenter
-            Width = 64
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_VENDEDOR_INT'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Vend. Interno'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'PERC_COMISSAO_INT'
+            Title.Alignment = taCenter
+            Title.Caption = '% Com. Interna'
             Visible = True
           end>
       end
@@ -3766,28 +3768,24 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Expanded = False
                 FieldName = 'VLR_PAGAMENTO'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_JUROSPAGOS'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_DESCONTOS'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_DESPESAS'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
@@ -3801,14 +3799,12 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Expanded = False
                 FieldName = 'VLR_DEVOLUCAO'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_JUROSCALCULADO'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end
               item
@@ -3857,7 +3853,6 @@ object frmCadDuplicata: TfrmCadDuplicata
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Cr'#233'dito Usado'
                 Title.Color = 16777170
-                Width = 64
                 Visible = True
               end>
           end
@@ -4641,11 +4636,17 @@ object frmCadDuplicata: TfrmCadDuplicata
     end
   end
   object PopupMenu3: TPopupMenu
-    Left = 818
-    Top = 208
+    Left = 816
+    Top = 207
     object GravarComissao1: TMenuItem
       Caption = 'Gravar % de comiss'#227'o que est'#225' no cadastro cliente nas duplicatas'
       OnClick = GravarComissao1Click
+    end
+    object GravardeComissoqueestanocadastrodoClientenasDuplicatasVendedorInterno1: TMenuItem
+      Caption = 
+        'Gravar % de Comiss'#227'o que esta no cadastro do Cliente nas Duplica' +
+        'tas Vendedor Interno'
+      OnClick = GravardeComissoqueestanocadastrodoClientenasDuplicatasVendedorInterno1Click
     end
     object GravaComissao2: TMenuItem
       Caption = 'Gerar comiss'#227'o conforme a consulta (Sem registro de comiss'#227'o)'
@@ -4654,6 +4655,10 @@ object frmCadDuplicata: TfrmCadDuplicata
     object Gerarcomissoconformeconsultatodasatjgeradas1: TMenuItem
       Caption = 'Gerar comiss'#227'o conforme consulta (todas, at'#233' j'#225' geradas)'
       OnClick = Gerarcomissoconformeconsultatodasatjgeradas1Click
+    end
+    object GerarcomissoconformeconsultaVendedorInterno1: TMenuItem
+      Caption = 'Gerar comiss'#227'o conforme consulta (Vendedor Interno)'
+      OnClick = GerarcomissoconformeconsultaVendedorInterno1Click
     end
   end
   object UCControls1: TUCControls
