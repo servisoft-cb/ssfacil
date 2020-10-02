@@ -137,7 +137,9 @@ uses
   function fnc_Cliente_Estoque(ID_Pedido : Integer) : String;
 
   function FormatarTelefone(Telefone : String):String;
-  function  Preenche(STRI, FloodStr:String; TAM:Integer ; JUST : Integer):String ;
+  function Preenche(STRI, FloodStr:String; TAM:Integer ; JUST : Integer):String ;
+  function FormaCNPJ(aValue : String) : String;
+  function DeletaString(aValue, Caracter : String) : String;
 
 var
   Enter,Esc,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,Q: Word;
@@ -2722,5 +2724,21 @@ begin
     AUX_STR := STRI + AUX_STR ;
   Preenche := AUX_STR ;
 end;
+
+function FormaCNPJ(aValue:String):String;
+begin
+  Delete(aValue,ansipos('.',aValue),1);  //Remove ponto .
+  Delete(aValue,ansipos('.',aValue),1);
+  Delete(aValue,ansipos('-',aValue),1); //Remove traço -
+  Delete(aValue,ansipos('/',aValue),1); //Remove barra /
+  Result:=FormatmaskText('00\.000\.000\/0000\-00;0;',aValue);
+end;
+
+function DeletaString(aValue, Caracter : String) : String;
+begin
+  Delete(aValue,ansipos(Caracter,aValue),1);
+  Result := aValue;
+end;
+
 
 end.

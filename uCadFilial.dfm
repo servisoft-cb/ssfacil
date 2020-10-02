@@ -1,6 +1,6 @@
 object frmCadFilial: TfrmCadFilial
-  Left = 155
-  Top = 55
+  Left = 224
+  Top = 96
   Width = 1102
   Height = 630
   Caption = 'Cadastro de Filial (Empresa)'
@@ -22,8 +22,8 @@ object frmCadFilial: TfrmCadFilial
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 1094
-    Height = 599
+    Width = 1086
+    Height = 591
     ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -41,15 +41,15 @@ object frmCadFilial: TfrmCadFilial
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 65
-        Width = 1090
-        Height = 494
+        Width = 1082
+        Height = 486
         Align = alClient
         Ctl3D = True
         DataSource = DMCadFilial.dsFilial
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
         ParentCtl3D = False
         ReadOnly = True
-        TabOrder = 1
+        TabOrder = 2
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
         TitleFont.Height = -11
@@ -127,7 +127,7 @@ object frmCadFilial: TfrmCadFilial
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 1090
+        Width = 1082
         Height = 31
         Align = alTop
         Color = clSilver
@@ -278,7 +278,7 @@ object frmCadFilial: TfrmCadFilial
             A29CF5F6EEFFFFFDFFFFFFFEFFFFFDFEFCFCFBFEFFFEFCFBFFFF}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 2
           Transparent = True
           OnClick = btnExcluirClick
         end
@@ -351,15 +351,15 @@ object frmCadFilial: TfrmCadFilial
             FFFEFFFAFEF9FEFCFBFFFDFEFDFEFE000000}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 2
+          TabOrder = 1
           Transparent = True
           OnClick = btnPesquisarClick
         end
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 559
-        Width = 1090
+        Top = 551
+        Width = 1082
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -370,16 +370,16 @@ object frmCadFilial: TfrmCadFilial
         Font.Name = 'MS Sans Serif'
         Font.Style = [fsBold]
         ParentFont = False
-        TabOrder = 2
+        TabOrder = 3
       end
       object pnlPesquisa: TPanel
         Left = 0
         Top = 31
-        Width = 1090
+        Width = 1082
         Height = 34
         Align = alTop
         Color = clSilver
-        TabOrder = 3
+        TabOrder = 1
         Visible = False
         object Label6: TLabel
           Left = 8
@@ -394,7 +394,7 @@ object frmCadFilial: TfrmCadFilial
           Width = 335
           Height = 21
           CharCase = ecUpperCase
-          TabOrder = 0
+          TabOrder = 1
           OnKeyDown = Edit4KeyDown
         end
         object btnConsultar: TNxButton
@@ -465,7 +465,7 @@ object frmCadFilial: TfrmCadFilial
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 1
+          TabOrder = 0
           Transparent = True
           OnClick = btnConsultarClick
         end
@@ -476,7 +476,7 @@ object frmCadFilial: TfrmCadFilial
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 1090
+        Width = 1082
         Height = 31
         Align = alTop
         Color = 8404992
@@ -705,12 +705,12 @@ object frmCadFilial: TfrmCadFilial
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 31
-        Width = 1090
-        Height = 545
-        ActivePage = TS_Download
+        Width = 1082
+        Height = 537
+        ActivePage = TS_Dados
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 8
+        TabIndex = 0
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -719,7 +719,7 @@ object frmCadFilial: TfrmCadFilial
           Enabled = False
           object Label1: TLabel
             Left = 64
-            Top = 40
+            Top = 86
             Width = 31
             Height = 13
             Alignment = taRightJustify
@@ -751,7 +751,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object Label3: TLabel
             Left = 34
-            Top = 107
+            Top = 59
             Width = 61
             Height = 13
             Alignment = taRightJustify
@@ -767,7 +767,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object Label10: TLabel
             Left = 57
-            Top = 84
+            Top = 36
             Width = 38
             Height = 13
             Alignment = taRightJustify
@@ -839,7 +839,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object Label15: TLabel
             Left = 28
-            Top = 62
+            Top = 108
             Width = 67
             Height = 13
             Alignment = taRightJustify
@@ -917,13 +917,13 @@ object frmCadFilial: TfrmCadFilial
           end
           object DBEdit7: TDBEdit
             Left = 98
-            Top = 32
+            Top = 78
             Width = 409
             Height = 21
             CharCase = ecUpperCase
             DataField = 'NOME'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 2
+            TabOrder = 4
           end
           object RxDBLookupCombo1: TRxDBLookupCombo
             Left = 98
@@ -964,13 +964,13 @@ object frmCadFilial: TfrmCadFilial
           end
           object DBEdit2: TDBEdit
             Left = 98
-            Top = 102
+            Top = 54
             Width = 201
             Height = 21
             CharCase = ecUpperCase
             DataField = 'CNPJ_CPF'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 5
+            TabOrder = 3
             OnExit = DBEdit2Exit
           end
           object DBEdit3: TDBEdit
@@ -1119,17 +1119,17 @@ object frmCadFilial: TfrmCadFilial
           end
           object DBEdit16: TDBEdit
             Left = 98
-            Top = 55
+            Top = 101
             Width = 409
             Height = 21
             CharCase = ecUpperCase
             DataField = 'NOME_INTERNO'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 3
+            TabOrder = 5
           end
           object RxDBComboBox8: TRxDBComboBox
             Left = 98
-            Top = 78
+            Top = 30
             Width = 145
             Height = 21
             Style = csDropDownList
@@ -1141,7 +1141,7 @@ object frmCadFilial: TfrmCadFilial
             Items.Strings = (
               'JUR'#205'DICA'
               'F'#205'SICA')
-            TabOrder = 4
+            TabOrder = 2
             Values.Strings = (
               'J'
               'F')
@@ -1403,7 +1403,7 @@ object frmCadFilial: TfrmCadFilial
               'N'#195'O'
               'Simples SubLimite')
             ReadOnly = True
-            TabOrder = 15
+            TabOrder = 22
             TabStop = False
             Values.Strings = (
               'S'
@@ -1424,7 +1424,7 @@ object frmCadFilial: TfrmCadFilial
             Items.Strings = (
               'SIM'
               'N'#195'O')
-            TabOrder = 1
+            TabOrder = 2
             Values.Strings = (
               'S'
               'N')
@@ -1443,7 +1443,7 @@ object frmCadFilial: TfrmCadFilial
             Items.Strings = (
               'SIM'
               'N'#195'O')
-            TabOrder = 2
+            TabOrder = 3
             Values.Strings = (
               'S'
               'N')
@@ -1462,7 +1462,7 @@ object frmCadFilial: TfrmCadFilial
             Items.Strings = (
               'PERCENTUAL'
               'VALOR')
-            TabOrder = 4
+            TabOrder = 5
             Values.Strings = (
               'P'
               'V')
@@ -1481,7 +1481,7 @@ object frmCadFilial: TfrmCadFilial
             Items.Strings = (
               'PERCENTUAL'
               'VALOR')
-            TabOrder = 7
+            TabOrder = 8
             Values.Strings = (
               'P'
               'V')
@@ -1497,7 +1497,7 @@ object frmCadFilial: TfrmCadFilial
             LookupField = 'ID'
             LookupDisplay = 'NOME'
             LookupSource = DMCadFilial.dsRegimeTrib
-            TabOrder = 11
+            TabOrder = 10
           end
           object RxDBLookupCombo4: TRxDBLookupCombo
             Left = 130
@@ -1511,7 +1511,7 @@ object frmCadFilial: TfrmCadFilial
             LookupField = 'ID'
             LookupDisplay = 'NOME'
             LookupSource = DMCadFilial.dsTab_Pis
-            TabOrder = 3
+            TabOrder = 4
           end
           object RxDBLookupCombo5: TRxDBLookupCombo
             Left = 130
@@ -1525,7 +1525,7 @@ object frmCadFilial: TfrmCadFilial
             LookupField = 'ID'
             LookupDisplay = 'NOME'
             LookupSource = DMCadFilial.dsTab_Cofins
-            TabOrder = 6
+            TabOrder = 7
           end
           object RxDBLookupCombo6: TRxDBLookupCombo
             Left = 130
@@ -1539,7 +1539,7 @@ object frmCadFilial: TfrmCadFilial
             LookupField = 'ID'
             LookupDisplay = 'COD_CST;NOME'
             LookupSource = DMCadFilial.dsTab_CSTICMS
-            TabOrder = 12
+            TabOrder = 13
           end
           object RxDBLookupCombo7: TRxDBLookupCombo
             Left = 130
@@ -1553,7 +1553,7 @@ object frmCadFilial: TfrmCadFilial
             LookupField = 'ID'
             LookupDisplay = 'COD_IPI;NOME'
             LookupSource = DMCadFilial.dsTab_CSTIPI
-            TabOrder = 13
+            TabOrder = 17
           end
           object DBEdit20: TDBEdit
             Left = 750
@@ -1563,7 +1563,7 @@ object frmCadFilial: TfrmCadFilial
             CharCase = ecUpperCase
             DataField = 'PERC_PIS'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 5
+            TabOrder = 6
           end
           object DBEdit21: TDBEdit
             Left = 750
@@ -1573,7 +1573,7 @@ object frmCadFilial: TfrmCadFilial
             CharCase = ecUpperCase
             DataField = 'PERC_COFINS'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 8
+            TabOrder = 9
           end
           object DBEdit22: TDBEdit
             Left = 130
@@ -1590,7 +1590,7 @@ object frmCadFilial: TfrmCadFilial
             Width = 257
             Height = 112
             Caption = ' % Tributos Lei 12.741/12 '
-            TabOrder = 16
+            TabOrder = 23
             object Label54: TLabel
               Left = 13
               Top = 28
@@ -1672,7 +1672,7 @@ object frmCadFilial: TfrmCadFilial
             CharCase = ecUpperCase
             DataField = 'PERC_LISTA_CAMEX'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 21
+            TabOrder = 25
           end
           object RxDBLookupCombo15: TRxDBLookupCombo
             Left = 130
@@ -1686,7 +1686,7 @@ object frmCadFilial: TfrmCadFilial
             LookupField = 'ID'
             LookupDisplay = 'CODIGO;DESCRICAO'
             LookupSource = DMCadFilial.dsEnqIPI
-            TabOrder = 14
+            TabOrder = 19
             OnKeyDown = RxDBLookupCombo15KeyDown
           end
           object DBCheckBox15: TDBCheckBox
@@ -1697,7 +1697,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Calcular Difal'
             DataField = 'CALCULAR_DIFAL'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 17
+            TabOrder = 14
             ValueChecked = 'S'
             ValueUnchecked = 'N'
             OnClick = DBCheckBox15Click
@@ -1710,7 +1710,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Gerar valores do Difal'
             DataField = 'DIFAL_GERAR_VALORES'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 18
+            TabOrder = 16
             ValueChecked = 'S'
             ValueUnchecked = 'N'
             OnClick = DBCheckBox16Click
@@ -1723,7 +1723,7 @@ object frmCadFilial: TfrmCadFilial
             DataField = 'OBS_DIFAL'
             DataSource = DMCadFilial.dsFilial
             ScrollBars = ssVertical
-            TabOrder = 22
+            TabOrder = 28
             OnKeyPress = DBMemo1KeyPress
           end
           object DBEdit83: TDBEdit
@@ -1734,7 +1734,7 @@ object frmCadFilial: TfrmCadFilial
             CharCase = ecUpperCase
             DataField = 'PERC_IR'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 9
+            TabOrder = 11
           end
           object DBEdit84: TDBEdit
             Left = 750
@@ -1744,7 +1744,7 @@ object frmCadFilial: TfrmCadFilial
             CharCase = ecUpperCase
             DataField = 'PERC_CSLL'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 10
+            TabOrder = 15
           end
           object DBEdit89: TDBEdit
             Left = 565
@@ -1754,7 +1754,7 @@ object frmCadFilial: TfrmCadFilial
             DataField = 'SERIE_CPF'
             DataSource = DMCadFilial.dsFilial
             ReadOnly = True
-            TabOrder = 23
+            TabOrder = 1
           end
           object DBCheckBox22: TDBCheckBox
             Left = 512
@@ -1764,7 +1764,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Ind'#250'stria'
             DataField = 'TIPO_EMP'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 20
+            TabOrder = 12
             ValueChecked = 'S'
             ValueUnchecked = 'N'
             OnClick = DBCheckBox16Click
@@ -1777,7 +1777,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Usa ST Retido'
             DataField = 'USA_ENVIO_ST_RET'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 19
+            TabOrder = 18
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -1809,7 +1809,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Descontar Vlr. ICMS da Base do PIS/COFINS'
             DataField = 'DESC_ICMS_PIS_COFINS'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 25
+            TabOrder = 20
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -1821,7 +1821,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Usar o Pre'#231'o com IPI'
             DataField = 'PEDIDO_PRECO_IPI'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 26
+            TabOrder = 27
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -1892,7 +1892,7 @@ object frmCadFilial: TfrmCadFilial
               FFFEFFFAFEF9FEFCFBFFFDFEFDFEFE000000}
             GlyphSpacing = 5
             ParentFont = False
-            TabOrder = 27
+            TabOrder = 26
             Transparent = True
             Visible = False
             OnClick = btnVlr_Outras_DespesasClick
@@ -1905,7 +1905,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Gravar Respons'#225'vel T'#233'cnico no XML da NFe'
             DataField = 'USA_RESPTECNICO'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 28
+            TabOrder = 21
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -2008,7 +2008,7 @@ object frmCadFilial: TfrmCadFilial
             Height = 21
             DataField = 'ENDLOGO'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 3
+            TabOrder = 4
           end
           object DBDateEdit1: TDBDateEdit
             Left = 122
@@ -2045,7 +2045,7 @@ object frmCadFilial: TfrmCadFilial
             Width = 25
             Height = 23
             Hint = 'Abre o caminho p/ localizar a foto'
-            TabOrder = 4
+            TabOrder = 3
             OnClick = BitBtn20Click
             Glyph.Data = {
               76010000424D7601000000000000760000002800000020000000100000000100
@@ -2088,7 +2088,7 @@ object frmCadFilial: TfrmCadFilial
             Height = 21
             DataField = 'ENDLOGO_ROTULO'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 5
+            TabOrder = 6
           end
           object BitBtn3: TBitBtn
             Left = 532
@@ -2096,7 +2096,7 @@ object frmCadFilial: TfrmCadFilial
             Width = 25
             Height = 23
             Hint = 'Abre o caminho p/ localizar a foto'
-            TabOrder = 6
+            TabOrder = 5
             OnClick = BitBtn3Click
             Glyph.Data = {
               76010000424D7601000000000000760000002800000020000000100000000100
@@ -2610,7 +2610,7 @@ object frmCadFilial: TfrmCadFilial
             Height = 21
             DataField = 'ENDLOGO_NFSE'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 21
+            TabOrder = 23
           end
           object BitBtn1: TBitBtn
             Left = 604
@@ -2668,7 +2668,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Homologa'#231#227'o'
             DataField = 'NFSE_HOMOLOGACAO'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 23
+            TabOrder = 24
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -2717,7 +2717,7 @@ object frmCadFilial: TfrmCadFilial
               'SOLUMASTER'
               'DECIS'#195'O'
               'GVD')
-            TabOrder = 24
+            TabOrder = 25
             Values.Strings = (
               '0'
               '1'
@@ -2771,7 +2771,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Enviar NFSe pelo ACBR'
             DataField = 'ENVIO_NFSE'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 25
+            TabOrder = 21
             ValueChecked = 'A'
             ValueUnchecked = 'N'
           end
@@ -2843,7 +2843,7 @@ object frmCadFilial: TfrmCadFilial
             Font.Style = []
             ParentCtl3D = False
             ParentFont = False
-            TabOrder = 3
+            TabOrder = 5
             VisualStyle = vsGradient
             object Label132: TLabel
               Left = 33
@@ -2957,7 +2957,7 @@ object frmCadFilial: TfrmCadFilial
             Items.Strings = (
               '0 = Mensal'
               '1 = Decendial')
-            TabOrder = 4
+            TabOrder = 3
             Values.Strings = (
               '0'
               '1')
@@ -2990,7 +2990,7 @@ object frmCadFilial: TfrmCadFilial
             Caption = 'Somar IPI no Custo M'#233'dio'
             DataField = 'SPED_SOMA_IPI_CUSTO'
             DataSource = DMCadFilial.dsFilial
-            TabOrder = 5
+            TabOrder = 4
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end
@@ -3000,7 +3000,7 @@ object frmCadFilial: TfrmCadFilial
           object pnlRel: TPanel
             Left = 0
             Top = 0
-            Width = 1086
+            Width = 1078
             Height = 30
             Align = alTop
             Color = clSilver
@@ -3312,8 +3312,8 @@ object frmCadFilial: TfrmCadFilial
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 30
-            Width = 1086
-            Height = 451
+            Width = 1078
+            Height = 443
             Align = alClient
             DataSource = DMCadFilial.dsFilialRelatorios
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -3395,8 +3395,8 @@ object frmCadFilial: TfrmCadFilial
           end
           object Panel6: TPanel
             Left = 0
-            Top = 481
-            Width = 1086
+            Top = 473
+            Width = 1078
             Height = 41
             Align = alBottom
             TabOrder = 2
@@ -3424,7 +3424,7 @@ object frmCadFilial: TfrmCadFilial
           object Panel3: TPanel
             Left = 0
             Top = 0
-            Width = 1086
+            Width = 1078
             Height = 33
             Align = alTop
             Color = clSilver
@@ -3658,8 +3658,8 @@ object frmCadFilial: TfrmCadFilial
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 33
-            Width = 1086
-            Height = 489
+            Width = 1078
+            Height = 481
             Align = alClient
             Ctl3D = False
             DataSource = DMCadFilial.dsFilial_Email
@@ -3749,8 +3749,8 @@ object frmCadFilial: TfrmCadFilial
           object pnlContabil: TPanel
             Left = 0
             Top = 0
-            Width = 1086
-            Height = 522
+            Width = 1078
+            Height = 514
             Align = alClient
             Enabled = False
             TabOrder = 0
@@ -3870,7 +3870,7 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'COD_CONTABIL_JUROS_PAGOS'
               DataSource = DMCadFilial.dsFilial_Contabil
               ParentCtl3D = False
-              TabOrder = 1
+              TabOrder = 2
             end
             object DBEdit64: TDBEdit
               Left = 573
@@ -3881,7 +3881,7 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'NUM_SEQ_LOTE_INTEGRACAO'
               DataSource = DMCadFilial.dsFilial_Contabil
               ParentCtl3D = False
-              TabOrder = 11
+              TabOrder = 1
             end
             object RxDBLookupCombo16: TRxDBLookupCombo
               Left = 213
@@ -3896,7 +3896,7 @@ object frmCadFilial: TfrmCadFilial
               LookupDisplay = 'NOME'
               LookupSource = DMCadFilial.dsContabil_Ope
               ParentCtl3D = False
-              TabOrder = 8
+              TabOrder = 9
             end
             object RxDBLookupCombo17: TRxDBLookupCombo
               Left = 213
@@ -3911,7 +3911,7 @@ object frmCadFilial: TfrmCadFilial
               LookupDisplay = 'NOME'
               LookupSource = DMCadFilial.dsContabil_Ope
               ParentCtl3D = False
-              TabOrder = 9
+              TabOrder = 10
             end
             object DBEdit65: TDBEdit
               Left = 213
@@ -3922,7 +3922,7 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'COD_CONTABIL_DESC_CRE'
               DataSource = DMCadFilial.dsFilial_Contabil
               ParentCtl3D = False
-              TabOrder = 2
+              TabOrder = 3
             end
             object DBEdit66: TDBEdit
               Left = 213
@@ -3933,7 +3933,7 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'COD_CONTABIL_DESC_CPA'
               DataSource = DMCadFilial.dsFilial_Contabil
               ParentCtl3D = False
-              TabOrder = 3
+              TabOrder = 4
             end
             object DBEdit67: TDBEdit
               Left = 213
@@ -3944,7 +3944,7 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'COD_CONTABIL_MULTA_CRE'
               DataSource = DMCadFilial.dsFilial_Contabil
               ParentCtl3D = False
-              TabOrder = 4
+              TabOrder = 5
             end
             object DBEdit68: TDBEdit
               Left = 213
@@ -3955,7 +3955,7 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'COD_CONTABIL_MULTA_CPA'
               DataSource = DMCadFilial.dsFilial_Contabil
               ParentCtl3D = False
-              TabOrder = 5
+              TabOrder = 6
             end
             object DBEdit90: TDBEdit
               Left = 213
@@ -3966,7 +3966,7 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'COD_CONTABIL_TXBANCARIA_CRE'
               DataSource = DMCadFilial.dsFilial_Contabil
               ParentCtl3D = False
-              TabOrder = 6
+              TabOrder = 7
             end
             object DBEdit91: TDBEdit
               Left = 213
@@ -3977,7 +3977,7 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'COD_CONTABIL_TXBANCARIA_CPA'
               DataSource = DMCadFilial.dsFilial_Contabil
               ParentCtl3D = False
-              TabOrder = 7
+              TabOrder = 8
             end
             object RxDBLookupCombo18: TRxDBLookupCombo
               Left = 213
@@ -3992,7 +3992,7 @@ object frmCadFilial: TfrmCadFilial
               LookupDisplay = 'NOME'
               LookupSource = DMCadFilial.dsContabil_Ope
               ParentCtl3D = False
-              TabOrder = 10
+              TabOrder = 11
             end
           end
         end
@@ -4001,7 +4001,7 @@ object frmCadFilial: TfrmCadFilial
           object Panel4: TPanel
             Left = 0
             Top = 0
-            Width = 1086
+            Width = 1078
             Height = 33
             Align = alTop
             Color = clSilver
@@ -4235,8 +4235,8 @@ object frmCadFilial: TfrmCadFilial
           object SMDBGrid4: TSMDBGrid
             Left = 0
             Top = 33
-            Width = 1086
-            Height = 489
+            Width = 1078
+            Height = 481
             Align = alClient
             Ctl3D = False
             DataSource = DMCadFilial.dsFilial_Download
@@ -4295,15 +4295,15 @@ object frmCadFilial: TfrmCadFilial
           object pnlConfig_Danfe_NFe: TPanel
             Left = 0
             Top = 0
-            Width = 1086
-            Height = 488
+            Width = 1078
+            Height = 480
             Align = alClient
             Enabled = False
             TabOrder = 0
             object gbxCertificado: TRzGroupBox
               Left = 1
               Top = 1
-              Width = 1084
+              Width = 1076
               Height = 76
               Align = alTop
               BorderColor = clNavy
@@ -4408,8 +4408,8 @@ object frmCadFilial: TfrmCadFilial
             object RzGroupBox1: TRzGroupBox
               Left = 1
               Top = 77
-              Width = 1084
-              Height = 410
+              Width = 1076
+              Height = 402
               Align = alClient
               BorderColor = clNavy
               BorderInner = fsButtonUp
@@ -4523,14 +4523,14 @@ object frmCadFilial: TfrmCadFilial
                 DataField = 'DANFE_DADOS_EMISSOR'
                 DataSource = DMCadFilial.dsConfig_NFe
                 ParentCtl3D = False
-                TabOrder = 0
+                TabOrder = 1
               end
               object BitBtn2: TBitBtn
                 Left = 659
                 Top = 11
                 Width = 25
                 Height = 23
-                TabOrder = 1
+                TabOrder = 0
                 OnClick = BitBtn2Click
                 Glyph.Data = {
                   76010000424D7601000000000000760000002800000020000000100000000100
@@ -4624,7 +4624,7 @@ object frmCadFilial: TfrmCadFilial
                 Height = 21
                 DataField = 'DANFE_CARACTER_SALTAR_LINHA'
                 DataSource = DMCadFilial.dsConfig_NFe
-                TabOrder = 13
+                TabOrder = 12
               end
               object DBEdit50: TDBEdit
                 Left = 284
@@ -4697,7 +4697,7 @@ object frmCadFilial: TfrmCadFilial
                 Caption = 'Saltar Linha'
                 DataField = 'DANFE_SALTAR_LINHA'
                 DataSource = DMCadFilial.dsConfig_NFe
-                TabOrder = 12
+                TabOrder = 13
                 ValueChecked = 'S'
                 ValueUnchecked = 'N'
               end
@@ -4817,8 +4817,8 @@ object frmCadFilial: TfrmCadFilial
           end
           object Panel5: TPanel
             Left = 0
-            Top = 488
-            Width = 1086
+            Top = 480
+            Width = 1078
             Height = 34
             Align = alBottom
             Color = 8404992
@@ -4892,7 +4892,7 @@ object frmCadFilial: TfrmCadFilial
                 FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
               GlyphSpacing = 5
               ParentFont = False
-              TabOrder = 0
+              TabOrder = 1
               Transparent = True
               OnClick = btnConfirmar_Config_NFeClick
             end
@@ -4964,7 +4964,7 @@ object frmCadFilial: TfrmCadFilial
                 FEFFFFFFFFFFFFFFFFFFFFFFF9FEFE000000}
               GlyphSpacing = 5
               ParentFont = False
-              TabOrder = 1
+              TabOrder = 0
               Transparent = True
               OnClick = btnAlterar_Config_NFeClick
             end
@@ -5048,8 +5048,8 @@ object frmCadFilial: TfrmCadFilial
           object SMDBGrid5: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1086
-            Height = 522
+            Width = 1078
+            Height = 514
             Align = alClient
             Ctl3D = False
             DataSource = DMCadFilial.dsFILIAL_CBarra
@@ -5367,8 +5367,8 @@ object frmCadFilial: TfrmCadFilial
           object pnlMDFe: TPanel
             Left = 0
             Top = 0
-            Width = 1086
-            Height = 522
+            Width = 1078
+            Height = 514
             Align = alClient
             Enabled = False
             TabOrder = 0
@@ -5505,14 +5505,14 @@ object frmCadFilial: TfrmCadFilial
               DataField = 'END_LOG'
               DataSource = DMCadFilial.dsFilial_MDFe
               ParentCtl3D = False
-              TabOrder = 5
+              TabOrder = 6
             end
             object BitBtn4: TBitBtn
               Left = 643
               Top = 126
               Width = 25
               Height = 23
-              TabOrder = 6
+              TabOrder = 5
               OnClick = BitBtn4Click
               Glyph.Data = {
                 76010000424D7601000000000000760000002800000020000000100000000100
@@ -5536,18 +5536,18 @@ object frmCadFilial: TfrmCadFilial
           object pnlCusto: TPanel
             Left = 0
             Top = 0
-            Width = 1086
-            Height = 522
+            Width = 1078
+            Height = 514
             Align = alClient
             Enabled = False
             TabOrder = 0
             DesignSize = (
-              1086
-              522)
+              1078
+              514)
             object gbxCustoVenda: TRzGroupBox
               Left = 25
               Top = 15
-              Width = 574
+              Width = 566
               Height = 226
               Anchors = [akLeft, akTop, akRight]
               BorderColor = clNavy
@@ -5723,7 +5723,7 @@ object frmCadFilial: TfrmCadFilial
             object RzGroupBox3: TRzGroupBox
               Left = 257
               Top = 15
-              Width = 574
+              Width = 566
               Height = 226
               Anchors = [akLeft, akTop, akRight]
               BorderColor = clNavy
@@ -5900,8 +5900,8 @@ object frmCadFilial: TfrmCadFilial
           object pnlSoftwareHouse: TPanel
             Left = 0
             Top = 0
-            Width = 1086
-            Height = 522
+            Width = 1078
+            Height = 514
             Align = alClient
             Enabled = False
             TabOrder = 0

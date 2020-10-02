@@ -4,7 +4,7 @@ unit UDMCadFilial;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, LogTypes;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, LogTypes, Dialogs, Controls, Windows;
 
 type
   TDMCadFilial = class(TDataModule)
@@ -714,6 +714,7 @@ type
     procedure cdsFILIAL_CBarraFilterRecord(DataSet: TDataSet;
       var Accept: Boolean);
     procedure cdsFilialRelatoriosCalcFields(DataSet: TDataSet);
+    procedure cdsFilialCNPJ_CPFChange(Sender: TField);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -741,7 +742,7 @@ var
 
 implementation
 
-uses DmdDatabase, DmdDatabase_NFeBD, LogProvider, uUtilPadrao, Variants;
+uses DmdDatabase, DmdDatabase_NFeBD, LogProvider, uUtilPadrao, Variants, uPessoa;
 
 {$R *.dfm}
 
@@ -1077,6 +1078,64 @@ begin
     11 : cdsFilialRelatoriosclDescricao_Tipo.AsString := 'RÓTULO NA NOTA (CORRUGADO)';
     12 : cdsFilialRelatoriosclDescricao_Tipo.AsString := 'CONSULTA PEDIDO';
     13 : cdsFilialRelatoriosclDescricao_Tipo.AsString := 'RECIBO NF';
+  end;
+end;
+
+procedure TDMCadFilial.cdsFilialCNPJ_CPFChange(Sender: TField);
+const
+  C_Dll : string = 'ConsultaCNPJ.dll';
+var
+  aFilial : TPessoa;
+  FHandle : THandle;
+  FRoutine : function (const CNPJ: WideString) : TPessoa;
+  aCNPJ : String;
+begin
+  if MessageDlg('Buscar dados Receita Federal?',mtConfirmation, [mbYes,mbNo],0) = mrYes then
+  begin
+    if cdsFilialPESSOA.AsString = 'J' then
+    begin
+      FHandle := LoadLibrary(PAnsiChar(C_Dll));
+      try
+        FRoutine := GetProcAddress(FHandle, 'ConsultarCNPJ');
+        if (Assigned(FRoutine)) then
+        begin
+          try
+            aFilial := TPessoa.create;
+            aCNPJ := FormaCNPJ(cdsFilialCNPJ_CPF.AsString);
+            aFilial := FRoutine(aCNPJ);
+            if aFilial.RazaoSocial <> EmptyStr then
+            begin
+              cdsFilialNOME.AsString := aFilial.RazaoSocial;
+              if copy(aFilial.Fantasia[5],1,2) <> '**' then
+                cdsFilialNOME_INTERNO.AsString := aFilial.Fantasia
+              else
+                cdsFilialNOME_INTERNO.AsString := aFilial.RazaoSocial;
+              cdsFilialENDERECO.AsString := aFilial.Endereco;
+              cdsFilialNUM_END.AsString  := aFilial.Numero;
+              if copy(aFilial.Complemento,1,2) <> '**' then
+                cdsFilialCOMPLEMENTO_END.AsString := aFilial.Complemento;
+              if copy(aFilial.Bairro,1,2) <> '**' then
+                cdsFilialBAIRRO.AsString      := aFilial.Bairro;
+              cdsFilialCEP.AsString           := aFilial.CEP;
+              cdsFilialUF.AsString            := aFilial.UF;
+//              prc_Abrir_Cidade(cdsFilialUF.AsString);
+              if cdsCidade.Locate('NOME',aFilial.Cidade,([Locaseinsensitive])) then
+              begin
+                cdsFilialID_CIDADE.AsInteger := cdsCidadeID.AsInteger;
+                cdsFilialCIDADE.AsString     := cdsCidadeNOME.AsString;
+              end;
+              cdsFilialDDD1.AsString := Copy(aFilial.Telefone,1,2);
+              cdsFilialFONE.AsString := Copy(aFilial.Telefone,1,Length(aFilial.Telefone));
+            end;
+          except
+            on E : Exception do
+              FreeLibrary(FHandle);
+          end;
+        end;
+      finally
+        FreeLibrary(FHandle);
+      end;
+    end;
   end;
 end;
 

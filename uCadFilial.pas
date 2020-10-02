@@ -564,7 +564,7 @@ begin
   if fDMCadFilial.qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S' then
     DBEdit4.SetFocus
   else
-    DBEdit7.SetFocus;
+    fDMCadFilial.cdsFilialCNPJ_CPF.FocusControl;
 end;
 
 procedure TfrmCadFilial.FormShow(Sender: TObject);

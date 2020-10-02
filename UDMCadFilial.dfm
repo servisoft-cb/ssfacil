@@ -2,8 +2,8 @@ object DMCadFilial: TDMCadFilial
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Left = 397
-  Top = 14
+  Left = 213
+  Top = 27
   Height = 709
   Width = 1045
   object sdsFilial: TSQLDataSet
@@ -546,6 +546,7 @@ object DMCadFilial: TDMCadFilial
     end
     object cdsFilialCNPJ_CPF: TStringField
       FieldName = 'CNPJ_CPF'
+      OnChange = cdsFilialCNPJ_CPFChange
       Size = 18
     end
     object cdsFilialINSCR_EST: TStringField
