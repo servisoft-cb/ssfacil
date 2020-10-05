@@ -1375,6 +1375,7 @@ type
     sdsPessoaINFADI_DESC_OS: TStringField;
     cdsPessoaINFADI_DESC_CPROD: TStringField;
     cdsPessoaINFADI_DESC_OS: TStringField;
+    cdsPessoa_ConsultaPERC_COMISSAO_INT: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;

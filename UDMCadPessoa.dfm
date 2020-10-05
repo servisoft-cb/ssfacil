@@ -3372,21 +3372,21 @@ object DMCadPessoa: TDMCadPessoa
       'te = 1 then '#39'Contribuinte'#39#13#10'  when p.tipo_contribuinte = 2 then ' +
       #39'Isento'#39#13#10'  when p.tipo_contribuinte = 9 then '#39'N'#227'o Contrib.'#39#13#10'  ' +
       'end Desc_Tipo_Contribuinte, RT.NOME NOME_REGIME, RT.codigo COD_R' +
-      'EGIME'#13#10'FROM PESSOA P'#13#10'LEFT JOIN CONDPGTO COND ON (P.ID_CONDPGTO ' +
-      '= COND.ID)'#13#10'LEFT JOIN PESSOA VEND ON (P.ID_VENDEDOR = VEND.CODIG' +
-      'O)'#13#10'LEFT JOIN GRUPO_PESSOA GP ON (P.ID_GRUPO = GP.ID)'#13#10'LEFT JOIN' +
-      ' PESSOA_FISICA PF ON (P.CODIGO = PF.CODIGO)'#13#10'LEFT JOIN CONTA_ORC' +
-      'AMENTO CCLI ON (P.CLIENTE_CONTA_ID = CCLI.ID)'#13#10'LEFT JOIN CONTA_O' +
-      'RCAMENTO CFORN ON (P.FORNECEDOR_CONTA_ID = CFORN.ID)'#13#10'LEFT JOIN ' +
-      'CONTA_ORCAMENTO CTRA ON (P.TRANSPORTADORA_CONTA_ID = CTRA.ID)'#13#10'L' +
-      'EFT JOIN CONTA_ORCAMENTO CVEND ON (P.VENDEDOR_CONTA_ID = CVEND.I' +
-      'D)'#13#10'LEFT JOIN PESSOA_VEND PV ON P.CODIGO = PV.CODIGO'#13#10'LEFT JOIN ' +
-      'regime_trib RT ON P.id_regime_trib = RT.id'#13#10'LEFT JOIN PESSOA VEN' +
-      'D2 ON P.ID_VENDEDOR_INT = VEND2.CODIGO'
+      'EGIME, P.PERC_COMISSAO_INT'#13#10'FROM PESSOA P'#13#10'LEFT JOIN CONDPGTO CO' +
+      'ND ON (P.ID_CONDPGTO = COND.ID)'#13#10'LEFT JOIN PESSOA VEND ON (P.ID_' +
+      'VENDEDOR = VEND.CODIGO)'#13#10'LEFT JOIN GRUPO_PESSOA GP ON (P.ID_GRUP' +
+      'O = GP.ID)'#13#10'LEFT JOIN PESSOA_FISICA PF ON (P.CODIGO = PF.CODIGO)' +
+      #13#10'LEFT JOIN CONTA_ORCAMENTO CCLI ON (P.CLIENTE_CONTA_ID = CCLI.I' +
+      'D)'#13#10'LEFT JOIN CONTA_ORCAMENTO CFORN ON (P.FORNECEDOR_CONTA_ID = ' +
+      'CFORN.ID)'#13#10'LEFT JOIN CONTA_ORCAMENTO CTRA ON (P.TRANSPORTADORA_C' +
+      'ONTA_ID = CTRA.ID)'#13#10'LEFT JOIN CONTA_ORCAMENTO CVEND ON (P.VENDED' +
+      'OR_CONTA_ID = CVEND.ID)'#13#10'LEFT JOIN PESSOA_VEND PV ON P.CODIGO = ' +
+      'PV.CODIGO'#13#10'LEFT JOIN regime_trib RT ON P.id_regime_trib = RT.id'#13 +
+      #10'LEFT JOIN PESSOA VEND2 ON P.ID_VENDEDOR_INT = VEND2.CODIGO'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 488
+    Left = 487
     Top = 8
   end
   object dspPessoa_Consulta: TDataSetProvider
@@ -4066,6 +4066,9 @@ object DMCadPessoa: TDMCadPessoa
     object cdsPessoa_ConsultaCELULAR: TStringField
       FieldName = 'CELULAR'
       Size = 10
+    end
+    object cdsPessoa_ConsultaPERC_COMISSAO_INT: TFloatField
+      FieldName = 'PERC_COMISSAO_INT'
     end
     object cdsPessoa_ConsultaTotalClientes: TAggregateField
       FieldName = 'TotalClientes'
