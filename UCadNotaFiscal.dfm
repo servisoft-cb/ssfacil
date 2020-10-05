@@ -562,6 +562,15 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
           TabOrder = 13
           Visible = False
         end
+        object ckRedespacho: TCheckBox
+          Left = 878
+          Top = 69
+          Width = 213
+          Height = 17
+          Caption = 'N'#227'o enviar Redespacho no Autxml'
+          TabOrder = 14
+          Visible = False
+        end
       end
       object StaticText1: TStaticText
         Left = 0

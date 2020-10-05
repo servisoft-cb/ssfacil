@@ -3208,6 +3208,7 @@ type
     cdsPedidoCONV_UNIDADE: TFloatField;
     sdsNotaFiscalVLR_DESCONTO_ITENS: TFloatField;
     cdsNotaFiscalVLR_DESCONTO_ITENS: TFloatField;
+    cdsTransportadoraPESSOA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
@@ -3266,6 +3267,7 @@ type
     vCodCliente: Integer;
     vVlr_Saldo_Usado  : Real;  //Crédito do adiantamento do Cliente    Supercrom vai usar  25/05/2020
     vTitulo_Gerado_Ped : String;
+    vGerar_Redespacho_AutXML : Boolean;
 
     ctCommand, ctConsulta, ctNotaEntrada, ctPedido, ctProduto, ctVale, ctCliente, ctOS, ctNotaFiscal_ProdPrincipal: String;
     ctPedido_Tam: String;

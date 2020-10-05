@@ -433,6 +433,7 @@ type
     btnRefazTitulos: TNxButton;
     DBEdit81: TDBEdit;
     Label122: TLabel;
+    ckRedespacho: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -3303,6 +3304,7 @@ begin
     btnRegravar.Visible := not(btnRegravar.Visible);
     btnAjustarComissaoItens.Visible := not(btnAjustarComissaoItens.Visible);
     CheckBox1.Visible := not(CheckBox1.Visible);
+    ckRedespacho.Visible := not(ckRedespacho.Visible);
   end
   else
   if (Shift = [ssCtrl]) and (Key = 83) then //CTRL S
@@ -3902,6 +3904,10 @@ begin
   fDMCadNotaFiscal.qParametros_Imp.Open;
   fDMCadNotaFiscal.qParametros_NFe.Close;
   fDMCadNotaFiscal.qParametros_NFe.Open;
+  if not(ckRedespacho.Checked) then
+    fDMCadNotaFiscal.vGerar_Redespacho_AutXML := True
+  else
+    fDMCadNotaFiscal.vGerar_Redespacho_AutXML := False;
 
   if CheckBox1.Visible then
     fDMCadNotaFiscal.vNaoMostrarCampoVazio := CheckBox1.Checked

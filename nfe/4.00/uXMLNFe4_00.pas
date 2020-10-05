@@ -77,6 +77,7 @@ var
   //12/08/2016 Criado para imprimir o número da MS para a empresa do Ramiro
   vObs_MS_Item : WideString;
   vTipo_Consumidor : String;
+  vEnviar_Redespacho: Boolean;
 
 implementation
 
@@ -1600,6 +1601,20 @@ begin
       fDMNFe.qPessoa_Download.Next;
     end;
   end;
+  //05/10/2020
+  if (fDMCadNotaFiscal.cdsNotaFiscalID_REDESPACHO.AsInteger > 0) and (fDMCadNotaFiscal.vGerar_Redespacho_AutXML) then
+  begin
+    if not vGerou_Download then
+      AutXML := NfeXML.InfNFe.AutXML.Add;
+    if fDMCadNotaFiscal.cdsTransportadora.Locate('CODIGO',fDMCadNotaFiscal.cdsNotaFiscalID_REDESPACHO.AsInteger,([Locaseinsensitive])) then
+    begin
+      if fDMCadNotaFiscal.cdsTransportadoraPESSOA.AsString = 'J' then
+        AutXML.CNPJ := Monta_Texto(fDMCadNotaFiscal.cdsTransportadoraCNPJ_CPF.AsString,14)
+      else
+        AutXML.CPF := Monta_Texto(fDMCadNotaFiscal.cdsTransportadoraCNPJ_CPF.AsString,11);
+    end;
+  end;
+  //*****************
 end;
 
 procedure prc_Monta_ICMS_UF_Destino(fDMNFe : TDMNFe);

@@ -4212,9 +4212,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     GetMetadata = False
     CommandText = 
       'SELECT CODIGO, NOME, EMAIL_NFE, ENDERECO, NUM_END, COMPLEMENTO_E' +
-      'ND, BAIRRO, ID_CIDADE, UF, CNPJ_CPF, INSCR_EST, CEP, PLACA, UF_P' +
-      'LACA'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39#13#10'      AND TP_TRANSPORTAD' +
-      'ORA = '#39'S'#39
+      'ND, BAIRRO, ID_CIDADE, '#13#10'UF, CNPJ_CPF, INSCR_EST, CEP, PLACA, UF' +
+      '_PLACA, PESSOA'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39#13#10'      AND TP_T' +
+      'RANSPORTADORA = '#39'S'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -4231,7 +4231,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspTransportadora'
-    Left = 649
+    Left = 648
     Top = 132
     object cdsTransportadoraCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -4287,6 +4287,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsTransportadoraUF_PLACA: TStringField
       FieldName = 'UF_PLACA'
       Size = 2
+    end
+    object cdsTransportadoraPESSOA: TStringField
+      FieldName = 'PESSOA'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsTransportadora: TDataSource
