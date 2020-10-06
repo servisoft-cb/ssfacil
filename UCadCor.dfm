@@ -823,7 +823,7 @@ object frmCadCor: TfrmCadCor
           OnClick = btnAlterar_NomeClick
         end
         object DBEdit1: TDBEdit
-          Left = 102
+          Left = 103
           Top = 35
           Width = 155
           Height = 21

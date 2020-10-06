@@ -619,7 +619,7 @@ begin
       //26/11/2019
       vAux_Cor := 0;
       if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_PERFIL.AsFloat)) > 0 then
-        vAux_Cor := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat + (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat * 2)) / 1000)
+        vAux_Cor := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat + fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat) / 1000 * 2)
                    * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_PERFIL.AsFloat));
       //******************
 
