@@ -6859,8 +6859,8 @@ object dmCadProduto: TdmCadProduto
       'SELECT *'
       'FROM PARAMETROS_EST')
     SQLConnection = dmDatabase.scoDados
-    Left = 1161
-    Top = 191
+    Left = 1187
+    Top = 177
     object qParametros_EstID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -6872,6 +6872,11 @@ object dmCadProduto: TdmCadProduto
     end
     object qParametros_EstUSA_PRODUTO_EST: TStringField
       FieldName = 'USA_PRODUTO_EST'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_EstINF_SALDO_INICIAL: TStringField
+      FieldName = 'INF_SALDO_INICIAL'
       FixedChar = True
       Size = 1
     end
@@ -10890,5 +10895,67 @@ object dmCadProduto: TdmCadProduto
     object qUltimoCodigoBalancaULTIMO: TIntegerField
       FieldName = 'ULTIMO'
     end
+  end
+  object sdsProduto_Saldo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT *'#13#10'FROM PRODUTO_SALDO'#13#10'WHERE ID = :ID'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 817
+    Top = 286
+    object sdsProduto_SaldoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsProduto_SaldoID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
+    object sdsProduto_SaldoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsProduto_SaldoDATA: TDateField
+      FieldName = 'DATA'
+    end
+  end
+  object dspProduto_Saldo: TDataSetProvider
+    DataSet = sdsProduto_Saldo
+    UpdateMode = upWhereKeyOnly
+    Left = 836
+    Top = 287
+  end
+  object cdsProduto_Saldo: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspProduto_Saldo'
+    Left = 857
+    Top = 288
+    object cdsProduto_SaldoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsProduto_SaldoID_MOVESTOQUE: TIntegerField
+      FieldName = 'ID_MOVESTOQUE'
+    end
+    object cdsProduto_SaldoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsProduto_SaldoDATA: TDateField
+      FieldName = 'DATA'
+    end
+  end
+  object dsProduto_Saldo: TDataSource
+    DataSet = cdsProduto_Saldo
+    Left = 874
+    Top = 289
   end
 end

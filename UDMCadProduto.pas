@@ -2033,6 +2033,19 @@ type
     qUltimoCodigoBalancaULTIMO: TIntegerField;
     qParametros_ProdGERAR_CODBARRA_ID: TStringField;
     qParametros_ProdATUALIZAR_COMB_AUT: TStringField;
+    qParametros_EstINF_SALDO_INICIAL: TStringField;
+    sdsProduto_Saldo: TSQLDataSet;
+    sdsProduto_SaldoID: TIntegerField;
+    sdsProduto_SaldoID_MOVESTOQUE: TIntegerField;
+    sdsProduto_SaldoQTD: TFloatField;
+    sdsProduto_SaldoDATA: TDateField;
+    dspProduto_Saldo: TDataSetProvider;
+    cdsProduto_Saldo: TClientDataSet;
+    cdsProduto_SaldoID: TIntegerField;
+    cdsProduto_SaldoID_MOVESTOQUE: TIntegerField;
+    cdsProduto_SaldoQTD: TFloatField;
+    cdsProduto_SaldoDATA: TDateField;
+    dsProduto_Saldo: TDataSource;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
@@ -2109,6 +2122,9 @@ type
     procedure prc_Inserir;
     procedure prc_Gravar;
     procedure prc_Excluir;
+
+    procedure prc_Abrir_Produto_Saldo(ID : Integer);
+    function fnc_Existe_Mov(ID_Produto, ID_MovEstoque : Integer) : Boolean;
 
     procedure prc_Inserir_ProdForn;
     procedure prc_Inserir_ProdAplic;
@@ -3977,6 +3993,41 @@ procedure TdmCadProduto.dspProduto_AdicionalGetTableName(Sender: TObject;
   DataSet: TDataSet; var TableName: String);
 begin
     TableName := 'PRODUTO_ADICIONAL';
+end;
+
+procedure TdmCadProduto.prc_Abrir_Produto_Saldo(ID: Integer);
+begin
+  cdsProduto_Saldo.Close;
+  sdsProduto_Saldo.ParamByName('ID').AsInteger := ID;
+  cdsProduto_Saldo.Open;
+end;
+
+function TdmCadProduto.fnc_Existe_Mov(ID_Produto, ID_MovEstoque: Integer): Boolean;
+var
+  sds: TSQLDataSet;
+  
+begin
+  Result := False;
+  sds  := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'SELECT COUNT(1) CONTADOR FROM estoque_mov E WHERE E.ID_PRODUTO = :ID_PRODUTO ';
+    if ID_MovEstoque > 0 then
+    begin
+      sds.CommandText := sds.CommandText + ' AND E.ID <> :ID ';
+      sds.ParamByName('ID').AsInteger := ID_MovEstoque;
+    end;
+    sds.ParamByName('ID_PRODUTO').AsInteger := ID_Produto;
+    sds.Open;
+    if sds.FieldByName('CONTADOR').AsInteger > 0 then
+      Result := True;
+  finally
+    FreeAndNil(sds);
+  end;
+
+
 end;
 
 end.

@@ -1180,8 +1180,9 @@ type
     procedure prcScroll(DataSet: TDataSet);
 
     procedure prc_CriaExcel(vDados: TDataSource);
+    procedure prc_Abrir_Form_Saldo(ID : Integer);
 
-    function fnc_Mostra_Nome_Prod(ID : Integer) : String;    
+    function fnc_Mostra_Nome_Prod(ID : Integer) : String;
 
   public
     { Public declarations }
@@ -1197,7 +1198,8 @@ uses rsDBUtils, uUtilPadrao, URelProduto, URelProduto_Grupo, USel_Grupo, USel_Pl
   USel_EnqIPI, USel_CodCest, VarUtils, UCadProduto_Serie, UCadProduto_Cad_Ant, UCadProcesso_Grupo, USel_ContaOrc, USel_Produto,
   uCopiar_Comb_Agrupado, UCadProduto_GradeNum, UCadProduto_Lote, USel_Produto_Lote, UCadProduto_Larg, UCadProduto_GradeRefTam,
   USel_Maquina, UAltProd, UCadProduto_Consumo_Proc, UCadLinha, UCadGrade, UCadPessoa, UMenu, UCadProduto_ST, uConsProduto_Compras,
-  UCadProduto_CA, UCadProduto_Aplic, USel_CBenef, USel_ANP;
+  UCadProduto_CA, UCadProduto_Aplic, USel_CBenef, USel_ANP,
+  UCadProduto_Saldo;
 
 {$R *.dfm}
 
@@ -1632,6 +1634,15 @@ begin
     sds.ExecSQL;
   end;
 
+  //06/10/2020
+  //if  fDMCadProduto.qParametros_EstINF_SALDO_INICIAL.AsString = 'S' then
+  if SQLLocate('PARAMETROS_EST','ID','INF_SALDO_INICIAL','1') = 'S' then
+  begin
+    fDMCadProduto.prc_Abrir_Produto_Saldo(vIDAux);
+    if not fDMCadProduto.fnc_Existe_Mov(vIDAux,fDMCadProduto.cdsProduto_SaldoID_MOVESTOQUE.AsInteger) then
+      prc_Abrir_Form_Saldo(vIDAux);
+  end;
+  //*********************
 
 end;
 
@@ -6728,6 +6739,14 @@ begin
       end;
       fDMCadProduto.cdsProduto_Comb.Next;
     end;
+end;
+
+procedure TfrmCadProduto.prc_Abrir_Form_Saldo(ID : Integer);
+begin
+  frmCadProduto_Saldo := TfrmCadProduto_Saldo.Create(self);
+  frmCadProduto_Saldo.fdmCadProduto := fdmCadProduto;
+  frmCadProduto_Saldo.ShowModal;
+  FreeAndNil(frmCadProduto_Saldo);
 end;
 
 end.
