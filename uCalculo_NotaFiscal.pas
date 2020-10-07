@@ -3341,6 +3341,8 @@ begin
               vDesconto_Rateio := StrToCurr(FormatCurr('0.00',(vPercAux * vDesconto_Nota_Orig) / 100))
             else
               vDesconto_Rateio := StrToFloat(FormatFloat('0.00',(vPercAux * vDesconto_Nota_Orig) / 100));
+            if StrToFloat(FormatFloat('0.00',vVlrTotalItens - vDesconto_Rateio)) = 0.01 then
+              vDesconto_Rateio := vDesconto_Rateio + StrToFloat(FormatFloat('0.00',0.01));
             if StrToFloat(FormatFloat('0.00',vDesconto_Rateio)) > StrToFloat(FormatFloat('0.00',vDesconto_Nota)) then
               vDesconto_Rateio := StrToFloat(FormatFloat('0.00',vDesconto_Nota));
           end;

@@ -49,6 +49,9 @@ procedure TfrmCadProduto_Saldo.FormShow(Sender: TObject);
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadProduto);
 
+  CurrencyEdit1.AsInteger := fDMCadProduto.cdsProdutoID.AsInteger;
+  Edit1.Text              := fDMCadProduto.cdsProdutoNOME.AsString;
+
   if fDMCadProduto.cdsProduto_SaldoDATA.AsDateTime > 10 then
     DateEdit1.Date := fDMCadProduto.cdsProduto_SaldoDATA.AsDateTime
   else
