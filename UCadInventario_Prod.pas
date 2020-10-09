@@ -30,6 +30,7 @@ type
     procedure FormShow(Sender: TObject);
     procedure NxButton3Click(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
+    procedure RadioGroup1Click(Sender: TObject);
   private
     { Private declarations }
     vVazio: Boolean;
@@ -37,6 +38,7 @@ type
     vMSGProd : String;
 
     procedure prc_Gravar_Itens;
+    procedure prc_Filtrar;
 
     function fnc_existe_prod : Boolean;
 
@@ -116,11 +118,12 @@ begin
   fDMCadInventario.cdsInventario_ItensITEM.AsInteger       := vItem_Inventario;
   fDMCadInventario.cdsInventario_ItensID_PRODUTO.AsInteger := fDMCadInventario.cdsProdutoID.AsInteger;
   fDMCadInventario.cdsInventario_ItensTAMANHO.AsString     := fDMCadInventario.cdsProdutoTAMANHO.AsString;
-  fDMCadInventario.cdsInventario_ItensQTD_ESTOQUE.AsFloat  := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoclQtd.AsFloat));
+  //fDMCadInventario.cdsInventario_ItensQTD_ESTOQUE.AsFloat  := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoclQtd.AsFloat));
+  fDMCadInventario.cdsInventario_ItensQTD_ESTOQUE.AsFloat  := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoQTD.AsFloat));
   if fDMCadInventario.qParametrosINV_TRAZER_QTD_ZERADA.AsString = 'S' then
     fDMCadInventario.cdsInventario_ItensQTD_INVENTARIO.AsFloat := StrToFloat(FormatFloat('0.000000',0))
   else
-    fDMCadInventario.cdsInventario_ItensQTD_INVENTARIO.AsFloat := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoclQtd.AsFloat));
+    fDMCadInventario.cdsInventario_ItensQTD_INVENTARIO.AsFloat := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoQTD.AsFloat));
   fDMCadInventario.cdsInventario_ItensQTD_AJUSTE.AsFloat   := 0;
   fDMCadInventario.cdsInventario_ItensTIPO_AJUSTE.AsString := 'N';
   fDMCadInventario.cdsInventario_ItensVLR_UNITARIO.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadInventario.cdsProdutoPRECO_CUSTO.AsFloat));
@@ -145,26 +148,18 @@ begin
     if (SMDBGrid1.Columns[i].FieldName = 'NOME_COR') then
       SMDBGrid1.Columns[i].Visible := ((fDMCadInventario.qParametrosINFORMAR_COR_MATERIAL.AsString = 'S') or (fDMCadInventario.qParametrosINFORMAR_COR_PROD.AsString = 'C'))
     else
-    if (SMDBGrid1.Columns[i].FieldName = 'clQtd_Geral') then
-      SMDBGrid1.Columns[i].Visible := (fDMCadInventario.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
+    if (SMDBGrid1.Columns[i].FieldName = 'QTD_GERAL') then
+      SMDBGrid1.Columns[i].Visible := (fDMCadInventario.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') and (trim(fDMCadInventario.qParametros_EstINVENTARIO_ESTMOV.AsString) <> 'S');
   end;
-  Panel2.Visible := True; //(fDMCadInventario.qParametros_EstINVENTARIO_ESTMOV.AsString = 'S'); em 03/03/20 Inácio
+  //RadioGroup1.Visible := (fDMCadInventario.qParametros_EstINVENTARIO_ESTMOV.AsString = 'S'); 08/10/2020
   NxFlipPanel1.Expanded := False;
 end;
 
 procedure TfrmCadInventario_Prod.NxButton3Click(Sender: TObject);
 begin
-  fDMCadInventario.prc_Abrir_Produto(fDMCadInventario.cdsInventarioTIPO_REG.AsString,Edit2.Text,Edit1.Text,CurrencyEdit1.AsInteger);
   fDMCadInventario.cdsProduto.Filtered := False;
-  if RadioGroup1.ItemIndex > 0 then
-  begin
-    if RadioGroup1.ItemIndex = 1 then
-      fDMCadInventario.cdsProduto.Filter := 'QTD > 0'
-    else
-    if RadioGroup1.ItemIndex = 2 then
-      fDMCadInventario.cdsProduto.Filter := 'QTD < 0';
-    fDMCadInventario.cdsProduto.Filtered := True;
-  end;
+  fDMCadInventario.prc_Abrir_Produto(fDMCadInventario.cdsInventarioTIPO_REG.AsString,Edit2.Text,Edit1.Text,CurrencyEdit1.AsInteger);
+  prc_Filtrar;
 end;
 
 procedure TfrmCadInventario_Prod.SMDBGrid1TitleClick(Column: TColumn);
@@ -195,7 +190,7 @@ begin
                        + 'where I.ID_PRODUTO = :ID_PRODUTO and '
                        + 'V.FILIAL = :FILIAL and '
                        + '(I.ID_COR = :ID_COR or :ID_COR = 0) and '
-                       + '(I.TAMANHO = :TAMANHO or :TAMANHO = ' + QuotedStr('') + ') and '
+                       + '(coalesce(I.TAMANHO, ' + QuotedStr('') + ') = :TAMANHO) and '
                        + 'coalesce(V.GERADO_ESTOQUE, ' +QuotedStr('N') + ') = ' +QuotedStr('N');
     sds.ParamByName('ID_PRODUTO').AsInteger := fDMCadInventario.cdsProdutoID.AsInteger;
     sds.ParamByName('FILIAL').AsInteger     := fDMCadInventario.cdsInventarioFILIAL.AsInteger;
@@ -224,6 +219,26 @@ begin
     FreeAndNil(sds);
   end;
 
+end;
+
+procedure TfrmCadInventario_Prod.RadioGroup1Click(Sender: TObject);
+begin
+  if fDMCadInventario.cdsProduto.Active then
+    prc_Filtrar;
+end;
+
+procedure TfrmCadInventario_Prod.prc_Filtrar;
+begin
+  fDMCadInventario.cdsProduto.Filtered := False;
+  if RadioGroup1.ItemIndex > 0 then
+  begin
+    if RadioGroup1.ItemIndex = 1 then
+      fDMCadInventario.cdsProduto.Filter := 'QTD > 0,00000'
+    else
+    if RadioGroup1.ItemIndex = 2 then
+      fDMCadInventario.cdsProduto.Filter := 'QTD < 0,00000';
+    fDMCadInventario.cdsProduto.Filtered := True;
+  end;
 end;
 
 end.

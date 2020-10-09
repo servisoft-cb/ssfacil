@@ -122,7 +122,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
           end
           item
             Expanded = False
-            FieldName = 'clQtd'
+            FieldName = 'QTD'
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Atual'
             Width = 97
@@ -130,7 +130,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
           end
           item
             Expanded = False
-            FieldName = 'clQtd_Geral'
+            FieldName = 'QTD_GERAL'
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Geral'
             Width = 96
@@ -141,6 +141,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Grupo'
+            Width = 64
             Visible = True
           end>
       end
@@ -291,6 +292,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
             'Com Saldo'
             'Negativo')
           TabOrder = 0
+          OnClick = RadioGroup1Click
         end
         object Edit1: TEdit
           Left = 64

@@ -639,8 +639,9 @@ begin
       //19/02/2020                                                             
       //calculo do acabamento hoje esta em M2  30/06/2020  aqui
       if StrToFloat(FormatFloat('0.0000',vVlr_Acabamento)) > 0 then
-        vVlr_Acab_Aux := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
-              * vVlr_Acab_Aux));
+        //vVlr_Acab_Aux := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
+          //    * vVlr_Acab_Aux));
+        vVlr_Acab_Aux := StrToFloat(FormatFloat('0.00',vVlr_Acabamento));
       //*****************
 
 

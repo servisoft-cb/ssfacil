@@ -277,17 +277,39 @@ object DMCadInventario: TDMCadInventario
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT PT.TAMANHO, PRO.*, GR.NOME NOME_GRUPO, PC.NOME NOME_COR, ' +
-      'PC.id_cor_combinacao, CAST (0.0000 as Float) QTD'#13#10'FROM PRODUTO P' +
-      'RO'#13#10'LEFT JOIN PRODUTO_TAM PT'#13#10'ON PRO.ID = PT.ID'#13#10'LEFT JOIN PRODU' +
-      'TO_COMB PC'#13#10'ON PRO.ID = PC.ID'#13#10'LEFT JOIN GRUPO GR'#13#10'ON PRO.ID_GRU' +
-      'PO = GR.ID'#13#10'WHERE PRO.INATIVO = '#39'N'#39#13#10'      AND PRO.ESTOQUE = '#39'S'#39 +
-      #13#10#13#10
+      'select AUX.*,'#13#10'       CAST( (select sum(E.QTD)'#13#10'        from EST' +
+      'OQUE_ATUAL E'#13#10'        where E.FILIAL = :FILIAL and'#13#10'            ' +
+      '  E.ID_LOCAL_ESTOQUE = :ID_LOCAL_ESTOQUE and'#13#10'              E.ID' +
+      '_PRODUTO = AUX.ID and'#13#10'              E.ID_COR = AUX.ID_COR_COMBI' +
+      'NACAO and'#13#10'              E.TAMANHO = AUX.TAMANHO) AS DOUBLE prec' +
+      'ision) QTD,'#13#10'       CAST( (select sum(QTD) QTD_GERAL'#13#10'        fr' +
+      'om ESTOQUE_ATUAL E2'#13#10'        where E2.ID_PRODUTO = AUX.ID and'#13#10' ' +
+      '             E2.ID_COR = AUX.ID_COR_COMBINACAO and'#13#10'            ' +
+      '  E2.TAMANHO = AUX.TAMANHO) AS DOUBLE precision) QTD_GERAL'#13#10'from' +
+      ' (select coalesce(PT.TAMANHO, '#39#39') TAMANHO, PRO.ID, PRO.REFERENCI' +
+      'A, PRO.NOME, PRO.PERC_IPI, PRO.PRECO_CUSTO,'#13#10'             PRO.PR' +
+      'ECO_VENDA, GR.NOME NOME_GRUPO, pro.inativo, PRO.UNIDADE, PC.NOME' +
+      ' NOME_COR,'#13#10'             coalesce(PC.ID_COR_COMBINACAO, 0) ID_CO' +
+      'R_COMBINACAO'#13#10'      from PRODUTO PRO'#13#10'      left join PRODUTO_TA' +
+      'M PT on PRO.ID = PT.ID'#13#10'      left join PRODUTO_COMB PC on PRO.I' +
+      'D = PC.ID'#13#10'      left join GRUPO GR on PRO.ID_GRUPO = GR.ID'#13#10'   ' +
+      '   where PRO.INATIVO = '#39'N'#39' and'#13#10'            PRO.ESTOQUE = '#39'S'#39') A' +
+      'UX'#13#10
     MaxBlobSize = -1
-    Params = <>
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'FILIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_LOCAL_ESTOQUE'
+        ParamType = ptInput
+      end>
     SQLConnection = dmDatabase.scoDados
-    Left = 552
-    Top = 128
+    Left = 554
+    Top = 127
   end
   object dspProduto: TDataSetProvider
     DataSet = sdsProduto
@@ -300,7 +322,7 @@ object DMCadInventario: TDMCadInventario
     Params = <>
     ProviderName = 'dspProduto'
     OnCalcFields = cdsProdutoCalcFields
-    Left = 624
+    Left = 625
     Top = 128
     object cdsProdutoID: TIntegerField
       FieldName = 'ID'
@@ -339,11 +361,6 @@ object DMCadInventario: TDMCadInventario
       FieldName = 'UNIDADE'
       Size = 3
     end
-    object cdsProdutoclQtd: TFloatField
-      FieldKind = fkCalculated
-      FieldName = 'clQtd'
-      Calculated = True
-    end
     object cdsProdutoNOME_COR: TStringField
       FieldName = 'NOME_COR'
       Size = 50
@@ -351,14 +368,13 @@ object DMCadInventario: TDMCadInventario
     object cdsProdutoID_COR_COMBINACAO: TIntegerField
       FieldName = 'ID_COR_COMBINACAO'
     end
-    object cdsProdutoclQtd_Geral: TFloatField
-      FieldKind = fkCalculated
-      FieldName = 'clQtd_Geral'
-      Calculated = True
-    end
     object cdsProdutoQTD: TFloatField
       FieldName = 'QTD'
-      Required = True
+      DisplayFormat = '0.000##'
+    end
+    object cdsProdutoQTD_GERAL: TFloatField
+      FieldName = 'QTD_GERAL'
+      DisplayFormat = '0.000##'
     end
   end
   object dsProduto: TDataSource
@@ -927,8 +943,8 @@ object DMCadInventario: TDMCadInventario
     Params = <>
     ProviderName = 'dspEstoque_Lote'
     OnCalcFields = cdsProdutoCalcFields
-    Left = 624
-    Top = 177
+    Left = 623
+    Top = 176
     object cdsEstoque_LoteFILIAL: TIntegerField
       FieldName = 'FILIAL'
       Required = True

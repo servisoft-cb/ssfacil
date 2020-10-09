@@ -98,7 +98,6 @@ type
     cdsEstoque_AtualID_COR: TIntegerField;
     cdsEstoque_AtualTAMANHO: TStringField;
     cdsEstoque_AtualQTD: TFMTBCDField;
-    cdsProdutoclQtd: TFloatField;
     cdsProdutoNOME_GRUPO: TStringField;
     cdsProdutoUNIDADE: TStringField;
     mExcluir: TClientDataSet;
@@ -134,7 +133,6 @@ type
     cdsInventario_ConsultaID_LOCAL_ESTOQUE: TIntegerField;
     cdsInventario_ConsultaCOD_LOCAL: TIntegerField;
     cdsInventario_ConsultaNOME_LOCAL: TStringField;
-    cdsProdutoclQtd_Geral: TFloatField;
     cdsInventario_ItensUNIDADE: TStringField;
     cdsInventario_ItensNOME_COR_COMBINACAO: TStringField;
     cdsInventario_ItensREFERENCIA: TStringField;
@@ -156,7 +154,6 @@ type
     cdsEstMovTAMANHO: TStringField;
     qParametros_Est: TSQLQuery;
     qParametros_EstINVENTARIO_ESTMOV: TStringField;
-    cdsProdutoQTD: TFloatField;
     qProdutoID: TIntegerField;
     qProdutoPRECO_CUSTO: TFloatField;
     qProdutoTIPO_REG: TStringField;
@@ -195,6 +192,8 @@ type
     mNaoGravadosData: TDateField;
     dsmNaoGravados: TDataSource;
     mNaoGravadosNum_Inventario: TIntegerField;
+    cdsProdutoQTD: TFloatField;
+    cdsProdutoQTD_GERAL: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsInventarioNewRecord(DataSet: TDataSet);
     procedure dspInventarioUpdateError(Sender: TObject;
@@ -226,9 +225,7 @@ type
     procedure prc_Gravar;
     procedure prc_Excluir;
     procedure prc_Inserir_Itens;
-
     function fnc_Possui_Erro: Boolean;
-
     procedure prc_Abrir_Produto(Tipo_Reg, Referencia, Nome: String ; ID_Produto : Integer);
 
   end;
@@ -380,13 +377,13 @@ var
   vTam: String;
   vCor: Integer;
 begin
-  cdsProdutoclQtd.AsFloat       := StrToFloat(FormatFloat('0.0000',0));
-  cdsProdutoclQtd_Geral.AsFloat := StrToFloat(FormatFloat('0.0000',0));
-  if qParametros_EstINVENTARIO_ESTMOV.AsString = 'S' then
-    cdsProdutoclQtd.AsFloat := StrToFloat(FormatFloat('0.0000',cdsProdutoQTD.AsFloat))
-  else
+  //cdsProdutoclQtd.AsFloat       := StrToFloat(FormatFloat('0.0000',0));
+  //cdsProdutoclQtd_Geral.AsFloat := StrToFloat(FormatFloat('0.0000',0));
+  //if qParametros_EstINVENTARIO_ESTMOV.AsString = 'S' then
+    //cdsProdutoclQtd.AsFloat := StrToFloat(FormatFloat('0.0000',cdsProdutoQTD.AsFloat))
+  //else
   begin
-    if (trim(cdsProdutoTAMANHO.AsString) = '') or (cdsProdutoTAMANHO.IsNull) then
+    {if (trim(cdsProdutoTAMANHO.AsString) = '') or (cdsProdutoTAMANHO.IsNull) then
       vTam := ''
     else
       vTam := cdsProdutoTAMANHO.AsString;
@@ -408,7 +405,7 @@ begin
         cdsProdutoclQtd.AsFloat       := StrToFloat(FormatFloat('0.0000',cdsEstoque_AtualQTD.AsFloat));
         cdsProdutoclQtd_Geral.AsFloat := StrToFloat(FormatFloat('0.0000',cdsEstoque_AtualQTD_GERAL.AsFloat));
       end;
-    end;
+    end;}
   end;
 end;
 
@@ -477,7 +474,9 @@ begin
   vTab := 'PRO.';
   if qParametros_EstINVENTARIO_ESTMOV.AsString = 'S' then
   begin
-    sdsProduto.CommandText := 'SELECT AUX.*, (SELECT SUM(EM.QTD2) QTD  FROM ESTOQUE_MOV EM '
+    sdsProduto.CommandText := 'SELECT AUX.*, (SELECT coalesce(round(sum(EM.QTD2),5),0) QTD FROM ESTOQUE_MOV EM '
+
+
                                              + ' where EM.filial = :FILIAL '
                                              + '  AND EM.id_local_estoque = :ID_LOCAL_ESTOQUE '
                                              + '  AND EM.dtmovimento <= :DATA '
@@ -487,7 +486,7 @@ begin
                                              + '  FROM ('
                                              + '  SELECT PRO.ID, PRO.REFERENCIA, PRO.nome, PRO.INATIVO, PRO.perc_ipi,'
                                              + '  PRO.preco_custo, PRO.preco_venda, PRO.unidade, GR.NOME NOME_GRUPO,'
-                                             + '  PC.NOME NOME_COR,'
+                                             + '  PC.NOME NOME_COR, CAST(0 AS DOUBLE PRECISION) QTD_GERAL, '
                                              + '  CASE'
                                              + ' WHEN PT.TAMANHO IS NULL THEN ' + QuotedStr('')
                                              + ' ELSE PT.TAMANHO '
@@ -509,10 +508,35 @@ begin
     //sdsProduto.ParamByName('FILIAL').AsInteger           := cdsInventarioFILIAL.AsInteger;
     //sdsProduto.ParamByName('ID_LOCAL_ESTOQUE').AsInteger := cdsInventarioID_LOCAL_ESTOQUE.AsInteger;
     //sdsProduto.ParamByName('DATA').AsDate                := cdsInventarioDATA.AsDateTime;
-    vTab := 'AUX.'
+    vTab := 'AUX.';
   end
   else
-    sdsProduto.CommandText := ctProduto + ' AND PRO.TIPO_REG = ' + QuotedStr(Tipo_Reg);
+  begin
+    vTab := 'AUX.';
+    sdsProduto.CommandText := 'select AUX.*, '
+                            + ' CAST( (select sum(E.QTD) QTD '
+                            + '               from ESTOQUE_ATUAL E '
+                            + '               where E.FILIAL = :FILIAL and '
+                            + '                     E.ID_LOCAL_ESTOQUE = :ID_LOCAL_ESTOQUE and '
+                            + '                     E.ID_PRODUTO = AUX.ID and '
+                            + '                     E.ID_COR = AUX.ID_COR_COMBINACAO and '
+                            + '                     E.TAMANHO = AUX.TAMANHO) AS DOUBLE PRECISION) QTD, '
+                            + '              CAST ( (select sum(QTD) QTD_GERAL '
+                            + '               from ESTOQUE_ATUAL E2 '
+                            + '               where E2.ID_PRODUTO = AUX.ID and '
+                            + '                     E2.ID_COR = AUX.ID_COR_COMBINACAO and '
+                            + '                     E2.TAMANHO = AUX.TAMANHO) AS DOUBLE precision) QTD_GERAL '
+                            + '       from (select coalesce(PT.TAMANHO, ' +QuotedStr('') + ') TAMANHO, PRO.ID, PRO.REFERENCIA, PRO.NOME, PRO.PERC_IPI, PRO.PRECO_CUSTO, '
+                            + '                    PRO.PRECO_VENDA, PRO.INATIVO, PRO.UNIDADE, GR.NOME NOME_GRUPO, PC.NOME NOME_COR, '
+                            + '                    coalesce(PC.ID_COR_COMBINACAO, 0) ID_COR_COMBINACAO '
+                            + '             from PRODUTO PRO '
+                            + '             left join PRODUTO_TAM PT on PRO.ID = PT.ID '
+                            + '             left join PRODUTO_COMB PC on PRO.ID = PC.ID '
+                            + '             left join GRUPO GR on PRO.ID_GRUPO = GR.ID '
+                            + '             where PRO.INATIVO = ' + QuotedStr('N') + ' and '
+                            + '                   PRO.TIPO_REG = ' + QuotedStr(Tipo_Reg) + ' and '
+                            + '                   PRO.ESTOQUE = ' + QuotedStr('S') + ') AUX '
+  end;
 
   if ID_Produto > 0 then
     sdsProduto.CommandText := sdsProduto.CommandText +  ' AND ' + vTab + 'ID = ' + IntToStr(ID_Produto);
@@ -520,12 +544,10 @@ begin
     sdsProduto.CommandText := sdsProduto.CommandText + ' AND ' + vTab + 'REFERENCIA LIKE ' + QuotedStr('%'+Referencia+'%');
   if trim(Nome) <> '' then
     sdsProduto.CommandText := sdsProduto.CommandText + ' AND ' + vTab + 'NOME LIKE ' + QuotedStr('%'+Nome+'%');
+  sdsProduto.ParamByName('FILIAL').AsInteger           := cdsInventarioFILIAL.AsInteger;
+  sdsProduto.ParamByName('ID_LOCAL_ESTOQUE').AsInteger := cdsInventarioID_LOCAL_ESTOQUE.AsInteger;
   if qParametros_EstINVENTARIO_ESTMOV.AsString = 'S' then
-  begin
-    sdsProduto.ParamByName('FILIAL').AsInteger           := cdsInventarioFILIAL.AsInteger;
-    sdsProduto.ParamByName('ID_LOCAL_ESTOQUE').AsInteger := cdsInventarioID_LOCAL_ESTOQUE.AsInteger;
     sdsProduto.ParamByName('DATA').AsDate                := cdsInventarioDATA.AsDateTime;
-  end;
   cdsProduto.Open;
 end;
 
