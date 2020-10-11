@@ -383,6 +383,10 @@ begin
     fDMCadNotaFiscal.cdsNotaFiscal_ItensNOME_PRODUTO.AsString := fDMCadNotaFiscal.cdsProdutoNOME.AsString;
   fDMCadNotaFiscal.cdsNotaFiscal_ItensREFERENCIA.AsString   := fDMCadNotaFiscal.cdsProdutoREFERENCIA.AsString;
 
+  //11/10/2020
+  fDMCadNotaFiscal.cdsNotaFiscal_ItensPRECO_CUSTO.AsFloat := fnc_Preco_Custo(fDMCadNotaFiscal);
+  //*******************
+
   //Controle do estoque  11/05/2015
   if (fDMCadNotaFiscal.cdsParametrosCONTROLAR_ESTOQUE_SAIDA.AsString = 'S') and (fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString = 'S')
     and (fDMCadNotaFiscal.cdsNotaFiscalTIPO_NOTA.AsString = 'S') then

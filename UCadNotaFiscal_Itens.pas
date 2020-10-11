@@ -1509,6 +1509,9 @@ begin
       prc_Calcula_IPI_Pago_Empresa;
   end;
   //******************
+  //11/10/2020
+  fDMCadNotaFiscal.cdsNotaFiscal_ItensPRECO_CUSTO.AsFloat := fnc_Preco_Custo(fDMCadNotaFiscal);
+  //*******************
 
   if fDMCadNotaFiscal.cdsProdutoTIPO_REG.AsString = 'N' then
     fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N';

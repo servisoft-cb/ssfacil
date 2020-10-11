@@ -615,6 +615,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 9
   end
   object cdsNotaFiscal: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
@@ -1978,6 +1979,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object sdsNotaFiscal_ItensANP_VLR_VPART: TFloatField
       FieldName = 'ANP_VLR_VPART'
     end
+    object sdsNotaFiscal_ItensPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
   end
   object cdsNotaFiscal_Itens: TClientDataSet
     Aggregates = <>
@@ -2665,6 +2669,9 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     object cdsNotaFiscal_ItensANP_VLR_VPART: TFloatField
       FieldName = 'ANP_VLR_VPART'
     end
+    object cdsNotaFiscal_ItensPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
   end
   object dsNotaFiscal_Itens: TDataSource
     DataSet = cdsNotaFiscal_Itens
@@ -2702,6 +2709,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_Desconto: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Desconto
     IndexFieldNames = 'ID;ITEM'
@@ -2763,6 +2771,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_Lacre: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Lacre
     IndexFieldNames = 'ID;ITEM'
@@ -2855,6 +2864,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_NFe: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_NFe
     IndexFieldNames = 'ID;ITEM'
@@ -2972,6 +2982,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_Parc: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Parc
     IndexFieldNames = 'ID;ITEM'
@@ -3078,6 +3089,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_Reboque: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Reboque
     IndexFieldNames = 'ID;ITEM'
@@ -3200,6 +3212,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_Ref: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Ref
     IndexFieldNames = 'ID;ITEM'
@@ -5204,6 +5217,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 311
   end
   object cdsTipoCobranca: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5284,6 +5298,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Top = 358
   end
   object cdsContas: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -11304,6 +11319,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_Imp_Aux: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Imp_Aux
     IndexFieldNames = 'ID;ITEM'
@@ -11476,6 +11492,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_Lei: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Lei
     Params = <>
@@ -14744,6 +14761,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
   end
   object cdsNotaFiscal_Custo: TClientDataSet
+    Active = True
     Aggregates = <>
     DataSetField = cdsNotaFiscalsdsNotaFiscal_Custo
     IndexFieldNames = 'ID;ITEM'

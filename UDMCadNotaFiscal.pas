@@ -3209,6 +3209,8 @@ type
     sdsNotaFiscalVLR_DESCONTO_ITENS: TFloatField;
     cdsNotaFiscalVLR_DESCONTO_ITENS: TFloatField;
     cdsTransportadoraPESSOA: TStringField;
+    sdsNotaFiscal_ItensPRECO_CUSTO: TFloatField;
+    cdsNotaFiscal_ItensPRECO_CUSTO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

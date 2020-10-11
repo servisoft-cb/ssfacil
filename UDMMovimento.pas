@@ -208,6 +208,8 @@ type
     cdsMovimentoID_VENDEDOR_INT: TIntegerField;
     sdsMovimentoVLR_TROCA: TFloatField;
     cdsMovimentoVLR_TROCA: TFloatField;
+    sdsMovimentoPRECO_CUSTO: TFloatField;
+    cdsMovimentoPRECO_CUSTO: TFloatField;
     procedure cdsMovimentoReconcileError(DataSet: TCustomClientDataSet;
       E: EReconcileError; UpdateKind: TUpdateKind;
       var Action: TReconcileAction);
@@ -228,7 +230,7 @@ type
                                   Terminal: Integer; Preco_Custo_Total: Real; Retem_PISCOFINS: String;
                                   BASE_FCP_ST, BASE_ICMS_FCP, BASE_ICMS_FCP_DEST, VLR_ICMS_FCP_DEST,VLR_ICMS_FCP,VLR_FCP_ST,
                                   Comprimento, Largura, Espessura: Real;
-                                  ID_Vendedor_Int : Integer; Vlr_Troca : Real): Integer;
+                                  ID_Vendedor_Int : Integer; Vlr_Troca, Preco_Custo : Real): Integer;
 
     procedure prc_ImprimeVendasCupomW;//WriteLn
     procedure prc_ImprimeVendasCupomC(cAvanco: Word);//Canvas
@@ -279,7 +281,7 @@ function TDMMovimento.fnc_Gravar_Movimento(ID_Mov, Filial, Item,
   Terminal: Integer; Preco_Custo_Total: Real; Retem_PISCOFINS: String;
   BASE_FCP_ST, BASE_ICMS_FCP, BASE_ICMS_FCP_DEST, VLR_ICMS_FCP_DEST,VLR_ICMS_FCP,VLR_FCP_ST,
   Comprimento, Largura, Espessura: Real;
-  ID_Vendedor_Int: Integer; Vlr_Troca : Real): Integer;
+  ID_Vendedor_Int: Integer; Vlr_Troca, Preco_Custo : Real): Integer;
 var
   vAux: Integer;
 begin
@@ -387,8 +389,12 @@ begin
     cdsMovimentoVLR_LIQUIDO_NFSE.AsFloat   := StrToFloat(FormatFloat('0.00',Vlr_Liquido_NFSe));
     cdsMovimentoVLR_CUPOMFISCAL.AsFloat    := StrToFloat(FormatFloat('0.00',Vlr_CupomFiscal));
 
+    //11/10/2020
+    cdsMovimentoPRECO_CUSTO.AsFloat := StrToFloat(FormatFloat('0.00000#####',Preco_Custo));
+    //******************
+
     //23/01/2018
-    cdsMovimentoPRECO_CUSTO_TOTAL.AsFloat  := StrToFloat(FormatFloat('0.00000',Preco_Custo_Total));
+    cdsMovimentoPRECO_CUSTO_TOTAL.AsFloat  := StrToFloat(FormatFloat('0.00000#####',Preco_Custo_Total));
     //**************
 
     //20/08/2018

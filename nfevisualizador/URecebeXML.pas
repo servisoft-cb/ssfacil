@@ -3765,7 +3765,8 @@ begin
                                                fDMRecebeXML.cdsNotaFiscal_ItensVLR_FCP_ST.AsFloat,
                                                fDMRecebeXML.cdsNotaFiscal_ItensCOMPRIMENTO.AsFloat,
                                                fDMRecebeXML.cdsNotaFiscal_ItensLARGURA.AsFloat,
-                                               fDMRecebeXML.cdsNotaFiscal_ItensESPESSURA.AsFloat,0,0);
+                                               fDMRecebeXML.cdsNotaFiscal_ItensESPESSURA.AsFloat,0,0,
+                                               fDMRecebeXML.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat);
 end;
 
 procedure TfrmRecebeXML.DBEdit70Exit(Sender: TObject);

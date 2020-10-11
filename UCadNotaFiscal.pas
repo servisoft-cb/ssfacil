@@ -1054,7 +1054,8 @@ begin
                                                        fDMCadNotaFiscal.cdsNotaFiscal_ItensCOMPRIMENTO.AsFloat,
                                                        fDMCadNotaFiscal.cdsNotaFiscal_ItensLARGURA.AsFloat,
                                                        fDMCadNotaFiscal.cdsNotaFiscal_ItensESPESSURA.AsFloat,
-                                                       vID_Vendedor_Int,0);
+                                                       vID_Vendedor_Int,0,
+                                                       fDMCadNotaFiscal.cdsNotaFiscal_ItensPRECO_CUSTO.AsFloat);
         end;
         if (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_MOVESTOQUE.AsInteger <> vID_Estoque) or
            (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_MOVIMENTO.AsInteger <> vID_Mov) then

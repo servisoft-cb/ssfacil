@@ -66,6 +66,8 @@ uses
   function fnc_Buscar_Regra_CFOP(fDMCadNotaFiscal: TDMCadNotaFiscal; ID_CFOP: Integer): Integer;
   function fnc_Buscar_CBenef_CSTICMS(fDMCadNotaFiscal: TDMCadNotaFiscal) : String;
 
+  function fnc_Preco_Custo(fDMCadNotaFiscal: TDMCadNotaFiscal) : Real;
+
   procedure prc_Zera_Campos_Nota(fDMCadNotaFiscal: TDMCadNotaFiscal);
 
 var
@@ -4413,6 +4415,20 @@ begin
   fDMCadNotaFiscal.cdsNotaFiscalVLR_ICMS_FCP_DEST.AsFloat      := 0;
   fDMCadNotaFiscal.cdsNotaFiscalVLR_ICMS_UF_DEST.AsFloat  := 0;
   fDMCadNotaFiscal.cdsNotaFiscalVLR_ICMS_UF_REMET.AsFloat := 0;
+end;
+
+function fnc_Preco_Custo(fDMCadNotaFiscal: TDMCadNotaFiscal) : Real;
+begin
+  Result := fDMCadNotaFiscal.cdsProdutoPRECO_CUSTO.AsFloat;
+  if fDMCadNotaFiscal.cdsProdutoUSA_PRECO_COR.AsString = 'S' then
+  begin
+    fDMCadNotaFiscal.cdsProduto_Comb.Close;
+    fDMCadNotaFiscal.sdsProduto_Comb.ParamByName('ID').AsInteger                := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger;
+    fDMCadNotaFiscal.sdsProduto_Comb.ParamByName('ID_COR_COMBINACAO').AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_COR.AsInteger;
+    fDMCadNotaFiscal.cdsProduto_Comb.Open;
+    if StrToFloat(FormatFloat('0.00000',fDMCadNotaFiscal.sdsProduto_CombPRECO_CUSTO.AsFloat)) > 0 then
+      Result := StrToFloat(FormatFloat('0.00000#####',fDMCadNotaFiscal.cdsProduto_CombPRECO_CUSTO.AsFloat));
+  end;
 end;
 
 end.
