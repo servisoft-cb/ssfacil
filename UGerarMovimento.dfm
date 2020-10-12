@@ -190,6 +190,23 @@ object frmGerarMovimento: TfrmGerarMovimento
     Transparent = True
     OnClick = btnGravar_MetasClick
   end
+  object btnAjustar_PrecoCusto: TNxButton
+    Left = 26
+    Top = 477
+    Width = 348
+    Height = 30
+    Caption = 'Ajustar Pre'#231'o Custo nos Movimentos'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Arial'
+    Font.Style = []
+    GlyphSpacing = 5
+    ParentFont = False
+    TabOrder = 8
+    Transparent = True
+    OnClick = btnAjustar_PrecoCustoClick
+  end
   object sdsCupomFiscal: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -508,6 +525,9 @@ object frmGerarMovimento: TfrmGerarMovimento
     object sdsCupomFiscal_ItensID_COR_COMBINACO: TIntegerField
       FieldName = 'ID_COR_COMBINACO'
     end
+    object sdsCupomFiscal_ItensPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
   end
   object cdsCupomFiscal_Itens: TClientDataSet
     Aggregates = <>
@@ -604,6 +624,9 @@ object frmGerarMovimento: TfrmGerarMovimento
     end
     object cdsCupomFiscal_ItensID_COR_COMBINACO: TIntegerField
       FieldName = 'ID_COR_COMBINACO'
+    end
+    object cdsCupomFiscal_ItensPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
     end
   end
   object qFilial: TSQLQuery
@@ -1622,5 +1645,106 @@ object frmGerarMovimento: TfrmGerarMovimento
     DataSet = cdsNota
     Left = 656
     Top = 480
+  end
+  object sdsMov: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select m.id, m.num_nota, m.dtemissao, m.dtentradasaida, m.tipo_r' +
+      'eg, m.tipo_mov, m.tipo_es,'#13#10'm.id_produto, m.id_cor, m.preco_cust' +
+      'o'#13#10'from movimento m'#13#10'WHERE M.tipo_es = '#39'S'#39#13#10'  and m.cancelado = ' +
+      #39'N'#39#13#10'  and m.denegada = '#39'N'#39#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 280
+    Top = 513
+    object sdsMovID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object sdsMovNUM_NOTA: TIntegerField
+      FieldName = 'NUM_NOTA'
+    end
+    object sdsMovDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
+    end
+    object sdsMovDTENTRADASAIDA: TDateField
+      FieldName = 'DTENTRADASAIDA'
+    end
+    object sdsMovTIPO_REG: TStringField
+      FieldName = 'TIPO_REG'
+      Size = 3
+    end
+    object sdsMovTIPO_MOV: TStringField
+      FieldName = 'TIPO_MOV'
+      Size = 3
+    end
+    object sdsMovTIPO_ES: TStringField
+      FieldName = 'TIPO_ES'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsMovID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object sdsMovID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object sdsMovPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
+  end
+  object dspMov: TDataSetProvider
+    DataSet = sdsMov
+    Left = 312
+    Top = 513
+  end
+  object cdsMov: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspMov'
+    Left = 352
+    Top = 513
+    object cdsMovID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsMovNUM_NOTA: TIntegerField
+      FieldName = 'NUM_NOTA'
+    end
+    object cdsMovDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
+    end
+    object cdsMovDTENTRADASAIDA: TDateField
+      FieldName = 'DTENTRADASAIDA'
+    end
+    object cdsMovTIPO_REG: TStringField
+      FieldName = 'TIPO_REG'
+      Size = 3
+    end
+    object cdsMovTIPO_MOV: TStringField
+      FieldName = 'TIPO_MOV'
+      Size = 3
+    end
+    object cdsMovTIPO_ES: TStringField
+      FieldName = 'TIPO_ES'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsMovID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsMovID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsMovPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
+  end
+  object dsMov: TDataSource
+    DataSet = cdsMov
+    Left = 392
+    Top = 513
   end
 end

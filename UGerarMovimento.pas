@@ -387,6 +387,33 @@ type
     cdsCupomFiscalNFEDENEGADA: TStringField;
     sdsCupomFiscal_ItensID_COR_COMBINACO: TIntegerField;
     cdsCupomFiscal_ItensID_COR_COMBINACO: TIntegerField;
+    btnAjustar_PrecoCusto: TNxButton;
+    sdsMov: TSQLDataSet;
+    dspMov: TDataSetProvider;
+    cdsMov: TClientDataSet;
+    dsMov: TDataSource;
+    sdsMovID: TIntegerField;
+    sdsMovNUM_NOTA: TIntegerField;
+    sdsMovDTEMISSAO: TDateField;
+    sdsMovDTENTRADASAIDA: TDateField;
+    sdsMovTIPO_REG: TStringField;
+    sdsMovTIPO_MOV: TStringField;
+    sdsMovTIPO_ES: TStringField;
+    sdsMovID_PRODUTO: TIntegerField;
+    sdsMovID_COR: TIntegerField;
+    sdsMovPRECO_CUSTO: TFloatField;
+    cdsMovID: TIntegerField;
+    cdsMovNUM_NOTA: TIntegerField;
+    cdsMovDTEMISSAO: TDateField;
+    cdsMovDTENTRADASAIDA: TDateField;
+    cdsMovTIPO_REG: TStringField;
+    cdsMovTIPO_MOV: TStringField;
+    cdsMovTIPO_ES: TStringField;
+    cdsMovID_PRODUTO: TIntegerField;
+    cdsMovID_COR: TIntegerField;
+    cdsMovPRECO_CUSTO: TFloatField;
+    sdsCupomFiscal_ItensPRECO_CUSTO: TFloatField;
+    cdsCupomFiscal_ItensPRECO_CUSTO: TFloatField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
@@ -396,6 +423,7 @@ type
     procedure btnGravar_Ult_FatClick(Sender: TObject);
     procedure btnGravar_MetasClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure btnAjustar_PrecoCustoClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadNotaServico: TDMCadNotaServico;
@@ -594,7 +622,8 @@ begin
                                                      fDMCadNotaFiscal.cdsNotaFiscal_ItensBASE_ICMS_FCP_DEST.AsFloat,
                                                      fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_ICMS_FCP_DEST.AsFloat,
                                                      fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_ICMS_FCP.AsFloat,
-                                                     fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_FCP_ST.AsFloat,0,0,0,0,0);
+                                                     fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_FCP_ST.AsFloat,0,0,0,0,0,
+                                                     fDMCadNotaFiscal.cdsNotaFiscal_ItensPRECO_CUSTO.AsFloat);
         if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_MOVIMENTO.AsInteger <> vID_Mov then
         begin
           fDMCadNotaFiscal.cdsNotaFiscal_Itens.Edit;
@@ -739,7 +768,7 @@ begin
                                                    fDMCadNotaServico.cdsNotaServicoID_VENDEDOR.AsInteger,0,
                                                    fDMCadNotaServico.cdsNotaServicoPERC_COMISSAO.AsFloat,0,0, cTerminal,0,
                                                    fDMCadNotaServico.cdsNotaServicoRETEM_PISCOFINS.AsString,
-                                                   0,0,0,0,0,0,0,0,0,0,0);
+                                                   0,0,0,0,0,0,0,0,0,0,0,0);
 
       if vID_Mov <> fDMCadNotaServico.cdsNotaServicoID_MOVIMENTO.AsInteger then
       begin
@@ -902,7 +931,8 @@ begin
                                                      cdsCupomFiscal_ItensID_COR_COMBINACO.AsInteger,
                                                      cdsCupomFiscalPERC_VENDEDOR.AsFloat,0,0,
                                                      cdsCupomFiscalTERMINAL_ID.AsInteger,0,'N',
-                                                     0,0,0,0,0,0,0,0,0,0,0);
+                                                     0,0,0,0,0,0,0,0,0,0,0,
+                                                     cdsCupomFiscal_ItensPRECO_CUSTO.AsFloat);
 
       end;
       if (cdsCupomFiscal_ItensID_MOVIMENTO.AsInteger <> vID_Mov) then
@@ -1002,7 +1032,7 @@ begin
                                                    fDMCadRecibo.cdsReciboID.AsInteger,
                                                    fDMCadRecibo.cdsReciboID_VENDEDOR.AsInteger,0,
                                                    fDMCadRecibo.cdsReciboPERC_COMISSAO.AsFloat,0,0, cTerminal,0,'N',
-                                                   0,0,0,0,0,0,0,0,0,0,0);
+                                                   0,0,0,0,0,0,0,0,0,0,0,0);
 
       if vID_Mov <> fDMCadRecibo.cdsReciboID_MOVIMENTO.AsInteger then
       begin
@@ -1163,6 +1193,61 @@ end;
 procedure TfrmGerarMovimento.FormCreate(Sender: TObject);
 begin
   ctNota := sdsNota.CommandText;
+end;
+
+procedure TfrmGerarMovimento.btnAjustar_PrecoCustoClick(Sender: TObject);
+var
+  sds: TSQLDataSet;
+begin
+  if MessageDlg('Deseja ajustar preço de custo nos registros do Movimento?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
+    exit;
+  cdsMov.Close;
+  cdsMov.Open;
+  RzProgressStatus1.TotalParts    := cdsNota.RecordCount;
+  RzProgressStatus1.PartsComplete := 0;
+  RzProgressStatus1.Percent       := 0;
+
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds := TSQLDataSet.Create(nil);
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    cdsMov.First;
+    while not cdsMov.Eof do
+    begin
+      RzProgressStatus1.PartsComplete := RzProgressStatus1.PartsComplete + 1; 
+      if StrToFloat(FormatFloat('0.00000',cdsMovPRECO_CUSTO.AsFloat)) <= 0 then
+      begin
+        sds.Close;
+        sds.CommandText := 'select first 1 E.VLR_UNITARIO from ESTOQUE_MOV E '
+                         + 'where E.DTMOVIMENTO >= :DTMOVIMENTO and '
+                         + '      E.ID_PRODUTO = :ID_PRODUTO and '
+                         + '      E.ID_COR = :ID_COR '
+                         + 'order by E.DTMOVIMENTO ';
+        sds.ParamByName('DTMOVIMENTO').AsDate   := cdsMovDTEMISSAO.AsDateTime;
+        sds.ParamByName('ID_PRODUTO').AsInteger := cdsMovID_PRODUTO.AsInteger;
+        if cdsMovID_COR.AsInteger <= 0 then
+          sds.ParamByName('ID_COR').AsInteger := 0
+        else
+          sds.ParamByName('ID_COR').AsInteger := cdsMovID_COR.AsInteger;
+        sds.Open;
+
+        if StrToFloat(FormatFloat('0.00000',sds.FieldByName('VLR_UNITARIO').AsFloat)) > 0 then
+        begin
+          cdsMov.Edit;
+          cdsMovPRECO_CUSTO.AsFloat := StrToFloat(FormatFloat('0.00000#####',sds.FieldByName('VLR_UNITARIO').AsFloat));
+          cdsMov.Post;
+        end;
+
+      end;
+      cdsMov.Next;
+    end;
+    cdsMov.ApplyUpdates(0);
+  finally
+    FreeAndNil(sds);
+  end;
+
 end;
 
 end.
