@@ -414,6 +414,7 @@ type
     cdsMovPRECO_CUSTO: TFloatField;
     sdsCupomFiscal_ItensPRECO_CUSTO: TFloatField;
     cdsCupomFiscal_ItensPRECO_CUSTO: TFloatField;
+    qParametrosATUALIZAR_PRECO_DOC: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
@@ -424,6 +425,8 @@ type
     procedure btnGravar_MetasClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure btnAjustar_PrecoCustoClick(Sender: TObject);
+    procedure dspMovGetTableName(Sender: TObject; DataSet: TDataSet;
+      var TableName: String);
   private
     { Private declarations }
     fDMCadNotaServico: TDMCadNotaServico;
@@ -1203,7 +1206,7 @@ begin
     exit;
   cdsMov.Close;
   cdsMov.Open;
-  RzProgressStatus1.TotalParts    := cdsNota.RecordCount;
+  RzProgressStatus1.TotalParts    := cdsMov.RecordCount;
   RzProgressStatus1.PartsComplete := 0;
   RzProgressStatus1.Percent       := 0;
 
@@ -1216,15 +1219,22 @@ begin
     cdsMov.First;
     while not cdsMov.Eof do
     begin
-      RzProgressStatus1.PartsComplete := RzProgressStatus1.PartsComplete + 1; 
+      RzProgressStatus1.PartsComplete := RzProgressStatus1.PartsComplete + 1;
       if StrToFloat(FormatFloat('0.00000',cdsMovPRECO_CUSTO.AsFloat)) <= 0 then
       begin
         sds.Close;
         sds.CommandText := 'select first 1 E.VLR_UNITARIO from ESTOQUE_MOV E '
-                         + 'where E.DTMOVIMENTO >= :DTMOVIMENTO and '
-                         + '      E.ID_PRODUTO = :ID_PRODUTO and '
-                         + '      E.ID_COR = :ID_COR '
-                         + 'order by E.DTMOVIMENTO ';
+                         + '  where E.DTMOVIMENTO <= :DTMOVIMENTO and '
+                         + '        E.ID_PRODUTO = :ID_PRODUTO and '
+                         + '        E.ID_COR = :ID_COR and '
+                         + '        e.tipo_es = ' + QuotedStr('E') + ' AND (';
+        if qParametrosATUALIZAR_PRECO_DOC.AsString = 'S' then
+          sds.CommandText := sds.CommandText + '(E.TIPO_MOV = ' + QuotedStr('DOC') + ' AND ROUND(E.vlr_unitario,5) > 0) OR ';
+        sds.CommandText := sds.CommandText + ' (E.tipo_mov = ' + QuotedStr('NTE')  + ') or '
+                         + '      (e.tipo_mov = ' + QuotedStr('NTS') + ' and e.tipo_es = ' + QuotedStr('E') + ' and '
+                         + '       ((SELECT COUNT(1) FROM TAB_CFOP CF WHERE CF.ID = E.ID_CFOP '
+                         + '       AND SUBSTRING(CF.codcfop FROM 1 FOR 1) = ' + QuotedStr('3') + ') > 0))) '
+                         + ' order by E.DTMOVIMENTO ';
         sds.ParamByName('DTMOVIMENTO').AsDate   := cdsMovDTEMISSAO.AsDateTime;
         sds.ParamByName('ID_PRODUTO').AsInteger := cdsMovID_PRODUTO.AsInteger;
         if cdsMovID_COR.AsInteger <= 0 then
@@ -1247,6 +1257,13 @@ begin
   finally
     FreeAndNil(sds);
   end;
+
+end;
+
+procedure TfrmGerarMovimento.dspMovGetTableName(Sender: TObject;
+  DataSet: TDataSet; var TableName: String);
+begin
+  TableName := 'MOVIMENTO';
 
 end;
 

@@ -4,7 +4,7 @@ object DMConsNotas: TDMConsNotas
   OnDestroy = DataModuleDestroy
   Left = 266
   Top = 58
-  Height = 475
+  Height = 523
   Width = 809
   object sdsFilial: TSQLDataSet
     NoMetadata = True
@@ -1118,5 +1118,143 @@ object DMConsNotas: TDMConsNotas
     BCDToCurrency = False
     Left = 520
     Top = 285
+  end
+  object sdsConsProduto_VendasPCusto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT M.ID, M.dtemissao, M.id_produto, M.id_cor, M.qtd, M.tipo_' +
+      'reg, M.tipo_mov, M.tipo_es,'#13#10'M.id_cfop, M.id_pessoa, M.perc_icms' +
+      ', M.perc_ipi, M.perc_pis, M.perc_cofins, M.vlr_icmssubst,'#13#10'm.vlr' +
+      '_icms, m.vlr_ipi, m.vlr_pis, m.vlr_cofins, CF.codcfop, PROD.NOME' +
+      ' NOME_PRODUTO, PROD.REFERENCIA,'#13#10'PES.NOME NOME_PESSOA, COMB.NOME' +
+      ' NOME_COR, M.vlr_total, M.vlr_unitario, M.UNIDADE, M.TAMANHO,'#13#10'M' +
+      '.PRECO_CUSTO'#13#10'FROM MOVIMENTO M'#13#10'INNER JOIN PRODUTO PROD ON M.ID_' +
+      'PRODUTO = PROD.ID'#13#10'LEFT JOIN TAB_CFOP CF ON M.ID_CFOP = CF.ID'#13#10'L' +
+      'EFT JOIN PESSOA PES ON M.id_pessoa = PES.CODIGO'#13#10'left JOIN COMBI' +
+      'NACAO COMB ON M.id_cor = COMB.id'#13#10'WHERE M.tipo_es = '#39'S'#39#13#10'  AND M' +
+      '.cancelado = '#39'N'#39#13#10'  AND M.denegada = '#39'N'#39#13#10'  AND ((M.id_cfop > 0 ' +
+      'AND CF.faturamento = '#39'S'#39')'#13#10'    or (M.TIPO_REG = '#39'RNF'#39') or (M.TIP' +
+      'O_REG = '#39'CFI'#39'))'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 320
+    Top = 385
+  end
+  object dspConsProduto_VendasPCusto: TDataSetProvider
+    DataSet = sdsConsProduto_VendasPCusto
+    Left = 352
+    Top = 385
+  end
+  object cdsConsProduto_VendasPCusto: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsProduto_VendasPCusto'
+    Left = 392
+    Top = 385
+    object cdsConsProduto_VendasPCustoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsConsProduto_VendasPCustoDTEMISSAO: TDateField
+      FieldName = 'DTEMISSAO'
+    end
+    object cdsConsProduto_VendasPCustoID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsConsProduto_VendasPCustoID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsConsProduto_VendasPCustoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsConsProduto_VendasPCustoTIPO_REG: TStringField
+      FieldName = 'TIPO_REG'
+      Size = 3
+    end
+    object cdsConsProduto_VendasPCustoTIPO_MOV: TStringField
+      FieldName = 'TIPO_MOV'
+      Size = 3
+    end
+    object cdsConsProduto_VendasPCustoTIPO_ES: TStringField
+      FieldName = 'TIPO_ES'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsConsProduto_VendasPCustoID_CFOP: TIntegerField
+      FieldName = 'ID_CFOP'
+    end
+    object cdsConsProduto_VendasPCustoID_PESSOA: TIntegerField
+      FieldName = 'ID_PESSOA'
+    end
+    object cdsConsProduto_VendasPCustoPERC_ICMS: TFloatField
+      FieldName = 'PERC_ICMS'
+    end
+    object cdsConsProduto_VendasPCustoPERC_IPI: TFloatField
+      FieldName = 'PERC_IPI'
+    end
+    object cdsConsProduto_VendasPCustoPERC_PIS: TFloatField
+      FieldName = 'PERC_PIS'
+    end
+    object cdsConsProduto_VendasPCustoPERC_COFINS: TFloatField
+      FieldName = 'PERC_COFINS'
+    end
+    object cdsConsProduto_VendasPCustoVLR_ICMSSUBST: TFloatField
+      FieldName = 'VLR_ICMSSUBST'
+    end
+    object cdsConsProduto_VendasPCustoVLR_ICMS: TFloatField
+      FieldName = 'VLR_ICMS'
+    end
+    object cdsConsProduto_VendasPCustoVLR_IPI: TFloatField
+      FieldName = 'VLR_IPI'
+    end
+    object cdsConsProduto_VendasPCustoVLR_PIS: TFloatField
+      FieldName = 'VLR_PIS'
+    end
+    object cdsConsProduto_VendasPCustoVLR_COFINS: TFloatField
+      FieldName = 'VLR_COFINS'
+    end
+    object cdsConsProduto_VendasPCustoCODCFOP: TStringField
+      FieldName = 'CODCFOP'
+      Size = 5
+    end
+    object cdsConsProduto_VendasPCustoNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsConsProduto_VendasPCustoREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsConsProduto_VendasPCustoNOME_PESSOA: TStringField
+      FieldName = 'NOME_PESSOA'
+      Size = 60
+    end
+    object cdsConsProduto_VendasPCustoNOME_COR: TStringField
+      FieldName = 'NOME_COR'
+      Size = 60
+    end
+    object cdsConsProduto_VendasPCustoVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+    end
+    object cdsConsProduto_VendasPCustoVLR_UNITARIO: TFloatField
+      FieldName = 'VLR_UNITARIO'
+    end
+    object cdsConsProduto_VendasPCustoUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsConsProduto_VendasPCustoTAMANHO: TStringField
+      FieldName = 'TAMANHO'
+      Size = 10
+    end
+    object cdsConsProduto_VendasPCustoPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
+  end
+  object dsConsProduto_VendasPCusto: TDataSource
+    DataSet = cdsConsProduto_VendasPCusto
+    Left = 432
+    Top = 385
   end
 end

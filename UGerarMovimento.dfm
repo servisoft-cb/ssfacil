@@ -959,13 +959,18 @@ object frmGerarMovimento: TfrmGerarMovimento
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT *'
+      'SELECT USA_CUPOM_FISCAL, ATUALIZAR_PRECO_DOC'
       'FROM PARAMETROS')
     SQLConnection = dmDatabase.scoDados
     Left = 720
     Top = 288
     object qParametrosUSA_CUPOM_FISCAL: TStringField
       FieldName = 'USA_CUPOM_FISCAL'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametrosATUALIZAR_PRECO_DOC: TStringField
+      FieldName = 'ATUALIZAR_PRECO_DOC'
       FixedChar = True
       Size = 1
     end
@@ -1661,6 +1666,7 @@ object frmGerarMovimento: TfrmGerarMovimento
     Top = 513
     object sdsMovID: TIntegerField
       FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object sdsMovNUM_NOTA: TIntegerField
@@ -1697,17 +1703,21 @@ object frmGerarMovimento: TfrmGerarMovimento
   end
   object dspMov: TDataSetProvider
     DataSet = sdsMov
+    UpdateMode = upWhereKeyOnly
+    OnGetTableName = dspMovGetTableName
     Left = 312
     Top = 513
   end
   object cdsMov: TClientDataSet
     Aggregates = <>
+    IndexFieldNames = 'ID_PRODUTO;DTEMISSAO'
     Params = <>
     ProviderName = 'dspMov'
     Left = 352
     Top = 513
     object cdsMovID: TIntegerField
       FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
     end
     object cdsMovNUM_NOTA: TIntegerField

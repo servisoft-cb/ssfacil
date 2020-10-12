@@ -876,7 +876,8 @@ uses
   UCadDuplicata_Dev in 'UCadDuplicata_Dev.pas' {frmCadDuplicata_Dev},
   UConsEstoque_Prod_Mov in 'UConsEstoque_Prod_Mov.pas' {frmConsEstoque_Prod_Mov},
   UAltPrecoPedido in 'UAltPrecoPedido.pas' {frmAltPrecoPedido},
-  UCadProduto_Saldo in 'UCadProduto_Saldo.pas' {frmCadProduto_Saldo};
+  UCadProduto_Saldo in 'UCadProduto_Saldo.pas' {frmCadProduto_Saldo},
+  UConsProduto_Vendas_PCusto in 'UConsProduto_Vendas_PCusto.pas' {frmConsProduto_Vendas_PCusto};
 
 {$R *.res}
 
