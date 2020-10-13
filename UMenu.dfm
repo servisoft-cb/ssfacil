@@ -842,6 +842,10 @@ object fMenu: TfMenu
           Caption = 'Consulta Produtos/Clientes Sem Vendas(Pedidos) no Per'#237'odo'
           OnClick = ConsultaProdutosSemVendasPedidosnoPerodo1Click
         end
+        object ConsultaProdutosComoPreodeCusto1: TMenuItem
+          Caption = 'Consulta Produtos Com o Pre'#231'o de Custo'
+          OnClick = ConsultaProdutosComoPreodeCusto1Click
+        end
         object ManifestodeCargaRomaneiodeEndereo1: TMenuItem
           Caption = 'Manifesto de Carga/Romaneio de Endere'#231'o'
           OnClick = ManifestodeCargaRomaneiodeEndereo1Click

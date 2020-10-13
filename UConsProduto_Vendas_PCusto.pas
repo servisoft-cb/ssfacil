@@ -20,15 +20,20 @@ type
     btnConsultar: TNxButton;
     btnImprimir: TNxButton;
     pnlPrincipal: TAdvPanel;
-    SMDBGrid19: TSMDBGrid;
+    SMDBGrid1: TSMDBGrid;
     Label1: TLabel;
     Label5: TLabel;
     edtCliente: TEdit;
     edtReferencia: TEdit;
     edtNomeProduto: TEdit;
+    Shape1: TShape;
+    Label7: TLabel;
     procedure btnConsultarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
+    procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
+    procedure btnImprimirClick(Sender: TObject);
   private
     { Private declarations }
     fDMConsNotas: TDMConsNotas;
@@ -59,7 +64,7 @@ begin
     exit;
   end;
   prc_Consultar_Produto_VendasPCusto;
-
+  fDMConsNotas.cdsConsProduto_VendasPCusto.IndexFieldNames := 'NOME_PRODUTO_COMP;DTEMISSAO';
 end;
 
 procedure TfrmConsProduto_Vendas_PCusto.FormClose(Sender: TObject;
@@ -71,10 +76,20 @@ end;
 procedure TfrmConsProduto_Vendas_PCusto.FormShow(Sender: TObject);
 var
   vTexto1, vTexto2: String;
+  i: Integer;
 begin
   fDMConsNotas := TDMConsNotas.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMConsNotas);
   fDMConsNotas.cdsFilial.First;
+
+  for i := 1 to SMDBGrid1.ColCount - 2 do
+  begin
+    if (SMDBGrid1.Columns[i].FieldName = 'NOME_COR') or (SMDBGrid1.Columns[i].FieldName = 'ID_COR') then
+      SMDBGrid1.Columns[i].Visible := ((fDMConsNotas.qParametrosINFORMAR_COR_MATERIAL.AsString = 'S')
+                                       or (fDMConsNotas.qParametrosINFORMAR_COR_PROD.AsString = 'C') or (fDMConsNotas.qParametrosINFORMAR_COR_PROD.AsString = 'B'));
+    if (SMDBGrid1.Columns[i].FieldName = 'TAMANHO') then
+      SMDBGrid1.Columns[i].Visible :=(fDMConsNotas.qParametrosUSA_GRADE.AsString = 'S');
+  end;
 end;
 
 procedure TfrmConsProduto_Vendas_PCusto.prc_Consultar_Produto_VendasPCusto;
@@ -110,6 +125,33 @@ begin
     fDMConsNotas.vDescOpcao_Rel := fDMConsNotas.vDescOpcao_Rel + '(Ref: ' + edtReferencia.Text + ')';
   if (DateEdit1.Date > 10) and (DateEdit2.Date > 10) then
     fDMConsNotas.vDescOpcao_Rel := fDMConsNotas.vDescOpcao_Rel + '(Dt.Emissão: ' + DateEdit1.Text + ' a ' + DateEdit2.Text + ')';
+end;
+
+procedure TfrmConsProduto_Vendas_PCusto.SMDBGrid1GetCellParams(
+  Sender: TObject; Field: TField; AFont: TFont; var Background: TColor;
+  Highlight: Boolean);
+begin
+  if (fDMConsNotas.cdsConsProduto_VendasPCusto.Active) and (fDMConsNotas.cdsConsProduto_VendasPCusto.RecordCount > 0) and
+     (StrToFloat(FormatFloat('0.00000',fDMConsNotas.cdsConsProduto_VendasPCustoPRECO_CUSTO.AsFloat)) <= 0) then
+    Background := clYellow;
+end;
+
+procedure TfrmConsProduto_Vendas_PCusto.btnImprimirClick(Sender: TObject);
+var
+  vArq : String;
+begin
+  fDMConsNotas.cdsConsProduto_VendasPCusto.IndexFieldNames := 'NOME_PRODUTO_COMP;DTEMISSAO';
+  if not(fDMConsNotas.cdsConsProduto_VendasPCusto.Active) or (fDMConsNotas.cdsConsProduto_VendasPCusto.IsEmpty) then
+    exit;
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Produto_Vendas_PCusto.fr3';
+  if not FileExists(vArq) then
+  begin
+    ShowMessage('Relatório não localizado! ' + vArq);
+    Exit;
+  end;
+  fDMConsNotas.frxReport1.Report.LoadFromFile(vArq);
+  fDMConsNotas.frxReport1.variables['OpcaoImp'] := QuotedStr(vOpcaoImp);
+  fDMConsNotas.frxReport1.ShowReport;
 end;
 
 end.

@@ -1,6 +1,6 @@
 object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
-  Left = 144
-  Top = 51
+  Left = 139
+  Top = 80
   Width = 1018
   Height = 568
   Caption = 'Consulta Produtos Vendas x Pre'#231'o Custo'
@@ -73,6 +73,20 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
       Height = 13
       Alignment = taRightJustify
       Caption = 'Nome Produto:'
+    end
+    object Shape1: TShape
+      Left = 846
+      Top = 24
+      Width = 29
+      Height = 16
+      Brush.Color = clYellow
+    end
+    object Label7: TLabel
+      Left = 878
+      Top = 27
+      Width = 97
+      Height = 13
+      Caption = 'Sem Pre'#231'o de Custo'
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
       Left = 103
@@ -177,7 +191,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 6
       Transparent = True
       OnClick = btnConsultarClick
     end
@@ -249,8 +263,9 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
         FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 4
+      TabOrder = 7
       Transparent = True
+      OnClick = btnImprimirClick
     end
     object edtReferencia: TEdit
       Left = 103
@@ -261,8 +276,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
       Ctl3D = False
       MaxLength = 20
       ParentCtl3D = False
-      TabOrder = 5
-      Text = 'EDTREFERENCIA'
+      TabOrder = 4
     end
     object edtNomeProduto: TEdit
       Left = 103
@@ -273,8 +287,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
       Ctl3D = False
       MaxLength = 20
       ParentCtl3D = False
-      TabOrder = 6
-      Text = 'EDTNOMEPRODUTO'
+      TabOrder = 5
     end
     object edtCliente: TEdit
       Left = 103
@@ -285,8 +298,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
       Ctl3D = False
       MaxLength = 20
       ParentCtl3D = False
-      TabOrder = 7
-      Text = 'EDTCLIENTE'
+      TabOrder = 3
     end
   end
   object pnlPrincipal: TAdvPanel
@@ -319,7 +331,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
     StatusBar.Font.Name = 'Tahoma'
     StatusBar.Font.Style = []
     FullHeight = 0
-    object SMDBGrid19: TSMDBGrid
+    object SMDBGrid1: TSMDBGrid
       Left = 10
       Top = 10
       Width = 990
@@ -349,12 +361,13 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
       TitleHeight.PixelCount = 24
       FooterColor = clBtnFace
       ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+      OnGetCellParams = SMDBGrid1GetCellParams
       RegistryKey = 'Software\Scalabium'
       RegistrySection = 'SMDBGrid'
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 27
+      ColCount = 28
       RowCount = 2
       Columns = <
         item
@@ -420,6 +433,14 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
         end
         item
           Expanded = False
+          FieldName = 'TOTAL_PRECO_CUSTO'
+          Title.Caption = 'Total Pre'#231'o Custo'
+          Title.Color = 14666423
+          Width = 71
+          Visible = True
+        end
+        item
+          Expanded = False
           FieldName = 'UNIDADE'
           Title.Alignment = taCenter
           Title.Caption = 'Unid'
@@ -456,6 +477,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
           Title.Alignment = taCenter
           Title.Caption = 'Tipo Reg'
           Title.Color = 14666423
+          Width = 64
           Visible = True
         end
         item
@@ -464,6 +486,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
           Title.Alignment = taCenter
           Title.Caption = 'Tipo Mov'
           Title.Color = 14666423
+          Width = 64
           Visible = True
         end
         item
@@ -472,6 +495,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
           Title.Alignment = taCenter
           Title.Caption = 'CFOP'
           Title.Color = 14666423
+          Width = 64
           Visible = True
         end
         item
@@ -488,6 +512,7 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
           Title.Alignment = taCenter
           Title.Caption = 'Nome Pessoa'
           Title.Color = 14666423
+          Width = 64
           Visible = True
         end
         item
@@ -508,6 +533,30 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
         end
         item
           Expanded = False
+          FieldName = 'VLR_ICMSSUBST'
+          Title.Alignment = taCenter
+          Title.Caption = 'Vlr. ICMS ST'
+          Title.Color = 14666423
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VLR_ICMS'
+          Title.Alignment = taCenter
+          Title.Caption = 'Vlr. ICMS'
+          Title.Color = 14666423
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'VLR_IPI'
+          Title.Alignment = taCenter
+          Title.Caption = 'Vlr. IPI'
+          Title.Color = 14666423
+          Visible = True
+        end
+        item
+          Expanded = False
           FieldName = 'PERC_PIS'
           Title.Alignment = taCenter
           Title.Caption = '% PIS'
@@ -516,37 +565,24 @@ object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
         end
         item
           Expanded = False
-          FieldName = 'PERC_COFINS'
-          Title.Color = 14666423
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'VLR_ICMSSUBST'
-          Title.Color = 14666423
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'VLR_ICMS'
-          Title.Color = 14666423
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'VLR_IPI'
-          Title.Color = 14666423
-          Visible = True
-        end
-        item
-          Expanded = False
           FieldName = 'VLR_PIS'
+          Title.Alignment = taCenter
+          Title.Caption = 'Vlr. PIS'
+          Title.Color = 14666423
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'PERC_COFINS'
+          Title.Alignment = taCenter
+          Title.Caption = '% COFINS'
           Title.Color = 14666423
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VLR_COFINS'
+          Title.Caption = 'Vlr. COFINS'
           Title.Color = 14666423
           Visible = True
         end

@@ -230,6 +230,14 @@ type
     cdsConsProduto_VendasPCustoUNIDADE: TStringField;
     cdsConsProduto_VendasPCustoTAMANHO: TStringField;
     cdsConsProduto_VendasPCustoPRECO_CUSTO: TFloatField;
+    qParametrosINFORMAR_COR_MATERIAL: TStringField;
+    qParametrosINFORMAR_COR_PROD: TStringField;
+    qParametrosUSA_GRADE: TStringField;
+    frxConsProduto_VendasPCusto: TfrxDBDataset;
+    cdsConsProduto_VendasPCustoNUM_NOTA: TIntegerField;
+    cdsConsProduto_VendasPCustoSERIE: TStringField;
+    cdsConsProduto_VendasPCustoTOTAL_PRECO_CUSTO: TFloatField;
+    cdsConsProduto_VendasPCustoNOME_PRODUTO_COMP: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscal_CliUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

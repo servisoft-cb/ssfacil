@@ -290,6 +290,21 @@ object DMConsNotas: TDMConsNotas
       FixedChar = True
       Size = 1
     end
+    object qParametrosINFORMAR_COR_MATERIAL: TStringField
+      FieldName = 'INFORMAR_COR_MATERIAL'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametrosINFORMAR_COR_PROD: TStringField
+      FieldName = 'INFORMAR_COR_PROD'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametrosUSA_GRADE: TStringField
+      FieldName = 'USA_GRADE'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qFaturamento: TSQLQuery
     MaxBlobSize = -1
@@ -618,8 +633,8 @@ object DMConsNotas: TDMConsNotas
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43500.689950381900000000
-    ReportOptions.LastChange = 43672.668734560180000000
+    ReportOptions.CreateDate = 42222.414492245400000000
+    ReportOptions.LastChange = 44117.434315752320000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1116,7 +1131,7 @@ object DMConsNotas: TDMConsNotas
       'NUMDUPLICATA=NUMDUPLICATA')
     DataSet = qDuplicatas
     BCDToCurrency = False
-    Left = 520
+    Left = 523
     Top = 285
   end
   object sdsConsProduto_VendasPCusto: TSQLDataSet
@@ -1129,13 +1144,16 @@ object DMConsNotas: TDMConsNotas
       '_icms, m.vlr_ipi, m.vlr_pis, m.vlr_cofins, CF.codcfop, PROD.NOME' +
       ' NOME_PRODUTO, PROD.REFERENCIA,'#13#10'PES.NOME NOME_PESSOA, COMB.NOME' +
       ' NOME_COR, M.vlr_total, M.vlr_unitario, M.UNIDADE, M.TAMANHO,'#13#10'M' +
-      '.PRECO_CUSTO'#13#10'FROM MOVIMENTO M'#13#10'INNER JOIN PRODUTO PROD ON M.ID_' +
-      'PRODUTO = PROD.ID'#13#10'LEFT JOIN TAB_CFOP CF ON M.ID_CFOP = CF.ID'#13#10'L' +
-      'EFT JOIN PESSOA PES ON M.id_pessoa = PES.CODIGO'#13#10'left JOIN COMBI' +
-      'NACAO COMB ON M.id_cor = COMB.id'#13#10'WHERE M.tipo_es = '#39'S'#39#13#10'  AND M' +
-      '.cancelado = '#39'N'#39#13#10'  AND M.denegada = '#39'N'#39#13#10'  AND ((M.id_cfop > 0 ' +
-      'AND CF.faturamento = '#39'S'#39')'#13#10'    or (M.TIPO_REG = '#39'RNF'#39') or (M.TIP' +
-      'O_REG = '#39'CFI'#39'))'#13#10#13#10
+      '.PRECO_CUSTO, M.num_nota, M.serie,'#13#10'coalesce(PROD.NOME,'#39#39') || '#39' ' +
+      #39' || coalesce(COMB.nome,'#39#39') || '#39' '#39' || coalesce(M.tamanho,'#39#39') AS ' +
+      'NOME_PRODUTO_COMP,'#13#10'(coalesce(M.preco_custo,0) * M.qtd) TOTAL_PR' +
+      'ECO_CUSTO'#13#10'FROM MOVIMENTO M'#13#10'INNER JOIN PRODUTO PROD ON M.ID_PRO' +
+      'DUTO = PROD.ID'#13#10'LEFT JOIN TAB_CFOP CF ON M.ID_CFOP = CF.ID'#13#10'LEFT' +
+      ' JOIN PESSOA PES ON M.id_pessoa = PES.CODIGO'#13#10'left JOIN COMBINAC' +
+      'AO COMB ON M.id_cor = COMB.id'#13#10'WHERE M.tipo_es = '#39'S'#39#13#10'  AND M.ca' +
+      'ncelado = '#39'N'#39#13#10'  AND M.denegada = '#39'N'#39#13#10'  AND ((M.id_cfop > 0 AND' +
+      ' CF.faturamento = '#39'S'#39')'#13#10'    or (M.TIPO_REG = '#39'RNF'#39') or (M.TIPO_R' +
+      'EG = '#39'CFI'#39'))'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1190,30 +1208,39 @@ object DMConsNotas: TDMConsNotas
     end
     object cdsConsProduto_VendasPCustoPERC_ICMS: TFloatField
       FieldName = 'PERC_ICMS'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoPERC_IPI: TFloatField
       FieldName = 'PERC_IPI'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoPERC_PIS: TFloatField
       FieldName = 'PERC_PIS'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoPERC_COFINS: TFloatField
       FieldName = 'PERC_COFINS'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoVLR_ICMSSUBST: TFloatField
       FieldName = 'VLR_ICMSSUBST'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoVLR_ICMS: TFloatField
       FieldName = 'VLR_ICMS'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoVLR_IPI: TFloatField
       FieldName = 'VLR_IPI'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoVLR_PIS: TFloatField
       FieldName = 'VLR_PIS'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoVLR_COFINS: TFloatField
       FieldName = 'VLR_COFINS'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoCODCFOP: TStringField
       FieldName = 'CODCFOP'
@@ -1236,9 +1263,11 @@ object DMConsNotas: TDMConsNotas
     end
     object cdsConsProduto_VendasPCustoVLR_TOTAL: TFloatField
       FieldName = 'VLR_TOTAL'
+      DisplayFormat = '0.00'
     end
     object cdsConsProduto_VendasPCustoVLR_UNITARIO: TFloatField
       FieldName = 'VLR_UNITARIO'
+      DisplayFormat = '0.000##'
     end
     object cdsConsProduto_VendasPCustoUNIDADE: TStringField
       FieldName = 'UNIDADE'
@@ -1250,11 +1279,68 @@ object DMConsNotas: TDMConsNotas
     end
     object cdsConsProduto_VendasPCustoPRECO_CUSTO: TFloatField
       FieldName = 'PRECO_CUSTO'
+      DisplayFormat = '0.000##'
+    end
+    object cdsConsProduto_VendasPCustoNUM_NOTA: TIntegerField
+      FieldName = 'NUM_NOTA'
+    end
+    object cdsConsProduto_VendasPCustoSERIE: TStringField
+      FieldName = 'SERIE'
+      Size = 3
+    end
+    object cdsConsProduto_VendasPCustoTOTAL_PRECO_CUSTO: TFloatField
+      FieldName = 'TOTAL_PRECO_CUSTO'
+    end
+    object cdsConsProduto_VendasPCustoNOME_PRODUTO_COMP: TStringField
+      FieldName = 'NOME_PRODUTO_COMP'
+      Size = 172
     end
   end
   object dsConsProduto_VendasPCusto: TDataSource
     DataSet = cdsConsProduto_VendasPCusto
     Left = 432
     Top = 385
+  end
+  object frxConsProduto_VendasPCusto: TfrxDBDataset
+    UserName = 'frxConsProduto_VendasPCusto'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'DTEMISSAO=DTEMISSAO'
+      'ID_PRODUTO=ID_PRODUTO'
+      'ID_COR=ID_COR'
+      'QTD=QTD'
+      'TIPO_REG=TIPO_REG'
+      'TIPO_MOV=TIPO_MOV'
+      'TIPO_ES=TIPO_ES'
+      'ID_CFOP=ID_CFOP'
+      'ID_PESSOA=ID_PESSOA'
+      'PERC_ICMS=PERC_ICMS'
+      'PERC_IPI=PERC_IPI'
+      'PERC_PIS=PERC_PIS'
+      'PERC_COFINS=PERC_COFINS'
+      'VLR_ICMSSUBST=VLR_ICMSSUBST'
+      'VLR_ICMS=VLR_ICMS'
+      'VLR_IPI=VLR_IPI'
+      'VLR_PIS=VLR_PIS'
+      'VLR_COFINS=VLR_COFINS'
+      'CODCFOP=CODCFOP'
+      'NOME_PRODUTO=NOME_PRODUTO'
+      'REFERENCIA=REFERENCIA'
+      'NOME_PESSOA=NOME_PESSOA'
+      'NOME_COR=NOME_COR'
+      'VLR_TOTAL=VLR_TOTAL'
+      'VLR_UNITARIO=VLR_UNITARIO'
+      'UNIDADE=UNIDADE'
+      'TAMANHO=TAMANHO'
+      'PRECO_CUSTO=PRECO_CUSTO'
+      'NUM_NOTA=NUM_NOTA'
+      'SERIE=SERIE'
+      'TOTAL_PRECO_CUSTO=TOTAL_PRECO_CUSTO'
+      'NOME_PRODUTO_COMP=NOME_PRODUTO_COMP')
+    DataSource = dsConsProduto_VendasPCusto
+    BCDToCurrency = False
+    Left = 480
+    Top = 384
   end
 end
