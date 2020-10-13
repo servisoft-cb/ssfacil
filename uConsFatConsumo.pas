@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, NxCollection, StdCtrls, Mask, ToolEdit, UDMConsFat, SqlExpr,
-  NxEdit, Grids, DBGrids, SMDBGrid, AdvPanel;
+  NxEdit, Grids, DBGrids, SMDBGrid, AdvPanel, ComCtrls;
   //SysUtils, Classes, FMTBcd, DB, DBClient, Provider, , dbXPress, Math, Messages, Dialogs, LogTypes, Variants, frxClass, frxDBSet;
 
 
@@ -22,6 +22,7 @@ type
     Label2: TLabel;
     NxComboBox1: TNxComboBox;
     Label3: TLabel;
+    ProgressBar1: TProgressBar;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -84,31 +85,40 @@ procedure TfrmConsFatConsumo.prc_Le_cdsConsFatConsumo;
 var
   vQtdAux : Real;
 begin
-  fDMConsFat.mConsumo.EmptyDataSet;
-  fDMConsFat.cdsConsFatConsumo.First;
-  while not fDMConsFat.cdsConsFatConsumo.Eof do
-  begin
-    vQtdProduto := fnc_Busca_Qtd;
-    if StrToFloat(FormatFloat('0.0000',vQtdProduto)) > 0 then
-      vQtdProduto := StrToFloat(FormatFloat('0.0000',vQtdProduto * fDMConsFat.cdsConsFatConsumoQTD.AsFloat))
-    else
-      vQtdProduto := StrToFloat(FormatFloat('0.0000',fDMConsFat.cdsConsFatConsumoQTD.AsFloat));
+  ProgressBar1.Visible  := True;
+  ProgressBar1.Position := 0;
+  ProgressBar1.Max      := fDMConsFat.cdsConsFatConsumo.RecordCount;
 
+  SMDBGrid1.DataSource := nil;
+  try
+    fDMConsFat.mConsumo.EmptyDataSet;
+    fDMConsFat.cdsConsFatConsumo.First;
+    while not fDMConsFat.cdsConsFatConsumo.Eof do
+    begin
+      ProgressBar1.Position := ProgressBar1.Position + 1;
+      vQtdProduto := fnc_Busca_Qtd;
+      if StrToFloat(FormatFloat('0.0000',vQtdProduto)) > 0 then
+        vQtdProduto := StrToFloat(FormatFloat('0.0000',vQtdProduto * fDMConsFat.cdsConsFatConsumoQTD.AsFloat))
+      else
+        vQtdProduto := StrToFloat(FormatFloat('0.0000',fDMConsFat.cdsConsFatConsumoQTD.AsFloat));
 
-    prc_Gravar_mConsumo(fDMConsFat.cdsConsFatConsumoID_MATERIAL.AsInteger,
-                        fDMConsFat.cdsConsFatConsumoID_COR.AsInteger, 
-                        fDMConsFat.cdsConsFatConsumoNOME_MATERIAL.AsString,
-                        UpperCase(fDMConsFat.cdsConsFatConsumoUNIDADE_MAT.AsString),
-                        fDMConsFat.cdsConsFatConsumoTIPO_REG.AsString,
-                        fDMConsFat.cdsConsFatConsumoNOME_COR_MAT.AsString,
-                        vQtdProduto,fDMConsFat.cdsConsFatConsumoQTD_CONSUMO.AsFloat);
+      prc_Gravar_mConsumo(fDMConsFat.cdsConsFatConsumoID_MATERIAL.AsInteger,
+                          fDMConsFat.cdsConsFatConsumoID_COR.AsInteger,
+                          fDMConsFat.cdsConsFatConsumoNOME_MATERIAL.AsString,
+                          UpperCase(fDMConsFat.cdsConsFatConsumoUNIDADE_MAT.AsString),
+                          fDMConsFat.cdsConsFatConsumoTIPO_REG.AsString,
+                          fDMConsFat.cdsConsFatConsumoNOME_COR_MAT.AsString,
+                          vQtdProduto,fDMConsFat.cdsConsFatConsumoQTD_CONSUMO.AsFloat);
 
-    if fDMConsFat.cdsConsFatConsumoTIPO_REG.AsString = 'S' then
-      prc_Gerar_Consumo_Semi;
+      if fDMConsFat.cdsConsFatConsumoTIPO_REG.AsString = 'S' then
+        prc_Gerar_Consumo_Semi;
 
-    fDMConsFat.cdsConsFatConsumo.Next;
+      fDMConsFat.cdsConsFatConsumo.Next;
+    end;
+  finally
+    SMDBGrid1.DataSource := fDMConsFat.dsmConsumo;
+    ProgressBar1.Visible := False;
   end;
-
 end;
 
 function TfrmConsFatConsumo.fnc_Busca_Qtd: Real;

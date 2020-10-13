@@ -1,6 +1,6 @@
 object frmConsProduto_Vendas_PCusto: TfrmConsProduto_Vendas_PCusto
-  Left = 139
-  Top = 80
+  Left = 167
+  Top = 101
   Width = 1018
   Height = 568
   Caption = 'Consulta Produtos Vendas x Pre'#231'o Custo'

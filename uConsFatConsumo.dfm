@@ -49,7 +49,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       Left = 10
       Top = 10
       Width = 900
-      Height = 371
+      Height = 354
       Align = alClient
       Ctl3D = False
       DataSource = DMConsFat.dsmConsumo
@@ -136,6 +136,15 @@ object frmConsFatConsumo: TfrmConsFatConsumo
           Width = 55
           Visible = True
         end>
+    end
+    object ProgressBar1: TProgressBar
+      Left = 10
+      Top = 364
+      Width = 900
+      Height = 17
+      Align = alBottom
+      TabOrder = 1
+      Visible = False
     end
   end
   object NxPanel1: TNxPanel
