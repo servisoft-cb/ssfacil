@@ -4426,7 +4426,7 @@ begin
     fDMCadNotaFiscal.sdsProduto_Comb.ParamByName('ID').AsInteger                := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger;
     fDMCadNotaFiscal.sdsProduto_Comb.ParamByName('ID_COR_COMBINACAO').AsInteger := fDMCadNotaFiscal.cdsNotaFiscal_ItensID_COR.AsInteger;
     fDMCadNotaFiscal.cdsProduto_Comb.Open;
-    if StrToFloat(FormatFloat('0.00000',fDMCadNotaFiscal.sdsProduto_CombPRECO_CUSTO.AsFloat)) > 0 then
+    if StrToFloat(FormatFloat('0.00000',fDMCadNotaFiscal.cdsProduto_CombPRECO_CUSTO.AsFloat)) > 0 then
       Result := StrToFloat(FormatFloat('0.00000#####',fDMCadNotaFiscal.cdsProduto_CombPRECO_CUSTO.AsFloat));
   end;
 end;

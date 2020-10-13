@@ -831,6 +831,9 @@ object dmCupomFiscal: TdmCupomFiscal
     object sdsCupom_ItensVLR_ICMS_SUBSTITUTO: TFloatField
       FieldName = 'VLR_ICMS_SUBSTITUTO'
     end
+    object sdsCupom_ItensPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
   end
   object cdsCupom_Itens: TClientDataSet
     Aggregates = <>
@@ -1072,6 +1075,9 @@ object dmCupomFiscal: TdmCupomFiscal
     end
     object cdsCupom_ItensVLR_ICMS_SUBSTITUTO: TFloatField
       FieldName = 'VLR_ICMS_SUBSTITUTO'
+    end
+    object cdsCupom_ItensPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
     end
   end
   object dsCupom_Itens: TDataSource
@@ -1999,6 +2005,11 @@ object dmCupomFiscal: TdmCupomFiscal
     end
     object cdsProdutoPERC_ICMS_NFCE: TFloatField
       FieldName = 'PERC_ICMS_NFCE'
+    end
+    object cdsProdutoUSA_PRECO_COR: TStringField
+      FieldName = 'USA_PRECO_COR'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsProduto: TDataSource
@@ -7297,5 +7308,42 @@ object dmCupomFiscal: TdmCupomFiscal
     DataSet = cdsTotais
     Left = 920
     Top = 272
+  end
+  object qProduto_Comb: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COR_COMBINACAO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      
+        'SELECT PCOMB.id, pcomb.id_cor, pcomb.preco_venda, pcomb.preco_cu' +
+        'sto'
+      'FROM PRODUTO_COMB PCOMB'
+      'WHERE PCOMB.ID = :ID'
+      '  AND PCOMB.ID_COR_COMBINACAO = :ID_COR_COMBINACAO')
+    SQLConnection = dmDatabase.scoDados
+    Left = 889
+    Top = 524
+    object qProduto_CombID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qProduto_CombID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object qProduto_CombPRECO_VENDA: TFloatField
+      FieldName = 'PRECO_VENDA'
+    end
+    object qProduto_CombPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+    end
   end
 end

@@ -318,7 +318,7 @@ begin
     else
       vHist := 'PAGAMENTO DE PRESTAÇÃO';
 
-    fDmCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',vHist,vVlrPgto,vVlrJuros,vVlrDesc,0,0,0,vID_FormaPgto);
+    fDmCadDuplicata.prc_Gravar_Dupicata_Hist('PAG',vHist,vVlrPgto,vVlrJuros,vVlrDesc,0,0,0,vID_FormaPgto,0,0);
 
     if vVlrJuros > 0 then
       fDmCadDuplicata.prc_Gravar_Financeiro(vVlrJuros,'J',vID_FormaPgto)

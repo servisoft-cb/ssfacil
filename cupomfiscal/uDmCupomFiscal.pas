@@ -1559,6 +1559,14 @@ type
     cdsDuplicataCANCELADA: TStringField;
     sdsCupomParametrosIMP_COD_REF: TStringField;
     cdsCupomParametrosIMP_COD_REF: TStringField;
+    sdsCupom_ItensPRECO_CUSTO: TFloatField;
+    cdsCupom_ItensPRECO_CUSTO: TFloatField;
+    qProduto_Comb: TSQLQuery;
+    qProduto_CombID: TIntegerField;
+    qProduto_CombID_COR: TIntegerField;
+    qProduto_CombPRECO_VENDA: TFloatField;
+    qProduto_CombPRECO_CUSTO: TFloatField;
+    cdsProdutoUSA_PRECO_COR: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mCupomBeforeDelete(DataSet: TDataSet);
     procedure cdsPedidoCalcFields(DataSet: TDataSet);

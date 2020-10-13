@@ -19,6 +19,7 @@ uses
   procedure prc_Abrir_qProduto_UF(fDMCupomFiscal: TDMCupomFiscal;ID_NCM: Integer; UF: String);
   procedure prc_Abrir_qNCM_UF(fDMCupomFiscal: TDMCupomFiscal;ID_NCM: Integer; UF, Importado_Nacional: String);
 
+  function fnc_Preco_Custo(fDMCupomFiscal: TDMCupomFiscal) : Real;
 
 implementation
 
@@ -483,6 +484,20 @@ begin
     fDMCupomFiscal.cdsCupom_ItensVLR_ICMS_EFE.AsFloat := StrToFloat(FormatFloat('0.00',vVlrAux));
   end;
 
+end;
+
+function fnc_Preco_Custo(fDMCupomFiscal: TDMCupomFiscal) : Real;
+begin
+  Result := fDMCupomFiscal.cdsProdutoPRECO_CUSTO.AsFloat;
+  if fDMCupomFiscal.cdsProdutoUSA_PRECO_COR.AsString = 'S' then
+  begin
+    fDMCupomFiscal.qProduto_Comb.Close;
+    fDMCupomFiscal.qProduto_Comb.ParamByName('ID').AsInteger                := fDMCupomFiscal.cdsCupom_ItensID_PRODUTO.AsInteger;
+    fDMCupomFiscal.qProduto_Comb.ParamByName('ID_COR_COMBINACAO').AsInteger := StrToInt(FormatFloat('0000',fDMCupomFiscal.cdsCupom_ItensID_COR_COMBINACO.AsInteger));
+    fDMCupomFiscal.qProduto_Comb.Open;
+    if StrToFloat(FormatFloat('0.00000',fDMCupomFiscal.qProduto_CombPRECO_CUSTO.AsFloat)) > 0 then
+      Result := StrToFloat(FormatFloat('0.00000#####',fDMCupomFiscal.qProduto_CombPRECO_CUSTO.AsFloat));
+  end;
 end;
 
 end.

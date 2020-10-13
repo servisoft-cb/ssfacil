@@ -1036,6 +1036,11 @@ begin
       fDmCupomFiscal.cdsCupom_ItensITEM_CLIENTE.AsInteger := vItem_Cliente;
       fDmCupomFiscal.cdsCupom_ItensNUM_PEDIDO.AsInteger   := vNum_Pedido;
     end;
+
+    //13/10/2020
+    fDmCupomFiscal.cdsCupom_ItensPRECO_CUSTO.AsFloat := fnc_Preco_Custo(fDmCupomFiscal);
+    //*******************
+
     fDmCupomFiscal.cdsCupom_Itens.Post;
 
     //Total
