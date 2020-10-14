@@ -534,12 +534,6 @@ begin
     vVlr_CMoeda := fnc_Preco_Matriz(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,
                                     fDMCadPedido.cdsCMoedaID.AsInteger,fDMCadPedido.cdsCMoedaTIPO_PRECO.AsString,
                                     fDMCadPedido.cdsCMoedaVLR_UNITARIO.AsFloat);
-    if fDMCadPedido.cdsCMoedaTIPO_VP.AsString <> 'P' then
-    begin
-      //Valor da moeda é aplicado somente no valor final  11/02/2015
-      //vVlr_Calculado := vVlr_Calculado + vVlr_CMoeda;
-      //vVlr_CMoeda    := 0;
-    end;
   end;
   vVlr_Furos := 0;
   if trim(RxDBLookupCombo4.Text) <> '' then
@@ -549,11 +543,6 @@ begin
     vVlr_Furos := fnc_Preco_Matriz(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,
                                    fDMCadPedido.cdsFurosID.AsInteger,fDMCadPedido.cdsFurosTIPO_PRECO.AsString,
                                    fDMCadPedido.cdsFurosVLR_UNITARIO.AsFloat);
-    //Valor dos furos é aplicado somente no valor fina  11/02/2015
-    //if fDMCadPedido.cdsPedido_Item_TipoQTD_FUROS.AsInteger > 0 then
-    //  vVlr_Furos := vVlr_Furos * fDMCadPedido.cdsPedido_Item_TipoQTD_FUROS.AsInteger;
-    //vVlr_Calculado := vVlr_Calculado + vVlr_Furos;
-    //vVlr_Furos     := 0;
   end;
 
   vVlr_Perfil      := 0;
@@ -590,19 +579,16 @@ begin
   end;
 
   vVlr_Calculado_Aux := vVlr_Calculado;
-  //if vVlr_Acabamento > 0 then
-  //  vVlr_Calculado := vVlr_Calculado + ((vVlr_Calculado_Aux * vVlr_Acabamento) / 100);
   if vVlr_RedondoMod > 0 then
-    vVlr_Calculado := vVlr_Calculado + ((vVlr_Calculado_Aux * vVlr_RedondoMod) / 100);
-  //Foi colocado este calculo direto no final  11/02/2015
-  //if vVlr_CMoeda > 0 then
-  //  vVlr_Calculado := vVlr_Calculado + ((vVlr_Calculado_Aux * vVlr_CMoeda) / 100);
-  //if vVlr_Furos > 0 then
-  //  vVlr_Calculado := vVlr_Calculado + ((vVlr_Calculado_Aux * vVlr_Furos) / 100);
+  begin
+    vVlr_RedondoMod := ((vVlr_Calculado_Aux * vVlr_RedondoMod) / 100);
+    vVlr_Calculado  := vVlr_Calculado + vVlr_RedondoMod;
+  end;
   if vVlr_Furacao > 0 then
-    vVlr_Calculado := vVlr_Calculado + ((vVlr_Calculado_Aux * vVlr_Furacao) / 100);
-
-  //vVlr_Calculado := vVlr_Calculado + vVlr_CMoeda;
+  begin
+    vVlr_Furacao   := ((vVlr_Calculado_Aux * vVlr_Furacao) / 100);
+    vVlr_Calculado := vVlr_Calculado + vVlr_Furacao;
+  end;
 
   fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat := vVlr_Calculado;
   if (StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat)) > 0) and
@@ -660,7 +646,7 @@ begin
         if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat)) > 0 then
           vAux_Cor2 := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
                 * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
-        vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Produto * vAux)) + vAux_Cor2 + vVlr_Acabamento;
+        vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Produto * vAux)) + vAux_Cor2 + vVlr_Acabamento + vVlr_RedondoMod + vVlr_Furacao;
       end
       else
       begin
@@ -669,21 +655,9 @@ begin
         if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat)) > 0 then
           vAux_Cor2 := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
                 * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
-        vVlr_Calculado := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * vAux)) + vAux_Cor2;
+        vVlr_Calculado := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * vAux)) + vAux_Cor2 + vVlr_RedondoMod + vVlr_Furacao;
       end;
-
-      
-      //vVlr_Calculado := vVlr_Calculado + (vVlr_Calculado_Aux * vAux
     end;
-    //colocado no dia 11/02/2015
-    //vVlr_Calculado := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * vAux));
-    {vVlr_Calculado := vVlr_Calculado + vVlr_CMoeda;
-    if (StrToFloat(FormatFloat('0.00',vVlr_Furos)) > 0) and (fDMCadPedido.cdsPedido_Item_TipoQTD_FUROS.AsInteger > 0) then
-      vVlr_Furos := StrToFloat(FormatFloat('0.00',vVlr_Furos * fDMCadPedido.cdsPedido_Item_TipoQTD_FUROS.AsInteger));
-    vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Calculado + vVlr_Furos));
-    fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat := vVlr_Calculado;
-    vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Calculado * fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat));
-    fDMCadPedido.cdsPedido_Item_TipoVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',vVlr_Calculado));}
   end
   else
   begin
