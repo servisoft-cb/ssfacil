@@ -1,7 +1,7 @@
 object frmConsFatConsumo: TfrmConsFatConsumo
   Left = 225
   Top = 156
-  Width = 928
+  Width = 975
   Height = 478
   Caption = 'frmConsFatConsumo'
   Color = clBtnFace
@@ -18,7 +18,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
   object pnlPrincipal: TAdvPanel
     Left = 0
     Top = 56
-    Width = 920
+    Width = 967
     Height = 391
     Align = alClient
     BevelWidth = 10
@@ -48,11 +48,11 @@ object frmConsFatConsumo: TfrmConsFatConsumo
     object SMDBGrid1: TSMDBGrid
       Left = 10
       Top = 10
-      Width = 900
+      Width = 947
       Height = 354
       Align = alClient
       Ctl3D = False
-      DataSource = DMConsFat.dsmConsumo
+      DataSource = DMConsFat.dsConsFatConsumo
       Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
       ParentCtl3D = False
       ReadOnly = True
@@ -86,7 +86,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'ID_Material'
+          FieldName = 'ID_MATERIAL'
           Title.Alignment = taCenter
           Title.Caption = 'ID Material'
           Title.Color = clActiveCaption
@@ -94,7 +94,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
         end
         item
           Expanded = False
-          FieldName = 'Nome_Material'
+          FieldName = 'NOME_MATERIAL'
           Title.Alignment = taCenter
           Title.Caption = 'Nome Material'
           Title.Color = clActiveCaption
@@ -103,7 +103,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
         end
         item
           Expanded = False
-          FieldName = 'Nome_Cor'
+          FieldName = 'NOME_COR_MAT'
           Title.Alignment = taCenter
           Title.Caption = 'Cor'
           Title.Color = clActiveCaption
@@ -113,34 +113,37 @@ object frmConsFatConsumo: TfrmConsFatConsumo
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'Unidade'
+          FieldName = 'UNIDADE_MAT'
           Title.Alignment = taCenter
+          Title.Caption = 'Unid.'
           Title.Color = clActiveCaption
           Width = 58
           Visible = True
         end
         item
           Expanded = False
-          FieldName = 'Qtd'
+          FieldName = 'QTD_MATERIAL'
           Title.Alignment = taCenter
+          Title.Caption = 'Qtd. Material'
           Title.Color = clActiveCaption
-          Width = 129
+          Width = 128
           Visible = True
         end
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'Semi'
+          FieldName = 'TIPO_REG'
           Title.Alignment = taCenter
+          Title.Caption = 'Semi / Mat'
           Title.Color = clActiveCaption
-          Width = 55
+          Width = 59
           Visible = True
         end>
     end
     object ProgressBar1: TProgressBar
       Left = 10
       Top = 364
-      Width = 900
+      Width = 947
       Height = 17
       Align = alBottom
       TabOrder = 1
@@ -150,7 +153,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
   object NxPanel1: TNxPanel
     Left = 0
     Top = 0
-    Width = 920
+    Width = 967
     Height = 56
     Align = alTop
     BorderPen.Style = psClear
@@ -220,7 +223,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       ParentCtl3D = False
       TabOrder = 1
     end
-    object NxComboBox1: TNxComboBox
+    object cbTipo: TNxComboBox
       Left = 127
       Top = 28
       Width = 100
