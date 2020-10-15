@@ -579,11 +579,6 @@ begin
   end;
 
   vVlr_Calculado_Aux := vVlr_Calculado;
-  if vVlr_RedondoMod > 0 then
-  begin
-    vVlr_RedondoMod := ((vVlr_Calculado_Aux * vVlr_RedondoMod) / 100);
-    vVlr_Calculado  := vVlr_Calculado + vVlr_RedondoMod;
-  end;
   if vVlr_Furacao > 0 then
   begin
     vVlr_Furacao   := ((vVlr_Calculado_Aux * vVlr_Furacao) / 100);
@@ -622,7 +617,7 @@ begin
               * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
       //*****************
 
-      //19/02/2020                                                             
+      //19/02/2020
       //calculo do acabamento hoje esta em M2  30/06/2020  aqui
       if StrToFloat(FormatFloat('0.0000',vVlr_Acabamento)) > 0 then
         //vVlr_Acab_Aux := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
@@ -646,7 +641,7 @@ begin
         if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat)) > 0 then
           vAux_Cor2 := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
                 * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
-        vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Produto * vAux)) + vAux_Cor2 + vVlr_Acabamento + vVlr_RedondoMod + vVlr_Furacao;
+        vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Produto * vAux)) + vAux_Cor2 + vVlr_Acabamento + vVlr_Furacao;
       end
       else
       begin
@@ -655,7 +650,7 @@ begin
         if StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat)) > 0 then
           vAux_Cor2 := StrToFloat(FormatFloat('0.00',((fDMCadPedido.cdsPedido_Item_TipoALTURA.AsFloat / 1000) * (fDMCadPedido.cdsPedido_Item_TipoLARGURA.AsFloat / 1000))
                 * fDMCadPedido.cdsPedido_Item_TipoPRECO_COR_VIDRO.AsFloat));
-        vVlr_Calculado := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * vAux)) + vAux_Cor2 + vVlr_RedondoMod + vVlr_Furacao;
+        vVlr_Calculado := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * vAux)) + vAux_Cor2 + vVlr_Furacao;
       end;
     end;
   end
@@ -672,6 +667,13 @@ begin
   vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Calculado + vVlr_Furos));
 
   fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat := vVlr_Calculado;
+  if vVlr_RedondoMod > 0 then
+  begin
+    vVlr_RedondoMod := ((vVlr_Calculado * vVlr_RedondoMod) / 100);
+    vVlr_Calculado  := vVlr_Calculado + vVlr_RedondoMod;
+    fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat := vVlr_Calculado;
+  end;
+
   if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat)) > 0 then
     vVlr_Calculado := StrToFloat(FormatFloat('0.00',vVlr_Calculado * fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat));
   fDMCadPedido.cdsPedido_Item_TipoVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',vVlr_Calculado));

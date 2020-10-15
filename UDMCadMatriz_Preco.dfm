@@ -59,19 +59,19 @@ object DMCadMatriz_Preco: TDMCadMatriz_Preco
     end
     object sdsMatriz_PrecoDESCRICAO_TIPO: TStringField
       FieldName = 'DESCRICAO_TIPO'
-      Required = True
+      ProviderFlags = []
       FixedChar = True
       Size = 16
     end
     object sdsMatriz_PrecoDESCRICAO_TIPO_PRECO: TStringField
       FieldName = 'DESCRICAO_TIPO_PRECO'
-      Required = True
+      ProviderFlags = []
       FixedChar = True
       Size = 11
     end
     object sdsMatriz_PrecoDESCRICAO_TIPO_VP: TStringField
       FieldName = 'DESCRICAO_TIPO_VP'
-      Required = True
+      ProviderFlags = []
       FixedChar = True
       Size = 10
     end
@@ -82,7 +82,7 @@ object DMCadMatriz_Preco: TDMCadMatriz_Preco
     end
     object sdsMatriz_PrecoDESCRICAO_TIPO_CALCULO: TStringField
       FieldName = 'DESCRICAO_TIPO_CALCULO'
-      Required = True
+      ProviderFlags = []
       FixedChar = True
       Size = 14
     end
@@ -159,7 +159,6 @@ object DMCadMatriz_Preco: TDMCadMatriz_Preco
     object cdsMatriz_PrecoDESCRICAO_TIPO_CALCULO: TStringField
       FieldName = 'DESCRICAO_TIPO_CALCULO'
       ProviderFlags = []
-      Required = True
       FixedChar = True
       Size = 14
     end
