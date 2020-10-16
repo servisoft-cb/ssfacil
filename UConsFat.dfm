@@ -969,9 +969,9 @@ object frmConsFat: TfrmConsFat
       Top = 1
       Width = 1030
       Height = 505
-      ActivePage = ts_Geral
+      ActivePage = ts_Cliente
       Align = alClient
-      TabIndex = 0
+      TabIndex = 1
       TabOrder = 0
       FixedDimension = 19
       object ts_Geral: TRzTabSheet

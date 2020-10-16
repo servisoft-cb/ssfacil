@@ -806,6 +806,7 @@ end;
 procedure TfrmCadOrcamento.btnAlterar_ItensClick(Sender: TObject);
 var
   vMSGAux: String;
+  vItemAux : Integer;
 begin
   vMSGAux := '';
   if (fDMCadPedido.cdsPedido_Itens.IsEmpty) or (fDMCadPedido.cdsPedido_ItensITEM.AsInteger <= 0) then
@@ -823,6 +824,8 @@ begin
     MessageDlg(vMSGAux, mtError, [mbOk], 0);
     exit;
   end;
+
+  vItemAux := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
 
   fDMCadPedido.cdsPedido_Itens.Edit;
 
@@ -842,7 +845,13 @@ begin
     FreeAndNil(ffrmCadOrcamento_Itens);
   end;
 
-  btnCalcular_ValoresClick(Sender);
+  SMDBGrid2.DisableScroll;
+  try
+    btnCalcular_ValoresClick(Sender);
+    fDMCadPedido.cdsPedido_Itens.Locate('ITEM',vItemAux,[loCaseInsensitive]);
+  finally
+    SMDBGrid2.EnableScroll;
+  end;
 end;
 
 function TfrmCadOrcamento.fnc_verificar_CFOP(ID: Integer): Boolean;

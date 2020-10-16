@@ -1179,33 +1179,34 @@ object DMCadDuplicata: TDMCadDuplicata
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select DUP.*, PES.NOME NOME_PESSOA, VEN.NOME NOME_VENDEDOR, BCO.' +
-      'NOME NOME_BANCO, CTA.NOME NOME_CONTA,'#13#10'       TC.NOME NOME_TIPOC' +
-      'OBRANCA, PES.ENDERECO, PES.COMPLEMENTO_END, PES.NUM_END, PES.BAI' +
-      'RRO, PES.CIDADE, PES.UF,'#13#10'       PES.CEP, PES.CNPJ_CPF, PES.INSC' +
-      'R_EST, PES.ENDERECO_PGTO, PES.COMPLEMENTO_END_PGTO, PES.NUM_END_' +
-      'PGTO,'#13#10'       PES.BAIRRO_PGTO, PES.CIDADE_PGTO, PES.UF_PGTO, PES' +
-      '.CEP_PGTO, PES.PESSOA, PF.INF_SPC, BCAD.CODIGO COD_BANCO,'#13#10'     ' +
-      '  ORC.DESCRICAO NOME_ORCAMENTO, TC.GERARBOLETO,'#13#10'       (DUP.VLR' +
-      '_PAGO + coalesce(DUP.VLR_JUROSPAGOS, 0)) VLR_TOTALPAGO, PES.TELE' +
-      'FONE1,'#13#10'  case'#13#10'    when dup.vlr_parcela > 0 then (DUP.VLR_PARCE' +
-      'LA / coalesce((select N.VLR_DUPLICATA'#13#10'                         ' +
-      '           from NOTAFISCAL N'#13#10'                                  ' +
-      '  where N.ID = DUP.ID_NOTA), 1) * 100)'#13#10'    else 0'#13#10'    end PERC' +
-      '_TOTAL_NOTA,'#13#10'       (select sum(N1.VLR_DUPLICATA)'#13#10'        from' +
-      ' NOTAFISCAL N1'#13#10'        where N1.ID = DUP.ID_NOTA) VLR_TOTAL_NOT' +
-      'A'#13#10'from DUPLICATA DUP'#13#10'left join PESSOA PES on DUP.ID_PESSOA = P' +
-      'ES.CODIGO'#13#10'left join PESSOA VEN on DUP.ID_VENDEDOR = VEN.CODIGO'#13 +
-      #10'left join CONTAS BCO on DUP.ID_CONTA_BOLETO = BCO.ID'#13#10'left join' +
-      ' CONTAS CTA on DUP.ID_CONTA = CTA.ID'#13#10'left join TIPOCOBRANCA TC ' +
-      'on DUP.ID_TIPOCOBRANCA = TC.ID'#13#10'left join BANCO BCAD on BCO.ID =' +
-      ' BCAD.ID'#13#10'left join CONTA_ORCAMENTO ORC on DUP.ID_CONTA_ORCAMENT' +
-      'O = ORC.ID'#13#10'left join PESSOA_FISICA PF on (PES.CODIGO = PF.CODIG' +
-      'O)'#13#10
+      'select DUP.*, VEN.NOME NOME_VENDEDOR, BCO.NOME NOME_BANCO, CTA.N' +
+      'OME NOME_CONTA,'#13#10'       TC.NOME NOME_TIPOCOBRANCA, PES.ENDERECO,' +
+      ' PES.COMPLEMENTO_END, PES.NUM_END, PES.BAIRRO, PES.CIDADE, PES.U' +
+      'F,'#13#10'       PES.CEP, PES.CNPJ_CPF, PES.INSCR_EST, PES.ENDERECO_PG' +
+      'TO, PES.COMPLEMENTO_END_PGTO, PES.NUM_END_PGTO,'#13#10'       PES.BAIR' +
+      'RO_PGTO, PES.CIDADE_PGTO, PES.UF_PGTO, PES.CEP_PGTO, PES.PESSOA,' +
+      ' PF.INF_SPC, BCAD.CODIGO COD_BANCO,'#13#10'       ORC.DESCRICAO NOME_O' +
+      'RCAMENTO, TC.GERARBOLETO,'#13#10'       (DUP.VLR_PAGO + coalesce(DUP.V' +
+      'LR_JUROSPAGOS, 0)) VLR_TOTALPAGO, PES.TELEFONE1,'#13#10'  case'#13#10'    wh' +
+      'en dup.vlr_parcela > 0 then (DUP.VLR_PARCELA / coalesce((select ' +
+      'N.VLR_DUPLICATA'#13#10'                                    from NOTAFI' +
+      'SCAL N'#13#10'                                    where N.ID = DUP.ID_' +
+      'NOTA), 1) * 100)'#13#10'    else 0'#13#10'    end PERC_TOTAL_NOTA,'#13#10'       (' +
+      'select sum(N1.VLR_DUPLICATA)'#13#10'        from NOTAFISCAL N1'#13#10'      ' +
+      '  where N1.ID = DUP.ID_NOTA) VLR_TOTAL_NOTA,'#13#10'  case'#13#10'    WHEN D' +
+      'UP.tipo_mov = '#39'H'#39' AND coalesce(DUP.id_pessoa,0) = 0 then dup.des' +
+      'cricao'#13#10'    else PES.NOME'#13#10'    END NOME_PESSOA'#13#10#13#10'from DUPLICATA' +
+      ' DUP'#13#10'left join PESSOA PES on DUP.ID_PESSOA = PES.CODIGO'#13#10'left j' +
+      'oin PESSOA VEN on DUP.ID_VENDEDOR = VEN.CODIGO'#13#10'left join CONTAS' +
+      ' BCO on DUP.ID_CONTA_BOLETO = BCO.ID'#13#10'left join CONTAS CTA on DU' +
+      'P.ID_CONTA = CTA.ID'#13#10'left join TIPOCOBRANCA TC on DUP.ID_TIPOCOB' +
+      'RANCA = TC.ID'#13#10'left join BANCO BCAD on BCO.ID = BCAD.ID'#13#10'left jo' +
+      'in CONTA_ORCAMENTO ORC on DUP.ID_CONTA_ORCAMENTO = ORC.ID'#13#10'left ' +
+      'join PESSOA_FISICA PF on (PES.CODIGO = PF.CODIGO)'#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 264
+    Left = 263
     Top = 8
   end
   object dspDuplicata_Consulta: TDataSetProvider

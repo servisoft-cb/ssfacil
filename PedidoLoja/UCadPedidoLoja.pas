@@ -1001,6 +1001,11 @@ begin
     fDMCadPedido.cdsPedidoVLR_DESCONTO.AsFloat  := 0;
 
   btnCalcular_ValoresClick(Sender);
+
+  //16/10/2020
+  uCalculo_Pedido.fnc_Gerar_Pedido_Parc(fDMCadPedido);
+  //********************
+
 end;
 
 procedure TfrmCadPedidoLoja.RzPageControl1Change(Sender: TObject);
