@@ -1801,7 +1801,7 @@ object DMCadDocEstoque: TDMCadDocEstoque
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 344
-    Top = 248
+    Top = 250
     object qParametros_GeralATUALIZAR_PRECOVENDA_DOC: TStringField
       FieldName = 'ATUALIZAR_PRECOVENDA_DOC'
       FixedChar = True

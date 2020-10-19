@@ -1513,6 +1513,7 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Cor'
+                Width = 64
                 Visible = True
               end
               item
@@ -1539,6 +1540,7 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Estoque'
+                Width = 64
                 Visible = True
               end
               item
@@ -1554,6 +1556,7 @@ object frmCadInventario: TfrmCadInventario
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = [fsBold]
+                Width = 64
                 Visible = True
               end
               item
@@ -1569,6 +1572,7 @@ object frmCadInventario: TfrmCadInventario
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = [fsBold]
+                Width = 64
                 Visible = True
               end
               item
@@ -1585,6 +1589,7 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'Tipo Ajuste'
+                Width = 64
                 Visible = True
               end
               item
@@ -1601,6 +1606,7 @@ object frmCadInventario: TfrmCadInventario
                 ReadOnly = True
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Mov Estoque'
+                Width = 64
                 Visible = True
               end
               item

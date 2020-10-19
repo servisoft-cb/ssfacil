@@ -913,7 +913,7 @@ object frmConsFat: TfrmConsFat
     end
     object lblTroca: TLabel
       Left = 187
-      Top = 68
+      Top = 69
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -969,9 +969,9 @@ object frmConsFat: TfrmConsFat
       Top = 1
       Width = 1030
       Height = 505
-      ActivePage = ts_Cliente
+      ActivePage = ts_Geral
       Align = alClient
-      TabIndex = 1
+      TabIndex = 0
       TabOrder = 0
       FixedDimension = 19
       object ts_Geral: TRzTabSheet

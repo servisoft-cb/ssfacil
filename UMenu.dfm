@@ -1316,6 +1316,10 @@ object fMenu: TfMenu
         Caption = 'Gerar Movimento (Nota Fiscal / Servi'#231'o)'
         OnClick = GerarMovimentoNotasFiscaisServio1Click
       end
+      object GerarEstoqueMov1: TMenuItem
+        Caption = 'Gerar Estoque_Mov'
+        OnClick = GerarEstoqueMov1Click
+      end
       object N8: TMenuItem
         Caption = '-'
       end
