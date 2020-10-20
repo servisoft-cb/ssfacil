@@ -117,18 +117,21 @@ var
 begin
   Result := 0;
   iSeq   := 0;
+  qParametros_Geral.Close;
+  qParametros_Geral.Open;
 
   sds := TSQLDataSet.Create(nil);
   try
     ID.TransactionID  := 999;
     ID.IsolationLevel := xilREADCOMMITTED;
 
-    scoDados.StartTransaction(ID);
+    if (qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') and (NomeTabela = 'PESSOA') then
+      scoServidor.StartTransaction(ID)
+    else
+      scoDados.StartTransaction(ID);
     try
-      qParametros_Geral.Close;
-      qParametros_Geral.Open;
       //19/10/2020  vai gravar no servidor o cliente
-      if qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S' then
+      if (qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') and (NomeTabela = 'PESSOA') then
          sds.SQLConnection := scoServidor
       else
         sds.SQLConnection := scoDados;
@@ -143,12 +146,26 @@ begin
       //iSeq := sds.FieldByName('NUMREGISTRO').AsInteger + 1;
       iSeq := sds.FieldByName('NUMREGISTRO').AsInteger;
 
-      if (iSeq = 0) and (sds.IsEmpty) then
-        scoDados.ExecuteDirect('INSERT INTO SEQUENCIAL(TABELA,FILIAL,NUMREGISTRO,SERIE) VALUES(' + QuotedStr(NomeTabela) + ',' +
-                                QuotedStr(IntToStr(Filial)) + ',' + QuotedStr(IntToStr(0)) + ',' + QuotedStr(SerieCupom) + ')');
-      scoDados.Commit(ID);
+      if (qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') and (NomeTabela = 'PESSOA') then
+      begin
+        if (iSeq = 0) and (sds.IsEmpty) then
+          scoServidor.ExecuteDirect('INSERT INTO SEQUENCIAL(TABELA,FILIAL,NUMREGISTRO,SERIE) VALUES(' + QuotedStr(NomeTabela) + ',' +
+                                  QuotedStr(IntToStr(Filial)) + ',' + QuotedStr(IntToStr(0)) + ',' + QuotedStr(SerieCupom) + ')');
+        scoServidor.Commit(ID);
+      end
+      else
+      begin
+        if (iSeq = 0) and (sds.IsEmpty) then
+          scoDados.ExecuteDirect('INSERT INTO SEQUENCIAL(TABELA,FILIAL,NUMREGISTRO,SERIE) VALUES(' + QuotedStr(NomeTabela) + ',' +
+                                  QuotedStr(IntToStr(Filial)) + ',' + QuotedStr(IntToStr(0)) + ',' + QuotedStr(SerieCupom) + ')');
+        scoDados.Commit(ID);
+      end;
+
     except
-      scoDados.Rollback(ID);
+      if (qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') and (NomeTabela = 'PESSOA') then
+        scoServidor.Rollback(ID)
+      else
+        scoDados.Rollback(ID);
       raise;
     end;
   finally
@@ -160,11 +177,14 @@ begin
     ID.TransactionID  := 999;
     ID.IsolationLevel := xilREADCOMMITTED;
 
-    dmDatabase.scoDados.StartTransaction(ID);
+      if (qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') and (NomeTabela = 'PESSOA') then
+      dmDatabase.scoServidor.StartTransaction(ID)
+    else
+      dmDatabase.scoDados.StartTransaction(ID);
     try //--
       qParametros_Geral.Close;
       qParametros_Geral.Open;
-      if qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S' then
+      if (qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') and (NomeTabela = 'PESSOA') then
         sds.SQLConnection := dmDatabase.scoServidor
       else
         sds.SQLConnection := dmDatabase.scoDados;
@@ -211,12 +231,18 @@ begin
 
       iSeq := sds.FieldByName('NUMREGISTRO').AsInteger;
 
-      dmDatabase.scoDados.Commit(ID);
+      if (qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') and (NomeTabela = 'PESSOA') then
+        dmDatabase.scoServidor.Commit(ID)
+      else
+        dmDatabase.scoDados.Commit(ID);
 
       Result := iSeq;
 
     except
-      dmDatabase.scoDados.Rollback(ID);
+      if (qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S') and (NomeTabela = 'PESSOA') then
+        dmDatabase.scoServidor.Rollback(ID)
+      else
+        dmDatabase.scoDados.Rollback(ID);
       raise;
     end;
 

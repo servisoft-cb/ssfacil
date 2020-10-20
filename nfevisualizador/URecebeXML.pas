@@ -4152,9 +4152,11 @@ begin
 
   if fDMRecebeXML.qParametros_ProdOPCAO_APLICAR_MARGEM.AsString <> 'C' then
   begin
-    if (fDMRecebeXML.qParametrosUSA_PERC_MARGEM_RECEPCAO.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaPerc_Margem.AsFloat)) > 0) then
+    if (fDMRecebeXML.qParametrosUSA_PERC_MARGEM_RECEPCAO.AsString = 'S') and
+       (StrToFloat(FormatFloat('0.00',fDMRecebeXML.mItensNotaPerc_Margem.AsFloat)) > 0) then
       fDMRecebeXML.cdsProdutoPERC_MARGEMLUCRO.AsFloat := fDMRecebeXML.mItensNotaPerc_Margem.AsFloat;
-    if (StrToFloat(FormatFloat('0.00',fDMRecebeXML.cdsProdutoPERC_MARGEMLUCRO.AsFloat)) > 0) and (StrToFloat(FormatFloat('0.00000',fDMRecebeXML.cdsProdutoPRECO_CUSTO.AsFloat)) > 0) then
+    if (StrToFloat(FormatFloat('0.00',fDMRecebeXML.cdsProdutoPERC_MARGEMLUCRO.AsFloat)) > 0) and
+       (StrToFloat(FormatFloat('0.00000',fDMRecebeXML.cdsProdutoPRECO_CUSTO.AsFloat)) > 0) then
     begin
       vVlrAux := StrToFloat(FormatFloat('0.0000',fDMRecebeXML.cdsProdutoPRECO_CUSTO.AsFloat * fDMRecebeXML.cdsProdutoPERC_MARGEMLUCRO.AsFloat / 100));
       vVlrAux := StrToFloat(FormatFloat('0.0000',fDMRecebeXML.cdsProdutoPRECO_CUSTO.AsFloat + vVlrAux));

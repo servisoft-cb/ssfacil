@@ -1460,9 +1460,6 @@ type
 
     procedure prc_Gravar_Log(ID : Integer ; Tipo : String); //I= Inserir   A= Alterar   E= Excluir
 
-
-
-
   end;
 
 var
