@@ -1376,6 +1376,7 @@ type
     cdsPessoaINFADI_DESC_CPROD: TStringField;
     cdsPessoaINFADI_DESC_OS: TStringField;
     cdsPessoa_ConsultaPERC_COMISSAO_INT: TFloatField;
+    qParametros_GeralUSA_NFCE_LOCAL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;
@@ -1473,6 +1474,7 @@ var
 begin
   if not cdsPessoa.Active then
     prc_Localizar(-1);
+
   vAux := dmDatabase.ProximaSequencia('PESSOA',0);
   if vAux = 99999 then
     prc_Inserir(Tipo);

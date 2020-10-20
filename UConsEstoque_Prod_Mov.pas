@@ -46,7 +46,6 @@ type
       Shift: TShiftState);
   private
     { Private declarations }
-    fDMConsEstoque: TDMConsEstoque;
     ColunaOrdenada: String;
     vComando: String;
     vSaldo_Original: Real;
@@ -64,6 +63,7 @@ type
     vFilial_Loc : Integer;
     vNome_Produto : String;
     vID_Cor_Loc: Integer;
+    fDMConsEstoque: TDMConsEstoque;
 
   end;
 
@@ -87,7 +87,8 @@ end;
 procedure TfrmConsEstoque_Prod_Mov.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  FreeAndNil(fDMConsEstoque);
+  if fDMConsEstoque.Owner.ClassName  = Self.ClassName then
+    FreeAndNil(fDMConsEstoque);
   Action := Cafree;
 end;
 
@@ -102,7 +103,8 @@ begin
   vData := EncodeDate(YearOf(vData),MonthOf(vData),01);
   DateEdit1.Date := vData;
 
-  fDMConsEstoque := TDMConsEstoque.Create(Self);
+  if not Assigned(fDMConsEstoque) then
+    fDMConsEstoque := TDMConsEstoque.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMConsEstoque);
 
   SMDBGrid1.ClearFilter;
@@ -238,6 +240,18 @@ var
   sds: TSQLDataSet;
   vAux: Real;
 begin
+  if DateEdit1.Date <= 10 then
+  begin
+    Label2.Caption := 'Saldo anterior ';
+    Label7.Caption := '0';
+    if DateEdit2.Date > 10 then
+      label10.Caption := 'Saldo até ' + DateEdit2.Text + ': '
+    else
+      label10.Caption := 'Saldo Físico: ';
+    Label8.Caption := FormatFloat('###,###,###,##0.0000',vSaldo_Original);
+    exit;
+  end;
+
   sds := TSQLDataSet.Create(nil);
   try
     sds.SQLConnection := dmDatabase.scoDados;
@@ -252,7 +266,8 @@ begin
     if DateEdit1.Date > 10 then
       sds.CommandText   := sds.CommandText + '  AND E.DTMOVIMENTO < :DTMOVIMENTO ';
     sds.ParamByName('ID_PRODUTO').AsInteger := CurrencyEdit1.AsInteger;
-    sds.ParamByName('DTMOVIMENTO').AsDate   := DateEdit1.Date;
+    if DateEdit1.Date > 10 then
+      sds.ParamByName('DTMOVIMENTO').AsDate   := DateEdit1.Date;
     sds.Open;
     Label2.Caption := 'Saldo anterior a data: ' + DateEdit1.Text;
     Label7.Caption := FormatFloat('###,###,###,##0.0000',sds.FieldByName('QTD').AsFloat);

@@ -443,6 +443,7 @@ begin
     frmConsEstoque_Prod_Mov.CurrencyEdit1.Text := fDMConsEstoque.cdsEstoqueID.AsString;
     frmConsEstoque_Prod_Mov.Edit3.Text         := fDMConsEstoque.cdsEstoqueNOMEPRODUTO.AsString;
     frmConsEstoque_Prod_Mov.vID_Cor_Loc        := fDMConsEstoque.cdsEstoqueID_COR_COMBINACAO.AsInteger;
+    frmConsEstoque_Prod_Mov.fDMConsEstoque     := fDMConsEstoque;
     frmConsEstoque_Prod_Mov.ShowModal;
     FreeAndNil(frmConsEstoque_Prod_Mov);
   end;

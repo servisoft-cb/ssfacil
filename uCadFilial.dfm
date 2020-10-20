@@ -24,7 +24,7 @@ object frmCadFilial: TfrmCadFilial
     Top = 0
     Width = 1094
     Height = 599
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadFilial: TfrmCadFilial
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -5547,7 +5547,7 @@ object frmCadFilial: TfrmCadFilial
             object gbxCustoVenda: TRzGroupBox
               Left = 25
               Top = 15
-              Width = 582
+              Width = 590
               Height = 226
               Anchors = [akLeft, akTop, akRight]
               BorderColor = clNavy
@@ -5723,7 +5723,7 @@ object frmCadFilial: TfrmCadFilial
             object RzGroupBox3: TRzGroupBox
               Left = 257
               Top = 15
-              Width = 582
+              Width = 590
               Height = 226
               Anchors = [akLeft, akTop, akRight]
               BorderColor = clNavy

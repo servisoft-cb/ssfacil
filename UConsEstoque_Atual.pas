@@ -330,6 +330,7 @@ begin
     ffrmConsEstoque_Prod_Mov.CurrencyEdit1.Text := fDMConsEstoque.cdsEstoque_AtualID_PRODUTO.AsString;
     ffrmConsEstoque_Prod_Mov.Edit3.Text         := fDMConsEstoque.cdsEstoque_AtualNOME_PRODUTO.AsString;
     ffrmConsEstoque_Prod_Mov.vID_Cor_Loc        := fDMConsEstoque.cdsEstoque_AtualID_COR.AsInteger;
+    ffrmConsEstoque_Prod_Mov.fDMConsEstoque     := fDMConsEstoque;
     ffrmConsEstoque_Prod_Mov.ShowModal;
     FreeAndNil(ffrmConsEstoque_Prod_Mov);
   end;

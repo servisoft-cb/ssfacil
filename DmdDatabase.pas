@@ -68,6 +68,7 @@ type
     sqDataLiberacaoCODVENDEDOR_COB: TIntegerField;
     qParametros_Geral: TSQLQuery;
     qParametros_GeralID_RESP_COBRANCA: TIntegerField;
+    qParametros_GeralUSA_NFCE_LOCAL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
@@ -124,7 +125,13 @@ begin
 
     scoDados.StartTransaction(ID);
     try
-      sds.SQLConnection := scoDados;
+      qParametros_Geral.Close;
+      qParametros_Geral.Open;
+      //19/10/2020  vai gravar no servidor o cliente
+      if qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S' then
+         sds.SQLConnection := scoServidor
+      else
+        sds.SQLConnection := scoDados;
       sds.NoMetadata  := True;
       sds.GetMetadata := False;
       sds.CommandText := 'SELECT NUMREGISTRO FROM SEQUENCIAL WHERE TABELA = :TABELA AND FILIAL = :FILIAL AND SERIE = :SERIE';
@@ -155,8 +162,12 @@ begin
 
     dmDatabase.scoDados.StartTransaction(ID);
     try //--
-      sds.SQLConnection := dmDatabase.scoDados;
-
+      qParametros_Geral.Close;
+      qParametros_Geral.Open;
+      if qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S' then
+        sds.SQLConnection := dmDatabase.scoServidor
+      else
+        sds.SQLConnection := dmDatabase.scoDados;
       sds.NoMetadata  := True;
       sds.GetMetadata := False;
 

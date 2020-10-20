@@ -5548,6 +5548,11 @@ object DMCadPessoa: TDMCadPessoa
       FixedChar = True
       Size = 1
     end
+    object qParametros_GeralUSA_NFCE_LOCAL: TStringField
+      FieldName = 'USA_NFCE_LOCAL'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsGrupo_Pessoa: TSQLDataSet
     NoMetadata = True

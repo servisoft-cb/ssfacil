@@ -1040,18 +1040,10 @@ begin
     cdsInventario_Itens.First;
     while not cdsInventario_Itens.Eof do
     begin
-      if StrToFloat(FormatFloat('0.00000',cdsInventario_ItensQTD_ESTOQUE.AsFloat)) <> StrToFloat(FormatFloat('0.00000',cdsInventario_ItensQTD_INVENTARIO.AsFloat)) then
+      if StrToFloat(FormatFloat('0.00000',cdsInventario_ItensQTD_AJUSTE.AsFloat)) > 0 then
       begin
-        if StrToFloat(FormatFloat('0.00000',cdsInventario_ItensQTD_ESTOQUE.AsFloat)) > StrToFloat(FormatFloat('0.00000',cdsInventario_ItensQTD_INVENTARIO.AsFloat)) then
-        begin
-          vQtd     := StrToFloat(FormatFloat('0.00000',cdsInventario_ItensQTD_ESTOQUE.AsFloat - cdsInventario_ItensQTD_INVENTARIO.AsFloat));
-          vTipo_ES := 'S';
-        end
-        else
-        begin
-          vQtd     := StrToFloat(FormatFloat('0.00000',cdsInventario_ItensQTD_INVENTARIO.AsFloat - cdsInventario_ItensQTD_ESTOQUE.AsFloat));
-          vTipo_ES := 'E';
-        end;
+        vQtd     := StrToFloat(FormatFloat('0.00000',cdsInventario_ItensQTD_AJUSTE.AsFloat));
+        vTipo_ES := cdsInventario_ItensTIPO_AJUSTE.AsString;
         if vTipo_ES = 'E' then
           vGerar_Custo := 'S'
         else

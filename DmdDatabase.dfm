@@ -28,7 +28,7 @@ object dmDatabase: TdmDatabase
       'Interbase TransIsolation=ReadCommited'
       'Trim Char=False')
     VendorLib = 'gds32.dll'
-    Left = 55
+    Left = 58
     Top = 16
   end
   object Decoder64: TIdDecoderMIME
@@ -401,13 +401,18 @@ object dmDatabase: TdmDatabase
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT ID_RESP_COBRANCA'
+      'SELECT ID_RESP_COBRANCA, USA_NFCE_LOCAL'
       'FROM PARAMETROS_GERAL')
     SQLConnection = scoDados
-    Left = 99
+    Left = 98
     Top = 307
     object qParametros_GeralID_RESP_COBRANCA: TIntegerField
       FieldName = 'ID_RESP_COBRANCA'
+    end
+    object qParametros_GeralUSA_NFCE_LOCAL: TStringField
+      FieldName = 'USA_NFCE_LOCAL'
+      FixedChar = True
+      Size = 1
     end
   end
 end

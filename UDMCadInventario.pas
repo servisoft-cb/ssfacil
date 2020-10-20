@@ -535,7 +535,7 @@ begin
                             + '             left join GRUPO GR on PRO.ID_GRUPO = GR.ID '
                             + '             where PRO.INATIVO = ' + QuotedStr('N') + ' and '
                             + '                   PRO.TIPO_REG = ' + QuotedStr(Tipo_Reg) + ' and '
-                            + '                   PRO.ESTOQUE = ' + QuotedStr('S') + ') AUX '
+                            + '                   PRO.ESTOQUE = ' + QuotedStr('S') + ') AUX  WHERE 0 = 0 '
   end;
 
   if ID_Produto > 0 then
