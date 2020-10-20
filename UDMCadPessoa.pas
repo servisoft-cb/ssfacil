@@ -1377,6 +1377,8 @@ type
     cdsPessoaINFADI_DESC_OS: TStringField;
     cdsPessoa_ConsultaPERC_COMISSAO_INT: TFloatField;
     qParametros_GeralUSA_NFCE_LOCAL: TStringField;
+    sdsPRC_GRAVA_PESSOA_LOG: TSQLDataSet;
+    qParametros_GeralESTACAO_SERVIDOR_NFCE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;
@@ -1455,6 +1457,12 @@ type
 
     procedure prc_Abrir_Natureza;
     procedure prc_Abrir_Cidade(UF: String);
+
+    procedure prc_Gravar_Log(ID : Integer ; Tipo : String); //I= Inserir   A= Alterar   E= Excluir
+
+
+
+
   end;
 
 var
@@ -2349,6 +2357,49 @@ procedure TDMCadPessoa.cdsPessoa_ProdICMSBeforePost(DataSet: TDataSet);
 begin
   if trim(cdsPessoa_ProdICMSFINALIDADE.AsString) = '' then
     cdsPessoa_ProdICMSFINALIDADE.AsString := 'A';
+end;
+
+procedure TDMCadPessoa.prc_Gravar_Log(ID: Integer; Tipo: String);
+var
+  sds: TSQLDataSet;
+  vGravar : Boolean;
+begin
+  if trim(qParametros_GeralUSA_NFCE_LOCAL.AsString) <> 'S' then
+    exit;
+  if trim(qParametros_GeralESTACAO_SERVIDOR_NFCE.AsString) <> 'E' then
+    exit;
+  vGravar := False;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata := True;
+    sds.GetMetadata := False;
+    sds.CommandText := 'SELECT COUNT(1) CONTADOR FROM PESSOA WHERE CODIGO = ' + IntToStr(ID);
+    sds.Open;
+    if (Tipo = 'E') and (sds.FieldByName('CONTADOR').AsInteger <= 0) then
+      vGravar := True;
+    if (Tipo = 'I') and (sds.FieldByName('CONTADOR').AsInteger > 0) then
+      vGravar := True;
+    if (Tipo = 'A') and (sds.FieldByName('CONTADOR').AsInteger > 0) then
+      vGravar := True;
+  finally
+    FreeAndNil(sds);
+  end;
+
+  if not vGravar then
+    exit;
+
+  sdsPRC_GRAVA_PESSOA_LOG.Close;
+  sdsPRC_GRAVA_PESSOA_LOG.ParamByName('P_ID_PESSOA').AsInteger := ID;
+  if Tipo = 'I' then
+    sdsPRC_GRAVA_PESSOA_LOG.ParamByName('P_TIPO').AsInteger := 0
+  else
+  if Tipo = 'A' then
+    sdsPRC_GRAVA_PESSOA_LOG.ParamByName('P_TIPO').AsInteger := 1
+  else
+  if Tipo = 'E' then
+    sdsPRC_GRAVA_PESSOA_LOG.ParamByName('P_TIPO').AsInteger := 2;
+  sdsPRC_GRAVA_PESSOA_LOG.ExecSQL;
 end;
 
 end.

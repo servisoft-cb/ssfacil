@@ -5461,7 +5461,7 @@ object DMCadPessoa: TDMCadPessoa
       'FROM PARAMETROS_GERAL'
       'WHERE ID = 1')
     SQLConnection = dmDatabase.scoDados
-    Left = 1025
+    Left = 1026
     Top = 175
     object qParametros_GeralMOSTRAR_DADOS_PESSOA_FISICA: TStringField
       FieldName = 'MOSTRAR_DADOS_PESSOA_FISICA'
@@ -5550,6 +5550,11 @@ object DMCadPessoa: TDMCadPessoa
     end
     object qParametros_GeralUSA_NFCE_LOCAL: TStringField
       FieldName = 'USA_NFCE_LOCAL'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_GeralESTACAO_SERVIDOR_NFCE: TStringField
+      FieldName = 'ESTACAO_SERVIDOR_NFCE'
       FixedChar = True
       Size = 1
     end
@@ -6787,7 +6792,7 @@ object DMCadPessoa: TDMCadPessoa
       'SELECT P.usa_sintetica'
       'FROM parametros_cta_orc P')
     SQLConnection = dmDatabase.scoDados
-    Left = 1025
+    Left = 1026
     Top = 273
     object qParametros_CTA_ORCUSA_SINTETICA: TStringField
       FieldName = 'USA_SINTETICA'
@@ -7307,7 +7312,7 @@ object DMCadPessoa: TDMCadPessoa
       'FROM PRODUTO'
       'WHERE ID = :ID')
     SQLConnection = dmDatabase.scoDados
-    Left = 1027
+    Left = 1025
     Top = 364
     object qProdID: TIntegerField
       FieldName = 'ID'
@@ -7885,5 +7890,24 @@ object DMCadPessoa: TDMCadPessoa
       FieldName = 'CNPJ_CPF'
       Size = 18
     end
+  end
+  object sdsPRC_GRAVA_PESSOA_LOG: TSQLDataSet
+    CommandText = 'PRC_GRAVA_PESSOA_LOG'
+    CommandType = ctStoredProc
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'P_ID_PESSOA'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'P_TIPO'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 662
+    Top = 575
   end
 end

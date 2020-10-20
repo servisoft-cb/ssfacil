@@ -768,6 +768,7 @@ type
     vRG_Ant: string;
     vTP_Cliente_Ant: string;
     vCAE_Ant : String;
+    vStatus_Pessoa : String; //I= Inserir   A= Alterar   E=Excluir
     procedure prc_Inserir_Registro(Tipo: string);
     procedure prc_Excluir_Registro;
     procedure prc_Gravar_Registro;
@@ -787,6 +788,7 @@ type
     procedure prc_Preenche_Dados;
     procedure prc_Consulta_Sefaz;
     procedure prc_Consulta_Receita;
+
     
   public
     { Public declarations }
@@ -953,6 +955,7 @@ end;
 
 procedure TfrmCadPessoa.btnInserirClick(Sender: TObject);
 begin
+  vStatus_Pessoa := 'I';
   prc_Configurarr_vTipoPessoa;
   prc_Inserir_Registro(fMenu.vTipoPessoa);
 end;
@@ -968,6 +971,7 @@ begin
     MessageDlg('*** Este registro não pode ser excluído, é usado para Consumidor Final!', mtError, [mbOk], 0);
     exit;
   end;
+  vStatus_Pessoa := 'E';
 
   prc_Posiciona_Pessoa;
 
@@ -996,6 +1000,7 @@ begin
   if (fDMCadPessoa.cdsPessoa.IsEmpty) or not (fDMCadPessoa.cdsPessoa.Active) or (fDMCadPessoa.cdsPessoaCODIGO.AsInteger < 1) then
     exit;
   fDMCadPessoa.cdsPessoa.Edit;
+  vStatus_Pessoa := 'A';
   prc_Habilitar;
 end;
 
@@ -1098,6 +1103,10 @@ begin
       raise;
     end
   end;
+  fDMCadPessoa.qParametros_Geral.Close;
+  fDMCadPessoa.qParametros_Geral.Open;
+  if fDMCadPessoa.qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S' then
+    fDMCadPessoa.prc_Gravar_Log(vCodAux,'E');
 end;
 
 procedure TfrmCadPessoa.prc_Gravar_Registro;
@@ -1126,6 +1135,7 @@ begin
   fDMCadPessoa.cdsPessoaBAIRRO.AsString := trim(fDMCadPessoa.cdsPessoaBAIRRO.AsString);
   fDMCadPessoa.cdsPessoaCOMPLEMENTO_END.AsString := trim(fDMCadPessoa.cdsPessoaCOMPLEMENTO_END.AsString);
   fDMCadPessoa.cdsPessoaNUM_END.AsString := trim(fDMCadPessoa.cdsPessoaNUM_END.AsString);
+  vCodPessoa_Pos := 0;
 
   sds := TSQLDataSet.Create(nil);
   ID.TransactionID := 1;
@@ -1264,6 +1274,12 @@ begin
       raise Exception.Create('Erro ao gravar o Registro: ' + #13 + e.Message);
     end;
   end;
+
+  fDMCadPessoa.qParametros_Geral.Close;
+  fDMCadPessoa.qParametros_Geral.Open;
+  if fDMCadPessoa.qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S' then
+    fDMCadPessoa.prc_Gravar_Log(vCodAux,vStatus_Pessoa);
+
   FreeAndNil(sds);
 end;
 
