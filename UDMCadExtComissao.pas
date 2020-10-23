@@ -340,6 +340,8 @@ type
     mExtComissao_RedSaldo_Total: TFloatField;
     mImp_ReduzidoSaldo_Ant: TFloatField;
     mImp_ReduzidoSaldo_Total: TFloatField;
+    mImp_ReduzidoVlr_Desconto: TFloatField;
+    mExtComissao_RedVlr_Desconto: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsExtComissaoNewRecord(DataSet: TDataSet);
     procedure mExtComissao_RedNewRecord(DataSet: TDataSet);
@@ -365,7 +367,7 @@ type
     ctConsulta: String;
     ctPrevisao, ctPrevisao_Ped: String;
     ctPedido_Vend: String;
-    vEntrada_Ext, vPagamento_Ext, vAdiantamento_Ext, vDevolucao_Ext: Real;
+    vEntrada_Ext, vPagamento_Ext, vAdiantamento_Ext, vDevolucao_Ext, vDesconto_Ext: Real;
     vPrevisao_Dup_Ext, vPrevisao_Ped_Ext: Real;
     vSaldo_Ant : Real;
     vAno, vMes: Integer;
@@ -611,7 +613,10 @@ begin
       vAdiantamento_Ext := vAdiantamento_Ext + cdsConsultaVLR_COMISSAO.AsFloat
     else
     if cdsConsultaTIPO_REG.AsString = 'DEV' then
-      vDevolucao_Ext := vDevolucao_Ext + cdsConsultaVLR_COMISSAO.AsFloat;
+      vDevolucao_Ext := vDevolucao_Ext + cdsConsultaVLR_COMISSAO.AsFloat
+    else
+    if cdsConsultaTIPO_REG.AsString = 'DES' then
+      vDesconto_Ext := vDesconto_Ext + cdsConsultaVLR_COMISSAO.AsFloat;
     prc_Gravar_mExtComissao_Red;
     cdsConsulta.Next;
   end;
@@ -647,9 +652,16 @@ begin
   begin
     mExtComissao_RedVlr_Devolucao.AsFloat := StrToFloat(FormatFloat('0.00',mExtComissao_RedVlr_Devolucao.AsFloat + cdsConsultaVLR_COMISSAO.AsFloat));
     mExtComissao_RedBase_Comissao.AsFloat := StrToFloat(FormatFloat('0.00',mExtComissao_RedBase_Comissao.AsFloat - cdsConsultaBASE_COMISSAO.AsFloat));
-  end;
+  end
+  else
+  if cdsConsultaTIPO_REG.AsString = 'DES' then
+  begin
+    mExtComissao_RedVlr_Desconto.AsFloat := StrToFloat(FormatFloat('0.00',mExtComissao_RedVlr_Desconto.AsFloat + cdsConsultaVLR_COMISSAO.AsFloat));
+    mExtComissao_RedBase_Comissao.AsFloat := StrToFloat(FormatFloat('0.00',mExtComissao_RedBase_Comissao.AsFloat - cdsConsultaBASE_COMISSAO.AsFloat));
+  end
+;
   mExtComissao_RedVlr_Comissao.AsFloat  := StrToFloat(FormatFloat('0.00',mExtComissao_RedVlr_Entrada.AsFloat - mExtComissao_RedVlr_Pagamento.AsFloat
-                                         - mExtComissao_RedVlr_Adiantamento.AsFloat - mExtComissao_RedVlr_Devolucao.AsFloat));
+                                         - mExtComissao_RedVlr_Adiantamento.AsFloat - mExtComissao_RedVlr_Devolucao.AsFloat - mExtComissao_RedVlr_Desconto.AsFloat));
 
   mExtComissao_RedVlr_Meta_Vendas.AsFloat := fnc_Busca_Metas(vAno,vMes,cdsConsultaID_VENDEDOR.AsInteger);
   mExtComissao_RedVlr_Vendas.AsFloat      := fnc_Busca_Vendas(vAno,vMes,cdsConsultaID_VENDEDOR.AsInteger);

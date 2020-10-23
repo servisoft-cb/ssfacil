@@ -41,11 +41,11 @@ object frmCadExtComissao: TfrmCadExtComissao
       Caption = 'Consulta'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 180
+        Top = 177
         Width = 871
-        Height = 467
+        Height = 470
         Align = alClient
-        Ctl3D = True
+        Ctl3D = False
         DataSource = DMCadExtComissao.dsConsulta
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
         ParentCtl3D = False
@@ -58,7 +58,7 @@ object frmCadExtComissao: TfrmCadExtComissao
         TitleFont.Style = []
         OnDblClick = SMDBGrid1DblClick
         OnTitleClick = SMDBGrid1TitleClick
-        Flat = False
+        Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
         BandsFont.Color = clWindowText
         BandsFont.Height = -11
@@ -146,13 +146,11 @@ object frmCadExtComissao: TfrmCadExtComissao
           item
             Expanded = False
             FieldName = 'DTCADASTRO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ID'
-            Width = 64
             Visible = True
           end
           item
@@ -346,7 +344,7 @@ object frmCadExtComissao: TfrmCadExtComissao
         Left = 0
         Top = 32
         Width = 871
-        Height = 148
+        Height = 145
         Align = alTop
         Color = clSilver
         TabOrder = 0
@@ -415,19 +413,20 @@ object frmCadExtComissao: TfrmCadExtComissao
           LookupSource = DMCadExtComissao.dsFilial
           TabOrder = 0
         end
-        object RadioGroup2: TRadioGroup
+        object RadioTipo: TRadioGroup
           Left = 1
           Top = 1
           Width = 120
-          Height = 146
+          Height = 143
           Align = alLeft
           Caption = ' Tipo '
-          ItemIndex = 4
+          ItemIndex = 5
           Items.Strings = (
             'Entrada'
             'Pagamentos'
             'Adiantamentos'
             'Devolu'#231#227'o'
+            'Descontos'
             'Ambos')
           TabOrder = 7
         end
@@ -479,10 +478,10 @@ object frmCadExtComissao: TfrmCadExtComissao
           TabOrder = 1
         end
         object RzGroupBox1: TRzGroupBox
-          Left = 608
-          Top = 3
-          Width = 217
-          Height = 123
+          Left = 584
+          Top = 11
+          Width = 249
+          Height = 120
           BorderColor = clNavy
           BorderInner = fsButtonUp
           BorderOuter = fsBump
@@ -501,7 +500,7 @@ object frmCadExtComissao: TfrmCadExtComissao
           VisualStyle = vsGradient
           object Label8: TLabel
             Left = 37
-            Top = 16
+            Top = 14
             Width = 40
             Height = 13
             Alignment = taRightJustify
@@ -509,7 +508,7 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object Label10: TLabel
             Left = 15
-            Top = 33
+            Top = 31
             Width = 62
             Height = 13
             Alignment = taRightJustify
@@ -517,7 +516,7 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object Label11: TLabel
             Left = 4
-            Top = 51
+            Top = 49
             Width = 73
             Height = 13
             Alignment = taRightJustify
@@ -525,7 +524,7 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object lblEntrada: TLabel
             Left = 84
-            Top = 16
+            Top = 14
             Width = 97
             Height = 13
             Alignment = taRightJustify
@@ -534,7 +533,7 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object lblPagamento: TLabel
             Left = 84
-            Top = 32
+            Top = 30
             Width = 97
             Height = 13
             Alignment = taRightJustify
@@ -543,7 +542,7 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object lblAdiantamento: TLabel
             Left = 84
-            Top = 48
+            Top = 46
             Width = 97
             Height = 13
             Alignment = taRightJustify
@@ -552,7 +551,7 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object Label12: TLabel
             Left = 22
-            Top = 68
+            Top = 66
             Width = 55
             Height = 13
             Alignment = taRightJustify
@@ -560,7 +559,7 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object lblDevolucao: TLabel
             Left = 84
-            Top = 65
+            Top = 63
             Width = 97
             Height = 13
             Alignment = taRightJustify
@@ -569,9 +568,9 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object Label14: TLabel
             Left = 40
-            Top = 84
-            Width = 37
-            Height = 13
+            Top = 102
+            Width = 38
+            Height = 14
             Alignment = taRightJustify
             Caption = 'Saldo:'
             Font.Charset = DEFAULT_CHARSET
@@ -583,9 +582,9 @@ object frmCadExtComissao: TfrmCadExtComissao
           end
           object lblSaldo: TLabel
             Left = 85
-            Top = 81
-            Width = 97
-            Height = 13
+            Top = 100
+            Width = 98
+            Height = 14
             Alignment = taRightJustify
             AutoSize = False
             Caption = '0,00'
@@ -596,20 +595,86 @@ object frmCadExtComissao: TfrmCadExtComissao
             Font.Style = [fsBold]
             ParentFont = False
           end
-          object btnRecalcular: TBitBtn
-            Left = 145
-            Top = 98
-            Width = 69
-            Height = 21
-            Caption = 'Recalcular'
-            Font.Charset = DEFAULT_CHARSET
-            Font.Color = clMaroon
-            Font.Height = -11
-            Font.Name = 'MS Sans Serif'
-            Font.Style = []
-            ParentFont = False
+          object Label32: TLabel
+            Left = 28
+            Top = 83
+            Width = 49
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Desconto:'
+          end
+          object lblDesconto: TLabel
+            Left = 84
+            Top = 80
+            Width = 97
+            Height = 13
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = '0,00'
+          end
+          object NxButton1: TNxButton
+            Left = 199
+            Top = 78
+            Width = 42
+            Height = 36
+            Glyph.Data = {
+              AE060000424DAE06000000000000360000002800000017000000170000000100
+              18000000000078060000130B0000130B00000000000000000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFD9BED7B786B5A064A1955795965B
+              95AB84AAD5C8D4FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF00
+              0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFB571AA801171831376902787
+              9B3B9BA451A6AA5DAEA25DA89C68A45B215C8E6B8EFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFDEBAD9880C728E177D9B
+              3193A54CA4A550A4A44DA2A34BA2A24BA1A448A2A247A1C37CC6AC84B6480E48
+              D1C6D2FFFFFFFFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFCA90C18602
+              719524899E3898A249A1A147A0A0449DA1469FA1469FA1469FA1469FA1459F9E
+              409BA747A0CB91CF5D2A61B39CB2FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+              D8AED2860072962489983092A1449CA0419A9F4199AA55A59E3D989F419BA041
+              99A0419AA0419BA0419B9F3F9A9E3996C57EC65A285FCFC1CFFFFFFFFFFFFF00
+              0000FFFFFFFFFFFF8A06779421849127899E3C959D3E949D3D949B3691D8BECF
+              9D3D949E3B949D3D949D3D949D3D949D3D949D3D949C3B93972D8DC88ECC480E
+              4AFFFFFFFFFFFF000000FFFFFFB15FA790197D8B2782942E899E37919D36919D
+              36919C34909A308DFFFFFF9220859D35919D36919D35909D36919D35919F3692
+              942C8994338BA97FB48F6A8DFFFFFF000000FFFFFF8D0D7B88277F81277F9A31
+              8C9B318D9B318D9A318D9B318D962588C896C2FFFFFF9421859B318D9B318D9B
+              318D9B318D9B318D9D318D7D1E79AF69B25C225FFFFFFF000000D8B2D38D187E
+              7721787B237B9B2A8A9629889629889629889629889628888F1880FDFFFEA23F
+              95922184962988962988962988962988992A8A80237D741B76995F9FD8CBD800
+              0000C07AB6821F7B5E195F731C6E991F83941D80941D80941D80941E80931E81
+              8E137ABF7BB2F5FDF48F127B941F829621839521839521839821857C1E735C15
+              5C8C4292AF89AF000000B35DAB701B6C390D3E74206AA139949F4098A1439BA1
+              429A9F3C96972B878E157786046DF1F2ECD8BECF8B087094217D94227D94227D
+              982380781C6A3D0C3F7B357D9E659E000000B76CB9701B6F7821739A3F97A751
+              A7A44EA4A44EA4A34EA49E419DFFFFFFFFFFFFFEFFFFEFEFE9F4FFF0BD81AA90
+              15719621789521779921797618634D134F8828869B5F9C000000C38AC87E227C
+              8A257D963A90A54FA5A44DA3A34CA2A44CA29E429EC997C9FFFFFFFEFCFEC693
+              C7CA99C9C9A1C89C378D9B368D9E398FA042979B3D958C27808C2182A670A800
+              0000D8B4DE8132838F237F95348CA54FA5A34CA2A34CA2A34CA2A34BA29D409C
+              FFFFFFFFFFFFB873B69B3B9A9F449EA44EA4A44FA5A44FA4A650A697388F8E26
+              7F891D7EBD90BB000000ECDDF3975B9F861D77942A84A755AAA44FA5A44FA5A4
+              4FA5A550A59E429FD6B0D6FFFFFFFDFEFD9C3F9DA44EA5A54FA5A54FA5A44FA5
+              A654AA942D87912782831277E0CADE000000FFFFFFC899D96D1764962083A855
+              ADA95AB1A959B0A959B0A959B1A857AFA859B0FFFFFFFFFFFFD0A5D4A34EAAA9
+              59B1A959B0AA5AB1A959B0932080952285831674FFFFFF000000FFFFFFE7D0F6
+              8C5B958C1678A03E9CB16EC2AE67BCAE67BCAE67BCAE67BCA658B5E5D1EAFFFF
+              FFFFFFFFAC64BCAE65BBAE67BCB16DC2A0429F9622868C147ABC7FB3FFFFFF00
+              0000FFFFFFFFFFFFDCBCF16322639A2284B472C9B778CEB576CBB576CBB576CB
+              B472CAFFFFFFF9F3FAF8F1F9FFFFFFB26FC9B678CDB575CB962783931F828B12
+              78FFFFFFFFFFFF000000FFFFFFFFFFFFF7F0FCD0B0E35E1459A1328FC291E7BD
+              8AE1BC88DFBD88DFBC88DFBA84DDB57AD9B67ADAB781DBBC8AE0C192E99F3A92
+              962483870171E6CDE3FFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFF4EBFCCFB0
+              E364216095308ACDA2F7CAA1F4C599EFC598EEC598EEC598EEC599EEC8A1F3CB
+              A3F4A04299921E7D860072D5ACD0FFFFFFFFFFFFFFFFFF000000FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFDCBDF18958936B1E63B785C5E3CDFEE3CDFEE1CCFDE3CF
+              FEE4D0FFC291D39130838911768B0D7BE5CAE1FFFFFFFFFFFFFFFFFFFFFFFF00
+              0000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE9D4F5CA99DA9150977A307B
+              8F49909951999443918218778108718E127DBF7AB6FFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFF000000FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFF1E4F5DCBBE1C792CAB86FB9B76AB0C78DC0E4C8E0FFFFFFFFFFFFFFFFFF
+              FFFFFFF2F2F2FFFFFFFFFFFFF2F2F2000000}
             TabOrder = 0
-            OnClick = btnRecalcularClick
+            Transparent = True
+            OnClick = NxButton1Click
           end
         end
         object RxDBLookupCombo5: TRxDBLookupCombo
@@ -697,7 +762,7 @@ object frmCadExtComissao: TfrmCadExtComissao
         end
         object BitBtn1: TBitBtn
           Left = 152
-          Top = 120
+          Top = 118
           Width = 153
           Height = 25
           Caption = 'Gravar Pedido na Comiss'#227'o'
@@ -1203,13 +1268,15 @@ object frmCadExtComissao: TfrmCadExtComissao
             'Entrada'
             'Pagamento'
             'Adiantamento'
-            'Devolu'#231#227'o')
+            'Devolu'#231#227'o'
+            'Desconto')
           TabOrder = 0
           Values.Strings = (
             'ENT'
             'PAG'
             'ADI'
-            'DEV')
+            'DEV'
+            'DES')
           OnClick = RxDBComboBox11Click
         end
         object DBEdit3: TDBEdit

@@ -431,7 +431,7 @@ object DMCadExtComissao: TDMCadExtComissao
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, NOME_INTERNO'#13#10'FROM FILIAL'#13#10
+    CommandText = 'SELECT ID, NOME, NOME_INTERNO'#13#10'FROM FILIAL'#13#10'WHERE INATIVO = '#39'N'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -536,15 +536,19 @@ object DMCadExtComissao: TDMCadExtComissao
       item
         Name = 'Saldo_Total'
         DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Desconto'
+        DataType = ftFloat
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
     OnNewRecord = mExtComissao_RedNewRecord
-    Left = 224
+    Left = 226
     Top = 136
     Data = {
-      8A0100009619E0BD0100000018000000100000000000030000008A010B49445F
+      9F0100009619E0BD0100000018000000110000000000030000009F010B49445F
       56656E6465646F7204000100000000000C4E6F6D6556656E6465646F72010049
       0000000100055749445448020002003C000D426173655F436F6D697373616F08
       000400000000000C566C725F436F6D697373616F08000400000000000B566C72
@@ -556,7 +560,8 @@ object DMCadExtComissao: TDMCadExtComissao
       000010566C725F507265766973616F5F44757008000400000000000F566C725F
       4D6574615F56656E64617308000400000000000A566C725F56656E6461730800
       0400000000000953616C646F5F416E7408000400000000000B53616C646F5F54
-      6F74616C08000400000000000000}
+      6F74616C08000400000000000C566C725F446573636F6E746F08000400000000
+      000000}
     object mExtComissao_RedID_Vendedor: TIntegerField
       FieldName = 'ID_Vendedor'
     end
@@ -617,6 +622,9 @@ object DMCadExtComissao: TDMCadExtComissao
     end
     object mExtComissao_RedSaldo_Total: TFloatField
       FieldName = 'Saldo_Total'
+    end
+    object mExtComissao_RedVlr_Desconto: TFloatField
+      FieldName = 'Vlr_Desconto'
     end
   end
   object dsmExtComissao_Red: TDataSource
@@ -692,14 +700,18 @@ object DMCadExtComissao: TDMCadExtComissao
       item
         Name = 'Saldo_Total'
         DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Desconto'
+        DataType = ftFloat
       end>
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 224
+    Left = 223
     Top = 216
     Data = {
-      8A0100009619E0BD0100000018000000100000000000030000008A010B49445F
+      9F0100009619E0BD0100000018000000110000000000030000009F010B49445F
       56656E6465646F7204000100000000000C4E6F6D6556656E6465646F72010049
       0000000100055749445448020002003C000D426173655F436F6D697373616F08
       000400000000000C566C725F436F6D697373616F08000400000000000B566C72
@@ -711,7 +723,8 @@ object DMCadExtComissao: TDMCadExtComissao
       000010566C725F507265766973616F5F50656408000400000000000F566C725F
       4D6574615F56656E64617308000400000000000A566C725F56656E6461730800
       0400000000000953616C646F5F416E7408000400000000000B53616C646F5F54
-      6F74616C08000400000000000000}
+      6F74616C08000400000000000C566C725F446573636F6E746F08000400000000
+      000000}
     object mImp_ReduzidoID_Vendedor: TIntegerField
       FieldName = 'ID_Vendedor'
     end
@@ -770,6 +783,9 @@ object DMCadExtComissao: TDMCadExtComissao
     end
     object mImp_ReduzidoSaldo_Total: TFloatField
       FieldName = 'Saldo_Total'
+    end
+    object mImp_ReduzidoVlr_Desconto: TFloatField
+      FieldName = 'Vlr_Desconto'
     end
   end
   object dsmImp_Reduzido: TDataSource

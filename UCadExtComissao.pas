@@ -22,7 +22,7 @@ type
     Panel3: TPanel;
     Label15: TLabel;
     RxDBLookupCombo1: TRxDBLookupCombo;
-    RadioGroup2: TRadioGroup;
+    RadioTipo: TRadioGroup;
     Label18: TLabel;
     DateEdit1: TDateEdit;
     Label26: TLabel;
@@ -50,7 +50,6 @@ type
     lblEntrada: TLabel;
     lblPagamento: TLabel;
     lblAdiantamento: TLabel;
-    btnRecalcular: TBitBtn;
     Label4: TLabel;
     DBDateEdit2: TDBDateEdit;
     Label6: TLabel;
@@ -96,6 +95,9 @@ type
     btnConfirmar: TNxButton;
     btnCancelar: TNxButton;
     BitBtn1: TBitBtn;
+    Label32: TLabel;
+    lblDesconto: TLabel;
+    NxButton1: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -113,7 +115,6 @@ type
       Shift: TShiftState);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
     procedure SMDBGrid1TitleClick(Column: TColumn);
-    procedure btnRecalcularClick(Sender: TObject);
     procedure RzPageControl1Change(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
@@ -125,6 +126,7 @@ type
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BitBtn1Click(Sender: TObject);
+    procedure NxButton1Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadExtComissao: TDMCadExtComissao;
@@ -264,11 +266,12 @@ begin
     vComando := vComando + ' AND EXT.DTCADASTRO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit3.date));
   if DateEdit4.Date > 10 then
     vComando := vComando + ' AND EXT.DTCADASTRO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit4.date));
-  case RadioGroup2.ItemIndex of
+  case RadioTipo.ItemIndex of
     0: vComando := vComando + ' AND EXT.TIPO_REG = ' + QuotedStr('ENT');
     1: vComando := vComando + ' AND EXT.TIPO_REG = ' + QuotedStr('PAG');
     2: vComando := vComando + ' AND EXT.TIPO_REG = ' + QuotedStr('ADI');
     3: vComando := vComando + ' AND EXT.TIPO_REG = ' + QuotedStr('DEV');
+    4: vComando := vComando + ' AND EXT.TIPO_REG = ' + QuotedStr('DES');
   end;
   fDMCadExtComissao.sdsConsulta.CommandText := vComando;
   fDMCadExtComissao.cdsConsulta.IndexFieldNames := 'DTBASE';
@@ -381,12 +384,13 @@ end;
 
 procedure TfrmCadExtComissao.prc_Le_cdsExtComissao;
 var
-  vEntrada, vPagamento, vAdiantamento, vDevolucao, vSaldo: Real;
+  vEntrada, vPagamento, vAdiantamento, vDevolucao, vSaldo, vDesconto: Real;
 begin
   vEntrada      := 0;
   vPagamento    := 0;
   vAdiantamento := 0;
   vDevolucao    := 0;
+  vDesconto     := 0;
   SMDBGrid1.DisableScroll;
   fDMCadExtComissao.cdsConsulta.First;
   while not fDMCadExtComissao.cdsConsulta.Eof do
@@ -401,22 +405,20 @@ begin
       vAdiantamento := vAdiantamento + fDMCadExtComissao.cdsConsultaVLR_COMISSAO.AsFloat
     else
     if fDMCadExtComissao.cdsConsultaTIPO_REG.AsString = 'DEV' then
-      vDevolucao := vDevolucao + fDMCadExtComissao.cdsConsultaVLR_COMISSAO.AsFloat;
+      vDevolucao := vDevolucao + fDMCadExtComissao.cdsConsultaVLR_COMISSAO.AsFloat
+    else
+    if fDMCadExtComissao.cdsConsultaTIPO_REG.AsString = 'DES' then
+      vDesconto := vDesconto + fDMCadExtComissao.cdsConsultaVLR_COMISSAO.AsFloat;
     fDMCadExtComissao.cdsConsulta.Next;
   end;
   SMDBGrid1.EnableScroll;
-  vSaldo := StrToFloat(FormatFloat('0.00',vEntrada - vPagamento - vAdiantamento - vDevolucao));
+  vSaldo := StrToFloat(FormatFloat('0.00',vEntrada - vPagamento - vAdiantamento - vDevolucao - vDesconto));
   lblEntrada.Caption      := FormatFloat('###,###,##0.00',vEntrada);
   lblPagamento.Caption    := FormatFloat('###,###,##0.00',vPagamento);
   lblAdiantamento.Caption := FormatFloat('###,###,##0.00',vAdiantamento);
   lblDevolucao.Caption    := FormatFloat('###,###,##0.00',vDevolucao);
+  lblDesconto.Caption     := FormatFloat('###,###,##0.00',vDesconto);
   lblSaldo.Caption        := FormatFloat('###,###,##0.00',vSaldo);
-end;
-
-procedure TfrmCadExtComissao.btnRecalcularClick(Sender: TObject);
-begin
-  btnConsultarClick(Sender);
-  prc_Le_cdsExtComissao;
 end;
 
 procedure TfrmCadExtComissao.RzPageControl1Change(Sender: TObject);
@@ -508,6 +510,12 @@ begin
     end;
     fDMCadExtComissao.cdsConsulta.Next;
   end;
+end;
+
+procedure TfrmCadExtComissao.NxButton1Click(Sender: TObject);
+begin
+  btnConsultarClick(Sender);
+  prc_Le_cdsExtComissao;
 end;
 
 end.

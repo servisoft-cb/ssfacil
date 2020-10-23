@@ -412,6 +412,8 @@ var
   vAux : String;
 begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadNotaFiscal);
+  fDMCadNotaFiscal.cdsParametros.Close;
+  fDMCadNotaFiscal.cdsParametros.Open;
   if fDMCadNotaFiscal.vState_Item = 'I' then
   begin
     vID_Produto_Ant := 0;

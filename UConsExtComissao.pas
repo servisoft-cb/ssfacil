@@ -61,6 +61,8 @@ type
     Label9: TLabel;
     lblSaldoAnt: TLabel;
     lblSaldoTotal: TLabel;
+    Label7: TLabel;
+    lblDesconto: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -295,11 +297,13 @@ begin
   prc_Montar_Saldo_Ant;
   
   SMDBGrid1.EnableScroll;
-  vSaldo := StrToFloat(FormatFloat('0.00',fDMCadExtComissao.vEntrada_Ext - fDMCadExtComissao.vPagamento_Ext - fDMCadExtComissao.vAdiantamento_Ext - fDMCadExtComissao.vDevolucao_Ext));
+  vSaldo := StrToFloat(FormatFloat('0.00',fDMCadExtComissao.vEntrada_Ext - fDMCadExtComissao.vPagamento_Ext - fDMCadExtComissao.vAdiantamento_Ext
+          - fDMCadExtComissao.vDevolucao_Ext - fDMCadExtComissao.vDesconto_Ext));
   lblEntrada.Caption      := FormatFloat('###,###,##0.00',fDMCadExtComissao.vEntrada_Ext);
   lblPagamento.Caption    := FormatFloat('###,###,##0.00',fDMCadExtComissao.vPagamento_Ext);
   lblAdiantamento.Caption := FormatFloat('###,###,##0.00',fDMCadExtComissao.vAdiantamento_Ext);
   lblDevolucao.Caption    := FormatFloat('###,###,##0.00',fDMCadExtComissao.vDevolucao_Ext);
+  lblDesconto.Caption     := FormatFloat('###,###,##0.00',fDMCadExtComissao.vDesconto_Ext);
   lblSaldo.Caption        := FormatFloat('###,###,##0.00',vSaldo);
   if StrToFloat(FormatFloat('0.00',fDMCadExtComissao.vSaldo_Ant)) < 0 then
     lblSaldoAnt.Font.Color := clRed

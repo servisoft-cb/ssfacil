@@ -42,7 +42,7 @@ object frmConsExtComissao: TfrmConsExtComissao
         Left = 0
         Top = 0
         Width = 1036
-        Height = 105
+        Height = 129
         Align = alTop
         Color = clSilver
         TabOrder = 0
@@ -143,8 +143,8 @@ object frmConsExtComissao: TfrmConsExtComissao
         object RzGroupBox1: TRzGroupBox
           Left = 539
           Top = 3
-          Width = 191
-          Height = 99
+          Width = 204
+          Height = 121
           BorderColor = clNavy
           BorderInner = fsButtonUp
           BorderOuter = fsBump
@@ -231,7 +231,7 @@ object frmConsExtComissao: TfrmConsExtComissao
           end
           object Label14: TLabel
             Left = 42
-            Top = 84
+            Top = 103
             Width = 37
             Height = 13
             Alignment = taRightJustify
@@ -245,7 +245,7 @@ object frmConsExtComissao: TfrmConsExtComissao
           end
           object lblSaldo: TLabel
             Left = 85
-            Top = 81
+            Top = 100
             Width = 97
             Height = 13
             Alignment = taRightJustify
@@ -257,6 +257,23 @@ object frmConsExtComissao: TfrmConsExtComissao
             Font.Name = 'MS Sans Serif'
             Font.Style = [fsBold]
             ParentFont = False
+          end
+          object Label7: TLabel
+            Left = 30
+            Top = 84
+            Width = 49
+            Height = 13
+            Alignment = taRightJustify
+            Caption = 'Desconto:'
+          end
+          object lblDesconto: TLabel
+            Left = 84
+            Top = 81
+            Width = 97
+            Height = 13
+            Alignment = taRightJustify
+            AutoSize = False
+            Caption = '0,00'
           end
         end
         object btnConsultar: TNxButton
@@ -352,7 +369,7 @@ object frmConsExtComissao: TfrmConsExtComissao
           TabOrder = 7
         end
         object RzGroupBox2: TRzGroupBox
-          Left = 748
+          Left = 820
           Top = 2
           Width = 191
           Height = 99
@@ -423,13 +440,13 @@ object frmConsExtComissao: TfrmConsExtComissao
       end
       object RzPageControl2: TRzPageControl
         Left = 0
-        Top = 105
+        Top = 129
         Width = 1036
-        Height = 559
-        ActivePage = TS_Resumido
+        Height = 535
+        ActivePage = TS_Detalhado
         ActivePageDefault = TS_Resumido
         Align = alClient
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -439,7 +456,7 @@ object frmConsExtComissao: TfrmConsExtComissao
             Left = 0
             Top = 32
             Width = 1032
-            Height = 487
+            Height = 463
             Align = alClient
             Ctl3D = False
             DataSource = DMCadExtComissao.dsmExtComissao_Red
@@ -474,13 +491,15 @@ object frmConsExtComissao: TfrmConsExtComissao
             WidthOfIndicator = 27
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 12
+            ColCount = 13
             RowCount = 2
             Columns = <
               item
                 Expanded = False
                 FieldName = 'NomeVendedor'
+                Title.Alignment = taCenter
                 Title.Caption = 'Nome Vendedor'
+                Title.Color = 15259850
                 Width = 335
                 Visible = True
               end
@@ -489,6 +508,7 @@ object frmConsExtComissao: TfrmConsExtComissao
                 FieldName = 'Vlr_Meta_Vendas'
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Meta'
+                Title.Color = 15259850
                 Width = 80
                 Visible = True
               end
@@ -497,6 +517,7 @@ object frmConsExtComissao: TfrmConsExtComissao
                 FieldName = 'Vlr_Vendas'
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Vendas'
+                Title.Color = 15259850
                 Width = 83
                 Visible = True
               end
@@ -505,13 +526,16 @@ object frmConsExtComissao: TfrmConsExtComissao
                 FieldName = 'Saldo_Ant'
                 Title.Alignment = taCenter
                 Title.Caption = 'Saldo anterior a Data 99/99/9999'
+                Title.Color = 15259850
                 Width = 99
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'Base_Comissao'
+                Title.Alignment = taCenter
                 Title.Caption = 'Base Comiss'#227'o'
+                Title.Color = 15259850
                 Width = 90
                 Visible = True
               end
@@ -521,7 +545,7 @@ object frmConsExtComissao: TfrmConsExtComissao
                 FieldName = 'Vlr_Comissao'
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Comiss'#227'o a Pagar no Per'#237'odo'
-                Title.Color = clMoneyGreen
+                Title.Color = 15259850
                 Title.Font.Charset = DEFAULT_CHARSET
                 Title.Font.Color = clWindowText
                 Title.Font.Height = -11
@@ -535,35 +559,52 @@ object frmConsExtComissao: TfrmConsExtComissao
                 FieldName = 'Saldo_Total'
                 Title.Alignment = taCenter
                 Title.Caption = 'Saldo Total (Anterior + Per'#237'odo)'
+                Title.Color = 15259850
                 Width = 113
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'Vlr_Entrada'
+                Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Entrada'
+                Title.Color = 15259850
                 Width = 87
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'Vlr_Pagamento'
+                Title.Alignment = taCenter
                 Title.Caption = 'Vlr. J'#225' Pago'
+                Title.Color = 15259850
                 Width = 89
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'Vlr_Adiantamento'
+                Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Adiantamento'
+                Title.Color = 15259850
                 Width = 91
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'Vlr_Devolucao'
+                Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Devolu'#231#227'o'
+                Title.Color = 15259850
                 Width = 81
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'Vlr_Desconto'
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Desconto'
+                Title.Color = 15259850
                 Visible = True
               end>
           end
@@ -778,7 +819,7 @@ object frmConsExtComissao: TfrmConsExtComissao
           end
           object StaticText1: TStaticText
             Left = 0
-            Top = 519
+            Top = 495
             Width = 1032
             Height = 17
             Align = alBottom
@@ -823,7 +864,7 @@ object frmConsExtComissao: TfrmConsExtComissao
             Left = 0
             Top = 29
             Width = 1032
-            Height = 507
+            Height = 483
             Align = alClient
             Ctl3D = False
             DataSource = DMCadExtComissao.dsConsulta
@@ -860,80 +901,94 @@ object frmConsExtComissao: TfrmConsExtComissao
               item
                 Expanded = False
                 FieldName = 'FILIAL'
+                Title.Color = 13303754
                 Width = 31
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'TIPO_REG'
+                Title.Color = 13303754
                 Width = 41
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'NOMEVENDEDOR'
+                Title.Color = 13303754
                 Width = 274
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'SERIE'
+                Title.Color = 13303754
                 Width = 34
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'NUM_NOTA'
+                Title.Color = 13303754
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PARCELA'
+                Title.Color = 13303754
                 Width = 43
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DTBASE'
+                Title.Color = 13303754
                 Width = 68
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'BASE_COMISSAO'
+                Title.Color = 13303754
                 Width = 86
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'PERC_COMISSAO'
+                Title.Color = 13303754
                 Width = 55
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'VLR_COMISSAO'
+                Title.Color = 13303754
                 Width = 79
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'NOMECLIENTE'
+                Title.Color = 13303754
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'DTCADASTRO'
+                Title.Color = 13303754
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'ID'
+                Title.Color = 13303754
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'OBS'
+                Title.Color = 13303754
                 Width = 200
                 Visible = True
               end
@@ -942,6 +997,7 @@ object frmConsExtComissao: TfrmConsExtComissao
                 FieldName = 'NUMRPS'
                 Title.Alignment = taCenter
                 Title.Caption = 'N'#186' RPS'
+                Title.Color = 13303754
                 Visible = True
               end
               item
@@ -949,6 +1005,7 @@ object frmConsExtComissao: TfrmConsExtComissao
                 FieldName = 'OBS_PEDIDO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Pedido'
+                Title.Color = 13303754
                 Width = 300
                 Visible = True
               end>
