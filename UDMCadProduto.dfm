@@ -6370,7 +6370,6 @@ object dmCadProduto: TdmCadProduto
     Top = 331
   end
   object cdsProcesso: TClientDataSet
-    Active = True
     Aggregates = <>
     Params = <>
     ProviderName = 'dspProcesso'
@@ -10957,5 +10956,20 @@ object dmCadProduto: TdmCadProduto
     DataSet = cdsProduto_Saldo
     Left = 874
     Top = 289
+  end
+  object qParametros_Com: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT USAR_PERC_SEMI'
+      'FROM PARAMETROS_COM')
+    SQLConnection = dmDatabase.scoDados
+    Left = 1091
+    Top = 122
+    object qParametros_ComUSAR_PERC_SEMI: TStringField
+      FieldName = 'USAR_PERC_SEMI'
+      FixedChar = True
+      Size = 1
+    end
   end
 end

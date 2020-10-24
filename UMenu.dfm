@@ -289,6 +289,10 @@ object fMenu: TfMenu
         object N56: TMenuItem
           Caption = '-'
         end
+        object ComissoPorVendedorCliente1: TMenuItem
+          Caption = 'Comiss'#227'o Por Vendedor/Cliente (Semi Acabado)'
+          OnClick = ComissoPorVendedorCliente1Click
+        end
         object ComissodoProdutoPorVendedorCadastro1: TMenuItem
           Caption = 'Comiss'#227'o do Produto Por Vendedor (Cadastro)'
           OnClick = ComissodoProdutoPorVendedorCadastro1Click

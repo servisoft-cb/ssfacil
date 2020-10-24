@@ -878,7 +878,9 @@ uses
   UAltPrecoPedido in 'UAltPrecoPedido.pas' {frmAltPrecoPedido},
   UCadProduto_Saldo in 'UCadProduto_Saldo.pas' {frmCadProduto_Saldo},
   UConsProduto_Vendas_PCusto in 'UConsProduto_Vendas_PCusto.pas' {frmConsProduto_Vendas_PCusto},
-  UGerarEstoque_Mov in 'UGerarEstoque_Mov.pas' {frmGerarEstoque_Mov};
+  UGerarEstoque_Mov in 'UGerarEstoque_Mov.pas' {frmGerarEstoque_Mov},
+  UComissao_Prod in 'UComissao_Prod.pas' {frmComissao_Prod},
+  UDMComissaoProd in 'UDMComissaoProd.pas' {DMComissaoProd: TDataModule};
 
 {$R *.res}
 

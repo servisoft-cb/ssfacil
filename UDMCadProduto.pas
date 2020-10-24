@@ -2046,6 +2046,8 @@ type
     cdsProduto_SaldoQTD: TFloatField;
     cdsProduto_SaldoDATA: TDateField;
     dsProduto_Saldo: TDataSource;
+    qParametros_Com: TSQLQuery;
+    qParametros_ComUSAR_PERC_SEMI: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;
@@ -2542,6 +2544,7 @@ begin
   qParametros_Lote.Close;
   qParametros_Lote.Open;
   qParametros_Ser.Open;
+  qParametros_Com.Open;
   qCupomFiscal_Parametros.Open;
   cdsFilial.Open;
   cdsCSTICMS.Open;

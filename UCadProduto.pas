@@ -8,7 +8,8 @@ uses
   UCadProduto_Forn, UCadProduto_Consumo, RzPanel, NxCollection, DBVGrids, DBGrids, UDMCopiarProduto, SqlExpr, DBAdvGrid, USenha,
   AdvDBLookupComboBox, UCadProduto_UF, UCadProduto_Uni, ComCtrls, RzChkLst, RzLstBox, UCadProduto_Matriz, UCadProduto_Comb,
   UCadProduto_Cor, UCadProduto_Emb, UCadProduto_Atelier, UGerar_CBarra, Menus, UCadProduto_Comissao, UCadProduto_Carimbo, Mask,
-  UCadProduto_Comissao_Vend, uEtiq_Individual, Variants, UConsEstoque_Mov, NxEdit, UCadProduto_Maq, ComObj;
+  UCadProduto_Comissao_Vend, uEtiq_Individual, Variants, UConsEstoque_Mov, NxEdit, UCadProduto_Maq, ComObj,
+  RzButton;
 
 type
   TfrmCadProduto = class(TForm)
@@ -365,8 +366,6 @@ type
     TS_Comissao: TRzTabSheet;
     pnlComissao: TPanel;
     Panel10: TPanel;
-    Label120: TLabel;
-    DBEdit59: TDBEdit;
     Label11: TLabel;
     RxDBLookupCombo4: TRxDBLookupCombo;
     Label121: TLabel;
@@ -842,6 +841,9 @@ type
     Label268: TLabel;
     BtnGerCodBal: TSpeedButton;
     btnAtualiza_Consumo_Comb: TNxButton;
+    NxPanel6: TNxPanel;
+    Label120: TLabel;
+    DBEdit59: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -1072,6 +1074,8 @@ type
       Shift: TShiftState);
     procedure BtnGerCodBalClick(Sender: TObject);
     procedure btnAtualiza_Consumo_CombClick(Sender: TObject);
+    procedure NxPanel6Enter(Sender: TObject);
+    procedure NxPanel6Exit(Sender: TObject);
   private
     { Private declarations }
     fDMCadProduto: TDMCadProduto;
@@ -1106,6 +1110,7 @@ type
     vEstoqueLoteTotal: Double;
     vItem_Corrugado: Integer;
     vID_Principal: Integer;
+    vPerc_Comissao_Ini : Real;
 
     vPreco_Custo, vPreco_Custo_Total, vPerc_MargemLucro: Real;
 
@@ -1632,6 +1637,21 @@ begin
     sds.CommandText := 'PRC_GRAVAR_PRODUTO_COMISSAO';
     sds.ParamByName('PID_SEMI').AsInteger := fDMCadProduto.cdsProdutoID.AsInteger;
     sds.ExecSQL;
+
+    if StrToFloat(FormatFloat('0.000',vPerc_Comissao_Ini)) <> StrToFloat(FormatFloat('0.000',fDMCadProduto.cdsProdutoPERC_COMISSAO.AsFloat)) then
+    begin
+      sds.Close;
+      sds.CommandType := ctStoredProc;
+      sds.CommandText := 'PRC_PRODUTO_COMISSAO_DIR';
+      sds.ParamByName('P_ID_PRODUTO').AsInteger := fDMCadProduto.cdsProdutoID.AsInteger;
+      sds.ExecSQL;
+    end;
+
+    sds.Close;
+    sds.CommandType := ctStoredProc;
+    sds.CommandText := 'PRC_GRAVAR_PRODUTO_COMISSAO_VEND';
+    sds.ParamByName('PID_SEMI').AsInteger := fDMCadProduto.cdsProdutoID.AsInteger;
+    sds.ExecSQL;
   end;
 
   //06/10/2020
@@ -1655,6 +1675,8 @@ begin
 
   if fDMCadProduto.cdsProduto.State in [dsBrowse] then
     exit;
+
+  vPerc_Comissao_Ini := 0;
 
   vNome_Cad_Ant       := '';
   vReferencia_Cad_Ant := '';
@@ -2225,6 +2247,8 @@ begin
     exit;
 
   fDMCadProduto.cdsProduto.Edit;
+
+  vPerc_Comissao_Ini := StrToFloat(FormatFloat('0.000',fDMCadProduto.cdsProdutoPERC_COMISSAO.AsFloat));
 
   vPreco_Custo       := StrToFloat(FormatFloat('0.00000',fDMCadProduto.cdsProdutoPRECO_CUSTO.AsFloat));
   vPreco_Custo_Total := StrToFloat(FormatFloat('0.00000',fDMCadProduto.cdsProdutoPRECO_CUSTO_TOTAL.AsFloat));
@@ -3296,6 +3320,7 @@ begin
   btnAlterar_Matriz.Enabled   := not(btnAlterar_Matriz.Enabled);
   btnExcluir_Matriz.Enabled   := not(btnExcluir_Matriz.Enabled);
   pnlComissao_Dig.Enabled     := not(pnlComissao_Dig.Enabled);
+
   btnInserir_Lote.Enabled     := not(btnInserir_Lote.Enabled);
   btnAlterar_Lote.Enabled     := not(btnAlterar_Lote.Enabled);
   btnExcluir_Lote.Enabled     := not(btnExcluir_Lote.Enabled);
@@ -4514,6 +4539,12 @@ end;
 
 procedure TfrmCadProduto.btnInserir_ComissaoClick(Sender: TObject);
 begin
+  if (fDMCadProduto.qParametros_ComUSAR_PERC_SEMI.AsString = 'S') and (fDMCadProduto.cdsProdutoTIPO_REG.AsString <> 'S') then
+  begin
+    MessageDlg('*** Comissão esta configurada para informar no Semi Acabado!', mtError, [mbOk], 0);
+    exit;
+  end;
+
   if RzPageControl5.ActivePage = TS_Comissao_Cli then
   begin
     fDMCadProduto.prc_Inserir_ProdComissao;
@@ -4535,6 +4566,12 @@ end;
 
 procedure TfrmCadProduto.btnAlterar_ComissaoClick(Sender: TObject);
 begin
+  if (fDMCadProduto.qParametros_ComUSAR_PERC_SEMI.AsString = 'S') and (fDMCadProduto.cdsProdutoTIPO_REG.AsString <> 'S') then
+  begin
+    MessageDlg('*** Comissão esta configurada para informar no Semi Acabado!', mtError, [mbOk], 0);
+    exit;
+  end;
+
   if RzPageControl5.ActivePage = TS_Comissao_Cli then
   begin
     if fDMCadProduto.cdsProduto_Comissao.IsEmpty then
@@ -4564,6 +4601,12 @@ end;
 
 procedure TfrmCadProduto.btnExcluir_ComissaoClick(Sender: TObject);
 begin
+  if (fDMCadProduto.qParametros_ComUSAR_PERC_SEMI.AsString = 'S') and (fDMCadProduto.cdsProdutoTIPO_REG.AsString <> 'S') then
+  begin
+    MessageDlg('*** Comissão esta configurada para informar no Semi Acabado!', mtError, [mbOk], 0);
+    exit;
+  end;
+
   if RzPageControl5.ActivePage = TS_Comissao_Cli then
   begin
     if fDMCadProduto.cdsProduto_Comissao.IsEmpty then
@@ -6747,6 +6790,22 @@ begin
   frmCadProduto_Saldo.fdmCadProduto := fdmCadProduto;
   frmCadProduto_Saldo.ShowModal;
   FreeAndNil(frmCadProduto_Saldo);
+end;
+
+procedure TfrmCadProduto.NxPanel6Enter(Sender: TObject);
+begin
+  if (fDMCadProduto.qParametros_ComUSAR_PERC_SEMI.AsString = 'S') and (fDMCadProduto.cdsProdutoTIPO_REG.AsString <> 'S') then
+  begin
+    DBEdit59.Enabled := False;
+    MessageDlg('*** Comissão esta configurada para informar no Semi Acabado!', mtError, [mbOk], 0);
+  end
+  else
+    DBEdit59.Enabled := True;
+end;
+
+procedure TfrmCadProduto.NxPanel6Exit(Sender: TObject);
+begin
+  DBEdit59.Enabled := True;
 end;
 
 end.

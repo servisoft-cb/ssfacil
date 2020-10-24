@@ -946,12 +946,23 @@ function fnc_Buscar_Comissao_Prod(ID_Produto, ID_Cliente, ID_Vendedor: Integer):
 var
   sds: TSQLDataSet;
 begin
+
   Result := StrToFloat(FormatFloat('0.00',0));
   sds := TSQLDataSet.Create(nil);
   try
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata    := True;
     sds.GetMetadata   := False;
+
+    if SQLLocate('PARAMETROS_COM','ID','USAR_PERC_SEMI','1') = 'S' then
+    begin
+      sds.CommandText := 'select SEMI.ID_MATERIAL1 from PRODUTO_SEMI SEMI where SEMI.ID = :ID ';
+      sds.ParamByName('ID').AsInteger := ID_Produto;
+      sds.Open;
+      if sds.FieldByName('ID_MATERIAL1').AsInteger > 0 then
+        ID_Produto := sds.FieldByName('ID_MATERIAL1').AsInteger;
+      sds.Close;
+    end;
     sds.CommandText := 'SELECT P.perc_comissao PERC_COMISSAO_PROD, '
                      + ' (SELECT PERC_COMISSAO PERC_COMISSAO_CLI FROM PRODUTO_COMISSAO '
                      + '   WHERE ID = P.ID  AND ID_CLIENTE = :ID_CLIENTE), '

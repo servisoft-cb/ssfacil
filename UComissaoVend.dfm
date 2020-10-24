@@ -20,10 +20,10 @@ object frmComissaoVend: TfrmComissaoVend
     Top = 0
     Width = 920
     Height = 456
-    ActivePage = TS_Consulta
+    ActivePage = TS_Gerar
     ActivePageDefault = TS_Gerar
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     FixedDimension = 19
     object TS_Gerar: TRzTabSheet
