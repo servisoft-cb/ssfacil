@@ -1808,8 +1808,11 @@ begin
       //while not fDMCadNotaFiscal.cdsNotaFiscal_Desconto.Eof do
       //  fDMCadNotaFiscal.cdsNotaFiscal_Desconto.Delete;
     end;
-    fDMCadNotaFiscal.cdsNotaFiscalPERC_DESCONTO.AsFloat := StrToFloat(FormatFloat('0.00',0));
-    fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat  := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsFloat));
+    if not(vPedidoSelecionado) and not(vNotaSelecionada) then
+    begin
+      fDMCadNotaFiscal.cdsNotaFiscalPERC_DESCONTO.AsFloat := StrToFloat(FormatFloat('0.00',0));
+      fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO.AsFloat  := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscalVLR_DESCONTO_ITENS.AsFloat));
+    end;
     //*****************
 
     if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_NTE.AsInteger > 0 then

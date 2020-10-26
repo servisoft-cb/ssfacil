@@ -737,7 +737,7 @@ object frmConferencia_Ped: TfrmConferencia_Ped
       ParentFont = False
     end
     object Edit1: TEdit
-      Left = 118
+      Left = 119
       Top = 16
       Width = 213
       Height = 26

@@ -6723,7 +6723,7 @@ object DMCadPedido: TDMCadPedido
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento'
-    Left = 210
+    Left = 209
     Top = 52
     object cdsOrcamentoID: TIntegerField
       FieldName = 'ID'
@@ -20037,5 +20037,106 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'EMAIL'
       Size = 200
     end
+  end
+  object sdsPedido_Item_Processo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT P.*'#13#10'FROM pedido_item_processo P'#13#10'where P.ID = :ID'#13#10'  AND' +
+      ' P.ITEM = :ITEM'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 1199
+    Top = 99
+    object sdsPedido_Item_ProcessoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPedido_Item_ProcessoITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPedido_Item_ProcessoITEM_PROCESSO: TIntegerField
+      FieldName = 'ITEM_PROCESSO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPedido_Item_ProcessoID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object sdsPedido_Item_ProcessoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsPedido_Item_ProcessoDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object sdsPedido_Item_ProcessoHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object sdsPedido_Item_ProcessoDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object sdsPedido_Item_ProcessoHRSAIDA: TTimeField
+      FieldName = 'HRSAIDA'
+    end
+  end
+  object cdsPedido_Item_Processo: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID;ITEM;ITEM_PROCESSO'
+    Params = <>
+    ProviderName = 'dspPedido_Item_Processo'
+    Left = 1228
+    Top = 99
+    object cdsPedido_Item_ProcessoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPedido_Item_ProcessoITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPedido_Item_ProcessoITEM_PROCESSO: TIntegerField
+      FieldName = 'ITEM_PROCESSO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPedido_Item_ProcessoID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsPedido_Item_ProcessoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsPedido_Item_ProcessoDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsPedido_Item_ProcessoHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object cdsPedido_Item_ProcessoDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object cdsPedido_Item_ProcessoHRSAIDA: TTimeField
+      FieldName = 'HRSAIDA'
+    end
+  end
+  object dsPedido_Item_Processo: TDataSource
+    DataSet = cdsPedido_Item_Processo
+    Left = 1261
+    Top = 99
   end
 end
