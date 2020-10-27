@@ -556,7 +556,7 @@ uses
   UConsMetas_Pedido in 'UConsMetas_Pedido.pas' {frmConsMetas_Pedido},
   UMov_Atelier_Alt in 'pcp\UMov_Atelier_Alt.pas' {frmMov_Atelier_Alt},
   UDMEstoque_Res in 'UDMEstoque_Res.pas' {DMEstoque_Res: TDataModule},
-  UCadEstoque_Mov_Res in 'UCadEstoque_Mov_Res.pas' {frmCadEstoque_Mov_Res},
+  UCadEstoque_Mov_Res in 'UCadEstoque_Mov_Res.pas' {frmCadEstoque_Mov_Res: Unit1},
   UConsCtaOrcamento_Det in 'UConsCtaOrcamento_Det.pas' {frmConsCtaOrcamento_Det},
   UAjuste_Contrato in 'UAjuste_Contrato.pas' {frmAjuste_Contrato},
   USel_Pontos in '..\Locacao_Pontos\USel_Pontos.pas' {frmSel_Pontos},
@@ -880,7 +880,8 @@ uses
   UConsProduto_Vendas_PCusto in 'UConsProduto_Vendas_PCusto.pas' {frmConsProduto_Vendas_PCusto},
   UGerarEstoque_Mov in 'UGerarEstoque_Mov.pas' {frmGerarEstoque_Mov},
   UComissao_Prod in 'UComissao_Prod.pas' {frmComissao_Prod},
-  UDMComissaoProd in 'UDMComissaoProd.pas' {DMComissaoProd: TDataModule};
+  UDMComissaoProd in 'UDMComissaoProd.pas' {DMComissaoProd: TDataModule},
+  UCadPedido_Proc in 'UCadPedido_Proc.pas' {frmCadPedido_Proc};
 
 {$R *.res}
 

@@ -1649,7 +1649,7 @@ begin
 
     sds.Close;
     sds.CommandType := ctStoredProc;
-    sds.CommandText := 'PRC_GRAVAR_PRODUTO_COMISSAO_VEND';
+    sds.CommandText := 'PRC_GRAVAR_PRODUTO_COMISSAO2';
     sds.ParamByName('PID_SEMI').AsInteger := fDMCadProduto.cdsProdutoID.AsInteger;
     sds.ExecSQL;
   end;

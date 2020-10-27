@@ -487,6 +487,11 @@ object DmCadSetor: TDmCadSetor
       FixedChar = True
       Size = 1
     end
+    object sdsProcessoUSAR_QTD_DOBRA: TStringField
+      FieldName = 'USAR_QTD_DOBRA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspProcesso: TDataSetProvider
     DataSet = sdsProcesso
@@ -639,6 +644,11 @@ object DmCadSetor: TDmCadSetor
       FixedChar = True
       Size = 1
     end
+    object cdsProcessoUSAR_QTD_DOBRA: TStringField
+      FieldName = 'USAR_QTD_DOBRA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsProcesso: TDataSource
     DataSet = cdsProcesso
@@ -779,7 +789,7 @@ object DmCadSetor: TDmCadSetor
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT USA_LOTE'
+      'SELECT USA_LOTE, EMPRESA_SUCATA'
       'FROM PARAMETROS'
       '')
     SQLConnection = dmDatabase.scoDados
@@ -787,6 +797,11 @@ object DmCadSetor: TDmCadSetor
     Top = 216
     object qParametrosUSA_LOTE: TStringField
       FieldName = 'USA_LOTE'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametrosEMPRESA_SUCATA: TStringField
+      FieldName = 'EMPRESA_SUCATA'
       FixedChar = True
       Size = 1
     end

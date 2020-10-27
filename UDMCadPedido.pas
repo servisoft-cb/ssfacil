@@ -3858,6 +3858,7 @@ type
     cdsPedido_Item_ProcessoDTBAIXA: TDateField;
     cdsPedido_Item_ProcessoHRSAIDA: TTimeField;
     dsPedido_Item_Processo: TDataSource;
+    cdsPedido_ItenssdsPedido_Item_Processo: TDataSetField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

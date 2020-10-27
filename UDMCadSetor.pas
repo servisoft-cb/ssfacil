@@ -208,6 +208,9 @@ type
     cdsSetorIMP_MAT_CUSTO: TStringField;
     sdsProcessoLER_TALAO: TStringField;
     cdsProcessoLER_TALAO: TStringField;
+    sdsProcessoUSAR_QTD_DOBRA: TStringField;
+    cdsProcessoUSAR_QTD_DOBRA: TStringField;
+    qParametrosEMPRESA_SUCATA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspSetorUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

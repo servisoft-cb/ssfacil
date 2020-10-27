@@ -7,12 +7,12 @@ object DMCadPedido: TDMCadPedido
   object sdsPedido: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM PEDIDO'
+    CommandText = 'SELECT *'#13#10'FROM PEDIDO'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 24
-    Top = 5
+    Top = 4
     object sdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -1636,6 +1636,7 @@ object DMCadPedido: TDMCadPedido
     Top = 297
   end
   object cdsTipoCobranca: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -1712,6 +1713,7 @@ object DMCadPedido: TDMCadPedido
     Top = 339
   end
   object cdsContas: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -4043,6 +4045,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'PESO_AJUSTADO'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedido_ItenssdsPedido_Item_Processo: TDataSetField
+      FieldName = 'sdsPedido_Item_Processo'
     end
   end
   object dsPedido_Itens: TDataSource
@@ -20044,17 +20049,20 @@ object DMCadPedido: TDMCadPedido
     CommandText = 
       'SELECT P.*'#13#10'FROM pedido_item_processo P'#13#10'where P.ID = :ID'#13#10'  AND' +
       ' P.ITEM = :ITEM'#13#10
+    DataSource = dsPedido_Item_Mestre
     MaxBlobSize = -1
     Params = <
       item
         DataType = ftInteger
         Name = 'ID'
         ParamType = ptInput
+        Size = 4
       end
       item
         DataType = ftInteger
         Name = 'ITEM'
         ParamType = ptInput
+        Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 1199
@@ -20095,9 +20103,9 @@ object DMCadPedido: TDMCadPedido
   end
   object cdsPedido_Item_Processo: TClientDataSet
     Aggregates = <>
+    DataSetField = cdsPedido_ItenssdsPedido_Item_Processo
     IndexFieldNames = 'ID;ITEM;ITEM_PROCESSO'
     Params = <>
-    ProviderName = 'dspPedido_Item_Processo'
     Left = 1228
     Top = 99
     object cdsPedido_Item_ProcessoID: TIntegerField

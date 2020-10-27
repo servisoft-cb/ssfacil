@@ -64,6 +64,8 @@ type
     DBCheckBox11: TDBCheckBox;
     DBCheckBox12: TDBCheckBox;
     DBCheckBox13: TDBCheckBox;
+    DBCheckBox14: TDBCheckBox;
+    DBCheckBox15: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -186,6 +188,7 @@ begin
   DBCheckBox10.Visible     := (fDMCadSetor.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
   DBCheckBox11.Visible     := (fDMCadSetor.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
   DBCheckBox12.Visible     := (fDMCadSetor.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
+  DBCheckBox15.Visible     := (fDMCadSetor.qParametrosEMPRESA_SUCATA.AsString = 'S');
 end;
 
 procedure TfrmCadProcesso.prc_Consultar;

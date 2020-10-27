@@ -152,6 +152,7 @@ object frmCadProcesso: TfrmCadProcesso
             FieldName = 'LER_TALAO'
             Title.Alignment = taCenter
             Title.Caption = 'Ler Tal'#227'o'
+            Width = 64
             Visible = True
           end>
       end
@@ -767,8 +768,8 @@ object frmCadProcesso: TfrmCadProcesso
           Caption = 'Qtd. Dias Prazo:'
         end
         object Label4: TLabel
-          Left = 280
-          Top = 80
+          Left = 278
+          Top = 83
           Width = 146
           Height = 39
           Caption = 
@@ -791,7 +792,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object Label9: TLabel
           Left = 16
-          Top = 360
+          Top = 368
           Width = 243
           Height = 13
           Alignment = taRightJustify
@@ -799,7 +800,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object Label10: TLabel
           Left = 7
-          Top = 383
+          Top = 391
           Width = 252
           Height = 13
           Alignment = taRightJustify
@@ -807,7 +808,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object Label11: TLabel
           Left = 128
-          Top = 176
+          Top = 184
           Width = 66
           Height = 13
           Alignment = taRightJustify
@@ -815,7 +816,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object Label12: TLabel
           Left = 73
-          Top = 197
+          Top = 205
           Width = 121
           Height = 13
           Alignment = taRightJustify
@@ -846,7 +847,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object RzGroupBox1: TRzGroupBox
           Left = 128
-          Top = 282
+          Top = 290
           Width = 451
           Height = 65
           BorderColor = clNavy
@@ -951,7 +952,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object dbrdgEncerado: TDBRadioGroup
           Left = 128
-          Top = 80
+          Top = 88
           Width = 145
           Height = 71
           DataField = 'ENCERADO'
@@ -968,7 +969,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object DBCheckBox4: TDBCheckBox
           Left = 288
-          Top = 131
+          Top = 141
           Width = 281
           Height = 17
           Caption = 'Entrada Autom'#225'tica na sa'#237'da do Processo Anterior'
@@ -1014,7 +1015,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object DBCheckBox7: TDBCheckBox
           Left = 288
-          Top = 149
+          Top = 159
           Width = 281
           Height = 17
           Caption = 'Permite Fazer Retrabalho'
@@ -1026,7 +1027,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object RxDBLookupCombo1: TRxDBLookupCombo
           Left = 263
-          Top = 353
+          Top = 361
           Width = 329
           Height = 21
           DropDownCount = 8
@@ -1039,7 +1040,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object RxDBLookupCombo2: TRxDBLookupCombo
           Left = 263
-          Top = 376
+          Top = 384
           Width = 329
           Height = 21
           DropDownCount = 8
@@ -1052,7 +1053,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object RxDBComboBox2: TRxDBComboBox
           Left = 197
-          Top = 172
+          Top = 180
           Width = 172
           Height = 21
           Style = csDropDownList
@@ -1072,7 +1073,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object DBCheckBox8: TDBCheckBox
           Left = 376
-          Top = 170
+          Top = 178
           Width = 281
           Height = 17
           Caption = 'Baixar Estoque Pelo Cru (Semi Acabado)'
@@ -1084,7 +1085,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object RxDBComboBox3: TRxDBComboBox
           Left = 197
-          Top = 193
+          Top = 201
           Width = 172
           Height = 21
           Style = csDropDownList
@@ -1101,8 +1102,8 @@ object frmCadProcesso: TfrmCadProcesso
             'S')
         end
         object DBCheckBox9: TDBCheckBox
-          Left = 376
-          Top = 191
+          Left = 377
+          Top = 199
           Width = 281
           Height = 17
           Caption = 'Controle Por M'#225'quina'
@@ -1114,7 +1115,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object DBCheckBox10: TDBCheckBox
           Left = 376
-          Top = 211
+          Top = 219
           Width = 281
           Height = 17
           Caption = 'Consultar Material Por KG'
@@ -1126,7 +1127,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object DBCheckBox11: TDBCheckBox
           Left = 376
-          Top = 230
+          Top = 238
           Width = 281
           Height = 17
           Caption = 'Usa Carga'
@@ -1138,7 +1139,7 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object DBCheckBox12: TDBCheckBox
           Left = 376
-          Top = 246
+          Top = 254
           Width = 281
           Height = 17
           Caption = 'Gerar Materiais Para o Tingimento (Controle)'
@@ -1157,6 +1158,30 @@ object frmCadProcesso: TfrmCadProcesso
           DataField = 'LER_TALAO'
           DataSource = DmCadSetor.dsProcesso
           TabOrder = 21
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
+        object DBCheckBox14: TDBCheckBox
+          Left = 376
+          Top = 271
+          Width = 225
+          Height = 17
+          Caption = 'Pedir a Qtde de Dobra'
+          DataField = 'GERAR_ESTOQUE_TING'
+          DataSource = DmCadSetor.dsProcesso
+          TabOrder = 22
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
+        object DBCheckBox15: TDBCheckBox
+          Left = 288
+          Top = 125
+          Width = 281
+          Height = 17
+          Caption = 'Informar a qtde quando o processo for Dobra'
+          DataField = 'USAR_QTD_DOBRA'
+          DataSource = DmCadSetor.dsProcesso
+          TabOrder = 23
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
