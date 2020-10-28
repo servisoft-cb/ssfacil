@@ -1,6 +1,6 @@
 object frmConferencia_Ped: TfrmConferencia_Ped
-  Left = 171
-  Top = 85
+  Left = 141
+  Top = 46
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'Confer'#234'ncia Simples do Pedido'
@@ -418,6 +418,7 @@ object frmConferencia_Ped: TfrmConferencia_Ped
           Title.Font.Height = -11
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = []
+          Width = 64
           Visible = True
         end>
     end
@@ -738,7 +739,7 @@ object frmConferencia_Ped: TfrmConferencia_Ped
     end
     object Edit1: TEdit
       Left = 119
-      Top = 16
+      Top = 17
       Width = 213
       Height = 26
       Font.Charset = DEFAULT_CHARSET

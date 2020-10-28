@@ -276,6 +276,22 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
         TabOrder = 6
         OnExit = DBEdit2Exit
       end
+      object btnProcesso: TNxButton
+        Left = 114
+        Top = 260
+        Width = 98
+        Height = 29
+        Cursor = crHandPoint
+        Caption = 'Processos'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlue
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
+        TabOrder = 12
+        OnClick = btnProcessoClick
+      end
     end
     object TS_Redondos: TRzTabSheet
       Color = clMoneyGreen

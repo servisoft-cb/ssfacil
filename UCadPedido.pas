@@ -135,9 +135,6 @@ type
     amanho1: TMenuItem;
     Conferncia1: TMenuItem;
     Etiqueta1: TMenuItem;
-    pnlMaterial: TPanel;
-    SMDBGrid3: TSMDBGrid;
-    SMDBGrid4: TSMDBGrid;
     amanhoSemMaterial1: TMenuItem;
     lblNaoMostrarPreco: TLabel;
     Label34: TLabel;
@@ -374,6 +371,8 @@ type
     ckSelItem: TCheckBox;
     DBCheckBox7: TDBCheckBox;
     btnAltPreco: TBitBtn;
+    SMDBGrid3: TSMDBGrid;
+    NxSplitter1: TNxSplitter;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -797,6 +796,7 @@ begin
 
   vSenha := '';
   fDMCadPedido.mSenha.EmptyDataSet;
+  fDMCadPedido.mProcesso_Sel.EmptyDataSet;
 
   prc_Informar_Filial;
   if vFilial <= 0 then
@@ -1015,16 +1015,6 @@ begin
       SMDBGrid1.Columns[i].Visible := (fDMCadPedido.qParametros_PedMOSTRAR_ANEXO.AsString = 'S');
   end;
 
-  if (lblNaoMostrarPreco.Visible) or (fDMCadPedido.cdsParametrosEMPRESA_NAVALHA.AsString <> 'S')  then
-  begin
-    for i := 1 to SMDBGrid4.ColCount - 2 do
-    begin
-      vTexto := SMDBGrid4.Columns[i].FieldName;
-      if copy(vTexto,1,4) = 'VLR_' then
-        SMDBGrid4.Columns[i].Visible := False;
-    end;
-  end;
-  pnlMaterial.Visible := (fDMCadPedido.cdsParametrosINFORMA_MAT_PEDIDO.AsString = 'S');
   ckMeiaFolha.Visible := (((amanho1.Enabled) and (amanho1.Visible)) or (fDMCadPedido.cdsParametrosIMP_MEIA_FOLHA_PED.AsString = 'S'));
 
   //Mostrar Preço
@@ -1295,6 +1285,7 @@ begin
     Exit;
 
   fDMCadPedido.mSenha.EmptyDataSet;
+  fDMCadPedido.mProcesso_Sel.EmptyDataSet;
 
   if vInclusao_Edicao <> 'C' then
   begin
@@ -1443,6 +1434,9 @@ begin
   fDMCadPedido.prc_Localizar(fDMCadPedido.cdsPedido_ConsultaID.AsInteger);
   fDMCadPedido.cdsPedido_Itens.Close;
   fDMCadPedido.cdsPedido_Itens.Open;
+  fDMCadPedido.cdsPedido_Item_Processo.Close;
+  fDMCadPedido.cdsPedido_Item_Processo.Open;
+  fDMCadPedido.cdsPedido_Item_Processo.First;
   fDMCadPedido.cdsPedido_Cli.Close;
   fDMCadPedido.cdsPedido_Cli.Open;
   fDMCadPedido.cdsPedido_Parc.Close;
@@ -1892,8 +1886,6 @@ begin
   rxdbConta.Enabled           := not(rxdbConta.Enabled);
   rxdbConta_Orcamento.Enabled := not(rxdbConta_Orcamento.Enabled);
   DBEdit16.Enabled            := not(DBEdit16.Enabled);
-
-  SMDBGrid3.ReadOnly          := not(SMDBGrid3.ReadOnly);
 
   CancelarPedido1.Enabled       := not(CancelarPedido1.Enabled);
   CancelarItemdoPedido1.Enabled := not(CancelarItemdoPedido1.Enabled);

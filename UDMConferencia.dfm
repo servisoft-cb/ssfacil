@@ -842,7 +842,7 @@ object DMConferencia: TDMConferencia
     ReportOptions.LastChange = 42759.885930636580000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
-    Left = 736
+    Left = 737
     Top = 255
   end
   object frxPDFExport1: TfrxPDFExport
@@ -906,7 +906,7 @@ object DMConferencia: TDMConferencia
     DataSource = dsEtiqueta
     BCDToCurrency = False
     Left = 736
-    Top = 303
+    Top = 304
   end
   object qQtdProd: TSQLQuery
     MaxBlobSize = -1
@@ -2011,7 +2011,7 @@ object DMConferencia: TDMConferencia
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 394
-    Top = 387
+    Top = 388
     object sdsPedido_Item_ProcessoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2121,7 +2121,7 @@ object DMConferencia: TDMConferencia
       ''
       '')
     SQLConnection = dmDatabase.scoDados
-    Left = 817
+    Left = 816
     Top = 72
     object qFuncionarioCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -2205,13 +2205,20 @@ object DMConferencia: TDMConferencia
     SQL.Strings = (
       
         'select I.ID, I.ITEM, I.QTD_RESTANTE, I.QTD_FATURADO, I.DTCONFERE' +
-        'NCIA, i.qtd_cancelado, i.qtd'
+        'NCIA, i.qtd_cancelado, i.qtd,'
+      
+        'TIP.complemento_nome, TIP.caminho_arquivo_pdf, TIP.comprimento, ' +
+        'TIP.largura, TIP.altura,'
+      'TIP.peso, tip.espessura'
       'from PEDIDO_ITEM I'
       'inner join PEDIDO P on I.ID = P.ID'
+      
+        'left join PEDIDO_ITEM_TIPO TIP ON I.ID = TIP.ID AND I.ITEM = TIP' +
+        '.ITEM'
       'where P.NUM_PEDIDO = :NUM_PEDIDO'
       '  and I.ITEM = :ITEM')
     SQLConnection = dmDatabase.scoDados
-    Left = 782
+    Left = 781
     Top = 72
     object qPedido_ItemID: TIntegerField
       FieldName = 'ID'
@@ -2235,6 +2242,29 @@ object DMConferencia: TDMConferencia
     end
     object qPedido_ItemQTD: TFloatField
       FieldName = 'QTD'
+    end
+    object qPedido_ItemCOMPLEMENTO_NOME: TStringField
+      FieldName = 'COMPLEMENTO_NOME'
+      Size = 50
+    end
+    object qPedido_ItemCAMINHO_ARQUIVO_PDF: TStringField
+      FieldName = 'CAMINHO_ARQUIVO_PDF'
+      Size = 150
+    end
+    object qPedido_ItemCOMPRIMENTO: TFloatField
+      FieldName = 'COMPRIMENTO'
+    end
+    object qPedido_ItemLARGURA: TFloatField
+      FieldName = 'LARGURA'
+    end
+    object qPedido_ItemALTURA: TFloatField
+      FieldName = 'ALTURA'
+    end
+    object qPedido_ItemPESO: TFloatField
+      FieldName = 'PESO'
+    end
+    object qPedido_ItemESPESSURA: TFloatField
+      FieldName = 'ESPESSURA'
     end
   end
 end

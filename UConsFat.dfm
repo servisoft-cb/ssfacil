@@ -162,7 +162,7 @@ object frmConsFat: TfrmConsFat
     end
     object btnConsultar: TNxButton
       Left = 287
-      Top = 47
+      Top = 46
       Width = 92
       Height = 24
       Caption = 'Consultar'

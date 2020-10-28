@@ -1,8 +1,8 @@
 object DMCadPedido: TDMCadPedido
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Top = 11
-  Height = 691
+  Top = 3
+  Height = 699
   Width = 1366
   object sdsPedido: TSQLDataSet
     NoMetadata = True
@@ -11,8 +11,8 @@ object DMCadPedido: TDMCadPedido
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 24
-    Top = 4
+    Left = 25
+    Top = 5
     object sdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -441,8 +441,9 @@ object DMCadPedido: TDMCadPedido
     DataSet = sdsPedido
     UpdateMode = upWhereKeyOnly
     OnUpdateError = dspPedidoUpdateError
-    Left = 40
-    Top = 3
+    OnGetTableName = dspPedidoGetTableName
+    Left = 39
+    Top = 2
   end
   object cdsPedido: TClientDataSet
     Aggregates = <>
@@ -452,7 +453,7 @@ object DMCadPedido: TDMCadPedido
     BeforePost = cdsPedidoBeforePost
     OnNewRecord = cdsPedidoNewRecord
     Left = 56
-    Top = 5
+    Top = 6
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -1086,17 +1087,18 @@ object DMCadPedido: TDMCadPedido
       'LAO2,'#13#10'       (select coalesce(sum(PRECO_CUSTO * QTD), 0)'#13#10'     ' +
       '   from PEDIDO_ITEM'#13#10'        where ID = PED.ID) VALOR_CUSTO,'#13#10'  ' +
       '      (SELECT COUNT(1) CONTADOR_PROCESSO FROM pedido_item_proces' +
-      'so WHERE ID = PED.ID)'#13#10'        CONTADOR_PROCESSO,'#13#10'CASE'#13#10'  WHEN ' +
-      '(AX.end_arq_pagto IS NOT NULL) AND (AX.end_arq_oc IS NOT NULL) T' +
-      'HEN '#39'REC/OC'#39#13#10'  WHEN (AX.end_arq_pagto IS NOT NULL) THEN '#39'REC'#39#13#10 +
-      '  WHEN (AX.end_arq_oc IS NOT NULL) THEN '#39'OC'#39#13#10'  ELSE '#39#39#13#10'  END D' +
-      'ESC_ARQ_ANEXO'#13#10#13#10'from PEDIDO PED'#13#10'left join PESSOA CLI on PED.ID' +
-      '_CLIENTE = CLI.CODIGO'#13#10'left join PESSOA TRA on PED.ID_TRANSPORTA' +
-      'DORA = TRA.CODIGO'#13#10'left join PEDIDO_APROV AP on PED.ID = AP.ID'#13#10 +
-      'left join PESSOA VEND on PED.ID_VENDEDOR = VEND.CODIGO'#13#10'left joi' +
-      'n OPERACAO_NOTA OPN on PED.ID_OPERACAO_NOTA = OPN.ID  '#13#10'LEFT JOI' +
-      'N PESSOA VEND2 ON PED.ID_VENDEDOR_INT = VEND2.CODIGO'#13#10'LEFT JOIN ' +
-      'PEDIDO_ANEXO AX ON PED.ID = AX.ID'#13#10#13#10
+      'so WHERE ID = PED.ID'#13#10'          and dtentrada is not null)'#13#10'    ' +
+      '    CONTADOR_PROCESSO,'#13#10'CASE'#13#10'  WHEN (AX.end_arq_pagto IS NOT NU' +
+      'LL) AND (AX.end_arq_oc IS NOT NULL) THEN '#39'REC/OC'#39#13#10'  WHEN (AX.en' +
+      'd_arq_pagto IS NOT NULL) THEN '#39'REC'#39#13#10'  WHEN (AX.end_arq_oc IS NO' +
+      'T NULL) THEN '#39'OC'#39#13#10'  ELSE '#39#39#13#10'  END DESC_ARQ_ANEXO'#13#10#13#10'from PEDID' +
+      'O PED'#13#10'left join PESSOA CLI on PED.ID_CLIENTE = CLI.CODIGO'#13#10'left' +
+      ' join PESSOA TRA on PED.ID_TRANSPORTADORA = TRA.CODIGO'#13#10'left joi' +
+      'n PEDIDO_APROV AP on PED.ID = AP.ID'#13#10'left join PESSOA VEND on PE' +
+      'D.ID_VENDEDOR = VEND.CODIGO'#13#10'left join OPERACAO_NOTA OPN on PED.' +
+      'ID_OPERACAO_NOTA = OPN.ID  '#13#10'LEFT JOIN PESSOA VEND2 ON PED.ID_VE' +
+      'NDEDOR_INT = VEND2.CODIGO'#13#10'LEFT JOIN PEDIDO_ANEXO AX ON PED.ID =' +
+      ' AX.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1106,7 +1108,7 @@ object DMCadPedido: TDMCadPedido
   object dspPedido_Consulta: TDataSetProvider
     DataSet = sdsPedido_Consulta
     Left = 192
-    Top = 2
+    Top = 3
   end
   object cdsPedido_Consulta: TClientDataSet
     Aggregates = <>
@@ -1354,8 +1356,8 @@ object DMCadPedido: TDMCadPedido
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 312
-    Top = 170
+    Left = 309
+    Top = 172
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
@@ -2865,7 +2867,7 @@ object DMCadPedido: TDMCadPedido
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 27
+    Left = 28
     Top = 52
     object sdsPedido_ItensID: TIntegerField
       FieldName = 'ID'
@@ -3395,7 +3397,7 @@ object DMCadPedido: TDMCadPedido
     BeforePost = cdsPedido_ItensBeforePost
     OnCalcFields = cdsPedido_ItensCalcFields
     OnNewRecord = cdsPedido_ItensNewRecord
-    Left = 40
+    Left = 41
     Top = 53
     object cdsPedido_ItensID: TIntegerField
       FieldName = 'ID'
@@ -20047,8 +20049,9 @@ object DMCadPedido: TDMCadPedido
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT P.*'#13#10'FROM pedido_item_processo P'#13#10'where P.ID = :ID'#13#10'  AND' +
-      ' P.ITEM = :ITEM'#13#10
+      'select P.*, PR.NOME, PR.ORDEM_MAPA'#13#10'from PEDIDO_ITEM_PROCESSO P'#13 +
+      #10'left join PROCESSO PR '#13#10'on P.ID_PROCESSO = PR.ID'#13#10'where P.ID = ' +
+      ':ID and'#13#10'      P.ITEM = :ITEM  '#13#10' '
     DataSource = dsPedido_Item_Mestre
     MaxBlobSize = -1
     Params = <
@@ -20065,7 +20068,7 @@ object DMCadPedido: TDMCadPedido
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 1199
+    Left = 1200
     Top = 99
     object sdsPedido_Item_ProcessoID: TIntegerField
       FieldName = 'ID'
@@ -20100,13 +20103,22 @@ object DMCadPedido: TDMCadPedido
     object sdsPedido_Item_ProcessoHRSAIDA: TTimeField
       FieldName = 'HRSAIDA'
     end
+    object sdsPedido_Item_ProcessoNOME: TStringField
+      FieldName = 'NOME'
+      ProviderFlags = []
+      Size = 30
+    end
+    object sdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField
+      FieldName = 'ORDEM_MAPA'
+      ProviderFlags = []
+    end
   end
   object cdsPedido_Item_Processo: TClientDataSet
     Aggregates = <>
     DataSetField = cdsPedido_ItenssdsPedido_Item_Processo
     IndexFieldNames = 'ID;ITEM;ITEM_PROCESSO'
     Params = <>
-    Left = 1228
+    Left = 1230
     Top = 99
     object cdsPedido_Item_ProcessoID: TIntegerField
       FieldName = 'ID'
@@ -20141,10 +20153,94 @@ object DMCadPedido: TDMCadPedido
     object cdsPedido_Item_ProcessoHRSAIDA: TTimeField
       FieldName = 'HRSAIDA'
     end
+    object cdsPedido_Item_ProcessoNOME: TStringField
+      FieldName = 'NOME'
+      ProviderFlags = []
+      Size = 30
+    end
+    object cdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField
+      FieldName = 'ORDEM_MAPA'
+      ProviderFlags = []
+    end
   end
   object dsPedido_Item_Processo: TDataSource
     DataSet = cdsPedido_Item_Processo
     Left = 1261
     Top = 99
+  end
+  object sdsProcesso: TSQLDataSet
+    CommandText = 
+      'SELECT P.ID, P.nome, P.usar_qtd_dobra, P.ordem_mapa'#13#10'FROM PROCES' +
+      'SO P'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 859
+    Top = 613
+  end
+  object dspProcesso: TDataSetProvider
+    DataSet = sdsProcesso
+    Left = 891
+    Top = 610
+  end
+  object cdsProcesso: TClientDataSet
+    Active = True
+    Aggregates = <>
+    IndexFieldNames = 'ORDEM_MAPA'
+    Params = <>
+    ProviderName = 'dspProcesso'
+    Left = 923
+    Top = 610
+    object cdsProcessoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsProcessoNOME: TStringField
+      FieldName = 'NOME'
+      Size = 30
+    end
+    object cdsProcessoUSAR_QTD_DOBRA: TStringField
+      FieldName = 'USAR_QTD_DOBRA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProcessoORDEM_MAPA: TIntegerField
+      FieldName = 'ORDEM_MAPA'
+    end
+  end
+  object dsProcesso: TDataSource
+    DataSet = cdsProcesso
+    Left = 961
+    Top = 610
+  end
+  object mProcesso_Sel: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 1044
+    Top = 613
+    Data = {
+      5E0000009619E0BD0100000018000000040000000000030000005E0002494404
+      00010000000000044E6F6D650100490000000100055749445448020002001E00
+      095174645F446F6272610400010000000000054F7264656D0400010000000000
+      0000}
+    object mProcesso_SelID: TIntegerField
+      FieldName = 'ID'
+    end
+    object mProcesso_SelNome: TStringField
+      FieldName = 'Nome'
+      Size = 30
+    end
+    object mProcesso_SelQtd_Dobra: TIntegerField
+      FieldName = 'Qtd_Dobra'
+    end
+    object mProcesso_SelOrdem: TIntegerField
+      FieldName = 'Ordem'
+    end
+  end
+  object dsmProcesso_Sel: TDataSource
+    DataSet = mProcesso_Sel
+    Left = 1081
+    Top = 615
   end
 end

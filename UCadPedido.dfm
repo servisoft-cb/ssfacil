@@ -2497,7 +2497,7 @@ object frmCadPedido: TfrmCadPedido
             Left = 0
             Top = 53
             Width = 1089
-            Height = 81
+            Height = 92
             Align = alClient
             Ctl3D = False
             DataSource = DMCadPedido.dsPedido_Itens
@@ -3214,208 +3214,26 @@ object frmCadPedido: TfrmCadPedido
               OnClick = btnAltPrecoClick
             end
           end
-          object pnlMaterial: TPanel
+          object pnlTipoItem: TPanel
             Left = 0
-            Top = 323
+            Top = 263
             Width = 1089
-            Height = 27
+            Height = 87
             Align = alBottom
             Caption = 'pnlMaterial'
             TabOrder = 2
-            object SMDBGrid3: TSMDBGrid
-              Left = 908
+            object NxSplitter1: TNxSplitter
+              Left = 856
               Top = 1
-              Width = 180
-              Height = 25
-              Align = alRight
-              Ctl3D = False
-              DataSource = DMCadPedido.dsPedido_Etiqueta
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-              ParentCtl3D = False
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 0
-              TitleFont.Charset = DEFAULT_CHARSET
-              TitleFont.Color = clBlue
-              TitleFont.Height = -11
-              TitleFont.Name = 'MS Sans Serif'
-              TitleFont.Style = []
-              Flat = True
-              BandsFont.Charset = DEFAULT_CHARSET
-              BandsFont.Color = clWindowText
-              BandsFont.Height = -11
-              BandsFont.Name = 'MS Sans Serif'
-              BandsFont.Style = []
-              Groupings = <>
-              GridStyle.Style = gsCustom
-              GridStyle.OddColor = clWindow
-              GridStyle.EvenColor = clWindow
-              TitleHeight.PixelCount = 24
-              FooterColor = clBtnFace
-              ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
-              RegistryKey = 'Software\Scalabium'
-              RegistrySection = 'SMDBGrid'
-              WidthOfIndicator = 11
-              DefaultRowHeight = 16
-              ScrollBars = ssHorizontal
-              ColCount = 2
-              RowCount = 2
-              Columns = <
-                item
-                  Expanded = False
-                  FieldName = 'TAMANHO'
-                  Title.Color = 16764831
-                  Width = 121
-                  Visible = True
-                end>
+              Height = 85
             end
-            object SMDBGrid4: TSMDBGrid
-              Left = 1
-              Top = 1
-              Width = 716
-              Height = 25
-              Align = alLeft
-              Ctl3D = False
-              DataSource = DMCadPedido.dsPedido_Material
-              Font.Charset = DEFAULT_CHARSET
-              Font.Color = clWindowText
-              Font.Height = -11
-              Font.Name = 'MS Sans Serif'
-              Font.Style = []
-              Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-              ParentCtl3D = False
-              ParentFont = False
-              ReadOnly = True
-              TabOrder = 1
-              TitleFont.Charset = DEFAULT_CHARSET
-              TitleFont.Color = clBlue
-              TitleFont.Height = -11
-              TitleFont.Name = 'MS Sans Serif'
-              TitleFont.Style = []
-              Flat = True
-              BandsFont.Charset = DEFAULT_CHARSET
-              BandsFont.Color = clWindowText
-              BandsFont.Height = -11
-              BandsFont.Name = 'MS Sans Serif'
-              BandsFont.Style = []
-              Groupings = <>
-              GridStyle.Style = gsCustom
-              GridStyle.OddColor = clWindow
-              GridStyle.EvenColor = clWindow
-              TitleHeight.PixelCount = 24
-              FooterColor = clBtnFace
-              ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
-              RegistryKey = 'Software\Scalabium'
-              RegistrySection = 'SMDBGrid'
-              WidthOfIndicator = 11
-              DefaultRowHeight = 16
-              ScrollBars = ssHorizontal
-              ColCount = 10
-              RowCount = 2
-              Columns = <
-                item
-                  Alignment = taCenter
-                  Expanded = False
-                  FieldName = 'ID_PRODUTO'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'C'#243'd. Material'
-                  Title.Color = 16764831
-                  Width = 49
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'NOME_PRODUTO'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Nome Material'
-                  Title.Color = 16764831
-                  Width = 265
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'NOME_ETIQUETA'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Nome Etiqueta'
-                  Title.Color = 16764831
-                  Width = 135
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'QTD_CONSUMO'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Consumo M'#233'dio'
-                  Title.Color = 16764831
-                  Width = 53
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'QTD_PECA'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Qtde.'
-                  Title.Color = 16764831
-                  Width = 42
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'QTD_CONSUMO_TOTAL'
-                  Title.Caption = 'Consumo Total'
-                  Title.Color = 16764831
-                  Width = 58
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'VLR_UNITARIO'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Vlr. Unit'#225'rio'
-                  Title.Color = 16764831
-                  Width = 68
-                  Visible = True
-                end
-                item
-                  Expanded = False
-                  FieldName = 'VLR_TOTAL'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Vlr. Total'
-                  Title.Color = 16764831
-                  Width = 82
-                  Visible = True
-                end
-                item
-                  Alignment = taCenter
-                  Expanded = False
-                  FieldName = 'UNIDADE'
-                  Title.Alignment = taCenter
-                  Title.Caption = 'Unid.'
-                  Title.Color = 16764831
-                  Width = 32
-                  Visible = True
-                end>
-            end
-          end
-          object pnlTipoItem: TPanel
-            Left = 0
-            Top = 252
-            Width = 1089
-            Height = 71
-            Align = alBottom
-            Caption = 'pnlMaterial'
-            TabOrder = 3
             object SMDBGrid6: TSMDBGrid
               Left = 1
               Top = 1
-              Width = 1087
-              Height = 69
-              Align = alClient
+              Width = 855
+              Height = 85
+              Align = alLeft
+              Anchors = [akLeft, akTop, akRight, akBottom]
               Ctl3D = False
               DataSource = DMCadPedido.dsPedido_Item_Tipo
               Font.Charset = DEFAULT_CHARSET
@@ -3579,14 +3397,73 @@ object frmCadPedido: TfrmCadPedido
                   Visible = True
                 end>
             end
+            object SMDBGrid3: TSMDBGrid
+              Left = 877
+              Top = 1
+              Width = 211
+              Height = 85
+              Align = alRight
+              Ctl3D = False
+              DataSource = DMCadPedido.dsPedido_Item_Processo
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              Options = [dgEditing, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+              ParentCtl3D = False
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 1
+              TitleFont.Charset = DEFAULT_CHARSET
+              TitleFont.Color = clBlue
+              TitleFont.Height = -11
+              TitleFont.Name = 'MS Sans Serif'
+              TitleFont.Style = []
+              Flat = True
+              BandsFont.Charset = DEFAULT_CHARSET
+              BandsFont.Color = clWindowText
+              BandsFont.Height = -11
+              BandsFont.Name = 'MS Sans Serif'
+              BandsFont.Style = []
+              Groupings = <>
+              GridStyle.Style = gsCustom
+              GridStyle.OddColor = clWindow
+              GridStyle.EvenColor = clWindow
+              TitleHeight.PixelCount = 24
+              FooterColor = clBtnFace
+              ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+              RegistryKey = 'Software\Scalabium'
+              RegistrySection = 'SMDBGrid'
+              WidthOfIndicator = 11
+              DefaultRowHeight = 16
+              ScrollBars = ssHorizontal
+              ColCount = 3
+              RowCount = 1
+              Columns = <
+                item
+                  Expanded = False
+                  FieldName = 'QTD'
+                  Title.Alignment = taCenter
+                  Title.Caption = 'Qtd. '
+                  Width = 40
+                  Visible = True
+                end
+                item
+                  Expanded = False
+                  FieldName = 'NOME'
+                  Width = 150
+                  Visible = True
+                end>
+            end
           end
           object pnlPorta: TPanel
             Left = 0
-            Top = 193
+            Top = 204
             Width = 1089
             Height = 59
             Align = alBottom
-            TabOrder = 4
+            TabOrder = 3
             Visible = False
             object SMDBGrid8: TSMDBGrid
               Left = 1
@@ -3736,12 +3613,12 @@ object frmCadPedido: TfrmCadPedido
           end
           object pnlVidro: TPanel
             Left = 0
-            Top = 134
+            Top = 145
             Width = 1089
             Height = 59
             Align = alBottom
             Caption = 'pnlMaterial'
-            TabOrder = 5
+            TabOrder = 4
             Visible = False
             object SMDBGrid7: TSMDBGrid
               Left = 1
@@ -3897,7 +3774,7 @@ object frmCadPedido: TfrmCadPedido
             Height = 24
             Align = alBottom
             Color = clSilver
-            TabOrder = 6
+            TabOrder = 5
             Visible = False
             object Label73: TLabel
               Left = 3
@@ -3928,7 +3805,7 @@ object frmCadPedido: TfrmCadPedido
             Width = 1089
             Height = 23
             Align = alTop
-            TabOrder = 7
+            TabOrder = 6
             object pnlLocalEstoque: TPanel
               Left = 1
               Top = 1

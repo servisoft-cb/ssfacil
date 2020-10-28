@@ -8,7 +8,7 @@ uses
   Provider, DBClient, SqlExpr, RxLookup, Mask, ToolEdit, CurrEdit, ComObj, 
   UDMCopiaPedido, ShellAPI, Menus, uConsProdutoPedido, UCadPedido_Itens, uDMCadPedido,
   uSel_Produto, uMostraPDF, classe.ControlePedidoProjeto, classe.Controle, classe.ConexaoBD,
-  NxCollection, NxEdit;
+  NxCollection, NxEdit, RzButton;
 
 type
   EnumTipo = (tpChapa, tpInox, tpAluminio);
@@ -53,6 +53,18 @@ type
     Label4: TLabel;
     cbxArquivo: TNxComboBox;
     Label3: TLabel;
+    mArquivoImportadoProcesso: TStringField;
+    Label5: TLabel;
+    mArquivoImportadoItem: TIntegerField;
+    mArquivo_Proc: TClientDataSet;
+    dsArquivo_Proc: TDataSource;
+    mArquivo_ProcIterm: TIntegerField;
+    mArquivo_ProcID: TIntegerField;
+    mArquivo_ProcNome: TStringField;
+    mArquivo_ProcQtd_Dobra: TIntegerField;
+    mArquivo_ProcOrdem: TIntegerField;
+    SMDBGrid3: TSMDBGrid;
+    btnRecalcular: TRzBitBtn;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -74,6 +86,7 @@ type
       Shift: TShiftState);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
+    procedure btnRecalcularClick(Sender: TObject);
   private
     { Private declarations }
     ctChapaLocal: string;
@@ -83,6 +96,7 @@ type
 
     vSomar : Boolean;
     vProcurar_Prod : Boolean;
+    vItem_Arq : Integer;
 
     procedure ListarArquivos(Diretorio: string);
     procedure prc_Calcular_Peso_PC_Chapa;
@@ -92,6 +106,8 @@ type
     procedure prc_Carrega_Excel;
     procedure prc_Le_StringGrid;
     procedure prc_Carrega_CSV;
+    procedure prc_Carrega_mProcesso_Sel;
+    procedure prc_Gravar_mArquivo_Proc;
 
     function fnc_Buscar_Produto(MM : Real; Tipo : String): Integer;
     function NomeArquivoSemExtensao(Texto: string): string;
@@ -113,7 +129,8 @@ var
 implementation
 
 uses
-  DmdDatabase, uUtilPadrao, uCalculo_Pedido, classe.CalcularPeso;
+  DmdDatabase, uUtilPadrao, uCalculo_Pedido, classe.CalcularPeso,
+  UCadPedido_Proc;
 
 {$R *.dfm}
 
@@ -146,6 +163,7 @@ var
   vID_CFOPAnt : Integer;
   vControlePedidoProjeto : TPedidoControle;
   vControle : TControle;
+  vItemAux : Integer;
 begin
   mArquivoImportado.First;
   if mArquivoImportado.IsEmpty then
@@ -159,7 +177,7 @@ begin
   ffrmCadPedido_Itens.fDMCadPedido   := fDMCadPedido;
   ffrmCadPedido_Itens.vMostrar_Preco := True;
 
-  mArquivoImportado.DisableControls;
+  //mArquivoImportado.DisableControls;
   try
     while not mArquivoImportado.Eof do
     begin
@@ -221,6 +239,28 @@ begin
         fDMCadPedido.cdsPedido_ItensQTD_LANCAR_ESTOQUE.AsFloat := StrToFloat(FormatFloat('0.0000',(fDMCadPedido.cdsPedido_Item_TipoPESO.AsFloat)));
         fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString := fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString + ' ' + fDMCadPedido.cdsPedido_Item_TipoCOMPLEMENTO_NOME.AsString;
 
+        //Grava os processos    28/10/2020
+        vItemAux := 0;
+        mArquivo_Proc.First;
+        while not mArquivo_Proc.Eof do
+        begin
+          vItemAux := vItemAux + 1;
+          fDMCadPedido.cdsPedido_Item_Processo.Insert;
+          fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger            := fDMCadPedido.cdsPedidoID.AsInteger;
+          fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger          := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+          fDMCadPedido.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger := vItemAux;
+          fDMCadPedido.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger   := mArquivo_ProcID.AsInteger;
+          fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsInteger           := mArquivo_ProcQtd_Dobra.AsInteger;
+          fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString           := mArquivo_ProcNome.AsString;
+          fDMCadPedido.cdsPedido_Item_ProcessoDTENTRADA.Clear;
+          fDMCadPedido.cdsPedido_Item_ProcessoHRENTRADA.Clear;
+          fDMCadPedido.cdsPedido_Item_ProcessoDTBAIXA.Clear;
+          fDMCadPedido.cdsPedido_Item_ProcessoHRSAIDA.Clear;
+          fDMCadPedido.cdsPedido_Item_Processo.Post;
+          mArquivo_Proc.Next;
+        end;
+        //************************
+
         fDMCadPedido.cdsPedido_Item_Tipo.Post;
         fdmCadPedido.cdsPedido_Itens.Post;
 
@@ -251,7 +291,7 @@ begin
       mArquivoImportado.Next;
     end;
   finally
-    mArquivoImportado.EnableControls;
+    //mArquivoImportado.EnableControls;
     FreeAndNil(ffrmCadPedido_Itens);
   end;
   ShowMessage('Itens importados com sucesso!');
@@ -263,6 +303,7 @@ begin
   vProcurar_Prod := False;
   try
     btnCarrega.Tag := 1;
+    vItem_Arq      := 0;
     ListarArquivos(DirectoryEdit1.Text);
     if (trim(FilenameEdit1.Text) <> '') then
     begin
@@ -290,14 +331,23 @@ begin
   vControle := TControle.Create;
   vControlePedidoProjeto := TPedidoControle.create(vControle);
   vCalcularPeso := TCalcluar_Peso.Create;
-  mArquivoImportado.EmptyDataSet;
+  mArquivoImportado.First;
+  while not mArquivoImportado.Eof do
+  begin
+    mArquivo_Proc.First;
+    while not mArquivo_Proc.Eof do
+      mArquivo_Proc.Delete;
+    mArquivoImportado.Delete;
+  end;
   prc_Desabilita_Controles;
   Extensao := '*.PDF';
   Ret := FindFirst(Diretorio + '\' + Extensao, faAnyFile, F);
   try
     while Ret = 0 do
     begin
+      vItem_Arq := vItem_Arq + 1;
       mArquivoImportado.Insert;
+      mArquivoImportadoItem.AsInteger := vItem_Arq;
       mArquivoImportadoCaminhoArquivo.AsString := Diretorio + '\' + UpperCase(F.Name);
       i := Pos('.', F.Name);
       mArquivoImportadoNomeArquivo.AsString := NomeArquivoSemExtensao(F.Name);
@@ -441,6 +491,7 @@ procedure TfrmMontaPed_TipoItem.mArquivoImportadoNewRecord(
   DataSet: TDataSet);
 begin
   mArquivoImportadoCodigo_Produto.AsInteger := 0;
+  mArquivoImportadoProcesso.AsString        := '';
 end;
 
 procedure TfrmMontaPed_TipoItem.prc_Calcular_Peso_PC_Chapa;
@@ -580,6 +631,24 @@ begin
     vSomar := True
   else
     vSomar := False;
+  if Key = vk_F2 then
+  begin
+    prc_Carrega_mProcesso_Sel;
+    frmCadPedido_Proc := TfrmCadPedido_Proc.Create(self);
+    frmCadPedido_Proc.Tag := 1;
+    frmCadPedido_Proc.fDMCadPedido := fDMCadPedido;
+    frmCadPedido_Proc.ShowModal;
+    if frmCadPedido_Proc.btnConfirmar.ModalResult = 1 then
+      prc_Gravar_mArquivo_Proc;
+    mArquivoImportado.Edit
+    if mArquivo_Proc.IsEmpty then
+      mArquivoImportadoProcesso.AsString := ''
+    else
+      mArquivoImportadoProcesso.AsString := 'Sim';
+    mArquivoImportado.Post;
+    FreeAndNil(frmCadPedido_Proc);
+  end;
+
 end;
 
 procedure TfrmMontaPed_TipoItem.prc_Carrega_Excel;
@@ -787,6 +856,52 @@ begin
   finally
     FreeAndNil(Arquivo);
   end;
+end;
+
+procedure TfrmMontaPed_TipoItem.prc_Carrega_mProcesso_Sel;
+begin
+  if not mArquivo_Proc.IsEmpty then
+  begin
+    fDMCadPedido.mProcesso_Sel.EmptyDataSet;
+    mArquivo_Proc.First;
+    while not mArquivo_Proc.Eof do
+    begin
+      fDMCadPedido.mProcesso_Sel.Insert;
+      fDMCadPedido.mProcesso_SelID.AsInteger        := mArquivo_ProcID.AsInteger;
+      fDMCadPedido.mProcesso_SelNome.AsString       := mArquivo_ProcNome.AsString;
+      fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger := mArquivo_ProcQtd_Dobra.AsInteger;
+      fDMCadPedido.mProcesso_SelOrdem.AsInteger     := mArquivo_ProcOrdem.AsInteger;
+      fDMCadPedido.mProcesso_Sel.Post;
+      mArquivo_Proc.Next;
+    end;
+  end;
+end;
+
+procedure TfrmMontaPed_TipoItem.prc_Gravar_mArquivo_Proc;
+begin
+  mArquivo_Proc.First;
+  while not mArquivo_Proc.Eof do
+    mArquivo_Proc.Delete;
+  fDMCadPedido.mProcesso_Sel.First;
+  while not fDMCadPedido.mProcesso_Sel.Eof do
+  begin
+    mArquivo_Proc.Insert;
+    mArquivo_ProcIterm.AsInteger := mArquivoImportadoItem.AsInteger;
+    mArquivo_ProcID.AsInteger    := fDMCadPedido.mProcesso_SelID.AsInteger;
+    mArquivo_ProcNome.AsString   := fDMCadPedido.mProcesso_SelNome.AsString;
+    mArquivo_ProcQtd_Dobra.AsInteger := fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger;
+    mArquivo_ProcOrdem.AsInteger     := fDMCadPedido.mProcesso_SelOrdem.AsInteger;
+    mArquivo_Proc.Post;
+    fDMCadPedido.mProcesso_Sel.Next;
+  end;
+
+end;
+
+procedure TfrmMontaPed_TipoItem.btnRecalcularClick(Sender: TObject);
+begin
+  if mArquivo_Proc.IsEmpty then
+    exit;
+  mArquivo_Proc.Delete;
 end;
 
 end.

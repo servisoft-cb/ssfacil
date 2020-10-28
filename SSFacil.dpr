@@ -881,7 +881,8 @@ uses
   UGerarEstoque_Mov in 'UGerarEstoque_Mov.pas' {frmGerarEstoque_Mov},
   UComissao_Prod in 'UComissao_Prod.pas' {frmComissao_Prod},
   UDMComissaoProd in 'UDMComissaoProd.pas' {DMComissaoProd: TDataModule},
-  UCadPedido_Proc in 'UCadPedido_Proc.pas' {frmCadPedido_Proc};
+  UCadPedido_Proc in 'UCadPedido_Proc.pas' {frmCadPedido_Proc},
+  UBaixaPedido_Processo in 'UBaixaPedido_Processo.pas' {frmBaixaPedido_Processo};
 
 {$R *.res}
 

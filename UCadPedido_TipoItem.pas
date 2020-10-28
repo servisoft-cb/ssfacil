@@ -143,6 +143,7 @@ type
     Image2: TImage;
     Label61: TLabel;
     RxDBLookupCombo11: TRxDBLookupCombo;
+    btnProcesso: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -203,6 +204,7 @@ type
     procedure RzPageControl1Change(Sender: TObject);
     procedure FilenameEdit1Change(Sender: TObject);
     procedure RxDBLookupCombo11Exit(Sender: TObject);
+    procedure btnProcessoClick(Sender: TObject);
   private
     { Private declarations }
     vItemMat: Integer;
@@ -243,7 +245,8 @@ var
 
 implementation
 
-uses uUtilPadrao, rsDBUtils, UDMUtil, UConsHist_Chapa, UDMCadMatriz_Preco, uCalculo_Pedido;
+uses uUtilPadrao, rsDBUtils, UDMUtil, UConsHist_Chapa, UDMCadMatriz_Preco, uCalculo_Pedido,
+  UCadPedido_Proc, uGrava_Pedido;
 
 {$R *.dfm}
 
@@ -1118,6 +1121,16 @@ end;
 procedure TfrmCadPedido_TipoItem.RxDBLookupCombo11Exit(Sender: TObject);
 begin
   prc_Calcular_Vlr_Porta;
+end;
+
+procedure TfrmCadPedido_TipoItem.btnProcessoClick(Sender: TObject);
+begin
+  frmCadPedido_Proc := TfrmCadPedido_Proc.Create(self);
+  frmCadPedido_Proc.Tag := 0;
+  frmCadPedido_Proc.fDMCadPedido := fDMCadPedido;
+  uGrava_Pedido.prc_Gravar_mProcesso_Sel(fDMCadPedido);
+  frmCadPedido_Proc.ShowModal;
+  FreeAndNil(frmCadPedido_Proc);
 end;
 
 end.

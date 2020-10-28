@@ -413,6 +413,13 @@ type
     qPedido_ItemQTD: TFloatField;
     sdsPedido_ItemID_PROCESSO: TIntegerField;
     cdsPedido_ItemID_PROCESSO: TIntegerField;
+    qPedido_ItemCOMPLEMENTO_NOME: TStringField;
+    qPedido_ItemCAMINHO_ARQUIVO_PDF: TStringField;
+    qPedido_ItemCOMPRIMENTO: TFloatField;
+    qPedido_ItemLARGURA: TFloatField;
+    qPedido_ItemALTURA: TFloatField;
+    qPedido_ItemPESO: TFloatField;
+    qPedido_ItemESPESSURA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsConferencia_PedCalcFields(DataSet: TDataSet);
     procedure cdsPedido_ItemCalcFields(DataSet: TDataSet);

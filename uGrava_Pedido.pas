@@ -21,6 +21,7 @@ procedure prc_Alterar_Item_Tam(fDMCadPedido: TDMCadPedido; ID_Cor, Item, Item_Or
                                DtEntrega: TDateTime; Carimbo,Caixinha: String);
 
 procedure prc_Gravar_Financeiro(fDMCadPedido: TDMCadPedido; Tipo: string);//ENT=Entrada   AVI= Avista
+procedure prc_Gravar_mProcesso_Sel(fDMCadPedido: TDMCadPedido);
 
 function fnc_Existe_OC(fDMCadPedido: TDMCadPedido): Integer;
 function fnc_Verificar_Vendedor_Int(fDMCadPedido: TDMCadPedido; ID: Integer): Integer;
@@ -743,6 +744,9 @@ begin
       fDMCadPedido.cdsPedido_Etiqueta.Delete;
     fDMCadPedido.cdsPedido_Material.Delete;
   end;
+  fDMCadPedido.cdsPedido_Item_Processo.First;
+  while not fDMCadPedido.cdsPedido_Item_Processo.Eof do
+    fDMCadPedido.cdsPedido_Item_Processo.Delete;
   fDMCadPedido.cdsPedido_Itens.Delete;
 end;
 
@@ -1065,6 +1069,23 @@ begin
   fDMGravarFinanceiro.prc_Gravar;
 
   FreeAndNil(fDMGravarFinanceiro);
+end;
+
+procedure prc_Gravar_mProcesso_Sel(fDMCadPedido: TDMCadPedido);
+begin
+  fDMCadPedido.mProcesso_Sel.EmptyDataSet;
+  fDMCadPedido.cdsPedido_Item_Processo.First;
+  while not fDMCadPedido.cdsPedido_Item_Processo.eof do
+  begin
+    fDMCadPedido.mProcesso_Sel.Insert;
+    fDMCadPedido.mProcesso_SelID.AsInteger  := fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger;
+    fDMCadPedido.mProcesso_SelNome.AsString := fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString;
+    fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger := fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsInteger;
+    fDMCadPedido.mProcesso_SelOrdem.AsInteger     := fDMCadPedido.cdsPedido_Item_ProcessoORDEM_MAPA.AsInteger;
+    fDMCadPedido.mProcesso_Sel.Post;
+    fDMCadPedido.cdsPedido_Item_Processo.Next;
+  end;
+
 end;
 
 end.

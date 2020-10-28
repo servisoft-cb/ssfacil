@@ -3859,6 +3859,24 @@ type
     cdsPedido_Item_ProcessoHRSAIDA: TTimeField;
     dsPedido_Item_Processo: TDataSource;
     cdsPedido_ItenssdsPedido_Item_Processo: TDataSetField;
+    sdsPedido_Item_ProcessoNOME: TStringField;
+    cdsPedido_Item_ProcessoNOME: TStringField;
+    sdsProcesso: TSQLDataSet;
+    dspProcesso: TDataSetProvider;
+    cdsProcesso: TClientDataSet;
+    cdsProcessoID: TIntegerField;
+    cdsProcessoNOME: TStringField;
+    cdsProcessoUSAR_QTD_DOBRA: TStringField;
+    cdsProcessoORDEM_MAPA: TIntegerField;
+    dsProcesso: TDataSource;
+    mProcesso_Sel: TClientDataSet;
+    mProcesso_SelID: TIntegerField;
+    mProcesso_SelNome: TStringField;
+    mProcesso_SelQtd_Dobra: TIntegerField;
+    mProcesso_SelOrdem: TIntegerField;
+    dsmProcesso_Sel: TDataSource;
+    sdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField;
+    cdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -3893,6 +3911,8 @@ type
     procedure frxDBDataset3First(Sender: TObject);
     procedure frxDBDataset3Next(Sender: TObject);
     procedure cdsPedidoImpAfterScroll(DataSet: TDataSet);
+    procedure dspPedidoGetTableName(Sender: TObject; DataSet: TDataSet;
+      var TableName: String);
   private
     { Private declarations }
     vItem_Desc: Integer;
@@ -5165,6 +5185,13 @@ begin
   sdsPedidoItemTipoFoto.ParamByName('I1').AsInteger := cdsPedidoImpID.AsInteger;
   cdsPedidoItemTipo_Foto.Open;
 
+end;
+
+procedure TDMCadPedido.dspPedidoGetTableName(Sender: TObject;
+  DataSet: TDataSet; var TableName: String);
+begin
+  if DataSet.Name = 'sdsPedido_Item_Processo' then
+    TableName := 'PEDIDO_ITEM_PROCESSO';
 end;
 
 end.
