@@ -40,7 +40,7 @@ object frmCadPedido_Proc: TfrmCadPedido_Proc
       Align = alClient
       Ctl3D = False
       DataSource = DMCadPedido.dsProcesso
-      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgRowSelect, dgAlwaysShowSelection, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
       ParentCtl3D = False
       ReadOnly = True
       TabOrder = 0
@@ -65,7 +65,7 @@ object frmCadPedido_Proc: TfrmCadPedido_Proc
       RegistryKey = 'Software\Scalabium'
       RegistrySection = 'SMDBGrid'
       WidthOfIndicator = 27
-      DefaultRowHeight = 17
+      DefaultRowHeight = 16
       ScrollBars = ssHorizontal
       ColCount = 3
       RowCount = 4
@@ -606,7 +606,7 @@ object frmCadPedido_Proc: TfrmCadPedido_Proc
       ParentBackground = False
       TabOrder = 1
       object btnConfirmar: TNxButton
-        Left = 9
+        Left = 8
         Top = 7
         Width = 246
         Height = 31

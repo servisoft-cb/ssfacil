@@ -20216,6 +20216,7 @@ object DMCadPedido: TDMCadPedido
   object mProcesso_Sel: TClientDataSet
     Active = True
     Aggregates = <>
+    IndexFieldNames = 'ORDEM'
     Params = <>
     Left = 1044
     Top = 613

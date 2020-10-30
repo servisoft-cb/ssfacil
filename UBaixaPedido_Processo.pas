@@ -11,8 +11,6 @@ uses
 
 type
   TfrmBaixaPedido_Processo = class(TForm)
-    Panel3: TPanel;
-    btnConfirmar: TNxButton;
     gbxDuplicata: TRzGroupBox;
     Label2: TLabel;
     Edit1: TEdit;
@@ -21,16 +19,13 @@ type
     RzGroupBox1: TRzGroupBox;
     CurrencyEdit2: TCurrencyEdit;
     Edit2: TEdit;
-    NxButton1: TNxButton;
     Label4: TLabel;
     btnConsultarSaldoSMS: TNxButton;
     NxPanel1: TNxPanel;
     Label1: TLabel;
+    Shape1: TShape;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure btnConfirmarClick(Sender: TObject);
-    procedure SMDBGrid2KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure btnConsultarSaldoSMSClick(Sender: TObject);
@@ -39,7 +34,6 @@ type
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure SMDBGrid2DblClick(Sender: TObject);
-    procedure NxButton1Click(Sender: TObject);
     procedure CurrencyEdit2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure CurrencyEdit2Exit(Sender: TObject);
@@ -54,7 +48,6 @@ type
 
     procedure prc_Abrir_cdsPedido_Item;
     procedure prc_Verifica_Pedido_Conf;
-    procedure prc_scroll(DataSet: TDataSet);
     procedure prc_Baixa_Processo;
     procedure prc_Abrir_cdsConsPedido_Item_Proc(NumPed,Item : Integer);
     procedure Prc_Gravar(Gravar_Processo : Boolean);
@@ -100,48 +93,6 @@ begin
     CurrencyEdit2.AsInteger := fDMConferencia.qFuncionarioNUM_CARTAO.AsInteger;
     Edit2.Text              := fDMConferencia.qFuncionarioNOME.AsString;
   end;
-
-  fDMConferencia.cdsPedido_Item.AFTERSCROLL := prc_scroll;
-end;
-
-procedure TfrmBaixaPedido_Processo.btnConfirmarClick(Sender: TObject);
-begin
-  if not(fDMConferencia.cdsPedido_Item.Active) or (fDMConferencia.cdsPedido_Item.IsEmpty) then
-  begin
-    MessageDlg('Pedido não foi selecionado!', mtInformation, [mbOk], 0);
-    exit;
-  end;
-  if fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
-  begin
-    MessageDlg('Item do Pedido já conferido!', mtInformation, [mbOk], 0);
-    exit;
-  end;
-  if StrToFloat(FormatFloat('0.00000',fDMConferencia.cdsPedido_ItemQTD_FATURADO.AsFloat)) > 0 then
-  begin
-    MessageDlg('Item já foi faturado!', mtInformation, [mbOk], 0);
-    exit;
-  end;
-
-  if MessageDlg('Deseja confirmar a conferência do item ' + fDMConferencia.cdsPedido_ItemITEM.AsString + ' ?' ,mtConfirmation,[mbYes,mbNo],0) = mrNo then
-    Exit;
-
-  prc_Abrir_qPedido_Item(CurrencyEdit1.AsInteger,fDMConferencia.cdsPedido_ItemITEM.AsInteger);
-  if fDMConferencia.qPedido_Item.IsEmpty then
-  begin
-    MessageDlg('Pedido não encontrado, favor verificar!!', mtInformation, [mbOk], 0);
-    exit;
-  end;
-
-  vID_Processo := fDMConferencia.qParametros_PedID_PROCESSO_FINAL.AsInteger;
-
-  Prc_Gravar(True);
-end;
-
-procedure TfrmBaixaPedido_Processo.SMDBGrid2KeyDown(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
-begin
-  if Key = Vk_Return then
-    btnConfirmarClick(Sender);
 end;
 
 procedure TfrmBaixaPedido_Processo.prc_Abrir_cdsPedido_Item;
@@ -159,7 +110,7 @@ begin
   end;
   if fDMConferencia.cdsPedidoCANCELADO.AsString = 'S' then
   begin
-    MessageDlg('Pedido não encontrado!', mtInformation, [mbOk], 0);
+    MessageDlg('Pedido Cancelado!', mtInformation, [mbOk], 0);
     exit;
   end;
 
@@ -187,9 +138,6 @@ procedure TfrmBaixaPedido_Processo.prc_Verifica_Pedido_Conf;
 var
   vConfAux : String;
 begin
-  if fDMConferencia.cdsPedidoNUM_PEDIDO.AsInteger <> CurrencyEdit1.AsInteger then
-    exit;
-
   vConfAux := '';
   fDMConferencia.cdsPedido_Item.First;
   while not fDMConferencia.cdsPedido_Item.Eof do
@@ -217,17 +165,6 @@ begin
   fDMConferencia.cdsPedidoCONFERIDO.AsString := vConfAux;
   fDMConferencia.cdsPedido.Post;
   fDMConferencia.cdsPedido.ApplyUpdates(0);
-end;
-
-procedure TfrmBaixaPedido_Processo.prc_scroll(DataSet: TDataSet);
-begin
-  fDMConferencia.cdsPedido_Item_Tipo.Close;
-  fDMConferencia.sdsPedido_Item_Tipo.ParamByName('ID').AsInteger   := fDMConferencia.cdsPedido_ItemID.AsInteger;
-  fDMConferencia.sdsPedido_Item_Tipo.ParamByName('ITEM').AsInteger := fDMConferencia.cdsPedido_ItemITEM.AsInteger;
-  fDMConferencia.cdsPedido_Item_Tipo.Open;
-
-  btnConfirmar.Enabled := (fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime <= 10);
-  btnExcluir.Enabled   := (fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10);
 end;
 
 procedure TfrmBaixaPedido_Processo.btnConsultarSaldoSMSClick(Sender: TObject);
@@ -262,9 +199,7 @@ procedure TfrmBaixaPedido_Processo.Edit1KeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if Key = Vk_Return then
-  begin
     prc_Baixa_Processo;
-  end;
 end;
 
 procedure TfrmBaixaPedido_Processo.prc_Baixa_Processo;
@@ -280,11 +215,8 @@ begin
     MessageDlg('Código de Barras inválido!', mtError, [mbOk], 0);
     exit;
   end;
-  if fDMConferencia.qParametros_PedID_PROCESSO_FINAL.AsInteger <= 0 then
-  begin
-    fDMConferencia.qParametros_Ped.Close;
-    fDMConferencia.qParametros_Ped.Open;
-  end;
+  fDMConferencia.qParametros_Ped.Close;
+  fDMConferencia.qParametros_Ped.Open;
   if fDMConferencia.qParametros_PedID_PROCESSO_FINAL.AsInteger <= 0 then
   begin
     MessageDlg('Não foi informado o Processo Final nos Parâmetros!', mtError, [mbOk], 0);
@@ -296,11 +228,46 @@ begin
 
   prc_Abrir_cdsConsPedido_Item_Proc(vNumPed,vItem);
   prc_Abrir_qPedido_Item(vNumPed,vItem);
-  if StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_RESTANTE.AsFloat)) <= 0 then
+
+  Label1.Caption := 'Referência: ' + fDMConferencia.qPedido_ItemREFERENCIA.AsString + '  ' + fDMConferencia.qPedido_ItemNOMEPRODUTO.AsString;
+  Label1.Caption := Label1.Caption + #13 + ' Comprimento(mm): ' + fDMConferencia.qPedido_ItemCOMPRIMENTO.AsString;
+  Label1.Caption := Label1.Caption + #13 + '     Largura(mm): ' + fDMConferencia.qPedido_ItemLARGURA.AsString;
+  Label1.Caption := Label1.Caption + #13 + '   Espessura(mm): ' + fDMConferencia.qPedido_ItemESPESSURA.AsString;
+  Label1.Caption := Label1.Caption + #13 + #13 + '      Qtd. Peças: ' + fDMConferencia.qPedido_ItemQTD.AsString;
+
+{  if (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and (fDMConferencia.qPedido_ItemID.AsInteger > 0) then
   begin
-    MessageDlg('Item já faturado!', mtError, [mbOk], 0);
+    MessageDlg('Item já faturado!', mtConfirmation, [mbOk], 0);
     exit;
   end;
+  if (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and (fDMConferencia.qPedido_ItemID.AsInteger >= 0) then
+  begin
+    MessageDlg('Item não encontrado!', mtError, [mbOk], 0);
+    exit;
+  end;}
+
+  vMSG := '';
+  if fDMConferencia.qPedido_Item.IsEmpty then
+    vMSG := vMSG + #13 + 'Pedido/Item não encontrado!'
+  else
+  if fDMConferencia.qPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
+    vMSG := vMSG + #13 + 'Item já Conferido!'
+  else
+  if StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_FATURADO.AsFloat)) > 0 then
+    vMSG := vMSG + #13 + 'Item já Faturado!'
+  else
+  if (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and
+     (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_CANCELADO.AsFloat)) >= 0) then
+    vMSG := vMSG + #13 + 'Item já Cancelado!';
+
+  if trim(vMSG) <> '' then
+  begin
+    Label3.Caption := vMSG;
+    exit;
+  end;
+
+  //aqui, apartir  29/10/2020
+  //exit;
 
   fDMConferencia.cdsFuncionario_Proc.Close;
   fDMConferencia.sdsFuncionario_Proc.ParamByName('CODIGO').AsInteger := fDMConferencia.qFuncionarioCODIGO.AsInteger;
@@ -318,31 +285,12 @@ begin
   if vID_Processo <= 0 then
     exit;
 
-
-  vMSG := '';
-  if fDMConferencia.qPedido_Item.IsEmpty then
-    vMSG := vMSG + #13 + 'Pedido/Item não encontrado!'
-  else
-  if fDMConferencia.qPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
-    vMSG := vMSG + #13 + 'Item já Conferido!'
-  else
-  if StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_FATURADO.AsFloat)) > 0 then
-    vMSG := vMSG + #13 + 'Item já Faturado!'
-  else
-  if (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and
-     (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_CANCELADO.AsFloat)) >= 0) then
-    vMSG := vMSG + #13 + 'Item já Cancelado!';
-
-  if trim(vMSG) <> '' then
-    Label3.Caption := vMSG
-  else
   if vNumPed > 0 then
   begin
-    CurrencyEdit1.AsInteger := vNumPed;
     prc_Abrir_cdsPedido_Item;
 
     Prc_Gravar(True);
-      
+
   end;
   Edit1.Clear;
   Edit1.SetFocus;
@@ -454,7 +402,8 @@ begin
   fDMConferencia.cdsFuncionario_Proc.First;
   while not fDMConferencia.cdsFuncionario_Proc.Eof do
   begin
-    if not fDMConferencia.cdsConsPedido_Item_Proc.locate('ID_PROCESSO',fDMConferencia.cdsFuncionario_ProcID_PROCESSO.AsInteger,[loCaseInsensitive]) then
+    if (fDMConferencia.cdsConsPedido_Item_Proc.locate('ID_PROCESSO',fDMConferencia.cdsFuncionario_ProcID_PROCESSO.AsInteger,[loCaseInsensitive])) and
+       (fDMConferencia.cdsConsPedido_Item_ProcDTBAIXA.AsDateTime <= 10)  then
     begin
       vID_Processo := fDMConferencia.cdsFuncionario_ProcID_PROCESSO.AsInteger;
       fDMConferencia.cdsFuncionario_Proc.Last;
@@ -468,12 +417,6 @@ begin
 end;
 
 
-procedure TfrmBaixaPedido_Processo.NxButton1Click(Sender: TObject);
-begin
-  CurrencyEdit2.ReadOnly := not(CurrencyEdit2.ReadOnly);
-  CurrencyEdit2.SetFocus;
-end;
-
 procedure TfrmBaixaPedido_Processo.CurrencyEdit2KeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
@@ -485,7 +428,13 @@ procedure TfrmBaixaPedido_Processo.CurrencyEdit2Exit(Sender: TObject);
 begin
   Edit2.Clear;
   fDMConferencia.qFuncionario.Close;
+  if CurrencyEdit2.AsInteger <= 0 then
+  begin
+    Edit1.SetFocus;
+    exit;
+  end;
   fDMConferencia.qFuncionario.ParamByName('NUM_CARTAO').AsInteger := CurrencyEdit2.AsInteger;
+  fDMConferencia.qFuncionario.ParamByName('USUARIO_LOG').AsString := '';
   fDMConferencia.qFuncionario.Open;
   if fDMConferencia.qFuncionario.IsEmpty then
   begin
@@ -496,7 +445,6 @@ begin
   else
   begin
     Edit2.Text := fDMConferencia.qFuncionarioNOME.AsString;
-    CurrencyEdit2.ReadOnly := True;
   end;
 end;
 

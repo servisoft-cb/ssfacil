@@ -1219,6 +1219,10 @@ object fMenu: TfMenu
       object N44: TMenuItem
         Caption = '-'
       end
+      object BaixaProcessoporCdigodeBrra1: TMenuItem
+        Caption = 'Baixa Processo por C'#243'digo de Barra'
+        OnClick = BaixaProcessoporCdigodeBrra1Click
+      end
       object BaixaPedidoPorProcesso1: TMenuItem
         Caption = 'Baixa Pedido Por Processo'
         OnClick = BaixaPedidoPorProcesso1Click

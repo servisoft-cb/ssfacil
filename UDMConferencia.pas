@@ -420,6 +420,10 @@ type
     qPedido_ItemALTURA: TFloatField;
     qPedido_ItemPESO: TFloatField;
     qPedido_ItemESPESSURA: TFloatField;
+    qPedido_ItemNOMEPRODUTO: TStringField;
+    qPedido_ItemREFERENCIA: TStringField;
+    qPedido_ItemID_PRODUTO: TIntegerField;
+    cdsConsPedido_Item_ProcLER_TALAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsConferencia_PedCalcFields(DataSet: TDataSet);
     procedure cdsPedido_ItemCalcFields(DataSet: TDataSet);

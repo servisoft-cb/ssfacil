@@ -640,7 +640,7 @@ begin
     frmCadPedido_Proc.ShowModal;
     if frmCadPedido_Proc.btnConfirmar.ModalResult = 1 then
       prc_Gravar_mArquivo_Proc;
-    mArquivoImportado.Edit
+    mArquivoImportado.Edit;
     if mArquivo_Proc.IsEmpty then
       mArquivoImportadoProcesso.AsString := ''
     else

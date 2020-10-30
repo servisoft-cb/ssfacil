@@ -100,7 +100,7 @@ object DMConferencia: TDMConferencia
     ProviderName = 'dspPedido_Item'
     OnCalcFields = cdsPedido_ItemCalcFields
     Left = 144
-    Top = 232
+    Top = 233
     object cdsPedido_ItemID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1893,15 +1893,17 @@ object DMConferencia: TDMConferencia
     CommandText = 
       'SELECT '#39'2'#39' || lpad(p.num_pedido,6,0) || lpad(i.item,3,0) COD_BAR' +
       'RA ,  p.dtemissao, p.num_pedido, i.item,'#13#10'iproc.id_processo, ipr' +
-      'oc.item_processo, proc.nome nome_processo,'#13#10'iproc.dtentrada, ipr' +
-      'oc.dtbaixa, iproc.hrentrada, iproc.hrsaida, i.qtd, i.qtd_faturad' +
-      'o, i.qtd_restante,'#13#10'i.dtbaixa DTBAIXA_ITEM, i.dtconferencia, P.I' +
-      'D ID_PEDIDO'#13#10'from pedido p'#13#10'inner join pedido_item i'#13#10'on p.id = ' +
-      'i.id'#13#10'inner join pedido_item_processo iproc'#13#10'on i.id = iproc.id'#13 +
-      #10'and i.item = iproc.item'#13#10'inner join processo proc'#13#10'on iproc.id_' +
-      'processo = proc.id'#13#10'where p.tipo_reg = '#39'P'#39#13#10'  AND P.NUM_PEDIDO =' +
-      ' :NUM_PEDIDO'#13#10'  AND I.ITEM = :ITEM'#13#10'ORDER BY IPROC.ITEM_PROCESSO' +
-      #13#10
+      'oc.item_processo,'#13#10'iproc.dtentrada, iproc.dtbaixa, iproc.hrentra' +
+      'da, iproc.hrsaida, i.qtd, i.qtd_faturado, i.qtd_restante,'#13#10'i.dtb' +
+      'aixa DTBAIXA_ITEM, i.dtconferencia, P.ID ID_PEDIDO,'#13#10'case'#13#10'  whe' +
+      'n proc.usar_qtd_dobra = '#39'S'#39' then proc.nome || '#39'  Qtd: '#39' || round' +
+      '(coalesce(iproc.qtd_dobra,0),0)'#13#10'  else proc.nome'#13#10'  end NOME_PR' +
+      'OCESSO, PROC.ler_talao'#13#10'from pedido p'#13#10'inner join pedido_item i'#13 +
+      #10'on p.id = i.id'#13#10'inner join pedido_item_processo iproc'#13#10'on i.id ' +
+      '= iproc.id'#13#10'and i.item = iproc.item'#13#10'inner join processo proc'#13#10'o' +
+      'n iproc.id_processo = proc.id'#13#10'where p.tipo_reg = '#39'P'#39#13#10'  AND P.N' +
+      'UM_PEDIDO = :NUM_PEDIDO'#13#10'  AND I.ITEM = :ITEM'#13#10'ORDER BY IPROC.IT' +
+      'EM_PROCESSO'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -1915,7 +1917,7 @@ object DMConferencia: TDMConferencia
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 385
+    Left = 386
     Top = 318
   end
   object dspConsPedido_Item_Proc: TDataSetProvider
@@ -1927,8 +1929,8 @@ object DMConferencia: TDMConferencia
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsPedido_Item_Proc'
-    Left = 466
-    Top = 316
+    Left = 467
+    Top = 317
     object cdsConsPedido_Item_ProcCOD_BARRA: TStringField
       FieldName = 'COD_BARRA'
       Size = 10
@@ -1984,6 +1986,11 @@ object DMConferencia: TDMConferencia
     object cdsConsPedido_Item_ProcID_PEDIDO: TIntegerField
       FieldName = 'ID_PEDIDO'
       Required = True
+    end
+    object cdsConsPedido_Item_ProcLER_TALAO: TStringField
+      FieldName = 'LER_TALAO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsConsPedido_Item_Proc: TDataSource
@@ -2058,7 +2065,7 @@ object DMConferencia: TDMConferencia
     IndexFieldNames = 'ID;ITEM;ITEM_PROCESSO'
     Params = <>
     ProviderName = 'dspPedido_Item_Processo'
-    Left = 468
+    Left = 469
     Top = 384
     object cdsPedido_Item_ProcessoID: TIntegerField
       FieldName = 'ID'
@@ -2209,7 +2216,9 @@ object DMConferencia: TDMConferencia
       
         'TIP.complemento_nome, TIP.caminho_arquivo_pdf, TIP.comprimento, ' +
         'TIP.largura, TIP.altura,'
-      'TIP.peso, tip.espessura'
+      
+        'TIP.peso, tip.espessura, I.nomeproduto, I.referencia, I.id_produ' +
+        'to'
       'from PEDIDO_ITEM I'
       'inner join PEDIDO P on I.ID = P.ID'
       
@@ -2265,6 +2274,16 @@ object DMConferencia: TDMConferencia
     end
     object qPedido_ItemESPESSURA: TFloatField
       FieldName = 'ESPESSURA'
+    end
+    object qPedido_ItemNOMEPRODUTO: TStringField
+      FieldName = 'NOMEPRODUTO'
+      Size = 100
+    end
+    object qPedido_ItemREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object qPedido_ItemID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
     end
   end
 end
