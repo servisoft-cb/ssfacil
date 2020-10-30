@@ -917,7 +917,7 @@ begin
     ValorMoraJuros := fDmCob_Eletronica.cdsContasPERC_JUROS.AsCurrency / 100 * fDmCob_Eletronica.cdsDuplicataVLR_PARCELA.AsFloat;
     ValorDesconto := 0;
     ValorAbatimento := 0;
-    if fDmCob_Eletronica.cdsContasCOD_BANCO.AsString = '756' then
+    if (fDmCob_Eletronica.cdsContasCOD_BANCO.AsString = '756') or (fDmCob_Eletronica.cdsContasCOD_BANCO.AsString = '033') then
       DataMoraJuros     := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime;
     //                     fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
     //DataMoraJuros     := null;
