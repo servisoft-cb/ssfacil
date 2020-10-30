@@ -3547,11 +3547,6 @@ begin
     cdsNotaFiscal.Delete;
     cdsNotaFiscal.ApplyUpdates(0);
 
-    //27/06/2016
-    //sdsPRC_Atualiza_DtNota.Close;
-    //sdsPRC_Atualiza_DtNota.ParamByName('C_ID').AsInteger := vID_CliAux;
-    //sdsPRC_Atualiza_DtNota.ExecSQL;
-
     dmDatabase.scoDados.Commit(ID);
 
     vExcluir := True;

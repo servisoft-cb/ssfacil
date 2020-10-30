@@ -3877,6 +3877,10 @@ type
     dsmProcesso_Sel: TDataSource;
     sdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField;
     cdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField;
+    sdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField;
+    sdsPedido_Item_ProcessoNOME2: TStringField;
+    cdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField;
+    cdsPedido_Item_ProcessoNOME2: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

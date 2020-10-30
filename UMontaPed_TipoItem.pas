@@ -631,6 +631,8 @@ begin
     vSomar := True
   else
     vSomar := False;
+  if SMDBGrid1.field
+
   if Key = vk_F2 then
   begin
     prc_Carrega_mProcesso_Sel;

@@ -1851,7 +1851,7 @@ object DMConferencia: TDMConferencia
       'WHERE ID = :ID'
       '  AND ITEM = :ITEM')
     SQLConnection = dmDatabase.scoDados
-    Left = 720
+    Left = 702
     Top = 72
     object qPedidoConfITEM_CONF: TIntegerField
       FieldName = 'ITEM_CONF'
@@ -1897,7 +1897,7 @@ object DMConferencia: TDMConferencia
       'da, iproc.hrsaida, i.qtd, i.qtd_faturado, i.qtd_restante,'#13#10'i.dtb' +
       'aixa DTBAIXA_ITEM, i.dtconferencia, P.ID ID_PEDIDO,'#13#10'case'#13#10'  whe' +
       'n proc.usar_qtd_dobra = '#39'S'#39' then proc.nome || '#39'  Qtd: '#39' || round' +
-      '(coalesce(iproc.qtd_dobra,0),0)'#13#10'  else proc.nome'#13#10'  end NOME_PR' +
+      '(coalesce(iproc.qtd_dobra,1),0)'#13#10'  else proc.nome'#13#10'  end NOME_PR' +
       'OCESSO, PROC.ler_talao'#13#10'from pedido p'#13#10'inner join pedido_item i'#13 +
       #10'on p.id = i.id'#13#10'inner join pedido_item_processo iproc'#13#10'on i.id ' +
       '= iproc.id'#13#10'and i.item = iproc.item'#13#10'inner join processo proc'#13#10'o' +
@@ -1907,18 +1907,18 @@ object DMConferencia: TDMConferencia
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftInteger
+        DataType = ftUnknown
         Name = 'NUM_PEDIDO'
         ParamType = ptInput
       end
       item
-        DataType = ftInteger
+        DataType = ftUnknown
         Name = 'ITEM'
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 386
-    Top = 318
+    Top = 319
   end
   object dspConsPedido_Item_Proc: TDataSetProvider
     DataSet = sdsConsPedido_Item_Proc
@@ -1929,7 +1929,7 @@ object DMConferencia: TDMConferencia
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsPedido_Item_Proc'
-    Left = 467
+    Left = 470
     Top = 317
     object cdsConsPedido_Item_ProcCOD_BARRA: TStringField
       FieldName = 'COD_BARRA'
@@ -1964,9 +1964,11 @@ object DMConferencia: TDMConferencia
     end
     object cdsConsPedido_Item_ProcHRENTRADA: TTimeField
       FieldName = 'HRENTRADA'
+      DisplayFormat = 'HH:MM'
     end
     object cdsConsPedido_Item_ProcHRSAIDA: TTimeField
       FieldName = 'HRSAIDA'
+      DisplayFormat = 'HH:MM'
     end
     object cdsConsPedido_Item_ProcQTD: TFloatField
       FieldName = 'QTD'
@@ -2128,7 +2130,7 @@ object DMConferencia: TDMConferencia
       ''
       '')
     SQLConnection = dmDatabase.scoDados
-    Left = 816
+    Left = 819
     Top = 72
     object qFuncionarioCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -2218,7 +2220,7 @@ object DMConferencia: TDMConferencia
         'TIP.largura, TIP.altura,'
       
         'TIP.peso, tip.espessura, I.nomeproduto, I.referencia, I.id_produ' +
-        'to'
+        'to, P.NUM_PEDIDO'
       'from PEDIDO_ITEM I'
       'inner join PEDIDO P on I.ID = P.ID'
       
@@ -2285,5 +2287,41 @@ object DMConferencia: TDMConferencia
     object qPedido_ItemID_PRODUTO: TIntegerField
       FieldName = 'ID_PRODUTO'
     end
+    object qPedido_ItemNUM_PEDIDO: TIntegerField
+      FieldName = 'NUM_PEDIDO'
+    end
+  end
+  object sdsPRC_Baixa_Pedido_Proc: TSQLDataSet
+    CommandText = 'PRC_BAIXA_PEDIDO_PROC'
+    CommandType = ctStoredProc
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'P_NUM_PEDIDO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'P_ITEM'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'R_NOME_PROCESSO'
+        ParamType = ptOutput
+        Size = 40
+        Value = ''
+      end
+      item
+        DataType = ftString
+        Name = 'R_CONFERIDO'
+        ParamType = ptOutput
+        Size = 1
+        Value = ''
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 761
+    Top = 426
   end
 end

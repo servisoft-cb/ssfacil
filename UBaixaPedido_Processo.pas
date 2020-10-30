@@ -20,10 +20,10 @@ type
     CurrencyEdit2: TCurrencyEdit;
     Edit2: TEdit;
     Label4: TLabel;
-    btnConsultarSaldoSMS: TNxButton;
     NxPanel1: TNxPanel;
     Label1: TLabel;
     Shape1: TShape;
+    btnConsultarSaldoSMS: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
@@ -37,6 +37,7 @@ type
     procedure CurrencyEdit2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure CurrencyEdit2Exit(Sender: TObject);
+    procedure Edit1Change(Sender: TObject);
   private
     { Private declarations }
     fDMConferencia: TDMConferencia;
@@ -46,11 +47,9 @@ type
     vID_Processo : Integer;
     vNome_Processo : String;
 
-    procedure prc_Abrir_cdsPedido_Item;
-    procedure prc_Verifica_Pedido_Conf;
     procedure prc_Baixa_Processo;
     procedure prc_Abrir_cdsConsPedido_Item_Proc(NumPed,Item : Integer);
-    procedure Prc_Gravar(Gravar_Processo : Boolean);
+    procedure Prc_Gravar;
     procedure prc_Abrir_qPedido_Item(NumPed,Item : Integer );
 
     procedure prc_Processo;
@@ -95,35 +94,6 @@ begin
   end;
 end;
 
-procedure TfrmBaixaPedido_Processo.prc_Abrir_cdsPedido_Item;
-var
-  vIDAux : Integer;
-begin
-{  fDMConferencia.cdsPedido.Close;
-  fDMConferencia.sdsPedido.CommandText := fDMConferencia.ctPedido
-                                        + ' WHERE NUM_PEDIDO = ' + IntToStr(CurrencyEdit1.AsInteger);
-  fDMConferencia.cdsPedido.Open;
-  if (fDMConferencia.cdsPedido.IsEmpty) or (fDMConferencia.cdsPedidoTIPO_REG.AsString <> 'P') then
-  begin
-    MessageDlg('Pedido não encontrado!', mtInformation, [mbOk], 0);
-    exit;
-  end;
-  if fDMConferencia.cdsPedidoCANCELADO.AsString = 'S' then
-  begin
-    MessageDlg('Pedido Cancelado!', mtInformation, [mbOk], 0);
-    exit;
-  end;
-
-  fDMConferencia.cdsPedido_Item.Close;
-  fDMConferencia.sdsPedido_Item.ParamByName('ID').AsInteger := fDMConferencia.cdsPedidoID.AsInteger;
-  fDMConferencia.cdsPedido_Item.Open;
-
-  btnConfirmar.Enabled := ((fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime <= 10) and not(fDMConferencia.cdsPedido_Item.IsEmpty));
-  btnExcluir.Enabled   := ((fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10) and not(fDMConferencia.cdsPedido_Item.IsEmpty));
-
-  SMDBGrid2.SetFocus;}
-end;
-
 procedure TfrmBaixaPedido_Processo.SMDBGrid2GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
 begin
@@ -132,39 +102,6 @@ begin
   else
   if fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
     Background := $007DBEFF;
-end;
-
-procedure TfrmBaixaPedido_Processo.prc_Verifica_Pedido_Conf;
-var
-  vConfAux : String;
-begin
-  vConfAux := '';
-  fDMConferencia.cdsPedido_Item.First;
-  while not fDMConferencia.cdsPedido_Item.Eof do
-  begin
-    if (fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10) then
-    begin
-      if vConfAux = 'N' then
-        vConfAux := 'P'
-      else
-      if vConfAux = '' then
-        vConfAux := 'S';
-    end
-    else
-    begin
-      if vConfAux = 'S' then
-        vConfAux := 'P'
-      else
-      if vConfAux = '' then
-        vConfAux := 'N';
-    end;
-    fDMConferencia.cdsPedido_Item.Next;
-  end;
-
-  fDMConferencia.cdsPedido.Edit;
-  fDMConferencia.cdsPedidoCONFERIDO.AsString := vConfAux;
-  fDMConferencia.cdsPedido.Post;
-  fDMConferencia.cdsPedido.ApplyUpdates(0);
 end;
 
 procedure TfrmBaixaPedido_Processo.btnConsultarSaldoSMSClick(Sender: TObject);
@@ -235,17 +172,6 @@ begin
   Label1.Caption := Label1.Caption + #13 + '   Espessura(mm): ' + fDMConferencia.qPedido_ItemESPESSURA.AsString;
   Label1.Caption := Label1.Caption + #13 + #13 + '      Qtd. Peças: ' + fDMConferencia.qPedido_ItemQTD.AsString;
 
-{  if (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and (fDMConferencia.qPedido_ItemID.AsInteger > 0) then
-  begin
-    MessageDlg('Item já faturado!', mtConfirmation, [mbOk], 0);
-    exit;
-  end;
-  if (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and (fDMConferencia.qPedido_ItemID.AsInteger >= 0) then
-  begin
-    MessageDlg('Item não encontrado!', mtError, [mbOk], 0);
-    exit;
-  end;}
-
   vMSG := '';
   if fDMConferencia.qPedido_Item.IsEmpty then
     vMSG := vMSG + #13 + 'Pedido/Item não encontrado!'
@@ -263,6 +189,7 @@ begin
   if trim(vMSG) <> '' then
   begin
     Label3.Caption := vMSG;
+    Label3.Visible := True;
     exit;
   end;
 
@@ -286,12 +213,7 @@ begin
     exit;
 
   if vNumPed > 0 then
-  begin
-    prc_Abrir_cdsPedido_Item;
-
-    Prc_Gravar(True);
-
-  end;
+    Prc_Gravar;
   Edit1.Clear;
   Edit1.SetFocus;
 end;
@@ -304,79 +226,32 @@ begin
   fDMConferencia.cdsConsPedido_Item_Proc.Open;
 end;
 
-procedure TfrmBaixaPedido_Processo.Prc_Gravar(Gravar_Processo : Boolean);
+procedure TfrmBaixaPedido_Processo.Prc_Gravar;
 var
-  vItemAux : Integer;
-  ID: TTransactionDesc;
   fDMAprovacao_Ped: TDMAprovacao_Ped;
+  vNomeProc, vConferido : String;
 begin
   fDMAprovacao_Ped := TDMAprovacao_Ped.Create(Self);
-
-  ID.TransactionID  := 1;
-  ID.IsolationLevel := xilREADCOMMITTED;
-  dmDatabase.scoDados.StartTransaction(ID);
   try
-    if Gravar_Processo then
-    begin
-      fDMConferencia.cdsPedido_Item_Processo.Close;
-      fDMConferencia.sdsPedido_Item_Processo.ParamByName('ID').AsInteger   := fDMConferencia.qPedido_ItemID.AsInteger;
-      fDMConferencia.sdsPedido_Item_Processo.ParamByName('ITEM').AsInteger := fDMConferencia.qPedido_ItemITEM.AsInteger;
-      fDMConferencia.cdsPedido_Item_Processo.Open;
-      fDMConferencia.cdsPedido_Item_Processo.Last;
-      vItemAux := fDMConferencia.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger;
+    fDMConferencia.sdsprc_Baixa_Pedido_Proc.Close;
+    fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('P_NUM_PEDIDO').AsInteger := fDMConferencia.qPedido_ItemNUM_PEDIDO.AsInteger;
+    fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('P_ITEM').AsInteger       := fDMConferencia.qPedido_ItemITEM.AsInteger;
+    //fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('P_USUARIO').AsString     := vUsuario;
+    fDMConferencia.sdsprc_Baixa_Pedido_Proc.ExecSQL;
 
-      fDMConferencia.cdsPedido_Item_Processo.Insert;
-      fDMConferencia.cdsPedido_Item_ProcessoID.AsInteger   := fDMConferencia.qPedido_ItemID.AsInteger;
-      fDMConferencia.cdsPedido_Item_ProcessoITEM.AsInteger := fDMConferencia.qPedido_ItemITEM.AsInteger;
-      fDMConferencia.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger := vItemAux + 1;
-      fDMConferencia.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger := vID_Processo;
-      fDMConferencia.cdsPedido_Item_ProcessoQTD.AsFloat           := fDMConferencia.qPedido_ItemQTD.AsFloat;
-      fDMConferencia.cdsPedido_Item_ProcessoDTENTRADA.AsDateTime  := Date;
-      fDMConferencia.cdsPedido_Item_ProcessoHRENTRADA.AsDateTime  := Now;
-      fDMConferencia.cdsPedido_Item_ProcessoDTBAIXA.AsDateTime    := Date;
-      fDMConferencia.cdsPedido_Item_ProcessoHRSAIDA.AsDateTime    := fDMConferencia.cdsPedido_Item_ProcessoHRENTRADA.AsDateTime;
-      fDMConferencia.cdsPedido_Item_Processo.Post;
-      fDMConferencia.cdsPedido_Item_Processo.ApplyUpdates(0);
+    vNomeProc  := fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('R_NOME_PROCESSO').AsString;
+    vConferido := fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('R_CONFERIDO').AsString;
+
+    Label3.Caption := '*** PROCESSO: ' + vNomeProc + #13 + ' Baixado ';
+    if vConferido = 'S' then
+    begin
+      Label3.Caption := Label3.Caption + #13 + ' CONFERIDO ';
+      fDMAprovacao_Ped.prc_Gravar_Pedido_Processo(fDMConferencia.cdsPedidoEMAIL_COMPRAS.AsString,fDMConferencia.cdsPedidoID.AsInteger,0,'E','','',Date);
     end;
 
-//    if ((Gravar_Processo) and (vID_Processo = fDMConferencia.qParametros_PedID_PROCESSO_FINAL.AsInteger)) or not(Gravar_Processo) then
-    if fDMConferencia.cdsPedido_ItemITEM.AsInteger <> fDMConferencia.qPedido_ItemITEM.AsInteger then
-      fDMConferencia.cdsPedido_Item.Locate('ITEM',fDMConferencia.qPedido_ItemITEM.AsInteger,[loCaseInsensitive]);
-    vItemAux := fDMConferencia.cdsPedido_ItemITEM.AsInteger;
-    fDMConferencia.cdsPedido_Item.Edit;
-    if ((Gravar_Processo) and (vID_Processo = fDMConferencia.qParametros_PedID_PROCESSO_FINAL.AsInteger)) or not(Gravar_Processo) then
-    begin
-      fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime := Date;
-      fDMConferencia.cdsPedido_ItemHRCONFERENCIA.AsDateTime := Now;
-      fDMConferencia.cdsPedido_ItemUSUARIO_CONF.AsString    := vUsuario;
-      fDMConferencia.cdsPedido_ItemQTD_CONFERIDO.AsFloat    := StrToFloat(FormatFloat('0.00000',fDMConferencia.cdsPedido_ItemQTD.AsFloat));
-    end;
-    if vID_Processo <= 0 then
-      fDMConferencia.cdsPedido_ItemID_PROCESSO.Clear
-    else
-      fDMConferencia.cdsPedido_ItemID_PROCESSO.AsInteger := vID_Processo;
-    fDMConferencia.cdsPedido_Item.Post;
-    fDMConferencia.cdsPedido_Item.ApplyUpdates(0);
-    if ((Gravar_Processo) and (vID_Processo = fDMConferencia.qParametros_PedID_PROCESSO_FINAL.AsInteger)) or not(Gravar_Processo) then
-    begin
-      prc_Verifica_Pedido_Conf;
-      if fDMConferencia.cdsPedidoCONFERIDO.AsString = 'S' then
-        fDMAprovacao_Ped.prc_Gravar_Pedido_Processo(fDMConferencia.cdsPedidoEMAIL_COMPRAS.AsString,fDMConferencia.cdsPedidoID.AsInteger,0,'E','','',Date);
-    end;
-
-    dmDatabase.scoDados.Commit(ID);
-
-    if Gravar_Processo then
-      Label3.Caption := 'Pedido: ' + fDMConferencia.cdsPedidoNUM_PEDIDO.AsString + '     Item: ' + IntToStr(fDMConferencia.qPedido_ItemITEM.AsInteger) + #13 + #13
-                      + 'Processo: ' + vNome_Processo
-                      + '      ** Encerrado **      ';
-
-  except
-    dmDatabase.scoDados.Rollback(ID);
-    raise;
+  finally
+    FreeAndNil(fDMAprovacao_Ped);
   end;
-  fDMConferencia.cdsPedido_Item.Locate('ID;ITEM',VarArrayOf([fDMConferencia.cdsPedidoID.AsInteger,vItemAux]),[locaseinsensitive]);
-  FreeAndNil(fDMAprovacao_Ped);
   fDMConferencia.cdsConsPedido_Item_Proc.Close;
   fDMConferencia.cdsConsPedido_Item_Proc.Open;
 end;
@@ -455,6 +330,11 @@ begin
   fDMConferencia.qPedido_Item.ParamByName('NUM_PEDIDO').AsInteger := NumPed;
   fDMConferencia.qPedido_Item.ParamByName('ITEM').AsInteger       := Item;
   fDMConferencia.qPedido_Item.Open;
+end;
+
+procedure TfrmBaixaPedido_Processo.Edit1Change(Sender: TObject);
+begin
+  Label3.Visible := False;
 end;
 
 end.
