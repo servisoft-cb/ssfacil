@@ -99,7 +99,7 @@ procedure TfrmBaixaPedido_Processo.prc_Abrir_cdsPedido_Item;
 var
   vIDAux : Integer;
 begin
-  fDMConferencia.cdsPedido.Close;
+{  fDMConferencia.cdsPedido.Close;
   fDMConferencia.sdsPedido.CommandText := fDMConferencia.ctPedido
                                         + ' WHERE NUM_PEDIDO = ' + IntToStr(CurrencyEdit1.AsInteger);
   fDMConferencia.cdsPedido.Open;
@@ -121,7 +121,7 @@ begin
   btnConfirmar.Enabled := ((fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime <= 10) and not(fDMConferencia.cdsPedido_Item.IsEmpty));
   btnExcluir.Enabled   := ((fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10) and not(fDMConferencia.cdsPedido_Item.IsEmpty));
 
-  SMDBGrid2.SetFocus;
+  SMDBGrid2.SetFocus;}
 end;
 
 procedure TfrmBaixaPedido_Processo.SMDBGrid2GetCellParams(Sender: TObject;

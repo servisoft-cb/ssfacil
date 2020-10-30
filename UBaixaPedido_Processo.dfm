@@ -65,7 +65,7 @@ object frmBaixaPedido_Processo: TfrmBaixaPedido_Processo
     object Label3: TLabel
       Left = 25
       Top = 388
-      Width = 730
+      Width = 260
       Height = 36
       Caption = 'PEDIDO ITEM N'#195'O ENCONTRADO'#13#10'TESTE'
       Color = clSilver
@@ -163,6 +163,7 @@ object frmBaixaPedido_Processo: TfrmBaixaPedido_Processo
           Title.Alignment = taCenter
           Title.Caption = 'Hr. Entrada'
           Title.Color = 12582847
+          Width = 64
           Visible = True
         end
         item
@@ -182,6 +183,7 @@ object frmBaixaPedido_Processo: TfrmBaixaPedido_Processo
           Title.Alignment = taCenter
           Title.Caption = 'Hr. Baixa'
           Title.Color = 12582847
+          Width = 64
           Visible = True
         end
         item
