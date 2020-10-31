@@ -364,10 +364,10 @@ object frmConsPedidoProcMapa: TfrmConsPedidoProcMapa
     Top = 96
     Width = 920
     Height = 437
-    ActivePage = TS_ConsProcesso
+    ActivePage = TS_Mapa
     ActivePageDefault = TS_Mapa
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     FixedDimension = 19
     object TS_Mapa: TRzTabSheet

@@ -1,10 +1,10 @@
 object DMConsPedido: TDMConsPedido
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 182
-  Top = 2
+  Left = 138
+  Top = 19
   Height = 707
-  Width = 1124
+  Width = 1178
   object sdsPedido_Item: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -5968,5 +5968,91 @@ object DMConsPedido: TDMConsPedido
     BCDToCurrency = False
     Left = 402
     Top = 380
+  end
+  object sdsPedido_Item_Proc: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select P.*, PR.NOME, PR.ORDEM_MAPA,'#13#10'       case'#13#10'         when ' +
+      'PR.USAR_QTD_DOBRA = '#39'S'#39' then PR.NOME || '#39'  Qtd.: '#39' ||  coalesce(' +
+      'P.QTD_DOBRA,1)'#13#10'         else PR.NOME'#13#10'       end NOME2'#13#10'from PE' +
+      'DIDO_ITEM_PROCESSO P'#13#10'left join PROCESSO PR on P.ID_PROCESSO = P' +
+      'R.ID'#13#10'where P.ID = :ID and'#13#10'      P.ITEM = :ITEM '#13#10#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 978
+    Top = 341
+  end
+  object dspPedido_Item_Proc: TDataSetProvider
+    DataSet = sdsPedido_Item_Proc
+    Left = 1008
+    Top = 334
+  end
+  object cdsPedido_Item_Proc: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspPedido_Item_Proc'
+    Left = 1039
+    Top = 337
+    object cdsPedido_Item_ProcID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsPedido_Item_ProcITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object cdsPedido_Item_ProcITEM_PROCESSO: TIntegerField
+      FieldName = 'ITEM_PROCESSO'
+      Required = True
+    end
+    object cdsPedido_Item_ProcID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsPedido_Item_ProcQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsPedido_Item_ProcDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsPedido_Item_ProcHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object cdsPedido_Item_ProcDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object cdsPedido_Item_ProcHRSAIDA: TTimeField
+      FieldName = 'HRSAIDA'
+    end
+    object cdsPedido_Item_ProcQTD_DOBRA: TIntegerField
+      FieldName = 'QTD_DOBRA'
+    end
+    object cdsPedido_Item_ProcNOME: TStringField
+      FieldName = 'NOME'
+      Size = 30
+    end
+    object cdsPedido_Item_ProcORDEM_MAPA: TIntegerField
+      FieldName = 'ORDEM_MAPA'
+    end
+    object cdsPedido_Item_ProcNOME2: TStringField
+      FieldName = 'NOME2'
+      Size = 49
+    end
+  end
+  object dsPedido_Item_Proc: TDataSource
+    DataSet = cdsPedido_Item_Proc
+    Left = 1063
+    Top = 337
   end
 end

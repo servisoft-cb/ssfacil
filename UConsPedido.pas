@@ -127,6 +127,8 @@ type
     TS_Ref_Acum_Cli: TRzTabSheet;
     SMDBGrid3: TSMDBGrid;
     SMDBGrid11: TSMDBGrid;
+    SMDBGrid12: TSMDBGrid;
+    NxSplitter1: TNxSplitter;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -211,6 +213,8 @@ type
     procedure prc_Gravar_Unidade(Unidade: String ; Qtd, Qtd_Rest, Qtd_Fat: Real);
 
     procedure prc_Monta_mNotas_Ped;
+    procedure prc_scroll(DataSet: TDataSet);
+
 
   public
     { Public declarations }
@@ -343,6 +347,13 @@ var
 begin
   fDMConsPedido := TDMConsPedido.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMConsPedido);
+
+  //31/10/2020
+  if fDMConsPedido.qParametrosEMPRESA_SUCATA.AsString = 'S' then
+    fDMConsPedido.cdsPedido_Item.AFTERSCROLL := prc_scroll;
+  SMDBGrid12.Visible := (fDMConsPedido.qParametrosEMPRESA_SUCATA.AsString = 'S');
+  //******************
+
   prc_Montar_RadioGroup2;
   RadioGroup2Click(Sender);
   ckMostrarPreco.Checked := ckMostrarPreco.Visible;
@@ -1786,6 +1797,14 @@ begin
   fDMConsPedido.sdsPedido_GPessoa.CommandText := vComando + '  ' + vComandoAux;
   fDMConsPedido.cdsPedido_GPessoa.Open;
   fDMConsPedido.cdsPedido_GPessoa.IndexFieldNames := 'NOME_GRUPO_PESSOA;UNIDADE;REFERENCIA;NOME_PRODUTO;NOME_COR_COMBINACAO';
+end;
+
+procedure TfrmConsPedido.prc_scroll(DataSet: TDataSet);
+begin
+  fDMConsPedido.cdsPedido_Item_Proc.Close;
+  fDMConsPedido.sdsPedido_Item_Proc.ParamByName('ID').AsInteger  := fDMConsPedido.cdsPedido_ItemID.AsInteger;
+  fDMConsPedido.sdsPedido_Item_Proc.ParamByName('ITEM').AsInteger := fDMConsPedido.cdsPedido_ItemITEM.AsInteger;
+  fDMConsPedido.cdsPedido_Item_Proc.Open;
 end;
 
 end.

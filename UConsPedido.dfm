@@ -471,7 +471,7 @@ object frmConsPedido: TfrmConsPedido
     Top = 203
     Width = 1017
     Height = 378
-    ActivePage = TS_Ref_Acum
+    ActivePage = TS_Item
     ActivePageDefault = TS_Item
     Align = alClient
     Color = 16755027
@@ -484,7 +484,7 @@ object frmConsPedido: TfrmConsPedido
     ParentColor = False
     ParentFont = False
     TabColors.Unselected = clGray
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 1
     TextColors.Unselected = 5197647
     OnChange = RzPageControl1Change
@@ -499,10 +499,16 @@ object frmConsPedido: TfrmConsPedido
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentFont = False
+      object NxSplitter1: TNxSplitter
+        Left = 766
+        Top = 37
+        Height = 318
+        Align = alRight
+      end
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 37
-        Width = 1013
+        Width = 766
         Height = 318
         Align = alClient
         Ctl3D = False
@@ -553,7 +559,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'APROVADO_PED'
             Title.Alignment = taCenter
             Title.Caption = 'Aprovado'
-            Width = 64
             Visible = True
           end
           item
@@ -571,7 +576,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'PEDIDO_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Pedido Cliente (OC)'
-            Width = 64
             Visible = True
           end
           item
@@ -587,7 +591,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'NUM_DOC'
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Documento'
-            Width = 64
             Visible = True
           end
           item
@@ -620,7 +623,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'DTEMISSAO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Emiss'#227'o'
-            Width = 64
             Visible = True
           end
           item
@@ -637,7 +639,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'DTAPROVADO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Aprovado'
-            Width = 64
             Visible = True
           end
           item
@@ -664,7 +665,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'DTEXPEDICAO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Expedi'#231#227'o'
-            Width = 64
             Visible = True
           end
           item
@@ -672,7 +672,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'REFERENCIA'
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
-            Width = 64
             Visible = True
           end
           item
@@ -734,7 +733,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'QTD_FATURADO'
             Title.Alignment = taCenter
             Title.Caption = 'Qtd Faturada'
-            Width = 64
             Visible = True
           end
           item
@@ -742,7 +740,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'QTD_RESTANTE'
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Pendente'
-            Width = 64
             Visible = True
           end
           item
@@ -758,7 +755,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'QTD_CANCELADO'
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Cancelada'
-            Width = 64
             Visible = True
           end
           item
@@ -843,7 +839,6 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'CLIENTE_ESTOQUE'
             Title.Alignment = taCenter
             Title.Caption = 'Ped. Estoque'
-            Width = 64
             Visible = True
           end
           item
@@ -851,7 +846,7 @@ object frmConsPedido: TfrmConsPedido
             FieldName = 'MONT_COMBINACAO'
             Title.Alignment = taCenter
             Title.Caption = 'Combina'#231#227'o'
-            Width = 64
+            Width = 250
             Visible = True
           end>
       end
@@ -955,6 +950,85 @@ object frmConsPedido: TfrmConsPedido
           Visible = False
         end
       end
+      object SMDBGrid12: TSMDBGrid
+        Left = 775
+        Top = 37
+        Width = 238
+        Height = 318
+        Align = alRight
+        Ctl3D = False
+        DataSource = DMConsPedido.dsPedido_Item_Proc
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        ParentCtl3D = False
+        ReadOnly = True
+        TabOrder = 2
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        ColCount = 6
+        RowCount = 2
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'NOME2'
+            Title.Alignment = taCenter
+            Title.Caption = 'Processo'
+            Title.Color = clActiveCaption
+            Width = 130
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DTENTRADA'
+            Title.Caption = 'Dt. Entrada'
+            Title.Color = clActiveCaption
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'HRENTRADA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Hr. Entrada'
+            Title.Color = clActiveCaption
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'DTBAIXA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Dt. Baixa'
+            Title.Color = clActiveCaption
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'HRSAIDA'
+            Title.Alignment = taCenter
+            Title.Caption = 'Hr. Saida'
+            Title.Color = clActiveCaption
+            Visible = True
+          end>
+      end
     end
     object TS_Pedido: TRzTabSheet
       Color = 16755027
@@ -1027,7 +1101,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1063,7 +1136,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1088,7 +1160,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1137,7 +1208,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1150,7 +1220,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1287,7 +1356,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1481,7 +1549,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1495,7 +1562,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1523,7 +1589,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1537,7 +1602,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1550,7 +1614,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1602,7 +1665,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1615,7 +1677,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1640,7 +1701,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1653,7 +1713,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1666,7 +1725,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1779,7 +1837,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end>
       end
@@ -1795,12 +1852,14 @@ object frmConsPedido: TfrmConsPedido
         ActivePage = TS_Ref_Acum_Prod
         Align = alClient
         BackgroundColor = 8453888
+        Color = 16755027
         ParentBackgroundColor = False
         ParentColor = False
         TabIndex = 0
         TabOrder = 0
         FixedDimension = 19
         object TS_Ref_Acum_Prod: TRzTabSheet
+          Color = 16755027
           Caption = 'Produto'
           object SMDBGrid3: TSMDBGrid
             Left = 0
@@ -2058,6 +2117,7 @@ object frmConsPedido: TfrmConsPedido
           end
         end
         object TS_Ref_Acum_Cli: TRzTabSheet
+          Color = 16755027
           Caption = 'Cliente / Unidade'
           object SMDBGrid11: TSMDBGrid
             Left = 0
@@ -2615,7 +2675,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -2687,7 +2746,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -2896,7 +2954,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -2933,7 +2990,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -2951,7 +3007,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -2964,7 +3019,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -2999,7 +3053,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -3017,7 +3070,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -3035,7 +3087,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -3342,7 +3393,6 @@ object frmConsPedido: TfrmConsPedido
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = []
-                Width = 64
                 Visible = True
               end
               item
@@ -3378,7 +3428,6 @@ object frmConsPedido: TfrmConsPedido
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = []
-                Width = 64
                 Visible = True
               end
               item
@@ -3618,7 +3667,6 @@ object frmConsPedido: TfrmConsPedido
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = []
-                Width = 64
                 Visible = True
               end
               item
@@ -3654,7 +3702,6 @@ object frmConsPedido: TfrmConsPedido
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = []
-                Width = 64
                 Visible = True
               end
               item
@@ -3912,7 +3959,6 @@ object frmConsPedido: TfrmConsPedido
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = []
-                Width = 64
                 Visible = True
               end
               item
@@ -3948,7 +3994,6 @@ object frmConsPedido: TfrmConsPedido
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = []
-                Width = 64
                 Visible = True
               end
               item
