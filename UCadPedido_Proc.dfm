@@ -606,7 +606,7 @@ object frmCadPedido_Proc: TfrmCadPedido_Proc
       ParentBackground = False
       TabOrder = 1
       object btnConfirmar: TNxButton
-        Left = 8
+        Left = 7
         Top = 7
         Width = 246
         Height = 31

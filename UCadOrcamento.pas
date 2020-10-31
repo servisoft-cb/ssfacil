@@ -99,11 +99,7 @@ type
     btnInserir_Itens: TNxButton;
     btnAlterar_Itens: TNxButton;
     btnExcluir_Itens: TNxButton;
-    pnlMaterial: TPanel;
-    SMDBGrid3: TSMDBGrid;
-    SMDBGrid4: TSMDBGrid;
     pnlTipoItem: TPanel;
-    SMDBGrid6: TSMDBGrid;
     TabSheet1: TRzTabSheet;
     pnlServico: TPanel;
     btnInserir_Serv: TNxButton;
@@ -230,6 +226,9 @@ type
     RzDBGrid1: TRzDBGrid;
     DBMemo3: TDBMemo;
     Splitter2: TSplitter;
+    SMDBGrid6: TSMDBGrid;
+    NxSplitter1: TNxSplitter;
+    SMDBGrid3: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -498,7 +497,6 @@ begin
   fDMCadPedido.cdsTab_CSTICMS.Open;
   fDMCadPedido.cdsTab_CSTIPI.Open;
 
-  pnlMaterial.Visible := (fDMCadPedido.cdsParametrosINFORMA_MAT_PEDIDO.AsString = 'S');
   pnlTipoItem.Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
   ckMeiaFolha.Visible := ((amanho1.Enabled) and (amanho1.Visible));
   if ckMeiaFolha.Visible then
@@ -687,6 +685,9 @@ begin
   fDMCadPedido.prc_Localizar(fDMCadPedido.cdsPedido_ConsultaID.AsInteger);
   fDMCadPedido.cdsPedido_Itens.Close;
   fDMCadPedido.cdsPedido_Itens.Open;
+  fDMCadPedido.cdsPedido_Item_Processo.Close;
+  fDMCadPedido.cdsPedido_Item_Processo.Open;
+  fDMCadPedido.cdsPedido_Item_Processo.First;
   vFilial      := fDMCadPedido.cdsPedidoFILIAL.AsInteger;
   vFilial_Nome := '';
   if fDMCadPedido.cdsFilial.Locate('ID',vFilial,[loCaseInsensitive]) then

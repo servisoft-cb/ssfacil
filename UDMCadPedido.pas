@@ -3881,6 +3881,36 @@ type
     sdsPedido_Item_ProcessoNOME2: TStringField;
     cdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField;
     cdsPedido_Item_ProcessoNOME2: TStringField;
+    sdsOrcamento_Item_Processo: TSQLDataSet;
+    dspOrcamento_Item_Processo: TDataSetProvider;
+    cdsOrcamento_Item_Processo: TClientDataSet;
+    cdsOrcamento_Item_ProcessoID: TIntegerField;
+    cdsOrcamento_Item_ProcessoITEM: TIntegerField;
+    cdsOrcamento_Item_ProcessoITEM_PROCESSO: TIntegerField;
+    cdsOrcamento_Item_ProcessoID_PROCESSO: TIntegerField;
+    cdsOrcamento_Item_ProcessoQTD: TFloatField;
+    cdsOrcamento_Item_ProcessoDTENTRADA: TDateField;
+    cdsOrcamento_Item_ProcessoHRENTRADA: TTimeField;
+    cdsOrcamento_Item_ProcessoDTBAIXA: TDateField;
+    cdsOrcamento_Item_ProcessoHRSAIDA: TTimeField;
+    cdsOrcamento_Item_ProcessoQTD_DOBRA: TIntegerField;
+    mProcesso_SelUsa_Qtd_Dobra: TStringField;
+    sdsPedidoImp_Item_Proc: TSQLDataSet;
+    cdsPedidoImp_Item_Proc: TClientDataSet;
+    dsPedidoImp_Item_Proc: TDataSource;
+    dspPedidoImp_Item_Proc: TDataSetProvider;
+    cdsPedidoImp_Item_ProcID: TIntegerField;
+    cdsPedidoImp_Item_ProcITEM: TIntegerField;
+    cdsPedidoImp_Item_ProcITEM_PROCESSO: TIntegerField;
+    cdsPedidoImp_Item_ProcID_PROCESSO: TIntegerField;
+    cdsPedidoImp_Item_ProcQTD: TFloatField;
+    cdsPedidoImp_Item_ProcDTENTRADA: TDateField;
+    cdsPedidoImp_Item_ProcHRENTRADA: TTimeField;
+    cdsPedidoImp_Item_ProcDTBAIXA: TDateField;
+    cdsPedidoImp_Item_ProcHRSAIDA: TTimeField;
+    cdsPedidoImp_Item_ProcQTD_DOBRA: TIntegerField;
+    cdsPedidoImp_Item_ProcNOME_PROCESSO: TStringField;
+    frxPedidoImp_Item_Proc: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -3917,6 +3947,7 @@ type
     procedure cdsPedidoImpAfterScroll(DataSet: TDataSet);
     procedure dspPedidoGetTableName(Sender: TObject; DataSet: TDataSet;
       var TableName: String);
+    procedure mProcesso_SelNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     vItem_Desc: Integer;
@@ -4766,6 +4797,13 @@ begin
     sdsPedidoImp_Tipo.ParamByName('ITEM').AsInteger := cdsPedidoImp_ItensITEM.AsInteger;
     cdsPedidoImp_Tipo.Open;
   end;
+  if cdsParametrosEMPRESA_SUCATA.AsString = 'S' then
+  begin
+    cdsPedidoImp_Item_Proc.Close;
+    sdsPedidoImp_Item_Proc.ParamByName('ID').AsInteger   := cdsPedidoImp_ItensID.AsInteger;
+    sdsPedidoImp_Item_Proc.ParamByName('ITEM').AsInteger := cdsPedidoImp_ItensITEM.AsInteger;
+    cdsPedidoImp_Item_Proc.Open;
+  end;
   if cdsParametrosUSA_GRADE.AsString = 'S' then
   begin
     cdsPedidoImp_Tam.Close;
@@ -5196,6 +5234,11 @@ procedure TDMCadPedido.dspPedidoGetTableName(Sender: TObject;
 begin
   if DataSet.Name = 'sdsPedido_Item_Processo' then
     TableName := 'PEDIDO_ITEM_PROCESSO';
+end;
+
+procedure TDMCadPedido.mProcesso_SelNewRecord(DataSet: TDataSet);
+begin
+  mProcesso_SelUsa_Qtd_Dobra.AsString := 'N';
 end;
 
 end.

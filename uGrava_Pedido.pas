@@ -1080,12 +1080,12 @@ begin
     fDMCadPedido.mProcesso_Sel.Insert;
     fDMCadPedido.mProcesso_SelID.AsInteger  := fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger;
     fDMCadPedido.mProcesso_SelNome.AsString := fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString;
-    fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger := fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsInteger;
+    fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger := fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsInteger;
     fDMCadPedido.mProcesso_SelOrdem.AsInteger     := fDMCadPedido.cdsPedido_Item_ProcessoORDEM_MAPA.AsInteger;
+    fDMCadPedido.mProcesso_SelUsa_Qtd_Dobra.AsString := SQLLocate('PROCESSO','ID','USAR_QTD_DOBRA',fDMCadPedido.cdsPedido_Item_ProcessoID_PROCESSO.AsString);
     fDMCadPedido.mProcesso_Sel.Post;
     fDMCadPedido.cdsPedido_Item_Processo.Next;
   end;
-
 end;
 
 end.

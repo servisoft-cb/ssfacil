@@ -60,6 +60,7 @@ begin
         fdmCadPedido.mProcesso_SelID.AsInteger        := fdmCadPedido.cdsProcessoID.AsInteger;
         fdmCadPedido.mProcesso_SelNome.AsString       := fdmCadPedido.cdsProcessoNOME.AsString;
         fdmCadPedido.mProcesso_SelOrdem.AsInteger     := fdmCadPedido.cdsProcessoORDEM_MAPA.AsInteger;
+        fDMCadPedido.mProcesso_SelUsa_Qtd_Dobra.AsString := fDMCadPedido.cdsProcessoUSAR_QTD_DOBRA.AsString;
         fdmCadPedido.mProcesso_SelQtd_Dobra.AsInteger := 1;
         fdmCadPedido.mProcesso_Sel.Post;
       end;
@@ -103,6 +104,9 @@ begin
       fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsInteger     := fdmCadPedido.mProcesso_SelQtd_Dobra.AsInteger;
       fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString           := fdmCadPedido.mProcesso_SelNome.AsString;
       fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsFloat             := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
+      fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString          := fdmCadPedido.mProcesso_SelNome.AsString;
+      if fDMCadPedido.mProcesso_SelUsa_Qtd_Dobra.AsString = 'S' then
+        fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString := fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString + ' Qtd.: ' + fdmCadPedido.mProcesso_SelQtd_Dobra.AsString;
       fDMCadPedido.cdsPedido_Item_ProcessoDTENTRADA.Clear;
       fDMCadPedido.cdsPedido_Item_ProcessoHRENTRADA.Clear;
       fDMCadPedido.cdsPedido_Item_ProcessoDTBAIXA.Clear;

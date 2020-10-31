@@ -4202,12 +4202,12 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 358
+    Top = 350
   end
   object dspPedidoImp: TDataSetProvider
     DataSet = sdsPedidoImp
     Left = 192
-    Top = 358
+    Top = 350
   end
   object cdsPedidoImp: TClientDataSet
     Aggregates = <>
@@ -4217,7 +4217,7 @@ object DMCadPedido: TDMCadPedido
     AfterScroll = cdsPedidoImpAfterScroll
     OnCalcFields = pedidoImpCalcFields
     Left = 209
-    Top = 359
+    Top = 351
     object cdsPedidoImpID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -4937,7 +4937,7 @@ object DMCadPedido: TDMCadPedido
   object dsPedidoImp: TDataSource
     DataSet = cdsPedidoImp
     Left = 224
-    Top = 358
+    Top = 350
   end
   object sdsPedidoImp_Itens: TSQLDataSet
     NoMetadata = True
@@ -5010,7 +5010,7 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 174
-    Top = 402
+    Top = 394
   end
   object cdsPedidoImp_Itens: TClientDataSet
     Aggregates = <>
@@ -5020,7 +5020,7 @@ object DMCadPedido: TDMCadPedido
     AfterScroll = cdsPedidoImp_ItensAfterScroll
     OnCalcFields = cdsPedidoImp_ItensCalcFields
     Left = 208
-    Top = 401
+    Top = 393
     object cdsPedidoImp_ItensID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -5634,12 +5634,12 @@ object DMCadPedido: TDMCadPedido
   object dsPedidoImp_Itens: TDataSource
     DataSet = cdsPedidoImp_Itens
     Left = 232
-    Top = 402
+    Top = 394
   end
   object dspPedidoImp_Itens: TDataSetProvider
     DataSet = sdsPedidoImp_Itens
     Left = 192
-    Top = 402
+    Top = 394
   end
   object sdsOperacao_Nota: TSQLDataSet
     NoMetadata = True
@@ -6718,20 +6718,20 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 52
+    Top = 44
   end
   object dspOrcamento: TDataSetProvider
     DataSet = sdsOrcamento
     OnUpdateError = dspPedidoUpdateError
     Left = 192
-    Top = 52
+    Top = 44
   end
   object cdsOrcamento: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento'
     Left = 209
-    Top = 52
+    Top = 44
     object cdsOrcamentoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -6966,7 +6966,7 @@ object DMCadPedido: TDMCadPedido
   object dsOrcamento: TDataSource
     DataSet = cdsOrcamento
     Left = 224
-    Top = 52
+    Top = 44
   end
   object sdsOrcamento_Itens: TSQLDataSet
     NoMetadata = True
@@ -6983,20 +6983,20 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 99
+    Top = 91
   end
   object dspOrcamento_Itens: TDataSetProvider
     DataSet = sdsOrcamento_Itens
     OnUpdateError = dspPedidoUpdateError
     Left = 192
-    Top = 99
+    Top = 91
   end
   object cdsOrcamento_Itens: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Itens'
     Left = 210
-    Top = 99
+    Top = 91
     object cdsOrcamento_ItensID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -7254,7 +7254,7 @@ object DMCadPedido: TDMCadPedido
   object dsOrcamento_Itens: TDataSource
     DataSet = cdsOrcamento_Itens
     Left = 224
-    Top = 99
+    Top = 91
   end
   object qProximoItem: TSQLQuery
     MaxBlobSize = -1
@@ -7349,7 +7349,7 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 447
+    Top = 439
   end
   object cdsPedidoImp_Tam: TClientDataSet
     Aggregates = <>
@@ -7358,7 +7358,7 @@ object DMCadPedido: TDMCadPedido
     ProviderName = 'dspPedidoImp_Tam'
     OnNewRecord = cdsPedido_ItensNewRecord
     Left = 208
-    Top = 445
+    Top = 437
     object cdsPedidoImp_TamID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -7396,12 +7396,12 @@ object DMCadPedido: TDMCadPedido
   object dsPedidoImp_Tam: TDataSource
     DataSet = cdsPedidoImp_Tam
     Left = 224
-    Top = 446
+    Top = 438
   end
   object dspPedidoImp_Tam: TDataSetProvider
     DataSet = sdsPedidoImp_Tam
     Left = 192
-    Top = 446
+    Top = 438
   end
   object sdsPedido_Material: TSQLDataSet
     NoMetadata = True
@@ -8110,7 +8110,7 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 491
+    Top = 482
   end
   object cdsPedidoImp_Mat: TClientDataSet
     Aggregates = <>
@@ -8119,7 +8119,7 @@ object DMCadPedido: TDMCadPedido
     ProviderName = 'dspPedidoImp_Mat'
     OnNewRecord = cdsPedido_ItensNewRecord
     Left = 208
-    Top = 491
+    Top = 482
     object cdsPedidoImp_MatID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -8174,12 +8174,12 @@ object DMCadPedido: TDMCadPedido
   object dsPedidoImp_Mat: TDataSource
     DataSet = cdsPedidoImp_Mat
     Left = 224
-    Top = 491
+    Top = 482
   end
   object dspPedidoImp_Mat: TDataSetProvider
     DataSet = sdsPedidoImp_Mat
     Left = 192
-    Top = 491
+    Top = 482
   end
   object mEtiqueta_Nav: TClientDataSet
     Active = True
@@ -8406,20 +8406,20 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 177
-    Top = 141
+    Top = 133
   end
   object dspOrcamento_Mat: TDataSetProvider
     DataSet = sdsOrcamento_Mat
     OnUpdateError = dspPedidoUpdateError
     Left = 192
-    Top = 141
+    Top = 133
   end
   object cdsOrcamento_Mat: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Mat'
     Left = 210
-    Top = 142
+    Top = 134
     object cdsOrcamento_MatID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -8471,7 +8471,7 @@ object DMCadPedido: TDMCadPedido
   object dsOrcamento_Mat: TDataSource
     DataSet = cdsOrcamento_Mat
     Left = 224
-    Top = 140
+    Top = 132
   end
   object sdsPedido_Etiqueta: TSQLDataSet
     NoMetadata = True
@@ -8638,20 +8638,20 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 184
+    Top = 176
   end
   object dspOrcamento_Etiqueta: TDataSetProvider
     DataSet = sdsOrcamento_Etiqueta
     OnUpdateError = dspPedidoUpdateError
     Left = 192
-    Top = 184
+    Top = 176
   end
   object cdsOrcamento_Etiqueta: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Etiqueta'
     Left = 210
-    Top = 184
+    Top = 176
     object cdsOrcamento_EtiquetaID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -8669,7 +8669,7 @@ object DMCadPedido: TDMCadPedido
   object dsOrcamento_Etiqueta: TDataSource
     DataSet = cdsOrcamento_Etiqueta
     Left = 224
-    Top = 184
+    Top = 176
   end
   object dsPedido_Material_Mestre: TDataSource
     DataSet = sdsPedido_Material
@@ -10497,20 +10497,20 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 229
+    Top = 221
   end
   object dspOrcamento_Item_Tipo: TDataSetProvider
     DataSet = sdsOrcamento_Item_Tipo
     OnUpdateError = dspPedidoUpdateError
     Left = 192
-    Top = 229
+    Top = 221
   end
   object cdsOrcamento_Item_Tipo: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Item_Tipo'
     Left = 211
-    Top = 229
+    Top = 221
     object cdsOrcamento_Item_TipoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -10614,7 +10614,7 @@ object DMCadPedido: TDMCadPedido
   object dsOrcamento_Item_Tipo: TDataSource
     DataSet = cdsOrcamento_Item_Tipo
     Left = 224
-    Top = 229
+    Top = 221
   end
   object mAuxExcel: TClientDataSet
     Active = True
@@ -10919,7 +10919,7 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44062.566055810190000000
+    ReportOptions.LastChange = 44134.927718148140000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -12826,7 +12826,7 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 176
-    Top = 535
+    Top = 524
   end
   object cdsPedidoImp_Tipo: TClientDataSet
     Aggregates = <>
@@ -12835,7 +12835,7 @@ object DMCadPedido: TDMCadPedido
     ProviderName = 'dspPedidoImp_Tipo'
     OnNewRecord = cdsPedido_ItensNewRecord
     Left = 208
-    Top = 535
+    Top = 524
     object cdsPedidoImp_TipoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -12957,12 +12957,12 @@ object DMCadPedido: TDMCadPedido
   object dsPedidoImp_Tipo: TDataSource
     DataSet = cdsPedidoImp_Tipo
     Left = 231
-    Top = 536
+    Top = 525
   end
   object dspPedidoImp_Tipo: TDataSetProvider
     DataSet = sdsPedidoImp_Tipo
     Left = 192
-    Top = 536
+    Top = 525
   end
   object sdsPedidoImp_Ace: TSQLDataSet
     NoMetadata = True
@@ -12981,7 +12981,7 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 175
-    Top = 578
+    Top = 567
   end
   object cdsPedidoImp_Ace: TClientDataSet
     Aggregates = <>
@@ -12990,7 +12990,7 @@ object DMCadPedido: TDMCadPedido
     ProviderName = 'dspPedidoImp_Ace'
     OnNewRecord = cdsPedido_ItensNewRecord
     Left = 208
-    Top = 578
+    Top = 567
     object cdsPedidoImp_AceID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -13053,12 +13053,12 @@ object DMCadPedido: TDMCadPedido
   object dsPedidoImp_Ace: TDataSource
     DataSet = cdsPedidoImp_Ace
     Left = 224
-    Top = 578
+    Top = 567
   end
   object dspPedidoImp_Ace: TDataSetProvider
     DataSet = sdsPedidoImp_Ace
     Left = 192
-    Top = 578
+    Top = 567
   end
   object sdsPedidoImp_Rol: TSQLDataSet
     NoMetadata = True
@@ -14137,20 +14137,20 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 175
-    Top = 271
+    Top = 263
   end
   object dspOrcamento_Ace: TDataSetProvider
     DataSet = sdsOrcamento_Ace
     OnUpdateError = dspPedidoUpdateError
     Left = 192
-    Top = 270
+    Top = 262
   end
   object cdsOrcamento_Ace: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Ace'
     Left = 211
-    Top = 271
+    Top = 263
     object cdsOrcamento_AceID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -14203,7 +14203,7 @@ object DMCadPedido: TDMCadPedido
   object dsOrcamento_Ace: TDataSource
     DataSet = cdsOrcamento_Ace
     Left = 224
-    Top = 270
+    Top = 262
   end
   object sdsOrcamento_Rol: TSQLDataSet
     NoMetadata = True
@@ -14220,20 +14220,20 @@ object DMCadPedido: TDMCadPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 177
-    Top = 312
+    Top = 304
   end
   object dspOrcamento_Rol: TDataSetProvider
     DataSet = sdsOrcamento_Rol
     OnUpdateError = dspPedidoUpdateError
     Left = 192
-    Top = 313
+    Top = 305
   end
   object cdsOrcamento_Rol: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Rol'
     Left = 210
-    Top = 314
+    Top = 306
     object cdsOrcamento_RolID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -14286,7 +14286,7 @@ object DMCadPedido: TDMCadPedido
   object dsOrcamento_Rol: TDataSource
     DataSet = cdsOrcamento_Rol
     Left = 225
-    Top = 313
+    Top = 305
   end
   object frxDBDataset8: TfrxDBDataset
     UserName = 'frxPedidoImp_Tam'
@@ -20234,15 +20234,42 @@ object DMCadPedido: TDMCadPedido
   object mProcesso_Sel: TClientDataSet
     Active = True
     Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'Qtd_Dobra'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Ordem'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Usa_Qtd_Dobra'
+        DataType = ftString
+        Size = 1
+      end>
+    IndexDefs = <>
     IndexFieldNames = 'ORDEM'
     Params = <>
-    Left = 1044
-    Top = 613
+    StoreDefs = True
+    OnNewRecord = mProcesso_SelNewRecord
+    Left = 1038
+    Top = 610
     Data = {
-      5E0000009619E0BD0100000018000000040000000000030000005E0002494404
+      800000009619E0BD010000001800000005000000000003000000800002494404
       00010000000000044E6F6D650100490000000100055749445448020002001E00
       095174645F446F6272610400010000000000054F7264656D0400010000000000
-      0000}
+      0D5573615F5174645F446F627261010049000000010005574944544802000200
+      01000000}
     object mProcesso_SelID: TIntegerField
       FieldName = 'ID'
     end
@@ -20256,10 +20283,184 @@ object DMCadPedido: TDMCadPedido
     object mProcesso_SelOrdem: TIntegerField
       FieldName = 'Ordem'
     end
+    object mProcesso_SelUsa_Qtd_Dobra: TStringField
+      FieldName = 'Usa_Qtd_Dobra'
+      Size = 1
+    end
   end
   object dsmProcesso_Sel: TDataSource
     DataSet = mProcesso_Sel
-    Left = 1081
-    Top = 615
+    Left = 1062
+    Top = 607
+  end
+  object sdsOrcamento_Item_Processo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select P.*'#13#10'from PEDIDO_ITEM_PROCESSO P'#13#10'where P.ID = :ID and'#13#10' ' +
+      '     P.ITEM = :ITEM '#13#10#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 1175
+    Top = 610
+  end
+  object dspOrcamento_Item_Processo: TDataSetProvider
+    DataSet = sdsOrcamento_Item_Processo
+    Left = 1204
+    Top = 606
+  end
+  object cdsOrcamento_Item_Processo: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspOrcamento_Item_Processo'
+    Left = 1231
+    Top = 604
+    object cdsOrcamento_Item_ProcessoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsOrcamento_Item_ProcessoITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object cdsOrcamento_Item_ProcessoITEM_PROCESSO: TIntegerField
+      FieldName = 'ITEM_PROCESSO'
+      Required = True
+    end
+    object cdsOrcamento_Item_ProcessoID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsOrcamento_Item_ProcessoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsOrcamento_Item_ProcessoDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsOrcamento_Item_ProcessoHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object cdsOrcamento_Item_ProcessoDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object cdsOrcamento_Item_ProcessoHRSAIDA: TTimeField
+      FieldName = 'HRSAIDA'
+    end
+    object cdsOrcamento_Item_ProcessoQTD_DOBRA: TIntegerField
+      FieldName = 'QTD_DOBRA'
+    end
+  end
+  object sdsPedidoImp_Item_Proc: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT PC.*,'#13#10'CASE'#13#10' WHEN P.usar_qtd_dobra = '#39'S'#39' THEN p.nome || ' +
+      #39' Qtd.: '#39' || round(coalesce(pc.qtd_dobra,1))'#13#10' else P.NOME'#13#10' end' +
+      ' NOME_PROCESSO'#13#10'FROM PEDIDO_ITEM_PROCESSO PC'#13#10'INNER JOIN PROCESS' +
+      'O P ON PC.id_processo = P.ID'#13#10'WHERE PC.ID = :ID'#13#10'  AND PC.ITEM =' +
+      ' :ITEM'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 175
+    Top = 612
+  end
+  object cdsPedidoImp_Item_Proc: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID;ITEM;ITEM_PROCESSO'
+    Params = <>
+    ProviderName = 'dspPedidoImp_Item_Proc'
+    OnNewRecord = cdsPedido_ItensNewRecord
+    Left = 208
+    Top = 613
+    object cdsPedidoImp_Item_ProcID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsPedidoImp_Item_ProcITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
+    object cdsPedidoImp_Item_ProcITEM_PROCESSO: TIntegerField
+      FieldName = 'ITEM_PROCESSO'
+      Required = True
+    end
+    object cdsPedidoImp_Item_ProcID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsPedidoImp_Item_ProcQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsPedidoImp_Item_ProcDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsPedidoImp_Item_ProcHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object cdsPedidoImp_Item_ProcDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object cdsPedidoImp_Item_ProcHRSAIDA: TTimeField
+      FieldName = 'HRSAIDA'
+    end
+    object cdsPedidoImp_Item_ProcQTD_DOBRA: TIntegerField
+      FieldName = 'QTD_DOBRA'
+    end
+    object cdsPedidoImp_Item_ProcNOME_PROCESSO: TStringField
+      FieldName = 'NOME_PROCESSO'
+      Size = 48
+    end
+  end
+  object dsPedidoImp_Item_Proc: TDataSource
+    DataSet = cdsPedidoImp_Item_Proc
+    Left = 224
+    Top = 612
+  end
+  object dspPedidoImp_Item_Proc: TDataSetProvider
+    DataSet = sdsPedidoImp_Item_Proc
+    Left = 192
+    Top = 612
+  end
+  object frxPedidoImp_Item_Proc: TfrxDBDataset
+    UserName = 'frxPedidoImp_Item_Proc'
+    OnFirst = frxDBDataset1First
+    OnNext = frxDBDataset1Next
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'ITEM=ITEM'
+      'ITEM_PROCESSO=ITEM_PROCESSO'
+      'ID_PROCESSO=ID_PROCESSO'
+      'QTD=QTD'
+      'DTENTRADA=DTENTRADA'
+      'HRENTRADA=HRENTRADA'
+      'DTBAIXA=DTBAIXA'
+      'HRSAIDA=HRSAIDA'
+      'QTD_DOBRA=QTD_DOBRA'
+      'NOME_PROCESSO=NOME_PROCESSO')
+    DataSource = dsPedidoImp_Item_Proc
+    BCDToCurrency = False
+    Left = 1184
+    Top = 240
   end
 end

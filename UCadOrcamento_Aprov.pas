@@ -394,6 +394,14 @@ begin
     fDMCadPedido.sdsOrcamento_Item_Tipo.ParamByName('ID').AsInteger   := fDMCadPedido.cdsOrcamento_ItensID.AsInteger;
     fDMCadPedido.sdsOrcamento_Item_Tipo.ParamByName('ITEM').AsInteger := fDMCadPedido.cdsOrcamento_ItensITEM.AsInteger;
     fDMCadPedido.cdsOrcamento_Item_Tipo.Open;
+
+    if (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
+    begin
+      fDMCadPedido.cdsOrcamento_Item_Processo.Close;
+      fDMCadPedido.sdsOrcamento_Item_Processo.ParamByName('ID').AsInteger   := fDMCadPedido.cdsOrcamento_ItensID.AsInteger;
+      fDMCadPedido.sdsOrcamento_Item_Processo.ParamByName('ITEM').AsInteger := fDMCadPedido.cdsOrcamento_ItensITEM.AsInteger;
+      fDMCadPedido.cdsOrcamento_Item_Processo.Open;
+    end;
   end;
 
   fDMCadPedido.cdsPedido_Itens.Insert;
@@ -410,7 +418,6 @@ begin
   fDMCadPedido.cdsPedido_ItensVLR_DESCONTORATEIO.AsFloat := StrToFloat(FormatFloat('0.0000',0));
 
   vItem_Pedido := vItem_Pedido + 1;
-  //fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger := 0;
   fDMCadPedido.cdsPedido_ItensID.AsInteger          := fDMCadPedido.cdsPedidoID.AsInteger;
   if (fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S') and (fDMCadPedido.mOrcamento_ItensItem.AsInteger >= 500) then
     fDMCadPedido.cdsPedido_ItensITEM.AsInteger := fDMCadPedido.mOrcamento_ItensItem.AsInteger
@@ -418,10 +425,8 @@ begin
     fDMCadPedido.cdsPedido_ItensITEM.AsInteger        := vItem_Pedido;
   fDMCadPedido.cdsPedido_ItensQTD.AsFloat           := StrToFloat(FormatFloat('0.00000',fDMCadPedido.mOrcamento_ItensQtd.AsFloat));
   fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat     := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat * fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
-  //21/12/2016
   if (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsOrcamento_ItensVLR_DESCONTO.AsFloat)) > 0) or (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsOrcamento_ItensVLR_DESCONTORATEIO.AsFloat)) > 0) then
     fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedido_ItensVLR_DESCONTO.AsFloat - fDMCadPedido.cdsPedido_ItensVLR_DESCONTORATEIO.AsFloat));
-  //*****************
 
   fDMCadPedido.cdsPedido_ItensQTD_AFATURAR.AsFloat  := 0;
   fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat  := 0;
@@ -430,19 +435,13 @@ begin
   fDMCadPedido.cdsPedido_ItensCANCELADO.AsString    := 'N';
   fDMCadPedido.cdsPedido_ItensFATURADO.AsString     := 'N';
   fDMCadPedido.cdsPedido_ItensPERC_DESCONTO.AsFloat := 0;
-  //11/01/2017
   if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString <> 'I') then
     fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.00',0))
   else
     fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.mOrcamento_ItensPerc_Comissao.AsFloat));
-  //******************
   
-  //22/12/2016
-  //fDMCadPedido.cdsPedido_ItensVLR_DESCONTO.AsFloat  := 0;
   if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat)) > 0 then
     fDMCadPedido.cdsPedido_ItensVLR_IPI.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat * fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat / 100));
-  //22/12/2016
-  //fDMCadPedido.cdsPedido_ItensVLR_DESCONTORATEIO.AsFloat := 0;
 
   fDMCadPedido.cdsPedido_ItensID_ORCAMENTO.AsInteger   := fDMCadPedido.cdsOrcamentoID.AsInteger;
   fDMCadPedido.cdsPedido_ItensITEM_ORCAMENTO.AsInteger := fDMCadPedido.mOrcamento_ItensItem.AsInteger;
@@ -463,13 +462,6 @@ begin
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'S'
   else
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'N';
-
-  //22/12/2016
-  //uCalculo_Pedido.prc_Calculo_GeralItem(fDMCadPedido,fDMCadPedido.cdsPedido_ItensQTD.AsFloat,fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,
-  //                                       fDMCadPedido.cdsPedido_ItensVLR_DESCONTO.AsFloat,fDMCadPedido.cdsPedido_ItensPERC_DESCONTO.AsFloat,
-  //                                       fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat);
-  //*****************
-
   fDMCadPedido.cdsPedido_Itens.Post;
 
   //Materiais
@@ -533,6 +525,32 @@ begin
     fDMCadPedido.cdsPedido_Item_TipoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
     fDMCadPedido.cdsPedido_Item_TipoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
     fDMCadPedido.cdsPedido_Item_Tipo.Post;
+
+    //30/10/2020
+    if (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
+    begin
+      fDMCadPedido.cdsOrcamento_Item_Processo.First;
+      while not fDMCadPedido.cdsOrcamento_Item_Processo.Eof do
+      begin
+        fDMCadPedido.cdsPedido_Item_Processo.Insert;
+        for x := 0 to (fDMCadPedido.cdsOrcamento_Item_Processo.FieldCount - 1) do
+        begin
+          if not(fDMCadPedido.cdsOrcamento_Item_Processo.Fields[x].FieldName = 'ID') and not(fDMCadPedido.cdsOrcamento_Item_Processo.Fields[x].FieldName = 'ITEM')  then
+          begin
+            if not (fDMCadPedido.cdsOrcamento_Item_Processo.Fields[x].FieldKind in [fkLookup, fkCalculated]) then
+              fDMCadPedido.cdsPedido_Item_Processo.FieldByName(fDMCadPedido.cdsOrcamento_Item_Processo.Fields[x].FieldName).AsVariant := fDMCadPedido.cdsOrcamento_Item_Processo.Fields[x].Value;
+          end;
+        end;
+        fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
+        fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+        fDMCadPedido.cdsPedido_Item_Processo.Post;
+
+        fDMCadPedido.cdsOrcamento_Item_Processo.Next;
+      end;
+
+    end;
+    //******************
+
   end;
 
   fDMCadPedido.mOrcamento_Itens.Edit;
