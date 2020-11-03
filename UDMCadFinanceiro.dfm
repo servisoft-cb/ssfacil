@@ -695,9 +695,11 @@ object DMCadFinanceiro: TDMCadFinanceiro
     GetMetadata = False
     CommandText = 
       'select F.*, C.NOME NOME_CONTA, TC.NOME NOME_FORMAPGTO, P.NOME NO' +
-      'ME_PESSOA'#13#10'from FINANCEIRO F'#13#10'inner join CONTAS C on F.ID_CONTA ' +
+      'ME_PESSOA, CO.CODIGO CONTA_ORCAMENTO,'#13#10'       CO.DESCRICAO NOME_' +
+      'ORCAMENTO'#13#10'from FINANCEIRO F'#13#10'inner join CONTAS C on F.ID_CONTA ' +
       '= C.ID'#13#10'left join TIPOCOBRANCA TC on F.ID_FORMA_PAGAMENTO = TC.I' +
-      'D'#13#10'left join PESSOA P on F.ID_PESSOA = P.CODIGO'#13#10
+      'D'#13#10'left join PESSOA P on F.ID_PESSOA = P.CODIGO'#13#10'left join CONTA' +
+      '_ORCAMENTO CO on F.ID_CONTA_ORCAMENTO = CO.ID  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -815,6 +817,15 @@ object DMCadFinanceiro: TDMCadFinanceiro
     object cdsFinanceiro_ConsultaNOME_PESSOA: TStringField
       FieldName = 'NOME_PESSOA'
       Size = 60
+    end
+    object cdsFinanceiro_ConsultaCONTA_ORCAMENTO: TStringField
+      DisplayLabel = 'Conta Or'#231'amento'
+      FieldName = 'CONTA_ORCAMENTO'
+    end
+    object cdsFinanceiro_ConsultaNOME_ORCAMENTO: TStringField
+      DisplayLabel = 'Nome Or'#231'amento'
+      FieldName = 'NOME_ORCAMENTO'
+      Size = 50
     end
   end
   object dsFinanceiro_Consulta: TDataSource
