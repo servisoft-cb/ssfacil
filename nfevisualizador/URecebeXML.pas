@@ -2115,7 +2115,6 @@ begin
       end;
     end;
     //14/11/2016
-    //if (ckAtualizaPreco.Checked) or (ckAtualizaCusto.Checked) then
     if (fDMRecebeXML.mItensNotaAtualizarPreco.AsBoolean) or (fDMRecebeXML.mItensNotaAtualizarCustoTotal.AsBoolean) then
       Atualiza_Preco;
     if ckAtualizaRef.Checked then
@@ -2139,8 +2138,6 @@ begin
   if not fDMRecebeXML.fnc_Abrir_Produto_Forn(vCodFornecedor,fDMRecebeXML.mItensNotaCodProduto.AsString,fDMRecebeXML.mItensNotaCodBarra.AsString,True) then
     Gravar_MaterialFornecedor
   else
-  //14/11/2016
-  //if (ckAtualizaPreco.Checked) or (ckAtualizaCusto.Checked) then
   if (fDMRecebeXML.mItensNotaAtualizarPreco.AsBoolean) or (fDMRecebeXML.mItensNotaAtualizarCustoTotal.AsBoolean) then
   begin
     fDMRecebeXML.cdsProduto_Forn.Edit;

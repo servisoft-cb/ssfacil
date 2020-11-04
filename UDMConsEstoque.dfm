@@ -111,7 +111,7 @@ object DMConsEstoque: TDMConsEstoque
     Params = <>
     ProviderName = 'dspEstoque'
     OnCalcFields = cdsEstoqueCalcFields
-    Left = 152
+    Left = 151
     Top = 7
     object cdsEstoqueID: TIntegerField
       FieldName = 'ID'
@@ -557,13 +557,16 @@ object DMConsEstoque: TDMConsEstoque
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT EM.id_produto, PRO.nome NOMEPRODUTO, PRO.REFERENCIA, SUM(' +
-      'EM.qtd_ent) QTD_ENT,'#13#10'SUM(EM.qtd_sai) QTD_SAI, SUM(QTD2) SALDO, ' +
-      #13#10'SUM(EM.QTD_ENT * EM.vlr_unitario) VLR_ENTRADA,'#13#10'SUM(EM.QTD_SAI' +
-      ' * EM.vlr_unitario) VLR_SAIDA,'#13#10'pro.unidade'#13#10'FROM ESTOQUE_MOV EM' +
-      #13#10'INNER JOIN PRODUTO PRO'#13#10'ON EM.ID_PRODUTO = PRO.ID'#13#10'WHERE PRO.E' +
-      'STOQUE = '#39'S'#39#13#10'GROUP BY EM.id_produto, PRO.nome, PRO.REFERENCIA, ' +
-      'pro.unidade'
+      'select EM.ID_PRODUTO, PRO.NOME NOMEPRODUTO, PRO.REFERENCIA, sum(' +
+      'EM.QTD_ENT) QTD_ENT, sum(EM.QTD_SAI) QTD_SAI,'#13#10'       sum(QTD2) ' +
+      'SALDO, sum(EM.QTD_ENT * EM.VLR_UNITARIO) VLR_ENTRADA, sum(EM.QTD' +
+      '_SAI * EM.VLR_UNITARIO) VLR_SAIDA,'#13#10'       sum(EM.QTD_ENT * coal' +
+      'esce(PRO.PRECO_CUSTO, 0)) VLR_ENTRADA_CUSTO,'#13#10'       sum(EM.QTD_' +
+      'SAI * coalesce(PRO.PRECO_CUSTO, 0)) VLR_SAIDA_CUSTO,'#13#10'       PRO' +
+      '.UNIDADE, PRO.PRECO_CUSTO'#13#10'from ESTOQUE_MOV EM'#13#10'inner join PRODU' +
+      'TO PRO on EM.ID_PRODUTO = PRO.ID'#13#10'where PRO.ESTOQUE = '#39'S'#39#13#10'GROUP' +
+      ' by EM.ID_PRODUTO, PRO.NOME, PRO.REFERENCIA, PRO.UNIDADE, PRO.PR' +
+      'ECO_CUSTO  '#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -615,6 +618,18 @@ object DMConsEstoque: TDMConsEstoque
     object cdsEstoque_AcumUNIDADE: TStringField
       FieldName = 'UNIDADE'
       Size = 6
+    end
+    object cdsEstoque_AcumPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+      DisplayFormat = '0.0000'
+    end
+    object cdsEstoque_AcumVLR_ENTRADA_CUSTO: TFloatField
+      FieldName = 'VLR_ENTRADA_CUSTO'
+      DisplayFormat = '###,###,##0.00'
+    end
+    object cdsEstoque_AcumVLR_SAIDA_CUSTO: TFloatField
+      FieldName = 'VLR_SAIDA_CUSTO'
+      DisplayFormat = '###,###,##0.00'
     end
   end
   object dsEstoque_Acum: TDataSource
@@ -1115,8 +1130,8 @@ object DMConsEstoque: TDMConsEstoque
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43284.725669537000000000
-    ReportOptions.LastChange = 44020.629402175900000000
+    ReportOptions.CreateDate = 42032.577038136600000000
+    ReportOptions.LastChange = 43715.774036805600000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -2238,6 +2253,18 @@ object DMConsEstoque: TDMConsEstoque
         Name = 'Unidade'
         DataType = ftString
         Size = 6
+      end
+      item
+        Name = 'Preco_Custo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Entrada_Custo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Saida_Custo'
+        DataType = ftFloat
       end>
     IndexDefs = <>
     Params = <>
@@ -2245,7 +2272,7 @@ object DMConsEstoque: TDMConsEstoque
     Left = 720
     Top = 160
     Data = {
-      020100009619E0BD01000000180000000B00000000000300000002010A49445F
+      480100009619E0BD01000000180000000E00000000000300000048010A49445F
       50726F6475746F04000100000000000A5265666572656E636961010049000000
       01000557494454480200020014000B4E6F6D6550726F6475746F010049000000
       0100055749445448020002006400075174645F416E7408000400000000000751
@@ -2253,7 +2280,9 @@ object DMConsEstoque: TDMConsEstoque
       616C646F08000400000000000B566C725F456E74726164610800040000000000
       09566C725F536169646108000400000000000D53616C646F5F506572696F646F
       080004000000000007556E696461646501004900000001000557494454480200
-      020006000000}
+      020006000B507265636F5F437573746F080004000000000011566C725F456E74
+      726164615F437573746F08000400000000000F566C725F53616964615F437573
+      746F08000400000000000000}
     object mAuxEst_AcumID_Produto: TIntegerField
       FieldName = 'ID_Produto'
     end
@@ -2295,6 +2324,17 @@ object DMConsEstoque: TDMConsEstoque
     object mAuxEst_AcumUnidade: TStringField
       FieldName = 'Unidade'
       Size = 6
+    end
+    object mAuxEst_AcumPreco_Custo: TFloatField
+      FieldName = 'Preco_Custo'
+    end
+    object mAuxEst_AcumVlr_Entrada_Custo: TFloatField
+      FieldName = 'Vlr_Entrada_Custo'
+      DisplayFormat = '###,###,##0.00'
+    end
+    object mAuxEst_AcumVlr_Saida_Custo: TFloatField
+      FieldName = 'Vlr_Saida_Custo'
+      DisplayFormat = '###,###,##0.00'
     end
   end
   object dsmAuxEst_Acum: TDataSource
@@ -2834,8 +2874,8 @@ object DMConsEstoque: TDMConsEstoque
   end
   object dsmBalanco_Ver: TDataSource
     DataSet = mBalanco_Ver
-    Left = 752
-    Top = 208
+    Left = 747
+    Top = 210
   end
   object qParametros_Prod: TSQLQuery
     MaxBlobSize = -1

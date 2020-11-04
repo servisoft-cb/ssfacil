@@ -18,7 +18,7 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
   TextHeight = 13
   object RLReport1: TRLReport
     Left = 31
-    Top = 16
+    Top = 15
     Width = 1123
     Height = 794
     DataSource = DMConsEstoque.dsEstoque_Mov
@@ -159,6 +159,7 @@ object fRelEstoqueMov_Prod: TfRelEstoqueMov_Prod
         Top = 42
         Width = 44
         Height = 12
+        Alignment = taRightJustify
         Caption = 'V.Unit'#225'rio'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack

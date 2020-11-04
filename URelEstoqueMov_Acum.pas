@@ -64,6 +64,8 @@ type
   public
     { Public declarations }
     fDMConsEstoque: TDMConsEstoque;
+    vImp_PrecoCusto: Boolean;
+    
   end;
 
 var
@@ -91,6 +93,20 @@ procedure TfRelEstoqueMov_Acum.RLReport1BeforePrint(Sender: TObject;
   var PrintIt: Boolean);
 begin
   oDBUtils.SetDataSourceProperties(Self,fDMConsEstoque);
+  if vImp_PrecoCusto then
+  begin
+    RLDBText19.DataField  := 'VLR_ENTRADA_CUSTO';
+    RLDBText20.DataField  := 'VLR_SAIDA_CUSTO';
+    RLDBResult2.DataField := 'VLR_ENTRADA_CUSTO';
+    RLDBResult3.DataField := 'VLR_SAIDA_CUSTO';
+  end
+  else
+  begin
+    RLLabel7.Caption     := 'VLR_ENTRADA';
+    RLDBText16.DataField := 'VLR_SAIDA';
+    RLDBResult2.DataField := 'VLR_ENTRADA';
+    RLDBResult3.DataField := 'VLR_SAIDA';
+  end;
 end;
 
 procedure TfRelEstoqueMov_Acum.RLBand12BeforePrint(Sender: TObject;
@@ -108,8 +124,16 @@ begin
   RLDBText1.Visible  := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumQtd_Ant.AsFloat)) > 0);
   RLDBText3.Visible  := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumQtd_Ent.AsFloat)) > 0);
   RLDBText16.Visible := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumQtd_Sai.AsFloat)) > 0);
-  RLDBText19.Visible := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumVlr_Entrada.AsFloat)) > 0);
-  RLDBText20.Visible := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumVlr_Saida.AsFloat)) > 0);
+  if vImp_PrecoCusto then
+  begin
+    RLDBText19.Visible := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumVlr_Entrada_Custo.AsFloat)) > 0);
+    RLDBText20.Visible := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumVlr_Saida_Custo.AsFloat)) > 0);
+  end
+  else
+  begin
+    RLDBText19.Visible := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumVlr_Entrada.AsFloat)) > 0);
+    RLDBText20.Visible := (StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumVlr_Saida.AsFloat)) > 0);
+  end;
 end;
 
 procedure TfRelEstoqueMov_Acum.FormCreate(Sender: TObject);

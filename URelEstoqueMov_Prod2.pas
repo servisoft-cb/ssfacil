@@ -75,6 +75,7 @@ type
     { Public declarations }
     fDMConsEstoque: TDMConsEstoque;
     vVlrEntrada_Ger, vVlrSaida_Ger : Real;
+    vImp_PrecoCusto: Boolean;
 
   end;
 
@@ -105,6 +106,16 @@ begin
   oDBUtils.SetDataSourceProperties(Self,fDMConsEstoque);
   RLLabel5.Visible  := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
   RLLabel10.Visible := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
+  if vImp_PrecoCusto then
+  begin
+    RLLabel7.Caption     := 'Pr. Custo';
+    RLDBText16.DataField := 'PRECO_CUSTO';
+  end
+  else
+  begin
+    RLLabel7.Caption     := 'V.Unitário';
+    RLDBText16.DataField := 'VLR_UNITARIO';
+  end;
 end;
 
 procedure TfRelEstoqueMov_Prod2.RLBand12BeforePrint(Sender: TObject;
@@ -154,7 +165,10 @@ begin
   else
   if (fDMConsEstoque.cdsEstoque_MovTIPO_MOV.AsString = 'CFI') then
     RLLabel59.Caption := 'Cupom';
-  vAux := StrToFloat(FormatFloat('0.00',fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat));
+  if vImp_PrecoCusto then
+    vAux := StrToFloat(FormatFloat('0.00',fDMConsEstoque.cdsEstoque_MovPRECO_CUSTO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat))
+  else
+    vAux := StrToFloat(FormatFloat('0.00',fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat));
   if fDMConsEstoque.cdsEstoque_MovTIPO_ES.AsString = 'E' then
     vVlrEntrada_Ger := StrToFloat(FormatFloat('0.00',vVlrEntrada_Ger + vAux))
   else

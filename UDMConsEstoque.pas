@@ -717,6 +717,12 @@ type
     cdsEstoqueTIPO_REG_COMB: TStringField;
     cdsEstoqueID_COR: TIntegerField;
     cdsEstoqueID_COR_COMBINACAO: TIntegerField;
+    mAuxEst_AcumPreco_Custo: TFloatField;
+    mAuxEst_AcumVlr_Entrada_Custo: TFloatField;
+    cdsEstoque_AcumPRECO_CUSTO: TFloatField;
+    cdsEstoque_AcumVLR_ENTRADA_CUSTO: TFloatField;
+    cdsEstoque_AcumVLR_SAIDA_CUSTO: TFloatField;
+    mAuxEst_AcumVlr_Saida_Custo: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

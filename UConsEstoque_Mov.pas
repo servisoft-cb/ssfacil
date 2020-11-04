@@ -80,6 +80,8 @@ type
     NxButton2: TNxButton;
     ckEstrutura: TCheckBox;
     ckInativo: TCheckBox;
+    ckImpPrecoCusto: TCheckBox;
+    ckImpPrecoCusto2: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -118,6 +120,7 @@ type
     procedure NxButton1Click(Sender: TObject);
     procedure NxButton2Click(Sender: TObject);
     procedure rxdbGrupoChange(Sender: TObject);
+    procedure ckImpPrecoCusto2Click(Sender: TObject);
   private
     { Private declarations }
     fDMConsEstoque: TDMConsEstoque;
@@ -195,6 +198,8 @@ begin
   fDMConsEstoque := TDMConsEstoque.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMConsEstoque);
   prc_le_Grid(SMDBGrid1, Name, fDMConsEstoque.qParametros_GeralENDGRIDS.AsString);
+
+  ckImpPrecoCusto2Click(Sender);
 
   SMDBGrid1.ClearFilter;
 
@@ -309,12 +314,19 @@ begin
         if fDMConsEstoque.cdsEstoque_MovTIPO_ES.AsString = 'S' then
         begin
           fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat     := fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat + fDMConsEstoque.cdsEstoque_MovQTD.AsFloat;
-          fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat := fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat + (fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat);
+          //03/11/2020  colocado esse checkbox para o preço de custo
+          if ckImpPrecoCusto.Checked then
+            fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat := fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat + (fDMConsEstoque.cdsEstoque_MovPRECO_CUSTO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat)
+          else
+            fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat := fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat + (fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat);
         end
         else
         begin
           fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat       := fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat + fDMConsEstoque.cdsEstoque_MovQTD.AsFloat;
-          fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat := fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat + (fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat);
+          if ckImpPrecoCusto.Checked then
+            fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat := fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat + (fDMConsEstoque.cdsEstoque_MovPRECO_CUSTO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat)
+          else
+            fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat := fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat + (fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat);
         end;
         fDMConsEstoque.mEstoque_CentroCustoQSaldo.AsFloat       := fDMConsEstoque.mEstoque_CentroCustoQEnt.AsFloat - fDMConsEstoque.mEstoque_CentroCustoQSai.AsFloat;
         fDMConsEstoque.mEstoque_CentroCustoVlrSaldo.AsFloat     := fDMConsEstoque.mEstoque_CentroCustoVlrEntrada.AsFloat - fDMConsEstoque.mEstoque_CentroCustoVlrTotal.AsFloat;
@@ -392,7 +404,7 @@ var
   vFilialAux: Integer;
 begin
   fDMConsEstoque.cdsEstoque_Acum.Close;
-  i := PosEx('GROUP',fDMConsEstoque.ctEstoque_Acum,0);
+  i := PosEx('GROUP',UpperCase(fDMConsEstoque.ctEstoque_Acum),0);
   vComandoAux  := copy(fDMConsEstoque.ctEstoque_Acum,i,Length(fDMConsEstoque.ctEstoque_Acum) - i + 1);
   vComandoAux2 := copy(fDMConsEstoque.ctEstoque_Acum,1,i-1);
   fDMConsEstoque.sdsEstoque_Acum.CommandText := vComandoAux2 + vComando + vComandoAux;
@@ -418,6 +430,11 @@ begin
     fDMConsEstoque.mAuxEst_AcumVlr_Saida.AsFloat    := StrToFloat(FormatFloat('0.00##',fDMConsEstoque.cdsEstoque_AcumVLR_SAIDA.AsFloat));
     fDMConsEstoque.mAuxEst_AcumSaldo_Periodo.AsFloat := StrToFloat(FormatFloat('0.000000',fDMConsEstoque.mAuxEst_AcumQtd_Ent.AsFloat - fDMConsEstoque.mAuxEst_AcumQtd_Sai.AsFloat));
     fDMConsEstoque.mAuxEst_AcumUnidade.AsString      := fDMConsEstoque.cdsEstoque_AcumUnidade.AsString;
+    fDMConsEstoque.mAuxEst_AcumPreco_Custo.AsFloat   := StrToFloat(FormatFloat('0.0000',fDMConsEstoque.cdsEstoque_AcumPRECO_CUSTO.AsFloat));
+    
+    fDMConsEstoque.mAuxEst_AcumVlr_Entrada_Custo.AsFloat := StrToFloat(FormatFloat('0.00',fDMConsEstoque.cdsEstoque_AcumVLR_ENTRADA_CUSTO.AsFloat));
+    fDMConsEstoque.mAuxEst_AcumVlr_Saida_Custo.AsFloat   := StrToFloat(FormatFloat('0.00',fDMConsEstoque.cdsEstoque_AcumVLR_SAIDA_CUSTO.AsFloat));
+
     fDMConsEstoque.mAuxEst_Acum.Post;
     fDMConsEstoque.cdsEstoque_Acum.Next;
   end;
@@ -523,6 +540,8 @@ begin
     fDMConsEstoque.vDescOpcao_Rel := fDMConsEstoque.vDescOpcao_Rel + '(Dt.Final: ' + DateEdit2.Text + ')';
   if (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') and (rxdbLocalEstoque.Text <> '') then
     fDMConsEstoque.vDescOpcao_Rel := fDMConsEstoque.vDescOpcao_Rel + '(Local: ' + rxdbLocalEstoque.Text + ')';
+  if (RzPageControl1.ActivePage = TS_Produto_Det) and (ckImpPrecoCusto.Checked) then
+    fDMConsEstoque.vDescOpcao_Rel := fDMConsEstoque.vDescOpcao_Rel + '(Usado Preço de Custo)';
 end;
 
 procedure TfrmConsEstoque_Mov.btnImprimirClick(Sender: TObject);
@@ -579,6 +598,7 @@ begin
   begin
     fRelEstoqueMov_Prod2                := TfRelEstoqueMov_Prod2.Create(Self);
     fRelEstoqueMov_Prod2.fDMConsEstoque := fDMConsEstoque;
+    fRelEstoqueMov_Prod2.vImp_PrecoCusto := ckImpPrecoCusto.Checked;
     fRelEstoqueMov_Prod2.RLReport1.PreviewModal;
     fRelEstoqueMov_Prod2.RLReport1.Free;
     FreeAndNil(fRelEstoqueMov_Prod2);
@@ -589,7 +609,8 @@ begin
     fRelEstoqueMov_Prod.vOrdenar       := ComboBox1.ItemIndex;
     fRelEstoqueMov_Prod.fDMConsEstoque := fDMConsEstoque;
     fRelEstoqueMov_Prod.vOpcao_Estruturado := ckEstruturado.Checked;
-    fRelEstoqueMov_Prod.vImp_TotalEst  := ckImpTotalEst.Checked;
+    fRelEstoqueMov_Prod.vImp_TotalEst      := ckImpTotalEst.Checked;
+    fRelEstoqueMov_Prod.vImp_PrecoCusto    := ckImpPrecoCusto.Checked;
     fRelEstoqueMov_Prod.vDtInicial     := 0;
     if (ComboBox1.ItemIndex = 0) and (DateEdit1.Date > 10) then
       fRelEstoqueMov_Prod.vDtInicial := DateEdit1.Date;
@@ -608,8 +629,9 @@ begin
     exit;
   end;
   SMDBGrid2.DisableScroll;
-  fRelEstoqueMov_Acum                := TfRelEstoqueMov_Acum.Create(Self);
-  fRelEstoqueMov_Acum.fDMConsEstoque := fDMConsEstoque;
+  fRelEstoqueMov_Acum                 := TfRelEstoqueMov_Acum.Create(Self);
+  fRelEstoqueMov_Acum.fDMConsEstoque  := fDMConsEstoque;
+  fRelEstoqueMov_Acum.vImp_PrecoCusto := ckImpPrecoCusto2.Checked;
   fRelEstoqueMov_Acum.RLReport1.PreviewModal;
   fRelEstoqueMov_Acum.RLReport1.Free;
   FreeAndNil(fRelEstoqueMov_Acum);
@@ -1300,6 +1322,32 @@ end;
 procedure TfrmConsEstoque_Mov.rxdbGrupoChange(Sender: TObject);
 begin
   ckEstrutura.Visible := (rxdbGrupo.Text <> '');
+end;
+
+procedure TfrmConsEstoque_Mov.ckImpPrecoCusto2Click(Sender: TObject);
+var
+  i: Integer;
+  vCusto: String;
+begin
+  if ckImpPrecoCusto2.Checked then
+    vCusto := '_Custo'
+  else
+    vCusto := '';
+  for i := 1 to SMDBGrid2.ColCount - 2 do
+  begin
+    if (SMDBGrid2.Columns[i].FieldName = 'Vlr_Entrada' ) then
+      SMDBGrid2.Columns[i].Visible := not(ckImpPrecoCusto2.Checked)
+    else
+    if (SMDBGrid2.Columns[i].FieldName = 'Vlr_Entrada_Custo' ) then
+      SMDBGrid2.Columns[i].Visible := (ckImpPrecoCusto2.Checked)
+    else
+    if (SMDBGrid2.Columns[i].FieldName = 'Vlr_Saida' ) then
+      SMDBGrid2.Columns[i].Visible := not(ckImpPrecoCusto2.Checked)
+    else
+    if (SMDBGrid2.Columns[i].FieldName = 'Vlr_Saida_Custo' ) then
+      SMDBGrid2.Columns[i].Visible := (ckImpPrecoCusto2.Checked)
+  end;
+
 end;
 
 end.

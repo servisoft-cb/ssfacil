@@ -1,6 +1,6 @@
 object fRelEstoqueMov_Acum: TfRelEstoqueMov_Acum
-  Left = 80
-  Top = 167
+  Left = 51
+  Top = 139
   Width = 1272
   Height = 528
   Caption = 'fRelEstoqueMov_Acum'

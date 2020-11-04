@@ -133,6 +133,7 @@ type
     vDtInicial : TDateTime;
     vOpcao_Estruturado : Boolean;
     vImp_TotalEst : Boolean;
+    vImp_PrecoCusto: Boolean;
 
   end;
 
@@ -186,6 +187,16 @@ begin
     RLPanel3.Visible := True;
     RLPanel2.Visible := False;
     RLPanel4.Visible := False;
+  end;
+  if vImp_PrecoCusto then
+  begin
+    RLLabel7.Caption     := 'Pr. Custo';
+    RLDBText16.DataField := 'PRECO_CUSTO';
+  end
+  else
+  begin
+    RLLabel7.Caption     := 'V.Unitário';
+    RLDBText16.DataField := 'VLR_UNITARIO';
   end;
 
   RLDBText6.Visible  := (vOrdenar = 0 );
@@ -264,7 +275,10 @@ begin
   else
   if (fDMConsEstoque.cdsEstoque_MovTIPO_MOV.AsString = 'CFI') then
     RLLabel59.Caption := 'Cupom';
-  vAux := StrToFloat(FormatFloat('0.00',fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat));
+  if vImp_PrecoCusto then
+    vAux := StrToFloat(FormatFloat('0.00',fDMConsEstoque.cdsEstoque_MovPRECO_CUSTO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat))
+  else
+    vAux := StrToFloat(FormatFloat('0.00',fDMConsEstoque.cdsEstoque_MovVLR_UNITARIO.AsFloat * fDMConsEstoque.cdsEstoque_MovQTD.AsFloat));
   if fDMConsEstoque.cdsEstoque_MovTIPO_ES.AsString = 'E' then
   begin
     vVlrEntrada     := StrToFloat(FormatFloat('0.00',vVlrEntrada + vAux));

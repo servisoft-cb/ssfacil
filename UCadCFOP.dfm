@@ -150,6 +150,7 @@ object frmCadCFOP: TfrmCadCFOP
           item
             Expanded = False
             FieldName = 'NOME_INTERNO'
+            Width = 64
             Visible = True
           end>
       end
@@ -1373,7 +1374,7 @@ object frmCadCFOP: TfrmCadCFOP
           end
           object DBCheckBox11: TDBCheckBox
             Left = 8
-            Top = 31
+            Top = 29
             Width = 137
             Height = 17
             Caption = 'Faturamento'
@@ -1387,7 +1388,7 @@ object frmCadCFOP: TfrmCadCFOP
           end
           object DBCheckBox12: TDBCheckBox
             Left = 8
-            Top = 46
+            Top = 43
             Width = 137
             Height = 17
             Caption = 'M'#227'o de Obra'
@@ -1401,7 +1402,7 @@ object frmCadCFOP: TfrmCadCFOP
           end
           object DBCheckBox13: TDBCheckBox
             Left = 8
-            Top = 61
+            Top = 57
             Width = 137
             Height = 17
             Caption = 'Devolu'#231#227'o'
@@ -1415,7 +1416,7 @@ object frmCadCFOP: TfrmCadCFOP
           end
           object DBCheckBox14: TDBCheckBox
             Left = 8
-            Top = 76
+            Top = 70
             Width = 137
             Height = 17
             Caption = 'Controlar Beneficiamento'
@@ -1430,7 +1431,7 @@ object frmCadCFOP: TfrmCadCFOP
           end
           object DBCheckBox15: TDBCheckBox
             Left = 8
-            Top = 91
+            Top = 84
             Width = 137
             Height = 17
             Caption = 'Copiar Nota Triangular'
@@ -1444,7 +1445,7 @@ object frmCadCFOP: TfrmCadCFOP
           end
           object DBCheckBox16: TDBCheckBox
             Left = 8
-            Top = 106
+            Top = 98
             Width = 160
             Height = 17
             Caption = 'Usa na NFCe (Cupom Fiscal)'
@@ -1477,7 +1478,7 @@ object frmCadCFOP: TfrmCadCFOP
           end
           object DBCheckBox20: TDBCheckBox
             Left = 8
-            Top = 122
+            Top = 111
             Width = 160
             Height = 17
             Caption = 'Usar Unidade Tribut'#225'vel (Exp)'
@@ -1491,10 +1492,10 @@ object frmCadCFOP: TfrmCadCFOP
           end
           object DBCheckBox21: TDBCheckBox
             Left = 8
-            Top = 139
+            Top = 125
             Width = 160
             Height = 17
-            Caption = 'Atualiza NCM/Custo'
+            Caption = 'Atualiza NCM'
             Ctl3D = False
             DataField = 'ALT_NCM_CUSTO'
             DataSource = DMCadCFOP.dsCFOP
@@ -1521,6 +1522,20 @@ object frmCadCFOP: TfrmCadCFOP
             Values.Strings = (
               'E'
               'T')
+          end
+          object DBCheckBox28: TDBCheckBox
+            Left = 8
+            Top = 139
+            Width = 160
+            Height = 17
+            Caption = 'Atualiza Pre'#231'o Custo'
+            Ctl3D = False
+            DataField = 'ALT_CUSTO'
+            DataSource = DMCadCFOP.dsCFOP
+            ParentCtl3D = False
+            TabOrder = 11
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
           end
         end
         object gbxEstoque: TRzGroupBox

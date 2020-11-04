@@ -273,6 +273,11 @@ object DMCadCFOP: TDMCadCFOP
       FixedChar = True
       Size = 1
     end
+    object sdsCFOPALT_CUSTO: TStringField
+      FieldName = 'ALT_CUSTO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspCFOP: TDataSetProvider
     DataSet = sdsCFOP
@@ -558,6 +563,11 @@ object DMCadCFOP: TDMCadCFOP
     end
     object cdsCFOPCOMBUSTIVEL: TStringField
       FieldName = 'COMBUSTIVEL'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsCFOPALT_CUSTO: TStringField
+      FieldName = 'ALT_CUSTO'
       FixedChar = True
       Size = 1
     end

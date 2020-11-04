@@ -435,6 +435,8 @@ type
     cdsCFOP_VariacaoCALCULAR_FCP: TStringField;
     sdsCFOPCOMBUSTIVEL: TStringField;
     cdsCFOPCOMBUSTIVEL: TStringField;
+    sdsCFOPALT_CUSTO: TStringField;
+    cdsCFOPALT_CUSTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsCFOPNewRecord(DataSet: TDataSet);
     procedure dspCFOPUpdateError(Sender: TObject;

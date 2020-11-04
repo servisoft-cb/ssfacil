@@ -1,6 +1,6 @@
 object frmConsEstoque_Mov: TfrmConsEstoque_Mov
-  Left = 138
-  Top = 78
+  Left = 180
+  Top = 86
   BorderStyle = bsSingle
   Caption = 'Consulta Estoque Movimento'
   ClientHeight = 518
@@ -209,7 +209,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
     end
     object btnImprimir: TNxButton
       Left = 754
-      Top = 67
+      Top = 69
       Width = 161
       Height = 30
       Caption = 'Imprimir'
@@ -350,7 +350,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
     end
     object btnExcel: TNxButton
       Left = 754
-      Top = 97
+      Top = 96
       Width = 161
       Height = 30
       Caption = 'Excel'
@@ -440,7 +440,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
     Top = 133
     Width = 941
     Height = 385
-    ActivePage = TS_Produto_Det
+    ActivePage = TS_Produto_Acum
     ActivePageDefault = TS_Produto_Det
     Align = alClient
     BackgroundColor = clGray
@@ -453,7 +453,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
     ParentBackgroundColor = False
     ParentFont = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     TextColors.Selected = clBlue
     OnChange = RzPageControl1Change
@@ -464,7 +464,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
         Left = 0
         Top = 30
         Width = 937
-        Height = 128
+        Height = 167
         Align = alClient
         Ctl3D = False
         DataSource = DMConsEstoque.dsEstoque_Mov
@@ -566,6 +566,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'DTMOVIMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Movimento'
+            Width = 64
             Visible = True
           end
           item
@@ -580,6 +581,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'COMPRIMENTO'
             Title.Alignment = taCenter
             Title.Caption = 'Comprimento'
+            Width = 64
             Visible = True
           end
           item
@@ -654,6 +656,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'PRECO_CUSTO_TOTAL'
             Title.Alignment = taCenter
             Title.Caption = 'Pre'#231'o Custo Total'
+            Width = 64
             Visible = True
           end
           item
@@ -662,6 +665,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'NUM_LOTE_CONTROLE'
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Lote Controle'
+            Width = 64
             Visible = True
           end
           item
@@ -687,6 +691,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             Expanded = False
             FieldName = 'VLR_DESCONTO'
             Title.Caption = 'Vlr. Desconto'
+            Width = 64
             Visible = True
           end
           item
@@ -700,6 +705,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'SERIE'
             Title.Alignment = taCenter
             Title.Caption = 'S'#233'rie Nota'
+            Width = 64
             Visible = True
           end
           item
@@ -713,6 +719,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'UNIDADE_ORIG'
             Title.Alignment = taCenter
             Title.Caption = 'Unid. da Nota'
+            Width = 64
             Visible = True
           end
           item
@@ -720,6 +727,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'QTD_ORIG'
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. da Nota'
+            Width = 64
             Visible = True
           end
           item
@@ -727,6 +735,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'VLR_UNITARIOORIG'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Unit'#225'rio da Nota'
+            Width = 64
             Visible = True
           end
           item
@@ -750,6 +759,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'ID_PRODUTO'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Produto'
+            Width = 64
             Visible = True
           end
           item
@@ -906,8 +916,8 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           OnClick = ckEstruturadoClick
         end
         object ckImpTotalEst: TCheckBox
-          Left = 480
-          Top = 8
+          Left = 459
+          Top = 9
           Width = 185
           Height = 17
           Caption = 'Imprimir Total por estrutura'
@@ -915,19 +925,27 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           Visible = False
         end
         object ProgressBar1: TProgressBar
-          Left = 669
+          Left = 742
           Top = 6
-          Width = 262
+          Width = 189
           Height = 17
           TabOrder = 3
           Visible = False
         end
+        object ckImpPrecoCusto: TCheckBox
+          Left = 617
+          Top = 8
+          Width = 116
+          Height = 17
+          Caption = 'Imp. Pre'#231'o Custo'
+          TabOrder = 4
+        end
       end
       object DBGrid11: TDBGrid
         Left = 0
-        Top = 158
+        Top = 197
         Width = 937
-        Height = 154
+        Height = 115
         Align = alBottom
         DataSource = DMConsEstoque.dsmEstoque_CentroCusto
         TabOrder = 3
@@ -950,11 +968,13 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           item
             Expanded = False
             FieldName = 'Codigo_Grupo'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Nome_Grupo'
+            Width = 64
             Visible = True
           end
           item
@@ -965,6 +985,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           item
             Expanded = False
             FieldName = 'Obs'
+            Width = 64
             Visible = True
           end
           item
@@ -980,21 +1001,25 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           item
             Expanded = False
             FieldName = 'Codigo_CentroCusto'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Nome_CentroCusto'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Codigo_Superior'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Nome_Superior'
+            Width = 64
             Visible = True
           end>
       end
@@ -1037,7 +1062,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 11
+        ColCount = 14
         RowCount = 2
         Columns = <
           item
@@ -1114,10 +1139,31 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           end
           item
             Expanded = False
+            FieldName = 'Vlr_Entrada_Custo'
+            Title.Alignment = taCenter
+            Title.Caption = 'Vlr. Entrada Custo'
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'Vlr_Saida'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Sa'#237'da'
             Width = 87
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Vlr_Saida_Custo'
+            Title.Alignment = taCenter
+            Title.Caption = 'Vlr. Sa'#237'da Custo'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Preco_Custo'
+            Title.Alignment = taCenter
+            Title.Caption = 'Pre'#231'o Custo'
             Visible = True
           end>
       end
@@ -1146,6 +1192,15 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
           Caption = 'Mostrar o saldo anterior somente com saldo'
           TabOrder = 1
           Visible = False
+        end
+        object ckImpPrecoCusto2: TCheckBox
+          Left = 448
+          Top = 8
+          Width = 169
+          Height = 17
+          Caption = 'Imp. Pre'#231'o Custo'
+          TabOrder = 2
+          OnClick = ckImpPrecoCusto2Click
         end
       end
     end
@@ -1385,6 +1440,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
             FieldName = 'REFERENCIA'
             Title.Alignment = taCenter
             Title.Caption = 'Refer'#234'ncia'
+            Width = 64
             Visible = True
           end
           item

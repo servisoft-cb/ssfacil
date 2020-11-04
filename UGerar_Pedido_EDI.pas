@@ -379,6 +379,10 @@ var
   vPlano: String;
   ID: TTransactionDesc;
   sds: TSQLDataSet;
+  vIDVendedor_Aux : Integer;
+  vMSGAux : String;
+  vTexto : String;
+  vIDAux : Integer;
 begin
   if (fDMGerar_EDI.mAuxiliar.IsEmpty) or (vErro) then
   begin
@@ -425,11 +429,24 @@ begin
     end;
     if not (fDMCadPedido.cdsPedido.State in [dsEdit,dsInsert]) then
       fDMCadPedido.cdsPedido.Edit;
+    vIDAux          := fDMCadPedido.cdsPedidoID.AsInteger;
+    vIDVendedor_Aux := fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger;
     uGrava_Pedido.prc_Gravar(fDMCadPedido);
     fDMGerar_EDI.mGerado.Insert;
     fDMGerar_EDI.mGeradoNumPedido.AsInteger    := fDMCadPedido.cdsPedidoNUM_PEDIDO.AsInteger;
     fDMGerar_EDI.mGeradoPedidoCliente.AsString := fDMCadPedido.cdsPedidoPEDIDO_CLIENTE.AsString;
     fDMGerar_EDI.mGerado.Post;
+    
+    if (vIDVendedor_Aux > 0) and (SQLLocate('PARAMETROS_COM','ID','AVISAR_SEM_COMISSAO','1') = 'S') then
+    begin
+      vMSGAux := fnc_Sem_Comissao(fDMCadPedido,vIDAux);
+      if trim(vMSGAux) <> '' then
+      begin
+        vTexto := '';
+        while not (trim(vTexto) = '1') do
+          vTexto := InputBox('*** ATENÇÃO ***',vMSGAux + #13 + #13 + 'Informar 1 para prosseguir', '');
+      end;
+    end;
 
     //dmDatabase.scoDados.Commit(ID);
   //except
@@ -629,7 +646,6 @@ begin
     if (fDMCadPedido.cdsParametrosTIPO_COMISSAO_PROD.AsString = 'I') then
       fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := fnc_Buscar_Comissao_Prod(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger,fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger);
   end;
-
   fDMCadPedido.cdsTab_CSTICMS.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger,([Locaseinsensitive]));
   fDMCadPedido.cdsTab_CSTIPI.Locate('ID',fDMCadPedido.cdsPedido_ItensID_CSTICMS.AsInteger,([Locaseinsensitive]));
 

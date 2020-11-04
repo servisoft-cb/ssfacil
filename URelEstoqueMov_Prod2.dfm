@@ -159,6 +159,7 @@ object fRelEstoqueMov_Prod2: TfRelEstoqueMov_Prod2
         Top = 42
         Width = 36
         Height = 10
+        Alignment = taRightJustify
         Caption = 'V.Unit'#225'rio'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack

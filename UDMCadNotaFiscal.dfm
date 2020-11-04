@@ -4321,7 +4321,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       '_pis_simp,'#13#10't.perc_pis_simp, t.perc_cofins_simp, t.tipo_pis_simp' +
       ', t.tipo_cofins_simp,'#13#10'T.NFEFINALIDADE, T.GERAR_CUSTO_MEDIO, T.D' +
       'EVOLUCAO, t.usa_unidade_trib, T.ALT_NCM_CUSTO, '#13#10'T.ENVIAR_BASE_S' +
-      'T, T.USA_NAO_CONTR_FISICA, T.COMBUSTIVEL'#13#10'FROM TAB_CFOP T'
+      'T, T.USA_NAO_CONTR_FISICA, T.COMBUSTIVEL, T.ALT_CUSTO'#13#10'FROM TAB_' +
+      'CFOP T'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -4546,6 +4547,11 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     end
     object cdsCFOPCOMBUSTIVEL: TStringField
       FieldName = 'COMBUSTIVEL'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsCFOPALT_CUSTO: TStringField
+      FieldName = 'ALT_CUSTO'
       FixedChar = True
       Size = 1
     end
@@ -13922,7 +13928,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     IndexDefs = <>
     Params = <>
     StoreDefs = True
-    Left = 1059
+    Left = 1058
     Top = 331
     Data = {
       8C0000009619E0BD0100000018000000050000000000030000008C0004495445

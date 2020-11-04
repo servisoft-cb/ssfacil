@@ -1,6 +1,6 @@
 object frmBaixaPedido_Processo: TfrmBaixaPedido_Processo
-  Left = 141
-  Top = 46
+  Left = 161
+  Top = 93
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'Baixa Pedido por Processo'

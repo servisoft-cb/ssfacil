@@ -148,6 +148,7 @@ type
     btnCopiarCFOP: TNxButton;
     SpeedButton1: TSpeedButton;
     DBCheckBox27: TDBCheckBox;
+    DBCheckBox28: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -797,7 +798,7 @@ begin
                        + 'GERAR_DESONERACAO_ICMS, GERAR_ESTOQUE, BAIXAR_FUT, USA_NFCE, CALCULAR_ICMS_DIFERIDO, USA_REGRA_ORGAO_PUBLICO, '
                        + 'NOME_ORIGINAL, FATURAMENTO, ID_COFINS_SIMP, ID_PIS_SIMP, TIPO_PIS_SIMP, TIPO_COFINS_SIMP, PERC_COFINS_SIMP, '
                        + 'PERC_PIS_SIMP, ID_REGRA, NFEFINALIDADE, GERAR_CUSTO_MEDIO, USA_UNIDADE_TRIB, ALT_NCM_CUSTO, MARCAR_NCM_ST, '
-                       + 'ENVIAR_BASE_ST, BENEFICIAMENTO_POSSE, EXIGE_PESO, CONTROLAR_CONFIG, USA_NAO_CONTR_FISICA, DEPARA_COM_CST '
+                       + 'ENVIAR_BASE_ST, BENEFICIAMENTO_POSSE, EXIGE_PESO, CONTROLAR_CONFIG, USA_NAO_CONTR_FISICA, DEPARA_COM_CST, T.ALT_CUSTO '
                        + 'FROM TAB_CFOP '
                        + 'WHERE ID = :ID ';
     sds.ParamByName('ID').AsInteger := fDMCadCFOP.cdsCFOP_ConsultaID.AsInteger;

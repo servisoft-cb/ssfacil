@@ -681,81 +681,8 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
   end
   object mArquivoImportado: TClientDataSet
-    Active = True
     Aggregates = <>
-    FieldDefs = <
-      item
-        Name = 'CaminhoArquivo'
-        DataType = ftString
-        Size = 150
-      end
-      item
-        Name = 'NomeArquivo'
-        DataType = ftString
-        Size = 40
-      end
-      item
-        Name = 'ExtensaoArquivo'
-        DataType = ftString
-        Size = 10
-      end
-      item
-        Name = 'Comprimento'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Largura'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Espessura'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Qtde'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Peso'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Vlr_Unitario'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Vlr_Dobra'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Vlr_Total'
-        DataType = ftFloat
-      end
-      item
-        Name = 'PrecoKG'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Codigo_Produto'
-        DataType = ftInteger
-      end
-      item
-        Name = 'Altura'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Fator_Calculo'
-        DataType = ftFloat
-      end
-      item
-        Name = 'Processo'
-        DataType = ftString
-        Size = 3
-      end
-      item
-        Name = 'Item'
-        DataType = ftInteger
-      end>
+    FieldDefs = <>
     IndexDefs = <
       item
         Name = 'DEFAULT_ORDER'
@@ -767,22 +694,8 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Params = <>
     StoreDefs = True
     OnNewRecord = mArquivoImportadoNewRecord
-    Left = 273
+    Left = 274
     Top = 327
-    Data = {
-      960100009619E0BD01000000180000001100000000000300000096010E43616D
-      696E686F4172717569766F01004900000001000557494454480200020096000B
-      4E6F6D654172717569766F01004900000001000557494454480200020028000F
-      457874656E73616F4172717569766F0100490000000100055749445448020002
-      000A000B436F6D7072696D656E746F0800040000000000074C61726775726108
-      0004000000000009457370657373757261080004000000000004517464650800
-      040000000000045065736F08000400000000000C566C725F556E69746172696F
-      080004000000000009566C725F446F627261080004000000000009566C725F54
-      6F74616C080004000000000007507265636F4B4708000400000000000E436F64
-      69676F5F50726F6475746F040001000000000006416C74757261080004000000
-      00000D4661746F725F43616C63756C6F08000400000000000850726F63657373
-      6F0100490000000100055749445448020002000300044974656D040001000000
-      000001000D44454641554C545F4F524445520200820000000000}
     object mArquivoImportadoCaminhoArquivo: TStringField
       DisplayWidth = 150
       FieldName = 'CaminhoArquivo'
@@ -881,6 +794,9 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object mArquivoImportadoItem: TIntegerField
       FieldName = 'Item'
+    end
+    object mArquivoImportadoID_Processo1: TIntegerField
+      FieldName = 'ID_Processo1'
     end
   end
   object dsmArquivoImportado: TDataSource

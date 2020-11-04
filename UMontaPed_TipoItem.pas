@@ -65,6 +65,7 @@ type
     mArquivo_ProcOrdem: TIntegerField;
     SMDBGrid3: TSMDBGrid;
     btnRecalcular: TRzBitBtn;
+    mArquivoImportadoID_Processo1: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SMDBGrid1TitleClick(Column: TColumn);
