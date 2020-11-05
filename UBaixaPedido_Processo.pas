@@ -26,14 +26,11 @@ type
     btnConsultarSaldoSMS: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
-      AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure btnConsultarSaldoSMSClick(Sender: TObject);
     procedure Edit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
-    procedure SMDBGrid2DblClick(Sender: TObject);
     procedure CurrencyEdit2KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure CurrencyEdit2Exit(Sender: TObject);
@@ -92,16 +89,6 @@ begin
     CurrencyEdit2.AsInteger := fDMConferencia.qFuncionarioNUM_CARTAO.AsInteger;
     Edit2.Text              := fDMConferencia.qFuncionarioNOME.AsString;
   end;
-end;
-
-procedure TfrmBaixaPedido_Processo.SMDBGrid2GetCellParams(Sender: TObject;
-  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
-begin
-  if StrToFloat(FormatFloat('0.00000',fDMConferencia.cdsPedido_ItemQTD_FATURADO.AsFloat)) > 0 then
-    Background := clGreen
-  else
-  if fDMConferencia.cdsPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
-    Background := $007DBEFF;
 end;
 
 procedure TfrmBaixaPedido_Processo.btnConsultarSaldoSMSClick(Sender: TObject);
@@ -242,13 +229,19 @@ begin
     vNomeProc  := fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('R_NOME_PROCESSO').AsString;
     vConferido := fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('R_CONFERIDO').AsString;
 
+    fDMConferencia.cdsConsPedido_Item_Proc.Close;
+    fDMConferencia.cdsConsPedido_Item_Proc.Open;
+
     Label3.Caption := '*** PROCESSO: ' + vNomeProc + #13 + ' Baixado ';
     if vConferido = 'S' then
     begin
       Label3.Caption := Label3.Caption + #13 + ' CONFERIDO ';
-      fDMAprovacao_Ped.prc_Gravar_Pedido_Processo(fDMConferencia.cdsPedidoEMAIL_COMPRAS.AsString,fDMConferencia.cdsPedidoID.AsInteger,0,'E','','',Date);
+      try
+        fDMAprovacao_Ped.prc_Gravar_Pedido_Processo(fDMConferencia.qPedido_ItemEMAIL_COMPRAS.AsString,fDMConferencia.qPedido_ItemID.AsInteger,0,'E','','',Date);
+      except
+      end;
     end;
-
+    Label3.Visible := True;
   finally
     FreeAndNil(fDMAprovacao_Ped);
   end;
@@ -261,12 +254,6 @@ procedure TfrmBaixaPedido_Processo.SMDBGrid1GetCellParams(Sender: TObject;
 begin
   if fDMConferencia.cdsConsPedido_Item_ProcDTBAIXA.AsDateTime > 10 then
     Background := $007DBEFF;
-end;
-
-procedure TfrmBaixaPedido_Processo.SMDBGrid2DblClick(Sender: TObject);
-begin
-  if fDMConferencia.cdsPedido_ItemITEM.AsInteger > 0 then
-    prc_Abrir_cdsConsPedido_Item_Proc(fDMConferencia.cdsPedidoNUM_PEDIDO.AsInteger,fDMConferencia.cdsPedido_ItemITEM.AsInteger);
 end;
 
 procedure TfrmBaixaPedido_Processo.prc_Processo;
@@ -334,7 +321,7 @@ end;
 
 procedure TfrmBaixaPedido_Processo.Edit1Change(Sender: TObject);
 begin
-  Label3.Visible := False;
+  //Label3.Visible := False;
 end;
 
 end.

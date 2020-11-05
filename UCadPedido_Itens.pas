@@ -1222,7 +1222,7 @@ begin
     fDMCadPedido.cdsPedido_ItensID_SERVICO_INT.Clear;
     fDMCadPedido.cdsPedido_ItensNOME_SERVICO_INT.Clear;
   end;
-
+  
   if trim(RxDBLookupCombo6.Text) = '' then
     fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger := StrToInt(FormatFloat('0',0));
   if fDMCadPedido.cdsParametrosUSA_LOTE.AsString <> 'S' then

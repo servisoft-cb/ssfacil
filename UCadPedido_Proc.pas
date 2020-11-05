@@ -45,6 +45,8 @@ begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadPedido);
   if fDMCadPedido.mProcesso_Sel.IsEmpty then
     SMDBGrid1.SelectAllClick(Sender);
+  fDMCadPedido.cdsProcesso.Close;
+  fDMCadPedido.cdsProcesso.Open;
 end;
 
 procedure TfrmCadPedido_Proc.NxButton2Click(Sender: TObject);

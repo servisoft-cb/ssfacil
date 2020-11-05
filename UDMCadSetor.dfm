@@ -492,6 +492,11 @@ object DmCadSetor: TDmCadSetor
       FixedChar = True
       Size = 1
     end
+    object sdsProcessoLER_UMAVEZ: TStringField
+      FieldName = 'LER_UMAVEZ'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspProcesso: TDataSetProvider
     DataSet = sdsProcesso
@@ -646,6 +651,11 @@ object DmCadSetor: TDmCadSetor
     end
     object cdsProcessoUSAR_QTD_DOBRA: TStringField
       FieldName = 'USAR_QTD_DOBRA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsProcessoLER_UMAVEZ: TStringField
+      FieldName = 'LER_UMAVEZ'
       FixedChar = True
       Size = 1
     end

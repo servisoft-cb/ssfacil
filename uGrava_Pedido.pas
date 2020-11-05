@@ -22,6 +22,7 @@ procedure prc_Alterar_Item_Tam(fDMCadPedido: TDMCadPedido; ID_Cor, Item, Item_Or
 
 procedure prc_Gravar_Financeiro(fDMCadPedido: TDMCadPedido; Tipo: string);//ENT=Entrada   AVI= Avista
 procedure prc_Gravar_mProcesso_Sel(fDMCadPedido: TDMCadPedido);
+procedure prc_Gravar_Pedido_Item_Processo(fDMCadPedido: TDMCadPedido);
 
 function fnc_Existe_OC(fDMCadPedido: TDMCadPedido): Integer;
 function fnc_Verificar_Vendedor_Int(fDMCadPedido: TDMCadPedido; ID: Integer): Integer;
@@ -1074,19 +1075,83 @@ end;
 procedure prc_Gravar_mProcesso_Sel(fDMCadPedido: TDMCadPedido);
 begin
   fDMCadPedido.mProcesso_Sel.EmptyDataSet;
+  fDMCadPedido.qParametros_Ped.Close;
+  fDMCadPedido.qParametros_Ped.Open;
+  fDMCadPedido.cdsProcesso.Close;
+  fDMCadPedido.cdsProcesso.Open;
+  fDMCadPedido.cdsProcesso.First;
+  while not fDMCadPedido.cdsProcesso.Eof do
+  begin
+    fDMCadPedido.mProcesso_Sel.Insert;
+    fDMCadPedido.mProcesso_SelID.AsInteger           := fDMCadPedido.cdsProcessoID.AsInteger;
+    fDMCadPedido.mProcesso_SelNome.AsString          := fDMCadPedido.cdsProcessoNOME.AsString;
+    if fDMCadPedido.cdsProcessoID.AsInteger = fDMCadPedido.qParametros_PedID_PROCESSO_FINAL.AsInteger then
+      fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger := 1
+    else
+      fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger := 0;
+    fDMCadPedido.mProcesso_SelOrdem.AsInteger        := fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger;
+    fDMCadPedido.mProcesso_SelUsa_Qtd_Dobra.AsString := fDMCadPedido.cdsProcessoUSAR_QTD_DOBRA.AsString;
+    fDMCadPedido.mProcesso_Sel.Post;
+    fDMCadPedido.cdsProcesso.Next;
+  end;
+
   fDMCadPedido.cdsPedido_Item_Processo.First;
   while not fDMCadPedido.cdsPedido_Item_Processo.eof do
   begin
-    fDMCadPedido.mProcesso_Sel.Insert;
-    fDMCadPedido.mProcesso_SelID.AsInteger  := fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger;
-    fDMCadPedido.mProcesso_SelNome.AsString := fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString;
-    fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger := fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsInteger;
-    fDMCadPedido.mProcesso_SelOrdem.AsInteger     := fDMCadPedido.cdsPedido_Item_ProcessoORDEM_MAPA.AsInteger;
-    fDMCadPedido.mProcesso_SelUsa_Qtd_Dobra.AsString := SQLLocate('PROCESSO','ID','USAR_QTD_DOBRA',fDMCadPedido.cdsPedido_Item_ProcessoID_PROCESSO.AsString);
-    fDMCadPedido.mProcesso_Sel.Post;
+    if fDMCadPedido.mProcesso_Sel.Locate('ID',fDMCadPedido.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger,([Locaseinsensitive])) then
+    begin
+      fDMCadPedido.mProcesso_Sel.Edit;
+      fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger    := fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsInteger;
+      fDMCadPedido.mProcesso_Sel.Post;
+    end;
     fDMCadPedido.cdsPedido_Item_Processo.Next;
   end;
 end;
+
+procedure prc_Gravar_Pedido_Item_Processo(fDMCadPedido: TDMCadPedido);
+var
+  vItemAux : Integer;
+begin
+  vItemAux := 0;
+  fDMCadPedido.mProcesso_Sel.First;
+  while not fDMCadPedido.mProcesso_Sel.Eof do
+  begin
+    vItemAux := vItemAux + 1;
+    
+    if fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger <= 0 then
+    begin
+      if fDMCadPedido.cdsPedido_Item_Processo.Locate('ITEM_PROCESSO',vItemAux,([Locaseinsensitive])) then
+        fDMCadPedido.cdsPedido_Item_Processo.Delete;
+    end
+    else
+    if fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger > 0 then
+    begin
+      if fDMCadPedido.cdsPedido_Item_Processo.Locate('ITEM_PROCESSO',vItemAux,([Locaseinsensitive])) then
+        fDMCadPedido.cdsPedido_Item_Processo.Edit
+      else
+      begin
+        fDMCadPedido.cdsPedido_Item_Processo.Insert;
+        fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger            := fDMCadPedido.cdsPedidoID.AsInteger;
+        fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger          := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+        fDMCadPedido.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger := vItemAux;
+      end;
+      fDMCadPedido.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger   := fdmCadPedido.mProcesso_SelID.AsInteger;
+      fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsInteger     := fdmCadPedido.mProcesso_SelQtd_Dobra.AsInteger;
+      fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString           := fdmCadPedido.mProcesso_SelNome.AsString;
+      fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsFloat             := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
+      fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString          := fdmCadPedido.mProcesso_SelNome.AsString;
+      if fDMCadPedido.mProcesso_SelUsa_Qtd_Dobra.AsString = 'S' then
+        fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString := fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString + ' Qtd.: ' + fdmCadPedido.mProcesso_SelQtd_Dobra.AsString;
+      fDMCadPedido.cdsPedido_Item_ProcessoDTENTRADA.Clear;
+      fDMCadPedido.cdsPedido_Item_ProcessoHRENTRADA.Clear;
+      fDMCadPedido.cdsPedido_Item_ProcessoDTBAIXA.Clear;
+      fDMCadPedido.cdsPedido_Item_ProcessoHRSAIDA.Clear;
+      fDMCadPedido.cdsPedido_Item_Processo.Post;
+    end;
+    fDMCadPedido.mProcesso_Sel.Next;
+  end;
+end;
+
 
 end.
 

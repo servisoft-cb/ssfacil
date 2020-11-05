@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, StdCtrls, NxCollection, UDMCadPedido,
-  Grids, Mask, DBCtrls, RzTabs,  ToolEdit, DB, ExtCtrls, Buttons, RxLookup, RzPanel, jpeg;
+  Grids, Mask, DBCtrls, RzTabs,  ToolEdit, DB, ExtCtrls, Buttons, RxLookup, RzPanel, jpeg,
+  DBGrids, SMDBGrid;
 
 type
   TfrmCadPedido_TipoItem = class(TForm)
@@ -144,6 +145,8 @@ type
     Label61: TLabel;
     RxDBLookupCombo11: TRxDBLookupCombo;
     btnProcesso: TNxButton;
+    Panel1: TPanel;
+    SMDBGrid2: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -277,6 +280,7 @@ begin
     if TS_Vidro.TabVisible then
       FilenameEdit2.FileName := fDMCadPedido.cdsPedido_Item_TipoFOTO.AsString;
   end;
+  prc_Gravar_mProcesso_Sel(fDMCadPedido);
 end;
 
 procedure TfrmCadPedido_TipoItem.FormKeyDown(Sender: TObject; var Key: Word;
@@ -422,7 +426,11 @@ begin
        (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsChapaVLR_UNITARIO.AsFloat)) <= 0) then
       prc_Gravar_Chapa('P');
   end;
-  fDMCadPedido.cdsPedido_Item_Tipo.Post;
+  if fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S' then
+    uGrava_Pedido.prc_Gravar_Pedido_Item_Processo(fDMCadPedido);
+
+  if fDMCadPedido.cdsPedido_Item_Tipo.State in [dsEdit,dsInsert] then
+    fDMCadPedido.cdsPedido_Item_Tipo.Post;
   Close;
 end;
 

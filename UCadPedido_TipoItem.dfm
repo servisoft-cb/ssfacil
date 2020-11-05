@@ -290,7 +290,81 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
         Font.Style = []
         ParentFont = False
         TabOrder = 12
+        Visible = False
         OnClick = btnProcessoClick
+      end
+      object Panel1: TPanel
+        Left = 0
+        Top = 293
+        Width = 745
+        Height = 164
+        Align = alBottom
+        TabOrder = 13
+        object SMDBGrid2: TSMDBGrid
+          Left = 1
+          Top = 1
+          Width = 743
+          Height = 162
+          Align = alClient
+          Ctl3D = False
+          DataSource = DMCadPedido.dsmProcesso_Sel
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+          ParentCtl3D = False
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clWindowText
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = []
+          Flat = True
+          BandsFont.Charset = DEFAULT_CHARSET
+          BandsFont.Color = clWindowText
+          BandsFont.Height = -11
+          BandsFont.Name = 'MS Sans Serif'
+          BandsFont.Style = []
+          Groupings = <>
+          GridStyle.Style = gsCustom
+          GridStyle.OddColor = clWindow
+          GridStyle.EvenColor = clWindow
+          TitleHeight.PixelCount = 24
+          FooterColor = clBtnFace
+          ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+          FixedCols = 1
+          RegistryKey = 'Software\Scalabium'
+          RegistrySection = 'SMDBGrid'
+          WidthOfIndicator = 11
+          DefaultRowHeight = 17
+          ScrollBars = ssHorizontal
+          ColCount = 3
+          RowCount = 2
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'Nome'
+              ReadOnly = True
+              Width = 229
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'Qtd_Dobra'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = [fsBold]
+              Title.Alignment = taCenter
+              Title.Caption = 'Processo'
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'MS Sans Serif'
+              Title.Font.Style = [fsBold]
+              Width = 105
+              Visible = True
+            end>
+        end
       end
     end
     object TS_Redondos: TRzTabSheet

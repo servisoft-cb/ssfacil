@@ -195,7 +195,9 @@ begin
         fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString := SQLLocate('PRODUTO','ID','NOME',mArquivoImportadoCodigo_Produto.AsString);
         fDMCadPedido.cdsPedido_ItensNCM.AsString         := SQLLocate('TAB_NCM','ID','NCM',fDMCadPedido.cdsPedido_ItensID_NCM.AsString);
         fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat := mArquivoImportadoVlr_Unitario.AsFloat;
-        fDMCadPedido.prc_Abrir_ProdutoLoja(mArquivoImportadoCodigo_Produto.AsInteger,'','');
+        //Foi tirado pois estava deixando filtrado os produtos   05/11/2020    Cleomar
+        //fDMCadPedido.prc_Abrir_ProdutoLoja(mArquivoImportadoCodigo_Produto.AsInteger,'','');
+        fDMCadPedido.cdsProduto.Locate('ID',mArquivoImportadoCodigo_Produto.AsInteger,[loCaseInsensitive]);
 
         if fDMCadPedido.cdsPedidoID_OPERACAO_NOTA.AsInteger > 0 then
           uCalculo_Pedido.prc_Posicionar_Regra_Empresa(fDMCadPedido,fDMCadPedido.cdsPedidoID_OPERACAO_NOTA.AsInteger,fDMCadPedido.vFinalidade);
@@ -367,12 +369,15 @@ var
   vControle : TControle;
   vCalcularPeso : TCalcluar_Peso;
   vCont : Integer;
+  vCont_Processo : Integer;
 begin
   vControle := TControle.Create;
   vControlePedidoProjeto := TPedidoControle.create(vControle);
   vCalcularPeso := TCalcluar_Peso.Create;
   mArquivoImportado.EmptyDataSet;
   vCont := SMDBGrid1.Columns.Count - 1;
+  vCont_Processo := 0;
+  i := 0;
   mProcesso.EmptyDataSet;
   fDMCadPedido.cdsProcesso.Open;
   fDMCadPedido.cdsProcesso.First;
@@ -381,11 +386,18 @@ begin
     if fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger > 0 then
     begin
       vCont := vCont + 1;
+      i     := i + 1;
       mProcesso.Insert;
       mProcessoOrdem.AsInteger := fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger;
       mProcessoID_Processo.AsInteger := fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger;
       mProcessoNome.AsString         := fDMCadPedido.cdsProcessoNOME.AsString;
-      mProcessoQtd.AsInteger         := 0;
+      if fDMCadPedido.qParametros_PedID_PROCESSO_FINAL.AsInteger = fDMCadPedido.cdsProcessoID.AsInteger then
+      begin
+        mProcessoQtd.AsInteger := 1;
+        vCont_Processo         := i;
+      end
+      else
+        mProcessoQtd.AsInteger := 0;
       mProcessoDobra.AsString        := fDMCadPedido.cdsProcessoUSAR_QTD_DOBRA.AsString;
       mProcessoColuna.AsInteger      := vCont;
       mProcesso.Post;
@@ -420,7 +432,7 @@ begin
         mArquivoImportadoPeso.AsFloat := vControlePedidoProjeto.PESO;
         mArquivoImportadoVlr_Unitario.AsFloat := vControlePedidoProjeto.VLR_UNITARIO;
         mArquivoImportadoVlr_Dobra.AsFloat := vControlePedidoProjeto.VLR_DOBRA;
-        mArquivoImportadoPrecoKG.AsFloat := vControlePedidoProjeto.PRECO_KG;
+        mArquivoImportadoPrecoKG.AsFloat   := vControlePedidoProjeto.PRECO_KG;
 
         mArquivoImportadoProcesso_01.AsInteger := vControlePedidoProjeto.PROCESSO_01;
         mArquivoImportadoProcesso_02.AsInteger := vControlePedidoProjeto.PROCESSO_02;
@@ -433,11 +445,19 @@ begin
         mArquivoImportadoProcesso_09.AsInteger := vControlePedidoProjeto.PROCESSO_09;
         mArquivoImportadoProcesso_10.AsInteger := vControlePedidoProjeto.PROCESSO_10;
 
+        if (vCont_Processo > 0) and (mArquivoImportado.FieldByName('Processo_'+FormatFloat('00',vCont_Processo)).AsInteger <= 0) then
+          mArquivoImportado.FieldByName('Processo_'+FormatFloat('00',vCont_Processo)).AsInteger := 1;
+
         vCalcularPeso.Comprimento := vControlePedidoProjeto.COMPRIMENTO;
         vCalcularPeso.Largura := vControlePedidoProjeto.LARGURA;
         vCalcularPeso.Espessura := vControlePedidoProjeto.ESPESSURA;
 
         mArquivoImportadoPeso.AsFloat := vCalcularPeso.CalcularPeso;
+      end
+      else
+      begin
+        if vCont_Processo > 0 then
+          mArquivoImportado.FieldByName('Processo_'+FormatFloat('00',vCont_Processo)).AsInteger := 1;
       end;
       mArquivoImportado.Post;
       Ret := FindNext(F);
@@ -637,6 +657,8 @@ end;
 
 procedure TfrmMontaPed_TipoItem.FormShow(Sender: TObject);
 begin
+  fDMCadPedido.qParametros_Ped.Close;
+  fDMCadPedido.qParametros_Ped.Open;
   vFilial := fDMCadPedido.cdsPedidoFILIAL.AsInteger;
 end;
 

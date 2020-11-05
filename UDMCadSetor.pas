@@ -211,6 +211,8 @@ type
     sdsProcessoUSAR_QTD_DOBRA: TStringField;
     cdsProcessoUSAR_QTD_DOBRA: TStringField;
     qParametrosEMPRESA_SUCATA: TStringField;
+    sdsProcessoLER_UMAVEZ: TStringField;
+    cdsProcessoLER_UMAVEZ: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspSetorUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -389,7 +391,8 @@ begin
     vMsgSetor := 'Nome não informado!';
   if vMsgSetor <> '' then
     exit;
-    
+  if trim(cdsProcessoLER_TALAO.AsString) <> 'S' then
+    cdsProcessoLER_UMAVEZ.AsString := 'N';
   cdsProcesso.Post;
   cdsProcesso.ApplyUpdates(0);
 end;

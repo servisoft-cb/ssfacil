@@ -38,7 +38,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Caption = 'Diret'#243'rio Projeto:'
     end
     object btnCarrega: TSpeedButton
-      Left = 458
+      Left = 457
       Top = 10
       Width = 137
       Height = 37
@@ -311,7 +311,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Top = 6
       Width = 354
       Height = 21
-      InitialDir = 'c:\temp'
+      InitialDir = 'c:\a\jw'
       NumGlyphs = 1
       TabOrder = 0
     end
@@ -711,7 +711,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Params = <>
     StoreDefs = True
     OnNewRecord = mArquivoImportadoNewRecord
-    Left = 273
+    Left = 272
     Top = 327
     Data = {
       5E0200009619E0BD01000000180000001B0000000000030000005E020E43616D

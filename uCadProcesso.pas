@@ -66,6 +66,7 @@ type
     DBCheckBox13: TDBCheckBox;
     DBCheckBox14: TDBCheckBox;
     DBCheckBox15: TDBCheckBox;
+    DBCheckBox16: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -80,6 +81,7 @@ type
       Shift: TShiftState);
     procedure btnPesquisarClick(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
+    procedure DBCheckBox13Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadSetor: TDMCadSetor;
@@ -282,6 +284,15 @@ begin
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I].Title = Column.Title) then
       SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
+end;
+
+procedure TfrmCadProcesso.DBCheckBox13Click(Sender: TObject);
+begin
+  if fDMCadSetor.cdsProcesso.State in [dsEdit,dsInsert] then
+  begin
+    if not DBCheckBox13.Checked then
+      fDMCadSetor.cdsProcessoLER_UMAVEZ.AsString := 'N';
+  end;
 end;
 
 end.

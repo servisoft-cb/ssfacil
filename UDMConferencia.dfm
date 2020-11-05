@@ -2214,20 +2214,18 @@ object DMConferencia: TDMConferencia
     SQL.Strings = (
       
         'select I.ID, I.ITEM, I.QTD_RESTANTE, I.QTD_FATURADO, I.DTCONFERE' +
-        'NCIA, i.qtd_cancelado, i.qtd,'
+        'NCIA, I.QTD_CANCELADO, I.QTD, TIP.COMPLEMENTO_NOME,'
       
-        'TIP.complemento_nome, TIP.caminho_arquivo_pdf, TIP.comprimento, ' +
-        'TIP.largura, TIP.altura,'
-      
-        'TIP.peso, tip.espessura, I.nomeproduto, I.referencia, I.id_produ' +
-        'to, P.NUM_PEDIDO'
+        '       TIP.CAMINHO_ARQUIVO_PDF, TIP.COMPRIMENTO, TIP.LARGURA, TI' +
+        'P.ALTURA, TIP.PESO, TIP.ESPESSURA, I.NOMEPRODUTO,'
+      '       I.REFERENCIA, I.ID_PRODUTO, P.NUM_PEDIDO, P.EMAIL_COMPRAS'
       'from PEDIDO_ITEM I'
       'inner join PEDIDO P on I.ID = P.ID'
       
-        'left join PEDIDO_ITEM_TIPO TIP ON I.ID = TIP.ID AND I.ITEM = TIP' +
+        'left join PEDIDO_ITEM_TIPO TIP on I.ID = TIP.ID and I.ITEM = TIP' +
         '.ITEM'
-      'where P.NUM_PEDIDO = :NUM_PEDIDO'
-      '  and I.ITEM = :ITEM')
+      'where P.NUM_PEDIDO = :NUM_PEDIDO and'
+      '      I.ITEM = :ITEM   ')
     SQLConnection = dmDatabase.scoDados
     Left = 781
     Top = 72
@@ -2289,6 +2287,10 @@ object DMConferencia: TDMConferencia
     end
     object qPedido_ItemNUM_PEDIDO: TIntegerField
       FieldName = 'NUM_PEDIDO'
+    end
+    object qPedido_ItemEMAIL_COMPRAS: TStringField
+      FieldName = 'EMAIL_COMPRAS'
+      Size = 100
     end
   end
   object sdsPRC_Baixa_Pedido_Proc: TSQLDataSet

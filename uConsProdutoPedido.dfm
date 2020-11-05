@@ -19,8 +19,8 @@ object frmConsultaProduto: TfrmConsultaProduto
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 0
-    Width = 590
-    Height = 265
+    Width = 598
+    Height = 273
     Align = alClient
     DataSource = dsProduto
     Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]

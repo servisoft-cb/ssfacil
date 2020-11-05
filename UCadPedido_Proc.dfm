@@ -67,8 +67,8 @@ object frmCadPedido_Proc: TfrmCadPedido_Proc
       WidthOfIndicator = 27
       DefaultRowHeight = 16
       ScrollBars = ssHorizontal
-      ColCount = 3
-      RowCount = 4
+      ColCount = 4
+      RowCount = 2
       Columns = <
         item
           Expanded = False
@@ -83,6 +83,11 @@ object frmCadPedido_Proc: TfrmCadPedido_Proc
           FieldName = 'NOME'
           Title.Alignment = taCenter
           Title.Caption = 'Nome'
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ID'
           Visible = True
         end>
     end
@@ -559,7 +564,6 @@ object frmCadPedido_Proc: TfrmCadPedido_Proc
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 4
       RowCount = 2
       Columns = <
         item
@@ -591,6 +595,11 @@ object frmCadPedido_Proc: TfrmCadPedido_Proc
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = [fsBold]
           Width = 76
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'ID'
           Visible = True
         end>
     end

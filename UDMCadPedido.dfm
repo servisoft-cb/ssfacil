@@ -15155,7 +15155,7 @@ object DMCadPedido: TDMCadPedido
       '')
     SQLConnection = dmDatabase.scoDados
     Left = 975
-    Top = 512
+    Top = 513
     object qParametros_PedID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -15521,6 +15521,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'AVISAR_TRANSPORTADORA'
       FixedChar = True
       Size = 1
+    end
+    object qParametros_PedID_PROCESSO_FINAL: TIntegerField
+      FieldName = 'ID_PROCESSO_FINAL'
     end
   end
   object sdsMetas_Acum: TSQLDataSet
