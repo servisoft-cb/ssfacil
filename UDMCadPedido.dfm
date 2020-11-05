@@ -20202,7 +20202,6 @@ object DMCadPedido: TDMCadPedido
     Top = 610
   end
   object cdsProcesso: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'ORDEM_MAPA'
     Params = <>

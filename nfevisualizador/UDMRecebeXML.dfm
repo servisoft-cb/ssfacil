@@ -153,6 +153,11 @@ object DMRecebeXML: TDMRecebeXML
       FixedChar = True
       Size = 1
     end
+    object cdsCFOPALT_CUSTO: TStringField
+      FieldName = 'ALT_CUSTO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsCFOP: TDataSource
     DataSet = cdsCFOP

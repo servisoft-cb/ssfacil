@@ -3677,13 +3677,14 @@ begin
     and (copy(fDMCadNotaFiscal.cdsCFOPCODCFOP.AsString,1,1) <> '3') then
       exit;
 
-  if fDMCadNotaFiscal.cdsCFOPALT_NCM_CUSTO.AsString <> 'S' then
+  if fDMCadNotaFiscal.cdsCFOPALT_CUSTO.AsString <> 'S' then
     exit;
 
   if not fDMCadNotaFiscal.cdsProduto.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PRODUTO.AsInteger,([LocaseInsensitive])) then
     exit;
+
   if (fDMCadNotaFiscal.cdsNotaFiscalDTSAIDAENTRADA.AsDateTime >= fDMCadNotaFiscal.cdsProdutoDT_ALTPRECO.AsDateTime) then
-  begin
+  begin                                           
     fDMCadNotaFiscal.cdsProduto.Edit;
     fDMCadNotaFiscal.cdsProdutoDT_ALTPRECO.AsDateTime := fDMCadNotaFiscal.cdsNotaFiscalDTSAIDAENTRADA.AsDateTime;
     if fDMCadNotaFiscal.cdsProdutoUSA_PRECO_COR.AsString = 'S' then

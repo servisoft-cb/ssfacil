@@ -56,18 +56,24 @@ type
     mArquivoImportadoProcesso: TStringField;
     Label5: TLabel;
     mArquivoImportadoItem: TIntegerField;
-    mArquivo_Proc: TClientDataSet;
-    dsArquivo_Proc: TDataSource;
-    mArquivo_ProcIterm: TIntegerField;
-    mArquivo_ProcID: TIntegerField;
-    mArquivo_ProcNome: TStringField;
-    mArquivo_ProcQtd_Dobra: TIntegerField;
-    mArquivo_ProcOrdem: TIntegerField;
-    SMDBGrid3: TSMDBGrid;
-    btnRecalcular: TRzBitBtn;
-    mArquivoImportadoID_Processo1: TIntegerField;
+    mArquivoImportadoProcesso_01: TIntegerField;
+    mArquivoImportadoProcesso_02: TIntegerField;
+    mArquivoImportadoProcesso_03: TIntegerField;
+    mArquivoImportadoProcesso_04: TIntegerField;
+    mArquivoImportadoProcesso_05: TIntegerField;
+    mArquivoImportadoProcesso_06: TIntegerField;
+    mArquivoImportadoProcesso_07: TIntegerField;
+    mArquivoImportadoProcesso_08: TIntegerField;
+    mArquivoImportadoProcesso_09: TIntegerField;
+    mArquivoImportadoProcesso_10: TIntegerField;
+    mProcesso: TClientDataSet;
+    mProcessoOrdem: TIntegerField;
+    mProcessoID_Processo: TIntegerField;
+    mProcessoNome: TStringField;
+    mProcessoQtd: TIntegerField;
+    mProcessoDobra: TStringField;
+    mProcessoColuna: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure btnCopiarClick(Sender: TObject);
     procedure btnCarregaClick(Sender: TObject);
@@ -87,7 +93,6 @@ type
       Shift: TShiftState);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
-    procedure btnRecalcularClick(Sender: TObject);
   private
     { Private declarations }
     ctChapaLocal: string;
@@ -140,12 +145,6 @@ begin
   Action := Cafree;
 end;
 
-procedure TfrmMontaPed_TipoItem.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-begin
-  if Key = 27 then
-    Close;
-end;
-
 procedure TfrmMontaPed_TipoItem.SMDBGrid1TitleClick(Column: TColumn);
 var
   i: Integer;
@@ -165,6 +164,7 @@ var
   vControlePedidoProjeto : TPedidoControle;
   vControle : TControle;
   vItemAux : Integer;
+  vCont: Integer;
 begin
   mArquivoImportado.First;
   if mArquivoImportado.IsEmpty then
@@ -241,7 +241,34 @@ begin
         fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString := fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString + ' ' + fDMCadPedido.cdsPedido_Item_TipoCOMPLEMENTO_NOME.AsString;
 
         //Grava os processos    28/10/2020
+
         vItemAux := 0;
+        for vCont := 1 to 10 do
+        begin
+          vItemAux := vItemAux + 1;
+          if mArquivoImportado.FieldByName('Processo_'+FormatFloat('00',vCont)).AsInteger > 0 then
+          begin
+            fDMCadPedido.cdsPedido_Item_Processo.Insert;
+            fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger            := fDMCadPedido.cdsPedidoID.AsInteger;
+            fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger          := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+            fDMCadPedido.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger := vCont;
+            mProcesso.Locate('Ordem',vCont,([Locaseinsensitive]));
+            fDMCadPedido.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger   := mProcessoID_Processo.AsInteger;
+            fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsInteger           := mArquivoImportadoQtde.AsInteger;
+            fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsInteger     := mArquivoImportado.FieldByName('Processo_'+FormatFloat('00',vCont)).AsInteger;
+            fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString           := mProcessoNome.AsString;
+            fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString          := mProcessoNome.AsString;
+            if mProcessoDobra.AsString = 'S' then
+              fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString := mProcessoNome.AsString + ' Qtd: ' + fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsString;
+            fDMCadPedido.cdsPedido_Item_ProcessoDTENTRADA.Clear;
+            fDMCadPedido.cdsPedido_Item_ProcessoHRENTRADA.Clear;
+            fDMCadPedido.cdsPedido_Item_ProcessoDTBAIXA.Clear;
+            fDMCadPedido.cdsPedido_Item_ProcessoHRSAIDA.Clear;
+            fDMCadPedido.cdsPedido_Item_Processo.Post;
+          end;
+        end;
+
+        {vItemAux := 0;
         mArquivo_Proc.First;
         while not mArquivo_Proc.Eof do
         begin
@@ -251,7 +278,8 @@ begin
           fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger          := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
           fDMCadPedido.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger := vItemAux;
           fDMCadPedido.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger   := mArquivo_ProcID.AsInteger;
-          fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsInteger           := mArquivo_ProcQtd_Dobra.AsInteger;
+          fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsInteger           := mArquivoImportadoQtde.AsInteger;
+          fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsInteger     := mArquivo_ProcQtd_Dobra.AsInteger;
           fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString           := mArquivo_ProcNome.AsString;
           fDMCadPedido.cdsPedido_Item_ProcessoDTENTRADA.Clear;
           fDMCadPedido.cdsPedido_Item_ProcessoHRENTRADA.Clear;
@@ -259,7 +287,7 @@ begin
           fDMCadPedido.cdsPedido_Item_ProcessoHRSAIDA.Clear;
           fDMCadPedido.cdsPedido_Item_Processo.Post;
           mArquivo_Proc.Next;
-        end;
+        end;}
         //************************
 
         fDMCadPedido.cdsPedido_Item_Tipo.Post;
@@ -279,6 +307,16 @@ begin
           vControlePedidoProjeto.LARGURA      := mArquivoImportadoLargura.AsFloat;
           vControlePedidoProjeto.ESPESSURA    := mArquivoImportadoEspessura.AsFloat;
           vControlePedidoProjeto.ID_PRODUTO   := mArquivoImportadoCodigo_Produto.AsInteger;
+          vControlePedidoProjeto.PROCESSO_01  := mArquivoImportadoProcesso_01.AsInteger;
+          vControlePedidoProjeto.PROCESSO_02  := mArquivoImportadoProcesso_02.AsInteger;
+          vControlePedidoProjeto.PROCESSO_03  := mArquivoImportadoProcesso_03.AsInteger;
+          vControlePedidoProjeto.PROCESSO_04  := mArquivoImportadoProcesso_04.AsInteger;
+          vControlePedidoProjeto.PROCESSO_05  := mArquivoImportadoProcesso_05.AsInteger;
+          vControlePedidoProjeto.PROCESSO_06  := mArquivoImportadoProcesso_06.AsInteger;
+          vControlePedidoProjeto.PROCESSO_07  := mArquivoImportadoProcesso_07.AsInteger;
+          vControlePedidoProjeto.PROCESSO_08  := mArquivoImportadoProcesso_08.AsInteger;
+          vControlePedidoProjeto.PROCESSO_09  := mArquivoImportadoProcesso_09.AsInteger;
+          vControlePedidoProjeto.PROCESSO_10  := mArquivoImportadoProcesso_10.AsInteger;
           if not vControlePedidoProjeto.InserePedidoProjeto then
             MessageDlg('Erro ao gravar o projeto',mtInformation,[mbOK],0);
         finally
@@ -328,18 +366,36 @@ var
   vControlePedidoProjeto : TPedidoControle;
   vControle : TControle;
   vCalcularPeso : TCalcluar_Peso;
+  vCont : Integer;
 begin
   vControle := TControle.Create;
   vControlePedidoProjeto := TPedidoControle.create(vControle);
   vCalcularPeso := TCalcluar_Peso.Create;
-  mArquivoImportado.First;
-  while not mArquivoImportado.Eof do
+  mArquivoImportado.EmptyDataSet;
+  vCont := SMDBGrid1.Columns.Count - 1;
+  mProcesso.EmptyDataSet;
+  fDMCadPedido.cdsProcesso.Open;
+  fDMCadPedido.cdsProcesso.First;
+  while not fDMCadPedido.cdsProcesso.Eof do
   begin
-    mArquivo_Proc.First;
-    while not mArquivo_Proc.Eof do
-      mArquivo_Proc.Delete;
-    mArquivoImportado.Delete;
+    if fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger > 0 then
+    begin
+      vCont := vCont + 1;
+      mProcesso.Insert;
+      mProcessoOrdem.AsInteger := fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger;
+      mProcessoID_Processo.AsInteger := fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger;
+      mProcessoNome.AsString         := fDMCadPedido.cdsProcessoNOME.AsString;
+      mProcessoQtd.AsInteger         := 0;
+      mProcessoDobra.AsString        := fDMCadPedido.cdsProcessoUSAR_QTD_DOBRA.AsString;
+      mProcessoColuna.AsInteger      := vCont;
+      mProcesso.Post;
+      SMDBGrid1.Columns.Add;
+      SMDBGrid1.Columns[vCont].FieldName := 'Processo_' + FormatFloat('00',fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger);
+      SMDBGrid1.Columns[vCont].Title.Caption := fDMCadPedido.cdsProcessoNOME.AsString;
+    end;
+    fDMCadPedido.cdsProcesso.Next;
   end;
+
   prc_Desabilita_Controles;
   Extensao := '*.PDF';
   Ret := FindFirst(Diretorio + '\' + Extensao, faAnyFile, F);
@@ -365,6 +421,17 @@ begin
         mArquivoImportadoVlr_Unitario.AsFloat := vControlePedidoProjeto.VLR_UNITARIO;
         mArquivoImportadoVlr_Dobra.AsFloat := vControlePedidoProjeto.VLR_DOBRA;
         mArquivoImportadoPrecoKG.AsFloat := vControlePedidoProjeto.PRECO_KG;
+
+        mArquivoImportadoProcesso_01.AsInteger := vControlePedidoProjeto.PROCESSO_01;
+        mArquivoImportadoProcesso_02.AsInteger := vControlePedidoProjeto.PROCESSO_02;
+        mArquivoImportadoProcesso_03.AsInteger := vControlePedidoProjeto.PROCESSO_03;
+        mArquivoImportadoProcesso_04.AsInteger := vControlePedidoProjeto.PROCESSO_04;
+        mArquivoImportadoProcesso_05.AsInteger := vControlePedidoProjeto.PROCESSO_05;
+        mArquivoImportadoProcesso_06.AsInteger := vControlePedidoProjeto.PROCESSO_06;
+        mArquivoImportadoProcesso_07.AsInteger := vControlePedidoProjeto.PROCESSO_07;
+        mArquivoImportadoProcesso_08.AsInteger := vControlePedidoProjeto.PROCESSO_08;
+        mArquivoImportadoProcesso_09.AsInteger := vControlePedidoProjeto.PROCESSO_09;
+        mArquivoImportadoProcesso_10.AsInteger := vControlePedidoProjeto.PROCESSO_10;
 
         vCalcularPeso.Comprimento := vControlePedidoProjeto.COMPRIMENTO;
         vCalcularPeso.Largura := vControlePedidoProjeto.LARGURA;
@@ -641,12 +708,6 @@ begin
     frmCadPedido_Proc.ShowModal;
     if frmCadPedido_Proc.btnConfirmar.ModalResult = 1 then
       prc_Gravar_mArquivo_Proc;
-    mArquivoImportado.Edit;
-    if mArquivo_Proc.IsEmpty then
-      mArquivoImportadoProcesso.AsString := ''
-    else
-      mArquivoImportadoProcesso.AsString := 'Sim';
-    mArquivoImportado.Post;
     FreeAndNil(frmCadPedido_Proc);
   end;
 
@@ -861,48 +922,11 @@ end;
 
 procedure TfrmMontaPed_TipoItem.prc_Carrega_mProcesso_Sel;
 begin
-  if not mArquivo_Proc.IsEmpty then
-  begin
-    fDMCadPedido.mProcesso_Sel.EmptyDataSet;
-    mArquivo_Proc.First;
-    while not mArquivo_Proc.Eof do
-    begin
-      fDMCadPedido.mProcesso_Sel.Insert;
-      fDMCadPedido.mProcesso_SelID.AsInteger        := mArquivo_ProcID.AsInteger;
-      fDMCadPedido.mProcesso_SelNome.AsString       := mArquivo_ProcNome.AsString;
-      fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger := mArquivo_ProcQtd_Dobra.AsInteger;
-      fDMCadPedido.mProcesso_SelOrdem.AsInteger     := mArquivo_ProcOrdem.AsInteger;
-      fDMCadPedido.mProcesso_Sel.Post;
-      mArquivo_Proc.Next;
-    end;
-  end;
 end;
 
 procedure TfrmMontaPed_TipoItem.prc_Gravar_mArquivo_Proc;
 begin
-  mArquivo_Proc.First;
-  while not mArquivo_Proc.Eof do
-    mArquivo_Proc.Delete;
-  fDMCadPedido.mProcesso_Sel.First;
-  while not fDMCadPedido.mProcesso_Sel.Eof do
-  begin
-    mArquivo_Proc.Insert;
-    mArquivo_ProcIterm.AsInteger := mArquivoImportadoItem.AsInteger;
-    mArquivo_ProcID.AsInteger    := fDMCadPedido.mProcesso_SelID.AsInteger;
-    mArquivo_ProcNome.AsString   := fDMCadPedido.mProcesso_SelNome.AsString;
-    mArquivo_ProcQtd_Dobra.AsInteger := fDMCadPedido.mProcesso_SelQtd_Dobra.AsInteger;
-    mArquivo_ProcOrdem.AsInteger     := fDMCadPedido.mProcesso_SelOrdem.AsInteger;
-    mArquivo_Proc.Post;
-    fDMCadPedido.mProcesso_Sel.Next;
-  end;
 
-end;
-
-procedure TfrmMontaPed_TipoItem.btnRecalcularClick(Sender: TObject);
-begin
-  if mArquivo_Proc.IsEmpty then
-    exit;
-  mArquivo_Proc.Delete;
 end;
 
 end.

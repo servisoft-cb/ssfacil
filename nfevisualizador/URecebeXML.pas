@@ -4302,18 +4302,20 @@ begin
     vFlag := True;
   end;
 
-  if fDMRecebeXML.cdsCFOPALT_NCM_CUSTO.AsString = 'S' then
+  if fDMRecebeXML.cdsCFOPALT_CUSTO.AsString = 'S' then
   begin
-    fDMRecebeXML.mItensNotaAtualizarNCM.AsBoolean        := True;
     fDMRecebeXML.mItensNotaAtualizarPreco.AsBoolean      := True;
     fDMRecebeXML.mItensNotaAtualizarCustoTotal.AsBoolean := True;
   end
   else
   begin
-    fDMRecebeXML.mItensNotaAtualizarNCM.AsBoolean        := False;
     fDMRecebeXML.mItensNotaAtualizarPreco.AsBoolean      := False;
     fDMRecebeXML.mItensNotaAtualizarCustoTotal.AsBoolean := False;
   end;
+  if fDMRecebeXML.cdsCFOPALT_NCM_CUSTO.AsString = 'S' then
+    fDMRecebeXML.mItensNotaAtualizarNCM.AsBoolean := True
+  else
+    fDMRecebeXML.mItensNotaAtualizarNCM.AsBoolean := False;
   if vFlag then
     fDMRecebeXML.mItensNota.Post;
 end;

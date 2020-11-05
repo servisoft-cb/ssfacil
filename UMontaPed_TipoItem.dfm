@@ -1,6 +1,6 @@
 object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
-  Left = 178
-  Top = 24
+  Left = 86
+  Top = 30
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmMontaPed_TipoItem'
@@ -17,7 +17,6 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   Position = poScreenCenter
   OnClose = FormClose
   OnDestroy = FormDestroy
-  OnKeyDown = FormKeyDown
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
@@ -40,7 +39,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object btnCarrega: TSpeedButton
       Left = 458
-      Top = 11
+      Top = 10
       Width = 137
       Height = 37
       Caption = 'Carregar Arquivos'
@@ -393,9 +392,9 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   end
   object Panel2: TPanel
     Left = 0
-    Top = 546
+    Top = 603
     Width = 1067
-    Height = 97
+    Height = 40
     Align = alBottom
     Color = 16777134
     TabOrder = 2
@@ -454,106 +453,19 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       TabOrder = 0
       OnClick = btnCopiarClick
     end
-    object SMDBGrid3: TSMDBGrid
-      Left = 730
-      Top = 1
-      Width = 336
-      Height = 95
-      Align = alRight
-      Ctl3D = False
-      DataSource = dsArquivo_Proc
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -11
-      Font.Name = 'MS Sans Serif'
-      Font.Style = []
-      Options = [dgEditing, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
-      ParentCtl3D = False
-      ParentFont = False
-      ReadOnly = True
-      TabOrder = 1
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clBlue
-      TitleFont.Height = -11
-      TitleFont.Name = 'MS Sans Serif'
-      TitleFont.Style = []
-      Flat = True
-      BandsFont.Charset = DEFAULT_CHARSET
-      BandsFont.Color = clWindowText
-      BandsFont.Height = -11
-      BandsFont.Name = 'MS Sans Serif'
-      BandsFont.Style = []
-      Groupings = <>
-      GridStyle.Style = gsCustom
-      GridStyle.OddColor = clWindow
-      GridStyle.EvenColor = clWindow
-      TitleHeight.PixelCount = 24
-      FooterColor = clBtnFace
-      ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
-      RegistryKey = 'Software\Scalabium'
-      RegistrySection = 'SMDBGrid'
-      WidthOfIndicator = 11
-      DefaultRowHeight = 16
-      ScrollBars = ssHorizontal
-      ColCount = 3
-      RowCount = 1
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'Qtd_Dobra'
-          Title.Alignment = taCenter
-          Title.Caption = 'Qtd. '
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clBlue
-          Title.Font.Height = -11
-          Title.Font.Name = 'Verdana'
-          Title.Font.Style = []
-          Width = 40
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'Nome'
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clBlue
-          Title.Font.Height = -11
-          Title.Font.Name = 'Verdana'
-          Title.Font.Style = []
-          Width = 150
-          Visible = True
-        end>
-    end
-    object btnRecalcular: TRzBitBtn
-      Left = 706
-      Top = 1
-      Width = 24
-      Height = 95
-      Cursor = crHandPoint
-      Align = alRight
-      Caption = 'E x c l u i r'
-      Color = 16759929
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clRed
-      Font.Height = -11
-      Font.Name = 'Courier'
-      Font.Style = [fsBold]
-      ParentFont = False
-      TabOrder = 2
-      OnClick = btnRecalcularClick
-    end
   end
   object pnlItens: TPanel
     Left = 0
     Top = 116
     Width = 1067
-    Height = 430
+    Height = 487
     Align = alClient
     TabOrder = 3
     object SMDBGrid1: TSMDBGrid
       Left = 1
       Top = 1
       Width = 1065
-      Height = 428
+      Height = 485
       Align = alClient
       Ctl3D = False
       DataSource = dsmArquivoImportado
@@ -586,13 +498,13 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       WidthOfIndicator = 27
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 13
+      ColCount = 12
       RowCount = 2
       Columns = <
         item
           Expanded = False
           FieldName = 'NomeArquivo'
-          Width = 172
+          Width = 200
           Visible = True
         end
         item
@@ -660,6 +572,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
           Visible = True
         end
         item
+          Alignment = taCenter
           Color = clSilver
           Expanded = False
           FieldName = 'Codigo_Produto'
@@ -668,21 +581,125 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
           Title.Caption = 'C'#243'digo Produto'
           Width = 99
           Visible = True
-        end
-        item
-          Alignment = taCenter
-          Expanded = False
-          FieldName = 'Processo'
-          Title.Alignment = taCenter
-          Title.Caption = 'Processo Informado'
-          Width = 68
-          Visible = True
         end>
     end
   end
   object mArquivoImportado: TClientDataSet
+    Active = True
     Aggregates = <>
-    FieldDefs = <>
+    FieldDefs = <
+      item
+        Name = 'CaminhoArquivo'
+        DataType = ftString
+        Size = 150
+      end
+      item
+        Name = 'NomeArquivo'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'ExtensaoArquivo'
+        DataType = ftString
+        Size = 10
+      end
+      item
+        Name = 'Comprimento'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Largura'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Espessura'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Qtde'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Peso'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Unitario'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Dobra'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Total'
+        DataType = ftFloat
+      end
+      item
+        Name = 'PrecoKG'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Codigo_Produto'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Altura'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Fator_Calculo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Processo'
+        DataType = ftString
+        Size = 3
+      end
+      item
+        Name = 'Item'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_01'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_02'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_03'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_04'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_05'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_06'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_07'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_08'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_09'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Processo_10'
+        DataType = ftInteger
+      end>
     IndexDefs = <
       item
         Name = 'DEFAULT_ORDER'
@@ -694,8 +711,29 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Params = <>
     StoreDefs = True
     OnNewRecord = mArquivoImportadoNewRecord
-    Left = 274
+    Left = 273
     Top = 327
+    Data = {
+      5E0200009619E0BD01000000180000001B0000000000030000005E020E43616D
+      696E686F4172717569766F01004900000001000557494454480200020096000B
+      4E6F6D654172717569766F01004900000001000557494454480200020028000F
+      457874656E73616F4172717569766F0100490000000100055749445448020002
+      000A000B436F6D7072696D656E746F0800040000000000074C61726775726108
+      0004000000000009457370657373757261080004000000000004517464650800
+      040000000000045065736F08000400000000000C566C725F556E69746172696F
+      080004000000000009566C725F446F627261080004000000000009566C725F54
+      6F74616C080004000000000007507265636F4B4708000400000000000E436F64
+      69676F5F50726F6475746F040001000000000006416C74757261080004000000
+      00000D4661746F725F43616C63756C6F08000400000000000850726F63657373
+      6F0100490000000100055749445448020002000300044974656D040001000000
+      00000B50726F636573736F5F303104000100000000000B50726F636573736F5F
+      303204000100000000000B50726F636573736F5F303304000100000000000B50
+      726F636573736F5F303404000100000000000B50726F636573736F5F30350400
+      0100000000000B50726F636573736F5F303604000100000000000B50726F6365
+      73736F5F303704000100000000000B50726F636573736F5F3038040001000000
+      00000B50726F636573736F5F303904000100000000000B50726F636573736F5F
+      3130040001000000000001000D44454641554C545F4F52444552020082000000
+      0000}
     object mArquivoImportadoCaminhoArquivo: TStringField
       DisplayWidth = 150
       FieldName = 'CaminhoArquivo'
@@ -795,8 +833,35 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     object mArquivoImportadoItem: TIntegerField
       FieldName = 'Item'
     end
-    object mArquivoImportadoID_Processo1: TIntegerField
-      FieldName = 'ID_Processo1'
+    object mArquivoImportadoProcesso_01: TIntegerField
+      FieldName = 'Processo_01'
+    end
+    object mArquivoImportadoProcesso_02: TIntegerField
+      FieldName = 'Processo_02'
+    end
+    object mArquivoImportadoProcesso_03: TIntegerField
+      FieldName = 'Processo_03'
+    end
+    object mArquivoImportadoProcesso_04: TIntegerField
+      FieldName = 'Processo_04'
+    end
+    object mArquivoImportadoProcesso_05: TIntegerField
+      FieldName = 'Processo_05'
+    end
+    object mArquivoImportadoProcesso_06: TIntegerField
+      FieldName = 'Processo_06'
+    end
+    object mArquivoImportadoProcesso_07: TIntegerField
+      FieldName = 'Processo_07'
+    end
+    object mArquivoImportadoProcesso_08: TIntegerField
+      FieldName = 'Processo_08'
+    end
+    object mArquivoImportadoProcesso_09: TIntegerField
+      FieldName = 'Processo_09'
+    end
+    object mArquivoImportadoProcesso_10: TIntegerField
+      FieldName = 'Processo_10'
     end
   end
   object dsmArquivoImportado: TDataSource
@@ -804,41 +869,66 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Left = 304
     Top = 328
   end
-  object mArquivo_Proc: TClientDataSet
+  object mProcesso: TClientDataSet
     Active = True
     Aggregates = <>
-    IndexFieldNames = 'Iterm'
-    MasterFields = 'Item'
-    MasterSource = dsmArquivoImportado
-    PacketRecords = 0
+    FieldDefs = <
+      item
+        Name = 'Ordem'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_Processo'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'Qtd'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Dobra'
+        DataType = ftString
+        Size = 1
+      end
+      item
+        Name = 'Coluna'
+        DataType = ftInteger
+      end>
+    IndexDefs = <>
     Params = <>
-    Left = 431
-    Top = 355
+    StoreDefs = True
+    Left = 710
+    Top = 304
     Data = {
-      6C0000009619E0BD0100000018000000050000000000030000006C0005497465
-      726D04000100000000000249440400010000000000044E6F6D65010049000000
-      0100055749445448020002002800095174645F446F6272610400010000000000
-      054F7264656D04000100000000000000}
-    object mArquivo_ProcIterm: TIntegerField
-      FieldName = 'Iterm'
+      8A0000009619E0BD0100000018000000060000000000030000008A00054F7264
+      656D04000100000000000B49445F50726F636573736F0400010000000000044E
+      6F6D650100490000000100055749445448020002002800035174640400010000
+      00000005446F627261010049000000010005574944544802000200010006436F
+      6C756E6104000100000000000000}
+    object mProcessoOrdem: TIntegerField
+      FieldName = 'Ordem'
     end
-    object mArquivo_ProcID: TIntegerField
-      FieldName = 'ID'
+    object mProcessoID_Processo: TIntegerField
+      FieldName = 'ID_Processo'
     end
-    object mArquivo_ProcNome: TStringField
+    object mProcessoNome: TStringField
       FieldName = 'Nome'
       Size = 40
     end
-    object mArquivo_ProcQtd_Dobra: TIntegerField
-      FieldName = 'Qtd_Dobra'
+    object mProcessoQtd: TIntegerField
+      FieldName = 'Qtd'
     end
-    object mArquivo_ProcOrdem: TIntegerField
-      FieldName = 'Ordem'
+    object mProcessoDobra: TStringField
+      FieldName = 'Dobra'
+      Size = 1
     end
-  end
-  object dsArquivo_Proc: TDataSource
-    DataSet = mArquivo_Proc
-    Left = 459
-    Top = 354
+    object mProcessoColuna: TIntegerField
+      FieldName = 'Coluna'
+    end
   end
 end
