@@ -373,6 +373,8 @@ type
     btnAltPreco: TBitBtn;
     SMDBGrid3: TSMDBGrid;
     NxSplitter1: TNxSplitter;
+    Shape11: TShape;
+    Label88: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -1160,6 +1162,10 @@ begin
   btnConsTempo.Visible := (fDMCadPedido.qParametros_GeralUSA_TIPO_MATERIAL.AsString = 'S');
   DBCheckBox5.Visible  := (fDMCadPedido.qParametros_FinUSA_NGR.AsString = 'S');
   DBCheckBox6.Visible  := (fDMCadPedido.qParametros_PedUSA_AMOSTRA.AsString = 'S');
+
+  Shape11.Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
+  Label88.Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
+
   addLog('Inicio Monta Menu','Tempo_Execucao.txt');
 
   prc_Abre_Filial_Menu(1,2);
@@ -2067,13 +2073,10 @@ begin
   end
   else
   if (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) > 0) and (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime <= 10)
-    and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat)) <= 0) and ()   then
+    and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat)) <= 0) and (fDMCadPedido.cdsPedido_ItensSTATUS_PRODUCAO.AsString = 'I') then
   begin
-    Background  := $000080FF;
-    AFont.Color := clBlack;
-
-
-
+    Background  := $00A7FF4F;
+    AFont.Color := clBlack;  
   end
   else
   if (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat)) > 0) then

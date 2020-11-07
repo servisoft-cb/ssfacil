@@ -3912,6 +3912,8 @@ type
     cdsPedidoImp_Item_ProcNOME_PROCESSO: TStringField;
     frxPedidoImp_Item_Proc: TfrxDBDataset;
     qParametros_PedID_PROCESSO_FINAL: TIntegerField;
+    sdsPedido_ItensSTATUS_PRODUCAO: TStringField;
+    cdsPedido_ItensSTATUS_PRODUCAO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
