@@ -220,14 +220,15 @@ var
 begin
   fDMAprovacao_Ped := TDMAprovacao_Ped.Create(Self);
   try
-    fDMConferencia.sdsprc_Baixa_Pedido_Proc.Close;
-    fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('P_NUM_PEDIDO').AsInteger := fDMConferencia.qPedido_ItemNUM_PEDIDO.AsInteger;
-    fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('P_ITEM').AsInteger       := fDMConferencia.qPedido_ItemITEM.AsInteger;
-    //fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('P_USUARIO').AsString     := vUsuario;
-    fDMConferencia.sdsprc_Baixa_Pedido_Proc.ExecSQL;
+    fDMConferencia.sqlProcBaixaPedidoProc.Close;
+//    fDMConferencia.sqlProcBaixaPedidoProc.Prepare;
 
-    vNomeProc  := fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('R_NOME_PROCESSO').AsString;
-    vConferido := fDMConferencia.sdsprc_Baixa_Pedido_Proc.ParamByName('R_CONFERIDO').AsString;
+    fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_NUM_PEDIDO').AsInteger := fDMConferencia.qPedido_ItemNUM_PEDIDO.AsInteger;
+    fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_ITEM').AsInteger       := fDMConferencia.qPedido_ItemITEM.AsInteger;
+//    fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_USUARIO').AsString     := vUsuario;
+    fDMConferencia.sqlProcBaixaPedidoProc.ExecProc;
+    vNomeProc  := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_NOME_PROCESSO').AsString;
+    vConferido := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_CONFERIDO').AsString;
 
     fDMConferencia.cdsConsPedido_Item_Proc.Close;
     fDMConferencia.cdsConsPedido_Item_Proc.Open;

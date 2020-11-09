@@ -2073,10 +2073,11 @@ begin
   end
   else
   if (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) > 0) and (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime <= 10)
-    and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat)) <= 0) and (fDMCadPedido.cdsPedido_ItensSTATUS_PRODUCAO.AsString = 'I') then
+    and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat)) <= 0) and (fDMCadPedido.cdsPedido_ItensSTATUS_PRODUCAO.AsString = '1')
+    and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
   begin
-    Background  := $00A7FF4F;
-    AFont.Color := clBlack;  
+    Background  := $00FF8080;
+    AFont.Color := clWindow;  
   end
   else
   if (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat)) <= 0) and (StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat)) > 0) then
@@ -3526,6 +3527,7 @@ var
   ffrmCadPedido_Itens_Copia: TfrmCadPedido_Itens_Copia;
   cdsTemp: TClientDataSet;
   cdsTemp_Tipo: TClientDataSet;
+  cdsTemp_Processo: TClientDataSet;
   i: Integer;
   vItemAux: Integer;
   vItemPed: Integer;
@@ -3566,9 +3568,12 @@ begin
 
   cdsTemp          := TClientDataSet.Create(nil);
   cdsTemp_Tipo     := TClientDataSet.Create(nil);
+  cdsTemp_Processo := TClientDataSet.Create(nil); 
+
   try
     cdsTemp.CloneCursor(fDMCadPedido.cdsPedido_Itens,False,False);
     cdsTemp_Tipo.CloneCursor(fDMCadPedido.cdsPedido_Item_Tipo,False,False);
+    cdsTemp_Processo.CloneCursor(fDMCadPedido.cdsPedido_Item_Processo,False,False);
     cdsTemp.Filtered := False;
     if fDMCadPedido.cdsPedido_ItensITEM_ORIGINAL.AsInteger > 0 then
       cdsTemp.Filter := 'ITEM_ORIGINAL = ''' + IntToStr(fDMCadPedido.cdsPedido_ItensITEM_ORIGINAL.AsInteger) + ''''
@@ -3612,6 +3617,22 @@ begin
         fDMCadPedido.cdsPedido_Item_TipoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
         fDMCadPedido.cdsPedido_Item_Tipo.Post;
         cdsTemp_Tipo.Next;
+      end;
+      //*********************
+      
+      //26/09/2020
+      cdsTemp_Processo.First;
+      while not cdsTemp_Processo.Eof do
+      begin
+        fDMCadPedido.cdsPedido_Item_Processo.Insert;
+        for i := 0 to ( cdsTemp_Processo.FieldCount - 1) do
+        begin
+          fDMCadPedido.cdsPedido_Item_Processo.FieldByName(cdsTemp_Processo.Fields[i].FieldName).AsVariant := cdsTemp_Processo.Fields[i].Value;
+        end;
+        fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
+        fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+        fDMCadPedido.cdsPedido_Item_Processo.Post;
+        cdsTemp_Processo.Next;
       end;
       //*********************
 

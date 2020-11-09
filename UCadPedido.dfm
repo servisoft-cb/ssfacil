@@ -129,6 +129,7 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'APROVADO_PED'
             Title.Alignment = taCenter
             Title.Caption = 'Aprovado'
+            Width = 64
             Visible = True
           end
           item
@@ -169,7 +170,6 @@ object frmCadPedido: TfrmCadPedido
             Expanded = False
             FieldName = 'DTEMISSAO'
             Title.Alignment = taCenter
-            Width = 64
             Visible = True
           end
           item
@@ -6776,10 +6776,10 @@ object frmCadPedido: TfrmCadPedido
         end
         object Shape11: TShape
           Left = 416
-          Top = 5
+          Top = 6
           Width = 30
           Height = 16
-          Brush.Color = 11009871
+          Brush.Color = 16744576
         end
         object Label88: TLabel
           Left = 448

@@ -2293,9 +2293,9 @@ object DMConferencia: TDMConferencia
       Size = 100
     end
   end
-  object sdsPRC_Baixa_Pedido_Proc: TSQLDataSet
-    CommandText = 'PRC_BAIXA_PEDIDO_PROC'
-    CommandType = ctStoredProc
+  object sqlProcBaixaPedidoProc: TSQLStoredProc
+    NoMetadata = True
+    GetMetadata = False
     MaxBlobSize = -1
     Params = <
       item
@@ -2313,17 +2313,16 @@ object DMConferencia: TDMConferencia
         Name = 'R_NOME_PROCESSO'
         ParamType = ptOutput
         Size = 40
-        Value = ''
       end
       item
         DataType = ftString
         Name = 'R_CONFERIDO'
         ParamType = ptOutput
         Size = 1
-        Value = ''
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 761
-    Top = 426
+    StoredProcName = 'PRC_BAIXA_PEDIDO_PROC'
+    Left = 745
+    Top = 425
   end
 end

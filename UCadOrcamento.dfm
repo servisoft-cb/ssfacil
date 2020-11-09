@@ -25,7 +25,7 @@ object frmCadOrcamento: TfrmCadOrcamento
     Top = 0
     Width = 1008
     Height = 677
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadOrcamento: TfrmCadOrcamento
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -1167,7 +1167,6 @@ object frmCadOrcamento: TfrmCadOrcamento
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
-            Width = 64
             Visible = True
           end>
       end
@@ -2585,7 +2584,6 @@ object frmCadOrcamento: TfrmCadOrcamento
               item
                 Expanded = False
                 FieldName = 'REFERENCIA'
-                Width = 64
                 Visible = True
               end
               item
@@ -2680,7 +2678,6 @@ object frmCadOrcamento: TfrmCadOrcamento
                 FieldName = 'GRAVACAO_COM_ERRO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Com Notifica'#231#227'o'
-                Width = 64
                 Visible = True
               end>
           end
@@ -3766,7 +3763,6 @@ object frmCadOrcamento: TfrmCadOrcamento
               item
                 Expanded = False
                 FieldName = 'VLR_TOTAL'
-                Width = 64
                 Visible = True
               end>
           end

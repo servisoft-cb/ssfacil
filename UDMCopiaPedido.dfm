@@ -1363,6 +1363,9 @@ object DMCopiaPedido: TDMCopiaPedido
       FixedChar = True
       Size = 1
     end
+    object cdsPedido_ItenssdsPedido_Item_Processo: TDataSetField
+      FieldName = 'sdsPedido_Item_Processo'
+    end
   end
   object dsPedido_Itens: TDataSource
     DataSet = cdsPedido_Itens
@@ -1383,8 +1386,8 @@ object DMCopiaPedido: TDMCopiaPedido
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 112
-    Top = 216
+    Left = 120
+    Top = 256
     object sdsPedido_DescontoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1405,8 +1408,8 @@ object DMCopiaPedido: TDMCopiaPedido
     DataSetField = cdsPedidosdsPedido_Desconto
     IndexFieldNames = 'ID;ITEM'
     Params = <>
-    Left = 144
-    Top = 216
+    Left = 152
+    Top = 256
     object cdsPedido_DescontoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1424,8 +1427,8 @@ object DMCopiaPedido: TDMCopiaPedido
   end
   object dsPedido_Desconto: TDataSource
     DataSet = cdsPedido_Desconto
-    Left = 176
-    Top = 216
+    Left = 184
+    Top = 256
   end
   object sdsPedido_Item_Tipo: TSQLDataSet
     CommandText = 
@@ -1681,5 +1684,146 @@ object DMCopiaPedido: TDMCopiaPedido
     object mAuxNum_Pedido: TIntegerField
       FieldName = 'Num_Pedido'
     end
+  end
+  object sdsPedido_Item_Processo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select P.*, PR.NOME, PR.ORDEM_MAPA,'#13#10'       case'#13#10'         when ' +
+      'PR.USAR_QTD_DOBRA = '#39'S'#39' then PR.NOME || '#39'  Qtd.: '#39' ||  coalesce(' +
+      'P.QTD_DOBRA,1)'#13#10'         else PR.NOME'#13#10'       end NOME2'#13#10'from PE' +
+      'DIDO_ITEM_PROCESSO P'#13#10'left join PROCESSO PR on P.ID_PROCESSO = P' +
+      'R.ID'#13#10'where P.ID = :ID and'#13#10'      P.ITEM = :ITEM '#13#10#13#10
+    DataSource = dsPedido_Item_Mestre
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+        Size = 4
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM'
+        ParamType = ptInput
+        Size = 4
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 118
+    Top = 203
+    object sdsPedido_Item_ProcessoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPedido_Item_ProcessoITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPedido_Item_ProcessoITEM_PROCESSO: TIntegerField
+      FieldName = 'ITEM_PROCESSO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsPedido_Item_ProcessoID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object sdsPedido_Item_ProcessoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object sdsPedido_Item_ProcessoDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object sdsPedido_Item_ProcessoHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object sdsPedido_Item_ProcessoDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object sdsPedido_Item_ProcessoHRSAIDA: TTimeField
+      FieldName = 'HRSAIDA'
+    end
+    object sdsPedido_Item_ProcessoNOME: TStringField
+      FieldName = 'NOME'
+      ProviderFlags = []
+      Size = 30
+    end
+    object sdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField
+      FieldName = 'ORDEM_MAPA'
+      ProviderFlags = []
+    end
+    object sdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField
+      FieldName = 'QTD_DOBRA'
+    end
+    object sdsPedido_Item_ProcessoNOME2: TStringField
+      FieldName = 'NOME2'
+      ProviderFlags = []
+      Size = 49
+    end
+  end
+  object cdsPedido_Item_Processo: TClientDataSet
+    Aggregates = <>
+    DataSetField = cdsPedido_ItenssdsPedido_Item_Processo
+    IndexFieldNames = 'ID;ITEM;ITEM_PROCESSO'
+    Params = <>
+    Left = 148
+    Top = 204
+    object cdsPedido_Item_ProcessoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPedido_Item_ProcessoITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPedido_Item_ProcessoITEM_PROCESSO: TIntegerField
+      FieldName = 'ITEM_PROCESSO'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsPedido_Item_ProcessoID_PROCESSO: TIntegerField
+      FieldName = 'ID_PROCESSO'
+    end
+    object cdsPedido_Item_ProcessoQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsPedido_Item_ProcessoDTENTRADA: TDateField
+      FieldName = 'DTENTRADA'
+    end
+    object cdsPedido_Item_ProcessoHRENTRADA: TTimeField
+      FieldName = 'HRENTRADA'
+    end
+    object cdsPedido_Item_ProcessoDTBAIXA: TDateField
+      FieldName = 'DTBAIXA'
+    end
+    object cdsPedido_Item_ProcessoHRSAIDA: TTimeField
+      FieldName = 'HRSAIDA'
+    end
+    object cdsPedido_Item_ProcessoNOME: TStringField
+      FieldName = 'NOME'
+      ProviderFlags = []
+      Size = 30
+    end
+    object cdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField
+      FieldName = 'ORDEM_MAPA'
+      ProviderFlags = []
+    end
+    object cdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField
+      FieldName = 'QTD_DOBRA'
+    end
+    object cdsPedido_Item_ProcessoNOME2: TStringField
+      FieldName = 'NOME2'
+      ProviderFlags = []
+      Size = 49
+    end
+  end
+  object dsPedido_Item_Processo: TDataSource
+    DataSet = cdsPedido_Item_Processo
+    Left = 179
+    Top = 203
   end
 end
