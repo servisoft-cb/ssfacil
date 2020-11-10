@@ -5,7 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, Grids, DBGrids, SMDBGrid, ExtCtrls, UNFCe,
   NxCollection, uDmCupomFiscal, RxLookup, StdCtrls, Mask, ToolEdit, rsDBUtils, dateUtils, db, StrUtils, uDmParametros, Menus, 
-  ACBrDevice, Buttons, CurrEdit, UCupomFiscal_Canc, DBCtrls, UCBase, uDmEstoque, uDmMovimento, dbXPress, SqlExpr, uDmMySql;
+  ACBrDevice, Buttons, CurrEdit, UCupomFiscal_Canc, DBCtrls, UCBase, uDmEstoque, uDmMovimento, dbXPress, SqlExpr;
+// uDmMySql;
 
 type
   TfCupomFiscalC = class(TForm)
@@ -133,7 +134,7 @@ type
     { Private declarations }
     fDmCupomFiscal: TDmCupomFiscal;
     fDmEstoque: TDmEstoque;
-    fDmMySql: TDmMySql;
+//    fDmMySql: TDmMySql;
     fDmMovimento: TDmMovimento;
     ffNFCe: TfNFCe;
     ffCupomFiscal_Canc: TfCupomFiscal_Canc;
@@ -1801,8 +1802,7 @@ begin
                                                    fDmCupomFiscal.cdsCupomFiscalID_VENDEDOR.AsInteger,
                                                    fDmCupomFiscal.cdsCupom_ItensID_COR_COMBINACO.AsInteger,
                                                    fDmCupomFiscal.cdsCupomFiscalPERC_VENDEDOR.AsFloat,0,0,vTerminal,0,'N',
-                                                   0,0,0,0,0,0,0,0,0,0,0,
-                                                   fDmCupomFiscal.cdsCupom_ItensPRECO_CUSTO.AsFloat);
+                                                   0,0,0,0,0,0,0,0,0,0,0);
       fDmCupomFiscal.cdsCupom_Itens.Post;
       fDmCupomFiscal.cdsCupom_Itens.ApplyUpdates(0);
     end;
@@ -2299,8 +2299,7 @@ begin
                                                    fDmCupomFiscal.cdsCupomFiscalID_VENDEDOR.AsInteger,
                                                    fDmCupomFiscal.cdsCupom_ItensID_COR_COMBINACO.AsInteger,
                                                    fDmCupomFiscal.cdsCupomFiscalPERC_VENDEDOR.AsFloat,0,0,vTerminal,0,'N',
-                                                   0,0,0,0,0,0,0,0,0,0,0,
-                                                   fDmCupomFiscal.cdsCupom_ItensPRECO_CUSTO.AsFloat);
+                                                   0,0,0,0,0,0,0,0,0,0,0);
     end;
     if (fDmCupomFiscal.cdsCupom_ItensID_MOVESTOQUE.AsInteger <> vID_Estoque) or (fDmCupomFiscal.cdsCupom_ItensID_MOVIMENTO.AsInteger <> vID_Mov) then
     begin
@@ -2319,7 +2318,7 @@ begin
       fDMCadCupomFiscal_MP.prc_Le_Produto_Consumo;
     end;
 
-    case fDmCupomFiscal.cdsCupomFiscalID_CANAL_VENDA.AsInteger of
+{    case fDmCupomFiscal.cdsCupomFiscalID_CANAL_VENDA.AsInteger of
       1: begin    //Hypnotize
            fDmMySql := TDmMySql.Create(Self);
            fDmMySql.qAtualizaEstoque.ParamByName('E1').AsString  := Copy(fDmCupomFiscal.cdsProdutoCOD_BARRA.AsString,1,4);
@@ -2328,7 +2327,7 @@ begin
            fDmMySql.qAtualizaEstoque.ExecSQL;
          end;
       end;
-
+ }
     fDmCupomFiscal.cdsCupom_Itens.Next;
   end;
   SMDBGrid1.EnableScroll;
