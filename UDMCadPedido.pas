@@ -3914,6 +3914,9 @@ type
     qParametros_PedID_PROCESSO_FINAL: TIntegerField;
     sdsPedido_ItensSTATUS_PRODUCAO: TStringField;
     cdsPedido_ItensSTATUS_PRODUCAO: TStringField;
+    sdsPedido_ItensOBS_REDUZIDA: TStringField;
+    cdsPedido_ItensOBS_REDUZIDA: TStringField;
+    cdsPedidoImp_ItensOBS_REDUZIDA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

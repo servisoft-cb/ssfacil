@@ -154,6 +154,8 @@ type
     DBEdit8: TDBEdit;
     dbrdgEncerado: TDBRadioGroup;
     dbckDraw: TDBCheckBox;
+    Label49: TLabel;
+    DBEdit10: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure Panel2Enter(Sender: TObject);
@@ -530,6 +532,8 @@ begin
       dbckDraw.Visible := False;
   end;
   //*************************
+  Label49.Visible :=  (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
+  DBEdit10.Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
 end;
 
 procedure TfrmCadPedido_Itens.Panel2Enter(Sender: TObject);

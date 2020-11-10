@@ -937,6 +937,8 @@ begin
     end;
     if (SMDBGrid2.Columns[i].FieldName = 'FABRICA') then
       SMDBGrid2.Columns[i].Visible := (fDMCadPedido.qParametros_PedUSA_FABRICA.AsString = 'S');
+    if (SMDBGrid2.Columns[i].FieldName = 'OBS_REDUZIDA') then
+      SMDBGrid2.Columns[i].Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
     if (SMDBGrid2.Columns[i].FieldName = 'QTD_ESTOQUE_RES') then
       SMDBGrid2.Columns[i].Visible := (fDMCadPedido.qParametros_PedUSA_RESERVA_EST.AsString = 'S');
     if (SMDBGrid2.Columns[i].FieldName = 'DRAWBACK') then
@@ -1466,26 +1468,30 @@ begin
 end;
 
 procedure TfrmCadPedido.btnExcluir_ItensClick(Sender: TObject);
+var
+  vMSGAux : String;
 begin
   if not(fDMCadPedido.cdsPedido_Itens.Active) and (fDMCadPedido.cdsPedido_Itens.IsEmpty) or (fDMCadPedido.cdsPedido_ItensITEM.AsInteger < 1) then
     Exit;
 
+  vMSGAux := '';  
   if (fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat > 0) then
-  begin
-    MessageDlg('*** Item já possui quantidade faturada!',mtError, [mbOk], 0);
-    Exit;
-  end;
-
+    vMSGAux := vMSGAux + #13 + '*** Item já possui quantidade faturada!';
   if (fDMCadPedido.qParametros_LoteLOTE_TEXTIL.AsString = 'S') and (fnc_Lote) then
-  begin
-    MessageDlg('*** Lote/Talão de Produção gerado!',mtError, [mbOk], 0);
-    exit;
-  end
+    vMSGAux := vMSGAux + #13 + '*** Lote/Talão de Produção gerado!'
   else
   if (fDMCadPedido.cdsParametrosUSA_LOTE.AsString = 'S') and (fnc_Lote) then
+    vMSGAux := vMSGAux + #13 + '*** Lote/Talão de Produção gerado!';
+  //09/11/2020
+  if (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime > 10) and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
+    vMSGAux := vMSGAux + #13 + '*** Item já foi conferido!';
+  if (fDMCadPedido.cdsPedido_ItensSTATUS_PRODUCAO.AsString = '1') and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
+    vMSGAux := vMSGAux + #13 + '*** Item com produção já inicializada!';
+  //**************
+  if trim(vMSGAux) <> '' then
   begin
-    MessageDlg('*** Lote/Talão de Produção gerado!',mtError, [mbOk], 0);
-    exit;
+    MessageDlg(vMSGAux, mtError, [mbOk], 0);
+    Exit;
   end;
 
   //28/08/2018
@@ -1629,10 +1635,14 @@ begin
     exit;
   if (fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat > 0) then
     vMSGAux := vMSGAux + #13 + '*** Item já possui quantidade faturada!';
-
   if (fDMCadPedido.cdsPedido_ItensQTD_CANCELADO.AsFloat > 0) then
     vMSGAux := vMSGAux + #13 + '*** Item quantidade cancelada!';
-
+  //09/11/2020
+  if (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime > 10) and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
+    vMSGAux := vMSGAux + #13 + '*** Item já foi conferido!';
+  if (fDMCadPedido.cdsPedido_ItensSTATUS_PRODUCAO.AsString = '1') and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
+    vMSGAux := vMSGAux + #13 + '*** Item com produção já inicializada!';
+  //**************
   if fDMCadPedido.qParametros_UsuarioALT_IT_PED_COM_OP.AsString <> 'S' then
   begin
     //Foi liberado com senha no início 20/03/2018
@@ -1643,13 +1653,11 @@ begin
     if (fDMCadPedido.cdsParametrosUSA_LOTE.AsString = 'S') and (fnc_Lote) then
       vMSGAux := vMSGAux + #13 + '*** Lote/Talão de Produção gerado!';
   end;
-
-  if Trim(vMSGAux) <> '' then
+  if trim(vMSGAux) <> '' then
   begin
     MessageDlg(vMSGAux, mtError, [mbOk], 0);
     Exit;
   end;
-
   if (fDMCadPedido.cdsPedidoROTULO_IMP.AsString = 'S') and (fDMCadPedido.qParametros_PedCONTROLAR_ROT_IMPRESSO.AsString = 'S') then
     if not fnc_senha('ROT','SENHA_PEDIDO','R','','Rótulo já impresso','',0) then
       exit;

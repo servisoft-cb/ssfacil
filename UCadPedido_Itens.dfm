@@ -561,6 +561,14 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       Alignment = taRightJustify
       Caption = 'F'#225'brica:'
     end
+    object Label49: TLabel
+      Left = 37
+      Top = 215
+      Width = 73
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'OBS Reduzida:'
+    end
     object dbedtQtd: TDBEdit
       Left = 112
       Top = 5
@@ -1750,7 +1758,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
     end
     object btnProdCliente: TNxButton
       Left = 414
-      Top = 216
+      Top = 233
       Width = 131
       Height = 25
       Caption = 'Produto Cliente'
@@ -1792,6 +1800,18 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       DataSource = DMCadPedido.dsPedido_Itens
       ParentCtl3D = False
       TabOrder = 8
+    end
+    object DBEdit10: TDBEdit
+      Left = 112
+      Top = 209
+      Width = 435
+      Height = 19
+      CharCase = ecUpperCase
+      Ctl3D = False
+      DataField = 'OBS_REDUZIDA'
+      DataSource = DMCadPedido.dsPedido_Itens
+      ParentCtl3D = False
+      TabOrder = 19
     end
   end
   object pnlCod_Barras: TPanel

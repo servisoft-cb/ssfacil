@@ -7,12 +7,12 @@ object DMCadPedido: TDMCadPedido
   object sdsPedido: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM PEDIDO'#13#10#13#10
+    CommandText = 'SELECT *'#13#10'FROM PEDIDO'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 25
-    Top = 5
+    Top = 6
     object sdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -3393,6 +3393,10 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object sdsPedido_ItensOBS_REDUZIDA: TStringField
+      FieldName = 'OBS_REDUZIDA'
+      Size = 250
+    end
   end
   object cdsPedido_Itens: TClientDataSet
     Aggregates = <>
@@ -4060,6 +4064,10 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'STATUS_PRODUCAO'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedido_ItensOBS_REDUZIDA: TStringField
+      FieldName = 'OBS_REDUZIDA'
+      Size = 250
     end
   end
   object dsPedido_Itens: TDataSource
@@ -5640,6 +5648,10 @@ object DMCadPedido: TDMCadPedido
     object cdsPedidoImp_ItensVLR_TOTAL_COM_IPI: TFloatField
       FieldName = 'VLR_TOTAL_COM_IPI'
     end
+    object cdsPedidoImp_ItensOBS_REDUZIDA: TStringField
+      FieldName = 'OBS_REDUZIDA'
+      Size = 250
+    end
   end
   object dsPedidoImp_Itens: TDataSource
     DataSet = cdsPedidoImp_Itens
@@ -6332,7 +6344,7 @@ object DMCadPedido: TDMCadPedido
     DataSetField = cdsPedido_ItenssdsPedido_Cli
     IndexFieldNames = 'ID;ITEM;ID_CENTROCUSTO'
     Params = <>
-    Left = 39
+    Left = 38
     Top = 101
     object cdsPedido_CliID: TIntegerField
       FieldName = 'ID'
@@ -10929,14 +10941,14 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44134.927718148140000000
+    ReportOptions.LastChange = 44144.936853715280000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 985
-    Top = 104
+    Top = 105
   end
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxPedidoImp'
@@ -11351,7 +11363,10 @@ object DMCadPedido: TDMCadPedido
       'NOME_COR_PERFIL=NOME_COR_PERFIL'
       'NOME_COR_VIDRO=NOME_COR_VIDRO'
       'PRECO_COR_PERFIL=PRECO_COR_PERFIL'
-      'PRECO_COR_VIDRO=PRECO_COR_VIDRO')
+      'PRECO_COR_VIDRO=PRECO_COR_VIDRO'
+      'VLR_UNITARIO_IPI=VLR_UNITARIO_IPI'
+      'VLR_TOTAL_COM_IPI=VLR_TOTAL_COM_IPI'
+      'OBS_REDUZIDA=OBS_REDUZIDA')
     DataSource = dsPedidoImp_Itens
     BCDToCurrency = False
     Left = 1058

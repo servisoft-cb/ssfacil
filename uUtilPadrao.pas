@@ -4,7 +4,7 @@ interface
 
 uses
   Classes, SysUtils, Dialogs, Variants, Forms, ShellApi, Windows, StrUtils, SqlExpr, DmdDatabase, DBClient, Controls, SMDBGrid,
-  DB, UEscolhe_Filial, Printers, Messages, DmdDatabase_NFeBD, StdCtrls, ExtCtrls, MaskUtils;
+  DB, UEscolhe_Filial, Printers, Messages, StdCtrls, ExtCtrls, MaskUtils;
 
   function Monta_Numero(Campo: String; Tamanho: Integer): String;
   function TirarAcento(texto: string): string;
