@@ -1,7 +1,7 @@
 object DmMySql: TDmMySql
   OldCreateOrder = False
-  Left = 192
-  Top = 117
+  Left = 217
+  Top = 176
   Height = 405
   Width = 495
   object ZConnection1: TZConnection
@@ -10,7 +10,6 @@ object DmMySql: TDmMySql
     Database = 'hypnotiz_f5admin'
     User = 'hypnotiz_f5admin'
     Password = 'hypno001'
-    Connected = True
     Left = 40
     Top = 24
   end
