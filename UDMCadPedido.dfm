@@ -7,7 +7,7 @@ object DMCadPedido: TDMCadPedido
   object sdsPedido: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM PEDIDO'#13#10
+    CommandText = 'SELECT *'#13#10'FROM PEDIDO'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -10182,7 +10182,7 @@ object DMCadPedido: TDMCadPedido
     end
     object sdsPedido_Item_TipoCOMPLEMENTO_NOME: TStringField
       FieldName = 'COMPLEMENTO_NOME'
-      Size = 50
+      Size = 90
     end
     object sdsPedido_Item_TipoTIPO_ORCAMENTO: TStringField
       FieldName = 'TIPO_ORCAMENTO'
@@ -10331,7 +10331,7 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedido_Item_TipoCOMPLEMENTO_NOME: TStringField
       FieldName = 'COMPLEMENTO_NOME'
-      Size = 50
+      Size = 90
     end
     object cdsPedido_Item_TipoTIPO_ORCAMENTO: TStringField
       FieldName = 'TIPO_ORCAMENTO'

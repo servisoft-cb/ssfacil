@@ -596,7 +596,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       item
         Name = 'NomeArquivo'
         DataType = ftString
-        Size = 40
+        Size = 90
       end
       item
         Name = 'ExtensaoArquivo'
@@ -711,12 +711,12 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Params = <>
     StoreDefs = True
     OnNewRecord = mArquivoImportadoNewRecord
-    Left = 272
+    Left = 273
     Top = 327
     Data = {
       5E0200009619E0BD01000000180000001B0000000000030000005E020E43616D
       696E686F4172717569766F01004900000001000557494454480200020096000B
-      4E6F6D654172717569766F01004900000001000557494454480200020028000F
+      4E6F6D654172717569766F0100490000000100055749445448020002005A000F
       457874656E73616F4172717569766F0100490000000100055749445448020002
       000A000B436F6D7072696D656E746F0800040000000000074C61726775726108
       0004000000000009457370657373757261080004000000000004517464650800
@@ -742,7 +742,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     object mArquivoImportadoNomeArquivo: TStringField
       DisplayWidth = 40
       FieldName = 'NomeArquivo'
-      Size = 40
+      Size = 90
     end
     object mArquivoImportadoExtensaoArquivo: TStringField
       DisplayWidth = 16

@@ -1227,24 +1227,31 @@ object fMenu: TfMenu
         Caption = 'Baixa Pedido Por Processo'
         OnClick = BaixaPedidoPorProcesso1Click
       end
-      object ConsultaPedidoProcessoMapa1: TMenuItem
-        Caption = 'Consulta Pedido Processo (Mapa)'
-        OnClick = ConsultaPedidoProcessoMapa1Click
-      end
       object N27: TMenuItem
         Caption = '-'
       end
-      object ConsultaOrdemdeProduoBaixaMaterial1: TMenuItem
-        Caption = 'Consulta Ordem de Produ'#231#227'o (Baixa Material)'
-        OnClick = ConsultaOrdemdeProduoBaixaMaterial1Click
-      end
-      object ConsultaEstoquexProduo1: TMenuItem
-        Caption = 'Consulta Estoque x Produ'#231#227'o'
-        OnClick = ConsultaEstoquexProduo1Click
-      end
-      object ConsultaOP1: TMenuItem
-        Caption = 'Consulta Ord. Produ'#231#227'o'
-        OnClick = ConsultaOP1Click
+      object Consultas5: TMenuItem
+        Caption = 'Consultas / Relat'#243'rios'
+        object ConsultaOrdemdeProduoBaixaMaterial1: TMenuItem
+          Caption = 'Consulta Ordem de Produ'#231#227'o (Baixa Material)'
+          OnClick = ConsultaOrdemdeProduoBaixaMaterial1Click
+        end
+        object ConsultaOP1: TMenuItem
+          Caption = 'Consulta Ord. Produ'#231#227'o'
+          OnClick = ConsultaOP1Click
+        end
+        object ConsultaPedidoProcessoMapa1: TMenuItem
+          Caption = 'Consulta Pedido Processo (Mapa)'
+          OnClick = ConsultaPedidoProcessoMapa1Click
+        end
+        object ConsultaEstoquexProduo1: TMenuItem
+          Caption = 'Consulta Estoque x Produ'#231#227'o'
+          OnClick = ConsultaEstoquexProduo1Click
+        end
+        object ConsultaPedidoItemProcesso1: TMenuItem
+          Caption = 'Consulta Pedido Item Processo'
+          OnClick = ConsultaPedidoItemProcesso1Click
+        end
       end
       object N41: TMenuItem
         Caption = '-'
@@ -1257,7 +1264,7 @@ object fMenu: TfMenu
         Caption = '-'
       end
       object Relatrio1: TMenuItem
-        Caption = 'Relat'#243'rio'
+        Caption = 'Etiquetas / R'#243'tulos'
         object EtiquetaIndividual1: TMenuItem
           Caption = 'Etiqueta Individual'
           OnClick = EtiquetaIndividual1Click

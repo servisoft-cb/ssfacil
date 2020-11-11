@@ -240,7 +240,7 @@ var
 implementation
 
 uses DateUtils, JvSerialMaker, JvXorCipher, JvComponent, JvVigenereCipher, IdCoder, IdCoder3to4, IdCoderMIME, IdBaseComponent,
-  Math, DBGrids;
+  Math, DBGrids, DmdDatabase_NFeBD;
 
 function fnc_verifica_Arquivo(NomeArquivo, Le_Grava: String): String;
 begin

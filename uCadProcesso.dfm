@@ -24,7 +24,7 @@ object frmCadProcesso: TfrmCadProcesso
     Top = 0
     Width = 779
     Height = 511
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 15759360
@@ -32,7 +32,7 @@ object frmCadProcesso: TfrmCadProcesso
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -143,6 +143,7 @@ object frmCadProcesso: TfrmCadProcesso
             FieldName = 'ESTOQUE'
             Title.Alignment = taCenter
             Title.Caption = 'Estoque'
+            Width = 64
             Visible = True
           end
           item
@@ -151,6 +152,7 @@ object frmCadProcesso: TfrmCadProcesso
             FieldName = 'LER_TALAO'
             Title.Alignment = taCenter
             Title.Caption = 'Ler Tal'#227'o'
+            Width = 64
             Visible = True
           end>
       end

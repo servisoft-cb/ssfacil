@@ -1,8 +1,8 @@
 object DMConsPedido: TDMConsPedido
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 138
-  Top = 19
+  Left = 122
+  Top = 11
   Height = 707
   Width = 1178
   object sdsPedido_Item: TSQLDataSet
