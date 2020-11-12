@@ -999,7 +999,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLImage2: TRLImage
             Left = 984
-            Top = 0
+            Top = 1
             Width = 80
             Height = 57
             Borders.Sides = sdCustom
@@ -1025,8 +1025,8 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText21: TRLDBText
             Left = 727
-            Top = 0
-            Width = 57
+            Top = 3
+            Width = 58
             Height = 13
             Alignment = taCenter
             AutoSize = False
@@ -1041,7 +1041,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText22: TRLDBText
             Left = 510
-            Top = 0
+            Top = 3
             Width = 48
             Height = 12
             Alignment = taCenter
@@ -1056,7 +1056,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText16: TRLDBText
             Left = 785
-            Top = 0
+            Top = 3
             Width = 68
             Height = 12
             Alignment = taRightJustify
@@ -1072,7 +1072,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText23: TRLDBText
             Left = 886
-            Top = 0
+            Top = 3
             Width = 97
             Height = 12
             Alignment = taRightJustify
@@ -1087,9 +1087,9 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBMemo1: TRLDBMemo
             Left = 116
-            Top = 0
+            Top = 3
             Width = 272
-            Height = 14
+            Height = 12
             Behavior = [beSiteExpander]
             DataField = 'NOMEPRODUTO'
             DataSource = DMCadPedido.dsPedidoImp_Itens
@@ -1102,7 +1102,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText18: TRLDBText
             Left = 30
-            Top = 0
+            Top = 3
             Width = 85
             Height = 13
             AutoSize = False
@@ -1117,7 +1117,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText26: TRLDBText
             Left = 687
-            Top = 0
+            Top = 3
             Width = 39
             Height = 12
             Alignment = taRightJustify
@@ -1133,7 +1133,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText27: TRLDBText
             Left = 582
-            Top = 0
+            Top = 3
             Width = 28
             Height = 12
             Alignment = taRightJustify
@@ -1148,7 +1148,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText29: TRLDBText
             Left = 645
-            Top = 0
+            Top = 3
             Width = 22
             Height = 12
             Alignment = taRightJustify
@@ -1163,7 +1163,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText25: TRLDBText
             Left = 452
-            Top = 0
+            Top = 3
             Width = 58
             Height = 12
             Alignment = taCenter
@@ -1178,9 +1178,9 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             ParentFont = False
           end
           object RLDBText33: TRLDBText
-            Left = 388
-            Top = 0
-            Width = 63
+            Left = 384
+            Top = 3
+            Width = 72
             Height = 12
             Alignment = taCenter
             DataField = 'COMPRIMENTO'
@@ -1194,7 +1194,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText42: TRLDBText
             Left = 855
-            Top = 0
+            Top = 3
             Width = 68
             Height = 12
             Alignment = taRightJustify
@@ -1210,7 +1210,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           end
           object RLDBText44: TRLDBText
             Left = 2
-            Top = 0
+            Top = 3
             Width = 26
             Height = 13
             AutoSize = False
@@ -1226,7 +1226,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
         end
         object RLBand4: TRLBand
           Left = 0
-          Top = 100
+          Top = 101
           Width = 1071
           Height = 54
           BandType = btSummary
@@ -1371,7 +1371,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           Left = 0
           Top = 82
           Width = 1071
-          Height = 18
+          Height = 19
           BeforePrint = RLBand5BeforePrint
           object RLLabel56: TRLLabel
             Left = 73

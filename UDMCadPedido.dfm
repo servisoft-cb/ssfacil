@@ -7283,6 +7283,10 @@ object DMCadPedido: TDMCadPedido
     object cdsOrcamento_ItensESPESSURA: TFloatField
       FieldName = 'ESPESSURA'
     end
+    object cdsOrcamento_ItensOBS_REDUZIDA: TStringField
+      FieldName = 'OBS_REDUZIDA'
+      Size = 250
+    end
   end
   object dsOrcamento_Itens: TDataSource
     DataSet = cdsOrcamento_Itens
