@@ -112,6 +112,7 @@ begin
       fDMCadPedido.mOrcamento_ItensVlr_Desconto.AsFloat    := StrToFloat(FormatFloat('0.0000',(fDMCadPedido.cdsOrcamento_ItensVLR_DESCONTO.AsFloat + fDMCadPedido.cdsOrcamento_ItensVLR_DESCONTORATEIO.AsFloat)));
       fDMCadPedido.mOrcamento_ItensPerc_Comissao.AsFloat   := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsOrcamento_ItensPERC_COMISSAO.AsFloat));
       fDMCadPedido.mOrcamento_ItensFoto.AsString           := fDMCadPedido.cdsOrcamento_ItensFOTO.AsString;
+      fDMCadPedido.mOrcamento_ItensEspessura.AsFloat       := StrToFloat(FormatFloat('0.00##',fDMCadPedido.cdsOrcamento_ItensESPESSURA.AsFloat));
       if fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S' then
       begin
         fDMCadPedido.qProduto.Close;
@@ -129,6 +130,7 @@ begin
     end;
     fDMCadPedido.cdsOrcamento_Itens.Next;
   end;
+  fDMCadPedido.mOrcamento_Itens.IndexFieldNames := 'Espessura;Item';
 end;
 
 procedure TfrmCadOrcamento_Aprov.btnConfirmarClick(Sender: TObject);
@@ -613,7 +615,7 @@ var
   ColunaOrdenada: String;
 begin
   ColunaOrdenada := Column.FieldName;
-  fDMCadPedido.cdsOrcamento_Itens.IndexFieldNames := Column.FieldName;
+  fDMCadPedido.mOrcamento_Itens.IndexFieldNames := Column.FieldName;
 end;
 
 end.

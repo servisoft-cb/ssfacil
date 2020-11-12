@@ -73,6 +73,7 @@ type
     mProcessoQtd: TIntegerField;
     mProcessoDobra: TStringField;
     mProcessoColuna: TIntegerField;
+    mArquivoImportadoObs_Reduzida: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure btnCopiarClick(Sender: TObject);
@@ -241,6 +242,8 @@ begin
 
         fDMCadPedido.cdsPedido_ItensQTD_LANCAR_ESTOQUE.AsFloat := StrToFloat(FormatFloat('0.0000',(fDMCadPedido.cdsPedido_Item_TipoPESO.AsFloat)));
         fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString := fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString + ' ' + fDMCadPedido.cdsPedido_Item_TipoCOMPLEMENTO_NOME.AsString;
+
+        fDMCadPedido.cdsPedido_ItensOBS_REDUZIDA.AsString := mArquivoImportadoObs_Reduzida.AsString;
 
         //Grava os processos    28/10/2020
 

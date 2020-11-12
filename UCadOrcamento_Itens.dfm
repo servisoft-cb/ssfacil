@@ -546,6 +546,14 @@ object frmCadOrcamento_Itens: TfrmCadOrcamento_Itens
       Caption = 'Tamanho:'
       Visible = False
     end
+    object Label49: TLabel
+      Left = 37
+      Top = 127
+      Width = 73
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'OBS Reduzida:'
+    end
     object DBEdit2: TDBEdit
       Left = 110
       Top = 5
@@ -568,7 +576,7 @@ object frmCadOrcamento_Itens: TfrmCadOrcamento_Itens
     end
     object DBEdit6: TDBEdit
       Left = 110
-      Top = 74
+      Top = 75
       Width = 115
       Height = 21
       DataField = 'VLR_TOTAL'
@@ -641,7 +649,7 @@ object frmCadOrcamento_Itens: TfrmCadOrcamento_Itens
       ActivePageDefault = TabSheet1
       Align = alBottom
       TabIndex = 0
-      TabOrder = 7
+      TabOrder = 8
       OnChange = RzPageControl1Change
       FixedDimension = 19
       object TabSheet1: TRzTabSheet
@@ -773,7 +781,7 @@ object frmCadOrcamento_Itens: TfrmCadOrcamento_Itens
       Font.Style = []
       ParentCtl3D = False
       ParentFont = False
-      TabOrder = 8
+      TabOrder = 9
       VisualStyle = vsGradient
       object Label20: TLabel
         Left = 3
@@ -1144,6 +1152,18 @@ object frmCadOrcamento_Itens: TfrmCadOrcamento_Itens
         OnEnter = dbedtVlrProdEnter
         OnExit = dbedtVlrProdExit
       end
+    end
+    object DBEdit4: TDBEdit
+      Left = 112
+      Top = 121
+      Width = 435
+      Height = 21
+      CharCase = ecUpperCase
+      Ctl3D = True
+      DataField = 'OBS_REDUZIDA'
+      DataSource = DMCadPedido.dsPedido_Itens
+      ParentCtl3D = False
+      TabOrder = 7
     end
   end
   object pnlMaterial: TPanel

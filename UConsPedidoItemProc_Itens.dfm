@@ -1,6 +1,6 @@
 object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
-  Left = 166
-  Top = 161
+  Left = 149
+  Top = 141
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmConsPedidoItemProc_Itens'
@@ -142,7 +142,7 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 21
+      ColCount = 22
       RowCount = 2
       Columns = <
         item
@@ -319,6 +319,15 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
           Title.Alignment = taCenter
           Title.Caption = 'Largura'
           Title.Color = 8454016
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'OBS_REDUZIDA'
+          Title.Alignment = taCenter
+          Title.Caption = 'Obs'
+          Title.Color = 8454016
+          Width = 300
           Visible = True
         end>
     end

@@ -25,7 +25,7 @@ object frmCadOrcamento: TfrmCadOrcamento
     Top = 0
     Width = 1008
     Height = 677
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadOrcamento: TfrmCadOrcamento
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -2560,7 +2560,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             WidthOfIndicator = 11
             DefaultRowHeight = 17
             ScrollBars = ssHorizontal
-            ColCount = 21
+            ColCount = 22
             RowCount = 2
             Columns = <
               item
@@ -2678,6 +2678,14 @@ object frmCadOrcamento: TfrmCadOrcamento
                 FieldName = 'GRAVACAO_COM_ERRO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Com Notifica'#231#227'o'
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'OBS_REDUZIDA'
+                Title.Alignment = taCenter
+                Title.Caption = 'Obs Reduzida'
+                Width = 300
                 Visible = True
               end>
           end

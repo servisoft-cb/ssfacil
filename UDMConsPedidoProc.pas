@@ -119,6 +119,7 @@ type
     dsFilial: TDataSource;
     cdsFilialID: TIntegerField;
     cdsFilialNOME: TStringField;
+    cdsConsItensOBS_REDUZIDA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

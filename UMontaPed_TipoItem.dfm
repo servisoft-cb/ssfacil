@@ -1,6 +1,6 @@
 object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
-  Left = 86
-  Top = 30
+  Left = 164
+  Top = 27
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmMontaPed_TipoItem'
@@ -260,8 +260,8 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       OnClick = SpeedButton3Click
     end
     object Label2: TLabel
-      Left = 760
-      Top = 95
+      Left = 730
+      Top = 96
       Width = 272
       Height = 14
       Caption = 'Para calcular use o ENTER entre os campos'
@@ -294,11 +294,11 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Caption = 'Arquivo Excel:'
     end
     object Label5: TLabel
-      Left = 762
+      Left = 729
       Top = 66
-      Width = 156
+      Width = 307
       Height = 14
-      Caption = 'F2 para incluir Processos'
+      Caption = 'Nos processos, informe 1 para Sim e  0 para n'#227'o'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clMaroon
       Font.Height = -12
@@ -498,7 +498,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       WidthOfIndicator = 27
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 12
+      ColCount = 13
       RowCount = 2
       Columns = <
         item
@@ -580,6 +580,14 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
           Title.Alignment = taCenter
           Title.Caption = 'C'#243'digo Produto'
           Width = 99
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Obs_Reduzida'
+          Title.Alignment = taCenter
+          Title.Caption = 'Obs '
+          Width = 300
           Visible = True
         end>
     end
@@ -699,6 +707,11 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       item
         Name = 'Processo_10'
         DataType = ftInteger
+      end
+      item
+        Name = 'Obs_Reduzida'
+        DataType = ftString
+        Size = 250
       end>
     IndexDefs = <
       item
@@ -714,7 +727,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     Left = 273
     Top = 327
     Data = {
-      5E0200009619E0BD01000000180000001B0000000000030000005E020E43616D
+      7F0200009619E0BD01000000180000001C0000000000030000007F020E43616D
       696E686F4172717569766F01004900000001000557494454480200020096000B
       4E6F6D654172717569766F0100490000000100055749445448020002005A000F
       457874656E73616F4172717569766F0100490000000100055749445448020002
@@ -732,8 +745,9 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       0100000000000B50726F636573736F5F303604000100000000000B50726F6365
       73736F5F303704000100000000000B50726F636573736F5F3038040001000000
       00000B50726F636573736F5F303904000100000000000B50726F636573736F5F
-      3130040001000000000001000D44454641554C545F4F52444552020082000000
-      0000}
+      313004000100000000000C4F62735F526564757A696461010049000000010005
+      574944544802000200FA0001000D44454641554C545F4F524445520200820000
+      000000}
     object mArquivoImportadoCaminhoArquivo: TStringField
       DisplayWidth = 150
       FieldName = 'CaminhoArquivo'
@@ -862,6 +876,10 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
     end
     object mArquivoImportadoProcesso_10: TIntegerField
       FieldName = 'Processo_10'
+    end
+    object mArquivoImportadoObs_Reduzida: TStringField
+      FieldName = 'Obs_Reduzida'
+      Size = 250
     end
   end
   object dsmArquivoImportado: TDataSource

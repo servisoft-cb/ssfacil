@@ -282,11 +282,11 @@ procedure TfRelOrcamento_JW.RLBand5BeforePrint(Sender: TObject;
 begin
   PrintIt := True;
   RLMemo2.Lines.Clear;
-  if trim(fDMCadPedido.cdsPedidoImp_ItensOBS.AsString) = '' then
+  if (trim(fDMCadPedido.cdsPedidoImp_ItensOBS.AsString) = '') and (trim(fDMCadPedido.cdsPedidoImp_ItensOBS_REDUZIDA.AsString) = '') then
     PrintIt := False;
   if not PrintIt then
     exit;
-  RLMemo2.Lines.Text := fDMCadPedido.cdsPedidoImp_ItensOBS.AsString;
+  RLMemo2.Lines.Text := fDMCadPedido.cdsPedidoImp_ItensOBS.AsString + '   ' + fDMCadPedido.cdsPedidoImp_ItensOBS_REDUZIDA.AsString;
 end;
 
 procedure TfRelOrcamento_JW.FormClose(Sender: TObject;
