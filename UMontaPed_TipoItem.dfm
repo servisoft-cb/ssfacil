@@ -740,7 +740,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Size = 150
     end
     object mArquivoImportadoNomeArquivo: TStringField
-      DisplayWidth = 40
+      DisplayWidth = 90
       FieldName = 'NomeArquivo'
       Size = 90
     end

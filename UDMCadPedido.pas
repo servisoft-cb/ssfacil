@@ -3917,6 +3917,8 @@ type
     sdsPedido_ItensOBS_REDUZIDA: TStringField;
     cdsPedido_ItensOBS_REDUZIDA: TStringField;
     cdsPedidoImp_ItensOBS_REDUZIDA: TStringField;
+    mOrcamento_ItensEspessura: TFloatField;
+    cdsOrcamento_ItensESPESSURA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

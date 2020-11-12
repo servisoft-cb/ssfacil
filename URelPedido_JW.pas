@@ -133,6 +133,8 @@ type
     RLPDFFilter1: TRLPDFFilter;
     RLLabel41: TRLLabel;
     RLDBText44: TRLDBText;
+    RLLabel42: TRLLabel;
+    RLDBText45: TRLDBText;
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand7BeforePrint(Sender: TObject; var PrintIt: Boolean);
@@ -282,6 +284,8 @@ begin
     vTexto := vTexto + '  -  Comprimento (mm): ' + fDMCadPedido.cdsPedidoImp_ItensCOMPRIMENTO.AsString;
   end;
   RLMemo3.Lines.Text := vTexto;
+  if trim(fDMCadPedido.cdsPedidoImp_ItensOBS_REDUZIDA.AsString) <> '' then
+    RLMemo3.Lines.Add('OBS: ' + fDMCadPedido.cdsPedidoImp_ItensOBS_REDUZIDA.AsString);
 
   RLDBText16.Visible := vImpPreco;
   RLDBText23.Visible := vImpPreco;

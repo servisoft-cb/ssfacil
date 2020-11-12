@@ -131,6 +131,8 @@ type
     RLDraw12: TRLDraw;
     RLLabel39: TRLLabel;
     RLDBText43: TRLDBText;
+    RLLabel41: TRLLabel;
+    RLDBText44: TRLDBText;
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand7BeforePrint(Sender: TObject; var PrintIt: Boolean);

@@ -884,7 +884,8 @@ uses
   UCadPedido_Proc in 'UCadPedido_Proc.pas' {frmCadPedido_Proc},
   UBaixaPedido_Processo in 'UBaixaPedido_Processo.pas' {frmBaixaPedido_Processo},
   UDMConsPedidoProc in 'UDMConsPedidoProc.pas' {DMConsPedidoProc: TDataModule},
-  UConsPedidoItemProc in 'UConsPedidoItemProc.pas' {frmConsPedidoItemProc};
+  UConsPedidoItemProc in 'UConsPedidoItemProc.pas' {frmConsPedidoItemProc},
+  UConsPedidoItemProc_Itens in 'UConsPedidoItemProc_Itens.pas' {frmConsPedidoItemProc_Itens};
 
 {$R *.res}
 

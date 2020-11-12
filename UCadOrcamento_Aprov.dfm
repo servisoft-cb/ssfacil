@@ -46,6 +46,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
     TitleFont.Height = -11
     TitleFont.Name = 'MS Sans Serif'
     TitleFont.Style = []
+    OnTitleClick = SMDBGrid1TitleClick
     Flat = True
     BandsFont.Charset = DEFAULT_CHARSET
     BandsFont.Color = clWindowText
@@ -65,7 +66,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 12
+    ColCount = 13
     RowCount = 2
     Columns = <
       item
@@ -103,6 +104,13 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
         Title.Alignment = taCenter
         Title.Caption = 'Grupo'
         Width = 133
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'Espessura'
+        Title.Alignment = taCenter
         Visible = True
       end
       item

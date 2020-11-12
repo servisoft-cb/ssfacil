@@ -6603,6 +6603,10 @@ object DMCadPedido: TDMCadPedido
       item
         Name = 'Vlr_Unitario_IPI'
         DataType = ftFloat
+      end
+      item
+        Name = 'Espessura'
+        DataType = ftFloat
       end>
     IndexDefs = <
       item
@@ -6619,7 +6623,7 @@ object DMCadPedido: TDMCadPedido
     Left = 856
     Top = 137
     Data = {
-      690200009619E0BD01000000180000001800000000000300000069020C49445F
+      7B0200009619E0BD0100000018000000190000000000030000007B020C49445F
       4F7263616D656E746F0400010000000000044974656D04000100000000000A49
       445F50726F6475746F04000100000000000C4E6F6D655F50726F6475746F0100
       490000000100055749445448020002003C000351746408000400000000000C56
@@ -6637,8 +6641,8 @@ object DMCadPedido: TDMCadPedido
       00020064000E446174615F4E616F5F4170726F760400060000000000184D6F74
       69766F5F4E616F5F4170726F7661646F5F4D656D6F04004B0000000200075355
       4254595045020049000500546578740005574944544802000200020010566C72
-      5F556E69746172696F5F495049080004000000000001000D44454641554C545F
-      4F524445520200820000000000}
+      5F556E69746172696F5F49504908000400000000000945737065737375726108
+      0004000000000001000D44454641554C545F4F524445520200820000000000}
     object mOrcamento_ItensID_Orcamento: TIntegerField
       FieldName = 'ID_Orcamento'
     end
@@ -6720,6 +6724,9 @@ object DMCadPedido: TDMCadPedido
     end
     object mOrcamento_ItensVlr_Unitario_IPI: TFloatField
       FieldName = 'Vlr_Unitario_IPI'
+    end
+    object mOrcamento_ItensEspessura: TFloatField
+      FieldName = 'Espessura'
     end
   end
   object dsmOrcamento_Itens: TDataSource
@@ -6994,8 +7001,9 @@ object DMCadPedido: TDMCadPedido
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT *'#13#10'FROM PEDIDO_ITEM'#13#10'WHERE ID = :ID'#13#10'AND APROVADO_ORC <> ' +
-      #39'A'#39#13#10'AND QTD > 0'
+      'SELECT T.espessura, I.*'#13#10'FROM PEDIDO_ITEM I'#13#10'LEFT JOIN PEDIDO_IT' +
+      'EM_TIPO T'#13#10'ON I.id = T.ID'#13#10'AND I.ITEM = T.ITEM'#13#10'WHERE I.ID = :ID' +
+      #13#10'AND I.APROVADO_ORC <> '#39'A'#39#13#10'AND I.QTD > 0  '#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -7017,7 +7025,7 @@ object DMCadPedido: TDMCadPedido
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Itens'
-    Left = 210
+    Left = 211
     Top = 91
     object cdsOrcamento_ItensID: TIntegerField
       FieldName = 'ID'
@@ -7271,6 +7279,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsOrcamento_ItensVLR_UNITARIO_IPI: TFloatField
       FieldName = 'VLR_UNITARIO_IPI'
+    end
+    object cdsOrcamento_ItensESPESSURA: TFloatField
+      FieldName = 'ESPESSURA'
     end
   end
   object dsOrcamento_Itens: TDataSource

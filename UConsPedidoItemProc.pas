@@ -12,9 +12,6 @@ type
   TfrmConsPedidoItemProc = class(TForm)
     NxPanel1: TNxPanel;
     RzPageControl1: TRzPageControl;
-    TS_Processo: TRzTabSheet;
-    pnlPrincipal: TAdvPanel;
-    SMDBGrid1: TSMDBGrid;
     Label5: TLabel;
     Label6: TLabel;
     DateEdit2: TDateEdit;
@@ -33,12 +30,17 @@ type
     TS_Pedidos: TRzTabSheet;
     AdvPanel1: TAdvPanel;
     SMDBGrid2: TSMDBGrid;
-    NxComboBox2: TNxComboBox;
+    Shape5: TShape;
+    Label30: TLabel;
+    ShapeConf: TShape;
+    Label68: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure NxButton1Click(Sender: TObject);
     procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
+    procedure SMDBGrid2DblClick(Sender: TObject);
+    procedure SMDBGrid2TitleClick(Column: TColumn);
   private
     { Private declarations }
     fDMConsPedidoProc: TDMConsPedidoProc;
@@ -54,7 +56,7 @@ var
 
 implementation
 
-uses rsDBUtils, DmdDatabase;
+uses rsDBUtils, DmdDatabase, UConsPedidoItemProc_Itens;
 
 {$R *.dfm}
 
@@ -71,7 +73,10 @@ begin
   fDMConsPedidoProc := TDMConsPedidoProc.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMConsPedidoProc);
 
-  for i := 1 to SMDBGrid2.ColCount - 2 do
+ fDMConsPedidoProc.cdsVendedor.Open;
+ fDMConsPedidoProc.cdsFilial.Open;
+
+  for i := 0 to SMDBGrid2.ColCount - 2 do
   begin
     if (copy(SMDBGrid2.Columns[i].FieldName,1,9) = 'PROCESSO_') then
        SMDBGrid2.Columns[i].Visible := False;
@@ -93,7 +98,7 @@ begin
     sds.Open;
     while not sds.Eof do
     begin
-      for i := 1 to SMDBGrid2.ColCount - 2 do
+      for i := 0 to SMDBGrid2.ColCount - 2 do
       begin
         if (SMDBGrid2.Columns[i].FieldName = 'PROCESSO_'+FormatFloat('00',sds.FieldByName('ORDEM').AsInteger)) then
         begin
@@ -101,14 +106,14 @@ begin
           SMDBGrid2.Columns[i].Visible       := True;
         end;
       end;
-      sds.Next;  
+      sds.Next;
     end;
   finally
     FreeAndNil(sds);
   end;
 
+  fDMConsPedidoProc.cdsConsPedido.IndexFieldNames := 'NUM_PEDIDO';
   prc_Consultar_Pedido;
-
 end;
 
 procedure TfrmConsPedidoItemProc.prc_Consultar_Pedido;
@@ -146,8 +151,34 @@ begin
     begin
       Background  := clGray;
       AFont.Color := clGray;
-    end;
+    end
+    else
+    begin
+      if (fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName+'_A').AsInteger > 0) then
+      begin
+        if (fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName).AsInteger <> fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName+'_A').AsInteger) then
+          Background  := clAqua
+        else
+          Background  := $000080FF;
+      end;
+    end
   end;
+end;
+
+procedure TfrmConsPedidoItemProc.SMDBGrid2DblClick(Sender: TObject);
+begin
+  frmConsPedidoItemProc_Itens := TfrmConsPedidoItemProc_Itens.Create(self);
+  frmConsPedidoItemProc_Itens.fDMConsPedidoProc := fDMConsPedidoProc;
+  frmConsPedidoItemProc_Itens.ShowModal;
+  FreeAndNil(frmConsPedidoItemProc_Itens);
+end;
+
+procedure TfrmConsPedidoItemProc.SMDBGrid2TitleClick(Column: TColumn);
+var
+  ColunaOrdenada: String;
+begin
+  ColunaOrdenada := Column.FieldName;
+  fDMConsPedidoProc.cdsConsPedido.IndexFieldNames := Column.FieldName;
 end;
 
 end.

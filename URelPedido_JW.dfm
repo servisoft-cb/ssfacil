@@ -1047,9 +1047,9 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBMemo1: TRLDBMemo
-            Left = 109
+            Left = 111
             Top = 2
-            Width = 289
+            Width = 286
             Height = 25
             AutoSize = False
             Behavior = [beSiteExpander]
@@ -1063,9 +1063,9 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLDBText18: TRLDBText
-            Left = 2
+            Left = 25
             Top = 2
-            Width = 105
+            Width = 85
             Height = 13
             AutoSize = False
             DataField = 'DESCRICAO_TIPO'
@@ -1186,6 +1186,21 @@ object fRelPedido_JW: TfRelPedido_JW
             Alignment = taRightJustify
             AutoSize = False
             DataField = 'VLR_UNITARIO_IPI'
+            DataSource = DMCadPedido.dsPedidoImp_Itens
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = []
+            ParentFont = False
+          end
+          object RLDBText45: TRLDBText
+            Left = 1
+            Top = 2
+            Width = 23
+            Height = 13
+            AutoSize = False
+            DataField = 'ITEM'
             DataSource = DMCadPedido.dsPedidoImp_Itens
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
@@ -1497,7 +1512,7 @@ object fRelPedido_JW: TfRelPedido_JW
             ParentFont = False
           end
           object RLLabel22: TRLLabel
-            Left = 6
+            Left = 26
             Top = 37
             Width = 23
             Height = 11
@@ -1585,6 +1600,19 @@ object fRelPedido_JW: TfRelPedido_JW
             Height = 11
             Alignment = taCenter
             Caption = 'Pre'#231'o Com IPI'
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clBlack
+            Font.Height = -9
+            Font.Name = 'Arial'
+            Font.Style = [fsBold]
+            ParentFont = False
+          end
+          object RLLabel42: TRLLabel
+            Left = 2
+            Top = 37
+            Width = 22
+            Height = 11
+            Caption = 'Item'
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clBlack
             Font.Height = -9

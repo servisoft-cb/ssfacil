@@ -34,6 +34,7 @@ type
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure SelecionarTodos1Click(Sender: TObject);
+    procedure SMDBGrid1TitleClick(Column: TColumn);
   private
     { Private declarations }
     vItem_Pedido: Integer;
@@ -407,7 +408,8 @@ begin
   fDMCadPedido.cdsPedido_Itens.Insert;
   for x := 0 to (fDMCadPedido.cdsOrcamento_Itens.FieldCount - 1) do
   begin
-    if not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'ID') and not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'VLR_TOTAL')  then
+    if not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'ID') and not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'VLR_TOTAL') and
+       not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'ESPESSURA') then
     begin
       if not (fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldKind in [fkLookup, fkCalculated]) then
         fDMCadPedido.cdsPedido_Itens.FieldByName(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName).AsVariant := fDMCadPedido.cdsOrcamento_Itens.Fields[x].Value;
@@ -604,6 +606,14 @@ begin
     fDMCadPedido.mOrcamento_Itens.Next;
   end;
   fDMCadPedido.mOrcamento_Itens.First;
+end;
+
+procedure TfrmCadOrcamento_Aprov.SMDBGrid1TitleClick(Column: TColumn);
+var
+  ColunaOrdenada: String;
+begin
+  ColunaOrdenada := Column.FieldName;
+  fDMCadPedido.cdsOrcamento_Itens.IndexFieldNames := Column.FieldName;
 end;
 
 end.
