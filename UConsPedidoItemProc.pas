@@ -159,7 +159,7 @@ begin
         if (fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName).AsInteger <> fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName+'_A').AsInteger) then
           Background  := clAqua
         else
-          Background  := $000080FF;
+          Background  := $000080FF
       end;
     end
   end;

@@ -181,9 +181,9 @@ begin
     while not fDMCopiaPedido.cdsPedido_Item_Processo.Eof do
     begin
       fDMCadPedido.cdsPedido_Item_Processo.Insert;
-      fDMCadPedido.cdsPedido_Item_TipoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
-      fDMCadPedido.cdsPedido_Item_TipoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
-      for i := 0 to ( fDMCopiaPedido.cdsPedido_Item_Tipo.FieldCount - 1) do
+      fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
+      fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+      for i := 0 to ( fDMCopiaPedido.cdsPedido_Item_Processo.FieldCount - 1) do
       begin
         if (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'ID') and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'ITEM')
           and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'DTENTRADA') and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'HRENTRADA')

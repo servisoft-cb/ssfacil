@@ -111,14 +111,17 @@ begin
     if Field.AsInteger = 1 then
     begin
       Background  := clAqua;
-      AFont.Color := clBlack;
+      AFont.Color := clAqua;
     end
     else
     if Field.AsInteger = 2 then
     begin
       Background  := $000080FF;
-      AFont.Color := clBlack;
-    end;
+      AFont.Color := $000080FF;
+    end
+    else
+    if Field.AsInteger < 1 then
+      AFont.Color := clWindow;
   end;
 end;
 

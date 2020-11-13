@@ -289,6 +289,56 @@ object DMCopiaPedido: TDMCopiaPedido
     object sdsPedidoID_VENDEDOR_INT: TIntegerField
       FieldName = 'ID_VENDEDOR_INT'
     end
+    object sdsPedidoDDD: TIntegerField
+      FieldName = 'DDD'
+    end
+    object sdsPedidoFONE: TStringField
+      FieldName = 'FONE'
+      Size = 10
+    end
+    object sdsPedidoVLR_DESCONTO_ITEM: TFloatField
+      FieldName = 'VLR_DESCONTO_ITEM'
+    end
+    object sdsPedidoID_TAB_PRECO: TIntegerField
+      FieldName = 'ID_TAB_PRECO'
+    end
+    object sdsPedidoVLR_MAO_OBRA: TFloatField
+      FieldName = 'VLR_MAO_OBRA'
+    end
+    object sdsPedidoAPROVADO_PED: TStringField
+      FieldName = 'APROVADO_PED'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedidoID_LOCAL_ESTOQUE: TIntegerField
+      FieldName = 'ID_LOCAL_ESTOQUE'
+    end
+    object sdsPedidoOBS_NOTA: TStringField
+      FieldName = 'OBS_NOTA'
+      Size = 250
+    end
+    object sdsPedidoVLR_ICMS_FCP: TFloatField
+      FieldName = 'VLR_ICMS_FCP'
+    end
+    object sdsPedidoVLR_ICMS_UF_DEST: TFloatField
+      FieldName = 'VLR_ICMS_UF_DEST'
+    end
+    object sdsPedidoVLR_ICMS_UF_REMET: TFloatField
+      FieldName = 'VLR_ICMS_UF_REMET'
+    end
+    object sdsPedidoOBS_ROTULO: TStringField
+      FieldName = 'OBS_ROTULO'
+      Size = 50
+    end
+    object sdsPedidoVLR_DUPLICATA: TFloatField
+      FieldName = 'VLR_DUPLICATA'
+    end
+    object sdsPedidoTIPO_ATENDIMENTO: TSmallintField
+      FieldName = 'TIPO_ATENDIMENTO'
+    end
+    object sdsPedidoNUM_OS: TIntegerField
+      FieldName = 'NUM_OS'
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -301,7 +351,7 @@ object DMCopiaPedido: TDMCopiaPedido
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspPedido'
-    Left = 168
+    Left = 169
     Top = 21
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
@@ -580,6 +630,56 @@ object DMCopiaPedido: TDMCopiaPedido
     object cdsPedidoID_VENDEDOR_INT: TIntegerField
       FieldName = 'ID_VENDEDOR_INT'
     end
+    object cdsPedidoDDD: TIntegerField
+      FieldName = 'DDD'
+    end
+    object cdsPedidoFONE: TStringField
+      FieldName = 'FONE'
+      Size = 10
+    end
+    object cdsPedidoVLR_DESCONTO_ITEM: TFloatField
+      FieldName = 'VLR_DESCONTO_ITEM'
+    end
+    object cdsPedidoID_TAB_PRECO: TIntegerField
+      FieldName = 'ID_TAB_PRECO'
+    end
+    object cdsPedidoVLR_MAO_OBRA: TFloatField
+      FieldName = 'VLR_MAO_OBRA'
+    end
+    object cdsPedidoAPROVADO_PED: TStringField
+      FieldName = 'APROVADO_PED'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedidoID_LOCAL_ESTOQUE: TIntegerField
+      FieldName = 'ID_LOCAL_ESTOQUE'
+    end
+    object cdsPedidoOBS_NOTA: TStringField
+      FieldName = 'OBS_NOTA'
+      Size = 250
+    end
+    object cdsPedidoVLR_ICMS_FCP: TFloatField
+      FieldName = 'VLR_ICMS_FCP'
+    end
+    object cdsPedidoVLR_ICMS_UF_DEST: TFloatField
+      FieldName = 'VLR_ICMS_UF_DEST'
+    end
+    object cdsPedidoVLR_ICMS_UF_REMET: TFloatField
+      FieldName = 'VLR_ICMS_UF_REMET'
+    end
+    object cdsPedidoOBS_ROTULO: TStringField
+      FieldName = 'OBS_ROTULO'
+      Size = 50
+    end
+    object cdsPedidoVLR_DUPLICATA: TFloatField
+      FieldName = 'VLR_DUPLICATA'
+    end
+    object cdsPedidoTIPO_ATENDIMENTO: TSmallintField
+      FieldName = 'TIPO_ATENDIMENTO'
+    end
+    object cdsPedidoNUM_OS: TIntegerField
+      FieldName = 'NUM_OS'
+    end
   end
   object dsPedido: TDataSource
     DataSet = cdsPedido
@@ -608,7 +708,7 @@ object DMCopiaPedido: TDMCopiaPedido
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 104
+    Left = 103
     Top = 64
     object sdsPedido_ItensID: TIntegerField
       FieldName = 'ID'
@@ -980,6 +1080,45 @@ object DMCopiaPedido: TDMCopiaPedido
       FieldName = 'APROVADO_ITEM'
       FixedChar = True
       Size = 1
+    end
+    object sdsPedido_ItensOBS_REDUZIDA: TStringField
+      FieldName = 'OBS_REDUZIDA'
+      Size = 250
+    end
+    object sdsPedido_ItensVLR_DUPLICATA: TFloatField
+      FieldName = 'VLR_DUPLICATA'
+    end
+    object sdsPedido_ItensGERAR_DUPLICATA: TStringField
+      FieldName = 'GERAR_DUPLICATA'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedido_ItensTIPO_SERVICO: TStringField
+      FieldName = 'TIPO_SERVICO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedido_ItensID_SERVICO_INT: TIntegerField
+      FieldName = 'ID_SERVICO_INT'
+    end
+    object sdsPedido_ItensNOME_SERVICO_INT: TStringField
+      FieldName = 'NOME_SERVICO_INT'
+      Size = 150
+    end
+    object sdsPedido_ItensQTD_CAIXA: TIntegerField
+      FieldName = 'QTD_CAIXA'
+    end
+    object sdsPedido_ItensFABRICA: TStringField
+      FieldName = 'FABRICA'
+      Size = 10
+    end
+    object sdsPedido_ItensDRAWBACK: TStringField
+      FieldName = 'DRAWBACK'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedido_ItensVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
     end
   end
   object cdsPedido_Itens: TClientDataSet
@@ -1366,6 +1505,45 @@ object DMCopiaPedido: TDMCopiaPedido
     object cdsPedido_ItenssdsPedido_Item_Processo: TDataSetField
       FieldName = 'sdsPedido_Item_Processo'
     end
+    object cdsPedido_ItensOBS_REDUZIDA: TStringField
+      FieldName = 'OBS_REDUZIDA'
+      Size = 250
+    end
+    object cdsPedido_ItensVLR_DUPLICATA: TFloatField
+      FieldName = 'VLR_DUPLICATA'
+    end
+    object cdsPedido_ItensGERAR_DUPLICATA: TStringField
+      FieldName = 'GERAR_DUPLICATA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedido_ItensTIPO_SERVICO: TStringField
+      FieldName = 'TIPO_SERVICO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedido_ItensID_SERVICO_INT: TIntegerField
+      FieldName = 'ID_SERVICO_INT'
+    end
+    object cdsPedido_ItensNOME_SERVICO_INT: TStringField
+      FieldName = 'NOME_SERVICO_INT'
+      Size = 150
+    end
+    object cdsPedido_ItensQTD_CAIXA: TIntegerField
+      FieldName = 'QTD_CAIXA'
+    end
+    object cdsPedido_ItensFABRICA: TStringField
+      FieldName = 'FABRICA'
+      Size = 10
+    end
+    object cdsPedido_ItensDRAWBACK: TStringField
+      FieldName = 'DRAWBACK'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedido_ItensVLR_UNITARIO_IPI: TFloatField
+      FieldName = 'VLR_UNITARIO_IPI'
+    end
   end
   object dsPedido_Itens: TDataSource
     DataSet = cdsPedido_Itens
@@ -1542,13 +1720,59 @@ object DMCopiaPedido: TDMCopiaPedido
     object sdsPedido_Item_TipoESPESSURA: TFloatField
       FieldName = 'ESPESSURA'
     end
+    object sdsPedido_Item_TipoID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object sdsPedido_Item_TipoTIPO_MAT: TStringField
+      FieldName = 'TIPO_MAT'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsPedido_Item_TipoDENSIDADE: TFloatField
+      FieldName = 'DENSIDADE'
+    end
+    object sdsPedido_Item_TipoID_TIPO_MATERIAL: TIntegerField
+      FieldName = 'ID_TIPO_MATERIAL'
+    end
+    object sdsPedido_Item_TipoFATOR_CALCULO: TFloatField
+      FieldName = 'FATOR_CALCULO'
+    end
+    object sdsPedido_Item_TipoVLR_MAQUINA: TFloatField
+      FieldName = 'VLR_MAQUINA'
+    end
+    object sdsPedido_Item_TipoALTURA_CORTE: TFloatField
+      FieldName = 'ALTURA_CORTE'
+    end
+    object sdsPedido_Item_TipoLARGURA_CORTE: TFloatField
+      FieldName = 'LARGURA_CORTE'
+    end
+    object sdsPedido_Item_TipoCAMINHO_ARQUIVO_PDF: TStringField
+      FieldName = 'CAMINHO_ARQUIVO_PDF'
+      Size = 150
+    end
+    object sdsPedido_Item_TipoID_COR_VIDRO: TIntegerField
+      FieldName = 'ID_COR_VIDRO'
+    end
+    object sdsPedido_Item_TipoPRECO_COR_PERFIL: TFloatField
+      FieldName = 'PRECO_COR_PERFIL'
+    end
+    object sdsPedido_Item_TipoPRECO_COR_VIDRO: TFloatField
+      FieldName = 'PRECO_COR_VIDRO'
+    end
+    object sdsPedido_Item_TipoID_COR_PERFIL: TIntegerField
+      FieldName = 'ID_COR_PERFIL'
+    end
+    object sdsPedido_Item_TipoFOTO: TStringField
+      FieldName = 'FOTO'
+      Size = 200
+    end
   end
   object cdsPedido_Item_Tipo: TClientDataSet
     Aggregates = <>
     DataSetField = cdsPedido_ItenssdsPedido_Item_Tipo
     Params = <>
-    Left = 144
-    Top = 149
+    Left = 145
+    Top = 147
     object cdsPedido_Item_TipoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1638,6 +1862,52 @@ object DMCopiaPedido: TDMCopiaPedido
     end
     object cdsPedido_Item_TipoESPESSURA: TFloatField
       FieldName = 'ESPESSURA'
+    end
+    object cdsPedido_Item_TipoID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsPedido_Item_TipoTIPO_MAT: TStringField
+      FieldName = 'TIPO_MAT'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsPedido_Item_TipoDENSIDADE: TFloatField
+      FieldName = 'DENSIDADE'
+    end
+    object cdsPedido_Item_TipoID_TIPO_MATERIAL: TIntegerField
+      FieldName = 'ID_TIPO_MATERIAL'
+    end
+    object cdsPedido_Item_TipoFATOR_CALCULO: TFloatField
+      FieldName = 'FATOR_CALCULO'
+    end
+    object cdsPedido_Item_TipoVLR_MAQUINA: TFloatField
+      FieldName = 'VLR_MAQUINA'
+    end
+    object cdsPedido_Item_TipoALTURA_CORTE: TFloatField
+      FieldName = 'ALTURA_CORTE'
+    end
+    object cdsPedido_Item_TipoLARGURA_CORTE: TFloatField
+      FieldName = 'LARGURA_CORTE'
+    end
+    object cdsPedido_Item_TipoCAMINHO_ARQUIVO_PDF: TStringField
+      FieldName = 'CAMINHO_ARQUIVO_PDF'
+      Size = 150
+    end
+    object cdsPedido_Item_TipoID_COR_VIDRO: TIntegerField
+      FieldName = 'ID_COR_VIDRO'
+    end
+    object cdsPedido_Item_TipoPRECO_COR_PERFIL: TFloatField
+      FieldName = 'PRECO_COR_PERFIL'
+    end
+    object cdsPedido_Item_TipoPRECO_COR_VIDRO: TFloatField
+      FieldName = 'PRECO_COR_VIDRO'
+    end
+    object cdsPedido_Item_TipoID_COR_PERFIL: TIntegerField
+      FieldName = 'ID_COR_PERFIL'
+    end
+    object cdsPedido_Item_TipoFOTO: TStringField
+      FieldName = 'FOTO'
+      Size = 200
     end
   end
   object dsPedido_Item_Tipo: TDataSource
