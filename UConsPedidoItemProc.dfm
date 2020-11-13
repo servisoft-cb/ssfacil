@@ -223,6 +223,15 @@ object frmConsPedidoItemProc: TfrmConsPedidoItemProc
       TabOrder = 7
       OnClick = NxButton1Click
     end
+    object btnExcel: TNxButton
+      Left = 608
+      Top = 67
+      Width = 133
+      Height = 26
+      Caption = 'Gerar Excel'
+      TabOrder = 8
+      OnClick = btnExcelClick
+    end
   end
   object RzPageControl1: TRzPageControl
     Left = 0

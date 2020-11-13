@@ -634,20 +634,18 @@ begin
     end;
   end;
   //*******************
-  if trim(fDMCadPedido.qParametros_PedSENHA_ALT_PEDIDO.AsString) <> '' then
+  if (trim(fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString) <> 'S') and (trim(fDMCadPedido.cdsParametrosSENHA_PEDIDO.AsString) <> '') then
   begin
     if not fnc_Senha_Alt_Pedido then
       exit;
-  end
-  else
-  begin
-    if (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S') and (fDMCadPedido.cdsPedido_ConsultaAPROVADO_PED.AsString = 'P') then
-      if not fnc_senha('EXC','SENHA_PEDIDO','','','','',0) then
-        exit;
-    if (fDMCadPedido.cdsPedido_ConsultaROTULO_IMP.AsString = 'S') and (fDMCadPedido.qParametros_PedCONTROLAR_ROT_IMPRESSO.AsString = 'S') then
-      if not fnc_senha('ROT','SENHA_PEDIDO','R','','Rótulo já impresso','',0) then
-        exit;
   end;
+  
+  if (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S') and (fDMCadPedido.cdsPedido_ConsultaAPROVADO_PED.AsString = 'P') then
+    if not fnc_senha('EXC','SENHA_PEDIDO','','','','',0) then
+      exit;
+  if (fDMCadPedido.cdsPedido_ConsultaROTULO_IMP.AsString = 'S') and (fDMCadPedido.qParametros_PedCONTROLAR_ROT_IMPRESSO.AsString = 'S') then
+    if not fnc_senha('ROT','SENHA_PEDIDO','R','','Rótulo já impresso','',0) then
+      exit;
 
   prc_Posiciona_Pedido;
 
@@ -1311,7 +1309,7 @@ begin
   fDMCadPedido.qParametros_Ped.Close;
   fDMCadPedido.qParametros_Ped.Open;
 
-  if trim(fDMCadPedido.qParametros_PedSENHA_ALT_PEDIDO.AsString) <> '' then
+  if (trim(fDMCadPedido.cdsParametrosSENHA_PEDIDO.AsString) <> '') and (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString <> 'S') then
   begin
     if not fnc_Senha_Alt_Pedido then
       exit;
@@ -5178,7 +5176,7 @@ begin
   ffrmSenha.Panel1.Visible := False;
   ffrmSenha.ShowModal;
   FreeAndNil(ffrmSenha);
-  if vSenha <> fDMCadPedido.qParametros_PedSENHA_ALT_PEDIDO.AsString then
+  if vSenha <> fDMCadPedido.cdsParametrosSENHA_PEDIDO.AsString then
   begin
     MessageDlg('*** Senha incorreta!', mtInformation, [mbOk], 0);
     Result := False;

@@ -273,6 +273,8 @@ begin
       while not fDMCopiaPedido.cdsPedido_Item_Tipo.Eof do
       begin
         prc_Copiar_Item_Tipo;
+        if StrToFloat(FormatFloat('0.0000',vFatorMultiplicador)) = 0 then
+          vFatorMultiplicador := 1;
         fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat := fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat * vFatorMultiplicador;
         fDMCadPedido.cdsPedido_Item_TipoVLR_KG.AsFloat := fDMCadPedido.cdsPedido_Item_TipoVLR_KG.AsFloat + (fDMCadPedido.cdsPedido_Item_TipoVLR_KG.AsFloat * (vPercentualAcrescimo / 100));
 

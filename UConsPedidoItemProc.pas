@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UDMConsPedidoProc, NxCollection, Grids, DBGrids, SMDBGrid,
   RzTabs, ExtCtrls, AdvPanel, CurrEdit, StdCtrls, RxLookup, Mask, ToolEdit,
-  NxEdit, SqlExpr, DB;
+  NxEdit, SqlExpr, DB, ComObj;
 
 type
   TfrmConsPedidoItemProc = class(TForm)
@@ -34,6 +34,7 @@ type
     Label30: TLabel;
     ShapeConf: TShape;
     Label68: TLabel;
+    btnExcel: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure NxButton1Click(Sender: TObject);
@@ -41,11 +42,13 @@ type
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure SMDBGrid2DblClick(Sender: TObject);
     procedure SMDBGrid2TitleClick(Column: TColumn);
+    procedure btnExcelClick(Sender: TObject);
   private
     { Private declarations }
     fDMConsPedidoProc: TDMConsPedidoProc;
 
     procedure prc_Consultar_Pedido;
+    procedure prc_Excel(vDados: TDataSource);
 
   public
     { Public declarations }
@@ -56,7 +59,7 @@ var
 
 implementation
 
-uses rsDBUtils, DmdDatabase, UConsPedidoItemProc_Itens;
+uses rsDBUtils, DmdDatabase, UConsPedidoItemProc_Itens, uUtilPadrao;
 
 {$R *.dfm}
 
@@ -179,6 +182,35 @@ var
 begin
   ColunaOrdenada := Column.FieldName;
   fDMConsPedidoProc.cdsConsPedido.IndexFieldNames := Column.FieldName;
+end;
+
+procedure TfrmConsPedidoItemProc.btnExcelClick(Sender: TObject);
+begin
+  prc_Excel(SMDBGrid2.DataSource);
+end;
+
+procedure TfrmConsPedidoItemProc.prc_Excel(vDados: TDataSource);
+var
+  planilha: variant;
+  vTexto: string;
+begin
+  Screen.Cursor := crHourGlass;
+  vDados.DataSet.First;
+
+  planilha := CreateOleObject('Excel.Application');
+  planilha.WorkBooks.add(1);
+  planilha.caption := 'Exportando dados do tela para o Excel';
+  planilha.visible := true;
+
+  prc_Preencher_Excel2(planilha, vDados, SMDBGrid2);
+
+  planilha.columns.Autofit;
+  vTexto := ExtractFilePath(Application.ExeName);
+
+  vTexto := vTexto + Name + '_ConsPedido_Processos' ;
+
+  Planilha.ActiveWorkBook.SaveAs(vTexto);
+  Screen.Cursor := crDefault;
 end;
 
 end.

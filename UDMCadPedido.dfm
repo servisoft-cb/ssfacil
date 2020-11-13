@@ -2821,7 +2821,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE ID = :ID'
       '  AND ITEM = :ITEM')
     SQLConnection = dmDatabase.scoDados
-    Left = 1059
+    Left = 1061
     Top = 464
     object qCFOP_VariacaoID: TIntegerField
       FieldName = 'ID'
@@ -15569,10 +15569,6 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'LIB_ITEM_SEM_PROCESSO'
       FixedChar = True
       Size = 1
-    end
-    object qParametros_PedSENHA_ALT_PEDIDO: TStringField
-      FieldName = 'SENHA_ALT_PEDIDO'
-      Size = 15
     end
   end
   object sdsMetas_Acum: TSQLDataSet

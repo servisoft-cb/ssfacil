@@ -147,6 +147,7 @@ type
     btnProcesso: TNxButton;
     Panel1: TPanel;
     SMDBGrid2: TSMDBGrid;
+    Label62: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -208,6 +209,7 @@ type
     procedure FilenameEdit1Change(Sender: TObject);
     procedure RxDBLookupCombo11Exit(Sender: TObject);
     procedure btnProcessoClick(Sender: TObject);
+    procedure Panel1Enter(Sender: TObject);
   private
     { Private declarations }
     vItemMat: Integer;
@@ -1139,6 +1141,11 @@ begin
   uGrava_Pedido.prc_Gravar_mProcesso_Sel(fDMCadPedido);
   frmCadPedido_Proc.ShowModal;
   FreeAndNil(frmCadPedido_Proc);
+end;
+
+procedure TfrmCadPedido_TipoItem.Panel1Enter(Sender: TObject);
+begin
+  fDMCadPedido.mProcesso_Sel.First;
 end;
 
 end.

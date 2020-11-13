@@ -4,7 +4,7 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmCadPedido_TipoItem'
-  ClientHeight = 512
+  ClientHeight = 540
   ClientWidth = 747
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -24,7 +24,7 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
     Left = 0
     Top = 0
     Width = 747
-    Height = 478
+    Height = 506
     ActivePage = TS_Chapas
     ActivePageDefault = TS_Chapas
     Align = alClient
@@ -142,6 +142,19 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
         Height = 13
         Alignment = taRightJustify
         Caption = 'Fator C'#225'lculo Peso:'
+      end
+      object Label62: TLabel
+        Left = 415
+        Top = 252
+        Width = 280
+        Height = 13
+        Caption = 'Informe 1 para SIM e 0 Para n'#227'o   ter o Processo'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = [fsBold]
+        ParentFont = False
       end
       object DBEdit1: TDBEdit
         Left = 112
@@ -277,8 +290,8 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
         OnExit = DBEdit2Exit
       end
       object btnProcesso: TNxButton
-        Left = 114
-        Top = 260
+        Left = 363
+        Top = 196
         Width = 98
         Height = 29
         Cursor = crHandPoint
@@ -295,16 +308,17 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
       end
       object Panel1: TPanel
         Left = 0
-        Top = 293
+        Top = 272
         Width = 745
-        Height = 164
+        Height = 213
         Align = alBottom
         TabOrder = 13
+        OnEnter = Panel1Enter
         object SMDBGrid2: TSMDBGrid
           Left = 1
           Top = 1
           Width = 743
-          Height = 162
+          Height = 211
           Align = alClient
           Ctl3D = False
           DataSource = DMCadPedido.dsmProcesso_Sel
@@ -361,7 +375,7 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
               Title.Font.Height = -11
               Title.Font.Name = 'MS Sans Serif'
               Title.Font.Style = [fsBold]
-              Width = 105
+              Width = 114
               Visible = True
             end>
         end
@@ -1357,7 +1371,7 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
   end
   object Panel3: TPanel
     Left = 0
-    Top = 478
+    Top = 506
     Width = 747
     Height = 34
     Align = alBottom

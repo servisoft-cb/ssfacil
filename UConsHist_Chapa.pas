@@ -202,6 +202,7 @@ begin
     edtMultiplicador.Text := '1';
   if edtReajuste.Text = '' then
     edtReajuste.Text := '0';
+    
   Close;
 end;
 

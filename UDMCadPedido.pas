@@ -3915,7 +3915,6 @@ type
     cdsOrcamento_ItensESPESSURA: TFloatField;
     cdsOrcamento_ItensOBS_REDUZIDA: TStringField;
     qParametros_PedLIB_ITEM_SEM_PROCESSO: TStringField;
-    qParametros_PedSENHA_ALT_PEDIDO: TStringField;
     cdsPedido_Item_ProcessoclNome2: TStringField;
     qProcesso: TSQLQuery;
     qProcessoID: TIntegerField;
