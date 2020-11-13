@@ -15,7 +15,6 @@ object frmCadProcesso: TfrmCadProcesso
   OldCreateOrder = False
   Position = poDefault
   OnClose = FormClose
-  OnDestroy = FormDestroy
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -24,7 +23,7 @@ object frmCadProcesso: TfrmCadProcesso
     Top = 0
     Width = 779
     Height = 511
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 15759360
@@ -32,7 +31,7 @@ object frmCadProcesso: TfrmCadProcesso
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -143,7 +142,6 @@ object frmCadProcesso: TfrmCadProcesso
             FieldName = 'ESTOQUE'
             Title.Alignment = taCenter
             Title.Caption = 'Estoque'
-            Width = 64
             Visible = True
           end
           item
@@ -152,7 +150,6 @@ object frmCadProcesso: TfrmCadProcesso
             FieldName = 'LER_TALAO'
             Title.Alignment = taCenter
             Title.Caption = 'Ler Tal'#227'o'
-            Width = 64
             Visible = True
           end>
       end
@@ -1003,9 +1000,9 @@ object frmCadProcesso: TfrmCadProcesso
         end
         object DBCheckBox6: TDBCheckBox
           Left = 464
-          Top = 68
+          Top = 70
           Width = 145
-          Height = 17
+          Height = 15
           Caption = 'Imprimir Cliente No Tal'#227'o'
           DataField = 'IMP_CLIENTE'
           DataSource = DmCadSetor.dsProcesso

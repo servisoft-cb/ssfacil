@@ -75,7 +75,6 @@ type
     procedure SMDBGrid1DblClick(Sender: TObject);
     procedure btnAlterarClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
     procedure Edit4KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -105,6 +104,7 @@ uses DmdDatabase, rsDBUtils;
 procedure TfrmCadProcesso.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin                             
+  FreeAndNil(fDMCadSetor);
   Action := Cafree;
 end;
 
@@ -249,11 +249,6 @@ begin
   prc_Gravar_Registro;
 end;
 
-procedure TfrmCadProcesso.FormDestroy(Sender: TObject);
-begin
-  FreeAndNil(fDMCadSetor);
-end;
-
 procedure TfrmCadProcesso.btnInserirClick(Sender: TObject);
 begin
   prc_Inserir_Registro;
@@ -288,10 +283,13 @@ end;
 
 procedure TfrmCadProcesso.DBCheckBox13Click(Sender: TObject);
 begin
-  if fDMCadSetor.cdsProcesso.State in [dsEdit,dsInsert] then
+  if Assigned(fDMCadSetor) then
   begin
-    if not DBCheckBox13.Checked then
-      fDMCadSetor.cdsProcessoLER_UMAVEZ.AsString := 'N';
+    if fDMCadSetor.cdsProcesso.State in [dsEdit,dsInsert] then
+    begin
+      if not DBCheckBox13.Checked then
+        fDMCadSetor.cdsProcessoLER_UMAVEZ.AsString := 'N';
+    end;
   end;
 end;
 

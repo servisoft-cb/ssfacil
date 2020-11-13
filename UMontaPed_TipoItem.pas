@@ -383,6 +383,7 @@ begin
   i := 0;
   mProcesso.EmptyDataSet;
   fDMCadPedido.cdsProcesso.Open;
+  fDMCadPedido.cdsProcesso.IndexFieldNames := 'ORDEM_MAPA';
   fDMCadPedido.cdsProcesso.First;
   while not fDMCadPedido.cdsProcesso.Eof do
   begin
@@ -392,7 +393,7 @@ begin
       i     := i + 1;
       mProcesso.Insert;
       mProcessoOrdem.AsInteger := fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger;
-      mProcessoID_Processo.AsInteger := fDMCadPedido.cdsProcessoORDEM_MAPA.AsInteger;
+      mProcessoID_Processo.AsInteger := fDMCadPedido.cdsProcessoID.AsInteger;
       mProcessoNome.AsString         := fDMCadPedido.cdsProcessoNOME.AsString;
       if fDMCadPedido.qParametros_PedID_PROCESSO_FINAL.AsInteger = fDMCadPedido.cdsProcessoID.AsInteger then
       begin

@@ -140,7 +140,11 @@ begin
 end;
 
 function TPedidoControle.PesquisaPedidoProjeto(pNome: String; ID_Cliente : String): TPedidoControle;
+var
+  vAux : String;
+  vExiste : Boolean;
 begin
+  vExiste := False;
   FControle.sqlGeral.Close;
   FControle.sqlGeral.SQL.Clear;
   FControle.sqlGeral.SQL.ADD('select NOME_PROJETO, ');
@@ -164,13 +168,44 @@ begin
   FControle.sqlGeral.SQL.ADD('PROCESSO_09, ');
   FControle.sqlGeral.SQL.ADD('PROCESSO_10');
   FControle.sqlGeral.SQL.ADD('from PEDIDO_PROJETO ');
-  FControle.sqlGeral.SQL.ADD('Where NOME_PROJETO = ' + QuotedStr(pNome));
+  vAux := copy(pNome,1,40);
+  //FControle.sqlGeral.SQL.ADD('Where NOME_PROJETO = ' + QuotedStr(pNome));
+  FControle.sqlGeral.SQL.ADD('Where NOME_PROJETO = ' + QuotedStr(vAux));
   FControle.sqlGeral.SQL.ADD(' and ID_Pessoa = ' + ID_Cliente);
-
   FControle.sqlGeral.Open;
+  if FControle.sqlGeral.IsEmpty then
+  begin
+    FControle.sqlGeral.Close;
+    FControle.sqlGeral.SQL.Clear;
+    FControle.sqlGeral.SQL.ADD('select NOME_PROJETO, ');
+    FControle.sqlGeral.SQL.ADD('ID_PESSOA, ');
+    FControle.sqlGeral.SQL.ADD('PRECO_KG, ');
+    FControle.sqlGeral.SQL.ADD('PESO, ');
+    FControle.sqlGeral.SQL.ADD('VLR_DOBRA, ');
+    FControle.sqlGeral.SQL.ADD('VLR_UNITARIO, ');
+    FControle.sqlGeral.SQL.ADD('COMPRIMENTO, ');
+    FControle.sqlGeral.SQL.ADD('LARGURA, ');
+    FControle.sqlGeral.SQL.ADD('ESPESSURA, ');
+    FControle.sqlGeral.SQL.ADD('ID_PRODUTO, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_01, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_02, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_03, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_04, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_05, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_06, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_07, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_08, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_09, ');
+    FControle.sqlGeral.SQL.ADD('PROCESSO_10');
+    FControle.sqlGeral.SQL.ADD('from PEDIDO_PROJETO ');
+    FControle.sqlGeral.SQL.ADD('Where NOME_PROJETO = ' + QuotedStr(pNome));
+    FControle.sqlGeral.SQL.ADD(' and ID_Pessoa = ' + ID_Cliente);
+    FControle.sqlGeral.Open;
+  end;
 
   if not FControle.sqlGeral.IsEmpty then
   begin
+    vExiste := True;
     Self.NomeProjeto  := FControle.sqlGeral.FieldByName('Nome_Projeto').AsString;
     Self.Id_Pessoa    := FControle.sqlGeral.FieldByName('Id_Pessoa').Asinteger;
     Self.Preco_Kg     := FControle.sqlGeral.FieldByName('Preco_KG').AsFloat;
