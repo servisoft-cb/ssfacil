@@ -17,7 +17,7 @@ object DMCopiaPedido: TDMCopiaPedido
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 104
-    Top = 21
+    Top = 22
     object sdsPedidoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1959,11 +1959,8 @@ object DMCopiaPedido: TDMCopiaPedido
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select P.*, PR.NOME, PR.ORDEM_MAPA,'#13#10'       case'#13#10'         when ' +
-      'PR.USAR_QTD_DOBRA = '#39'S'#39' then PR.NOME || '#39'  Qtd.: '#39' ||  coalesce(' +
-      'P.QTD_DOBRA,1)'#13#10'         else PR.NOME'#13#10'       end NOME2'#13#10'from PE' +
-      'DIDO_ITEM_PROCESSO P'#13#10'left join PROCESSO PR on P.ID_PROCESSO = P' +
-      'R.ID'#13#10'where P.ID = :ID and'#13#10'      P.ITEM = :ITEM '#13#10#13#10
+      'select P.*'#13#10'from  PEDIDO_ITEM_PROCESSO P'#13#10'where P.ID = :ID and'#13#10 +
+      '      P.ITEM = :ITEM '#13#10#13#10
     DataSource = dsPedido_Item_Mestre
     MaxBlobSize = -1
     Params = <
@@ -2015,22 +2012,8 @@ object DMCopiaPedido: TDMCopiaPedido
     object sdsPedido_Item_ProcessoHRSAIDA: TTimeField
       FieldName = 'HRSAIDA'
     end
-    object sdsPedido_Item_ProcessoNOME: TStringField
-      FieldName = 'NOME'
-      ProviderFlags = []
-      Size = 30
-    end
-    object sdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField
-      FieldName = 'ORDEM_MAPA'
-      ProviderFlags = []
-    end
     object sdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField
       FieldName = 'QTD_DOBRA'
-    end
-    object sdsPedido_Item_ProcessoNOME2: TStringField
-      FieldName = 'NOME2'
-      ProviderFlags = []
-      Size = 49
     end
   end
   object cdsPedido_Item_Processo: TClientDataSet
@@ -2038,8 +2021,8 @@ object DMCopiaPedido: TDMCopiaPedido
     DataSetField = cdsPedido_ItenssdsPedido_Item_Processo
     IndexFieldNames = 'ID;ITEM;ITEM_PROCESSO'
     Params = <>
-    Left = 148
-    Top = 204
+    Left = 147
+    Top = 203
     object cdsPedido_Item_ProcessoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -2073,22 +2056,8 @@ object DMCopiaPedido: TDMCopiaPedido
     object cdsPedido_Item_ProcessoHRSAIDA: TTimeField
       FieldName = 'HRSAIDA'
     end
-    object cdsPedido_Item_ProcessoNOME: TStringField
-      FieldName = 'NOME'
-      ProviderFlags = []
-      Size = 30
-    end
-    object cdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField
-      FieldName = 'ORDEM_MAPA'
-      ProviderFlags = []
-    end
     object cdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField
       FieldName = 'QTD_DOBRA'
-    end
-    object cdsPedido_Item_ProcessoNOME2: TStringField
-      FieldName = 'NOME2'
-      ProviderFlags = []
-      Size = 49
     end
   end
   object dsPedido_Item_Processo: TDataSource

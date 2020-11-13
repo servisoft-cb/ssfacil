@@ -1,11 +1,11 @@
 object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
-  Left = 164
+  Left = 16
   Top = 27
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmMontaPed_TipoItem'
   ClientHeight = 660
-  ClientWidth = 1067
+  ClientWidth = 1320
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -24,7 +24,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1067
+    Width = 1320
     Height = 116
     Align = alTop
     Color = 16777134
@@ -377,7 +377,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   object StaticText1: TStaticText
     Left = 0
     Top = 643
-    Width = 1067
+    Width = 1320
     Height = 17
     Align = alBottom
     BorderStyle = sbsSingle
@@ -393,7 +393,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   object Panel2: TPanel
     Left = 0
     Top = 603
-    Width = 1067
+    Width = 1320
     Height = 40
     Align = alBottom
     Color = 16777134
@@ -438,6 +438,26 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
       Font.Style = []
       ParentFont = False
     end
+    object Shape3: TShape
+      Left = 664
+      Top = 9
+      Width = 30
+      Height = 16
+      Brush.Color = clYellow
+    end
+    object Label6: TLabel
+      Left = 696
+      Top = 12
+      Width = 68
+      Height = 13
+      Caption = 'Sem Processo'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
     object btnCopiar: TBitBtn
       Left = 6
       Top = 3
@@ -457,14 +477,14 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   object pnlItens: TPanel
     Left = 0
     Top = 116
-    Width = 1067
+    Width = 1320
     Height = 487
     Align = alClient
     TabOrder = 3
     object SMDBGrid1: TSMDBGrid
       Left = 1
       Top = 1
-      Width = 1065
+      Width = 1318
       Height = 485
       Align = alClient
       Ctl3D = False
@@ -579,7 +599,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
           ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'C'#243'digo Produto'
-          Width = 99
+          Width = 46
           Visible = True
         end
         item

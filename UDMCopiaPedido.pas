@@ -472,10 +472,7 @@ type
     sdsPedido_Item_ProcessoHRENTRADA: TTimeField;
     sdsPedido_Item_ProcessoDTBAIXA: TDateField;
     sdsPedido_Item_ProcessoHRSAIDA: TTimeField;
-    sdsPedido_Item_ProcessoNOME: TStringField;
-    sdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField;
     sdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField;
-    sdsPedido_Item_ProcessoNOME2: TStringField;
     cdsPedido_Item_Processo: TClientDataSet;
     cdsPedido_Item_ProcessoID: TIntegerField;
     cdsPedido_Item_ProcessoITEM: TIntegerField;
@@ -486,10 +483,7 @@ type
     cdsPedido_Item_ProcessoHRENTRADA: TTimeField;
     cdsPedido_Item_ProcessoDTBAIXA: TDateField;
     cdsPedido_Item_ProcessoHRSAIDA: TTimeField;
-    cdsPedido_Item_ProcessoNOME: TStringField;
-    cdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField;
     cdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField;
-    cdsPedido_Item_ProcessoNOME2: TStringField;
     dsPedido_Item_Processo: TDataSource;
     cdsPedido_ItenssdsPedido_Item_Processo: TDataSetField;
     sdsPedidoDDD: TIntegerField;

@@ -74,6 +74,8 @@ type
     mProcessoDobra: TStringField;
     mProcessoColuna: TIntegerField;
     mArquivoImportadoObs_Reduzida: TStringField;
+    Shape3: TShape;
+    Label6: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure btnCopiarClick(Sender: TObject);
@@ -166,6 +168,9 @@ var
   vControle : TControle;
   vItemAux : Integer;
   vCont: Integer;
+  vContProc : Integer;
+  i: Integer;
+  vGravar: Boolean;
 begin
   mArquivoImportado.First;
   if mArquivoImportado.IsEmpty then
@@ -180,7 +185,42 @@ begin
   ffrmCadPedido_Itens.vMostrar_Preco := True;
 
   //mArquivoImportado.DisableControls;
+  vGravar := True;
+
+  if trim(fDMCadPedido.qParametros_PedLIB_ITEM_SEM_PROCESSO.AsString) <> 'S' then
+  begin
+    SMDBGrid1.DisableScroll;
+    try
+      mArquivoImportado.First;
+      while not mArquivoImportado.Eof do
+      begin
+        if StrToFloat(FormatFloat('0.0000',mArquivoImportadoQtde.AsFloat)) > 0 then
+        begin
+          vContProc := 0;
+          for i := 1 to 10 do
+          begin
+            if mArquivoImportado.FieldByName('PROCESSO_'+FormatFloat('00',i)).AsInteger > 0 then
+             vContProc := vContProc + 1;
+          end;
+          if vContProc <= 1 then
+          begin
+            MessageDlg('Item ' + mArquivoImportadoNomeArquivo.AsString + ', sem Processo, não será copiado!', mtWarning,mbOKCancel,0);
+            vGravar := False;
+            mArquivoImportado.Last;
+          end;
+        end;
+        mArquivoImportado.Next;
+      end;
+    finally
+      SMDBGrid1.EnableScroll;
+    end;
+  end;
+
+  if not vGravar then
+    exit;
+
   try
+    mArquivoImportado.First;
     while not mArquivoImportado.Eof do
     begin
       if mArquivoImportadoQtde.AsFloat > 0 then
@@ -261,10 +301,8 @@ begin
             fDMCadPedido.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger   := mProcessoID_Processo.AsInteger;
             fDMCadPedido.cdsPedido_Item_ProcessoQTD.AsInteger           := mArquivoImportadoQtde.AsInteger;
             fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsInteger     := mArquivoImportado.FieldByName('Processo_'+FormatFloat('00',vCont)).AsInteger;
-            fDMCadPedido.cdsPedido_Item_ProcessoNOME.AsString           := mProcessoNome.AsString;
-            fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString          := mProcessoNome.AsString;
-            if mProcessoDobra.AsString = 'S' then
-              fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString := mProcessoNome.AsString + ' Qtd: ' + fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsString;
+            //if mProcessoDobra.AsString = 'S' then
+            //  fDMCadPedido.cdsPedido_Item_ProcessoNOME2.AsString := mProcessoNome.AsString + ' Qtd: ' + fDMCadPedido.cdsPedido_Item_ProcessoQTD_DOBRA.AsString;
             fDMCadPedido.cdsPedido_Item_ProcessoDTENTRADA.Clear;
             fDMCadPedido.cdsPedido_Item_ProcessoHRENTRADA.Clear;
             fDMCadPedido.cdsPedido_Item_ProcessoDTBAIXA.Clear;
@@ -884,14 +922,31 @@ end;
 
 procedure TfrmMontaPed_TipoItem.SMDBGrid1GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+var
+  i : Integer;
+  vCont: Integer;  
 begin
   if (StrToFloat(FormatFloat('0.000',mArquivoImportadoQtde.AsFloat)) > 0) and (mArquivoImportadoCodigo_Produto.AsInteger <= 0) and
     not(mArquivoImportado.State in [dsEdit, dsInsert]) then
   begin
     Background  := clRed;
     AFont.Color := clWhite;
-  end;
-
+  end
+  else
+  if (StrToFloat(FormatFloat('0.000',mArquivoImportadoQtde.AsFloat)) > 0) and not(mArquivoImportado.State in [dsEdit, dsInsert]) then
+  begin
+    vCont := 0;
+    for i := 1 to 10 do
+    begin
+      if mArquivoImportado.FieldByName('PROCESSO_'+FormatFloat('00',i)).AsInteger > 0 then
+        vCont := vCont + 1;
+    end;
+    if vCont <= 1 then
+    begin
+      Background  := clYellow;
+      AFont.Color := clBlack;
+    end;
+  end
 end;
 
 procedure TfrmMontaPed_TipoItem.prc_Carrega_CSV;

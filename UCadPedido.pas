@@ -574,6 +574,7 @@ type
     procedure EnviarEmailNfse;
 
     function fnc_Monta_CorpoEmail : TStringList;
+    function fnc_Senha_Alt_Pedido : Boolean;
 
   public
     { Public declarations }
@@ -608,6 +609,13 @@ begin
   if not fnc_Verifica_Registro then
     Exit;
 
+  fDMCadPedido.qParametros_Ped.Close;
+  fDMCadPedido.qParametros_Ped.Open;
+  fDMCadPedido.qParametros_Lote.Close;
+  fDMCadPedido.qParametros_Lote.Open;
+  fDMCadPedido.cdsParametros.Close;
+  fDMCadPedido.cdsParametros.Open;
+
   if (((fDMCadPedido.qParametros_LoteLOTE_TEXTIL.AsString = 'S') or (trim(fDMCadPedido.qParametros_LoteUSA_LOTE_PED_SPROC.AsString) = 'S'))  and (fDMCadPedido.cdsPedido_ConsultaGEROU_PRODUCAO.AsString = 'S')) or
      ((fDMCadPedido.cdsParametrosUSA_LOTE.AsString = 'S') and ((fDMCadPedido.cdsPedido_ConsultaCONT_TALAO.AsInteger > 0) or
      (fDMCadPedido.cdsPedido_ConsultaCONT_TALAO2.AsInteger > 0))) then
@@ -626,13 +634,20 @@ begin
     end;
   end;
   //*******************
-
-  if (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S') and (fDMCadPedido.cdsPedido_ConsultaAPROVADO_PED.AsString = 'P') then
-    if not fnc_senha('EXC','SENHA_PEDIDO','','','','',0) then
+  if trim(fDMCadPedido.qParametros_PedSENHA_ALT_PEDIDO.AsString) <> '' then
+  begin
+    if not fnc_Senha_Alt_Pedido then
       exit;
-  if (fDMCadPedido.cdsPedido_ConsultaROTULO_IMP.AsString = 'S') and (fDMCadPedido.qParametros_PedCONTROLAR_ROT_IMPRESSO.AsString = 'S') then
-    if not fnc_senha('ROT','SENHA_PEDIDO','R','','Rótulo já impresso','',0) then
-      exit;
+  end
+  else
+  begin
+    if (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S') and (fDMCadPedido.cdsPedido_ConsultaAPROVADO_PED.AsString = 'P') then
+      if not fnc_senha('EXC','SENHA_PEDIDO','','','','',0) then
+        exit;
+    if (fDMCadPedido.cdsPedido_ConsultaROTULO_IMP.AsString = 'S') and (fDMCadPedido.qParametros_PedCONTROLAR_ROT_IMPRESSO.AsString = 'S') then
+      if not fnc_senha('ROT','SENHA_PEDIDO','R','','Rótulo já impresso','',0) then
+        exit;
+  end;
 
   prc_Posiciona_Pedido;
 
@@ -1292,6 +1307,15 @@ begin
 
   fDMCadPedido.mSenha.EmptyDataSet;
   fDMCadPedido.mProcesso_Sel.EmptyDataSet;
+
+  fDMCadPedido.qParametros_Ped.Close;
+  fDMCadPedido.qParametros_Ped.Open;
+
+  if trim(fDMCadPedido.qParametros_PedSENHA_ALT_PEDIDO.AsString) <> '' then
+  begin
+    if not fnc_Senha_Alt_Pedido then
+      exit;
+  end;
 
   if vInclusao_Edicao <> 'C' then
   begin
@@ -5142,6 +5166,23 @@ begin
   FreeAndNil(frmAltPrecoPedido);
   btnCalcular_ValoresClick(Sender);
   fDMCadPedido.cdsPedido_Itens.Locate('ID',vFilial,[loCaseInsensitive]);
+end;
+
+function TfrmCadPedido.fnc_Senha_Alt_Pedido: Boolean;
+var
+  ffrmSenha: TfrmSenha;
+begin
+  Result := True;
+  vSenha := '';
+  ffrmSenha := TfrmSenha.Create(self);
+  ffrmSenha.Panel1.Visible := False;
+  ffrmSenha.ShowModal;
+  FreeAndNil(ffrmSenha);
+  if vSenha <> fDMCadPedido.qParametros_PedSENHA_ALT_PEDIDO.AsString then
+  begin
+    MessageDlg('*** Senha incorreta!', mtInformation, [mbOk], 0);
+    Result := False;
+  end;
 end;
 
 end.

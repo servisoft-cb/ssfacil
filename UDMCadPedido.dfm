@@ -3,7 +3,7 @@ object DMCadPedido: TDMCadPedido
   OnCreate = DataModuleCreate
   Top = 3
   Height = 699
-  Width = 1366
+  Width = 1355
   object sdsPedido: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -452,8 +452,8 @@ object DMCadPedido: TDMCadPedido
     ProviderName = 'dspPedido'
     BeforePost = cdsPedidoBeforePost
     OnNewRecord = cdsPedidoNewRecord
-    Left = 51
-    Top = 6
+    Left = 69
+    Top = 5
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -927,7 +927,7 @@ object DMCadPedido: TDMCadPedido
   end
   object dsPedido: TDataSource
     DataSet = cdsPedido
-    Left = 66
+    Left = 85
     Top = 1
   end
   object sdsVendedor: TSQLDataSet
@@ -2840,7 +2840,7 @@ object DMCadPedido: TDMCadPedido
   end
   object dsPedido_Mestre: TDataSource
     DataSet = sdsPedido
-    Left = 102
+    Left = 114
     Top = 4
   end
   object sdsPedido_Itens: TSQLDataSet
@@ -3406,7 +3406,7 @@ object DMCadPedido: TDMCadPedido
     BeforePost = cdsPedido_ItensBeforePost
     OnCalcFields = cdsPedido_ItensCalcFields
     OnNewRecord = cdsPedido_ItensNewRecord
-    Left = 41
+    Left = 46
     Top = 53
     object cdsPedido_ItensID: TIntegerField
       FieldName = 'ID'
@@ -4072,8 +4072,8 @@ object DMCadPedido: TDMCadPedido
   end
   object dsPedido_Itens: TDataSource
     DataSet = cdsPedido_Itens
-    Left = 56
-    Top = 52
+    Left = 75
+    Top = 51
   end
   object sdsPedido_Desconto: TSQLDataSet
     NoMetadata = True
@@ -6336,8 +6336,8 @@ object DMCadPedido: TDMCadPedido
   end
   object dsPedido_Item_Mestre: TDataSource
     DataSet = sdsPedido_Itens
-    Left = 73
-    Top = 51
+    Left = 94
+    Top = 50
   end
   object cdsPedido_Cli: TClientDataSet
     Aggregates = <>
@@ -15565,6 +15565,15 @@ object DMCadPedido: TDMCadPedido
     object qParametros_PedID_PROCESSO_FINAL: TIntegerField
       FieldName = 'ID_PROCESSO_FINAL'
     end
+    object qParametros_PedLIB_ITEM_SEM_PROCESSO: TStringField
+      FieldName = 'LIB_ITEM_SEM_PROCESSO'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_PedSENHA_ALT_PEDIDO: TStringField
+      FieldName = 'SENHA_ALT_PEDIDO'
+      Size = 15
+    end
   end
   object sdsMetas_Acum: TSQLDataSet
     CommandText = 
@@ -19015,7 +19024,7 @@ object DMCadPedido: TDMCadPedido
       'WHERE C.ID = :ID')
     SQLConnection = dmDatabase.scoDados
     Left = 1141
-    Top = 416
+    Top = 417
     object qCorID: TFMTBCDField
       FieldName = 'ID'
       Required = True
@@ -20092,11 +20101,8 @@ object DMCadPedido: TDMCadPedido
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select P.*, PR.NOME, PR.ORDEM_MAPA,'#13#10'       case'#13#10'         when ' +
-      'PR.USAR_QTD_DOBRA = '#39'S'#39' then PR.NOME || '#39'  Qtd.: '#39' ||  coalesce(' +
-      'P.QTD_DOBRA,1)'#13#10'         else PR.NOME'#13#10'       end NOME2'#13#10'from PE' +
-      'DIDO_ITEM_PROCESSO P'#13#10'left join PROCESSO PR on P.ID_PROCESSO = P' +
-      'R.ID'#13#10'where P.ID = :ID and'#13#10'      P.ITEM = :ITEM '#13#10#13#10
+      'select P.*'#13#10'from  PEDIDO_ITEM_PROCESSO P'#13#10'where P.ID = :ID and'#13#10 +
+      '      P.ITEM = :ITEM '#13#10
     DataSource = dsPedido_Item_Mestre
     MaxBlobSize = -1
     Params = <
@@ -20113,8 +20119,8 @@ object DMCadPedido: TDMCadPedido
         Size = 4
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 1200
-    Top = 99
+    Left = 1201
+    Top = 104
     object sdsPedido_Item_ProcessoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -20148,22 +20154,8 @@ object DMCadPedido: TDMCadPedido
     object sdsPedido_Item_ProcessoHRSAIDA: TTimeField
       FieldName = 'HRSAIDA'
     end
-    object sdsPedido_Item_ProcessoNOME: TStringField
-      FieldName = 'NOME'
-      ProviderFlags = []
-      Size = 30
-    end
-    object sdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField
-      FieldName = 'ORDEM_MAPA'
-      ProviderFlags = []
-    end
     object sdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField
       FieldName = 'QTD_DOBRA'
-    end
-    object sdsPedido_Item_ProcessoNOME2: TStringField
-      FieldName = 'NOME2'
-      ProviderFlags = []
-      Size = 49
     end
   end
   object cdsPedido_Item_Processo: TClientDataSet
@@ -20171,6 +20163,7 @@ object DMCadPedido: TDMCadPedido
     DataSetField = cdsPedido_ItenssdsPedido_Item_Processo
     IndexFieldNames = 'ID;ITEM;ITEM_PROCESSO'
     Params = <>
+    OnCalcFields = cdsPedido_Item_ProcessoCalcFields
     Left = 1230
     Top = 99
     object cdsPedido_Item_ProcessoID: TIntegerField
@@ -20206,22 +20199,15 @@ object DMCadPedido: TDMCadPedido
     object cdsPedido_Item_ProcessoHRSAIDA: TTimeField
       FieldName = 'HRSAIDA'
     end
-    object cdsPedido_Item_ProcessoNOME: TStringField
-      FieldName = 'NOME'
-      ProviderFlags = []
-      Size = 30
-    end
-    object cdsPedido_Item_ProcessoORDEM_MAPA: TIntegerField
-      FieldName = 'ORDEM_MAPA'
-      ProviderFlags = []
-    end
     object cdsPedido_Item_ProcessoQTD_DOBRA: TIntegerField
       FieldName = 'QTD_DOBRA'
     end
-    object cdsPedido_Item_ProcessoNOME2: TStringField
-      FieldName = 'NOME2'
+    object cdsPedido_Item_ProcessoclNome2: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'clNome2'
       ProviderFlags = []
-      Size = 49
+      Size = 50
+      Calculated = True
     end
   end
   object dsPedido_Item_Processo: TDataSource
@@ -20504,5 +20490,34 @@ object DMCadPedido: TDMCadPedido
     BCDToCurrency = False
     Left = 1184
     Top = 240
+  end
+  object qProcesso: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select ID, NOME, USAR_QTD_DOBRA'
+      'from PROCESSO '
+      'WHERE ID = :ID')
+    SQLConnection = dmDatabase.scoDados
+    Left = 1180
+    Top = 445
+    object qProcessoID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object qProcessoNOME: TStringField
+      FieldName = 'NOME'
+      Size = 30
+    end
+    object qProcessoUSAR_QTD_DOBRA: TStringField
+      FieldName = 'USAR_QTD_DOBRA'
+      FixedChar = True
+      Size = 1
+    end
   end
 end

@@ -7,7 +7,7 @@ uses
   DBGrids, ExtCtrls, StdCtrls, DBCtrls, ToolEdit, CurrEdit, RxLookup, RxDBComb, RXDBCtrl, UCadOrcamento_Itens, 
   UCBase, Menus, NxEdit, NxCollection, UDMRel, UCadOrcamento_Aprov, Variants, Mask, RzTabs, RzPanel, UCadPedido_Desconto, ComObj,
   UCadPedido_Ace, uCadObs_Aux, UCadPedido_ItensRed, UCadOrcamento_NaoAprovado, classe.validaemail, frxExportPDF, frxExportMail,
-  UMontaPed_TipoItem, RzDBGrid;
+  UMontaPed_TipoItem, RzDBGrid, uMostraPDF;
 
 type
   TfrmCadOrcamento = class(TForm)
@@ -298,6 +298,8 @@ type
     procedure SpeedButton2Click(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure RxDBLookupCombo6Exit(Sender: TObject);
+    procedure SMDBGrid2KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     vVlrFreteAnt: Real;
@@ -314,6 +316,8 @@ type
     ffrmMontaPed_TipoItem: TfrmMontaPed_TipoItem;
     vInclusao_Edicao: String; //I=Incluir   E=Editar
     vCopiar : Boolean;
+
+    ffrmMostraPDF: TfrmMostraPDF;
 
     procedure ItemClick(Sender:TObject);
     procedure prc_Inserir_Registro;
@@ -1996,6 +2000,29 @@ begin
   fDMCadPedido.cdsItens_Consulta.Close;
   fDMCadPedido.sdsItens_Consulta.ParamByName('ID').AsInteger := fDMCadPedido.cdsPedido_ConsultaID.AsInteger;
   fDMCadPedido.cdsItens_Consulta.Open;
+end;
+
+procedure TfrmCadOrcamento.SMDBGrid2KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+var
+  vCaminhoPDF: String;
+begin
+  //ctrl + P (Imprimir PDF)
+  if (Shift = [ssCtrl]) and (Key = 80) then
+  begin
+    ffrmMostraPDF := TfrmMostraPDF.Create(Self);
+    try
+      if fDMCadPedido.cdsPedido_Item_Tipo.Locate('ID;ITEM',VarArrayOf([fDMCadPedido.cdsPedido_ItensID.AsInteger,fDMCadPedido.cdsPedido_ItensITEM.AsInteger]),[locaseinsensitive]) then
+      begin
+        vCaminhoPDF := fDMCadPedido.cdsPedido_Item_TipoCAMINHO_ARQUIVO_PDF.AsString;
+        ffrmMostraPDF.vCaminhoPDF := vCaminhoPDF;
+        ffrmMostraPDF.edtCaminhoPDF.Text := vCaminhoPDF;
+        ffrmMostraPDF.ShowModal;
+      end;
+    finally
+      FreeAndNil(ffrmMostraPDF);
+    end;
+  end;
 end;
 
 end.

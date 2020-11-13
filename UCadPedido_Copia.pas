@@ -32,6 +32,10 @@ type
     procedure prc_Copiar_Pedido;
     procedure prc_Copiar_Pedido_Itens;
     procedure prc_Inicio_Tela;
+
+    procedure prc_Copiar_Item_Tipo;
+    procedure prc_Copiar_Item_Processo;
+
   public
     { Public declarations }
     fDMCopiaPedido: TDMCopiaPedido;
@@ -163,36 +167,14 @@ begin
     fDMCopiaPedido.cdsPedido_Item_Tipo.First;
     while not fDMCopiaPedido.cdsPedido_Item_Tipo.Eof do
     begin
-      fDMCadPedido.cdsPedido_Item_Tipo.Insert;
-      fDMCadPedido.cdsPedido_Item_TipoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
-      fDMCadPedido.cdsPedido_Item_TipoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
-      for i := 0 to ( fDMCopiaPedido.cdsPedido_Item_Tipo.FieldCount - 1) do
-      begin
-        if (fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName <> 'ID') then
-          fDMCadPedido.cdsPedido_Item_Tipo.FieldByName(fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].Value;
-      end;
+      prc_Copiar_Item_Tipo;
       fDMCadPedido.cdsPedido_Item_Tipo.Post;
       fDMCopiaPedido.cdsPedido_Item_Tipo.Next;
     end;
     //****************
 
     //07/11/2020
-    fDMCopiaPedido.cdsPedido_Item_Processo.First;
-    while not fDMCopiaPedido.cdsPedido_Item_Processo.Eof do
-    begin
-      fDMCadPedido.cdsPedido_Item_Processo.Insert;
-      fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
-      fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
-      for i := 0 to ( fDMCopiaPedido.cdsPedido_Item_Processo.FieldCount - 1) do
-      begin
-        if (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'ID') and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'ITEM')
-          and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'DTENTRADA') and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'HRENTRADA')
-          and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'DTBAIXA') and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'HRSAIDA') then
-          fDMCadPedido.cdsPedido_Item_Processo.FieldByName(fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].Value;
-      end;
-      fDMCadPedido.cdsPedido_Item_Processo.Post;
-      fDMCopiaPedido.cdsPedido_Item_Processo.Next;
-    end;
+    prc_Copiar_Item_Processo;
     //****************
 
     fDMCopiaPedido.cdsPedido_Itens.Next;
@@ -290,17 +272,10 @@ begin
       fDMCopiaPedido.cdsPedido_Item_Tipo.First;
       while not fDMCopiaPedido.cdsPedido_Item_Tipo.Eof do
       begin
-        fDMCadPedido.cdsPedido_Item_Tipo.Insert;
-        fDMCadPedido.cdsPedido_Item_TipoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
-        fDMCadPedido.cdsPedido_Item_TipoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
-        for i := 0 to ( fDMCopiaPedido.cdsPedido_Item_Tipo.FieldCount - 1) do
-        begin
-          if (fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName <> 'ID') and (fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName <> 'ITEM') then
-            fDMCadPedido.cdsPedido_Item_Tipo.FieldByName(fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].Value;
-        end;
-
+        prc_Copiar_Item_Tipo;
         fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat := fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat * vFatorMultiplicador;
         fDMCadPedido.cdsPedido_Item_TipoVLR_KG.AsFloat := fDMCadPedido.cdsPedido_Item_TipoVLR_KG.AsFloat + (fDMCadPedido.cdsPedido_Item_TipoVLR_KG.AsFloat * (vPercentualAcrescimo / 100));
+
         vCalcular := TCalcluar_Peso.Create;
         try
           vCalcular.Espessura    := fDMCadPedido.cdsPedido_Item_TipoESPESSURA.AsFloat;
@@ -328,9 +303,48 @@ begin
         fDMCopiaPedido.cdsPedido_Item_Tipo.Next;
       end;
       //****************
+
+      prc_Copiar_Item_Processo;
+
     end;
 
     fDMCopiaPedido.mAux.Next;
+  end;
+end;
+
+procedure TfrmCadPedido_Copia.prc_Copiar_Item_Tipo;
+var
+  i : Integer;
+begin
+  fDMCadPedido.cdsPedido_Item_Tipo.Insert;
+  fDMCadPedido.cdsPedido_Item_TipoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
+  fDMCadPedido.cdsPedido_Item_TipoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+  for i := 0 to ( fDMCopiaPedido.cdsPedido_Item_Tipo.FieldCount - 1) do
+  begin
+    if (fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName <> 'ID') and (fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName <> 'ITEM') then
+      fDMCadPedido.cdsPedido_Item_Tipo.FieldByName(fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].Value;
+  end;
+end;
+
+procedure TfrmCadPedido_Copia.prc_Copiar_Item_Processo;
+var
+  i : Integer;
+begin
+  fDMCopiaPedido.cdsPedido_Item_Processo.First;
+  while not fDMCopiaPedido.cdsPedido_Item_Processo.Eof do
+  begin
+    fDMCadPedido.cdsPedido_Item_Processo.Insert;
+    fDMCadPedido.cdsPedido_Item_ProcessoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
+    fDMCadPedido.cdsPedido_Item_ProcessoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
+    for i := 0 to ( fDMCopiaPedido.cdsPedido_Item_Processo.FieldCount - 1) do
+    begin
+      if (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'ID') and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'ITEM')
+        and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'DTENTRADA') and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'HRENTRADA')
+        and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'DTBAIXA') and (fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName <> 'HRSAIDA') then
+        fDMCadPedido.cdsPedido_Item_Processo.FieldByName(fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido_Item_Processo.Fields[i].Value;
+    end;
+    fDMCadPedido.cdsPedido_Item_Processo.Post;
+    fDMCopiaPedido.cdsPedido_Item_Processo.Next;
   end;
 end;
 

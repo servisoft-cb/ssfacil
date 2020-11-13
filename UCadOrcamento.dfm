@@ -1167,6 +1167,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
+            Width = 64
             Visible = True
           end>
       end
@@ -2541,6 +2542,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             TitleFont.Height = -11
             TitleFont.Name = 'MS Sans Serif'
             TitleFont.Style = []
+            OnKeyDown = SMDBGrid2KeyDown
             Flat = False
             BandsFont.Charset = DEFAULT_CHARSET
             BandsFont.Color = clWindowText
@@ -2584,6 +2586,7 @@ object frmCadOrcamento: TfrmCadOrcamento
               item
                 Expanded = False
                 FieldName = 'REFERENCIA'
+                Width = 64
                 Visible = True
               end
               item
@@ -2678,6 +2681,7 @@ object frmCadOrcamento: TfrmCadOrcamento
                 FieldName = 'GRAVACAO_COM_ERRO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Com Notifica'#231#227'o'
+                Width = 64
                 Visible = True
               end
               item
@@ -3176,7 +3180,7 @@ object frmCadOrcamento: TfrmCadOrcamento
               Columns = <
                 item
                   Expanded = False
-                  FieldName = 'NOME2'
+                  FieldName = 'clNome2'
                   Width = 150
                   Visible = True
                 end
@@ -3771,6 +3775,7 @@ object frmCadOrcamento: TfrmCadOrcamento
               item
                 Expanded = False
                 FieldName = 'VLR_TOTAL'
+                Width = 64
                 Visible = True
               end>
           end
