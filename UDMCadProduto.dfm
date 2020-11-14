@@ -2043,6 +2043,11 @@ object dmCadProduto: TdmCadProduto
       FixedChar = True
       Size = 1
     end
+    object qParametrosEMPRESA_SUCATA: TStringField
+      FieldName = 'EMPRESA_SUCATA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object sdsGrupo: TSQLDataSet
     NoMetadata = True
@@ -2186,14 +2191,14 @@ object dmCadProduto: TdmCadProduto
       'R CONT_POSSUIPRECO, PRO.DTCAD, LIN.NOME NOME_LINHA,'#13#10'coalesce(NC' +
       'M.gerar_st,'#39'N'#39') GERAR_ST, PRO.MEDIDA, PRO.QTD_ESTOQUE_MIN,'#13#10'(SEL' +
       'ECT FIRST 1 NUM_SERIE FROM PRODUTO_SERIE WHERE ID = PRO.ID ORDER' +
-      ' BY ITEM DESC) NUM_SERIE'#13#10'from PRODUTO PRO'#13#10'left join TAB_NCM NC' +
-      'M on (PRO.ID_NCM = NCM.ID)'#13#10'left join MARCA on (PRO.ID_MARCA = M' +
-      'ARCA.ID)'#13#10'left join GRUPO on (PRO.ID_GRUPO = GRUPO.ID)'#13#10'left joi' +
-      'n PRODUTO_VEICULO PV on (PRO.ID = PV.ID)'#13#10'left join PRODUTO_LIVR' +
-      'O LI on (PRO.ID = LI.ID)  '#13#10'left join PESSOA FORN on pro.id_forn' +
-      'ecedor = forn.codigo'#13#10'LEFT JOIN vpossui_pcusto PCUSTO ON PRO.ID ' +
-      '= PCUSTO.ID'#13#10'left join LINHA LIN on (lin.id = pro.id_linha)'#13#10#13#10#13 +
-      #10
+      ' BY ITEM DESC) NUM_SERIE, PRO.FILIAL'#13#10'from PRODUTO PRO'#13#10'left joi' +
+      'n TAB_NCM NCM on (PRO.ID_NCM = NCM.ID)'#13#10'left join MARCA on (PRO.' +
+      'ID_MARCA = MARCA.ID)'#13#10'left join GRUPO on (PRO.ID_GRUPO = GRUPO.I' +
+      'D)'#13#10'left join PRODUTO_VEICULO PV on (PRO.ID = PV.ID)'#13#10'left join ' +
+      'PRODUTO_LIVRO LI on (PRO.ID = LI.ID)  '#13#10'left join PESSOA FORN on' +
+      ' pro.id_fornecedor = forn.codigo'#13#10'LEFT JOIN vpossui_pcusto PCUST' +
+      'O ON PRO.ID = PCUSTO.ID'#13#10'left join LINHA LIN on (lin.id = pro.id' +
+      '_linha)'#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -2487,6 +2492,9 @@ object dmCadProduto: TdmCadProduto
     object cdsProduto_ConsultaNUM_SERIE: TStringField
       FieldName = 'NUM_SERIE'
       Size = 30
+    end
+    object cdsProduto_ConsultaFILIAL: TIntegerField
+      FieldName = 'FILIAL'
     end
   end
   object dsProduto_Consulta: TDataSource

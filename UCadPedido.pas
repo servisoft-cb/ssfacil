@@ -1579,8 +1579,10 @@ begin
       exit;
 
   //02/06/2016  incluido a filial
+  //Colocar para o campo Usa_Produto_Filial ser igual = P     JW vai usar   14/11/2020
   if (fDMCadPedido.cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadPedido.cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'G') or
-     (fDMCadPedido.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadPedido.qParametros_ProdMOSTRA_PROD_TPRECO.AsString = 'S') then
+     (fDMCadPedido.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadPedido.qParametros_ProdMOSTRA_PROD_TPRECO.AsString = 'S') or
+     (fDMCadPedido.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P') then
     uCalculo_Pedido.prc_Filtrar_Produto_Cliente(fDMCadPedido,False);
   //****************
 

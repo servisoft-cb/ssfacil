@@ -4783,7 +4783,11 @@ begin
     if (cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') and not(Somente_Filial) then
       sdsProduto.CommandText := sdsProduto.CommandText + ' AND ID_CLIENTE = ' + cdsNotaFiscalID_CLIENTE.AsString;
     if qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S' then
-      sdsProduto.CommandText := sdsProduto.CommandText + ' AND FILIAL = ' + cdsNotaFiscalFILIAL.AsString;
+      sdsProduto.CommandText := sdsProduto.CommandText + ' AND FILIAL = ' + cdsNotaFiscalFILIAL.AsString
+    else
+    if qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P' then
+      sdsProduto.CommandText := sdsProduto.CommandText + ' AND (FILIAL = ' + cdsNotaFiscalFILIAL.AsString
+                                                 + ' OR FILIAL IS NULL) ';
   end;
   cdsProduto.Open;
 end;

@@ -2048,6 +2048,8 @@ type
     dsProduto_Saldo: TDataSource;
     qParametros_Com: TSQLQuery;
     qParametros_ComUSAR_PERC_SEMI: TStringField;
+    qParametrosEMPRESA_SUCATA: TStringField;
+    cdsProduto_ConsultaFILIAL: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsProdutoNewRecord(DataSet: TDataSet);
     procedure dspProdutoUpdateError(Sender: TObject;

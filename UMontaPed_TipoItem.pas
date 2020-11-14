@@ -550,10 +550,22 @@ end;
 
 function TfrmMontaPed_TipoItem.fnc_Buscar_Produto(MM: Real;
   Tipo: String) : Integer;
+var
+  vComando : String;  
 begin
   Result := 0;
   ffrmConsultaProduto := TfrmConsultaProduto.Create(nil);
+
   ffrmConsultaProduto.cdsProduto.Close;
+  vComando := 'select P.ID, P.NOME, P.ESPESSURA from PRODUTO P where P.NOME like :TIPO and P.ESPESSURA = :ESPESSURA and '
+            + ' COALESCE(P.INATIVO,' + QuotedStr('N') +') = ' + QuotedStr('N');
+  if fDMCadPedido.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S' then
+    vComando := vComando + ' and P.FILIAL = ' + IntToStr(fDMCadPedido.cdsPedidoFILIAL.AsInteger)
+  else
+  if fDMCadPedido.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P' then
+    vComando := vComando + ' and (P.FILIAL = ' + IntToStr(fDMCadPedido.cdsPedidoFILIAL.AsInteger) + ' or P.FILIAL IS NULL ) ';
+  vComando := vComando + ' ORDER BY P.NOME ';
+  ffrmConsultaProduto.sdsProduto.CommandText := vComando;
   ffrmConsultaProduto.sdsProduto.ParamByName('TIPO').AsString := trim(Tipo)+'%';
   ffrmConsultaProduto.sdsProduto.ParamByName('ESPESSURA').AsFloat := MM;
   ffrmConsultaProduto.cdsProduto.Open;

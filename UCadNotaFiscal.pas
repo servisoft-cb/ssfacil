@@ -765,7 +765,8 @@ begin
 
 ////////////// testa se produto é filtrado por cliente
   //02/06/2016  incluido a filial
-  if (fDMCadNotaFiscal.cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadNotaFiscal.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') then
+  if (fDMCadNotaFiscal.cdsParametrosUSA_PRODUTO_CLIENTE.AsString = 'S') or (fDMCadNotaFiscal.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S')
+   or (fDMCadNotaFiscal.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P') then
     fDMCadNotaFiscal.prc_Filtrar_Produto_Cliente;
 
 /////////////////////////////////////

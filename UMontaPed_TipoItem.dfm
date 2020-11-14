@@ -15,6 +15,7 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
+  WindowState = wsMaximized
   OnClose = FormClose
   OnDestroy = FormDestroy
   OnKeyPress = FormKeyPress

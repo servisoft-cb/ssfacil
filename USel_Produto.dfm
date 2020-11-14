@@ -285,7 +285,7 @@ object frmSel_Produto: TfrmSel_Produto
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 16
+    ColCount = 17
     RowCount = 2
     Columns = <
       item
@@ -409,6 +409,14 @@ object frmSel_Produto: TfrmSel_Produto
         Title.Alignment = taCenter
         Title.Caption = 'Qtd. Geral (Nas Empresas)'
         Width = 109
+        Visible = True
+      end
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'FILIAL'
+        Title.Alignment = taCenter
+        Title.Caption = 'Filial'
         Visible = True
       end>
   end
@@ -827,9 +835,9 @@ object frmSel_Produto: TfrmSel_Produto
       ' PRO.ID) QTD,'#13#10'(SELECT cast(sum(E2.QTD) AS Float) QTDGERAL'#13#10'  FR' +
       'OM ESTOQUE_ATUAL E2 '#13#10'  WHERE E2.ID_PRODUTO = PRO.ID) QTDGERAL,'#13 +
       #10'  CAST(0 AS FLOAT) AS PRECO_PROMOCAO, PRO.OBS, M.NOME NOME_MARC' +
-      'A, PRO.MEDIDA'#13#10'FROM PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_VEICULO PV ON' +
-      ' (PRO.ID = PV.ID)'#13#10'LEFT JOIN VTAB_PRECO VT ON PRO.ID = VT.ID_PRO' +
-      'DUTO'#13#10'LEFT JOIN MARCA M ON PRO.id_marca = M.ID'#13#10
+      'A, PRO.MEDIDA, PRO.FILIAL'#13#10'FROM PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_V' +
+      'EICULO PV ON (PRO.ID = PV.ID)'#13#10'LEFT JOIN VTAB_PRECO VT ON PRO.ID' +
+      ' = VT.ID_PRODUTO'#13#10'LEFT JOIN MARCA M ON PRO.id_marca = M.ID'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -909,6 +917,9 @@ object frmSel_Produto: TfrmSel_Produto
     end
     object sdsProdutoMEDIDA: TStringField
       FieldName = 'MEDIDA'
+    end
+    object sdsProdutoFILIAL: TIntegerField
+      FieldName = 'FILIAL'
     end
   end
   object cdsProduto: TClientDataSet
@@ -996,6 +1007,9 @@ object frmSel_Produto: TfrmSel_Produto
     end
     object cdsProdutoMEDIDA: TStringField
       FieldName = 'MEDIDA'
+    end
+    object cdsProdutoFILIAL: TIntegerField
+      FieldName = 'FILIAL'
     end
   end
   object dspProduto: TDataSetProvider
@@ -1215,13 +1229,13 @@ object frmSel_Produto: TfrmSel_Produto
       '(sum(E2.QTD) AS Float) QTDGERAL FROM ESTOQUE_ATUAL E2'#13#10'         ' +
       '           WHERE E2.ID_PRODUTO = PRO.ID) QTDGERAL,'#13#10'            ' +
       '       /**/ cast(0 as Float) AS PRECO_PROMOCAO, M.NOME NOME_MARC' +
-      'A,  PRO.MEDIDA'#13#10'FROM PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_VEICULO PV'#13#10 +
-      'ON PRO.ID = PV.ID'#13#10'LEFT JOIN MARCA M ON PRO.ID_MARCA = M.ID'#13#10#13#10#13 +
-      #10
+      'A,  PRO.MEDIDA, PRO.FILIAL'#13#10'FROM PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_' +
+      'VEICULO PV'#13#10'ON PRO.ID = PV.ID'#13#10'LEFT JOIN MARCA M ON PRO.ID_MARCA' +
+      ' = M.ID'#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'FILIAL'
         ParamType = ptInput
       end>

@@ -2194,7 +2194,11 @@ begin
       fDMCadPedido.sdsProduto.CommandText := fDMCadPedido.sdsProduto.CommandText + ' AND ((ID_CLIENTE = ' + fDMCadPedido.cdsPedidoID_CLIENTE.AsString + ') OR (ID_CLIENTE IS NULL)) ';
     //***********************
     if fDMCadPedido.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S' then
-      fDMCadPedido.sdsProduto.CommandText := fDMCadPedido.sdsProduto.CommandText + ' AND FILIAL = ' + fDMCadPedido.cdsPedidoFILIAL.AsString;
+      fDMCadPedido.sdsProduto.CommandText := fDMCadPedido.sdsProduto.CommandText + ' AND FILIAL = ' + fDMCadPedido.cdsPedidoFILIAL.AsString
+    else //Cleomar 14/11/2020 barbaridade, cada coisa   
+    if fDMCadPedido.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P' then
+      fDMCadPedido.sdsProduto.CommandText := fDMCadPedido.sdsProduto.CommandText + ' AND (FILIAL = ' + fDMCadPedido.cdsPedidoFILIAL.AsString
+                                           + ' OR FILIAL IS NULL) ';
   end;
   fDMCadPedido.cdsProduto.Open;
 end;

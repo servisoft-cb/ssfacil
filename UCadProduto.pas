@@ -1770,6 +1770,9 @@ begin
     if (SMDBGrid1.Columns[i].FieldName = 'PRECO_CUSTO') then
       SMDBGrid1.Columns[i].Visible := label4.Enabled
     else
+    if (SMDBGrid1.Columns[i].FieldName = 'ESPESSURA') then
+      SMDBGrid1.Columns[i].Visible := (fDMCadProduto.qParametrosEMPRESA_SUCATA.AsString = 'S')
+    else
     if (SMDBGrid1.Columns[i].FieldName = 'MEDIDA') then
     begin
       SMDBGrid1.Columns[i].Visible := ((fDMCadProduto.qParametros_ProdUSA_MEDIDA.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_BITOLA.AsString = 'S'));
@@ -1924,10 +1927,10 @@ begin
   Label125.Visible          := ((fDMCadProduto.qParametros_NFeUSA_OPCAO_IMP_COD_CLI.AsString = 'S') and (fDMCadProduto.qParametros_PedUSA_COD_CLIENTE.AsString = 'S'));
   DBEdit61.Visible          := ((fDMCadProduto.qParametros_NFeUSA_OPCAO_IMP_COD_CLI.AsString = 'S') and (fDMCadProduto.qParametros_PedUSA_COD_CLIENTE.AsString = 'S'));
 
-  Label126.Visible          := (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S');
-  rxdbFilial.Visible        := (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S');
-  Label127.Visible          := (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S');
-  RxDBLookupCombo19.Visible := (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S');
+  Label126.Visible          := (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P');
+  rxdbFilial.Visible        := (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P');
+  Label127.Visible          := (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P');
+  RxDBLookupCombo19.Visible := (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P');
   Label129.Visible          := (fDMCadProduto.qParametros_ProdUSA_MEDIDA.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_BITOLA.AsString = 'S');
   DBEdit64.Visible          := (fDMCadProduto.qParametros_ProdUSA_MEDIDA.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_BITOLA.AsString = 'S');
   if (fDMCadProduto.qParametros_ProdUSA_BITOLA.AsString = 'S') then
@@ -2115,7 +2118,8 @@ begin
     if RxDbCliente.Text <> '' then
       fDMCadProduto.sdsProduto_Consulta.CommandText := fDMCadProduto.sdsProduto_Consulta.CommandText
                                       + ' AND PRO.ID_CLIENTE = ' + IntToStr(RxDbCliente.KeyValue);
-    if (RxDbFilial.Text <> '') and (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') then
+    if (RxDbFilial.Text <> '') and ((fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or
+      (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P')) then
       fDMCadProduto.sdsProduto_Consulta.CommandText := fDMCadProduto.sdsProduto_Consulta.CommandText
                                       + ' AND PRO.FILIAL = ' + IntToStr(RxDbFilial.KeyValue);
 
@@ -4799,7 +4803,7 @@ end;
 function TfrmCadProduto.fnc_Filial: Boolean;
 begin
   Result := True;
-  if fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S' then
+  if (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'S') or (fDMCadProduto.qParametros_ProdUSA_PRODUTO_FILIAL.AsString = 'P') then
   begin
     fDMCadProduto.cdsFilial.First;
     if fDMCadProduto.cdsFilial.RecordCount = 1 then

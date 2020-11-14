@@ -145,6 +145,8 @@ type
     cdsProdutoAplicacaoAPLICACAO: TStringField;
     cdsProdutoAplicacaoNOME_MARCA: TStringField;
     qParametros_ProdUSA_APLICACAO: TStringField;
+    sdsProdutoFILIAL: TIntegerField;
+    cdsProdutoFILIAL: TIntegerField;
     procedure BitBtn1Click(Sender: TObject);
     procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -298,7 +300,7 @@ begin
   end;
   if (RxDBLookupCombo1.KeyValue > 0) then
     sdsProduto.CommandText := sdsProduto.CommandText + ' AND PRO.ID_CLIENTE = ' + IntToStr(RxDBLookupCombo1.KeyValue);
-  if qParametrosUSA_PRODUTO_FILIAL.AsString = 'S' then
+  if (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P') then
     sdsProduto.CommandText := sdsProduto.CommandText + ' AND PRO.FILIAL = :FILIAL ';
   if (Edit5.Visible) and (Edit5.Text <> '') then
     sdsProduto.CommandText := sdsProduto.CommandText + ' AND PRO.MEDIDA LIKE ' + QuotedStr('%'+Edit5.Text+'%');
@@ -401,6 +403,8 @@ begin
 
   qFilial.Close;
   qFilial.Open;
+  cdsFilial.Close;
+  cdsFilial.Open;
   qParametros.Close;
   qParametros.Open;
   qParametros_Fin.Close;
@@ -433,9 +437,9 @@ begin
       vMostra_Prom := 'S';
   end;
 
-  Label6.Visible           := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S');
-  RxDBLookupCombo2.Visible := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S');
-  if (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') and (RxDBLookupCombo2.Text <> '') then
+  Label6.Visible           := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
+  RxDBLookupCombo2.Visible := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
+  if ((qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P')) and (RxDBLookupCombo2.Text <> '') then
     RxDBLookupCombo2.KeyValue := vFilial;
   if (qFilialFILIAL.AsInteger < 2) or (qParametrosEMPRESA_VEICULO.AsString <> 'S') then
   begin
@@ -451,14 +455,12 @@ begin
         if (SMDBGrid1.Columns[i].FieldName = 'QTDGERAL') or (SMDBGrid1.Columns[i].FieldName = 'QTD') then
           SMDBGrid1.Columns[i].Visible := False;
       end;
-      
       if (trim(qParametrosMOSTRAR_MARCAR_PROD.AsString) <> 'S') and (SMDBGrid1.Columns[i].FieldName = 'NOME_MARCA') then
         SMDBGrid1.Columns[i].Visible := False;
       if (SMDBGrid1.Columns[i].FieldName = 'MEDIDA') then
         SMDBGrid1.Columns[i].Visible := (qParamertros_PedPEDIDO_COMERCIO.AsString = 'S');
       if (qParametrosEMPRESA_VEICULO.AsString <> 'S') and (SMDBGrid1.Columns[i].FieldName = 'PLACA') then
         SMDBGrid1.Columns[i].Visible := False;
-
       if (qParametrosUSA_COD_BARRAS.AsString <> 'S') and (SMDBGrid1.Columns[i].FieldName = 'COD_BARRA') then
         SMDBGrid1.Columns[i].Visible := False;
       if (vMostra_Prom <> 'S') and (SMDBGrid1.Columns[i].FieldName = 'PRECO_PROMOCAO') then
