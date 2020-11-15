@@ -50,7 +50,7 @@ type
     cdsProdutoUSA_COR: TStringField;
     cdsProdutoUSA_PRECO_COR: TStringField;
     Label6: TLabel;
-    RxDBLookupCombo2: TRxDBLookupCombo;
+    rxdbFilial: TRxDBLookupCombo;
     sdsFilial: TSQLDataSet;
     dspFilial: TDataSetProvider;
     cdsFilial: TClientDataSet;
@@ -147,6 +147,7 @@ type
     qParametros_ProdUSA_APLICACAO: TStringField;
     sdsProdutoFILIAL: TIntegerField;
     cdsProdutoFILIAL: TIntegerField;
+    ckFilial: TCheckBox;
     procedure BitBtn1Click(Sender: TObject);
     procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -154,8 +155,6 @@ type
     procedure Edit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure Fdmcad(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure ComboBox1KeyDown(Sender: TObject; var Key: Word;
@@ -163,8 +162,6 @@ type
     procedure Edit3KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure BitBtn2Click(Sender: TObject);
-    procedure RxDBLookupCombo1KeyDown(Sender: TObject; var Key: Word;
-      Shift: TShiftState);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
     procedure Edit4KeyDown(Sender: TObject; var Key: Word;
@@ -176,6 +173,8 @@ type
       Shift: TShiftState);
     procedure cdsProdutoAfterScroll(DataSet: TDataSet);
     procedure SMDBGrid3DblClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     procedure prc_Consultar;
@@ -300,8 +299,12 @@ begin
   end;
   if (RxDBLookupCombo1.KeyValue > 0) then
     sdsProduto.CommandText := sdsProduto.CommandText + ' AND PRO.ID_CLIENTE = ' + IntToStr(RxDBLookupCombo1.KeyValue);
-  if (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P') then
-    sdsProduto.CommandText := sdsProduto.CommandText + ' AND PRO.FILIAL = :FILIAL ';
+  if (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or ((qParametrosUSA_PRODUTO_FILIAL.AsString = 'P') and (ckFilial.Checked)) then
+    sdsProduto.CommandText := sdsProduto.CommandText + ' AND PRO.FILIAL = :FILIAL '
+  else
+  if (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P') then
+    sdsProduto.CommandText := sdsProduto.CommandText + ' AND (PRO.FILIAL = :FILIAL or PRO.FILIAL IS NULL) ';
+
   if (Edit5.Visible) and (Edit5.Text <> '') then
     sdsProduto.CommandText := sdsProduto.CommandText + ' AND PRO.MEDIDA LIKE ' + QuotedStr('%'+Edit5.Text+'%');
   
@@ -384,13 +387,6 @@ begin
   Action         := Cafree;
 end;
 
-procedure TfrmSel_Produto.Fdmcad(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  if Key = 27 then
-    Close;
-end;
-
 procedure TfrmSel_Produto.FormShow(Sender: TObject);
 var
   i: Integer;
@@ -437,14 +433,17 @@ begin
       vMostra_Prom := 'S';
   end;
 
-  Label6.Visible           := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
-  RxDBLookupCombo2.Visible := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
-  if ((qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P')) and (RxDBLookupCombo2.Text <> '') then
-    RxDBLookupCombo2.KeyValue := vFilial;
+  Label6.Visible     := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
+  rxdbFilial.Visible := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
+  ckFilial.Visible   := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
+  if ((qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P')) and (vFilial > 0) then
+    rxdbFilial.KeyValue := vFilial;
   if (qFilialFILIAL.AsInteger < 2) or (qParametrosEMPRESA_VEICULO.AsString <> 'S') then
   begin
     for i := 0 to SMDBGrid1.ColCount - 2 do
     begin
+      if (SMDBGrid1.Columns[i].FieldName = 'FILIAL') then
+        SMDBGrid1.Columns[i].Visible := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
       if qFilialFILIAL.AsInteger < 2 then
       begin
         if SMDBGrid1.Columns[i].FieldName = 'QTDGERAL' then
@@ -579,13 +578,6 @@ end;
 procedure TfrmSel_Produto.BitBtn2Click(Sender: TObject);
 begin
   RxDBLookupCombo1.ClearValue;
-end;
-
-procedure TfrmSel_Produto.RxDBLookupCombo1KeyDown(Sender: TObject;
-  var Key: Word; Shift: TShiftState);
-begin
-  if Key = 27 then
-    RxDBLookupCombo1.ClearValue;
 end;
 
 procedure TfrmSel_Produto.prc_Monta_mPreco;
@@ -778,6 +770,13 @@ begin
   if Tag = 1 then
     prc_Gravar_mCarrinho
   else
+    Close;
+end;
+
+procedure TfrmSel_Produto.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = 27 then
     Close;
 end;
 

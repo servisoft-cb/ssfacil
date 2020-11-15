@@ -17,7 +17,7 @@ object frmSel_Produto: TfrmSel_Produto
   Position = poScreenCenter
   OnClose = FormClose
   OnCreate = FormCreate
-  OnKeyDown = Fdmcad
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -156,7 +156,6 @@ object frmSel_Produto: TfrmSel_Produto
       LookupSource = dsCliente
       TabOrder = 3
       Visible = False
-      OnKeyDown = RxDBLookupCombo1KeyDown
     end
     object BitBtn2: TBitBtn
       Left = 840
@@ -224,7 +223,7 @@ object frmSel_Produto: TfrmSel_Produto
         FFFFFFFFFFFFFDF9F9EAA8A59F5C5A5D1C1E250000100000111F1D22585B539F
         A29CF5F6EEFFFFFDFFFFFFFEFFFFFDFEFCFCFBFEFFFEFCFBFFFF}
     end
-    object RxDBLookupCombo2: TRxDBLookupCombo
+    object rxdbFilial: TRxDBLookupCombo
       Left = 92
       Top = 47
       Width = 146
@@ -235,7 +234,6 @@ object frmSel_Produto: TfrmSel_Produto
       LookupSource = dsFilial
       TabOrder = 8
       Visible = False
-      OnKeyDown = RxDBLookupCombo1KeyDown
     end
     object Edit5: TEdit
       Left = 320
@@ -245,6 +243,14 @@ object frmSel_Produto: TfrmSel_Produto
       CharCase = ecUpperCase
       TabOrder = 4
       OnKeyDown = Edit5KeyDown
+    end
+    object ckFilial: TCheckBox
+      Left = 242
+      Top = 49
+      Width = 195
+      Height = 17
+      Caption = 'Somente Produtos da Filial'
+      TabOrder = 9
     end
   end
   object SMDBGrid1: TSMDBGrid
@@ -288,6 +294,15 @@ object frmSel_Produto: TfrmSel_Produto
     ColCount = 17
     RowCount = 2
     Columns = <
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'FILIAL'
+        Title.Alignment = taCenter
+        Title.Caption = 'Filial'
+        Width = 30
+        Visible = True
+      end
       item
         Expanded = False
         FieldName = 'PLACA'
@@ -409,14 +424,6 @@ object frmSel_Produto: TfrmSel_Produto
         Title.Alignment = taCenter
         Title.Caption = 'Qtd. Geral (Nas Empresas)'
         Width = 109
-        Visible = True
-      end
-      item
-        Alignment = taCenter
-        Expanded = False
-        FieldName = 'FILIAL'
-        Title.Alignment = taCenter
-        Title.Caption = 'Filial'
         Visible = True
       end>
   end
