@@ -193,7 +193,7 @@ begin
     fDMCadNotaFiscal.sdsNotaEntrada.CommandText := fDMCadNotaFiscal.ctNotaEntrada + ' AND (NT.ID = ' + IntToStr(ID_Nota) + ')'
                                                  + ' AND (NI.ITEM = ' + IntToStr(Item_Nota) + ')';
 
-  fDMCadNotaFiscal.sdsNotaEntrada.CommandText := fDMCadNotaFiscal.ctNotaEntrada + ' AND (NT.FILIAL = ' + IntToStr(fDMCadNotaFiscal.cdsNotaFiscalFILIAL.AsInteger) + ')';
+  fDMCadNotaFiscal.sdsNotaEntrada.CommandText := fDMCadNotaFiscal.sdsNotaEntrada.CommandText + ' AND (NT.FILIAL = ' + IntToStr(fDMCadNotaFiscal.cdsNotaFiscalFILIAL.AsInteger) + ')';
 
   if Tag = 50 then
     fDMCadNotaFiscal.sdsNotaEntrada.ParamByName('TIPO_REG').AsString := 'NTS'
