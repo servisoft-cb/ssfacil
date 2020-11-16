@@ -1671,10 +1671,10 @@ begin
   if (fDMCadPedido.cdsPedido_ItensQTD_CANCELADO.AsFloat > 0) then
     vMSGAux := vMSGAux + #13 + '*** Item quantidade cancelada!';
   //09/11/2020
-  if (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime > 10) and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
-    vMSGAux := vMSGAux + #13 + '*** Item já foi conferido!';
-  if (fDMCadPedido.cdsPedido_ItensSTATUS_PRODUCAO.AsString = '1') and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
-    vMSGAux := vMSGAux + #13 + '*** Item com produção já inicializada!';
+  //if (fDMCadPedido.cdsPedido_ItensDTCONFERENCIA.AsDateTime > 10) and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
+  //  vMSGAux := vMSGAux + #13 + '*** Item já foi conferido!';
+  //if (fDMCadPedido.cdsPedido_ItensSTATUS_PRODUCAO.AsString = '1') and (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S') then
+  //  vMSGAux := vMSGAux + #13 + '*** Item com produção já inicializada!';
   //**************
   if fDMCadPedido.qParametros_UsuarioALT_IT_PED_COM_OP.AsString <> 'S' then
   begin
