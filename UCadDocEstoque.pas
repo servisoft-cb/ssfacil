@@ -313,7 +313,7 @@ begin
 
   RzPageControl1.ActivePage := TS_Cadastro;
 
-  if fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S' then
+  if (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') or (fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString = 'S') then
     rxcbTipo_Reg.SetFocus
   else
     rxcbTipo_ES.SetFocus;

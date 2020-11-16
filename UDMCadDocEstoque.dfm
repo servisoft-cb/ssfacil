@@ -2044,7 +2044,9 @@ object DMCadDocEstoque: TDMCadDocEstoque
       
         'P.REQ_NUM_LOTE, P.REQ_NUM_PED, P.controla_doc_saida, USA_ESTOQUE' +
         '_GERAL_CAD,'
-      'P.ACEITAR_DOC_SEM_VLR, USA_PRECO_VENDA_SAIDA, USA_TRANSF_FILIAL'
+      
+        'P.ACEITAR_DOC_SEM_VLR, USA_PRECO_VENDA_SAIDA, USA_TRANSF_FILIAL,' +
+        ' TRANSFERENCIA_PRECO'
       'FROM PARAMETROS_EST P'
       '')
     SQLConnection = dmDatabase.scoDados
@@ -2097,6 +2099,11 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object qParametros_EstUSA_TRANSF_FILIAL: TStringField
       FieldName = 'USA_TRANSF_FILIAL'
+      FixedChar = True
+      Size = 1
+    end
+    object qParametros_EstTRANSFERENCIA_PRECO: TStringField
+      FieldName = 'TRANSFERENCIA_PRECO'
       FixedChar = True
       Size = 1
     end

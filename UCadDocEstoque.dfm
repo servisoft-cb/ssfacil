@@ -25,7 +25,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
     Top = 0
     Width = 937
     Height = 638
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -993,8 +993,10 @@ object frmCadDocEstoque: TfrmCadDocEstoque
             Width = 929
             Height = 223
             Align = alClient
+            Ctl3D = False
             DataSource = DMCadDocEstoque.dsDocEstoque_Itens
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+            ParentCtl3D = False
             ReadOnly = True
             TabOrder = 1
             TitleFont.Charset = DEFAULT_CHARSET
@@ -1003,7 +1005,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
             TitleFont.Name = 'MS Sans Serif'
             TitleFont.Style = []
             OnTitleClick = SMDBGrid2TitleClick
-            Flat = False
+            Flat = True
             BandsFont.Charset = DEFAULT_CHARSET
             BandsFont.Color = clWindowText
             BandsFont.Height = -11
@@ -1100,7 +1102,6 @@ object frmCadDocEstoque: TfrmCadDocEstoque
               item
                 Expanded = False
                 FieldName = 'ID_MOVESTOQUE'
-                Width = 64
                 Visible = True
               end
               item

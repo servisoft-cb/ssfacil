@@ -449,6 +449,7 @@ type
     cdsDocEstoque_ConsultaUSUARIO: TStringField;
     cdsDocEstoque_ConsultaDTUSUARIO: TDateField;
     cdsDocEstoque_ConsultaHRUSUARIO: TTimeField;
+    qParametros_EstTRANSFERENCIA_PRECO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspDocEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

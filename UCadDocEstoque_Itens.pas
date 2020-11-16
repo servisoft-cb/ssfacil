@@ -204,6 +204,9 @@ begin
       exit;
 
   fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsFloat := fDMCadDocEstoque.cdsProdutoPRECO_CUSTO.AsFloat;
+  if (fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'T') and (SQLLocate('PARAMETROS_EST','ID','TRANSFERENCIA_PRECO','1') = 'C') then
+    fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsString := SQLLocate('PRODUTO','ID','PRECO_CUSTO',fDMCadDocEstoque.cdsDocEstoque_ItensID_PRODUTO.AsString)
+  else
   if fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString = 'S' then
   begin
     if (fDMCadDocEstoque.qParametros_EstUSA_PRECO_VENDA_SAIDA.AsString = 'A') or
