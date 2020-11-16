@@ -7012,7 +7012,7 @@ object DMCadPedido: TDMCadPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 176
+    Left = 177
     Top = 91
   end
   object dspOrcamento_Itens: TDataSetProvider
@@ -7282,6 +7282,7 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsOrcamento_ItensESPESSURA: TFloatField
       FieldName = 'ESPESSURA'
+      ProviderFlags = []
     end
     object cdsOrcamento_ItensOBS_REDUZIDA: TStringField
       FieldName = 'OBS_REDUZIDA'
@@ -7290,7 +7291,7 @@ object DMCadPedido: TDMCadPedido
   end
   object dsOrcamento_Itens: TDataSource
     DataSet = cdsOrcamento_Itens
-    Left = 224
+    Left = 223
     Top = 91
   end
   object qProximoItem: TSQLQuery

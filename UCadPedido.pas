@@ -528,6 +528,7 @@ type
     vVlrFrete_Ant: Real;
     vInclusao_Edicao: String; //I=Incluir   E=Editar
     vArqPDF : String;
+    vNumCopiaOrc : Integer;
 
     ffrmMostraPDF: TfrmMostraPDF;
 
@@ -888,6 +889,8 @@ var
 begin
   vTipo_Pedido     := 'P';
   vInclusao_Edicao := '';
+  vNumCopiaOrc     := vNum_Pedido_Pos;
+
   addLog('Inicio Cria DMCADEPDIDO','Tempo_Execucao.txt');
   fDMCadPedido := TDMCadPedido.Create(Self);
   addLog('Fim Cria DMCADEPDIDO','Tempo_Execucao.txt');
@@ -939,7 +942,7 @@ begin
   end;
 
   NxDatePicker2.Date := Date;
-  vNum_Pedido_Pos := 0;
+  vNum_Pedido_Pos    := 0;
 
   for i := 1 to SMDBGrid2.ColCount - 2 do
   begin
@@ -1270,6 +1273,7 @@ begin
 
   if MessageDlg('Deseja cancelar alteração/inclusão do registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     Exit;
+  vNumCopiaOrc := 0;
 
   vIDAux := fDMCadPedido.cdsPedidoID.AsInteger;
   fDMCadPedido.cdsPedido.CancelUpdates;
@@ -1311,9 +1315,13 @@ begin
 
   if (trim(fDMCadPedido.cdsParametrosSENHA_PEDIDO.AsString) <> '') and (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString <> 'S') then
   begin
+    if (vNumCopiaOrc > 0) and (vNumCopiaOrc = fDMCadPedido.cdsPedidoID.AsInteger) then
+    else
     if not fnc_Senha_Alt_Pedido then
       exit;
   end;
+
+  vNumCopiaOrc := 0;
 
   if vInclusao_Edicao <> 'C' then
   begin
@@ -1378,6 +1386,7 @@ var
   vTexto : String;
   vMSGAux : String;
 begin
+  vNumCopiaOrc := 0;
   vIDVendedor_Principal := fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger;
   vIDAux                := fDMCadPedido.cdsPedidoID.AsInteger;
   if fDMCadPedido.qParametros_PedUSA_RETIRADA.AsString = 'S' then

@@ -5,12 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, UDMCadPedido, ExtCtrls, Grids, DBGrids, SMDBGrid, DBCtrls,
-  StdCtrls, Mask, ToolEdit, RzPanel, NxCollection, DB, UCadPedido, Menus;
-
-  //Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadPedido, ,
-  //DBGrids, ExtCtrls, StdCtrls, FMTBcd, SqlExpr, RzTabs, Mask, DBCtrls, ToolEdit, CurrEdit, RxLookup, RxDBComb, RXDBCtrl,
-  //RzEdit, RzDBEdit, RzButton, UCadOrcamento_Itens, UEscolhe_Filial, UCBase, RzPanel,
- // Menus, NxEdit, NxCollection, UCadOrcamento_Aprov;
+  StdCtrls, Mask, ToolEdit, RzPanel, NxCollection, DB, UCadPedido, Menus, SqlExpr;
 
 type
   TfrmCadOrcamento_Aprov = class(TForm)
@@ -56,7 +51,8 @@ var
 
 implementation
 
-uses rsDBUtils, UMenu, uUtilPadrao, uCalculo_Pedido, uGrava_Pedido;
+uses rsDBUtils, UMenu, uUtilPadrao, uCalculo_Pedido, uGrava_Pedido,
+  DmdDatabase;
 
 {$R *.dfm}
 
@@ -582,6 +578,8 @@ begin
 end;
 
 procedure TfrmCadOrcamento_Aprov.prc_Gravar_Reprovacao;
+var
+  sds: TSQLDataSet;
 begin
   if not fDMCadPedido.cdsOrcamento_Itens.Locate('ITEM',fDMCadPedido.mOrcamento_ItensItem.AsInteger,[loCaseInsensitive]) then
     exit;
@@ -590,11 +588,27 @@ begin
   fDMCadPedido.cdsOrcamento_ItensAPROVADO_ORC.AsString  := 'N';
   fDMCadPedido.cdsOrcamento_ItensMOTIVO_NAO_APROV.Value := Memo1.Lines.Text;
   if DateEdit1.Date > 10 then
-    fDMCadPedido.cdsOrcamento_ItensDTAPROVADO_NAO.AsDateTime := Date
+    fDMCadPedido.cdsOrcamento_ItensDTAPROVADO_NAO.AsDateTime := DateEdit1.Date
   else
     fDMCadPedido.cdsOrcamento_ItensDTAPROVADO_NAO.Clear;
   fDMCadPedido.cdsOrcamento_Itens.Post;
-  fDMCadPedido.cdsOrcamento_Itens.ApplyUpdates(0);
+  //fDMCadPedido.cdsOrcamento_Itens.ApplyUpdates(0);
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'UPDATE PEDIDO_ITEM SET APROVADO_ORC = :APROVADO_ORC, MOTIVO_NAO_APROV = :MOTIVO_NAO_APROV, DTAPROVADO_NAO = :DTAPROVADO_NAO '
+                       + ' WHERE ID = ' + IntToStr(fDMCadPedido.cdsOrcamento_ItensID.AsInteger)
+                       + '   AND ITEM = ' + IntToStr(fDMCadPedido.cdsOrcamento_ItensITEM.AsInteger);
+    sds.ParamByName('APROVADO_ORC').AsString     := 'N';
+    sds.ParamByName('MOTIVO_NAO_APROV').AsString := Memo1.Lines.Text;
+    sds.ParamByName('DTAPROVADO_NAO').AsDate     := DateEdit1.Date;
+    sds.ExecSQL;
+  finally
+    FreeAndNil(sds);
+  end;
+
 end;
 
 procedure TfrmCadOrcamento_Aprov.SelecionarTodos1Click(Sender: TObject);
