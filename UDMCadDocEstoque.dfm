@@ -960,6 +960,9 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object cdsProdutoID_MARCA: TIntegerField
       FieldName = 'ID_MARCA'
     end
+    object cdsProdutoINDEXADOR_PRECO: TFloatField
+      FieldName = 'INDEXADOR_PRECO'
+    end
   end
   object dsProduto: TDataSource
     DataSet = cdsProduto

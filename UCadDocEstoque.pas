@@ -745,6 +745,7 @@ begin
       frmEtiq_Individual.fDMConsPedido.mEtiq_IndividualID_Produto.AsInteger   := fDMCadDocEstoque.cdsDocEstoque_ItensID_PRODUTO.AsInteger;
       frmEtiq_Individual.fDMConsPedido.mEtiq_IndividualReferencia.AsString    := fDMCadDocEstoque.cdsDocEstoque_ItensREFERENCIA.AsString;
       fDMCadDocEstoque.cdsProduto.FindKey([fDMCadDocEstoque.cdsDocEstoque_ItensID_PRODUTO.AsInteger]);
+      frmEtiq_Individual.fDMConsPedido.mEtiq_IndividualIndexadorPreco.AsString := fDMCadDocEstoque.cdsProdutoINDEXADOR_PRECO.AsString;
       frmEtiq_Individual.fDMConsPedido.mEtiq_IndividualNome_Produto.AsString  := fDMCadDocEstoque.cdsDocEstoque_ItensNOME_PRODUTO.AsString;
       frmEtiq_Individual.fDMConsPedido.mEtiq_IndividualPreco_Produto.AsString := FormatFloat('0.00',fDMCadDocEstoque.cdsProdutoPRECO_VENDA.AsCurrency);
       if (fDMCadDocEstoque.qParametros_ProdUSA_TAM_INDIVIDUAL.AsString = 'S') and (trim(fDMCadDocEstoque.cdsProdutoTAMANHO.AsString) <> '') then

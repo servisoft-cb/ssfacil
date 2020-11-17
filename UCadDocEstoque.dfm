@@ -25,7 +25,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
     Top = 0
     Width = 937
     Height = 638
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -1111,7 +1111,6 @@ object frmCadDocEstoque: TfrmCadDocEstoque
               item
                 Expanded = False
                 FieldName = 'ID_MOVESTOQUE'
-                Width = 64
                 Visible = True
               end
               item

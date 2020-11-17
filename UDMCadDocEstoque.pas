@@ -454,6 +454,7 @@ type
     cdsDocEstoque_ConsultaDESC_AJUSTE_TRANSF: TStringField;
     sdsDocEstoqueAJUSTE_TRANSF: TStringField;
     cdsDocEstoqueAJUSTE_TRANSF: TStringField;
+    cdsProdutoINDEXADOR_PRECO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspDocEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
