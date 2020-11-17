@@ -723,6 +723,19 @@ type
     cdsEstoque_AcumVLR_ENTRADA_CUSTO: TFloatField;
     cdsEstoque_AcumVLR_SAIDA_CUSTO: TFloatField;
     mAuxEst_AcumVlr_Saida_Custo: TFloatField;
+    sdsEstoque_Transf: TSQLDataSet;
+    dspEstoque_Transf: TDataSetProvider;
+    cdsEstoque_Transf: TClientDataSet;
+    dsEstoque_Transf: TDataSource;
+    cdsEstoque_TransfQTD: TFloatField;
+    cdsEstoque_TransfID_PRODUTO: TIntegerField;
+    cdsEstoque_TransfNOME: TStringField;
+    cdsEstoque_TransfREFERENCIA: TStringField;
+    cdsEstoque_TransfPRECO_CUSTO: TFloatField;
+    cdsEstoque_TransfVlr_Total: TAggregateField;
+    cdsEstoque_TransfVLR_CUSTO: TFloatField;
+    cdsEstoque_TransfQtd_Total: TAggregateField;
+    frxEstoque_Transf: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -746,6 +759,7 @@ type
     ctEstoque_Lote: String;
     ctEstoque_Mov_Res: String;
     ctEstoque_Mov_Vei: String;
+    ctEstoque_Transf: String;
 
     ctVeiculo: String;
     ctqProduto: String;
@@ -793,6 +807,7 @@ begin
   ctEstoque_Res_Ord  := sdsEstoque_Res_Ord.CommandText;
   ctEstoque_Atual    := sdsEstoque_Atual.CommandText;
   ctBalanco          := sdsBalanco.CommandText;
+  ctEstoque_Transf   := sdsEstoque_Transf.CommandText;
 
   cdsFilial.Open;
   cdsMarca.Open;

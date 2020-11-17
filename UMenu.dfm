@@ -565,6 +565,10 @@ object fMenu: TfMenu
           Caption = 'Consulta Estoque (Cliente Extrato)'
           OnClick = ConsultaEstoqueClienteExtrato1Click
         end
+        object ConsultaEstoqueTransfernciaentreFiliais1: TMenuItem
+          Caption = 'Consulta Estoque Transfer'#234'ncia entre Filiais (Entradas)'
+          OnClick = ConsultaEstoqueTransfernciaentreFiliais1Click
+        end
         object ConsultaEstoqueMovimento1: TMenuItem
           Caption = 'Consulta Movimento Produtos (no Estoque)'
           OnClick = ConsultaEstoqueMovimento1Click

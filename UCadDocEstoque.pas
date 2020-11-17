@@ -91,6 +91,7 @@ type
     lblBuscaFilial: TLabel;
     RxDBLookupCombo6: TRxDBLookupCombo;
     btnAjustarEstoque: TBitBtn;
+    DBCheckBox1: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -296,7 +297,7 @@ begin
     exit;
 
   fDMCadDocEstoque.cdsDocEstoqueFILIAL.AsInteger  := vFilial;
-  if fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S' then
+  if (fDMCadDocEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S')or (fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString = 'S') then
   begin
     vTipo_Reg := '';
     vTipo_ES  := 'S';
@@ -358,6 +359,8 @@ begin
        (SMDBGrid1.Columns[i].FieldName = 'NOME_FILIAL') or
        (SMDBGrid1.Columns[i].FieldName = 'NOME_FILIAL_DEST')) and (trim(fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString) <> 'S')  then
       SMDBGrid1.Columns[i].Visible := False;
+    if (SMDBGrid1.Columns[i].FieldName = 'DESC_AJUSTE_TRANSF') then
+      SMDBGrid1.Columns[i].Visible := (trim(fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString) = 'S');
   end;
 end;
 
@@ -645,6 +648,7 @@ begin
   pnlObs.Visible           := True;
   Label1.Visible           := (rxcbTipo_Reg.ItemIndex = 0);
   RxDBLookupCombo2.Visible := (rxcbTipo_Reg.ItemIndex = 0);
+  DBCheckBox1.Visible      := (rxcbTipo_Reg.ItemIndex = 0) and (fDMCadDocEstoque.qParametros_EstUSA_TRANSF_FILIAL.AsString = 'S');
 end;
 
 function TfrmCadDocEstoque.fnc_Gravar_Estoque(ID_Local_Estoque, ID_Mov_Estoque: Integer ; Tipo_ES: String ; Filial : Integer): Integer;
@@ -686,7 +690,7 @@ end;
 procedure TfrmCadDocEstoque.rxcbTipo_RegExit(Sender: TObject);
 begin
   if (fDMCadDocEstoque.cdsDocEstoque.State in [dsInsert,dsEdit]) and (fDMCadDocEstoque.cdsDocEstoqueTIPO_REG.AsString = 'T') then
-    fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString := 'S'; 
+    fDMCadDocEstoque.cdsDocEstoqueTIPO_ES.AsString := 'S';
 end;
 
 procedure TfrmCadDocEstoque.Nota1Click(Sender: TObject);

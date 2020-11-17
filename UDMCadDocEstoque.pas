@@ -450,6 +450,10 @@ type
     cdsDocEstoque_ConsultaDTUSUARIO: TDateField;
     cdsDocEstoque_ConsultaHRUSUARIO: TTimeField;
     qParametros_EstTRANSFERENCIA_PRECO: TStringField;
+    cdsDocEstoque_ConsultaAJUSTE_TRANSF: TStringField;
+    cdsDocEstoque_ConsultaDESC_AJUSTE_TRANSF: TStringField;
+    sdsDocEstoqueAJUSTE_TRANSF: TStringField;
+    cdsDocEstoqueAJUSTE_TRANSF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspDocEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -683,10 +687,11 @@ end;
 
 procedure TDMCadDocEstoque.cdsDocEstoqueNewRecord(DataSet: TDataSet);
 begin
-  cdsDocEstoqueINF_CODBARRA.AsString := 'N';
-  cdsDocEstoqueUSUARIO.AsString      := vUsuario;
-  cdsDocEstoqueDTUSUARIO.AsDateTime  := Date;
-  cdsDocEstoqueHRUSUARIO.AsDateTime  := Now;
+  cdsDocEstoqueINF_CODBARRA.AsString  := 'N';
+  cdsDocEstoqueUSUARIO.AsString       := vUsuario;
+  cdsDocEstoqueDTUSUARIO.AsDateTime   := Date;
+  cdsDocEstoqueHRUSUARIO.AsDateTime   := Now;
+  cdsDocEstoqueAJUSTE_TRANSF.AsString := 'N';
 end;
 
 end.

@@ -1130,13 +1130,13 @@ object DMConsEstoque: TDMConsEstoque
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42032.577038136600000000
-    ReportOptions.LastChange = 43715.774036805600000000
+    ReportOptions.CreateDate = 43918.638275659700000000
+    ReportOptions.LastChange = 44151.983671516200000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 848
-    Top = 362
+    Top = 363
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -4621,5 +4621,108 @@ object DMConsEstoque: TDMConsEstoque
       FixedChar = True
       Size = 1
     end
+  end
+  object sdsEstoque_Transf: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select AUX.*, AUX.QTD * coalesce(PRECO_CUSTO, 0) VLR_CUSTO'#13#10'from' +
+      ' (select sum(E.QTD2) QTD, E.ID_PRODUTO, P.NOME, P.REFERENCIA, P.' +
+      'PRECO_CUSTO'#13#10'      from ESTOQUE_MOV E'#13#10'      inner join PRODUTO ' +
+      'P on E.ID_PRODUTO = P.ID'#13#10'      inner join DOCESTOQUE DC on E.NU' +
+      'MNOTA = DC.ID'#13#10'      where E.FILIAL = :FILIAL and'#13#10'            (' +
+      '(E.TIPO_MOV = '#39'TRA'#39' and'#13#10'            E.TIPO_ES = '#39'E'#39') or (E.TIPO' +
+      '_MOV = '#39'DOC'#39' and'#13#10'            E.TIPO_ES = '#39'S'#39' and'#13#10'            D' +
+      'C.AJUSTE_TRANSF = '#39'S'#39')) and'#13#10'            E.DTMOVIMENTO between :' +
+      'DATA1 and :DATA2'#13#10'      group by E.ID_PRODUTO, P.NOME, P.REFEREN' +
+      'CIA, P.PRECO_CUSTO) AUX'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'FILIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DATA1'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DATA2'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 586
+    Top = 541
+  end
+  object dspEstoque_Transf: TDataSetProvider
+    DataSet = sdsEstoque_Transf
+    Left = 619
+    Top = 546
+  end
+  object cdsEstoque_Transf: TClientDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    Params = <>
+    ProviderName = 'dspEstoque_Transf'
+    Left = 652
+    Top = 547
+    object cdsEstoque_TransfQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsEstoque_TransfID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsEstoque_TransfNOME: TStringField
+      FieldName = 'NOME'
+      Size = 100
+    end
+    object cdsEstoque_TransfREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsEstoque_TransfPRECO_CUSTO: TFloatField
+      FieldName = 'PRECO_CUSTO'
+      DisplayFormat = '0.00'
+    end
+    object cdsEstoque_TransfVLR_CUSTO: TFloatField
+      FieldName = 'VLR_CUSTO'
+      DisplayFormat = '0.00'
+    end
+    object cdsEstoque_TransfVlr_Total: TAggregateField
+      FieldName = 'Vlr_Total'
+      Active = True
+      DisplayFormat = '###,###,##0.00'
+      Expression = 'Sum(qtd * PRECO_CUSTO)'
+    end
+    object cdsEstoque_TransfQtd_Total: TAggregateField
+      FieldName = 'Qtd_Total'
+      Active = True
+      DisplayFormat = '###,###,##0.00##'
+      Expression = 'SUM(QTD)'
+    end
+  end
+  object dsEstoque_Transf: TDataSource
+    DataSet = cdsEstoque_Transf
+    Left = 683
+    Top = 546
+  end
+  object frxEstoque_Transf: TfrxDBDataset
+    UserName = 'frxEstoque_Transf'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'QTD=QTD'
+      'ID_PRODUTO=ID_PRODUTO'
+      'NOME=NOME'
+      'REFERENCIA=REFERENCIA'
+      'PRECO_CUSTO=PRECO_CUSTO'
+      'VLR_CUSTO=VLR_CUSTO'
+      'Vlr_Total=Vlr_Total'
+      'Qtd_Total=Qtd_Total')
+    DataSource = dsEstoque_Transf
+    BCDToCurrency = False
+    Left = 716
+    Top = 541
   end
 end

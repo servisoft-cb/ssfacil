@@ -85,6 +85,11 @@ object DMCadDocEstoque: TDMCadDocEstoque
     object sdsDocEstoqueHRUSUARIO: TTimeField
       FieldName = 'HRUSUARIO'
     end
+    object sdsDocEstoqueAJUSTE_TRANSF: TStringField
+      FieldName = 'AJUSTE_TRANSF'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspDocEstoque: TDataSetProvider
     DataSet = sdsDocEstoque
@@ -179,6 +184,11 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object cdsDocEstoqueHRUSUARIO: TTimeField
       FieldName = 'HRUSUARIO'
+    end
+    object cdsDocEstoqueAJUSTE_TRANSF: TStringField
+      FieldName = 'AJUSTE_TRANSF'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsDocEstoque: TDataSource
@@ -445,12 +455,14 @@ object DMCadDocEstoque: TDMCadDocEstoque
       'IL.NOME NOME_FILIAL, FIL.NUM_END NUM_END_FILIAL, FIL.BAIRRO BAIR' +
       'RO_FILIAL,'#13#10'       FIL.CIDADE CIDADE_FILIAL, FIL.UF UF_FILIAL, F' +
       'IL.CEP CEP_FILIAL, FN.NOME NOME_FUNCIONARIO,'#13#10'       FENTR.NOME ' +
-      'NOME_FUNCIONARIO_ENTR, FDEST.NOME_INTERNO NOME_FILIAL_DEST'#13#10'from' +
-      ' DOCESTOQUE DC'#13#10'inner join FILIAL FIL on DC.FILIAL = FIL.ID'#13#10'lef' +
-      't join PESSOA PES on DC.ID_PESSOA = PES.CODIGO'#13#10'left join FUNCIO' +
-      'NARIO FN on DC.ID_FUNCIONARIO = FN.CODIGO'#13#10'left join FUNCIONARIO' +
-      ' FENTR on DC.ID_FUNCIONARIO = FENTR.CODIGO'#13#10'left join FILIAL FDE' +
-      'ST on DC.FILIAL_DESTINO = FDEST.ID'#13#10
+      'NOME_FUNCIONARIO_ENTR, FDEST.NOME_INTERNO NOME_FILIAL_DEST,'#13#10'   ' +
+      '    case'#13#10'         when (DC.AJUSTE_TRANSF = '#39'S'#39') and (DC.TIPO_RE' +
+      'G = '#39'D'#39') then '#39'SIM'#39#13#10'         else '#39#39#13#10'       end DESC_AJUSTE_TR' +
+      'ANSF'#13#10'from DOCESTOQUE DC'#13#10'inner join FILIAL FIL on DC.FILIAL = F' +
+      'IL.ID'#13#10'left join PESSOA PES on DC.ID_PESSOA = PES.CODIGO'#13#10'left j' +
+      'oin FUNCIONARIO FN on DC.ID_FUNCIONARIO = FN.CODIGO'#13#10'left join F' +
+      'UNCIONARIO FENTR on DC.ID_FUNCIONARIO = FENTR.CODIGO'#13#10'left join ' +
+      'FILIAL FDEST on DC.FILIAL_DESTINO = FDEST.ID  '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -602,6 +614,17 @@ object DMCadDocEstoque: TDMCadDocEstoque
     end
     object cdsDocEstoque_ConsultaHRUSUARIO: TTimeField
       FieldName = 'HRUSUARIO'
+    end
+    object cdsDocEstoque_ConsultaAJUSTE_TRANSF: TStringField
+      FieldName = 'AJUSTE_TRANSF'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsDocEstoque_ConsultaDESC_AJUSTE_TRANSF: TStringField
+      FieldName = 'DESC_AJUSTE_TRANSF'
+      Required = True
+      FixedChar = True
+      Size = 3
     end
   end
   object dsDocEstoque_Consulta: TDataSource

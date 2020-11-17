@@ -87,8 +87,6 @@ end;
 procedure TfrmConsEstoque_Prod_Mov.FormClose(Sender: TObject;
   var Action: TCloseAction);
 begin
-  if fDMConsEstoque.Owner.ClassName  = Self.ClassName then
-    FreeAndNil(fDMConsEstoque);
   Action := Cafree;
 end;
 

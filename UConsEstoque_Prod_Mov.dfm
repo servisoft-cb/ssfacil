@@ -429,6 +429,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Comprimento'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -479,6 +480,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Pre'#231'o Custo Total'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -488,6 +490,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'N'#186' Lote Controle'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -517,6 +520,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           FieldName = 'VLR_DESCONTO'
           Title.Caption = 'Vlr. Desconto'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -532,6 +536,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'S'#233'rie Nota'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -547,6 +552,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Unid. da Nota'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -555,6 +561,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Qtd. da Nota'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -563,6 +570,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'Vlr. Unit'#225'rio da Nota'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item
@@ -589,6 +597,7 @@ object frmConsEstoque_Prod_Mov: TfrmConsEstoque_Prod_Mov
           Title.Alignment = taCenter
           Title.Caption = 'C'#243'd. Produto'
           Title.Color = 12910472
+          Width = 64
           Visible = True
         end
         item

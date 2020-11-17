@@ -377,6 +377,7 @@ type
     BaixaProcessoporCdigodeBrra1: TMenuItem;
     Consultas5: TMenuItem;
     ConsultaPedidoItemProcesso1: TMenuItem;
+    ConsultaEstoqueTransfernciaentreFiliais1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);
@@ -660,6 +661,8 @@ type
     procedure ComissoPorVendedorCliente1Click(Sender: TObject);
     procedure BaixaProcessoporCdigodeBrra1Click(Sender: TObject);
     procedure ConsultaPedidoItemProcesso1Click(Sender: TObject);
+    procedure ConsultaEstoqueTransfernciaentreFiliais1Click(
+      Sender: TObject);
   private
     { Private declarations }
     vPedLoja: String; //L = Loja, M = Mensal, N = Normal
@@ -725,7 +728,7 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   UConsOrcamento, UConsCSTxCFOP, uCadConfig_Balanca, UConsPedido_Rep,
   uConsFatConsumo, UConsEstoque_Compras, UConsEstoque_Prod_Mov,
   UConsProduto_Vendas_PCusto, UGerarEstoque_Mov, UComissao_Prod,
-  UBaixaPedido_Processo, UConsPedidoItemProc;
+  UBaixaPedido_Processo, UConsPedidoItemProc, UConsEstoque_Transf;
 
 {$R *.dfm}
 
@@ -2391,6 +2394,12 @@ end;
 procedure TfMenu.ConsultaPedidoItemProcesso1Click(Sender: TObject);
 begin
   OpenForm(TfrmConsPedidoItemProc,wsMaximized);
+end;
+
+procedure TfMenu.ConsultaEstoqueTransfernciaentreFiliais1Click(
+  Sender: TObject);
+begin
+  OpenForm(TfrmConsestoque_Transf,wsMaximized);
 end;
 
 initialization

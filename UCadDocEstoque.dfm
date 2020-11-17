@@ -76,7 +76,7 @@ object frmCadDocEstoque: TfrmCadDocEstoque
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 14
+        ColCount = 15
         RowCount = 2
         Columns = <
           item
@@ -93,6 +93,15 @@ object frmCadDocEstoque: TfrmCadDocEstoque
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Reg.'
             Width = 37
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'DESC_AJUSTE_TRANSF'
+            Title.Alignment = taCenter
+            Title.Caption = 'Ajuste de Transf.'
+            Width = 61
             Visible = True
           end
           item
@@ -1743,6 +1752,18 @@ object frmCadDocEstoque: TfrmCadDocEstoque
           LookupDisplay = 'NOME'
           LookupSource = DMCadDocEstoque.dsLocal_Estoque
           TabOrder = 4
+        end
+        object DBCheckBox1: TDBCheckBox
+          Left = 403
+          Top = 6
+          Width = 176
+          Height = 17
+          Caption = 'Ajuste de Transfer'#234'ncia'
+          DataField = 'AJUSTE_TRANSF'
+          DataSource = DMCadDocEstoque.dsDocEstoque
+          TabOrder = 5
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
         end
       end
       object pnlTipo: TPanel
