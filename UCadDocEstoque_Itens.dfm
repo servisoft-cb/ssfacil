@@ -1,6 +1,6 @@
 object frmCadDocEstoque_Itens: TfrmCadDocEstoque_Itens
-  Left = 297
-  Top = 141
+  Left = 307
+  Top = 189
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastro dos Itens do Ajuste do Estoque'

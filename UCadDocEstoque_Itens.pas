@@ -551,6 +551,14 @@ begin
   fDMInformar_Tam.mTamanho.First;
   while not fDMInformar_Tam.mTamanho.Eof do
   begin
+    if (fDMInformar_Tam.mTamanhoTamanho.AsString = fDMInformar_Tam.vTamanho_Ini) and (StrToFloat(FormatFloat('0.00000',fDMInformar_Tam.mTamanhoQtd.AsFloat)) > 0) then
+    begin
+      fDMCadDocEstoque.cdsDocEstoque_Itens.Edit;
+      fDMCadDocEstoque.cdsDocEstoque_ItensVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsFloat
+                                                             * fDMCadDocEstoque.cdsDocEstoque_ItensQTD.AsFloat));
+      fDMCadDocEstoque.cdsDocEstoque_Itens.Post;
+    end
+    else
     if (fDMInformar_Tam.mTamanhoTamanho.AsString <> fDMInformar_Tam.vTamanho_Ini) and (StrToFloat(FormatFloat('0.00000',fDMInformar_Tam.mTamanhoQtd.AsFloat)) > 0) then
     begin
       fDMCadDocEstoque.prc_Inserir_Itens;
@@ -569,7 +577,8 @@ begin
       fDMCadDocEstoque.cdsDocEstoque_ItensNOME_COR_COMBINACAO.AsString := fDMInformar_Tam.mItensDocNOME_COR_COMBINACAO.AsString;
       fDMCadDocEstoque.cdsDocEstoque_ItensTAMANHO.AsString      := fDMInformar_Tam.mTamanhoTamanho.AsString;
       fDMCadDocEstoque.cdsDocEstoque_ItensQTD.AsFloat           := fDMInformar_Tam.mTamanhoQtd.AsFloat;
-
+      fDMCadDocEstoque.cdsDocEstoque_ItensVLR_TOTAL.AsFloat     := StrToFloat(FormatFloat('0.00',fDMCadDocEstoque.cdsDocEstoque_ItensQTD.AsFloat
+                                                                 * fDMCadDocEstoque.cdsDocEstoque_ItensVLR_UNITARIO.AsFloat));
       fDMCadDocEstoque.cdsDocEstoque_Itens.Post;
     end;
     fDMInformar_Tam.mTamanho.Next;
