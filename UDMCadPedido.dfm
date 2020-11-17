@@ -15186,6 +15186,11 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object qParametros_UsuarioLIB_ITEM_SEM_PROCESSO: TStringField
+      FieldName = 'LIB_ITEM_SEM_PROCESSO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qParametros_Ped: TSQLQuery
     MaxBlobSize = -1
@@ -15565,11 +15570,6 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_PedID_PROCESSO_FINAL: TIntegerField
       FieldName = 'ID_PROCESSO_FINAL'
-    end
-    object qParametros_PedLIB_ITEM_SEM_PROCESSO: TStringField
-      FieldName = 'LIB_ITEM_SEM_PROCESSO'
-      FixedChar = True
-      Size = 1
     end
   end
   object sdsMetas_Acum: TSQLDataSet

@@ -1,7 +1,7 @@
 object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   Left = 16
   Top = 27
-  BorderIcons = [biSystemMenu]
+  BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'frmMontaPed_TipoItem'
   ClientHeight = 660
@@ -15,7 +15,6 @@ object frmMontaPed_TipoItem: TfrmMontaPed_TipoItem
   KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
-  WindowState = wsMaximized
   OnClose = FormClose
   OnDestroy = FormDestroy
   OnKeyPress = FormKeyPress

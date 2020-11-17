@@ -187,7 +187,7 @@ begin
   //mArquivoImportado.DisableControls;
   vGravar := True;
 
-  if trim(fDMCadPedido.qParametros_PedLIB_ITEM_SEM_PROCESSO.AsString) <> 'S' then
+  if trim(fDMCadPedido.qParametros_UsuarioLIB_ITEM_SEM_PROCESSO.AsString) <> 'S' then
   begin
     SMDBGrid1.DisableScroll;
     try

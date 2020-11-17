@@ -1226,8 +1226,6 @@ begin
     fDMCadPedido.cdsPedido_ItensID_SERVICO_INT.Clear;
     fDMCadPedido.cdsPedido_ItensNOME_SERVICO_INT.Clear;
   end;
-
-
   
   if trim(RxDBLookupCombo6.Text) = '' then
     fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger := StrToInt(FormatFloat('0',0));
@@ -1513,7 +1511,7 @@ begin
 //    if fnc_Existe_Prod_Lote(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger) then
 //      vMsgErro := vMsgErro + #13 + '*** Campo Nº Lote não pode ser em branco, pois no produto esta cadastrado Lote!';
 //  end;
-  if (trim(fDMCadPedido.qParametros_PedLIB_ITEM_SEM_PROCESSO.AsString) <> 'S') and (fDMCadPedido.cdsPedido_Item_TipoTIPO_ORCAMENTO.AsString = 'C') then
+  if (trim(fDMCadPedido.qParametros_UsuarioLIB_ITEM_SEM_PROCESSO.AsString) <> 'S') and (fDMCadPedido.cdsPedido_Item_TipoTIPO_ORCAMENTO.AsString = 'C') then
   begin
     fDMCadPedido.cdsPedido_Item_Processo.First;
     if fDMCadPedido.cdsPedido_Item_Processo.RecordCount <= 1 then

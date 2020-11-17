@@ -3914,12 +3914,12 @@ type
     mOrcamento_ItensEspessura: TFloatField;
     cdsOrcamento_ItensESPESSURA: TFloatField;
     cdsOrcamento_ItensOBS_REDUZIDA: TStringField;
-    qParametros_PedLIB_ITEM_SEM_PROCESSO: TStringField;
     cdsPedido_Item_ProcessoclNome2: TStringField;
     qProcesso: TSQLQuery;
     qProcessoID: TIntegerField;
     qProcessoNOME: TStringField;
     qProcessoUSAR_QTD_DOBRA: TStringField;
+    qParametros_UsuarioLIB_ITEM_SEM_PROCESSO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

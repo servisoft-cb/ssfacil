@@ -830,7 +830,7 @@ begin
   end;
   //if fDMCadPedido.cdsPedido_ItensID_CFOP.AsInteger <= 0 then
   //  vMsgErro := vMsgErro + #13 + '*** CFOP não informado!';
-  if (trim(fDMCadPedido.qParametros_PedLIB_ITEM_SEM_PROCESSO.AsString) <> 'S') and (fDMCadPedido.cdsPedido_Item_TipoTIPO_ORCAMENTO.AsString = 'C') then
+  if (trim(fDMCadPedido.qParametros_UsuarioLIB_ITEM_SEM_PROCESSO.AsString) <> 'S') and (fDMCadPedido.cdsPedido_Item_TipoTIPO_ORCAMENTO.AsString = 'C') then
   begin
     fDMCadPedido.cdsPedido_Item_Processo.First;
     if fDMCadPedido.cdsPedido_Item_Processo.RecordCount <= 1 then
