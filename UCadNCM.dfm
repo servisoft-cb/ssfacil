@@ -1021,7 +1021,7 @@ object frmCadNCM: TfrmCadNCM
           Caption = 'C'#243'd. Cest:'
         end
         object Label124: TLabel
-          Left = 468
+          Left = 467
           Top = 36
           Width = 60
           Height = 13
@@ -1358,10 +1358,10 @@ object frmCadNCM: TfrmCadNCM
         Top = 202
         Width = 946
         Height = 302
-        ActivePage = TS_SubTrib
+        ActivePage = TS_Geral
         ActivePageDefault = TS_SubTrib
         Align = alClient
-        TabIndex = 0
+        TabIndex = 3
         TabOrder = 2
         TextColors.Selected = clBlue
         FixedDimension = 19
@@ -2886,6 +2886,20 @@ object frmCadNCM: TfrmCadNCM
               Height = 13
               Alignment = taRightJustify
               Caption = 'Cod.Benef:'
+            end
+            object Label48: TLabel
+              Left = 588
+              Top = 28
+              Width = 60
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'F2 pesquisar'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clMaroon
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
             end
             object RxDBLookupCombo12: TRxDBLookupCombo
               Left = 102

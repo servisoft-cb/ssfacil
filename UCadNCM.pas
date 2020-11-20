@@ -159,6 +159,7 @@ type
     DBEdit10: TDBEdit;
     Label47: TLabel;
     edtCBenef: TEdit;
+    Label48: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

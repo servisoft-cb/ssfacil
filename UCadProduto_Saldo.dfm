@@ -1,6 +1,6 @@
 object frmCadProduto_Saldo: TfrmCadProduto_Saldo
-  Left = 261
-  Top = 219
+  Left = 302
+  Top = 208
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Informar o Saldo Inicial'
