@@ -3828,90 +3828,6 @@ object fMenu: TfMenu
         GroupName = 'Tipo M'#225'quinas'
       end
       item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'btnInserir'
-        Caption = 'Inserir'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'btnExcluir'
-        Caption = 'Excluir'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'btnAlterar'
-        Caption = 'Alterar'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'btnAtualizar_Estoque'
-        Caption = 'Atualizar Estoque'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'lblOperacao'
-        Caption = 'Opera'#231#227'o:'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'lblFinalidade'
-        Caption = 'Finalidade:'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'rxdbOperacao'
-        Caption = 'Opera'#231#227'o'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'rxcbFinalidade'
-        Caption = 'Finalidade'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'btnAjustar'
-        Caption = 'Ajustar'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'btnImportarXML'
-        Caption = 'Importar XML/TXT'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'btnImp_Boleto'
-        Caption = 'Imp Boleto'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'ImprimirRtulos1'
-        Caption = 'Imprimir R'#243'tulos'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'ArquivoSuframa1'
-        Caption = 'Arquivo Suframa'
-        GroupName = 'Nota Fiscal'
-      end
-      item
-        FormName = 'frmCadNotaFiscal'
-        CompName = 'ImprimirMinuta1'
-        Caption = 'Imprimir Minuta'
-        GroupName = 'Nota Fiscal'
-      end
-      item
         FormName = 'frmConsProduto_Sem_Ped'
         CompName = 'btnInativar'
         Caption = 'Inativar os Clientes Selecionados'
@@ -4546,6 +4462,96 @@ object fMenu: TfMenu
         CompName = 'Devoluo1'
         Caption = 'Devolu'#231#227'o'
         GroupName = 'Duplicata'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'btnInserir'
+        Caption = 'Inserir'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'btnAlterar'
+        Caption = 'Alterar'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'btnAtualizar_Estoque'
+        Caption = 'Atualizar Estoque'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'lblOperacao'
+        Caption = 'Opera'#231#227'o:'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'lblFinalidade'
+        Caption = 'Finalidade:'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'rxdbOperacao'
+        Caption = 'Opera'#231#227'o'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'rxcbFinalidade'
+        Caption = 'Finalidade'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'btnAjustar'
+        Caption = 'Ajustar'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'btnImportarXML'
+        Caption = 'Importar XML/TXT'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'btnImp_Boleto'
+        Caption = 'Imp Boleto'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'ImprimirRtulos1'
+        Caption = 'Imprimir R'#243'tulos'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'ArquivoSuframa1'
+        Caption = 'Arquivo Suframa'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'ImprimirMinuta1'
+        Caption = 'Imprimir Minuta'
+        GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadNotaFiscal'
+        CompName = 'ImprimirEtiquetaRFID1'
+        Caption = 'Imprimir Etiqueta RFID'
+        GroupName = 'Nota Fiscal'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

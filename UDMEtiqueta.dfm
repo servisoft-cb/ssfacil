@@ -98,15 +98,51 @@ object DMEtiqueta: TDMEtiqueta
         Name = 'Nome_Cor_Cliente'
         DataType = ftString
         Size = 100
+      end
+      item
+        Name = 'Sequencia_RFID'
+        DataType = ftLargeint
+      end
+      item
+        Name = 'CNPJ_Filial'
+        DataType = ftString
+        Size = 18
+      end
+      item
+        Name = 'ID_Nota'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Item_Nota'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Filial'
+        DataType = ftInteger
+      end
+      item
+        Name = 'NUM_RFID'
+        DataType = ftString
+        Size = 24
+      end
+      item
+        Name = 'Fantasia_Filial'
+        DataType = ftString
+        Size = 25
+      end
+      item
+        Name = 'Selecionado'
+        DataType = ftString
+        Size = 1
       end>
     IndexDefs = <>
     IndexFieldNames = 'Nome_Etiqueta;Tamanho'
     Params = <>
     StoreDefs = True
-    Left = 144
-    Top = 39
+    Left = 150
+    Top = 40
     Data = {
-      340200009619E0BD01000000180000001300000000000300000034020C4E6F6D
+      FD0200009619E0BD01000000180000001B000000000003000000FD020C4E6F6D
       655F456D70726573610100490000000100055749445448020002000F0004466F
       6E650100490000000100055749445448020002000C000D4E6F6D655F45746971
       7565746101004900000001000557494454480200020019000754616D616E686F
@@ -123,7 +159,14 @@ object DMEtiqueta: TDMEtiqueta
       07556E69646164650100490000000100055749445448020002000C00084E756D
       5F4E6F746104000100000000000F436F645F436F725F436C69656E7465010049
       0000000100055749445448020002000A00104E6F6D655F436F725F436C69656E
-      746501004900000001000557494454480200020064000000}
+      746501004900000001000557494454480200020064000E53657175656E636961
+      5F5246494408000100000000000B434E504A5F46696C69616C01004900000001
+      000557494454480200020012000749445F4E6F74610400010000000000094974
+      656D5F4E6F746104000100000000000646696C69616C0400010000000000084E
+      554D5F5246494401004900000001000557494454480200020018000F46616E74
+      617369615F46696C69616C01004900000001000557494454480200020019000B
+      53656C6563696F6E61646F010049000000010005574944544802000200010000
+      00}
     object mEtiqueta_NavNome_Empresa: TStringField
       FieldName = 'Nome_Empresa'
       Size = 15
@@ -192,6 +235,34 @@ object DMEtiqueta: TDMEtiqueta
     object mEtiqueta_NavNome_Cor_Cliente: TStringField
       FieldName = 'Nome_Cor_Cliente'
       Size = 100
+    end
+    object mEtiqueta_NavSequencia_RFID: TLargeintField
+      FieldName = 'Sequencia_RFID'
+    end
+    object mEtiqueta_NavCNPJ_Filial: TStringField
+      FieldName = 'CNPJ_Filial'
+      Size = 18
+    end
+    object mEtiqueta_NavID_Nota: TIntegerField
+      FieldName = 'ID_Nota'
+    end
+    object mEtiqueta_NavItem_Nota: TIntegerField
+      FieldName = 'Item_Nota'
+    end
+    object mEtiqueta_NavFilial: TIntegerField
+      FieldName = 'Filial'
+    end
+    object mEtiqueta_NavNUM_RFID: TStringField
+      FieldName = 'NUM_RFID'
+      Size = 24
+    end
+    object mEtiqueta_NavFantasia_Filial: TStringField
+      FieldName = 'Fantasia_Filial'
+      Size = 25
+    end
+    object mEtiqueta_NavSelecionado: TStringField
+      FieldName = 'Selecionado'
+      Size = 1
     end
   end
   object dsmEtiqueta_Nav: TDataSource
@@ -771,18 +842,19 @@ object DMEtiqueta: TDMEtiqueta
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT I.id, i.item, i.id_produto, i.id_cor, i.tamanho, i.nome_p' +
-      'roduto, i.referencia,'#13#10'i.unidade, i.qtd, i.numero_oc, i.numero_o' +
-      's, i.num_pedido, i.cod_produto_forn, i.cod_barra,'#13#10'I2.cod_produt' +
-      'o_cliente, I2.cod_cor_cliente, I2.nome_cor_cliente, I2.tamanho_c' +
-      'liente,'#13#10'C.NOME NOME_COR, I2.ENCERADO'#13#10'FROM NOTAFISCAL_ITENS I'#13#10 +
-      'INNER JOIN COMBINACAO C ON (I.ID_COR = C.ID)'#13#10'LEFT JOIN PEDIDO_I' +
-      'TEM I2 ON (I.ID_PEDIDO = I2.ID AND I.ITEM_PEDIDO = I2.ITEM)'#13#10'WHE' +
-      'RE I.ID = :ID'#13#10'AND (I.ID_CFOP <> 6 AND I.ID_CFOP <> 57)'
+      'select I.ID, I.ITEM, I.ID_PRODUTO, I.ID_COR, I.TAMANHO, I.NOME_P' +
+      'RODUTO, I.REFERENCIA, I.UNIDADE, I.QTD, I.NUMERO_OC,'#13#10'       I.N' +
+      'UMERO_OS, I.NUM_PEDIDO, I.COD_PRODUTO_FORN, I.COD_BARRA, I2.COD_' +
+      'PRODUTO_CLIENTE, I2.COD_COR_CLIENTE,'#13#10'       I2.NOME_COR_CLIENTE' +
+      ', I2.TAMANHO_CLIENTE, C.NOME NOME_COR, I2.ENCERADO'#13#10'from NOTAFIS' +
+      'CAL_ITENS I'#13#10'inner join COMBINACAO C on (I.ID_COR = C.ID)'#13#10'inner' +
+      ' join TAB_CFOP CFOP on I.ID_CFOP = CFOP.ID'#13#10'left join PEDIDO_ITE' +
+      'M I2 on (I.ID_PEDIDO = I2.ID and I.ITEM_PEDIDO = I2.ITEM)'#13#10'where' +
+      ' I.ID = :ID and'#13#10'      CFOP.FATURAMENTO = '#39'S'#39'   '
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftUnknown
+        DataType = ftInteger
         Name = 'ID'
         ParamType = ptInput
       end>
@@ -886,7 +958,9 @@ object DMEtiqueta: TDMEtiqueta
       end>
     SQL.Strings = (
       'SELECT N.ID, N.NUMNOTA, N.ID_CLIENTE, CLI.NOME NOME_CLIENTE,'
-      'CLI.IMP_COR_CLIENTE, N.DTEMISSAO, CLI.FANTASIA, F.NOME_INTERNO'
+      
+        'CLI.IMP_COR_CLIENTE, N.DTEMISSAO, CLI.FANTASIA, F.NOME_INTERNO, ' +
+        'N.FILIAL'
       'FROM NOTAFISCAL N'
       'INNER JOIN PESSOA CLI'
       'ON N.ID_CLIENTE = CLI.CODIGO'
@@ -926,6 +1000,9 @@ object DMEtiqueta: TDMEtiqueta
       FieldName = 'NOME_INTERNO'
       Size = 30
     end
+    object qNotaFiscalFILIAL: TIntegerField
+      FieldName = 'FILIAL'
+    end
   end
   object frxReport1: TfrxReport
     Tag = 1
@@ -938,7 +1015,7 @@ object DMEtiqueta: TDMEtiqueta
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41928.578144409700000000
-    ReportOptions.LastChange = 43621.754122627320000000
+    ReportOptions.LastChange = 44156.593823599530000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
@@ -1010,7 +1087,13 @@ object DMEtiqueta: TDMEtiqueta
       'Unidade=Unidade'
       'Num_Nota=Num_Nota'
       'Cod_Cor_Cliente=Cod_Cor_Cliente'
-      'Nome_Cor_Cliente=Nome_Cor_Cliente')
+      'Nome_Cor_Cliente=Nome_Cor_Cliente'
+      'Sequencia_RFID=Sequencia_RFID'
+      'CNPJ_Filial=CNPJ_Filial'
+      'ID_Nota=ID_Nota'
+      'Item_Nota=Item_Nota'
+      'Filial=Filial'
+      'NUM_RFID=NUM_RFID')
     DataSource = dsmEtiqueta_Nav
     BCDToCurrency = False
     Left = 472

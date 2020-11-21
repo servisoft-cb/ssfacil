@@ -212,11 +212,20 @@ type
     mEtiqueta_NavNum_Nota: TIntegerField;
     mEtiqueta_NavCod_Cor_Cliente: TStringField;
     mEtiqueta_NavNome_Cor_Cliente: TStringField;
+    mEtiqueta_NavSequencia_RFID: TLargeintField;
+    mEtiqueta_NavCNPJ_Filial: TStringField;
+    qNotaFiscalFILIAL: TIntegerField;
+    mEtiqueta_NavID_Nota: TIntegerField;
+    mEtiqueta_NavItem_Nota: TIntegerField;
+    mEtiqueta_NavFilial: TIntegerField;
+    mEtiqueta_NavNUM_RFID: TStringField;
+    mEtiqueta_NavFantasia_Filial: TStringField;
+    mEtiqueta_NavSelecionado: TStringField;
   private
     { Private declarations }
   public
     { Public declarations }
-    procedure prc_Monta_Etiqueta_Calcado(Tipo: String; ID: Integer); //D= DOS   A=A4 em windows
+    procedure prc_Monta_Etiqueta_Calcado(Tipo: String; ID: Integer; Qtd : Integer); //D= DOS   A=A4 em windows
 
   end;
 
@@ -231,7 +240,7 @@ uses DmdDatabase, uUtilPadrao;
 
 { TDMEtiqueta }
 
-procedure TDMEtiqueta.prc_Monta_Etiqueta_Calcado(Tipo: String; ID: Integer); //D= DOS   A=A4 em windows
+procedure TDMEtiqueta.prc_Monta_Etiqueta_Calcado(Tipo: String; ID: Integer; Qtd : Integer); //D= DOS   A=A4 em windows
 var
   i: Integer;
   vQtdDiv: Integer;
@@ -240,8 +249,13 @@ var
   vQtdPac: Integer;
 begin
   vTexto := '1';
-  if Tipo = 'A' then
-    vTexto := InputBox('','Informar a Quantidade por Pacote','72');  // padrão era 72
+  if (Tipo = 'A') then
+  begin
+    if Qtd <= 0 then
+      vTexto := InputBox('','Informar a Quantidade por Pacote','72')
+    else
+      vTexto := IntToStr(Qtd);
+  end;
   vTexto := Monta_Numero(vTexto,0);
   if trim(vTexto) <> '' then
     vQtdDiv := StrToInt(vTexto)
@@ -276,11 +290,15 @@ begin
     begin
       mEtiqueta_Nav.Insert;
       mEtiqueta_NavNum_Nota.AsInteger        := qNotaFiscalNUMNOTA.AsInteger;
+      mEtiqueta_NavID_Nota.AsInteger         := qNotaFiscalID.AsInteger;
+      mEtiqueta_NavItem_Nota.AsInteger       := cdsNotaFiscal_ItensITEM.AsInteger;
+      mEtiqueta_NavFilial.AsInteger          := qNotaFiscalFILIAL.AsInteger;
       mEtiqueta_NavReferencia.AsString       := cdsNotaFiscal_ItensREFERENCIA.AsString;
       mEtiqueta_NavNome_Produto.AsString     := cdsNotaFiscal_ItensNOME_PRODUTO.AsString;
       mEtiqueta_NavItem_Ped.AsInteger        := cdsNotaFiscal_ItensITEM.AsInteger;
       mEtiqueta_NavCod_Cor_Cliente.AsString  := cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString;
       mEtiqueta_NavNome_Cor_Cliente.AsString := cdsNotaFiscal_ItensNOME_COR_CLIENTE.AsString;
+      mEtiqueta_NavCNPJ_Filial.AsString      := SQLLocate('FILIAL','ID','CNPJ_CPF',qNotaFiscalFILIAL.AsString);
       if (qNotaFiscalIMP_COR_CLIENTE.AsString = 'S') and (cdsNotaFiscal_ItensID_COR.AsInteger > 0) and
          (cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString <> '') then
       begin

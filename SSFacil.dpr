@@ -732,7 +732,7 @@ uses
   UCadNotaEntrada_Itens_Ajuste in 'UCadNotaEntrada_Itens_Ajuste.pas' {frmCadNotaEntrada_Itens_Ajuste},
   UBaixaPedidoProc in 'UBaixaPedidoProc.pas' {frmBaixaPedidoProc},
   UDMBaixaPedidoProc in 'UDMBaixaPedidoProc.pas' {DMBaixaPedidoProc: TDataModule},
-  UConsPedidoProcMapa in 'UConsPedidoProcMapa.pas' {frmConsPedidoProcMapa},
+  UConsPedidoProcMapa in 'UConsPedidoProcMapa.pas' {frmConsPedidoProcMapa: Unit1},
   UAltProd in 'UAltProd.pas',
   USenha2 in 'USenha2.pas' {frmSenha2},
   uMenu1 in 'uMenu1.pas' {fMenu1},
@@ -886,7 +886,9 @@ uses
   UDMConsPedidoProc in 'UDMConsPedidoProc.pas' {DMConsPedidoProc: TDataModule},
   UConsPedidoItemProc in 'UConsPedidoItemProc.pas' {frmConsPedidoItemProc},
   UConsPedidoItemProc_Itens in 'UConsPedidoItemProc_Itens.pas' {frmConsPedidoItemProc_Itens},
-  UConsEstoque_Transf in 'UConsEstoque_Transf.pas' {frmConsEstoque_Transf};
+  UConsEstoque_Transf in 'UConsEstoque_Transf.pas' {frmConsEstoque_Transf},
+  UEtiqueta_RFID in 'UEtiqueta_RFID.pas' {frmEtiqueta_RFID},
+  UDMRFID in 'UDMRFID.pas' {DMRFID: TDataModule};
 
 {$R *.res}
 

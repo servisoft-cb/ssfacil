@@ -434,6 +434,7 @@ type
     DBEdit81: TDBEdit;
     Label122: TLabel;
     ckRedespacho: TCheckBox;
+    ImprimirEtiquetaRFID1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -575,6 +576,7 @@ type
     procedure rxdbCondicaoPgtoExit(Sender: TObject);
     procedure btnDifalClick(Sender: TObject);
     procedure btnRefazTitulosClick(Sender: TObject);
+    procedure ImprimirEtiquetaRFID1Click(Sender: TObject);
   private
     { Private declarations }
     vTipoNotaAnt: String;
@@ -689,7 +691,7 @@ implementation
 uses DmdDatabase, rsDBUtils, uUtilPadrao, USel_Pessoa, URecebeXML, uCalculo_NotaFiscal, uNFeComandos, USel_ContaOrc, uUtilCliente,
   uUtilCobranca, DmdDatabase_NFeBD, UDMAprovacao_Ped, UConsPessoa_Fin, uGrava_NotaFiscal, UCadNotaFiscal_Custo,
   UMenu, Math, UDMEtiqueta, USel_PreFat, uMenu1, USel_RecNF, uXMLSuframa, UCadNotaFiscal_Alt_CCusto, UConsClienteOBS,
-  UMostrarRegras, uUtilDialogs;
+  UMostrarRegras, uUtilDialogs, UEtiqueta_RFID;
 
 {$R *.dfm}
 
@@ -5292,7 +5294,7 @@ begin
   else
     vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\SulTextil_Etiq_Nota.fr3';
 
-  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger);
+  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger,0);
   if FileExists(vArq) then
     fDMEtiqueta.frxReport1.Report.LoadFromFile(vArq)
   else
@@ -5900,6 +5902,19 @@ begin
     btnGerarParcelasClick(Sender);
   end;
 
+end;
+
+procedure TfrmCadNotaFiscal.ImprimirEtiquetaRFID1Click(Sender: TObject);
+begin
+  if not(fDMCadNotaFiscal.cdsNotaFiscal_Consulta.Active) or (fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger <= 0) then
+  begin
+    MessageDlg('*** Não foi selecionada uma Nota!' , mtInformation, [mbOk], 0);
+    exit;
+  end;
+  frmEtiqueta_RFID := TfrmEtiqueta_RFID.Create(self);
+  frmEtiqueta_RFID.vID_Nota := fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger;
+  frmEtiqueta_RFID.ShowModal;
+  FreeAndNil(frmEtiqueta_RFID);
 end;
 
 end.
