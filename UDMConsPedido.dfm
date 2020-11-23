@@ -6055,4 +6055,194 @@ object DMConsPedido: TDMConsPedido
     Left = 1063
     Top = 337
   end
+  object sdsPedido_RefComb_DtEPed: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select sum(V.QTD) QTD, sum(V.QTD_FATURADO) QTD_FATURADO, sum(V.Q' +
+      'TD_RESTANTE) QTD_RESTANTE,'#13#10'       sum(V.QTD_CANCELADO) QTD_CANC' +
+      'ELADO, sum(V.QTD_PECA) QTD_PECA, sum(V.VLR_TOTAL) VLR_TOTAL,'#13#10'  ' +
+      '     sum(V.VLR_RESTANTE) VLR_RESTANTE, sum(V.VLR_FATURADO) VLR_F' +
+      'ATURADO, sum(V.VLR_CANCELADO) VLR_CANCELADO,'#13#10'       V.REFERENCI' +
+      'A, V.NOME_COR_COMBINACAO, V.NOME_CLIENTE, V.DTENTREGA_ITEM,'#13#10'   ' +
+      '    V.pedido_cliente,'#13#10'       sum((select first 1 coalesce(U.FAT' +
+      'OR_CALCULO, 1)'#13#10'           from UNIDADE U'#13#10'            where U.U' +
+      'NIDADE = V.UNIDADE) * (V.TAM_CALC * V.QTD)) QTD_METRO,'#13#10'       s' +
+      'um((select first 1 coalesce(U.FATOR_CALCULO, 1)'#13#10'            fro' +
+      'm UNIDADE U'#13#10'             where U.UNIDADE = V.UNIDADE) * (V.TAM_' +
+      'CALC * V.QTD_RESTANTE)) QTD_METRO_REST'#13#10'from VPEDIDO_ITEM V'#13#10#13#10'g' +
+      'roup by V.REFERENCIA, V.NOME_COR_COMBINACAO, V.DTENTREGA_ITEM, V' +
+      '.NOME_CLIENTE, V.pedido_cliente'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 957
+    Top = 28
+  end
+  object dspPedido_RefComb_DtEPed: TDataSetProvider
+    DataSet = sdsPedido_RefComb_DtEPed
+    Left = 997
+    Top = 28
+  end
+  object cdsPedido_RefComb_DtEPed: TClientDataSet
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'QTD'
+        DataType = ftFloat
+      end
+      item
+        Name = 'QTD_FATURADO'
+        DataType = ftFloat
+      end
+      item
+        Name = 'QTD_RESTANTE'
+        DataType = ftFloat
+      end
+      item
+        Name = 'QTD_CANCELADO'
+        DataType = ftFloat
+      end
+      item
+        Name = 'QTD_PECA'
+        DataType = ftFMTBcd
+        Precision = 15
+      end
+      item
+        Name = 'VLR_TOTAL'
+        DataType = ftFloat
+      end
+      item
+        Name = 'VLR_RESTANTE'
+        DataType = ftFloat
+      end
+      item
+        Name = 'VLR_FATURADO'
+        DataType = ftFloat
+      end
+      item
+        Name = 'VLR_CANCELADO'
+        DataType = ftFloat
+      end
+      item
+        Name = 'REFERENCIA'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'NOME_COR_COMBINACAO'
+        DataType = ftString
+        Size = 60
+      end
+      item
+        Name = 'NOME_CLIENTE'
+        DataType = ftString
+        Size = 60
+      end
+      item
+        Name = 'DTENTREGA_ITEM'
+        DataType = ftDate
+      end
+      item
+        Name = 'PEDIDO_CLIENTE'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'QTD_METRO'
+        DataType = ftFloat
+      end
+      item
+        Name = 'QTD_METRO_REST'
+        DataType = ftFloat
+      end>
+    IndexDefs = <>
+    Params = <>
+    ProviderName = 'dspPedido_RefComb_DtEPed'
+    StoreDefs = True
+    Left = 1037
+    Top = 28
+    object cdsPedido_RefComb_DtEPedQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsPedido_RefComb_DtEPedQTD_FATURADO: TFloatField
+      FieldName = 'QTD_FATURADO'
+    end
+    object cdsPedido_RefComb_DtEPedQTD_RESTANTE: TFloatField
+      FieldName = 'QTD_RESTANTE'
+    end
+    object cdsPedido_RefComb_DtEPedQTD_CANCELADO: TFloatField
+      FieldName = 'QTD_CANCELADO'
+    end
+    object cdsPedido_RefComb_DtEPedQTD_PECA: TFMTBCDField
+      FieldName = 'QTD_PECA'
+      Precision = 15
+      Size = 0
+    end
+    object cdsPedido_RefComb_DtEPedVLR_TOTAL: TFloatField
+      FieldName = 'VLR_TOTAL'
+    end
+    object cdsPedido_RefComb_DtEPedVLR_RESTANTE: TFloatField
+      FieldName = 'VLR_RESTANTE'
+    end
+    object cdsPedido_RefComb_DtEPedVLR_FATURADO: TFloatField
+      FieldName = 'VLR_FATURADO'
+    end
+    object cdsPedido_RefComb_DtEPedVLR_CANCELADO: TFloatField
+      FieldName = 'VLR_CANCELADO'
+    end
+    object cdsPedido_RefComb_DtEPedREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsPedido_RefComb_DtEPedNOME_COR_COMBINACAO: TStringField
+      FieldName = 'NOME_COR_COMBINACAO'
+      Size = 60
+    end
+    object cdsPedido_RefComb_DtEPedNOME_CLIENTE: TStringField
+      FieldName = 'NOME_CLIENTE'
+      Size = 60
+    end
+    object cdsPedido_RefComb_DtEPedDTENTREGA_ITEM: TDateField
+      FieldName = 'DTENTREGA_ITEM'
+    end
+    object cdsPedido_RefComb_DtEPedPEDIDO_CLIENTE: TStringField
+      FieldName = 'PEDIDO_CLIENTE'
+    end
+    object cdsPedido_RefComb_DtEPedQTD_METRO: TFloatField
+      FieldName = 'QTD_METRO'
+    end
+    object cdsPedido_RefComb_DtEPedQTD_METRO_REST: TFloatField
+      FieldName = 'QTD_METRO_REST'
+    end
+  end
+  object dsPedido_RefComb_DtEPed: TDataSource
+    DataSet = cdsPedido_RefComb_DtEPed
+    Left = 1077
+    Top = 28
+  end
+  object frxPedido_RefComb_DtEPed: TfrxDBDataset
+    UserName = 'frxPedido_RefComb_DtEPed'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'QTD=QTD'
+      'QTD_FATURADO=QTD_FATURADO'
+      'QTD_RESTANTE=QTD_RESTANTE'
+      'QTD_CANCELADO=QTD_CANCELADO'
+      'QTD_PECA=QTD_PECA'
+      'VLR_TOTAL=VLR_TOTAL'
+      'VLR_RESTANTE=VLR_RESTANTE'
+      'VLR_FATURADO=VLR_FATURADO'
+      'VLR_CANCELADO=VLR_CANCELADO'
+      'REFERENCIA=REFERENCIA'
+      'NOME_COR_COMBINACAO=NOME_COR_COMBINACAO'
+      'NOME_CLIENTE=NOME_CLIENTE'
+      'DTENTREGA_ITEM=DTENTREGA_ITEM'
+      'PEDIDO_CLIENTE=PEDIDO_CLIENTE'
+      'QTD_METRO=QTD_METRO'
+      'QTD_METRO_REST=QTD_METRO_REST')
+    DataSource = dsPedido_RefComb_DtEPed
+    BCDToCurrency = False
+    Left = 1046
+    Top = 79
+  end
 end

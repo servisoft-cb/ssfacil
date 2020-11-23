@@ -129,6 +129,8 @@ type
     SMDBGrid11: TSMDBGrid;
     SMDBGrid12: TSMDBGrid;
     NxSplitter1: TNxSplitter;
+    TS_PedidoDtEntrega: TRzTabSheet;
+    SMDBGrid13: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -199,6 +201,7 @@ type
     procedure prc_Consultar_RefComb;
     procedure prc_Consultar_RefComb_DtEntrega;
     procedure prc_Consultar_RefComb_DtECliente;
+    procedure prc_Consultar_RefComb_DtEPedido;
     procedure prc_Monta_Condicao;
     procedure prc_GroupBy(ctTexto: String);
     procedure prc_Montar_RadioGroup2;
@@ -983,7 +986,11 @@ begin
     if RzPageControl2.ActivePage = TS_RefComb_DtEntrega then
       prc_Consultar_RefComb_DtEntrega
     else
-      prc_Consultar_RefComb_DtECliente;
+    if RzPageControl2.ActivePage = TS_ClienteDtEntrega then
+      prc_Consultar_RefComb_DtECliente
+    else
+    if RzPageControl2.ActivePage = TS_PedidoDtEntrega then
+      prc_Consultar_RefComb_DtEPedido;
   end;
 end;
 
@@ -1224,7 +1231,11 @@ begin
     if RzPageControl2.ActivePage = TS_RefComb_DtEntrega then
       vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_RefComb_DtEnt.fr3'
     else
-      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_RefComb_DtECli.fr3';
+    if RzPageControl2.ActivePage = TS_ClienteDtEntrega then
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_RefComb_DtECli.fr3'
+    else
+    if RzPageControl2.ActivePage = TS_PedidoDtEntrega then
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_RefComb_DtEPed.fr3';
     if FileExists(vArq) then
       fDMConsPedido.frxReport1.Report.LoadFromFile(vArq)
     else
@@ -1716,7 +1727,7 @@ end;
 
 procedure TfrmConsPedido.prc_Consultar_RefComb_DtECliente;
 begin
-  fDMConsPedido.cdsPedido_RefComb_DtEntrega.Close;
+  fDMConsPedido.cdsPedido_RefComb_DtECliente.Close;
   prc_GroupBy(fDMConsPedido.ctPedido_RefComb_DTECliente);
   prc_Monta_Condicao;
   fDMConsPedido.sdsPedido_RefComb_DtECliente.CommandText := vComando + vComando_GroupBy;
@@ -1805,6 +1816,16 @@ begin
   fDMConsPedido.sdsPedido_Item_Proc.ParamByName('ID').AsInteger  := fDMConsPedido.cdsPedido_ItemID.AsInteger;
   fDMConsPedido.sdsPedido_Item_Proc.ParamByName('ITEM').AsInteger := fDMConsPedido.cdsPedido_ItemITEM.AsInteger;
   fDMConsPedido.cdsPedido_Item_Proc.Open;
+end;
+
+procedure TfrmConsPedido.prc_Consultar_RefComb_DtEPedido;
+begin
+  fDMConsPedido.cdsPedido_RefComb_DtEPed.Close;
+  prc_GroupBy(fDMConsPedido.ctPedido_RefComb_DTEPed);
+  prc_Monta_Condicao;
+  fDMConsPedido.sdsPedido_RefComb_DtEPed.CommandText := vComando + vComando_GroupBy;
+  fDMConsPedido.cdsPedido_RefComb_DtEPed.IndexFieldNames := 'DTENTREGA_ITEM;REFERENCIA;NOME_COR_COMBINACAO;NOME_CLIENTE;PEDIDO_CLIENTE';
+  fDMConsPedido.cdsPedido_RefComb_DtEPed.Open;
 end;
 
 end.
