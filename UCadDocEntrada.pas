@@ -217,7 +217,9 @@ begin
       exit;
     end;
 
-    if (fDMCadNotaServico.cdsNotaServicoNUMNOTA.AsInteger > 0) and (fDMCadNotaServico.cdsFilialNOME_PROVEDOR.AsString <> 'CAMPO BOM') then
+    if (fDMCadNotaServico.cdsNotaServicoNUMNOTA.AsInteger > 0) and (fDMCadNotaServico.cdsFilialNOME_PROVEDOR.AsString <> 'CAMPO BOM')
+       and (trim(fDMCadNotaServico.cdsFilialNOME_PROVEDOR.AsString) <> '')
+     then
     begin
       MessageDlg('*** Nota já autorizada na prefeitura!', mtError, [mbOk], 0);
       exit;

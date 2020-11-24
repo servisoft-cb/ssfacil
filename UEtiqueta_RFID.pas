@@ -100,7 +100,6 @@ begin
   fDMRFID.sdsNotaFiscal_RFID.ParamByName('ITEM_NOTA').AsInteger := fDMEtiqueta.mEtiqueta_NavItem_Nota.AsInteger;
   fDMRFID.cdsNotaFiscal_RFID.Open;
 
-
   fDMRFID.cdsNotaFiscal_RFID.Last;
   vItemAux := fDMRFID.cdsNotaFiscal_RFIDITEM_RFID.AsInteger;
 

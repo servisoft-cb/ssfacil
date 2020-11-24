@@ -44,10 +44,6 @@ object DMRFID: TDMRFID
     object sdsNotaFiscal_RFIDFILIAL: TIntegerField
       FieldName = 'FILIAL'
     end
-    object sdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField
-      FieldName = 'CNPJ_FILIAL'
-      Size = 14
-    end
     object sdsNotaFiscal_RFIDSEQUENCIA: TFMTBCDField
       FieldName = 'SEQUENCIA'
       Precision = 15
@@ -64,6 +60,10 @@ object DMRFID: TDMRFID
       FieldName = 'NUM_RFID'
       Size = 24
     end
+    object sdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField
+      FieldName = 'CNPJ_FILIAL'
+      Size = 18
+    end
   end
   object dspNotaFiscal_RFID: TDataSetProvider
     DataSet = sdsNotaFiscal_RFID
@@ -76,7 +76,7 @@ object DMRFID: TDMRFID
     IndexFieldNames = 'ID;ITEM_NOTA;ITEM_RFID'
     Params = <>
     ProviderName = 'dspNotaFiscal_RFID'
-    Left = 200
+    Left = 201
     Top = 73
     object cdsNotaFiscal_RFIDID: TIntegerField
       FieldName = 'ID'
@@ -96,10 +96,6 @@ object DMRFID: TDMRFID
     object cdsNotaFiscal_RFIDFILIAL: TIntegerField
       FieldName = 'FILIAL'
     end
-    object cdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField
-      FieldName = 'CNPJ_FILIAL'
-      Size = 14
-    end
     object cdsNotaFiscal_RFIDSEQUENCIA: TFMTBCDField
       FieldName = 'SEQUENCIA'
       Precision = 15
@@ -115,6 +111,10 @@ object DMRFID: TDMRFID
     object cdsNotaFiscal_RFIDNUM_RFID: TStringField
       FieldName = 'NUM_RFID'
       Size = 24
+    end
+    object cdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField
+      FieldName = 'CNPJ_FILIAL'
+      Size = 18
     end
   end
 end

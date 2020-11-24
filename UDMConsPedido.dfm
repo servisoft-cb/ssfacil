@@ -2579,15 +2579,15 @@ object DMConsPedido: TDMConsPedido
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44056.913943715280000000
+    ReportOptions.CreateDate = 42032.577038136600000000
+    ReportOptions.LastChange = 44158.718064421290000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 706
-    Top = 360
+    Top = 361
   end
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxmEtiq_Individual'
@@ -6065,14 +6065,16 @@ object DMConsPedido: TDMConsPedido
       '     sum(V.VLR_RESTANTE) VLR_RESTANTE, sum(V.VLR_FATURADO) VLR_F' +
       'ATURADO, sum(V.VLR_CANCELADO) VLR_CANCELADO,'#13#10'       V.REFERENCI' +
       'A, V.NOME_COR_COMBINACAO, V.NOME_CLIENTE, V.DTENTREGA_ITEM,'#13#10'   ' +
-      '    V.pedido_cliente,'#13#10'       sum((select first 1 coalesce(U.FAT' +
-      'OR_CALCULO, 1)'#13#10'           from UNIDADE U'#13#10'            where U.U' +
-      'NIDADE = V.UNIDADE) * (V.TAM_CALC * V.QTD)) QTD_METRO,'#13#10'       s' +
-      'um((select first 1 coalesce(U.FATOR_CALCULO, 1)'#13#10'            fro' +
-      'm UNIDADE U'#13#10'             where U.UNIDADE = V.UNIDADE) * (V.TAM_' +
-      'CALC * V.QTD_RESTANTE)) QTD_METRO_REST'#13#10'from VPEDIDO_ITEM V'#13#10#13#10'g' +
-      'roup by V.REFERENCIA, V.NOME_COR_COMBINACAO, V.DTENTREGA_ITEM, V' +
-      '.NOME_CLIENTE, V.pedido_cliente'#13#10
+      '    V.pedido_cliente,'#13#10'case'#13#10'  when coalesce(v.fantasia,'#39#39') <> '#39 +
+      #39' then v.fantasia'#13#10'  else v.nome_cliente'#13#10'  end FANTASIA_CLIENTE' +
+      ','#13#10#13#10'       sum((select first 1 coalesce(U.FATOR_CALCULO, 1)'#13#10'  ' +
+      '         from UNIDADE U'#13#10'            where U.UNIDADE = V.UNIDADE' +
+      ') * (V.TAM_CALC * V.QTD)) QTD_METRO,'#13#10'       sum((select first 1' +
+      ' coalesce(U.FATOR_CALCULO, 1)'#13#10'            from UNIDADE U'#13#10'     ' +
+      '        where U.UNIDADE = V.UNIDADE) * (V.TAM_CALC * V.QTD_RESTA' +
+      'NTE)) QTD_METRO_REST'#13#10'from VPEDIDO_ITEM V'#13#10'group by V.REFERENCIA' +
+      ', V.NOME_COR_COMBINACAO, V.DTENTREGA_ITEM, V.NOME_CLIENTE, V.ped' +
+      'ido_cliente, v.fantasia'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -6149,6 +6151,11 @@ object DMConsPedido: TDMConsPedido
         Size = 20
       end
       item
+        Name = 'FANTASIA_CLIENTE'
+        DataType = ftString
+        Size = 60
+      end
+      item
         Name = 'QTD_METRO'
         DataType = ftFloat
       end
@@ -6214,6 +6221,10 @@ object DMConsPedido: TDMConsPedido
     object cdsPedido_RefComb_DtEPedQTD_METRO_REST: TFloatField
       FieldName = 'QTD_METRO_REST'
     end
+    object cdsPedido_RefComb_DtEPedFANTASIA_CLIENTE: TStringField
+      FieldName = 'FANTASIA_CLIENTE'
+      Size = 60
+    end
   end
   object dsPedido_RefComb_DtEPed: TDataSource
     DataSet = cdsPedido_RefComb_DtEPed
@@ -6239,10 +6250,11 @@ object DMConsPedido: TDMConsPedido
       'DTENTREGA_ITEM=DTENTREGA_ITEM'
       'PEDIDO_CLIENTE=PEDIDO_CLIENTE'
       'QTD_METRO=QTD_METRO'
-      'QTD_METRO_REST=QTD_METRO_REST')
+      'QTD_METRO_REST=QTD_METRO_REST'
+      'FANTASIA_CLIENTE=FANTASIA_CLIENTE')
     DataSource = dsPedido_RefComb_DtEPed
     BCDToCurrency = False
-    Left = 1046
-    Top = 79
+    Left = 1069
+    Top = 80
   end
 end

@@ -4232,7 +4232,7 @@ object frmConsPedido: TfrmConsPedido
               end
               item
                 Expanded = False
-                FieldName = 'NOME_CLIENTE'
+                FieldName = 'FANTASIA_CLIENTE'
                 Font.Charset = DEFAULT_CHARSET
                 Font.Color = clWindowText
                 Font.Height = -11
@@ -4317,6 +4317,7 @@ object frmConsPedido: TfrmConsPedido
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = []
+                Width = 64
                 Visible = True
               end
               item
@@ -4352,6 +4353,7 @@ object frmConsPedido: TfrmConsPedido
                 Title.Font.Height = -11
                 Title.Font.Name = 'MS Sans Serif'
                 Title.Font.Style = []
+                Width = 64
                 Visible = True
               end
               item

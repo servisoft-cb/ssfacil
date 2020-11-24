@@ -888,7 +888,9 @@ uses
   UConsPedidoItemProc_Itens in 'UConsPedidoItemProc_Itens.pas' {frmConsPedidoItemProc_Itens},
   UConsEstoque_Transf in 'UConsEstoque_Transf.pas' {frmConsEstoque_Transf},
   UEtiqueta_RFID in 'UEtiqueta_RFID.pas' {frmEtiqueta_RFID},
-  UDMRFID in 'UDMRFID.pas' {DMRFID: TDataModule};
+  UDMRFID in 'UDMRFID.pas' {DMRFID: TDataModule},
+  UDMCadCanalVendas in 'UDMCadCanalVendas.pas' {DMCadCanalVendas: TDataModule},
+  UCadCanalVendas in 'UCadCanalVendas.pas' {frmCadCanalVendas};
 
 {$R *.res}
 

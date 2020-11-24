@@ -12,7 +12,6 @@ type
     sdsNotaFiscal_RFIDITEM_NOTA: TIntegerField;
     sdsNotaFiscal_RFIDITEM_RFID: TIntegerField;
     sdsNotaFiscal_RFIDFILIAL: TIntegerField;
-    sdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField;
     sdsNotaFiscal_RFIDSEQUENCIA: TFMTBCDField;
     sdsNotaFiscal_RFIDQTD: TFloatField;
     sdsNotaFiscal_RFIDUNIDADE: TStringField;
@@ -23,11 +22,12 @@ type
     cdsNotaFiscal_RFIDITEM_NOTA: TIntegerField;
     cdsNotaFiscal_RFIDITEM_RFID: TIntegerField;
     cdsNotaFiscal_RFIDFILIAL: TIntegerField;
-    cdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField;
     cdsNotaFiscal_RFIDSEQUENCIA: TFMTBCDField;
     cdsNotaFiscal_RFIDQTD: TFloatField;
     cdsNotaFiscal_RFIDUNIDADE: TStringField;
     cdsNotaFiscal_RFIDNUM_RFID: TStringField;
+    sdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField;
+    cdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

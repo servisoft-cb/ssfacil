@@ -395,6 +395,10 @@ object fMenu: TfMenu
           Caption = 'Metas de Comiss'#227'o (Faixa de Valores)'
           OnClick = MetasdeComissoFaixadeValores1Click
         end
+        object CanaldeVendas1: TMenuItem
+          Caption = 'Canal de Vendas'
+          OnClick = CanaldeVendas1Click
+        end
       end
       object Servios2: TMenuItem
         Caption = 'Servi'#231'os'
@@ -4552,6 +4556,24 @@ object fMenu: TfMenu
         CompName = 'ImprimirEtiquetaRFID1'
         Caption = 'Imprimir Etiqueta RFID'
         GroupName = 'Nota Fiscal'
+      end
+      item
+        FormName = 'frmCadCanalVendas'
+        CompName = 'btnInserir'
+        Caption = 'Inserir'
+        GroupName = 'Canal de Vendas'
+      end
+      item
+        FormName = 'frmCadCanalVendas'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Canal de Vendas'
+      end
+      item
+        FormName = 'frmCadCanalVendas'
+        CompName = 'btnAlterar'
+        Caption = 'Alterar'
+        GroupName = 'Canal de Vendas'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True
