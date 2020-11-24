@@ -376,7 +376,10 @@ begin
       fDmCob_Eletronica.mRetornoNomeCliente.AsString := Sacado.NomeSacado;
 
       fDmCob_Eletronica.mRetornoID_Duplicata.AsInteger := 0;
-      fDmCob_Eletronica.mRetornoVlrDespesaCobranca.AsCurrency := ValorDespesaCobranca;
+      if SQLLocate('PARAMETROS_FIN','ID','GRAVAR_TAXA_BANC_RET','1') = 'S' then
+        fDmCob_Eletronica.mRetornoVlrDespesaCobranca.AsCurrency := ValorDespesaCobranca
+      else
+        fDmCob_Eletronica.mRetornoVlrDespesaCobranca.AsCurrency := 0;
       vTexto := trim(fDmCob_Eletronica.mRetornoSeuNumero.AsString);
 
       if fDmCob_Eletronica.qParametros_FinREMESSA_FILIAL_DIF.AsString = 'S' then

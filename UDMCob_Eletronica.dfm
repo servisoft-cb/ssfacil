@@ -1,8 +1,8 @@
 object DMCob_Eletronica: TDMCob_Eletronica
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 247
-  Top = 70
+  Left = 76
+  Top = 17
   Height = 617
   Width = 1182
   object sdsDuplicata: TSQLDataSet
