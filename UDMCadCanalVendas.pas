@@ -17,6 +17,14 @@ type
     cdsCanalVendasID: TIntegerField;
     cdsCanalVendasNOME: TStringField;
     cdsCanalVendasINATIVO: TStringField;
+    sdsCanalVendasID_TABPRECO: TIntegerField;
+    cdsCanalVendasID_TABPRECO: TIntegerField;
+    sdsTabPreco: TSQLDataSet;
+    dspTabPreco: TDataSetProvider;
+    cdsTabPreco: TClientDataSet;
+    dsTabPreco: TDataSource;
+    cdsTabPrecoID: TIntegerField;
+    cdsTabPrecoNOME: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspCanalVendasUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -96,6 +104,7 @@ var
   aIndices: array of string;
 begin
   ctCommand := sdsCanalVendas.CommandText;
+  cdsTabPreco.Open;
   //*** Logs Implantado na versão .353
   LogProviderList.OnAdditionalValues := DoLogAdditionalValues;
   for i := 0 to (Self.ComponentCount - 1) do

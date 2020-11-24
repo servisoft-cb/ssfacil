@@ -704,6 +704,14 @@ object frmCadCanalVendas: TfrmCadCanalVendas
           Alignment = taRightJustify
           Caption = 'ID:'
         end
+        object Label2: TLabel
+          Left = 45
+          Top = 41
+          Width = 56
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Tab. Pre'#231'o:'
+        end
         object DBEdit2: TDBEdit
           Left = 102
           Top = 14
@@ -729,15 +737,28 @@ object frmCadCanalVendas: TfrmCadCanalVendas
         end
         object DBCheckBox1: TDBCheckBox
           Left = 621
-          Top = 48
+          Top = 49
           Width = 97
           Height = 17
           Caption = 'Inativo'
           DataField = 'INATIVO'
           DataSource = DMCadCanalVendas.dsCanalVendas
-          TabOrder = 2
+          TabOrder = 3
           ValueChecked = 'S'
           ValueUnchecked = 'N'
+        end
+        object RxDBLookupCombo1: TRxDBLookupCombo
+          Left = 102
+          Top = 35
+          Width = 405
+          Height = 21
+          DropDownCount = 8
+          DataField = 'ID_TABPRECO'
+          DataSource = DMCadCanalVendas.dsCanalVendas
+          LookupField = 'ID'
+          LookupDisplay = 'NOME'
+          LookupSource = DMCadCanalVendas.dsTabPreco
+          TabOrder = 2
         end
       end
     end

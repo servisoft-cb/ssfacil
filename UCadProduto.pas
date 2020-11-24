@@ -1735,7 +1735,6 @@ begin
   DBEdit53.Visible := ((fDMCadProduto.qParametrosPRODUTO_PRECO_POR_FINALIDADE.AsString = 'S')
                       or (fDMCadProduto.qCupomFiscal_ParametrosUSA_PRECO_REVENDA.AsString = 'S')) and (Label104.Enabled);
 
-
   lblEspessura.Visible := SQLLocate('PARAMETROS','ID','EMPRESA_SUCATA','1') = 'S';
   dedtEspessura.Visible := SQLLocate('PARAMETROS','ID','EMPRESA_SUCATA','1') = 'S';
 

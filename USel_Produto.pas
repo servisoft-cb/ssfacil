@@ -148,6 +148,17 @@ type
     sdsProdutoFILIAL: TIntegerField;
     cdsProdutoFILIAL: TIntegerField;
     ckFilial: TCheckBox;
+    sdsProdutoVLR_VENDA4: TFloatField;
+    sdsProdutoNOME_TAB1: TStringField;
+    sdsProdutoNOME_TAB2: TStringField;
+    sdsProdutoNOME_TAB3: TStringField;
+    sdsProdutoNOME_TAB4: TStringField;
+    cdsProdutoVLR_VENDA4: TFloatField;
+    cdsProdutoNOME_TAB1: TStringField;
+    cdsProdutoNOME_TAB2: TStringField;
+    cdsProdutoNOME_TAB3: TStringField;
+    cdsProdutoNOME_TAB4: TStringField;
+    qParametros_FinID_TABPRECO4: TIntegerField;
     procedure BitBtn1Click(Sender: TObject);
     procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -392,6 +403,7 @@ var
   i: Integer;
   vMostra_Prom: String;
   vUsa_NFCe_Local : Boolean;
+  vTexto: String;
 begin
   if Tag = 1 then
     oDBUtils.SetDataSourceProperties(Self, fDMSel_Produto);
@@ -464,7 +476,8 @@ begin
         SMDBGrid1.Columns[i].Visible := False;
       if (vMostra_Prom <> 'S') and (SMDBGrid1.Columns[i].FieldName = 'PRECO_PROMOCAO') then
         SMDBGrid1.Columns[i].Visible := False;
-      if (qParametros_GeralEMPRESA_VAREJO.AsString <> 'S') and ((SMDBGrid1.Columns[i].FieldName = 'VLR_VENDA1') or (SMDBGrid1.Columns[i].FieldName = 'VLR_VENDA2') or (SMDBGrid1.Columns[i].FieldName = 'VLR_VENDA3')) then
+      //if (qParametros_GeralEMPRESA_VAREJO.AsString <> 'S') and ((copy(SMDBGrid1.Columns[i].FieldName,1,9) = 'VLR_VENDA1') or (SMDBGrid1.Columns[i].FieldName = 'VLR_VENDA2') or (SMDBGrid1.Columns[i].FieldName = 'VLR_VENDA3')) then
+      if (qParametros_GeralEMPRESA_VAREJO.AsString <> 'S') and (copy(SMDBGrid1.Columns[i].FieldName,1,9) = 'VLR_VENDA') then
         SMDBGrid1.Columns[i].Visible := False
       else
       begin
@@ -473,6 +486,8 @@ begin
         if (SMDBGrid1.Columns[i].FieldName = 'VLR_VENDA2') and (qParametros_FinID_TABPRECO2.AsInteger <= 0) then
           SMDBGrid1.Columns[i].Visible := False;
         if (SMDBGrid1.Columns[i].FieldName = 'VLR_VENDA3') and (qParametros_FinID_TABPRECO3.AsInteger <= 0) then
+          SMDBGrid1.Columns[i].Visible := False;
+        if (SMDBGrid1.Columns[i].FieldName = 'VLR_VENDA4') and (qParametros_FinID_TABPRECO4.AsInteger <= 0) then
           SMDBGrid1.Columns[i].Visible := False;
       end;
     end;
@@ -583,6 +598,7 @@ end;
 procedure TfrmSel_Produto.prc_Monta_mPreco;
 var
   vItem: Integer;
+  i: Integer;
 begin
   vPreco_Pos := 0;
   if (qParametrosUSA_TABELA_PRECO.AsString <> 'S') then
@@ -614,36 +630,18 @@ begin
     vItem := vItem + 1;
   end;
 
-  if StrToFloat(FormatFloat('0.00###',cdsProdutoVLR_VENDA1.AsFloat)) > 0 then
+  for i := 1 to 4 do
   begin
-    frmSel_Produto_Preco.mPreco.Insert;
-    frmSel_Produto_Preco.mPrecoItem.AsInteger := vItem;
-    frmSel_Produto_Preco.mPrecoNome.AsString  := 'Vlr. Venda 1';
-    frmSel_Produto_Preco.mPrecoPreco.AsFloat := StrToFloat(FormatFloat('0.00###',cdsProdutoVLR_VENDA1.AsFloat));
-    frmSel_Produto_Preco.mPreco.Post;
-    vItem := vItem + 1;
+    if StrToFloat(FormatFloat('0.00###',cdsProduto.FieldByName('VLR_VENDA'+IntToStr(i)).AsFloat)) > 0 then
+    begin
+      frmSel_Produto_Preco.mPreco.Insert;
+      frmSel_Produto_Preco.mPrecoItem.AsInteger := vItem;
+      frmSel_Produto_Preco.mPrecoNome.AsString  := cdsProduto.FieldByName('NOME_TAB'+IntToStr(i)).AsString;
+      frmSel_Produto_Preco.mPrecoPreco.AsFloat := StrToFloat(FormatFloat('0.00###',cdsProduto.FieldByName('VLR_VENDA'+IntToStr(i)).AsFloat));
+      frmSel_Produto_Preco.mPreco.Post;
+      vItem := vItem + 1;
+    end;
   end;
-
-  if StrToFloat(FormatFloat('0.00###',cdsProdutoVLR_VENDA2.AsFloat)) > 0 then
-  begin
-    frmSel_Produto_Preco.mPreco.Insert;
-    frmSel_Produto_Preco.mPrecoItem.AsInteger := vItem;
-    frmSel_Produto_Preco.mPrecoNome.AsString  := 'Vlr. Venda 2';
-    frmSel_Produto_Preco.mPrecoPreco.AsFloat := StrToFloat(FormatFloat('0.00###',cdsProdutoVLR_VENDA2.AsFloat));
-    frmSel_Produto_Preco.mPreco.Post;
-    vItem := vItem + 1;
-  end;
-
-  if StrToFloat(FormatFloat('0.00###',cdsProdutoVLR_VENDA3.AsFloat)) > 0 then
-  begin
-    frmSel_Produto_Preco.mPreco.Insert;
-    frmSel_Produto_Preco.mPrecoItem.AsInteger := vItem;
-    frmSel_Produto_Preco.mPrecoNome.AsString  := 'Vlr. Venda 3';
-    frmSel_Produto_Preco.mPrecoPreco.AsFloat := StrToFloat(FormatFloat('0.00###',cdsProdutoVLR_VENDA3.AsFloat));
-    frmSel_Produto_Preco.mPreco.Post;
-    vItem := vItem + 1;
-  end;
-  
   frmSel_Produto_Preco.ShowModal;
   FreeAndNil(frmSel_Produto_Preco);
 end;

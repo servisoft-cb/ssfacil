@@ -28,6 +28,9 @@ object DMCadCanalVendas: TDMCadCanalVendas
       FixedChar = True
       Size = 1
     end
+    object sdsCanalVendasID_TABPRECO: TIntegerField
+      FieldName = 'ID_TABPRECO'
+    end
   end
   object dspCanalVendas: TDataSetProvider
     DataSet = sdsCanalVendas
@@ -58,10 +61,53 @@ object DMCadCanalVendas: TDMCadCanalVendas
       FixedChar = True
       Size = 1
     end
+    object cdsCanalVendasID_TABPRECO: TIntegerField
+      FieldName = 'ID_TABPRECO'
+    end
   end
   object dsCanalVendas: TDataSource
     DataSet = cdsCanalVendas
     Left = 264
     Top = 32
+  end
+  object sdsTabPreco: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT P.ID, P.NOME'#13#10'FROM TAB_PRECO P'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 106
+    Top = 114
+  end
+  object dspTabPreco: TDataSetProvider
+    DataSet = sdsTabPreco
+    UpdateMode = upWhereKeyOnly
+    OnUpdateError = dspCanalVendasUpdateError
+    Left = 179
+    Top = 114
+  end
+  object cdsTabPreco: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspTabPreco'
+    OnNewRecord = cdsCanalVendasNewRecord
+    Left = 244
+    Top = 114
+    object cdsTabPrecoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsTabPrecoNOME: TStringField
+      FieldName = 'NOME'
+      Size = 70
+    end
+  end
+  object dsTabPreco: TDataSource
+    DataSet = cdsTabPreco
+    Left = 315
+    Top = 114
   end
 end

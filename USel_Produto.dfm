@@ -291,7 +291,7 @@ object frmSel_Produto: TfrmSel_Produto
     WidthOfIndicator = 11
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 17
+    ColCount = 18
     RowCount = 2
     Columns = <
       item
@@ -408,6 +408,14 @@ object frmSel_Produto: TfrmSel_Produto
         Title.Alignment = taCenter
         Title.Caption = 'Vlr.Venda 3'
         Title.Color = 8454016
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'VLR_VENDA4'
+        Title.Alignment = taCenter
+        Title.Caption = 'Vlr.Venda 4'
+        Title.Color = 6487906
         Visible = True
       end
       item
@@ -834,17 +842,20 @@ object frmSel_Produto: TfrmSel_Produto
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT PRO.ID, PRO.NOME, PRO.REFERENCIA, PRO.PRECO_VENDA, PRO.UN' +
-      'IDADE, PRO.PRECO_CUSTO, PV.PLACA, '#13#10' PRO.COD_BARRA, VT.VLR_VENDA' +
-      '1, VT.VLR_VENDA2, VT.VLR_VENDA3, PRO.USA_COR, PRO.OBS, PRO.USA_P' +
-      'RECO_COR, '#13#10'(SELECT cast(sum(EST.QTD) AS Float) QTD'#13#10'  FROM ESTO' +
-      'QUE_ATUAL EST'#13#10'  WHERE EST.FILIAL = :FILIAL AND EST.ID_PRODUTO =' +
-      ' PRO.ID) QTD,'#13#10'(SELECT cast(sum(E2.QTD) AS Float) QTDGERAL'#13#10'  FR' +
-      'OM ESTOQUE_ATUAL E2 '#13#10'  WHERE E2.ID_PRODUTO = PRO.ID) QTDGERAL,'#13 +
-      #10'  CAST(0 AS FLOAT) AS PRECO_PROMOCAO, PRO.OBS, M.NOME NOME_MARC' +
-      'A, PRO.MEDIDA, PRO.FILIAL'#13#10'FROM PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_V' +
-      'EICULO PV ON (PRO.ID = PV.ID)'#13#10'LEFT JOIN VTAB_PRECO VT ON PRO.ID' +
-      ' = VT.ID_PRODUTO'#13#10'LEFT JOIN MARCA M ON PRO.id_marca = M.ID'#13#10
+      'select PRO.ID, PRO.NOME, PRO.REFERENCIA, PRO.PRECO_VENDA, PRO.UN' +
+      'IDADE, PRO.PRECO_CUSTO, PV.PLACA, PRO.COD_BARRA,'#13#10'       VT.VLR_' +
+      'VENDA1, VT.VLR_VENDA2, VT.VLR_VENDA3, PRO.USA_COR, PRO.OBS, PRO.' +
+      'USA_PRECO_COR, VT.VLR_VENDA4,'#13#10'       VT.NOME_TAB1, VT.NOME_TAB2' +
+      ', VT.NOME_TAB3, VT.NOME_TAB4,'#13#10'       (select cast(sum(EST.QTD) ' +
+      'as float) QTD'#13#10'        from ESTOQUE_ATUAL EST'#13#10'        where EST' +
+      '.FILIAL = :FILIAL and'#13#10'              EST.ID_PRODUTO = PRO.ID) QT' +
+      'D,'#13#10'       (select cast(sum(E2.QTD) as float) QTDGERAL'#13#10'        ' +
+      'from ESTOQUE_ATUAL E2'#13#10'        where E2.ID_PRODUTO = PRO.ID) QTD' +
+      'GERAL, cast(0 as float) as PRECO_PROMOCAO, PRO.OBS, M.NOME NOME_' +
+      'MARCA,'#13#10'       PRO.MEDIDA, PRO.FILIAL'#13#10'from PRODUTO PRO'#13#10'left jo' +
+      'in PRODUTO_VEICULO PV on (PRO.ID = PV.ID)'#13#10'left join VTAB_PRECO ' +
+      'VT on PRO.ID = VT.ID_PRODUTO'#13#10'left join MARCA M on PRO.ID_MARCA ' +
+      '= M.ID  '
     MaxBlobSize = -1
     Params = <
       item
@@ -853,7 +864,7 @@ object frmSel_Produto: TfrmSel_Produto
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 223
+    Left = 222
     Top = 208
     object sdsProdutoID: TIntegerField
       FieldName = 'ID'
@@ -927,6 +938,25 @@ object frmSel_Produto: TfrmSel_Produto
     end
     object sdsProdutoFILIAL: TIntegerField
       FieldName = 'FILIAL'
+    end
+    object sdsProdutoVLR_VENDA4: TFloatField
+      FieldName = 'VLR_VENDA4'
+    end
+    object sdsProdutoNOME_TAB1: TStringField
+      FieldName = 'NOME_TAB1'
+      Size = 70
+    end
+    object sdsProdutoNOME_TAB2: TStringField
+      FieldName = 'NOME_TAB2'
+      Size = 70
+    end
+    object sdsProdutoNOME_TAB3: TStringField
+      FieldName = 'NOME_TAB3'
+      Size = 70
+    end
+    object sdsProdutoNOME_TAB4: TStringField
+      FieldName = 'NOME_TAB4'
+      Size = 70
     end
   end
   object cdsProduto: TClientDataSet
@@ -1017,6 +1047,26 @@ object frmSel_Produto: TfrmSel_Produto
     end
     object cdsProdutoFILIAL: TIntegerField
       FieldName = 'FILIAL'
+    end
+    object cdsProdutoVLR_VENDA4: TFloatField
+      FieldName = 'VLR_VENDA4'
+      DisplayFormat = '0.00'
+    end
+    object cdsProdutoNOME_TAB1: TStringField
+      FieldName = 'NOME_TAB1'
+      Size = 70
+    end
+    object cdsProdutoNOME_TAB2: TStringField
+      FieldName = 'NOME_TAB2'
+      Size = 70
+    end
+    object cdsProdutoNOME_TAB3: TStringField
+      FieldName = 'NOME_TAB3'
+      Size = 70
+    end
+    object cdsProdutoNOME_TAB4: TStringField
+      FieldName = 'NOME_TAB4'
+      Size = 70
     end
   end
   object dspProduto: TDataSetProvider
@@ -1161,7 +1211,7 @@ object frmSel_Produto: TfrmSel_Produto
     SQL.Strings = (
       
         'SELECT USA_TABPRECO_PROM, ID_TABPRECO1, ID_TABPRECO2, ID_TABPREC' +
-        'O3'
+        'O3, ID_TABPRECO4'
       'FROM PARAMETROS_FIN')
     SQLConnection = dmDatabase.scoDados
     Left = 480
@@ -1179,6 +1229,9 @@ object frmSel_Produto: TfrmSel_Produto
     end
     object qParametros_FinID_TABPRECO3: TIntegerField
       FieldName = 'ID_TABPRECO3'
+    end
+    object qParametros_FinID_TABPRECO4: TIntegerField
+      FieldName = 'ID_TABPRECO4'
     end
   end
   object qPromocao: TSQLQuery
@@ -1229,16 +1282,18 @@ object frmSel_Produto: TfrmSel_Produto
       'SELECT PRO.ID, PRO.NOME, PRO.REFERENCIA, PRO.PRECO_VENDA, PRO.UN' +
       'IDADE,PRO.OBS,'#13#10'PRO.PRECO_CUSTO, PV.PLACA, PRO.COD_BARRA,'#13#10'cast(' +
       '0 as Float) AS VLR_VENDA1, cast(0 as Float) AS VLR_VENDA2, cast(' +
-      '0 as Float) AS VLR_VENDA3,'#13#10'PRO.USA_COR, PRO.USA_PRECO_COR, M.NO' +
-      'ME NOME_MARCA, (SELECT cast(sum(EST.QTD) AS Float) QTD FROM ESTO' +
-      'QUE_ATUAL EST'#13#10'                  WHERE EST.FILIAL = :FILIAL AND'#13 +
-      #10'                    EST.ID_PRODUTO = PRO.ID) QTD,'#13#10'(SELECT cast' +
-      '(sum(E2.QTD) AS Float) QTDGERAL FROM ESTOQUE_ATUAL E2'#13#10'         ' +
-      '           WHERE E2.ID_PRODUTO = PRO.ID) QTDGERAL,'#13#10'            ' +
-      '       /**/ cast(0 as Float) AS PRECO_PROMOCAO, M.NOME NOME_MARC' +
-      'A,  PRO.MEDIDA, PRO.FILIAL'#13#10'FROM PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_' +
-      'VEICULO PV'#13#10'ON PRO.ID = PV.ID'#13#10'LEFT JOIN MARCA M ON PRO.ID_MARCA' +
-      ' = M.ID'#13#10#13#10#13#10
+      '0 as Float) AS VLR_VENDA3,'#13#10'cast(0 as Float) AS VLR_VENDA4, cast' +
+      '('#39#39' as VarChar(70)) NOME_TAB1,'#13#10'cast('#39#39' as VarChar(70)) NOME_TAB' +
+      '2,'#13#10'cast('#39#39' as VarChar(70)) NOME_TAB3,'#13#10'cast('#39#39' as VarChar(70)) ' +
+      'NOME_TAB4,'#13#10'PRO.USA_COR, PRO.USA_PRECO_COR, M.NOME NOME_MARCA, (' +
+      'SELECT cast(sum(EST.QTD) AS Float) QTD FROM ESTOQUE_ATUAL EST'#13#10' ' +
+      '                 WHERE EST.FILIAL = :FILIAL AND'#13#10'               ' +
+      '     EST.ID_PRODUTO = PRO.ID) QTD,'#13#10'(SELECT cast(sum(E2.QTD) AS ' +
+      'Float) QTDGERAL FROM ESTOQUE_ATUAL E2'#13#10'                    WHERE' +
+      ' E2.ID_PRODUTO = PRO.ID) QTDGERAL,'#13#10'                   /**/ cast' +
+      '(0 as Float) AS PRECO_PROMOCAO, M.NOME NOME_MARCA,  PRO.MEDIDA, ' +
+      'PRO.FILIAL'#13#10'FROM PRODUTO PRO'#13#10'LEFT JOIN PRODUTO_VEICULO PV'#13#10'ON P' +
+      'RO.ID = PV.ID'#13#10'LEFT JOIN MARCA M ON PRO.ID_MARCA = M.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item

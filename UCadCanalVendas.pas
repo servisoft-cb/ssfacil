@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadCanalVendas, Mask, 
-  UCBase, StdCtrls, RxDBComb, DBCtrls, ExtCtrls, DBGrids, RzTabs, DB, NxCollection, SqlExpr;
+  UCBase, StdCtrls, RxDBComb, DBCtrls, ExtCtrls, DBGrids, RzTabs, DB, NxCollection, SqlExpr,
+  RxLookup;
 
 type
   TfrmCadCanalVendas = class(TForm)
@@ -32,6 +33,8 @@ type
     btnCancelar: TNxButton;
     UCControls1: TUCControls;
     DBCheckBox1: TDBCheckBox;
+    RxDBLookupCombo1: TRxDBLookupCombo;
+    Label2: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
