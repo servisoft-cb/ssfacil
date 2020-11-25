@@ -217,6 +217,7 @@ type
     mEtiq_RotuloNome_Transp: TStringField;
     cdsNotaFiscal_RotNOME_TRANSP: TStringField;
     cdsMinutaDTEMISSAO: TDateField;
+    mEtiq_RotuloQtd: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscal_RotCalcFields(DataSet: TDataSet);
   private
