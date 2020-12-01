@@ -426,7 +426,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
       OnClick = BitBtn4Click
     end
     object BitBtn1: TBitBtn
-      Left = 265
+      Left = 264
       Top = 4
       Width = 98
       Height = 25

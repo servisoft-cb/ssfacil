@@ -1506,7 +1506,8 @@ begin
     Exit;
 
   vMSGAux := '';  
-  if (fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat > 0) then
+  if (fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat > 0)
+    or (fnc_Pedido_Item_Fat(fDMCadPedido,fDMCadPedido.cdsPedido_ItensID.AsInteger,fDMCadPedido.cdsPedido_ItensITEM.AsInteger)) then
     vMSGAux := vMSGAux + #13 + '*** Item já possui quantidade faturada!';
   if (fDMCadPedido.qParametros_LoteLOTE_TEXTIL.AsString = 'S') and (fnc_Lote) then
     vMSGAux := vMSGAux + #13 + '*** Lote/Talão de Produção gerado!'
@@ -1666,10 +1667,12 @@ begin
   vMSGAux := '';
   if (fDMCadPedido.cdsPedido_Itens.IsEmpty) or (fDMCadPedido.cdsPedido_ItensITEM.AsInteger <= 0) then
     exit;
-  if (fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat > 0) then
+  if (fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsFloat > 0)
+    or (fnc_Pedido_Item_Fat(fDMCadPedido,fDMCadPedido.cdsPedido_ItensID.AsInteger,fDMCadPedido.cdsPedido_ItensITEM.AsInteger)) then
     vMSGAux := vMSGAux + #13 + '*** Item já possui quantidade faturada!';
   if (fDMCadPedido.cdsPedido_ItensQTD_CANCELADO.AsFloat > 0) then
     vMSGAux := vMSGAux + #13 + '*** Item quantidade cancelada!';
+
   //09/11/2020
   if fDMCadPedido.qParametros_UsuarioALT_IT_PED_COM_OP.AsString <> 'S' then
   begin

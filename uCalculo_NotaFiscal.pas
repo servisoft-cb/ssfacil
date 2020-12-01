@@ -67,6 +67,7 @@ uses
   function fnc_Buscar_CBenef_CSTICMS(fDMCadNotaFiscal: TDMCadNotaFiscal) : String;
 
   function fnc_Preco_Custo(fDMCadNotaFiscal: TDMCadNotaFiscal) : Real;
+  function fnc_Busca_Qtd_Restante(ID_Pedido, Item_Pedido, ID_Nota, Item_Nota : Integer) : Real;
 
   procedure prc_Zera_Campos_Nota(fDMCadNotaFiscal: TDMCadNotaFiscal);
 
@@ -4435,6 +4436,45 @@ begin
     fDMCadNotaFiscal.cdsProduto_Comb.Open;
     if StrToFloat(FormatFloat('0.00000',fDMCadNotaFiscal.cdsProduto_CombPRECO_CUSTO.AsFloat)) > 0 then
       Result := StrToFloat(FormatFloat('0.00000#####',fDMCadNotaFiscal.cdsProduto_CombPRECO_CUSTO.AsFloat));
+  end;
+end;
+
+function fnc_Busca_Qtd_Restante(ID_Pedido, Item_Pedido, ID_Nota, Item_Nota : Integer) : Real;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 0;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'select sum(coalesce(QTD, 0)) QTD '
+                       + 'from (select sum(N.QTD) QTD '
+                       + '      from NOTAFISCAL_PED N '
+                       + '      where N.ID_PEDIDO = :ID_PEDIDO and '
+                       + '            N.ITEM_PEDIDO = :ITEM_PEDIDO '
+                       + '            and N.ID = :ID and '
+                       + '            N.ITEM = :ITEM '
+                       + '      union '
+                       + '      select sum(B.QTD) QTD '
+                       + '      from BAIXA_PEDIDO B '
+                       + '      where B.ID_PEDIDO = :ID_PEDIDO and '
+                       + '            B.ITEM_PEDIDO = :ITEM_PEDIDO '
+                       + '      union '
+                       + '      select sum(p.qtd_restante) qtd '
+                       + '      from pedido_item p '
+                       + '      where p.id = :id_PEDIDO '
+                       + '        AND P.ITEM = :ITEM_PEDIDO '
+                       + '            ) AUX ';
+    sds.ParamByName('ID_PEDIDO').AsInteger   := ID_Pedido;
+    sds.ParamByName('ITEM_PEDIDO').AsInteger := Item_Pedido;
+    sds.ParamByName('ID').AsInteger          := ID_Nota;
+    sds.ParamByName('ITEM').AsInteger        := Item_Nota;
+    sds.Open;
+    Result := sds.FieldByName('QTD').AsFloat;
+  finally
+    FreeAndNil(sds);
   end;
 end;
 

@@ -250,7 +250,6 @@ type
     vVlrProd_Ant: Real;
     vPreco_Ori: Real;
     vUnidade_Ant: String;
-    //vQtd_Reserva : Real;
 
     vVlrTotal_Ant: Real;
     vPerc_IPI_Ant: Real;
@@ -1217,6 +1216,15 @@ var
 begin
   if fnc_Erro then
     exit;
+
+  //29/11/2020
+  if fnc_Pedido_Item_Fat(fDMCadPedido,fDMCadPedido.cdsPedido_ItensID.AsInteger,fDMCadPedido.cdsPedido_ItensITEM.AsInteger) then
+  begin
+    MessageDlg('*** Pedido já foi faturado!' , mtWarning, [mbOk], 0);
+    exit;
+  end;
+  //************
+
   if (fDMCadPedido.cdsParametrosUSA_LOTE.AsString = 'S') and (fDMCadPedido.cdsPedido_ItensGERAR_LOTE.AsString <> 'S') then
     if MessageDlg('Item não está marcado para gerar lote, confirma assim mesmo?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
       exit;

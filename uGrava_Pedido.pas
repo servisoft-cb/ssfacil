@@ -26,7 +26,7 @@ procedure prc_Gravar_Pedido_Item_Processo(fDMCadPedido: TDMCadPedido);
 
 function fnc_Existe_OC(fDMCadPedido: TDMCadPedido): Integer;
 function fnc_Verificar_Vendedor_Int(fDMCadPedido: TDMCadPedido; ID: Integer): Integer;
-
+function fnc_Pedido_Item_Fat(fDMCadPedido: TDMCadPedido; ID, Item : Integer) : Boolean;
 
 implementation
 
@@ -1150,6 +1150,27 @@ begin
   end;
 end;
 
+function fnc_Pedido_Item_Fat(fDMCadPedido: TDMCadPedido; ID, Item : Integer) : Boolean;
+var
+  sds: TSQLDataSet;
+begin
+  Result := False;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'SELECT COUNT(1) CONTADOR FROM PEDIDO_ITEM I '
+                       + 'WHERE I.id = :ID AND I.ITEM = :ITEM AND I.qtd_faturado > 0 ';
+    sds.ParamByName('ID').AsInteger   := ID;
+    sds.ParamByName('ITEM').AsInteger := Item;
+    sds.Open;
+    if sds.FieldByName('CONTADOR').AsInteger > 0 then
+      Result := True;
+  finally
+    FreeAndNil(sds);
+  end;
+end;
 
 end.
 
