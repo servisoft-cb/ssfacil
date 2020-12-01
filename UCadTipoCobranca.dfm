@@ -1708,6 +1708,18 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
+        object DBCheckBox27: TDBCheckBox
+          Left = 384
+          Top = 310
+          Width = 201
+          Height = 17
+          Caption = 'CashBack'
+          DataField = 'CASHBACK'
+          DataSource = DMCadTipoCobranca.dsTipoCobranca
+          TabOrder = 37
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
       end
     end
   end
