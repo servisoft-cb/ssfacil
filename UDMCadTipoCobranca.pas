@@ -105,6 +105,8 @@ type
     cdsTipoCobrancaMOSTRAR_APP: TStringField;
     sdsTipoCobrancaRECIBO_TROCA: TStringField;
     cdsTipoCobrancaRECIBO_TROCA: TStringField;
+    sdsTipoCobrancaCASHBACK: TStringField;
+    cdsTipoCobrancaCASHBACK: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspTipoCobrancaUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

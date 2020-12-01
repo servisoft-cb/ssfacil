@@ -1035,7 +1035,7 @@ object DMConsPedido: TDMConsPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 40
+    Left = 39
     Top = 345
     object sdsBaixa_PedidoID: TIntegerField
       FieldName = 'ID'

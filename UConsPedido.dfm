@@ -471,7 +471,7 @@ object frmConsPedido: TfrmConsPedido
     Top = 203
     Width = 1017
     Height = 378
-    ActivePage = TS_RefComb
+    ActivePage = TS_Item
     ActivePageDefault = TS_Item
     Align = alClient
     Color = 16755027
@@ -484,7 +484,7 @@ object frmConsPedido: TfrmConsPedido
     ParentColor = False
     ParentFont = False
     TabColors.Unselected = clGray
-    TabIndex = 7
+    TabIndex = 0
     TabOrder = 1
     TextColors.Unselected = 5197647
     OnChange = RzPageControl1Change
@@ -3270,7 +3270,7 @@ object frmConsPedido: TfrmConsPedido
         Top = 0
         Width = 1013
         Height = 355
-        ActivePage = TS_PedidoDtEntrega
+        ActivePage = TS_RefComb_Acum
         ActivePageDefault = TS_RefComb_Acum
         Align = alClient
         BackgroundColor = clBtnFace
@@ -3285,7 +3285,7 @@ object frmConsPedido: TfrmConsPedido
         ParentColor = False
         ParentFont = False
         TabColors.Unselected = clGray
-        TabIndex = 3
+        TabIndex = 0
         TabOrder = 0
         TextColors.Unselected = 5197647
         FixedDimension = 19
