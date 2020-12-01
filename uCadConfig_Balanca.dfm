@@ -87,19 +87,16 @@ object frmConfigBalanca: TfrmConfigBalanca
           item
             Expanded = False
             FieldName = 'USA_SEPARADOR'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'TIPO_SEPARADOR'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'NOMEARQ_TXT'
-            Width = 64
             Visible = True
           end
           item
@@ -110,25 +107,21 @@ object frmConfigBalanca: TfrmConfigBalanca
           item
             Expanded = False
             FieldName = 'ID_POSICAO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ID_TAMANHO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'COD_POSICAO'
-            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'COD_TAMANHO'
-            Width = 64
             Visible = True
           end
           item
@@ -144,7 +137,6 @@ object frmConfigBalanca: TfrmConfigBalanca
           item
             Expanded = False
             FieldName = 'TIPO_PRECO'
-            Width = 64
             Visible = True
           end>
       end
@@ -825,7 +817,7 @@ object frmConfigBalanca: TfrmConfigBalanca
         end
         object grp1: TGroupBox
           Left = 32
-          Top = 64
+          Top = 52
           Width = 208
           Height = 64
           Caption = 'Identificador'
@@ -899,7 +891,7 @@ object frmConfigBalanca: TfrmConfigBalanca
         end
         object grp2: TGroupBox
           Left = 242
-          Top = 64
+          Top = 52
           Width = 142
           Height = 64
           Caption = 'C'#243'digo'
@@ -951,7 +943,7 @@ object frmConfigBalanca: TfrmConfigBalanca
         end
         object grp3: TGroupBox
           Left = 386
-          Top = 64
+          Top = 52
           Width = 282
           Height = 64
           Caption = 'Valor'
@@ -1034,7 +1026,7 @@ object frmConfigBalanca: TfrmConfigBalanca
         end
         object grp4: TGroupBox
           Left = 32
-          Top = 136
+          Top = 124
           Width = 260
           Height = 64
           Caption = 'Campos Decimais'
@@ -1117,7 +1109,7 @@ object frmConfigBalanca: TfrmConfigBalanca
         end
         object grp5: TGroupBox
           Left = 299
-          Top = 136
+          Top = 124
           Width = 371
           Height = 64
           Caption = 'Loca/Nome arquivo gerado para balan'#231'a'
@@ -1483,11 +1475,26 @@ object frmConfigBalanca: TfrmConfigBalanca
                   item
                     Expanded = False
                     FieldName = 'PENDENTE'
-                    Width = 64
                     Visible = True
                   end>
               end
             end
+          end
+          object chkToledoGrupoGeral: TCheckBox
+            Left = 88
+            Top = 0
+            Width = 391
+            Height = 17
+            Caption = 'Colocar 01 na primeira coluna do TXT, para Grupo Geral Toledo'
+            Checked = True
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = [fsBold]
+            ParentFont = False
+            State = cbChecked
+            TabOrder = 1
           end
         end
       end
