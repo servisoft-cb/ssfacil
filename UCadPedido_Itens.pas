@@ -250,7 +250,6 @@ type
     vVlrProd_Ant: Real;
     vPreco_Ori: Real;
     vUnidade_Ant: String;
-    //vQtd_Reserva : Real;
 
     vVlrTotal_Ant: Real;
     vPerc_IPI_Ant: Real;
@@ -1043,7 +1042,7 @@ begin
   begin
     if fDMCadPedido.cdsPedido_Item_TipoTIPO_ORCAMENTO.AsString = 'C' then
     begin
-      fDMCadPedido.cdsPedido_ItensQTD.AsFloat          := fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat;
+      fDMCadPedido.cdsPedido_ItensQTD.AsFloat          := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat));
       fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat));
       fDMCadPedido.cdsPedido_ItensQTD_PECA.AsInteger   := fDMCadPedido.cdsPedido_Item_TipoQTD.AsInteger;
       fDMCadPedido.cdsPedido_ItensQTD_LANCAR_ESTOQUE.AsFloat := StrToFloat(FormatFloat('0.0000',(fDMCadPedido.cdsPedido_Item_TipoPESO.AsFloat)));
@@ -1217,6 +1216,15 @@ var
 begin
   if fnc_Erro then
     exit;
+
+  //29/11/2020
+  if fnc_Pedido_Item_Fat(fDMCadPedido,fDMCadPedido.cdsPedido_ItensID.AsInteger,fDMCadPedido.cdsPedido_ItensITEM.AsInteger) then
+  begin
+    MessageDlg('*** Pedido já foi faturado!' , mtWarning, [mbOk], 0);
+    exit;
+  end;
+  //************
+
   if (fDMCadPedido.cdsParametrosUSA_LOTE.AsString = 'S') and (fDMCadPedido.cdsPedido_ItensGERAR_LOTE.AsString <> 'S') then
     if MessageDlg('Item não está marcado para gerar lote, confirma assim mesmo?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
       exit;
@@ -1226,6 +1234,8 @@ begin
     fDMCadPedido.cdsPedido_ItensID_SERVICO_INT.Clear;
     fDMCadPedido.cdsPedido_ItensNOME_SERVICO_INT.Clear;
   end;
+
+  fDMCadPedido.cdsPedido_ItensQTD.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
   
   if trim(RxDBLookupCombo6.Text) = '' then
     fDMCadPedido.cdsPedido_ItensID_VARIACAO.AsInteger := StrToInt(FormatFloat('0',0));
@@ -1301,7 +1311,7 @@ begin
       fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString := fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString + ' ' + fDMCadPedido.cdsPedido_Item_TipoCOMPLEMENTO_NOME.AsString;
     if fDMCadPedido.cdsParametrosDIGITACAO_PED_ITENS.AsString = '1' then
       fDMCadPedido.cdsPedido_ItensREFERENCIA.AsString  := fDMCadPedido.cdsProdutoREFERENCIA.AsString;
-    fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat := fDMCadPedido.cdsPedido_ItensQTD.AsFloat;
+    fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
     if (fDMCadPedido.cdsParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P') and (fDMCadPedido.cdsPedidoDTENTREGA.AsDateTime > 10) then
       fDMCadPedido.cdsPedido_ItensDTENTREGA.AsDateTime := fDMCadPedido.cdsPedidoDTENTREGA.AsDateTime;
     if (fDMCadPedido.cdsPedido_ItensID_NCM.AsInteger <= 0) or (fDMCadPedido.cdsPedido_ItensID_NCM.IsNull) then
@@ -1334,7 +1344,7 @@ begin
 
 
     if (fDMCadPedido.cdsProdutoUSA_GRADE.AsString <> 'S') or (vState = 'E') then
-      uCalculo_Pedido.prc_Calculo_GeralItem(fDMCadPedido,fDMCadPedido.cdsPedido_ItensQTD.AsFloat,fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,
+      uCalculo_Pedido.prc_Calculo_GeralItem(fDMCadPedido,StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat)),fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,
                                              fDMCadPedido.cdsPedido_ItensVLR_DESCONTO.AsFloat,fDMCadPedido.cdsPedido_ItensPERC_DESCONTO.AsFloat,
                                              fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat);
 
@@ -1370,10 +1380,10 @@ begin
         if fDMInformar_Tam.vQtd_Por_Talao <= 0 then
           fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString := fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString + ' TAM. ' + fDMInformar_Tam.vTamanho_Ini;
         fDMCadPedido.cdsPedido_ItensTAMANHO.AsString     := fDMInformar_Tam.vTamanho_Ini;
-        fDMCadPedido.cdsPedido_ItensQTD.AsFloat          := fDMInformar_Tam.vQtd_Ini;
+        fDMCadPedido.cdsPedido_ItensQTD.AsFloat          := StrToFloat(FormatFloat('0.0000',fDMInformar_Tam.vQtd_Ini));
         fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat := fDMInformar_Tam.vQtd_Ini;
 
-        uCalculo_Pedido.prc_Calculo_GeralItem(fDMCadPedido,fDMCadPedido.cdsPedido_ItensQTD.AsFloat,fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,
+        uCalculo_Pedido.prc_Calculo_GeralItem(fDMCadPedido,StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat)),fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,
                                                fDMCadPedido.cdsPedido_ItensVLR_DESCONTO.AsFloat,fDMCadPedido.cdsPedido_ItensPERC_DESCONTO.AsFloat,
                                                fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat);
 
@@ -2033,7 +2043,7 @@ begin
           end;
           fDMCadPedido.cdsPedido_ItensITEM_ORIGINAL.AsInteger := vItemOriginal;
           fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString    := fDMInformar_Tam.mItensNome_Produto_Original.AsString + ' TAM. ' + fDMInformar_Tam.mAuxPedidoGradeTamanho.AsString;
-          fDMCadPedido.cdsPedido_ItensQTD.AsFloat             := fDMInformar_Tam.mAuxPedidoGradeQtde.AsFloat;
+          fDMCadPedido.cdsPedido_ItensQTD.AsFloat             := StrToFloat(FormatFloat('0.0000',fDMInformar_Tam.mAuxPedidoGradeQtde.AsFloat));
           fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat    := fDMInformar_Tam.mAuxPedidoGradeQtde.AsFloat;
           fDMCadPedido.cdsPedido_ItensTAMANHO.AsString        := fDMInformar_Tam.mAuxPedidoGradeTamanho.AsString;
           fDMCadPedido.cdsPedido_Itens.Post;
@@ -2067,11 +2077,11 @@ begin
         fDMCadPedido.cdsPedido_ItensITEM_CLIENTE.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
         fDMCadPedido.cdsPedido_ItensNOMEPRODUTO.AsString   := fDMInformar_Tam.mItensNome_Produto_Original.AsString + ' TAM. ' + fDMInformar_Tam.mTamanhoTamanho.AsString;
         fDMCadPedido.cdsPedido_ItensTAMANHO.AsString       := fDMInformar_Tam.mTamanhoTamanho.AsString;
-        fDMCadPedido.cdsPedido_ItensQTD.AsFloat            := fDMInformar_Tam.mTamanhoQtd.AsFloat;
+        fDMCadPedido.cdsPedido_ItensQTD.AsFloat            := StrToFloat(FormatFloat('0.0000',fDMInformar_Tam.mTamanhoQtd.AsFloat));
         fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat   := fDMInformar_Tam.mTamanhoQtd.AsFloat;
         fDMCadPedido.cdsPedido_ItensVLR_DESCONTO.AsFloat   := 0;
 
-        uCalculo_Pedido.prc_Calculo_GeralItem(fDMCadPedido,fDMCadPedido.cdsPedido_ItensQTD.AsFloat,fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,
+        uCalculo_Pedido.prc_Calculo_GeralItem(fDMCadPedido,StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat)),fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,
                                                fDMCadPedido.cdsPedido_ItensVLR_DESCONTO.AsFloat,fDMCadPedido.cdsPedido_ItensPERC_DESCONTO.AsFloat,
                                                fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat);
 

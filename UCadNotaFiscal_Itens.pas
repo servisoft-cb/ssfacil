@@ -1493,6 +1493,24 @@ begin
   if fnc_Erro then
     exit;
 
+  //29/11/2020
+  if (fDMCadNotaFiscal.vState_Item = 'E') and ((StrToFloat(FormatFloat('0.0000',vQtd_Prod_Ant)) > 0) and
+     (StrToFloat(FormatFloat('0.0000',vQtd_Prod_Ant)) < StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat)))) and
+     (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger > 0) and (fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsInteger > 0) then
+  begin
+    if fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat >
+       uCalculo_NotaFiscal.fnc_Busca_Qtd_Restante(fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger,
+                                       fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsInteger,fDMCadNotaFiscal.cdsNotaFiscal_ItensID.AsInteger,
+                                       fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM.AsInteger) then
+    begin
+      MessageDlg('*** Qtd. Informada maior que a Restante no Pedido: ' + fDMCadNotaFiscal.cdsNotaFiscal_ItensNUM_PEDIDO.AsString + ' Item: '
+                                                                       + fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsString
+                                                                       + ', Favor Verificar!' , mtInformation, [mbOk], 0);
+      exit;
+    end;
+  end;
+  //***************
+
   if (vIPI_Suspenso) and (StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat)) > 0) then
   begin
     if MessageDlg('Cliente com suspensão de IPI, deseja confirmar este item com lançamento de IPI?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
@@ -3263,7 +3281,7 @@ end;
 
 procedure TfrmCadNotaFiscal_Itens.DBEdit2Enter(Sender: TObject);
 begin
-  vQtd_Prod_Ant := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat));
+  //vQtd_Prod_Ant := StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat));
 end;
 
 function TfrmCadNotaFiscal_Itens.fnc_Estoque_OK(ID_Produto, ID_Cor: Integer; Tamanho: String; Qtd: Real): Boolean;

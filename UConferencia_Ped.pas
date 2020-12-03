@@ -66,6 +66,7 @@ type
     vItem_Ped_Sel : Integer;
     vID_Processo : Integer;
     vNome_Processo : String;
+    vItem_Processo: Integer;
 
     procedure prc_Abrir_cdsPedido_Item;
     procedure prc_Verifica_Pedido_Conf;
@@ -469,6 +470,7 @@ var
   vItemAux : Integer;
   ID: TTransactionDesc;
   fDMAprovacao_Ped: TDMAprovacao_Ped;
+  vComando: String;
 begin
   fDMAprovacao_Ped := TDMAprovacao_Ped.Create(Self);
 
@@ -478,18 +480,30 @@ begin
   try
     if Gravar_Processo then
     begin
+      vComando := '';
       fDMConferencia.cdsPedido_Item_Processo.Close;
+      fDMConferencia.sdsPedido_Item_Processo.CommandText := fDMConferencia.ctPedido_Item_Proc;
+      if vItem_Processo > 0 then
+      begin
+        vComando := ' AND P.ITEM_PROCESSO = :ITEM_PROCESSO ';
+        fDMConferencia.sdsPedido_Item_Processo.CommandText := fDMConferencia.sdsPedido_Item_Processo.CommandText + vComando;
+        fDMConferencia.sdsPedido_Item_Processo.ParamByName('ITEM_PROCESSO').AsInteger := vItem_Processo;
+      end;
       fDMConferencia.sdsPedido_Item_Processo.ParamByName('ID').AsInteger   := fDMConferencia.qPedido_ItemID.AsInteger;
       fDMConferencia.sdsPedido_Item_Processo.ParamByName('ITEM').AsInteger := fDMConferencia.qPedido_ItemITEM.AsInteger;
       fDMConferencia.cdsPedido_Item_Processo.Open;
-      fDMConferencia.cdsPedido_Item_Processo.Last;
-      vItemAux := fDMConferencia.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger;
-
-      fDMConferencia.cdsPedido_Item_Processo.Insert;
-      fDMConferencia.cdsPedido_Item_ProcessoID.AsInteger   := fDMConferencia.qPedido_ItemID.AsInteger;
-      fDMConferencia.cdsPedido_Item_ProcessoITEM.AsInteger := fDMConferencia.qPedido_ItemITEM.AsInteger;
-      fDMConferencia.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger := vItemAux + 1;
-      fDMConferencia.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger := vID_Processo;
+      if vItem_Processo > 0 then
+        fDMConferencia.cdsPedido_Item_Processo.Edit
+      else
+      begin
+        fDMConferencia.cdsPedido_Item_Processo.Last;
+        vItemAux := fDMConferencia.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger;
+        fDMConferencia.cdsPedido_Item_Processo.Insert;
+        fDMConferencia.cdsPedido_Item_ProcessoID.AsInteger   := fDMConferencia.qPedido_ItemID.AsInteger;
+        fDMConferencia.cdsPedido_Item_ProcessoITEM.AsInteger := fDMConferencia.qPedido_ItemITEM.AsInteger;
+        fDMConferencia.cdsPedido_Item_ProcessoITEM_PROCESSO.AsInteger := vItemAux + 1;
+        fDMConferencia.cdsPedido_Item_ProcessoID_PROCESSO.AsInteger := vID_Processo;
+      end;
       fDMConferencia.cdsPedido_Item_ProcessoQTD.AsFloat           := fDMConferencia.qPedido_ItemQTD.AsFloat;
       fDMConferencia.cdsPedido_Item_ProcessoDTENTRADA.AsDateTime  := Date;
       fDMConferencia.cdsPedido_Item_ProcessoHRENTRADA.AsDateTime  := Now;
@@ -558,13 +572,21 @@ procedure TfrmConferencia_Ped.prc_Processo;
 var
   vMSGAux : String;
 begin
-  vMSGAux := '';
+  vMSGAux        := '';
+  vItem_Processo := 0;
   fDMConferencia.cdsFuncionario_Proc.First;
   while not fDMConferencia.cdsFuncionario_Proc.Eof do
   begin
     if not fDMConferencia.cdsConsPedido_Item_Proc.locate('ID_PROCESSO',fDMConferencia.cdsFuncionario_ProcID_PROCESSO.AsInteger,[loCaseInsensitive]) then
     begin
       vID_Processo := fDMConferencia.cdsFuncionario_ProcID_PROCESSO.AsInteger;
+      fDMConferencia.cdsFuncionario_Proc.Last;
+    end
+    else
+    if fDMConferencia.cdsConsPedido_Item_ProcDTBAIXA.AsDateTime <= 10 then
+    begin
+      vID_Processo   := fDMConferencia.cdsFuncionario_ProcID_PROCESSO.AsInteger;
+      vItem_Processo := fDMConferencia.cdsConsPedido_Item_ProcITEM_PROCESSO.AsInteger;
       fDMConferencia.cdsFuncionario_Proc.Last;
     end
     else

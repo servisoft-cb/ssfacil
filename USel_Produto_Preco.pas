@@ -15,6 +15,7 @@ type
     mPrecoPreco: TFloatField;
     dsmPreco: TDataSource;
     mPrecoItem: TIntegerField;
+    mPrecoID_TabPreco: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SMDBGrid1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);

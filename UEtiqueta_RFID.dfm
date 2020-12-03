@@ -1,6 +1,6 @@
 object frmEtiqueta_RFID: TfrmEtiqueta_RFID
-  Left = 92
-  Top = 91
+  Left = 111
+  Top = 53
   Width = 1190
   Height = 595
   Caption = 'frmEtiqueta_RFID'

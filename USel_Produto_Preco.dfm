@@ -121,17 +121,22 @@ object frmSel_Produto_Preco: TfrmSel_Produto_Preco
       item
         Name = 'Preco'
         DataType = ftFloat
+      end
+      item
+        Name = 'ID_TabPreco'
+        DataType = ftInteger
       end>
     IndexDefs = <>
     IndexFieldNames = 'Item'
     Params = <>
     StoreDefs = True
-    Left = 264
+    Left = 265
     Top = 176
     Data = {
-      4E0000009619E0BD0100000018000000030000000000030000004E0004497465
+      620000009619E0BD010000001800000004000000000003000000620004497465
       6D0400010000000000044E6F6D65010049000000010005574944544802000200
-      280005507265636F08000400000000000000}
+      280005507265636F08000400000000000B49445F546162507265636F04000100
+      000000000000}
     object mPrecoItem: TIntegerField
       FieldName = 'Item'
     end
@@ -144,6 +149,9 @@ object frmSel_Produto_Preco: TfrmSel_Produto_Preco
       DisplayWidth = 18
       FieldName = 'Preco'
       currency = True
+    end
+    object mPrecoID_TabPreco: TIntegerField
+      FieldName = 'ID_TabPreco'
     end
   end
   object dsmPreco: TDataSource

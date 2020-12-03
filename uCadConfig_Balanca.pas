@@ -71,6 +71,7 @@ type
     SMDBGrid7: TSMDBGrid;
     btnGerarArquivo: TNxButton;
     ProgressBar: TProgressBar;
+    chkToledoGrupoGeral: TCheckBox;
     procedure FormCreate(Sender: TObject);
     procedure FilePathChange(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -304,8 +305,9 @@ end;
 procedure TfrmConfigBalanca.btnGerarArquivoClick(Sender: TObject);
 Var
   I,TamRegistro:Integer;
-  Registro,LinhaVazia,Separador, STR:String;
+  Registro,LinhaVazia,Separador, STR : String;
   Arquivo:TextFile;
+
 begin
   if (not fDMCadConfig_Balanca.cdsConfigBalancaLay.IsEmpty) Then
   begin
@@ -339,11 +341,23 @@ begin
             Begin
               If cdsProduto.FieldByName('CODIGO_BALANCA').AsInteger > 0 Then
                 Begin
-                  Registro := LinhaVazia;
+                  if chkToledoGrupoGeral.Checked then
+                    Registro := '01'
+                  else
+                    Registro := LinhaVazia;
+                  if (cdsProdutoUNIDADE.AsString = 'KG') then
+                    Registro:= Registro + '0'
+                  else
+                    Registro:= Registro + '1';
+
                   cdsConfigBalancaLay.First;
                   While Not cdsConfigBalancaLay.EOF Do
                     Begin
                       Case cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).DataType Of
+                        ftSmallint :begin
+                                       Registro := Copy(Registro,1,cdsConfigBalancaLayPOSICAO.Value - 1) +
+                                       Preenche(cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).AsString,'0',cdsConfigBalancaLayTAMANHO.Value,0);
+                                    end;
                         FtInteger  :begin
                                        Registro := Copy(Registro,1,cdsConfigBalancaLayPOSICAO.Value - 1) +
                                        Preenche(cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).AsString,'0',cdsConfigBalancaLayTAMANHO.Value,0);
@@ -351,7 +365,7 @@ begin
                                     end;
                         FtString   :begin
                                       Registro := Copy(Registro,1,cdsConfigBalancaLayPOSICAO.Value - 1) +
-                                      Preenche(cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).asString, '', cdsConfigBalancaLayTAMANHO.Value,2) +
+                                      Preenche(TirarAcento(cdsProduto.FieldByName(cdsConfigBalancaLayCAMPO.Value).asString), '', cdsConfigBalancaLayTAMANHO.Value,2) +
                                       Copy(Registro,cdsConfigBalancaLayPOSICAO.Value + cdsConfigBalancaLayTAMANHO.Value , TamRegistro - (cdsConfigBalancaLayPOSICAO.Value+cdsConfigBalancaLayTAMANHO.Value));
                                     end;
                         FtBCD,

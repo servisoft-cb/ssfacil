@@ -67,8 +67,14 @@ begin
 end;
 
 procedure TfrmEtiqueta_RFID.btnImprimirClick(Sender: TObject);
+const
+  C_Dll : string = 'EnviaRFID.dll';
 var
   vArq: String;
+  FHandle: THandle;
+  FRoutine: function (const pID: WideString): Boolean;
+  vImp: Boolean;
+  Form: TForm;
 begin
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Etiqueta_RFID.fr3';
   if not(FileExists(vArq)) then
@@ -88,7 +94,34 @@ begin
     end;
     fDMEtiqueta.mEtiqueta_Nav.Next;
   end;
-  prc_Imprimir;
+
+  Form := TForm.Create(Application);
+  uUtilPadrao.prc_Form_Aguarde(Form);
+
+  FHandle := LoadLibrary(PAnsiChar(C_Dll));
+  try
+    vImp := False;
+    FRoutine := GetProcAddress(FHandle, 'EnviarRFID');
+    if (Assigned(FRoutine)) then
+    begin
+      try
+        FRoutine(IntToStr(vID_Nota));
+        vImp := true;
+      except
+        on E : Exception do
+          FreeLibrary(FHandle);
+      end;
+    end
+    else
+      raise Exception.Create('Dll não encontrada!');
+  finally
+    FreeLibrary(FHandle);
+    FreeAndNil(Form);
+  end;
+
+  if vImp then
+    prc_Imprimir;
+
 end;
 
 procedure TfrmEtiqueta_RFID.prc_Gravar_RFID;

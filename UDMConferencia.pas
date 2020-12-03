@@ -441,6 +441,7 @@ type
     ctPedido : String;
     ctPedido_Item  : String;
     ctConsulta : String;
+    ctPedido_Item_Proc : String;
     vID_Pedido_Fat : Integer;
     vNum_Pedido_Fat : Integer;
     vID_Conferencia : Integer;
@@ -483,6 +484,7 @@ begin
   ctPedido_Item := sdsPedido_Item.CommandText;
   if qParametros_PedCONFERENCIA_SIMPLES.AsString <> 'S' then
     ctPedido_Item := ctPedido_Item + ' AND (coalesce(ITE.qtd_restante,0) - coalesce(ITE.qtd_liberada,0)) > 0 ';
+  ctPedido_Item_Proc := sdsPedido_Item_Processo.CommandText;
 
   ctConsulta    := sdsConsulta.CommandText;
   cdsFilial.Open;
