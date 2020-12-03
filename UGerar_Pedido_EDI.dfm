@@ -310,7 +310,7 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
       WidthOfIndicator = 11
       DefaultRowHeight = 17
       ScrollBars = ssHorizontal
-      ColCount = 28
+      ColCount = 29
       RowCount = 2
       Columns = <
         item
@@ -510,6 +510,12 @@ object frmGerar_Pedido_EDI: TfrmGerar_Pedido_EDI
           Title.Alignment = taCenter
           Title.Caption = 'ID Prod. Interno'
           Width = 68
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'OBS'
+          Width = 454
           Visible = True
         end>
     end

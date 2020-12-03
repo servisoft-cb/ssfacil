@@ -138,6 +138,8 @@ begin
     if SMDBGrid3.Columns[i].FieldName = 'Encerado' then
       SMDBGrid3.Columns[i].Visible := (fDMGerar_EDI.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
   end;
+
+
 end;
 
 procedure TfrmGerar_Pedido_EDI.prc_Gravar_mAuxiliar;
@@ -709,9 +711,15 @@ begin
   if fDMGerar_EDI.mAuxiliarItem_Cliente.AsInteger > 0 then
     fDMCadPedido.cdsPedido_ItensITEM_CLIENTE.AsInteger := fDMGerar_EDI.mAuxiliarItem_Cliente.AsInteger;
   //***************
+
+  //03/12/2020
+  fDMCadPedido.cdsPedido_ItensOBS.Value := fDMGerar_EDI.mAuxiliarOBS.Value;
+  //************
+
   uCalculo_Pedido.prc_Calculo_GeralItem(fDMCadPedido,fDMCadPedido.cdsPedido_ItensQTD.AsFloat,fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat,
                                         fDMCadPedido.cdsPedido_ItensVLR_DESCONTO.AsFloat,fDMCadPedido.cdsPedido_ItensPERC_DESCONTO.AsFloat,
                                         fDMCadPedido.cdsPedido_ItensVLR_TOTAL.AsFloat);
+
   fDMCadPedido.cdsPedido_Itens.Post;
 end;
 

@@ -890,7 +890,8 @@ uses
   UEtiqueta_RFID in 'UEtiqueta_RFID.pas' {frmEtiqueta_RFID},
   UDMRFID in 'UDMRFID.pas' {DMRFID: TDataModule},
   UDMCadCanalVendas in 'UDMCadCanalVendas.pas' {DMCadCanalVendas: TDataModule},
-  UCadCanalVendas in 'UCadCanalVendas.pas' {frmCadCanalVendas};
+  UCadCanalVendas in 'UCadCanalVendas.pas' {frmCadCanalVendas},
+  uUtil_Pedido in 'uUtil_Pedido.pas';
 
 {$R *.res}
 

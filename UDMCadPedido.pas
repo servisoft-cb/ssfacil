@@ -4013,6 +4013,8 @@ type
     vVlr_Maquina_Calc: Real;
     //*********
 
+    fDMCadPedido: TDMCadPedido;
+
     procedure prc_Localizar(ID: Integer);
 
     procedure prc_Inserir_Itens;
@@ -4052,7 +4054,7 @@ var
 implementation
 
 uses DmdDatabase, uUtilPadrao, LogProvider, uCalculo_Pedido, UDMAprovacao_Ped, StrUtils,
-  uGrava_Pedido;
+  uGrava_Pedido, uUtil_Pedido;
 
 {$R *.dfm}
 
@@ -4908,6 +4910,13 @@ begin
   if vTipo_Rel_Ped = 'PICTO' then
     Exit;
 
+
+  if (vTipo_Rel_Ped = 'R') then
+  begin
+    uUtil_Pedido.prc_Before_frxReport1(fDMCadPedido);
+    exit;
+  end;
+
   try
     if (vNum_Rel_Fast = 3) then
     begin
@@ -4925,7 +4934,10 @@ begin
     i := 1;
     vCol := 9;
     if (vTipo_Rel_Ped = 'P') then
-      vCol := 17
+    begin
+      vCol := 17;
+      ShowMessage('aqui');
+    end
     else
     if (vTipo_Rel_Ped = 'R') then
     begin
