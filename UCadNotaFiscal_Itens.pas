@@ -1496,7 +1496,8 @@ begin
   //29/11/2020
   if (fDMCadNotaFiscal.vState_Item = 'E') and ((StrToFloat(FormatFloat('0.0000',vQtd_Prod_Ant)) > 0) and
      (StrToFloat(FormatFloat('0.0000',vQtd_Prod_Ant)) < StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat)))) and
-     (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger > 0) and (fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsInteger > 0) then
+     (fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger > 0) and (fDMCadNotaFiscal.cdsNotaFiscal_ItensITEM_PEDIDO.AsInteger > 0)
+     and (fDMCadNotaFiscal.qParametros_OCPERMITIR_ENT_MAIOR.AsString <> 'S') then
   begin
     if fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat >
        uCalculo_NotaFiscal.fnc_Busca_Qtd_Restante(fDMCadNotaFiscal.cdsNotaFiscal_ItensID_PEDIDO.AsInteger,

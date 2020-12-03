@@ -1638,7 +1638,6 @@ object DMCadPedido: TDMCadPedido
     Top = 297
   end
   object cdsTipoCobranca: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -1715,7 +1714,6 @@ object DMCadPedido: TDMCadPedido
     Top = 339
   end
   object cdsContas: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -10957,13 +10955,13 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44144.936853715280000000
+    ReportOptions.LastChange = 44168.478145462960000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 985
+    Left = 986
     Top = 105
   end
   object frxDBDataset1: TfrxDBDataset

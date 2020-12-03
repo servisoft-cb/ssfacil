@@ -375,6 +375,7 @@ type
     NxSplitter1: TNxSplitter;
     Shape11: TShape;
     Label88: TLabel;
+    RomaneioParaExpedioNovo1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -504,6 +505,7 @@ type
     procedure ReciboPagamento1Click(Sender: TObject);
     procedure EnviarEmail1Click(Sender: TObject);
     procedure btnAltPrecoClick(Sender: TObject);
+    procedure RomaneioParaExpedioNovo1Click(Sender: TObject);
   private
     { Private declarations }
     fLista: TStringList;
@@ -3505,7 +3507,12 @@ begin
   end
   else
   if fDMCadPedido.vTipo_Rel_Ped = 'R' then
-    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Romaneio_Expedicao.fr3'
+  begin
+    if RomaneioParaExpedioNovo1.Tag = 1 then
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Romaneio_Expedicao18.fr3'
+    else
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Romaneio_Expedicao.fr3';
+  end
   else
   begin
 //    vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_JW_PDF.fr3'
@@ -3551,6 +3558,7 @@ begin
   if fDMCadPedido.qParametros_PedIMP_MATERIAL.AsString = 'S' then
     fDMCadPedido.frxReport1.variables['ImpMaterial'] := QuotedStr('S');
   vArqPDF := '';
+  fDMCadPedido.fDMCadPedido := fDMCadPedido;
   if not Gerar_PDF then
   begin
     fDMCadPedido.frxReport1.ShowReport;
@@ -3567,6 +3575,7 @@ begin
   fDMCadPedido.cdsPedidoImp_Itens.IndexFieldNames := vIndice;
   if trim(fDMCadPedido.vMSGErro) <> '' then
     MessageDlg(fDMCadPedido.vMSGErro, mtInformation, [mbOk], 0);
+  fDMCadPedido.fDMCadPedido := fDMCadPedido;
 end;
 
 procedure TfrmCadPedido.btnCopiar_ItemClick(Sender: TObject);
@@ -4036,6 +4045,7 @@ end;
 
 procedure TfrmCadPedido.RomaneioParaExpedio1Click(Sender: TObject);
 begin
+  RomaneioParaExpedioNovo1.Tag := 0;
   fDMCadPedido.vNum_Rel_Fast := 0;
   fDMCadPedido.vTipo_Rel_Ped := 'R';
   prc_Posiciona_Imp;
@@ -5198,6 +5208,16 @@ begin
     MessageDlg('*** Senha incorreta!', mtInformation, [mbOk], 0);
     Result := False;
   end;
+end;
+
+procedure TfrmCadPedido.RomaneioParaExpedioNovo1Click(Sender: TObject);
+begin
+  RomaneioParaExpedioNovo1.Tag := 1;
+  fDMCadPedido.vNum_Rel_Fast := 0;
+  fDMCadPedido.vTipo_Rel_Ped := 'R';
+  prc_Posiciona_Imp;
+  prc_Monta_Impressao(False);//Perfil
+  RomaneioParaExpedioNovo1.Tag := 0;
 end;
 
 end.
