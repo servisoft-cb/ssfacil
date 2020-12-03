@@ -86,10 +86,10 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
     Top = 45
     Width = 912
     Height = 396
-    ActivePage = TS_Itens
+    ActivePage = TS_Talao
     ActivePageDefault = TS_Itens
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     FixedDimension = 19
     object TS_Itens: TRzTabSheet
@@ -274,7 +274,7 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
           Left = 2
           Top = 4
           Width = 151
-          Caption = 'Gerar/Imprimir Selecionados '
+          Caption = 'Gerar Selecionados '
           TabOrder = 0
           OnClick = btnGerarClick
         end
@@ -289,7 +289,6 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
           DisplayFormat = '0'
           ParentCtl3D = False
           TabOrder = 1
-          Value = 72.000000000000000000
           OnKeyDown = CurrencyEdit2KeyDown
         end
       end
@@ -303,9 +302,9 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
         Height = 345
         Align = alClient
         Ctl3D = False
+        DataSource = DMCadPedido.dsmEtiqueta_Nav
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
         ParentCtl3D = False
-        ReadOnly = True
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -330,22 +329,45 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
         WidthOfIndicator = 27
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 12
+        ColCount = 7
         RowCount = 2
         Columns = <
           item
             Alignment = taCenter
             Expanded = False
-            FieldName = 'NUM_PEDIDO'
+            FieldName = 'Pedido_Cliente'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Pedido'
             Title.Color = 16777164
+            Width = 109
             Visible = True
           end
           item
             Alignment = taCenter
             Expanded = False
-            FieldName = 'ITEM'
+            FieldName = 'Referencia'
+            ReadOnly = True
+            Title.Alignment = taCenter
+            Title.Caption = 'Refer'#234'ncia'
+            Title.Color = 16777164
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Produto'
+            ReadOnly = True
+            Title.Alignment = taCenter
+            Title.Caption = 'Nome Produto'
+            Title.Color = 16777164
+            Width = 300
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'Item_Ped'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Item'
             Title.Color = 16777164
@@ -354,83 +376,19 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
           item
             Alignment = taCenter
             Expanded = False
-            FieldName = 'ITEM_TALAO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Tal'#227'o '
-            Title.Color = 16777164
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'QTD'
+            FieldName = 'Qtd'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Qtde.'
             Title.Color = 16777164
             Visible = True
           end
           item
-            Alignment = taCenter
             Expanded = False
-            FieldName = 'REFERENCIA'
-            Title.Alignment = taCenter
-            Title.Caption = 'Refer'#234'ncia'
+            FieldName = 'Medida'
+            Title.Caption = 'Obs.'
             Title.Color = 16777164
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NOME_COR'
-            Title.Alignment = taCenter
-            Title.Caption = 'Nome Cor'
-            Title.Color = 16777164
-            Width = 197
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'CODBARRA'
-            Title.Alignment = taCenter
-            Title.Caption = 'C'#243'd. Barra'
-            Title.Color = 16777164
-            Width = 95
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'DTBAIXA'
-            Title.Alignment = taCenter
-            Title.Caption = 'Data Baixa'
-            Title.Color = 16777164
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'DTEMISSAO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Data Emiss'#227'o'
-            Title.Color = 16777164
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'HREMISSAO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Hora Emiss'#227'o'
-            Title.Color = 16777164
-            Visible = True
-          end
-          item
-            Expanded = False
-            FieldName = 'NOMEPRODUTO'
-            Title.Alignment = taCenter
-            Title.Caption = 'Nome Produto'
-            Title.Color = 16777164
-            Width = 300
+            Width = 184
             Visible = True
           end>
       end
@@ -459,16 +417,9 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
           Left = 2
           Top = 4
           Width = 151
-          Caption = 'Reimprimir Selecionadas'
+          Caption = 'Imprimir'
           TabOrder = 0
-        end
-        object btnExcluir: TNxButton
-          Left = 154
-          Top = 4
-          Width = 151
-          Caption = 'Excluir Selecionadas'
-          TabOrder = 1
-          OnClick = btnExcluirClick
+          OnClick = btnReimprimirClick
         end
         object ckReimprimir_Baixado: TCheckBox
           Left = 592
@@ -476,7 +427,7 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
           Width = 153
           Height = 17
           Caption = 'Reimprimir baixado'
-          TabOrder = 2
+          TabOrder = 1
           Visible = False
         end
       end

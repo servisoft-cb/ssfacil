@@ -31,7 +31,6 @@ type
     Shape2: TShape;
     Shape3: TShape;
     Label6: TLabel;
-    btnExcluir: TNxButton;
     Label7: TLabel;
     ckReimprimir_Baixado: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -45,6 +44,7 @@ type
     procedure btnExcluirClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnReimprimirClick(Sender: TObject);
   private
     { Private declarations }
     vItem_Talao: Integer;
@@ -216,9 +216,10 @@ begin
 
   SMDBGrid1.EnableScroll;
 
-  prc_Imprimir;
+//  prc_Imprimir;
 
-  prc_Consultar(CurrencyEdit1.AsInteger,0);
+//  prc_Consultar(CurrencyEdit1.AsInteger,0);
+  RzPageControl1.ActivePageIndex := 1;
 end;
 
 procedure TfrmGerar_Pedido_Etiqueta.prc_mEtiqueta;
@@ -325,7 +326,7 @@ begin
   fDmCadPedido.mEtiqueta_NavPedido_Cliente.AsInteger := fDmCadPedido.cdsPedidoImpNUM_PEDIDO.AsInteger;
   fDmCadPedido.mEtiqueta_NavItem_Ped.AsInteger    := fDmCadPedido.cdsPedidoImp_ItensITEM.AsInteger;
   fDmCadPedido.mEtiqueta_NavTamanho.AsString      := fDmCadPedido.cdsPedidoImp_ItensTAMANHO.AsString;
-  fDmCadPedido.mEtiqueta_NavUnidade.AsString      := fDmCadPedido.cdsPedidoImp_ItensUNIDADE.AsString;
+  fDmCadPedido.mEtiqueta_NavUnidade_Prod.AsString := fDmCadPedido.cdsPedidoImp_ItensUNIDADE.AsString;
   if fDmCadPedido.cdsPedidoImp_ItensENCERADO.AsString = 'S' then
   begin
     fDmCadPedido.mEtiqueta_NavEncerado.AsString   := 'encerado';
@@ -347,6 +348,10 @@ begin
   fdmcadpedido.mEtiqueta_NavFone.AsString           := fDmCadPedido.cdsPedidoImpFONE1_FILIAL.AsString;
   fDmCadPedido.mEtiqueta_NavNome_Cliente.AsString   := fDmCadPedido.cdsPedidoImpNOME_CLI.AsString;
   fDmCadPedido.mEtiqueta_NavFantasia_Cli.AsString   := fDmCadPedido.cdsPedidoImpFANTASIA_CLI.AsString;
+  fDmCadPedido.mEtiqueta_NavNome_Cor.AsString       := fDmCadPedido.cdsPedidoImpEND_CLIENTE.AsString  + ', ' +
+                                                       fDmCadPedido.cdsPedidoImpNUM_END_CLIENTE.AsString + ' ' +
+                                                       fDmCadPedido.cdsPedidoImpCIDADE_CLIENTE.AsString + ' ' +
+                                                       fDmCadPedido.cdsPedidoImpUF.AsString;
   if vQtdPed > vQtdPac then
     fDmCadPedido.mEtiqueta_NavQtd.AsFloat := StrtoFloat(FormatFloat('0.0000', vQtdPac))
   else
@@ -401,6 +406,11 @@ procedure TfrmGerar_Pedido_Etiqueta.FormKeyDown(Sender: TObject;
 begin
   if (Shift = [ssCtrl]) and (Key = 87) then //W
     ckReimprimir_Baixado.Visible := not(ckReimprimir_Baixado.Visible);
+end;
+
+procedure TfrmGerar_Pedido_Etiqueta.btnReimprimirClick(Sender: TObject);
+begin
+  prc_Imprimir;
 end;
 
 end.
