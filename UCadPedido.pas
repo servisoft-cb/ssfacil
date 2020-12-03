@@ -375,6 +375,7 @@ type
     NxSplitter1: TNxSplitter;
     Shape11: TShape;
     Label88: TLabel;
+    Quantidadevarivel1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -504,6 +505,7 @@ type
     procedure ReciboPagamento1Click(Sender: TObject);
     procedure EnviarEmail1Click(Sender: TObject);
     procedure btnAltPrecoClick(Sender: TObject);
+    procedure Quantidadevarivel1Click(Sender: TObject);
   private
     { Private declarations }
     fLista: TStringList;
@@ -527,8 +529,8 @@ type
     vID_ClienteAnt: Integer;
     vVlrFrete_Ant: Real;
     vInclusao_Edicao: String; //I=Incluir   E=Editar
-    vArqPDF : String;
-    vNumCopiaOrc : Integer;
+    vArqPDF: String;
+    vNumCopiaOrc: Integer;
 
     ffrmMostraPDF: TfrmMostraPDF;
 
@@ -560,7 +562,7 @@ type
 
     procedure prc_scroll(DataSet: TDataSet);
     procedure prc_scroll2(DataSet: TDataSet);
-    procedure prc_Monta_Impressao(vGerar_Tamanho: Boolean ; Gerar_PDF : Boolean = False);
+    procedure prc_Monta_Impressao(vGerar_Tamanho: Boolean ; Gerar_PDF: Boolean = False);
 
     procedure prc_Controle_Imp(Tipo_Imp: String = 'N');
 
@@ -574,8 +576,8 @@ type
 
     procedure EnviarEmailNfse;
 
-    function fnc_Monta_CorpoEmail : TStringList;
-    function fnc_Senha_Alt_Pedido : Boolean;
+    function fnc_Monta_CorpoEmail: TStringList;
+    function fnc_Senha_Alt_Pedido: Boolean;
 
   public
     { Public declarations }
@@ -591,8 +593,7 @@ uses DmdDatabase, rsDBUtils, uUtilPadrao, uRelPedido, uRelPedido_SulTextil, uRel
   URelPedido_Tam, URelEtiqueta_Nav, URelPedido_Tam2, URelPedido_JW, URelEtiqueta, uUtilCliente, uCalculo_Pedido, UCadPedido_Copia,
   UConsPedido_Nota, UDMConsPedido, UInformar_DtExpedicao, UInformar_Processo_Ped, UConsPedido_Senha, USel_Produto, UCadPedido_Cupom,
   UDMPedidoImp, USel_OS_Proc, UCadPedido_ItensCli, UConsPedido_Real, UImpEtiq_Emb, UTalaoPedProc, uGrava_Pedido, UConsClienteOBS,
-  uImprimir, UConsMotivoNaoAprov, UConsPedido_Producao, UInforma_RecPagto,
-  uDadosEmail, UAltPrecoPedido;
+  uImprimir, UConsMotivoNaoAprov, UConsPedido_Producao, UInforma_RecPagto, uGerar_Pedido_Etiqueta, uDadosEmail, UAltPrecoPedido;
 
 {$R *.dfm}
 
@@ -1263,7 +1264,7 @@ end;
 
 procedure TfrmCadPedido.btnCancelarClick(Sender: TObject);
 var
-  vIDAux : Integer;
+  vIDAux: Integer;
 begin
   if (fDMCadPedido.cdsPedido.State in [dsBrowse]) or not(fDMCadPedido.cdsPedido.Active) then
   begin
@@ -1381,10 +1382,10 @@ end;
 procedure TfrmCadPedido.btnConfirmarClick(Sender: TObject);
 var
   vIDVend: Integer;
-  vIDVendedor_Principal : Integer;
-  vIDAux : Integer;
-  vTexto : String;
-  vMSGAux : String;
+  vIDVendedor_Principal: Integer;
+  vIDAux: Integer;
+  vTexto: String;
+  vMSGAux: String;
 begin
   vNumCopiaOrc := 0;
   vIDVendedor_Principal := fDMCadPedido.cdsPedidoID_VENDEDOR.AsInteger;
@@ -1500,7 +1501,7 @@ end;
 
 procedure TfrmCadPedido.btnExcluir_ItensClick(Sender: TObject);
 var
-  vMSGAux : String;
+  vMSGAux: String;
 begin
   if not(fDMCadPedido.cdsPedido_Itens.Active) and (fDMCadPedido.cdsPedido_Itens.IsEmpty) or (fDMCadPedido.cdsPedido_ItensITEM.AsInteger < 1) then
     Exit;
@@ -2392,7 +2393,7 @@ end;
 
 procedure TfrmCadPedido.prc_Posiciona_Imp;
 var
-  vItem1, vItem2 : String;
+  vItem1, vItem2: String;
 begin
   fDMCadPedido.cdsFilial.Locate('ID',fDMCadPedido.cdsPedido_ConsultaFILIAL.AsInteger,[loCaseInsensitive]);
 
@@ -3385,7 +3386,7 @@ begin
   FreeAndNil(ffrmGerar_Rotulos);
 end;
 
-procedure TfrmCadPedido.prc_Monta_Impressao(vGerar_Tamanho: Boolean ; Gerar_PDF : Boolean = False);
+procedure TfrmCadPedido.prc_Monta_Impressao(vGerar_Tamanho: Boolean ; Gerar_PDF: Boolean = False);
 var
   vArq: String;
   vCarimboAux: String;
@@ -4306,7 +4307,7 @@ end;
 
 procedure TfrmCadPedido.CancelarPedido1Click(Sender: TObject);
 var
-  vLoteGerado : Boolean;
+  vLoteGerado: Boolean;
 begin
   vLoteGerado := False;
   if fDMCadPedido.qParametros_UsuarioPERMITE_CANC_PED_OP.AsString <> 'S' then
@@ -4337,7 +4338,7 @@ end;
 
 procedure TfrmCadPedido.CancelarItemdoPedido1Click(Sender: TObject);
 var
-  vLoteGerado : Boolean;
+  vLoteGerado: Boolean;
 begin
   vLoteGerado := False;
   if fDMCadPedido.qParametros_UsuarioPERMITE_CANC_PED_OP.AsString <> 'S' then
@@ -4979,7 +4980,7 @@ end;
 
 procedure TfrmCadPedido.ReciboPagamento1Click(Sender: TObject);
 var
-  vArq : String;
+  vArq: String;
 begin
   if not(fDMCadPedido.cdsPedido_Consulta.Active) or (fDMCadPedido.cdsPedido_Consulta.IsEmpty) then
     exit;
@@ -5008,10 +5009,10 @@ var
   xSSL, xTSL: Boolean;
   CC: Tstrings;
 
-  aDadosEmail : TDadosEmail;
+  aDadosEmail: TDadosEmail;
   lista_Anexo: TStringList;
-  Mensagem : TStringList;
-  i : Integer;
+  Mensagem: TStringList;
+  i: Integer;
 begin
   prc_Posiciona_Imp;
   prc_Monta_Impressao(False,True);
@@ -5089,7 +5090,7 @@ end;
 
 function TfrmCadPedido.fnc_Monta_CorpoEmail: TStringList;
 var
-  Mensagem : TStringList;
+  Mensagem: TStringList;
 begin
   with Result do
   begin
@@ -5162,7 +5163,7 @@ end;
 
 procedure TfrmCadPedido.btnAltPrecoClick(Sender: TObject);
 var
-  vItemAux : Integer;
+  vItemAux: Integer;
 begin
   if fDMCadPedido.cdsPedido_Itens.IsEmpty then
     exit;
@@ -5195,6 +5196,16 @@ begin
     MessageDlg('*** Senha incorreta!', mtInformation, [mbOk], 0);
     Result := False;
   end;
+end;
+
+procedure TfrmCadPedido.Quantidadevarivel1Click(Sender: TObject);
+begin
+  prc_Posiciona_Imp;
+  frmGerar_Pedido_Etiqueta := TfrmGerar_Pedido_Etiqueta.Create(Self);
+  frmGerar_Pedido_Etiqueta.fDmCadPedido := fDMCadPedido;
+  frmGerar_Pedido_Etiqueta.CurrencyEdit1.Value := fDMCadPedido.cdsPedidoImpNUM_PEDIDO.AsInteger;
+  frmGerar_Pedido_Etiqueta.btnConsultarClick(Sender);
+  frmGerar_Pedido_Etiqueta.ShowModal;
 end;
 
 end.

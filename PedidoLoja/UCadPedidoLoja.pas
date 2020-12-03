@@ -188,6 +188,9 @@ type
     ImprimirMatricial80Colunas1: TMenuItem;
     Label38: TLabel;
     dbedtQtd_Peca: TDBEdit;
+    Label40: TLabel;
+    RxDBLookupCombo2: TRxDBLookupCombo;
+    btnFaturar: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -288,6 +291,7 @@ type
       Shift: TShiftState);
     procedure dbedtQtd_PecaKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnFaturarClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadPedido: TDMCadPedido;
@@ -364,13 +368,9 @@ var
 implementation
 
 uses DmdDatabase, rsDBUtils, uUtilPadrao, uRelPedido, uRelPedido_SulTextil, uRelPedido2, USel_Pessoa, UDMUtil, USenha,
-  uUtilCliente, uCalculo_Pedido,
-  UConsPedido_Nota, UDMConsPedido, USel_Produto,
-  USel_OS_Proc, URelPedido_Tam, uRelPedido_Tam2, UCadPedido,
-  URelPedido_JW, UCadPedidoLoja_Frete, UCadPedidoLoja_Obs,
-  UCadPedidoLoja_Difal, UCadPedidoLoja_LocalEst,
-  UCadPedidoLoja_Pag, UCadPedido_Custo, USel_Produto_Lote, UOpcaoImp,
-  UConsPedido, uGrava_Pedido, uImprimir;
+  uUtilCliente, uCalculo_Pedido, UConsPedido_Nota, UDMConsPedido, USel_Produto, USel_OS_Proc, URelPedido_Tam, uRelPedido_Tam2,
+  UCadPedido, URelPedido_JW, UCadPedidoLoja_Frete, UCadPedidoLoja_Obs, UCadPedidoLoja_Difal, UCadPedidoLoja_LocalEst,
+  UCadPedidoLoja_Pag, UCadPedido_Custo, USel_Produto_Lote, UOpcaoImp, UConsPedido, uGrava_Pedido, uImprimir, uBaixaPedido;
 
 {$R *.dfm}
 
@@ -803,6 +803,9 @@ begin
     if ckImpCancelados.Checked then
       fDMCadPedido.sdsPedido_Consulta.CommandText := fDMCadPedido.sdsPedido_Consulta.CommandText +
                                                      ' AND PED.FATURADO <> ' + QuotedStr('C');
+    if not(RxDBLookupCombo2.Text = '') then
+      fDMCadPedido.sdsPedido_Consulta.CommandText := fDMCadPedido.sdsPedido_Consulta.CommandText +
+                                                     ' AND PED.ID_VENDEDOR = ' + IntToStr(RxDBLookupCombo2.KeyValue);
 
     case cbxOpcao.ItemIndex of
       0: fDMCadPedido.sdsPedido_Consulta.CommandText := fDMCadPedido.sdsPedido_Consulta.CommandText + ' AND PED.FATURADO <> ' + QuotedStr('S');
@@ -3299,6 +3302,14 @@ begin
   uImprimir.prc_Detalhe_Mat('Prazo Pgto.: ' + fDMCadPedido.cdsPedidoImpNOME_CONDPGTO.AsString);
   uImprimir.prc_Detalhe_Mat(uImprimir.fnc_Monta_Tamanho(135,'-','E','-'));
   uImprimir.prc_Detalhe_Mat('   Qtde  Unid.   Cód. Produto                                           Bitola              Marca           It   Preco %Desc      Total');
+end;
+
+procedure TfrmCadPedidoLoja.btnFaturarClick(Sender: TObject);
+begin
+  frmBaixaPedido := TfrmBaixaPedido.Create(Self);
+  frmBaixaPedido.Edit1.Text := fDMCadPedido.cdsPedido_ConsultaPEDIDO_CLIENTE.AsString;
+  frmBaixaPedido.btnConsultarClick(Sender);
+  frmBaixaPedido.ShowModal;
 end;
 
 end.

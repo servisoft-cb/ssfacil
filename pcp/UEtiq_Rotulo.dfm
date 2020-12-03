@@ -857,7 +857,6 @@ object frmEtiq_Rotulo: TfrmEtiq_Rotulo
         DataSource = DMConsNotas_ES.dsmEtiq_Rotulo
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
         ParentCtl3D = False
-        ReadOnly = True
         TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
@@ -882,21 +881,23 @@ object frmEtiq_Rotulo: TfrmEtiq_Rotulo
         WidthOfIndicator = 15
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 9
+        ColCount = 10
         RowCount = 2
         Columns = <
           item
             Expanded = False
             FieldName = 'Nome_Filial'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Filial'
             Title.Color = 16777096
-            Width = 256
+            Width = 150
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Nome_Cliente'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Cliente'
             Title.Color = 16777096
@@ -907,6 +908,7 @@ object frmEtiq_Rotulo: TfrmEtiq_Rotulo
             Alignment = taCenter
             Expanded = False
             FieldName = 'NumNota'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Nota'
             Title.Color = 16777096
@@ -917,6 +919,7 @@ object frmEtiq_Rotulo: TfrmEtiq_Rotulo
             Alignment = taCenter
             Expanded = False
             FieldName = 'NumPedido'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Pedido'
             Title.Color = 16777096
@@ -926,6 +929,7 @@ object frmEtiq_Rotulo: TfrmEtiq_Rotulo
           item
             Expanded = False
             FieldName = 'Local_Endereco'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Local Endere'#231'o'
             Title.Color = 16777096
@@ -934,15 +938,22 @@ object frmEtiq_Rotulo: TfrmEtiq_Rotulo
           end
           item
             Expanded = False
+            FieldName = 'Qtd'
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'Numero'
+            ReadOnly = True
             Title.Alignment = taCenter
-            Title.Caption = 'Qtd'
+            Title.Caption = 'N'#250'mero'
             Title.Color = 16777096
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Numero_Total'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Total'
             Title.Color = 16777096
@@ -952,6 +963,7 @@ object frmEtiq_Rotulo: TfrmEtiq_Rotulo
             Alignment = taCenter
             Expanded = False
             FieldName = 'Data'
+            ReadOnly = True
             Title.Alignment = taCenter
             Title.Color = 16777096
             Width = 110

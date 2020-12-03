@@ -23,9 +23,9 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 1097
-    Height = 679
-    ActivePage = TS_Cadastro
+    Width = 1089
+    Height = 671
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -34,7 +34,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -49,9 +49,9 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
       end
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 135
-        Width = 1093
-        Height = 480
+        Top = 156
+        Width = 1085
+        Height = 451
         Align = alClient
         Ctl3D = False
         DataSource = DMCadPedido.dsPedido_Consulta
@@ -235,8 +235,8 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
       object pnlPesquisa: TPanel
         Left = 0
         Top = 30
-        Width = 1093
-        Height = 105
+        Width = 1085
+        Height = 126
         Align = alTop
         Color = clSilver
         TabOrder = 0
@@ -305,6 +305,14 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           Alignment = taRightJustify
           Caption = 'Op'#231#227'o:'
         end
+        object Label40: TLabel
+          Left = 43
+          Top = 108
+          Width = 49
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Vendedor:'
+        end
         object edtCliente: TEdit
           Left = 95
           Top = 62
@@ -355,7 +363,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
         end
         object btnConsultar: TNxButton
           Left = 475
-          Top = 70
+          Top = 92
           Width = 177
           Height = 30
           Caption = 'Efetuar Pesquisa'
@@ -421,7 +429,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          TabOrder = 8
+          TabOrder = 9
           Transparent = True
           OnClick = btnConsultarClick
         end
@@ -444,7 +452,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           Width = 79
           Height = 17
           Caption = 'Imp. Pre'#231'o'
-          TabOrder = 9
+          TabOrder = 10
           OnClick = ckImpPrecoClick
         end
         object ckImpImposto: TCheckBox
@@ -453,7 +461,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           Width = 94
           Height = 17
           Caption = 'Imp. Imposto'
-          TabOrder = 10
+          TabOrder = 11
         end
         object NxDatePicker1: TNxDatePicker
           Left = 95
@@ -503,13 +511,26 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           Width = 144
           Height = 17
           Caption = 'N'#227'o Mostrar Cancelados'
-          TabOrder = 11
+          TabOrder = 12
+        end
+        object RxDBLookupCombo2: TRxDBLookupCombo
+          Left = 95
+          Top = 100
+          Width = 369
+          Height = 21
+          DropDownCount = 15
+          Ctl3D = False
+          LookupField = 'CODIGO'
+          LookupDisplay = 'NOME'
+          LookupSource = DMCadPedido.dsVendedor
+          ParentCtl3D = False
+          TabOrder = 8
         end
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 639
-        Width = 1093
+        Top = 631
+        Width = 1085
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -527,7 +548,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 1093
+        Width = 1085
         Height = 30
         Align = alTop
         Color = clSilver
@@ -681,7 +702,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           OnClick = btnPesquisarClick
         end
         object btnExcluir: TNxButton
-          Left = 303
+          Left = 454
           Top = 1
           Width = 151
           Height = 28
@@ -756,7 +777,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           OnClick = btnExcluirClick
         end
         object btnImprimir: TNxButton
-          Left = 454
+          Left = 605
           Top = 1
           Width = 151
           Height = 28
@@ -829,11 +850,101 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           TabOrder = 3
           Transparent = True
         end
+        object btnFaturar: TNxButton
+          Left = 303
+          Top = 1
+          Width = 151
+          Height = 28
+          Hint = 'Efetua baixa do pedido - gera CReceber'
+          Align = alLeft
+          Caption = 'Faturar'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -16
+          Font.Name = 'Arial'
+          Font.Style = []
+          Glyph.Data = {
+            7A080000424D7A08000000000000360000002800000017000000170000000100
+            2000000000004408000000000000000000000000000000000000FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F3F9F400C6CEC700799D7C004D7B
+            4D00235C24001C561C00225E22004B7B50007B9C7C00C6CEC700F4F9F400FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF0095A99600456A44003E663E0029682B00306B30003871
+            37003B713A00386C37003164310029642B003D663D00456C440094AA9700FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFEFF00FFFFFF00FFFF
+            FF004E794D002A602A004F844F000F5E0F00055A08000050010001500400014E
+            0300004B010000470000054C05000E4C0E004D774F002B622A004C7A4E00FFFF
+            FF00FFFFFF00FEFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00486848003F6E
+            40002F7B300000540000045C0700075A0B00065909000655090007550A000753
+            0900064F0800034C0600014B0300003D00002E6430003F6C430049694D00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004D7A4E003E6B3F0020772300005B
+            020008610E00075F0B00065B0900005601000557090007550A0008540B000851
+            0900054F0700064C0700034C0800004200001E5B1D003D6B41004D7B4F00FFFF
+            FF00FFFFFF00FFFFFF0097AA99002A6028003088330000640000076809000765
+            080005630800005600003977390004550500005505000556070007540B000653
+            090006500800044D0600034D0500004200002F6531002860280098AA9900FFFF
+            FF00F5F9F600426646004F90510000610000066B0C0007690A0007670A000054
+            00004B854C00FFFFFF00A6C1A600004D0000005503000655090008530A000752
+            090006500700044C0500044B0900003E00004E785000456D4600F6F9F600C6CE
+            C6003F664000107C1200056D0900066C0A00056A0A00005900003C7F3B00FFFF
+            FF00FFFFFF00FFFFFF00ABC6AD00004D0200035506000555090008550B000652
+            0900054F0700044C0600014C04000D4C0F003B643C00C6CFC60079997A003782
+            3A00218326000F76140007720E00005E000055925600FFFFFF00FFFFFF00FEFE
+            FE00FEFFFE00FFFFFF00BED2C000004A00000254050006560800065409000753
+            0A00064F0800034D0500054C06002A632B007DA080004A7B4D004C954F002989
+            2F002184260000650000639E6600FFFFFF00FFFFFF00FEFEFF00FFFFFF00FFFF
+            FF00FFFEFF00FFFFFF00A6C1A800004B0000025505000655090007540A000852
+            0900054F0800004700002E633000517E5200245E270067AE6D00399640002887
+            2D0079B37D00FFFFFF00F7F9F900F9FCFA00FFFFFF00D2DFD100FCFEFD00FFFF
+            FF00FFFFFF00FFFFFF00BED2C000014E0200005503000556080007540A000753
+            0900004C0100376C340027612A001F56200078BA8000479F4D0044994800DFEF
+            DF00F6FBF800F0F4ED00FFFFFF00B4CFB500004F000063966300FFFFFF00FFFF
+            FF00FEFEFF00FFFFFF00ADC6B000014D02000055020007540A0007540A00014E
+            0300397037001B561C00275E270082BF87005DAA60004DA053003D914100F1FA
+            F000FFFFFF00BAD4B800005B0000006A0400005A000068996700FFFFFF00FFFF
+            FF00FEFFFF00FFFFFF00A9C4AC00004B00000156050006550900014F04003672
+            35002960290048764A007DB1810071B8750065B1690057A55A00519E5600A2CC
+            A40024872900177A2000016D0600056E0A0000540000568C5500FFFFFF00FFFF
+            FF00FFFFFE00FFFFFF00C0D6C3000048000000550400005202002E6C2E00517D
+            5300749474006B9F6F0089C88B0075B777006BB26F005BA85F0045994C004E9C
+            5100429748002582270000660400006E0900005600006E9C6D00FFFFFF00FFFF
+            FF00FEFEFF00FFFFFF00B3C9B400145F1500015706002A682D007B9F8000C4CC
+            C400476C4600A0D3A30082C388007EBC800072B6750069AE6B005DA7610053A2
+            55004E9D5200358F3A000B711000006C0300005500005B8E5900FFFFFF00FFFF
+            FF00FFFFFF00AEC9B000005300000D600F003E653E00C6CFC600F6FBF7002E57
+            2F00B5CFB40095CC9B008FC6910083BF870079B97C006EB1720063AA67005AA4
+            5D00519E540046984E0028852D000C7413000051000063926100FFFFFF00B6D0
+            B50000440000005100004D845200456A4500F6FBF700FFFFFF009BAA9A001F57
+            1F00DBF9DD0099CC9C0092C7970089C28A007DB9820071B3780068AD6B005CA6
+            6100549F5B004C9A50003F8F42002F8935000D6D14003A853700006208000059
+            000033803500295C29009BAE9A00FFFFFF00FEFFFF00FFFFFF0045744B005078
+            5000D2F0D200A1D0A70098CC9D0091C7930084C088007CBA800070B2740066AD
+            68005CA46000519C550046954B003F8F43002B8332001E79220036873B003E6C
+            3E004E7C5100FFFFFF00FFFEFF00FFFFFF00FFFFFF00FFFFFF00416040004F77
+            4F00E9FFEA00AAD7AE009FCEA00093C798008AC28D0081BA830076B578006CAD
+            6F0060A66400569D5A0049984D003289390061A865003B6C3C0047684800FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFEFF00FFFFFF00FFFFFF0045744A002056
+            1E00C3D8C300C0E5C300B1DDB6009ED0A40093C6950087BF8A007EBA7F0071B3
+            750070B3750064AB6B0081AE8200225923004F7A4F00FFFFFF00FFFFFF00FFFF
+            FE00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF009BAB9B002955
+            2C00466B490085AA84009EC5A000B2D5B500B0D8B500A0CCA40082B285006295
+            6400416943003B5D3C0099AE9B00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+            FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00F6FCF600C3CB
+            C3007192700044754500255F240022562400245E28004576490073957500C5CD
+            C500F6FBF700FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00}
+          GlyphSpacing = 5
+          ParentFont = False
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 4
+          Transparent = True
+          OnClick = btnFaturarClick
+        end
       end
       object Panel4: TPanel
         Left = 0
-        Top = 615
-        Width = 1093
+        Top = 607
+        Width = 1085
         Height = 24
         Align = alBottom
         Color = clSilver
@@ -925,7 +1036,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 1093
+        Width = 1085
         Height = 30
         Align = alTop
         Color = 8404992
@@ -1173,7 +1284,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
       object pnlCadastro: TPanel
         Left = 0
         Top = 30
-        Width = 1093
+        Width = 1085
         Height = 131
         Align = alTop
         Enabled = False
@@ -1181,13 +1292,13 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
         object Panel3: TPanel
           Left = 1
           Top = 23
-          Width = 1091
+          Width = 1083
           Height = 107
           Align = alClient
           Color = 13041606
           TabOrder = 0
           DesignSize = (
-            1091
+            1083
             107)
           object Label18: TLabel
             Left = 19
@@ -1604,7 +1715,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
         object pnlNota: TPanel
           Left = 1
           Top = 1
-          Width = 1091
+          Width = 1083
           Height = 22
           Align = alTop
           Color = clSilver
@@ -1686,8 +1797,8 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
       end
       object Panel10: TPanel
         Left = 0
-        Top = 592
-        Width = 1093
+        Top = 584
+        Width = 1085
         Height = 64
         Align = alBottom
         Color = clSilver
@@ -2204,8 +2315,8 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
       object RzGroupBox1: TRzGroupBox
         Left = 0
         Top = 161
-        Width = 1093
-        Height = 431
+        Width = 1085
+        Height = 423
         Align = alClient
         BorderColor = clNavy
         BorderInner = fsButtonUp
@@ -2229,7 +2340,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           Left = 5
           Top = 18
           Width = 494
-          Height = 408
+          Height = 400
           Align = alLeft
           Color = 13041663
           TabOrder = 0
@@ -2739,7 +2850,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           end
           object Panel7: TPanel
             Left = 1
-            Top = 378
+            Top = 370
             Width = 492
             Height = 29
             Align = alBottom
@@ -2836,7 +2947,7 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
           end
           object Panel8: TPanel
             Left = 1
-            Top = 317
+            Top = 309
             Width = 492
             Height = 61
             Align = alBottom
@@ -2919,8 +3030,8 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
         object SMDBGrid2: TSMDBGrid
           Left = 499
           Top = 18
-          Width = 589
-          Height = 408
+          Width = 581
+          Height = 400
           Align = alClient
           Ctl3D = False
           DataSource = DMCadPedido.dsPedido_Itens

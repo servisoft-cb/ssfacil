@@ -1638,7 +1638,6 @@ object DMCadPedido: TDMCadPedido
     Top = 297
   end
   object cdsTipoCobranca: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -1715,7 +1714,6 @@ object DMCadPedido: TDMCadPedido
     Top = 339
   end
   object cdsContas: TClientDataSet
-    Active = True
     Aggregates = <>
     IndexFieldNames = 'NOME'
     Params = <>
@@ -5651,6 +5649,9 @@ object DMCadPedido: TDMCadPedido
     object cdsPedidoImp_ItensOBS_REDUZIDA: TStringField
       FieldName = 'OBS_REDUZIDA'
       Size = 250
+    end
+    object cdsPedidoImp_ItensQTD_POR_ROTULO: TIntegerField
+      FieldName = 'QTD_POR_ROTULO'
     end
   end
   object dsPedidoImp_Itens: TDataSource
@@ -10956,8 +10957,8 @@ object DMCadPedido: TDMCadPedido
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44144.936853715280000000
+    ReportOptions.CreateDate = 41928.578144409700000000
+    ReportOptions.LastChange = 44166.679240289360000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -17768,6 +17769,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'LOTE_CALCADO_NOVO'
       FixedChar = True
       Size = 1
+    end
+    object qParametros_LoteQTD_PADRAO_ETIQ: TIntegerField
+      FieldName = 'QTD_PADRAO_ETIQ'
     end
   end
   object qParametros_Est: TSQLQuery

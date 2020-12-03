@@ -289,6 +289,7 @@ begin
   fDMConsNotas_ES.mEtiq_Rotulo.Insert;
   fDMConsNotas_ES.mEtiq_RotuloNome_Filial.AsString        := fDMConsNotas_ES.cdsFilialNOME.AsString;
   fDMConsNotas_ES.mEtiq_RotuloCNPJ_CPF_Filial.AsString    := fDMConsNotas_ES.cdsFilialCNPJ_CPF.AsString;
+  fDMConsNotas_ES.mEtiq_RotuloFone_Filial.AsString        := fDMConsNotas_ES.cdsFilialDDD1.AsString + ' ' + fDMConsNotas_ES.cdsFilialFONE1.AsString;
   fDMConsNotas_ES.mEtiq_RotuloEnd_Filial.AsString         := fDMConsNotas_ES.cdsFilialENDERECO.AsString + ',' + fDMConsNotas_ES.cdsFilialNUM_END.AsString;
   fDMConsNotas_ES.mEtiq_RotuloComplemento_Filial.AsString := fDMConsNotas_ES.cdsFilialCOMPLEMENTO_END.AsString;
   fDMConsNotas_ES.mEtiq_RotuloBairro_Filial.AsString      := fDMConsNotas_ES.cdsFilialBAIRRO.AsString;
