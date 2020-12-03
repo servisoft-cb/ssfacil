@@ -3920,6 +3920,8 @@ type
     qProcessoNOME: TStringField;
     qProcessoUSAR_QTD_DOBRA: TStringField;
     qParametros_UsuarioLIB_ITEM_SEM_PROCESSO: TStringField;
+    qParametros_LoteQTD_PADRAO_ETIQ: TIntegerField;
+    cdsPedidoImp_ItensQTD_POR_ROTULO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

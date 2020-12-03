@@ -5650,6 +5650,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'OBS_REDUZIDA'
       Size = 250
     end
+    object cdsPedidoImp_ItensQTD_POR_ROTULO: TIntegerField
+      FieldName = 'QTD_POR_ROTULO'
+    end
   end
   object dsPedidoImp_Itens: TDataSource
     DataSet = cdsPedidoImp_Itens
@@ -10956,6 +10959,8 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
     ReportOptions.LastChange = 44168.478145462960000000
+    ReportOptions.CreateDate = 41928.578144409700000000
+    ReportOptions.LastChange = 44166.679240289360000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -17766,6 +17771,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'LOTE_CALCADO_NOVO'
       FixedChar = True
       Size = 1
+    end
+    object qParametros_LoteQTD_PADRAO_ETIQ: TIntegerField
+      FieldName = 'QTD_PADRAO_ETIQ'
     end
   end
   object qParametros_Est: TSQLQuery
