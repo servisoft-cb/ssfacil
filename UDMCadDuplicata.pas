@@ -2012,7 +2012,8 @@ begin
         cdsChequeID_CONTA.AsInteger      := cdsDuplicataID_CONTA.AsInteger;
         if cdsDuplicataID_BANCO.AsInteger > 0 then
           cdsChequeID_BANCO.AsInteger := cdsDuplicataID_BANCO.AsInteger;
-        cdsChequeNOMINAL.AsString        := 'FORNECEDORES';
+        //cdsChequeNOMINAL.AsString        := 'FORNECEDORES';
+        cdsChequeNOMINAL.AsString        := SQLLocate('PESSOA','CODIGO','NOME',cdsDuplicataID_PESSOA.AsString);
         cdsChequeUTILIZADO_PARA.AsString := 'PAGAMENTO DE FORNECEDORES';
         cdsChequeSTATUS.AsString         := '6';
         if cdsContasID.AsInteger <> cdsDuplicataID_CONTA.AsInteger then

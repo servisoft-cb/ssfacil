@@ -492,6 +492,7 @@ type
     qParametros_Lote: TSQLQuery;
     qParametros_LoteLOTE_TEXTIL: TStringField;
     mAuxiliarVlrUnitario_Interno: TFloatField;
+    mAuxiliarOBS: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mAuxiliarNewRecord(DataSet: TDataSet);
   private
