@@ -342,7 +342,6 @@ type
     BitBtn3: TBitBtn;
     SpeedButton7: TSpeedButton;
     btnAlterar_CondPgto: TSpeedButton;
-    VDBGrid1: TVDBGrid;
     ckTotalDup: TCheckBox;
     DBRadioGroup2: TDBRadioGroup;
     ckEnviarComErro: TCheckBox;
@@ -435,6 +434,7 @@ type
     Label122: TLabel;
     ckRedespacho: TCheckBox;
     ImprimirEtiquetaRFID1: TMenuItem;
+    VDBGrid1: TVDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);

@@ -218,9 +218,9 @@ type
     cdsNotaFiscal_RotNOME_TRANSP: TStringField;
     cdsMinutaDTEMISSAO: TDateField;
     mEtiq_RotuloQtd: TFloatField;
-    mEtiq_RotuloFone_Filial: TStringField;
     cdsFilialDDD1: TIntegerField;
     cdsFilialFONE1: TStringField;
+    mEtiq_RotuloFone_Filial: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscal_RotCalcFields(DataSet: TDataSet);
   private
