@@ -217,6 +217,7 @@ procedure TfrmBaixaPedido_Processo.Prc_Gravar;
 var
   fDMAprovacao_Ped: TDMAprovacao_Ped;
   vNomeProc, vConferido : String;
+  vMSG: String;
 begin
   fDMAprovacao_Ped := TDMAprovacao_Ped.Create(Self);
   try
@@ -229,6 +230,7 @@ begin
     fDMConferencia.sqlProcBaixaPedidoProc.ExecProc;
     vNomeProc  := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_NOME_PROCESSO').AsString;
     vConferido := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_CONFERIDO').AsString;
+    vMSG := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_MSG').AsString;
 
     fDMConferencia.cdsConsPedido_Item_Proc.Close;
     fDMConferencia.cdsConsPedido_Item_Proc.Open;

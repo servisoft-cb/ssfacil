@@ -1,8 +1,8 @@
 object DMConferencia: TDMConferencia
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 134
-  Top = 49
+  Left = 249
+  Top = 76
   Height = 573
   Width = 974
   object sdsPedido_Item: TSQLDataSet
@@ -1035,7 +1035,7 @@ object DMConferencia: TDMConferencia
   end
   object dspQtdPed: TDataSetProvider
     DataSet = sdsQtdPed
-    Left = 384
+    Left = 383
     Top = 16
   end
   object cdsQtdPed: TClientDataSet
@@ -2343,6 +2343,12 @@ object DMConferencia: TDMConferencia
         Name = 'R_QTD_PECAS'
         ParamType = ptOutput
         Size = 8
+      end
+      item
+        DataType = ftString
+        Name = 'R_MSG'
+        ParamType = ptOutput
+        Size = 100
       end
       item
         DataType = ftFloat
