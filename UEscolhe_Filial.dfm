@@ -54,8 +54,9 @@ object frmEscolhe_Filial: TfrmEscolhe_Filial
       Width = 385
       Height = 21
       DropDownCount = 8
+      DropDownWidth = 700
       LookupField = 'ID'
-      LookupDisplay = 'NOME_INTERNO'
+      LookupDisplay = 'NOME_INTERNO;ID'
       LookupSource = dsFilial
       TabOrder = 0
       OnKeyDown = RxDBLookupCombo1KeyDown
@@ -68,10 +69,10 @@ object frmEscolhe_Filial: TfrmEscolhe_Filial
   end
   object cdsFilial: TClientDataSet
     Aggregates = <>
-    IndexFieldNames = 'ID'
+    IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 248
+    Left = 247
     Top = 32
     object cdsFilialID: TIntegerField
       FieldName = 'ID'

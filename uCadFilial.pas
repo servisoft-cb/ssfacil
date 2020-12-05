@@ -420,6 +420,7 @@ type
     lblBuscaFilial: TLabel;
     DBCheckBox28: TDBCheckBox;
     DBCheckBox29: TDBCheckBox;
+    ckInativo: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -471,6 +472,8 @@ type
     procedure btnVlr_Outras_DespesasClick(Sender: TObject);
     procedure DBEdit4KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
   private
     { Private declarations }
     fDMCadFilial: TDMCadFilial;
@@ -593,10 +596,13 @@ end;
 procedure TfrmCadFilial.prc_Consultar;
 begin
   fDMCadFilial.cdsFilial.Close;
-  fDMCadFilial.sdsFilial.CommandText := fDMCadFilial.ctCommand;
+  fDMCadFilial.sdsFilial.CommandText := fDMCadFilial.ctCommand + ' WHERE 0 = 0 ';
   if Trim(Edit4.Text) <> '' then
     fDMCadFilial.sdsFilial.CommandText := fDMCadFilial.sdsFilial.CommandText +
-                                          ' WHERE NOME LIKE ' + QuotedStr('%'+Edit4.Text+'%');
+                                          ' AND NOME LIKE ' + QuotedStr('%'+Edit4.Text+'%');
+  if not ckInativo.Checked then
+    fDMCadFilial.sdsFilial.CommandText := fDMCadFilial.sdsFilial.CommandText +
+                                          ' AND COALESCE(INATIVO,'+QuotedStr('N')+') = ' + QuotedStr('N');
   fDMCadFilial.cdsFilial.Open;
   fDMCadFilial.cdsFilial_Email.Close;
   fDMCadFilial.cdsFilial_Email.Open;
@@ -1218,6 +1224,13 @@ begin
     frmSel_Filial_Servidor.ShowModal;
     FreeAndNil(frmSel_Filial_Servidor);
   end;
+end;
+
+procedure TfrmCadFilial.SMDBGrid1GetCellParams(Sender: TObject;
+  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+begin
+  if fDMCadFilial.cdsFilialINATIVO.AsString = 'S' then
+    AFont.Color := clRed;
 end;
 
 end.

@@ -2313,48 +2313,56 @@ object DMConferencia: TDMConferencia
         Name = 'R_NOME_PROCESSO'
         ParamType = ptOutput
         Size = 40
+        Value = ''
       end
       item
         DataType = ftString
         Name = 'R_CONFERIDO'
         ParamType = ptOutput
         Size = 1
+        Value = ''
       end
       item
         DataType = ftString
         Name = 'R_REFERENCIA'
         ParamType = ptOutput
         Size = 20
+        Value = ''
       end
       item
         DataType = ftFloat
         Name = 'R_COMPRIMENTO'
         ParamType = ptOutput
         Size = 8
-      end
-      item
-        DataType = ftFloat
-        Name = 'R_ESPESSURA'
-        ParamType = ptOutput
-        Size = 8
-      end
-      item
-        DataType = ftFloat
-        Name = 'R_QTD_PECAS'
-        ParamType = ptOutput
-        Size = 8
-      end
-      item
-        DataType = ftString
-        Name = 'R_MSG'
-        ParamType = ptOutput
-        Size = 100
+        Value = 0.000000000000000000
       end
       item
         DataType = ftFloat
         Name = 'R_LARGURA'
         ParamType = ptOutput
         Size = 8
+        Value = 0.000000000000000000
+      end
+      item
+        DataType = ftFloat
+        Name = 'R_ESPESSURA'
+        ParamType = ptOutput
+        Size = 8
+        Value = 0.000000000000000000
+      end
+      item
+        DataType = ftFloat
+        Name = 'R_QTD_PECAS'
+        ParamType = ptOutput
+        Size = 8
+        Value = 0.000000000000000000
+      end
+      item
+        DataType = ftString
+        Name = 'R_MSG'
+        ParamType = ptOutput
+        Size = 200
+        Value = ' Pedido/Item nao encontrado!'
       end>
     SQLConnection = dmDatabase.scoDados
     StoredProcName = 'PRC_BAIXA_PEDIDO_PROC'
