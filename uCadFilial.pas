@@ -574,7 +574,7 @@ procedure TfrmCadFilial.FormShow(Sender: TObject);
 begin
   fDMCadFilial := TDMCadFilial.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMCadFilial);
-  fDMCadFilial.cdsFilial.Open;
+  prc_Consultar;
   fDMCadFilial.cdsFilial_Email.Close;
   fDMCadFilial.cdsFilial_Email.Open;
   fDMCadFilial.cdsFilial_Download.Close;
