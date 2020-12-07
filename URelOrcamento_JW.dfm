@@ -1226,7 +1226,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
         end
         object RLBand4: TRLBand
           Left = 0
-          Top = 101
+          Top = 165
           Width = 1071
           Height = 54
           BandType = btSummary
@@ -1389,7 +1389,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           object RLMemo2: TRLMemo
             Left = 105
             Top = 2
-            Width = 605
+            Width = 913
             Height = 14
             Behavior = [beSiteExpander]
             Font.Charset = DEFAULT_CHARSET
@@ -1603,6 +1603,35 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
             Font.Name = 'Arial'
             Font.Style = [fsBold]
             ParentFont = False
+          end
+        end
+        object RLSubDetail3: TRLSubDetail
+          Left = 0
+          Top = 101
+          Width = 1071
+          Height = 64
+          DataSource = DMCadPedido.dsPedidoImp_Item_Proc
+          object RLDetailGrid1: TRLDetailGrid
+            Left = 0
+            Top = 0
+            Width = 1071
+            Height = 29
+            ColCount = 4
+            object RLDBText45: TRLDBText
+              Left = 99
+              Top = 8
+              Width = 165
+              Height = 16
+              DataField = 'NOME_PROCESSO'
+              DataSource = DMCadPedido.dsPedidoImp_Item_Proc
+            end
+            object RLLabel42: TRLLabel
+              Left = 35
+              Top = 8
+              Width = 63
+              Height = 16
+              Caption = 'Processo:'
+            end
           end
         end
       end

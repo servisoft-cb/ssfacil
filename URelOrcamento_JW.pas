@@ -133,6 +133,10 @@ type
     RLDBText43: TRLDBText;
     RLLabel41: TRLLabel;
     RLDBText44: TRLDBText;
+    RLSubDetail3: TRLSubDetail;
+    RLDetailGrid1: TRLDetailGrid;
+    RLDBText45: TRLDBText;
+    RLLabel42: TRLLabel;
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand7BeforePrint(Sender: TObject; var PrintIt: Boolean);
