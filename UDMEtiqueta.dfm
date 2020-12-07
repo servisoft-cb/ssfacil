@@ -1,7 +1,7 @@
 object DMEtiqueta: TDMEtiqueta
   OldCreateOrder = False
-  Left = 366
-  Top = 192
+  Left = 359
+  Top = 188
   Height = 450
   Width = 758
   object mEtiqueta_Nav: TClientDataSet
@@ -1015,7 +1015,7 @@ object DMEtiqueta: TDMEtiqueta
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 41928.578144409700000000
-    ReportOptions.LastChange = 44156.593823599530000000
+    ReportOptions.LastChange = 44172.593295104170000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'

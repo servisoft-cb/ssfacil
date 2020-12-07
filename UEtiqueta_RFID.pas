@@ -15,10 +15,13 @@ type
     btnGerar: TNxButton;
     btnImprimir: TNxButton;
     SMDBGrid1: TSMDBGrid;
+    CheckBox1: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMEtiqueta: TDMEtiqueta;
@@ -63,7 +66,7 @@ end;
 
 procedure TfrmEtiqueta_RFID.btnGerarClick(Sender: TObject);
 begin
-  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',vID_Nota,CurrencyEdit1.AsInteger);
+  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',vID_Nota,CurrencyEdit1.AsInteger,True);
 end;
 
 procedure TfrmEtiqueta_RFID.btnImprimirClick(Sender: TObject);
@@ -95,28 +98,34 @@ begin
     fDMEtiqueta.mEtiqueta_Nav.Next;
   end;
 
-  Form := TForm.Create(Application);
-  uUtilPadrao.prc_Form_Aguarde(Form);
 
-  FHandle := LoadLibrary(PAnsiChar(C_Dll));
-  try
-    vImp := False;
-    FRoutine := GetProcAddress(FHandle, 'EnviarRFID');
-    if (Assigned(FRoutine)) then
-    begin
-      try
-        FRoutine(IntToStr(vID_Nota));
-        vImp := true;
-      except
-        on E : Exception do
-          FreeLibrary(FHandle);
-      end;
-    end
-    else
-      raise Exception.Create('Dll não encontrada!');
-  finally
-    FreeLibrary(FHandle);
-    FreeAndNil(Form);
+  if (CheckBox1.Checked) and (CheckBox1.Visible) then
+    vImp := True
+  else
+  begin
+    Form := TForm.Create(Application);
+    uUtilPadrao.prc_Form_Aguarde(Form);
+
+    FHandle := LoadLibrary(PAnsiChar(C_Dll));
+    try
+      vImp := False;
+      FRoutine := GetProcAddress(FHandle, 'EnviarRFID');
+      if (Assigned(FRoutine)) then
+      begin
+        try
+          FRoutine(IntToStr(vID_Nota));
+          vImp := true;
+        except
+          on E : Exception do
+            FreeLibrary(FHandle);
+        end;
+      end
+      else
+        raise Exception.Create('Dll não encontrada!');
+    finally
+      FreeLibrary(FHandle);
+      FreeAndNil(Form);
+    end;
   end;
 
   if vImp then
@@ -190,6 +199,13 @@ begin
   vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Etiqueta_RFID.fr3';
   fDMEtiqueta.frxReport1.Report.LoadFromFile(vArq);
   fDMEtiqueta.frxReport1.ShowReport;
+end;
+
+procedure TfrmEtiqueta_RFID.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Shift = [ssCtrl]) and (Key = 87) then
+    CheckBox1.Visible := not(CheckBox1.Visible);
 end;
 
 end.

@@ -10,9 +10,11 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   Position = poScreenCenter
   OnClose = FormClose
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -51,13 +53,22 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
       OnClick = btnGerarClick
     end
     object btnImprimir: TNxButton
-      Left = 380
+      Left = 381
       Top = 11
       Width = 101
       Height = 26
       Caption = 'Imprimir'
       TabOrder = 2
       OnClick = btnImprimirClick
+    end
+    object CheckBox1: TCheckBox
+      Left = 743
+      Top = 21
+      Width = 97
+      Height = 17
+      Caption = 'Teste'
+      TabOrder = 3
+      Visible = False
     end
   end
   object SMDBGrid1: TSMDBGrid

@@ -5294,7 +5294,7 @@ begin
   else
     vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\SulTextil_Etiq_Nota.fr3';
 
-  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger,0);
+  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger,0,False);
   if FileExists(vArq) then
     fDMEtiqueta.frxReport1.Report.LoadFromFile(vArq)
   else
