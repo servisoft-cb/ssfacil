@@ -2610,8 +2610,10 @@ begin
     end;
   end;
   //***********************
+  sdsFornecedor.CommandText := sdsFornecedor.CommandText + ' AND (TP_FORNECEDOR = ' + QuotedStr('S');
   if (qParametrosUSA_EDI.AsString = 'S') or (qParametros_NFeUSA_OPCAO_IMP_COD_CLI.AsString = 'S') then
     sdsFornecedor.CommandText := sdsFornecedor.CommandText + ' OR TP_CLIENTE = ' + QuotedStr('S');
+  sdsFornecedor.CommandText := sdsFornecedor.CommandText + ')';
   cdsFornecedor.Open;
   cdsCFOP.Open;
 end;
