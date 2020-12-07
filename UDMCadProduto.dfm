@@ -1500,7 +1500,7 @@ object dmCadProduto: TdmCadProduto
   object sdsFornecedor: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT CODIGO, NOME'#13#10'FROM PESSOA'#13#10'WHERE TP_FORNECEDOR = '#39'S'#39
+    CommandText = 'SELECT CODIGO, NOME'#13#10'FROM PESSOA'#13#10'WHERE  INATIVO = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -2216,7 +2216,7 @@ object dmCadProduto: TdmCadProduto
     IndexFieldNames = 'REFERENCIA'
     Params = <>
     ProviderName = 'dspProduto_Consulta'
-    Left = 432
+    Left = 431
     object cdsProduto_ConsultaID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

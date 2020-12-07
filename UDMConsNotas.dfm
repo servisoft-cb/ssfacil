@@ -9,7 +9,7 @@ object DMConsNotas: TDMConsNotas
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, NOME_INTERNO'#13#10'FROM FILIAL'#13#10#13#10#13#10
+    CommandText = 'SELECT ID, NOME, NOME_INTERNO, FONE1'#13#10'FROM FILIAL'#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -39,6 +39,10 @@ object DMConsNotas: TDMConsNotas
     object cdsFilialNOME_INTERNO: TStringField
       FieldName = 'NOME_INTERNO'
       Size = 30
+    end
+    object cdsFilialFONE1: TStringField
+      FieldName = 'FONE1'
+      Size = 15
     end
   end
   object dsFilial: TDataSource

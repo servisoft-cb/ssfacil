@@ -238,6 +238,7 @@ type
     cdsConsProduto_VendasPCustoSERIE: TStringField;
     cdsConsProduto_VendasPCustoTOTAL_PRECO_CUSTO: TFloatField;
     cdsConsProduto_VendasPCustoNOME_PRODUTO_COMP: TStringField;
+    cdsFilialFONE1: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspNotaFiscal_CliUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

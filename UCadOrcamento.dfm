@@ -1167,7 +1167,6 @@ object frmCadOrcamento: TfrmCadOrcamento
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
-            Width = 64
             Visible = True
           end>
       end
@@ -2586,7 +2585,6 @@ object frmCadOrcamento: TfrmCadOrcamento
               item
                 Expanded = False
                 FieldName = 'REFERENCIA'
-                Width = 64
                 Visible = True
               end
               item
@@ -2681,7 +2679,6 @@ object frmCadOrcamento: TfrmCadOrcamento
                 FieldName = 'GRAVACAO_COM_ERRO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Com Notifica'#231#227'o'
-                Width = 64
                 Visible = True
               end
               item
@@ -3775,7 +3772,6 @@ object frmCadOrcamento: TfrmCadOrcamento
               item
                 Expanded = False
                 FieldName = 'VLR_TOTAL'
-                Width = 64
                 Visible = True
               end>
           end

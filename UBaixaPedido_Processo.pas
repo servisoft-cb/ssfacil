@@ -132,6 +132,8 @@ var
   vItem : Integer;
   vMSG : String;
   vIDPed : Integer;
+  vNomeProc : String;
+  vConferido : String;
 begin
   Label3.Caption := '';
   if Length(Edit1.Text) <> 10 then
@@ -159,15 +161,26 @@ begin
   Label1.Caption := Label1.Caption + #13 + '   Espessura(mm): ' + fDMConferencia.qPedido_ItemESPESSURA.AsString;
   Label1.Caption := Label1.Caption + #13 + #13 + '      Qtd. Peças: ' + fDMConferencia.qPedido_ItemQTD.AsString;
 
+
+  {fDMConferencia.sqlProcBaixaPedidoProc.Close;
+  fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_NUM_PEDIDO').AsInteger := vNumPed;
+  fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_ITEM').AsInteger       := vItem;
+  fDMConferencia.sqlProcBaixaPedidoProc.ExecProc;
+  vNomeProc  := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_NOME_PROCESSO').AsString;
+  vConferido := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_CONFERIDO').AsString;
+  vMSG := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_MSG').AsString;
+  exit;}
+        
+
   vMSG := '';
   if fDMConferencia.qPedido_Item.IsEmpty then
     vMSG := vMSG + #13 + 'Pedido/Item não encontrado!'
   else
-  if fDMConferencia.qPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
-    vMSG := vMSG + #13 + 'Item já Conferido!'
-  else
   if StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_FATURADO.AsFloat)) > 0 then
     vMSG := vMSG + #13 + 'Item já Faturado!'
+  else
+  if fDMConferencia.qPedido_ItemDTCONFERENCIA.AsDateTime > 10 then
+    vMSG := vMSG + #13 + 'Item já Conferido!'
   else
   if (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_RESTANTE.AsFloat)) <= 0) and
      (StrToFloat(FormatFloat('0.0000',fDMConferencia.qPedido_ItemQTD_CANCELADO.AsFloat)) >= 0) then
@@ -217,6 +230,7 @@ procedure TfrmBaixaPedido_Processo.Prc_Gravar;
 var
   fDMAprovacao_Ped: TDMAprovacao_Ped;
   vNomeProc, vConferido : String;
+  vMSG: String;
 begin
   fDMAprovacao_Ped := TDMAprovacao_Ped.Create(Self);
   try
@@ -229,6 +243,7 @@ begin
     fDMConferencia.sqlProcBaixaPedidoProc.ExecProc;
     vNomeProc  := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_NOME_PROCESSO').AsString;
     vConferido := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_CONFERIDO').AsString;
+    vMSG := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_MSG').AsString;
 
     fDMConferencia.cdsConsPedido_Item_Proc.Close;
     fDMConferencia.cdsConsPedido_Item_Proc.Open;

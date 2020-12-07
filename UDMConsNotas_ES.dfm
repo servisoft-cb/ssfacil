@@ -11,8 +11,8 @@ object DMConsNotas_ES: TDMConsNotas_ES
     CommandText = 
       'SELECT F.id, F.nome, F.endereco, F.complemento_end, F.num_end, F' +
       '.bairro, F.id_cidade, F.uf, F.cep, F.CNPJ_CPF, CID.NOME NOME_CID' +
-      'ADE, F.NOME_INTERNO, F.EMAIL'#13#10'FROM FILIAL F'#13#10'LEFT JOIN CIDADE CI' +
-      'D'#13#10'ON F.ID_CIDADE = CID.ID'
+      'ADE, F.NOME_INTERNO, F.EMAIL, F.DDD1, F.FONE1'#13#10'FROM FILIAL F'#13#10'LE' +
+      'FT JOIN CIDADE CID'#13#10'ON F.ID_CIDADE = CID.ID'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -29,7 +29,7 @@ object DMConsNotas_ES: TDMConsNotas_ES
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 192
+    Left = 191
     Top = 248
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
@@ -81,6 +81,13 @@ object DMConsNotas_ES: TDMConsNotas_ES
     object cdsFilialEMAIL: TStringField
       FieldName = 'EMAIL'
       Size = 40
+    end
+    object cdsFilialDDD1: TIntegerField
+      FieldName = 'DDD1'
+    end
+    object cdsFilialFONE1: TStringField
+      FieldName = 'FONE1'
+      Size = 15
     end
   end
   object dsFilial: TDataSource
@@ -733,6 +740,11 @@ object DMConsNotas_ES: TDMConsNotas_ES
       item
         Name = 'Qtd'
         DataType = ftFloat
+      end
+      item
+        Name = 'Fone_Filial'
+        DataType = ftString
+        Size = 25
       end>
     IndexDefs = <
       item
@@ -747,7 +759,7 @@ object DMConsNotas_ES: TDMConsNotas_ES
     Left = 520
     Top = 344
     Data = {
-      1D0300009619E0BD0100000018000000190000000000030000001D030B4E6F6D
+      3D0300009619E0BD01000000180000001A0000000000030000003D030B4E6F6D
       655F46696C69616C0100490000000100055749445448020002003C000F434E50
       4A5F4350465F46696C69616C0100490000000100055749445448020002001200
       0A456E645F46696C69616C01004900000001000557494454480200020050000D
@@ -771,7 +783,8 @@ object DMConsNotas_ES: TDMConsNotas_ES
       000100055749445448020002001400044461746104000600000000000C456D61
       696C5F46696C69616C010049000000010005574944544802000200C8000B4E6F
       6D655F5472616E73700100490000000100055749445448020002003C00035174
-      64080004000000000001000D44454641554C545F4F5244455202008200000000
+      6408000400000000000B466F6E655F46696C69616C0100490000000100055749
+      44544802000200190001000D44454641554C545F4F5244455202008200000000
       00}
     object mEtiq_RotuloNome_Filial: TStringField
       FieldName = 'Nome_Filial'
@@ -865,6 +878,10 @@ object DMConsNotas_ES: TDMConsNotas_ES
     end
     object mEtiq_RotuloQtd: TFloatField
       FieldName = 'Qtd'
+    end
+    object mEtiq_RotuloFone_Filial: TStringField
+      FieldName = 'Fone_Filial'
+      Size = 25
     end
   end
   object dsmEtiq_Rotulo: TDataSource

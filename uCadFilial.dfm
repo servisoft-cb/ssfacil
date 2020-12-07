@@ -24,7 +24,7 @@ object frmCadFilial: TfrmCadFilial
     Top = 0
     Width = 1094
     Height = 599
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadFilial: TfrmCadFilial
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -40,9 +40,9 @@ object frmCadFilial: TfrmCadFilial
       Caption = 'Consulta'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 65
+        Top = 86
         Width = 1090
-        Height = 494
+        Height = 473
         Align = alClient
         Ctl3D = True
         DataSource = DMCadFilial.dsFilial
@@ -69,6 +69,7 @@ object frmCadFilial: TfrmCadFilial
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        OnGetCellParams = SMDBGrid1GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 11
@@ -376,7 +377,7 @@ object frmCadFilial: TfrmCadFilial
         Left = 0
         Top = 31
         Width = 1090
-        Height = 34
+        Height = 55
         Align = alTop
         Color = clSilver
         TabOrder = 1
@@ -468,6 +469,14 @@ object frmCadFilial: TfrmCadFilial
           TabOrder = 0
           Transparent = True
           OnClick = btnConsultarClick
+        end
+        object ckInativo: TCheckBox
+          Left = 47
+          Top = 33
+          Width = 97
+          Height = 17
+          Caption = 'Mostrar Inativas'
+          TabOrder = 2
         end
       end
     end
@@ -5536,8 +5545,8 @@ object frmCadFilial: TfrmCadFilial
           object pnlCusto: TPanel
             Left = 0
             Top = 0
-            Width = 1078
-            Height = 514
+            Width = 1086
+            Height = 522
             Align = alClient
             Enabled = False
             TabOrder = 0
@@ -5547,7 +5556,7 @@ object frmCadFilial: TfrmCadFilial
             object gbxCustoVenda: TRzGroupBox
               Left = 25
               Top = 15
-              Width = 590
+              Width = 598
               Height = 226
               Anchors = [akLeft, akTop, akRight]
               BorderColor = clNavy
@@ -5723,7 +5732,7 @@ object frmCadFilial: TfrmCadFilial
             object RzGroupBox3: TRzGroupBox
               Left = 257
               Top = 15
-              Width = 590
+              Width = 598
               Height = 226
               Anchors = [akLeft, akTop, akRight]
               BorderColor = clNavy
