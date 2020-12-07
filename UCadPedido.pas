@@ -3502,7 +3502,8 @@ begin
   if fDMCadPedido.vTipo_Rel_Ped = 'P' then
   begin
     if fDMCadPedido.vImpPedTerceiro then
-      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Producao_Terceiro.fr3'
+      //vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Producao_Terceiro.fr3'
+      vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Producao_Terceiro18.fr3'
     else
       //vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Producao.fr3';
       vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Pedido_Producao18.fr3';

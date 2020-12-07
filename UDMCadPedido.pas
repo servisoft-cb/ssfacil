@@ -4911,7 +4911,7 @@ begin
     Exit;
 
 
-  if (vTipo_Rel_Ped = 'R') then
+  if (vTipo_Rel_Ped = 'R') or (vTipo_Rel_Ped = 'P') then
   begin
     uUtil_Pedido.prc_Before_frxReport1(fDMCadPedido);
     exit;
