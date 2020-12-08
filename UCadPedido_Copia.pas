@@ -4,19 +4,22 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMCadPedido, UDMCopiaPedido, StdCtrls,
-  Mask, ToolEdit, CurrEdit, Buttons, ExtCtrls, ComCtrls;
+  Mask, ToolEdit, CurrEdit, Buttons, ExtCtrls, ComCtrls, NxCollection,
+  Grids, DBGrids, SMDBGrid;
 
 type
   TfrmCadPedido_Copia = class(TForm)
     Label1: TLabel;
     Label2: TLabel;
     CurrencyEdit1: TCurrencyEdit;
-    btnCopiar: TBitBtn;
-    btnCancelar: TBitBtn;
     ProgressBar1: TProgressBar;
     CheckBox1: TCheckBox;
     Label3: TLabel;
     DateEdit1: TDateEdit;
+    NxPanel1: TNxPanel;
+    btnCopiar: TNxButton;
+    btnCancelar: TNxButton;
+    SMDBGrid1: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCopiarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);

@@ -1,11 +1,11 @@
 object frmCadPedido_Copia: TfrmCadPedido_Copia
-  Left = 384
+  Left = 308
   Top = 237
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Copiar Pedido'
-  ClientHeight = 156
-  ClientWidth = 494
+  ClientHeight = 351
+  ClientWidth = 702
   Color = clMoneyGreen
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -39,8 +39,8 @@ object frmCadPedido_Copia: TfrmCadPedido_Copia
     ParentFont = False
   end
   object Label3: TLabel
-    Left = 184
-    Top = 70
+    Left = 376
+    Top = 37
     Width = 66
     Height = 13
     Caption = 'Data Entrega:'
@@ -67,42 +67,13 @@ object frmCadPedido_Copia: TfrmCadPedido_Copia
     ReadOnly = True
     TabOrder = 0
   end
-  object btnCopiar: TBitBtn
-    Left = 134
-    Top = 102
-    Width = 111
-    Height = 28
-    Caption = 'Copiar'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlue
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 1
-    OnClick = btnCopiarClick
-  end
-  object btnCancelar: TBitBtn
-    Left = 247
-    Top = 102
-    Width = 111
-    Height = 28
-    Caption = 'Cancelar'
-    Font.Charset = DEFAULT_CHARSET
-    Font.Color = clBlue
-    Font.Height = -11
-    Font.Name = 'MS Sans Serif'
-    Font.Style = []
-    ParentFont = False
-    TabOrder = 2
-    OnClick = btnCancelarClick
-  end
   object ProgressBar1: TProgressBar
-    Left = 16
-    Top = 136
-    Width = 465
+    Left = 0
+    Top = 334
+    Width = 702
     Height = 17
-    TabOrder = 3
+    Align = alBottom
+    TabOrder = 1
   end
   object CheckBox1: TCheckBox
     Left = 184
@@ -110,16 +81,90 @@ object frmCadPedido_Copia: TfrmCadPedido_Copia
     Width = 153
     Height = 17
     Caption = 'Usar nova data de entrega'
-    TabOrder = 4
+    TabOrder = 2
     OnClick = CheckBox1Click
   end
   object DateEdit1: TDateEdit
-    Left = 252
-    Top = 62
+    Left = 444
+    Top = 28
     Width = 100
     Height = 21
     NumGlyphs = 2
-    TabOrder = 5
+    TabOrder = 3
     Visible = False
+  end
+  object NxPanel1: TNxPanel
+    Left = 0
+    Top = 293
+    Width = 702
+    Height = 41
+    Align = alBottom
+    UseDockManager = False
+    ParentBackground = False
+    TabOrder = 4
+    object btnCopiar: TNxButton
+      Left = 240
+      Top = 7
+      Width = 120
+      Height = 25
+      Caption = 'Copiar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlue
+      Font.Height = -13
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 0
+      OnClick = btnCopiarClick
+    end
+    object btnCancelar: TNxButton
+      Left = 360
+      Top = 7
+      Width = 120
+      Height = 25
+      Caption = 'Cancelar'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clRed
+      Font.Height = -13
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      OnClick = btnCancelarClick
+    end
+  end
+  object SMDBGrid1: TSMDBGrid
+    Left = 0
+    Top = 89
+    Width = 702
+    Height = 204
+    Align = alBottom
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+    TabOrder = 5
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    Flat = False
+    BandsFont.Charset = DEFAULT_CHARSET
+    BandsFont.Color = clWindowText
+    BandsFont.Height = -11
+    BandsFont.Name = 'MS Sans Serif'
+    BandsFont.Style = []
+    Groupings = <>
+    GridStyle.Style = gsCustom
+    GridStyle.OddColor = clWindow
+    GridStyle.EvenColor = clWindow
+    TitleHeight.PixelCount = 24
+    FooterColor = clBtnFace
+    ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+    RegistryKey = 'Software\Scalabium'
+    RegistrySection = 'SMDBGrid'
+    WidthOfIndicator = 11
+    DefaultRowHeight = 17
+    ScrollBars = ssHorizontal
+    ColCount = 2
+    RowCount = 2
   end
 end

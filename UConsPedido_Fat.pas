@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons, Grids,
   DBGrids, SMDBGrid, FMTBcd, DB, Provider, DBClient, SqlExpr, UDMConsPedido, RxLookup, UCBase, Mask, RzPanel, ToolEdit,
-  ComObj, RzButton, RzTabs;
+  ComObj, RzButton, RzTabs, CurrEdit;
 
 type
   TfrmConsPedido_Fat = class(TForm)
@@ -48,6 +48,12 @@ type
     SMDBGrid5: TSMDBGrid;
     Label10: TLabel;
     RxDBLookupCombo2: TRxDBLookupCombo;
+    Label11: TLabel;
+    ceNotaIni: TCurrencyEdit;
+    ceNotaFinal: TCurrencyEdit;
+    Label12: TLabel;
+    Label13: TLabel;
+    edtSerie: TEdit;
     procedure BitBtn1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
@@ -133,6 +139,12 @@ begin
       2 : vComando := vComando + ' AND PROD.TIPO_PRODUCAO = ' + QuotedStr('E');
     end;
   end;
+  if trim(edtSerie.Text) <> '' then
+    vComando := vComando + ' AND NT.SERIE = ' + QuotedStr(trim(edtSerie.Text));
+  if ceNotaIni.AsInteger > 0 then
+    vComando := vComando + ' AND NT.NUMNOTA >= ' + IntToStr(ceNotaIni.AsInteger);
+  if ceNotaFinal.AsInteger > 0 then
+    vComando := vComando + ' AND NT.NUMNOTA <= ' + IntToStr(ceNotaFinal.AsInteger);
   fDMConsPedido.sdsPedido_Fat.CommandText := fDMConsPedido.sdsPedido_Fat.CommandText + vComando;
   fDMConsPedido.cdsPedido_Fat.Open;
   fDMConsPedido.cdsPedido_Fat.IndexFieldNames := 'PEDIDO_CLIENTE;DTEMISSAO;ITEM_PEDIDO;';
@@ -168,6 +180,12 @@ begin
       2 : vComando := vComando + ' AND PROD.TIPO_PRODUCAO = ' + QuotedStr('E');
     end;
   end;
+  if trim(edtSerie.Text) <> '' then
+    vComando := vComando + ' AND NT.SERIE = ' + QuotedStr(trim(edtSerie.Text));
+  if ceNotaIni.AsInteger > 0 then
+    vComando := vComando + ' AND NT.NUMNOTA >= ' + IntToStr(ceNotaIni.AsInteger);
+  if ceNotaFinal.AsInteger > 0 then
+    vComando := vComando + ' AND NT.NUMNOTA <= ' + IntToStr(ceNotaFinal.AsInteger);
   fDMConsPedido.sdsPedido_FatPed.CommandText := vComando + '  ' + vComandoAux;
   fDMConsPedido.cdsPedido_FatPed.Open;
   fDMConsPedido.cdsPedido_FatPed.IndexFieldNames := 'PEDIDO_CLIENTE;DTEMISSAO';
@@ -265,13 +283,23 @@ begin
   if RxDBLookupCombo4.Text <> '' then
     vOpcaoAux := vOpcaoAux + '(Referência: ' + RxDBLookupCombo4.Text + ')';
   if (DateEdit1.Date > 10) and (DateEdit2.Date > 10) then
-    vOpcaoAux := vOpcaoAux + '(Dt.Emissão: ' + DateEdit1.Text + ' a ' + DateEdit2.Text + ')'
+    vOpcaoAux := vOpcaoAux + '(Dt.Fatura: ' + DateEdit1.Text + ' a ' + DateEdit2.Text + ')'
   else
   if (DateEdit1.Date > 10) then
     vOpcaoAux := vOpcaoAux + '(Dt.Fatura Ini: ' + DateEdit1.Text + ')'
   else
   if (DateEdit2.Date > 10) then
     vOpcaoAux := vOpcaoAux + '(Dt.Fatura Fin: ' + DateEdit2.Text + ')';
+  if trim(edtSerie.Text) <> '' then
+    vOpcaoAux := vOpcaoAux + '(Série: ' + edtSerie.Text + ')';
+  if (ceNotaIni.AsInteger > 0) and (ceNotaFinal.AsInteger > 0) then
+    vOpcaoAux := vOpcaoAux + '(N.Nota: ' + ceNotaIni.Text + ' a ' + ceNotaFinal.Text + ')'
+  else
+  if (ceNotaIni.AsInteger > 0) then
+    vOpcaoAux := vOpcaoAux + '(N.Nota Ini: ' + ceNotaIni.Text + ')'
+  else
+  if (ceNotaFinal.AsInteger > 0) then
+    vOpcaoAux := vOpcaoAux + '(N.Nota Fin: ' + ceNotaFinal.Text + ')';
   if RzPageControl1.ActivePage = TS_Item then
   begin
     SMDBGrid1.DisableScroll;
@@ -406,25 +434,28 @@ begin
 end;
 
 procedure TfrmConsPedido_Fat.prc_Consultar_Faturas;
+var
+  vComando : String;
 begin
   fDmConsPedido.cdsPedidoFaturas.Close;
-  fDmConsPedido.sdsPedidoFaturas.CommandText := fDmConsPedido.ctPedFaturas;
+  vComando := fDmConsPedido.ctPedFaturas; 
   if RxDBLookupCombo5.KeyValue > 0 then
-    fDmConsPedido.sdsPedidoFaturas.CommandText := fDmConsPedido.sdsPedidoFaturas.CommandText + ' AND NF.ID_VENDEDOR = ' + RxDBLookupCombo5.KeyValue;
+    vComando := vComando +  ' AND NF.ID_VENDEDOR = ' + RxDBLookupCombo5.KeyValue;
   if trim(edtCliente.Text) <> '' then
-    fDmConsPedido.sdsPedidoFaturas.CommandText := fDmConsPedido.sdsPedidoFaturas.CommandText + ' AND CLI.NOME LIKE ' + QuotedStr('%'+edtCliente.Text+'%');
+    vComando := vComando +  ' AND CLI.NOME LIKE ' + QuotedStr('%'+edtCliente.Text+'%');
   if DateEdit1.Date > 0 then
-    fDmConsPedido.sdsPedidoFaturas.CommandText := fDmConsPedido.sdsPedidoFaturas.CommandText +
-                                                  ' AND NF.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.Date));
+    vComando := vComando +  ' AND NF.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.Date));
   if DateEdit2.Date > 0 then
-    fDmConsPedido.sdsPedidoFaturas.CommandText := fDmConsPedido.sdsPedidoFaturas.CommandText +
-                                                  ' AND NF.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.Date));
+    vComando := vComando +  ' AND NF.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.Date));
   if Edit1.Text <> '' then
-    fDmConsPedido.sdsPedidoFaturas.CommandText := fDmConsPedido.sdsPedidoFaturas.CommandText +
-                                                  ' AND NFPED.NUM_PEDIDO = ' + Edit1.Text;
-
-  fDmConsPedido.sdsPedidoFaturas.CommandText := fDmConsPedido.sdsPedidoFaturas.CommandText +
-                                                ' ORDER BY NFPED.NUM_PEDIDO';
+    vComando := vComando +  ' AND NFPED.NUM_PEDIDO = ' + Edit1.Text;
+  if trim(edtSerie.Text) <> '' then
+    vComando := vComando + ' AND NF.SERIE = ' + QuotedStr(trim(edtSerie.Text));
+  if ceNotaIni.AsInteger > 0 then
+    vComando := vComando + ' AND NF.NUMNOTA >= ' + IntToStr(ceNotaIni.AsInteger);
+  if ceNotaFinal.AsInteger > 0 then
+    vComando := vComando + ' AND NF.NUMNOTA <= ' + IntToStr(ceNotaFinal.AsInteger);
+  fDmConsPedido.sdsPedidoFaturas.CommandText := vComando + ' ORDER BY NFPED.NUM_PEDIDO';
   fDmConsPedido.cdsPedidoFaturas.Open;
 end;
 
@@ -493,6 +524,12 @@ begin
       2 : vComando := vComando + ' AND PROD.TIPO_PRODUCAO = ' + QuotedStr('E');
     end;
   end;
+  if trim(edtSerie.Text) <> '' then
+    vComando := vComando + ' AND NT.SERIE = ' + QuotedStr(trim(edtSerie.Text));
+  if ceNotaIni.AsInteger > 0 then
+    vComando := vComando + ' AND NT.NUMNOTA >= ' + IntToStr(ceNotaIni.AsInteger);
+  if ceNotaFinal.AsInteger > 0 then
+    vComando := vComando + ' AND NT.NUMNOTA <= ' + IntToStr(ceNotaFinal.AsInteger);
   fDMConsPedido.sdsTipoMat.CommandText := vComandoAux2 + vComando + vComandoAux;
   fDMConsPedido.cdsTipoMat.Open;
 end;
@@ -528,6 +565,12 @@ begin
       2 : vComando := vComando + ' AND PROD.TIPO_PRODUCAO = ' + QuotedStr('E');
     end;
   end;
+  if trim(edtSerie.Text) <> '' then
+    vComando := vComando + ' AND NT.SERIE = ' + QuotedStr(trim(edtSerie.Text));
+  if ceNotaIni.AsInteger > 0 then
+    vComando := vComando + ' AND NT.NUMNOTA >= ' + IntToStr(ceNotaIni.AsInteger);
+  if ceNotaFinal.AsInteger > 0 then
+    vComando := vComando + ' AND NT.NUMNOTA <= ' + IntToStr(ceNotaFinal.AsInteger);
   fDMConsPedido.sdsPedido_Fat_Acum.CommandText := vComando + '  ' + vComandoAux;
   fDMConsPedido.cdsPedido_Fat_Acum.Open;
   fDMConsPedido.cdsPedido_Fat_Acum.IndexFieldNames := 'NOME_GRUPO_PESSOA;UNIDADE;REFERENCIA;NOME_PRODUTO;NOME_COR_COMBINACAO';

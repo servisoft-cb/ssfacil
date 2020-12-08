@@ -45,7 +45,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     end
     object Label3: TLabel
       Left = 91
-      Top = 32
+      Top = 31
       Width = 35
       Height = 13
       Alignment = taRightJustify
@@ -53,7 +53,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     end
     object Label4: TLabel
       Left = 29
-      Top = 76
+      Top = 75
       Width = 97
       Height = 13
       Alignment = taRightJustify
@@ -61,7 +61,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     end
     object Label6: TLabel
       Left = 229
-      Top = 98
+      Top = 97
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -69,7 +69,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     end
     object Label5: TLabel
       Left = 53
-      Top = 98
+      Top = 97
       Width = 73
       Height = 13
       Alignment = taRightJustify
@@ -77,28 +77,49 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     end
     object Label7: TLabel
       Left = 53
-      Top = 54
+      Top = 53
       Width = 73
       Height = 13
       Alignment = taRightJustify
       Caption = 'Representante:'
     end
     object Label9: TLabel
-      Left = 497
-      Top = 76
+      Left = 490
+      Top = 75
       Width = 87
       Height = 13
       Alignment = taRightJustify
       Caption = 'Tran'#231'adeira/Tear:'
     end
     object Label10: TLabel
-      Left = 518
-      Top = 54
+      Left = 510
+      Top = 53
       Width = 67
       Height = 13
       Alignment = taRightJustify
       Caption = 'Grupo Cliente:'
       Visible = False
+    end
+    object Label11: TLabel
+      Left = 506
+      Top = 97
+      Width = 71
+      Height = 13
+      Caption = 'N'#186' Nota Inicial:'
+    end
+    object Label12: TLabel
+      Left = 677
+      Top = 97
+      Width = 25
+      Height = 13
+      Caption = 'Final:'
+    end
+    object Label13: TLabel
+      Left = 399
+      Top = 97
+      Width = 27
+      Height = 13
+      Caption = 'S'#233'rie:'
     end
     object Edit1: TEdit
       Left = 553
@@ -108,11 +129,11 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       CharCase = ecUpperCase
       Ctl3D = True
       ParentCtl3D = False
-      TabOrder = 7
+      TabOrder = 1
       OnKeyDown = Edit1KeyDown
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
-      Left = 127
+      Left = 128
       Top = 2
       Width = 359
       Height = 21
@@ -126,30 +147,30 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     end
     object ckMostrarPreco: TCheckBox
       Left = 606
-      Top = 23
+      Top = 22
       Width = 97
       Height = 17
       Alignment = taLeftJustify
       Caption = 'Mostrar Pre'#231'o'
-      TabOrder = 8
+      TabOrder = 3
       OnClick = RadioGroup2Click
     end
     object RxDBLookupCombo3: TRxDBLookupCombo
       Left = 247
-      Top = 68
+      Top = 67
       Width = 239
       Height = 21
       DropDownCount = 15
       LookupField = 'ID'
       LookupDisplay = 'NOME'
       LookupSource = DMConsPedido.dsProduto
-      TabOrder = 4
+      TabOrder = 7
       OnChange = RxDBLookupCombo3Change
       OnEnter = RxDBLookupCombo3Enter
     end
     object RxDBLookupCombo4: TRxDBLookupCombo
-      Left = 127
-      Top = 68
+      Left = 128
+      Top = 67
       Width = 121
       Height = 21
       DropDownCount = 15
@@ -158,35 +179,35 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       LookupDisplay = 'REFERENCIA'
       LookupSource = DMConsPedido.dsProduto
       ParentCtl3D = False
-      TabOrder = 3
+      TabOrder = 6
       OnChange = RxDBLookupCombo4Change
       OnEnter = RxDBLookupCombo4Enter
     end
     object DateEdit2: TDateEdit
       Left = 255
-      Top = 90
+      Top = 89
       Width = 100
       Height = 21
       Ctl3D = True
       NumGlyphs = 2
       ParentCtl3D = False
       StartOfWeek = Sun
-      TabOrder = 6
+      TabOrder = 10
     end
     object DateEdit1: TDateEdit
-      Left = 127
-      Top = 90
+      Left = 128
+      Top = 89
       Width = 100
       Height = 21
       Ctl3D = True
       NumGlyphs = 2
       ParentCtl3D = False
       StartOfWeek = Sun
-      TabOrder = 5
+      TabOrder = 9
     end
     object RxDBLookupCombo5: TRxDBLookupCombo
-      Left = 127
-      Top = 46
+      Left = 128
+      Top = 45
       Width = 359
       Height = 21
       DropDownCount = 15
@@ -195,18 +216,18 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       LookupDisplay = 'NOME'
       LookupSource = DMConsPedido.dsVendedor
       ParentCtl3D = False
-      TabOrder = 2
+      TabOrder = 4
       OnEnter = RxDBLookupCombo5Enter
     end
     object ComboBox2: TComboBox
-      Left = 586
+      Left = 578
       Top = 68
       Width = 145
       Height = 21
       Style = csDropDownList
       ItemHeight = 13
       ItemIndex = 0
-      TabOrder = 10
+      TabOrder = 8
       Text = 'Ambos'
       Items.Strings = (
         'Ambos'
@@ -214,18 +235,18 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
         'Tear')
     end
     object edtCliente: TEdit
-      Left = 127
+      Left = 128
       Top = 24
       Width = 359
       Height = 21
       CharCase = ecUpperCase
       Ctl3D = True
       ParentCtl3D = False
-      TabOrder = 1
+      TabOrder = 2
       OnKeyDown = Edit1KeyDown
     end
     object RxDBLookupCombo2: TRxDBLookupCombo
-      Left = 586
+      Left = 578
       Top = 46
       Width = 263
       Height = 21
@@ -235,9 +256,37 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
       LookupDisplay = 'NOME'
       LookupSource = DMConsPedido.dsGrupo_Pessoa
       ParentCtl3D = False
-      TabOrder = 9
+      TabOrder = 5
       Visible = False
       OnEnter = RxDBLookupCombo5Enter
+    end
+    object ceNotaIni: TCurrencyEdit
+      Left = 578
+      Top = 89
+      Width = 90
+      Height = 21
+      AutoSize = False
+      DecimalPlaces = 0
+      DisplayFormat = '0'
+      TabOrder = 12
+    end
+    object ceNotaFinal: TCurrencyEdit
+      Left = 703
+      Top = 89
+      Width = 90
+      Height = 21
+      AutoSize = False
+      DecimalPlaces = 0
+      DisplayFormat = '0'
+      TabOrder = 13
+    end
+    object edtSerie: TEdit
+      Left = 429
+      Top = 89
+      Width = 57
+      Height = 21
+      CharCase = ecUpperCase
+      TabOrder = 11
     end
   end
   object RzPageControl1: TRzPageControl
@@ -245,7 +294,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     Top = 146
     Width = 898
     Height = 465
-    ActivePage = TS_Fatura
+    ActivePage = TS_Item
     ActivePageDefault = TS_Item
     Align = alClient
     Color = 16755027
@@ -259,8 +308,8 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     ParentColor = False
     ParentFont = False
     TabColors.Unselected = clGray
-    TabIndex = 3
-    TabOrder = 1
+    TabIndex = 0
+    TabOrder = 2
     TextColors.Unselected = 5197647
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -856,7 +905,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     Height = 31
     Align = alTop
     Color = clSilver
-    TabOrder = 2
+    TabOrder = 1
     object BitBtn1: TBitBtn
       Left = 128
       Top = 4

@@ -47,22 +47,9 @@ object fRelPedido_Fat: TfRelPedido_Fat
         Height = 17
         Align = faBottom
       end
-      object RLLabel1: TRLLabel
-        Left = 200
-        Top = 2
-        Width = 255
-        Height = 19
-        Caption = 'Relat'#243'rio de Pedidos (Faturados)'
-        Font.Charset = DEFAULT_CHARSET
-        Font.Color = clBlack
-        Font.Height = -16
-        Font.Name = 'Arial'
-        Font.Style = [fsBold, fsUnderline]
-        ParentFont = False
-      end
       object RLLabel21: TRLLabel
         Left = 968
-        Top = 0
+        Top = 2
         Width = 22
         Height = 12
         Caption = 'Pag:'
@@ -75,7 +62,7 @@ object fRelPedido_Fat: TfRelPedido_Fat
       end
       object RLSystemInfo1: TRLSystemInfo
         Left = 991
-        Top = 1
+        Top = 3
         Width = 32
         Height = 12
         Alignment = taCenter
@@ -90,7 +77,7 @@ object fRelPedido_Fat: TfRelPedido_Fat
       end
       object RLLabel22: TRLLabel
         Left = 948
-        Top = 14
+        Top = 15
         Width = 42
         Height = 12
         Caption = 'Emiss'#227'o:'
@@ -103,7 +90,7 @@ object fRelPedido_Fat: TfRelPedido_Fat
       end
       object RLSystemInfo2: TRLSystemInfo
         Left = 991
-        Top = 14
+        Top = 15
         Width = 64
         Height = 12
         Alignment = taCenter
@@ -190,6 +177,21 @@ object fRelPedido_Fat: TfRelPedido_Fat
         Width = 24
         Height = 12
         Caption = 'Peso'
+      end
+      object RLLabel1: TRLLabel
+        Left = 110
+        Top = 2
+        Width = 756
+        Height = 19
+        Alignment = taCenter
+        AutoSize = False
+        Caption = 'Relat'#243'rio de Pedidos (Faturados)'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -16
+        Font.Name = 'Arial'
+        Font.Style = [fsBold, fsUnderline]
+        ParentFont = False
       end
     end
     object RLSubDetail1: TRLSubDetail

@@ -9,7 +9,6 @@ type
   TfRelPedido_Fat = class(TForm)
     RLReport1: TRLReport;
     RLBand1: TRLBand;
-    RLLabel1: TRLLabel;
     RLLabel21: TRLLabel;
     RLSystemInfo1: TRLSystemInfo;
     RLLabel22: TRLLabel;
@@ -51,6 +50,7 @@ type
     RLDBText12: TRLDBText;
     RLDBText13: TRLDBText;
     RLDraw7: TRLDraw;
+    RLLabel1: TRLLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
