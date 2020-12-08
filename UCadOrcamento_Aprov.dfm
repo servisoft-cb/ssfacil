@@ -1,7 +1,7 @@
 object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
   Left = 194
   Top = 53
-  Width = 984
+  Width = 1066
   Height = 596
   Caption = 'frmCadOrcamento_Aprov'
   Color = clBtnFace
@@ -20,7 +20,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 976
+    Width = 1058
     Height = 33
     Align = alTop
     Color = clSilver
@@ -29,8 +29,8 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 89
-    Width = 976
-    Height = 362
+    Width = 1058
+    Height = 320
     Hint = 'Click bot'#227'o direto para selecionar todos'
     Align = alClient
     Ctl3D = False
@@ -76,7 +76,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
         ReadOnly = True
         Title.Alignment = taCenter
         Title.Caption = 'ID Orcamento'
-        Width = 78
+        Width = 58
         Visible = True
       end
       item
@@ -111,6 +111,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
         Expanded = False
         FieldName = 'Espessura'
         Title.Alignment = taCenter
+        Width = 54
         Visible = True
       end
       item
@@ -169,7 +170,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
   object Panel2: TPanel
     Left = 0
     Top = 33
-    Width = 976
+    Width = 1058
     Height = 56
     Align = alTop
     Color = clSilver
@@ -278,7 +279,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
   object gbxDuplicata: TRzGroupBox
     Left = 0
     Top = 451
-    Width = 976
+    Width = 1058
     Height = 114
     Align = alBottom
     BorderColor = clMaroon
@@ -286,6 +287,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
     BorderOuter = fsBump
     BorderWidth = 1
     Caption = ' Dados da Reprova'#231#227'o'
+    Color = 13750737
     Ctl3D = True
     FlatColor = clMaroon
     Font.Charset = DEFAULT_CHARSET
@@ -324,7 +326,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
     object Memo1: TMemo
       Left = 6
       Top = 45
-      Width = 964
+      Width = 1046
       Height = 63
       Align = alBottom
       Ctl3D = False
@@ -332,6 +334,131 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
       ScrollBars = ssVertical
       TabOrder = 1
     end
+  end
+  object SMDBGrid6: TSMDBGrid
+    Left = 0
+    Top = 409
+    Width = 1058
+    Height = 42
+    Align = alBottom
+    Ctl3D = False
+    DataSource = DMCadPedido.dsmOrcamento_Itens
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+    ParentCtl3D = False
+    ParentFont = False
+    ReadOnly = True
+    TabOrder = 4
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clBlue
+    TitleFont.Height = -11
+    TitleFont.Name = 'MS Sans Serif'
+    TitleFont.Style = []
+    Flat = True
+    BandsFont.Charset = DEFAULT_CHARSET
+    BandsFont.Color = clWindowText
+    BandsFont.Height = -11
+    BandsFont.Name = 'MS Sans Serif'
+    BandsFont.Style = []
+    Groupings = <>
+    GridStyle.Style = gsCustom
+    GridStyle.OddColor = clWindow
+    GridStyle.EvenColor = clWindow
+    TitleHeight.PixelCount = 24
+    FooterColor = clBtnFace
+    ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+    RegistryKey = 'Software\Scalabium'
+    RegistrySection = 'SMDBGrid'
+    WidthOfIndicator = 11
+    DefaultRowHeight = 16
+    ScrollBars = ssHorizontal
+    ColCount = 10
+    RowCount = 2
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'Descricao_Tipo'
+        Title.Alignment = taCenter
+        Title.Caption = 'Tipo'
+        Title.Color = 16764831
+        Width = 85
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Complemento_Nome'
+        Title.Alignment = taCenter
+        Title.Caption = 'Descri'#231#227'o'
+        Title.Color = 16764831
+        Width = 267
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Diametro'
+        Title.Alignment = taCenter
+        Title.Caption = #216
+        Title.Color = 16764831
+        Width = 55
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Diametro_Ext'
+        Title.Alignment = taCenter
+        Title.Caption = #216' Ext.'
+        Title.Color = 16764831
+        Width = 67
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Diametro_Int'
+        Title.Alignment = taCenter
+        Title.Caption = #216' Int.'
+        Title.Color = 16764831
+        Width = 57
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Parede'
+        Title.Alignment = taCenter
+        Title.Color = 16764831
+        Width = 55
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Comprimento'
+        Title.Alignment = taCenter
+        Title.Caption = 'X (mm)'
+        Title.Color = 16764831
+        Width = 53
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Largura'
+        Title.Alignment = taCenter
+        Title.Caption = 'Y (mm)'
+        Title.Color = 16764831
+        Width = 56
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'Espessura'
+        Title.Alignment = taCenter
+        Title.Caption = '# (mm)'
+        Title.Color = 16764831
+        Width = 68
+        Visible = True
+      end>
   end
   object PopupMenu1: TPopupMenu
     Left = 408

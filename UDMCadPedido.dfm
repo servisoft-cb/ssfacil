@@ -1,7 +1,8 @@
 object DMCadPedido: TDMCadPedido
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Top = 3
+  Left = 6
+  Top = 12
   Height = 699
   Width = 1355
   object sdsPedido: TSQLDataSet
@@ -6608,6 +6609,40 @@ object DMCadPedido: TDMCadPedido
       item
         Name = 'Espessura'
         DataType = ftFloat
+      end
+      item
+        Name = 'Comprimento'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Largura'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Diametro'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Diametro_Ext'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Diametro_Int'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Parede'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Descricao_Tipo'
+        DataType = ftString
+        Size = 12
+      end
+      item
+        Name = 'Complemento_Nome'
+        DataType = ftString
+        Size = 90
       end>
     IndexDefs = <
       item
@@ -6621,10 +6656,10 @@ object DMCadPedido: TDMCadPedido
     StoreDefs = True
     BeforePost = mOrcamento_ItensBeforePost
     OnNewRecord = mOrcamento_ItensNewRecord
-    Left = 856
-    Top = 137
+    Left = 855
+    Top = 138
     Data = {
-      7B0200009619E0BD0100000018000000190000000000030000007B020C49445F
+      310300009619E0BD01000000180000002100000000000300000031030C49445F
       4F7263616D656E746F0400010000000000044974656D04000100000000000A49
       445F50726F6475746F04000100000000000C4E6F6D655F50726F6475746F0100
       490000000100055749445448020002003C000351746408000400000000000C56
@@ -6643,7 +6678,13 @@ object DMCadPedido: TDMCadPedido
       69766F5F4E616F5F4170726F7661646F5F4D656D6F04004B0000000200075355
       4254595045020049000500546578740005574944544802000200020010566C72
       5F556E69746172696F5F49504908000400000000000945737065737375726108
-      0004000000000001000D44454641554C545F4F524445520200820000000000}
+      000400000000000B436F6D7072696D656E746F0800040000000000074C617267
+      7572610800040000000000084469616D6574726F08000400000000000C446961
+      6D6574726F5F45787408000400000000000C4469616D6574726F5F496E740800
+      0400000000000650617265646508000400000000000E44657363726963616F5F
+      5469706F0100490000000100055749445448020002000C0010436F6D706C656D
+      656E746F5F4E6F6D650100490000000100055749445448020002005A0001000D
+      44454641554C545F4F524445520200820000000000}
     object mOrcamento_ItensID_Orcamento: TIntegerField
       FieldName = 'ID_Orcamento'
     end
@@ -6728,6 +6769,32 @@ object DMCadPedido: TDMCadPedido
     end
     object mOrcamento_ItensEspessura: TFloatField
       FieldName = 'Espessura'
+    end
+    object mOrcamento_ItensComprimento: TFloatField
+      FieldName = 'Comprimento'
+    end
+    object mOrcamento_ItensLargura: TFloatField
+      FieldName = 'Largura'
+    end
+    object mOrcamento_ItensDiametro: TFloatField
+      FieldName = 'Diametro'
+    end
+    object mOrcamento_ItensDiametro_Ext: TFloatField
+      FieldName = 'Diametro_Ext'
+    end
+    object mOrcamento_ItensDiametro_Int: TFloatField
+      FieldName = 'Diametro_Int'
+    end
+    object mOrcamento_ItensParede: TFloatField
+      FieldName = 'Parede'
+    end
+    object mOrcamento_ItensDescricao_Tipo: TStringField
+      FieldName = 'Descricao_Tipo'
+      Size = 12
+    end
+    object mOrcamento_ItensComplemento_Nome: TStringField
+      FieldName = 'Complemento_Nome'
+      Size = 90
     end
   end
   object dsmOrcamento_Itens: TDataSource
@@ -7002,9 +7069,11 @@ object DMCadPedido: TDMCadPedido
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT T.espessura, I.*'#13#10'FROM PEDIDO_ITEM I'#13#10'LEFT JOIN PEDIDO_IT' +
-      'EM_TIPO T'#13#10'ON I.id = T.ID'#13#10'AND I.ITEM = T.ITEM'#13#10'WHERE I.ID = :ID' +
-      #13#10'AND I.APROVADO_ORC <> '#39'A'#39#13#10'AND I.QTD > 0  '#13#10#13#10
+      'SELECT T.espessura, t.comprimento, t.largura, T.diametro, T.diam' +
+      'etro_ext, T.diametro_int, T.parede,'#13#10'T.descricao_tipo, T.complem' +
+      'ento_nome, I.*'#13#10'FROM PEDIDO_ITEM I'#13#10'LEFT JOIN PEDIDO_ITEM_TIPO T' +
+      #13#10'ON I.id = T.ID'#13#10'AND I.ITEM = T.ITEM'#13#10'WHERE I.ID = :ID'#13#10'AND I.A' +
+      'PROVADO_ORC <> '#39'A'#39#13#10'AND I.QTD > 0  '#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -7013,7 +7082,7 @@ object DMCadPedido: TDMCadPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 177
+    Left = 176
     Top = 91
   end
   object dspOrcamento_Itens: TDataSetProvider
@@ -7026,7 +7095,7 @@ object DMCadPedido: TDMCadPedido
     Aggregates = <>
     Params = <>
     ProviderName = 'dspOrcamento_Itens'
-    Left = 211
+    Left = 213
     Top = 91
     object cdsOrcamento_ItensID: TIntegerField
       FieldName = 'ID'
@@ -7288,6 +7357,32 @@ object DMCadPedido: TDMCadPedido
     object cdsOrcamento_ItensOBS_REDUZIDA: TStringField
       FieldName = 'OBS_REDUZIDA'
       Size = 250
+    end
+    object cdsOrcamento_ItensCOMPRIMENTO: TFloatField
+      FieldName = 'COMPRIMENTO'
+    end
+    object cdsOrcamento_ItensLARGURA: TFloatField
+      FieldName = 'LARGURA'
+    end
+    object cdsOrcamento_ItensDIAMETRO: TFloatField
+      FieldName = 'DIAMETRO'
+    end
+    object cdsOrcamento_ItensDIAMETRO_EXT: TFloatField
+      FieldName = 'DIAMETRO_EXT'
+    end
+    object cdsOrcamento_ItensDIAMETRO_INT: TFloatField
+      FieldName = 'DIAMETRO_INT'
+    end
+    object cdsOrcamento_ItensPAREDE: TFloatField
+      FieldName = 'PAREDE'
+    end
+    object cdsOrcamento_ItensDESCRICAO_TIPO: TStringField
+      FieldName = 'DESCRICAO_TIPO'
+      Size = 12
+    end
+    object cdsOrcamento_ItensCOMPLEMENTO_NOME: TStringField
+      FieldName = 'COMPLEMENTO_NOME'
+      Size = 90
     end
   end
   object dsOrcamento_Itens: TDataSource
@@ -12233,7 +12328,7 @@ object DMCadPedido: TDMCadPedido
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 591
-    Top = 421
+    Top = 422
   end
   object dspPerfil: TDataSetProvider
     DataSet = sdsPerfil

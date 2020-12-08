@@ -23,6 +23,7 @@ type
     btnConfirmar: TNxButton;
     PopupMenu1: TPopupMenu;
     SelecionarTodos1: TMenuItem;
+    SMDBGrid6: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -75,6 +76,8 @@ begin
     if (SMDBGrid1.Columns[i].FieldName = 'Nome_Grupo') then
       SMDBGrid1.Columns[i].Visible := (fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S');
   end;
+
+  SMDBGrid6.Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
 end;
 
 procedure TfrmCadOrcamento_Aprov.prc_Montar_mOrcamento_Itens;
@@ -109,6 +112,14 @@ begin
       fDMCadPedido.mOrcamento_ItensPerc_Comissao.AsFloat   := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsOrcamento_ItensPERC_COMISSAO.AsFloat));
       fDMCadPedido.mOrcamento_ItensFoto.AsString           := fDMCadPedido.cdsOrcamento_ItensFOTO.AsString;
       fDMCadPedido.mOrcamento_ItensEspessura.AsFloat       := StrToFloat(FormatFloat('0.00##',fDMCadPedido.cdsOrcamento_ItensESPESSURA.AsFloat));
+      fDMCadPedido.mOrcamento_ItensComprimento.AsFloat     := fDMCadPedido.cdsOrcamento_ItensCOMPRIMENTO.AsFloat;
+      fDMCadPedido.mOrcamento_ItensLargura.AsFloat         := fDMCadPedido.cdsOrcamento_ItensLARGURA.AsFloat;
+      fDMCadPedido.mOrcamento_ItensDiametro.AsFloat        := fDMCadPedido.cdsOrcamento_ItensDIAMETRO.AsFloat;               
+      fDMCadPedido.mOrcamento_ItensDiametro_Ext.AsFloat    := fDMCadPedido.cdsOrcamento_ItensDIAMETRO_EXT.AsFloat;
+      fDMCadPedido.mOrcamento_ItensDiametro_Int.AsFloat    := fDMCadPedido.cdsOrcamento_ItensDIAMETRO_INT.AsFloat;
+      fDMCadPedido.mOrcamento_ItensParede.AsFloat          := fDMCadPedido.cdsOrcamento_ItensPAREDE.AsFloat;
+      fDMCadPedido.mOrcamento_ItensDescricao_Tipo.AsString := fDMCadPedido.cdsOrcamento_ItensDESCRICAO_TIPO.AsString;
+      fDMCadPedido.mOrcamento_ItensComplemento_Nome.AsString := fDMCadPedido.cdsOrcamento_ItensCOMPLEMENTO_NOME.AsString;
       if fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S' then
       begin
         fDMCadPedido.qProduto.Close;
