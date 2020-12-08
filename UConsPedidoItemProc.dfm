@@ -129,6 +129,27 @@ object frmConsPedidoItemProc: TfrmConsPedidoItemProc
       ParentFont = False
       Transparent = True
     end
+    object Shape1: TShape
+      Left = 400
+      Top = 75
+      Width = 30
+      Height = 16
+      Brush.Color = clRed
+    end
+    object Label4: TLabel
+      Left = 432
+      Top = 76
+      Width = 48
+      Height = 13
+      Caption = 'Em Atraso'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+    end
     object DateEdit2: TDateEdit
       Left = 219
       Top = 25

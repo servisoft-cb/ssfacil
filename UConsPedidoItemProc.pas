@@ -35,6 +35,8 @@ type
     ShapeConf: TShape;
     Label68: TLabel;
     btnExcel: TNxButton;
+    Shape1: TShape;
+    Label4: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure NxButton1Click(Sender: TObject);
@@ -162,10 +164,30 @@ begin
         if (fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName).AsInteger <> fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName+'_A').AsInteger) then
           Background  := clAqua
         else
-          Background  := $000080FF
-      end;
+          Background  := $000080FF;
+      end
+      else
+      if (fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName).AsString = SQLLocate('PARAMETROS_PED','ID','ID_PROCESSO_FINAL','1')) then
+      begin
+        if (fDMConsPedidoProc.cdsConsPedidoDTENTREGA.AsDateTime  < Date) and (fDMConsPedidoProc.cdsConsPedidoFATURADO.AsString <> 'S') then
+        begin
+          Background  := clRed;
+          AFont.Color := clWhite;
+        end
+      end
+    end
+  end
+  else
+  if Field.Name = 'cdsConsPedidoDTENTREGA' then
+  begin
+    if (Field.AsDateTime < Date) and (fDMConsPedidoProc.cdsConsPedidoFATURADO.AsString <> 'S') then
+    begin
+      Background  := clRed;
+      AFont.Color := clWhite;
     end
   end;
+
+
 end;
 
 procedure TfrmConsPedidoItemProc.SMDBGrid2DblClick(Sender: TObject);

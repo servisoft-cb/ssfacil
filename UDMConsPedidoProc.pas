@@ -120,6 +120,7 @@ type
     cdsFilialID: TIntegerField;
     cdsFilialNOME: TStringField;
     cdsConsItensOBS_REDUZIDA: TStringField;
+    cdsConsPedidoFATURADO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
