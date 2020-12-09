@@ -116,7 +116,7 @@ type
     procedure btnInserir_CondPagtoClick(Sender: TObject);
     procedure btnAlterar_CondPagtoClick(Sender: TObject);
     procedure btnExcluir_CondPagtoClick(Sender: TObject);
-    procedure RxDBComboBox1Change(Sender: TObject);
+    procedure RxDBComboBox1Exit(Sender: TObject);
   private
     { Private declarations }
     fDMCadTipoCobranca: TDMCadTipoCobranca;
@@ -436,7 +436,7 @@ procedure TfrmCadTipoCobranca.SMDBGrid1GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
 begin
   if fDMCadTipoCobranca.cdsTipoCobrancaMOSTRARNOCUPOM.AsString = 'S' then
-    Background := clYellow;
+    Background := $0080FFFF;
   if fDMCadTipoCobranca.cdsTipoCobrancaGERAR_NFCE.AsString = 'S' then
   begin
     AFont.Color := clBlue;
@@ -488,9 +488,9 @@ begin
   fDMCadTipoCobranca.cdsTipoCobranca_Itens.Delete;
 end;
 
-procedure TfrmCadTipoCobranca.RxDBComboBox1Change(Sender: TObject);
+procedure TfrmCadTipoCobranca.RxDBComboBox1Exit(Sender: TObject);
 begin
-  DBCheckBox24.Visible := DMCadTipoCobranca.cdsTipoCobrancaPADRAO_NFC.AsString = 'O';
+  DBCheckBox24.Visible := fDMCadTipoCobranca.cdsTipoCobrancaGERAR_NFCE.AsString = 'O';
 end;
 
 end.

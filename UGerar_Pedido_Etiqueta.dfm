@@ -86,10 +86,10 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
     Top = 45
     Width = 912
     Height = 396
-    ActivePage = TS_Talao
+    ActivePage = TS_Itens
     ActivePageDefault = TS_Itens
     Align = alClient
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 1
     FixedDimension = 19
     object TS_Itens: TRzTabSheet
@@ -377,17 +377,16 @@ object frmGerar_Pedido_Etiqueta: TfrmGerar_Pedido_Etiqueta
             Alignment = taCenter
             Expanded = False
             FieldName = 'Qtd'
-            ReadOnly = True
             Title.Alignment = taCenter
             Title.Caption = 'Qtde.'
-            Title.Color = 16777164
+            Title.Color = 8454143
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Medida'
             Title.Caption = 'Obs.'
-            Title.Color = 16777164
+            Title.Color = 8454143
             Width = 184
             Visible = True
           end>
