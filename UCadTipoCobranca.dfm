@@ -20,8 +20,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 906
-    Height = 653
+    Width = 898
+    Height = 645
     ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -38,8 +38,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 67
-        Width = 902
-        Height = 546
+        Width = 894
+        Height = 538
         Align = alClient
         Ctl3D = False
         DataSource = DMCadTipoCobranca.dsTipoCobranca
@@ -177,7 +177,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 902
+        Width = 894
         Height = 30
         Align = alTop
         Color = clSilver
@@ -408,8 +408,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 613
-        Width = 902
+        Top = 605
+        Width = 894
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -425,7 +425,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object pnlPesquisa: TPanel
         Left = 0
         Top = 30
-        Width = 902
+        Width = 894
         Height = 37
         Align = alTop
         Color = clSilver
@@ -566,7 +566,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 902
+        Width = 894
         Height = 30
         Align = alTop
         Color = 8404992
@@ -795,8 +795,8 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
       object pnlCadastro: TPanel
         Left = 0
         Top = 30
-        Width = 902
-        Height = 600
+        Width = 894
+        Height = 592
         Align = alClient
         Enabled = False
         TabOrder = 0
@@ -927,7 +927,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           DataField = 'ID'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
           ReadOnly = True
-          TabOrder = 33
+          TabOrder = 36
         end
         object DBEdit1: TDBEdit
           Left = 512
@@ -1099,7 +1099,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
             'S'
             'N'
             'O')
-          OnChange = RxDBComboBox1Change
+          OnExit = RxDBComboBox1Exit
         end
         object DBCheckBox9: TDBCheckBox
           Left = 384
@@ -1109,7 +1109,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           Caption = 'Imprime Carn'#234' - Cr'#233'dito da Loja'
           DataField = 'IMPRIME_CARNE'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
-          TabOrder = 28
+          TabOrder = 29
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
@@ -1134,7 +1134,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           Caption = 'Pre'#231'o '#224' Vista'
           DataField = 'PRECO_AVISTA'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
-          TabOrder = 29
+          TabOrder = 30
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
@@ -1146,7 +1146,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           Caption = 'Enviar no Aplicativo'
           DataField = 'ENVIAR_APLICATIVO'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
-          TabOrder = 30
+          TabOrder = 31
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
@@ -1269,12 +1269,12 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
         object DBCheckBox22: TDBCheckBox
           Left = 384
           Top = 262
-          Width = 201
+          Width = 191
           Height = 17
           Caption = 'Fechamento autom'#225'tico de caixa'
           DataField = 'FECHAMENTO_AUTOMATICO'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
-          TabOrder = 31
+          TabOrder = 32
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
@@ -1319,15 +1319,15 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
         end
         object Panel3: TPanel
           Left = 1
-          Top = 353
-          Width = 900
+          Top = 345
+          Width = 892
           Height = 246
           Align = alBottom
-          TabOrder = 34
+          TabOrder = 37
           object Panel12: TPanel
             Left = 1
             Top = 1
-            Width = 898
+            Width = 890
             Height = 32
             Align = alTop
             Color = clSilver
@@ -1562,7 +1562,7 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           object SMDBGrid13: TSMDBGrid
             Left = 1
             Top = 33
-            Width = 898
+            Width = 890
             Height = 212
             Align = alClient
             Ctl3D = False
@@ -1642,12 +1642,11 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
             '3')
         end
         object DBRadioGroup1: TDBRadioGroup
-          Left = 455
-          Top = 87
-          Width = 246
-          Height = 33
+          Left = 575
+          Top = 223
+          Width = 114
+          Height = 106
           Caption = 'Forma Pagto'
-          Columns = 3
           DataField = 'FORMA_PGTO'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
           Items.Strings = (
@@ -1663,12 +1662,12 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
         object DBCheckBox23: TDBCheckBox
           Left = 384
           Top = 278
-          Width = 201
+          Width = 191
           Height = 17
           Caption = 'Troca (Serve para a NFCe)'
           DataField = 'TROCA'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
-          TabOrder = 32
+          TabOrder = 33
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
@@ -1692,31 +1691,31 @@ object frmCadTipoCobranca: TfrmCadTipoCobranca
           Caption = 'Mostrar no APP de Venda'
           DataField = 'MOSTRAR_APP'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
-          TabOrder = 35
+          TabOrder = 28
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
         object DBCheckBox26: TDBCheckBox
           Left = 384
           Top = 294
-          Width = 201
+          Width = 191
           Height = 17
           Caption = 'Recibo de Troca (SSNFCe)'
           DataField = 'RECIBO_TROCA'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
-          TabOrder = 36
+          TabOrder = 34
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
         object DBCheckBox27: TDBCheckBox
           Left = 384
           Top = 310
-          Width = 201
+          Width = 191
           Height = 17
           Caption = 'CashBack'
           DataField = 'CASHBACK'
           DataSource = DMCadTipoCobranca.dsTipoCobranca
-          TabOrder = 37
+          TabOrder = 35
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
