@@ -59,7 +59,7 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
     GridStyle.EvenColor = clWindow
     TitleHeight.PixelCount = 24
     FooterColor = clBtnFace
-    ExOptions = [eoBooleanAsCheckBox, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+    ExOptions = [eoBooleanAsCheckBox, eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
     OnGetCellParams = SMDBGrid1GetCellParams
     RegistryKey = 'Software\Scalabium'
     RegistrySection = 'SMDBGrid'
