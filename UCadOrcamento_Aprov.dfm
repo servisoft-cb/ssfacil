@@ -126,7 +126,6 @@ object frmCadOrcamento_Aprov: TfrmCadOrcamento_Aprov
       item
         Expanded = False
         FieldName = 'Qtd'
-        ReadOnly = True
         Visible = True
       end
       item

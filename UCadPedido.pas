@@ -3776,6 +3776,7 @@ begin
     vInclusao_Edicao := 'C';
     RzPageControl1.ActivePage := TS_Cadastro;
     btnAlterarClick(Sender);
+    btnCalcular_ValoresClick(Sender);
   end;
   //15/07/2019
   if fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S' then
@@ -3790,6 +3791,7 @@ begin
       fDMCadPedido.cdsPedidoAPROVADO_PED.AsString := 'A';
   end
   else
+  if fDMCadPedido.cdsPedido.State in [dsEdit,dsInsert] then
     fDMCadPedido.cdsPedidoAPROVADO_PED.AsString := 'A';
 
   fDMCadPedido.Tag := 0;

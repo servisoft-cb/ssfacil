@@ -10,16 +10,18 @@ uses
 type
   TfrmCadPedido_Copia = class(TForm)
     Label1: TLabel;
-    Label2: TLabel;
-    CurrencyEdit1: TCurrencyEdit;
     ProgressBar1: TProgressBar;
-    CheckBox1: TCheckBox;
-    Label3: TLabel;
-    DateEdit1: TDateEdit;
     NxPanel1: TNxPanel;
     btnCopiar: TNxButton;
     btnCancelar: TNxButton;
     SMDBGrid1: TSMDBGrid;
+    SMDBGrid6: TSMDBGrid;
+    Panel1: TPanel;
+    Label2: TLabel;
+    Label3: TLabel;
+    CurrencyEdit1: TCurrencyEdit;
+    CheckBox1: TCheckBox;
+    DateEdit1: TDateEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCopiarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
@@ -96,8 +98,8 @@ begin
     if MessageDlg('Data de Entrega em branco, confirma?',mtConfirmation,[mbYes,mbNo],0) <> mrYes then
       Exit;
   end;
-  fDMCadPedido.Tag := 1;
-  prc_Copiar_Pedido;
+  //fDMCadPedido.Tag := 1;
+  //prc_Copiar_Pedido;
   prc_Copiar_Pedido_Itens;
   Close;
 end;
@@ -127,58 +129,69 @@ end;
 procedure TfrmCadPedido_Copia.prc_Copiar_Pedido_Itens;
 var
   i: Integer;
+  vInserir: Boolean;
 begin
+  vInserir              := False;
   ProgressBar1.Max      := fDMCopiaPedido.cdsPedido_Itens.RecordCount;
   ProgressBar1.Position := 0;
   fDMCopiaPedido.cdsPedido_Itens.First;
   while not fDMCopiaPedido.cdsPedido_Itens.Eof do
   begin
-    ProgressBar1.Position := ProgressBar1.Position + 1;
-    fDMCadPedido.prc_Inserir_Itens;
-    for i := 0 to ( fDMCopiaPedido.cdsPedido_Itens.FieldCount - 1) do
+    if (SMDBGrid1.SelectedRows.CurrentRowSelected) then
     begin
-      if (fDMCopiaPedido.cdsPedido_Itens.Fields[i].FieldName <> 'ID') and (fDMCopiaPedido.cdsPedido_Itens.Fields[i].FieldName <> 'sdsPedido_Item_Tipo') then
-        fDMCadPedido.cdsPedido_Itens.FieldByName(fDMCopiaPedido.cdsPedido_Itens.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido_Itens.Fields[i].Value;
-    end;
-    fDMCadPedido.cdsPedido_ItensQTD_CANCELADO.AsInteger := 0;
-    fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsInteger  := 0;
-    fDMCadPedido.cdsPedido_ItensQTD_FUT.AsInteger       := 0;
-    fDMCadPedido.cdsPedido_ItensQTD_LIBERADA.AsInteger  := 0;
-    fDMCadPedido.cdsPedido_ItensQTD_PECA.AsInteger      := 0;
-    fDMCadPedido.cdsPedido_ItensQTD_PRODUZIDA.AsInteger := 0;
-    fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat    := fDMCadPedido.cdsPedido_ItensQTD.AsFloat;
-    fDMCadPedido.cdsPedido_ItensID_MOVESTOQUE.AsInteger := 0;
-    if CheckBox1.Checked then
-    begin
-      if DateEdit1.Date > 10 then
-        fDMCadPedido.cdsPedido_ItensDTENTREGA.AsDateTime := DateEdit1.Date
+      if not vInserir then
+      begin
+        fDMCadPedido.Tag := 1;
+        prc_Copiar_Pedido;
+        vInserir := True;
+      end;
+      ProgressBar1.Position := ProgressBar1.Position + 1;
+      fDMCadPedido.prc_Inserir_Itens;
+      for i := 0 to ( fDMCopiaPedido.cdsPedido_Itens.FieldCount - 1) do
+      begin
+        if (fDMCopiaPedido.cdsPedido_Itens.Fields[i].FieldName <> 'ID') and (fDMCopiaPedido.cdsPedido_Itens.Fields[i].FieldName <> 'sdsPedido_Item_Tipo') then
+          fDMCadPedido.cdsPedido_Itens.FieldByName(fDMCopiaPedido.cdsPedido_Itens.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido_Itens.Fields[i].Value;
+      end;
+      fDMCadPedido.cdsPedido_ItensQTD_CANCELADO.AsInteger := 0;
+      fDMCadPedido.cdsPedido_ItensQTD_FATURADO.AsInteger  := 0;
+      fDMCadPedido.cdsPedido_ItensQTD_FUT.AsInteger       := 0;
+      fDMCadPedido.cdsPedido_ItensQTD_LIBERADA.AsInteger  := 0;
+      fDMCadPedido.cdsPedido_ItensQTD_PECA.AsInteger      := 0;
+      fDMCadPedido.cdsPedido_ItensQTD_PRODUZIDA.AsInteger := 0;
+      fDMCadPedido.cdsPedido_ItensQTD_RESTANTE.AsFloat    := fDMCadPedido.cdsPedido_ItensQTD.AsFloat;
+      fDMCadPedido.cdsPedido_ItensID_MOVESTOQUE.AsInteger := 0;
+      if CheckBox1.Checked then
+      begin
+        if DateEdit1.Date > 10 then
+          fDMCadPedido.cdsPedido_ItensDTENTREGA.AsDateTime := DateEdit1.Date
+        else
+          fDMCadPedido.cdsPedido_ItensDTENTREGA.Clear;
+      end;
+      if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S') then
+        fDMCadPedido.cdsPedido_ItensAPROVADO_ITEM.AsString := 'P'
       else
-        fDMCadPedido.cdsPedido_ItensDTENTREGA.Clear;
-    end;
-    if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S') then
-      fDMCadPedido.cdsPedido_ItensAPROVADO_ITEM.AsString := 'P'
-    else
-    if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'C') and (fDMCadPedido.cdsParametrosUSA_APROVACAO_OC_FORN.AsString = 'S') then
-      fDMCadPedido.cdsPedido_ItensAPROVADO_ITEM.AsString := 'P';
-    if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'O') then
-      fDMCadPedido.cdsPedido_ItensAPROVADO_ORC.AsString := 'P';
-    fDMCadPedido.cdsPedido_ItensMOTIVO_NAO_APROV.Clear;
-    fDMCadPedido.cdsPedido_ItensDTAPROVADO_NAO.Clear;
-    fDMCadPedido.cdsPedido_Itens.Post;
+      if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'C') and (fDMCadPedido.cdsParametrosUSA_APROVACAO_OC_FORN.AsString = 'S') then
+        fDMCadPedido.cdsPedido_ItensAPROVADO_ITEM.AsString := 'P';
+      if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'O') then
+        fDMCadPedido.cdsPedido_ItensAPROVADO_ORC.AsString := 'P';
+      fDMCadPedido.cdsPedido_ItensMOTIVO_NAO_APROV.Clear;
+      fDMCadPedido.cdsPedido_ItensDTAPROVADO_NAO.Clear;
+      fDMCadPedido.cdsPedido_Itens.Post;
 
-    //26/09/2016
-    fDMCopiaPedido.cdsPedido_Item_Tipo.First;
-    while not fDMCopiaPedido.cdsPedido_Item_Tipo.Eof do
-    begin
-      prc_Copiar_Item_Tipo;
-      fDMCadPedido.cdsPedido_Item_Tipo.Post;
-      fDMCopiaPedido.cdsPedido_Item_Tipo.Next;
-    end;
-    //****************
+      //26/09/2016
+      fDMCopiaPedido.cdsPedido_Item_Tipo.First;
+      while not fDMCopiaPedido.cdsPedido_Item_Tipo.Eof do
+      begin
+        prc_Copiar_Item_Tipo;
+        fDMCadPedido.cdsPedido_Item_Tipo.Post;
+        fDMCopiaPedido.cdsPedido_Item_Tipo.Next;
+      end;
+      //****************
 
-    //07/11/2020
-    prc_Copiar_Item_Processo;
-    //****************
+      //07/11/2020
+      prc_Copiar_Item_Processo;
+      //****************
+    end;
 
     fDMCopiaPedido.cdsPedido_Itens.Next;
   end;
@@ -218,7 +231,9 @@ begin
   fDMCadPedido.Tag := 0;
   CurrencyEdit1.AsInteger := vNum_Pedido;
   prc_Abrir_Pedido(fDMCadPedido.cdsPedido_ConsultaID.AsInteger);
+  SMDBGrid6.Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
   //prc_Inicio_Tela;
+  SMDBGrid1.SelectAllClick(Sender);
 end;
 
 procedure TfrmCadPedido_Copia.CheckBox1Click(Sender: TObject);
@@ -329,6 +344,8 @@ begin
     if (fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName <> 'ID') and (fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName <> 'ITEM') then
       fDMCadPedido.cdsPedido_Item_Tipo.FieldByName(fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].FieldName).AsVariant := fDMCopiaPedido.cdsPedido_Item_Tipo.Fields[i].Value;
   end;
+  fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat       := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
+  fDMCadPedido.cdsPedido_Item_TipoVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',(fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat)));
 end;
 
 procedure TfrmCadPedido_Copia.prc_Copiar_Item_Processo;

@@ -418,7 +418,11 @@ begin
   for x := 0 to (fDMCadPedido.cdsOrcamento_Itens.FieldCount - 1) do
   begin
     if not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'ID') and not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'VLR_TOTAL') and
-       not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'ESPESSURA') then
+       not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'ESPESSURA') and not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'COMPRIMENTO') and
+       not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'LARGURA') and not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'DIAMETRO') and
+       not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'DIAMETRO_EXT') and not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'DIAMETRO_INT') and
+       not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'PAREDE') and not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'DESCRICAO_TIPO') and
+       not(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName = 'COMPLEMENTO_NOME') then
     begin
       if not (fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldKind in [fkLookup, fkCalculated]) then
         fDMCadPedido.cdsPedido_Itens.FieldByName(fDMCadPedido.cdsOrcamento_Itens.Fields[x].FieldName).AsVariant := fDMCadPedido.cdsOrcamento_Itens.Fields[x].Value;
@@ -533,6 +537,8 @@ begin
           fDMCadPedido.cdsPedido_Item_Tipo.FieldByName(fDMCadPedido.cdsOrcamento_Item_Tipo.Fields[x].FieldName).AsVariant := fDMCadPedido.cdsOrcamento_Item_Tipo.Fields[x].Value;
       end;
     end;
+    fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat       := StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat));
+    fDMCadPedido.cdsPedido_Item_TipoVLR_TOTAL.AsFloat := StrToFloat(FormatFloat('0.00',(fDMCadPedido.cdsPedido_Item_TipoVLR_UNITARIO.AsFloat * fDMCadPedido.cdsPedido_Item_TipoQTD.AsFloat)));
     fDMCadPedido.cdsPedido_Item_TipoID.AsInteger   := fDMCadPedido.cdsPedido_ItensID.AsInteger;
     fDMCadPedido.cdsPedido_Item_TipoITEM.AsInteger := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
     fDMCadPedido.cdsPedido_Item_Tipo.Post;
