@@ -29,7 +29,7 @@ object frmConsPedido: TfrmConsPedido
     Color = clSilver
     TabOrder = 0
     object Label1: TLabel
-      Left = 678
+      Left = 693
       Top = 10
       Width = 60
       Height = 13
@@ -101,7 +101,7 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'Vendedor:'
     end
     object Label11: TLabel
-      Left = 700
+      Left = 715
       Top = 73
       Width = 38
       Height = 13
@@ -109,7 +109,7 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'Mostrar:'
     end
     object Label12: TLabel
-      Left = 666
+      Left = 681
       Top = 31
       Width = 72
       Height = 13
@@ -117,7 +117,7 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'Pedido Interno:'
     end
     object Label16: TLabel
-      Left = 651
+      Left = 666
       Top = 52
       Width = 87
       Height = 13
@@ -125,7 +125,7 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'N'#186' Ord. Produ'#231#227'o:'
     end
     object Label17: TLabel
-      Left = 831
+      Left = 846
       Top = 23
       Width = 133
       Height = 39
@@ -140,7 +140,7 @@ object frmConsPedido: TfrmConsPedido
       ParentFont = False
     end
     object Label18: TLabel
-      Left = 665
+      Left = 680
       Top = 94
       Width = 73
       Height = 13
@@ -148,7 +148,7 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'Imprimir Cliente:'
     end
     object Label32: TLabel
-      Left = 519
+      Left = 545
       Top = 115
       Width = 33
       Height = 13
@@ -156,7 +156,7 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'N'#186' OS:'
     end
     object Label34: TLabel
-      Left = 678
+      Left = 693
       Top = 115
       Width = 60
       Height = 13
@@ -172,15 +172,22 @@ object frmConsPedido: TfrmConsPedido
       Caption = 'Vendedor Interno:'
     end
     object Label36: TLabel
-      Left = 657
+      Left = 672
       Top = 136
       Width = 82
       Height = 13
       Alignment = taRightJustify
       Caption = 'Grupo de Cliente:'
     end
+    object Label37: TLabel
+      Left = 520
+      Top = 134
+      Width = 58
+      Height = 13
+      Caption = 'Tran'#231'/Tear:'
+    end
     object Edit1: TEdit
-      Left = 739
+      Left = 754
       Top = 2
       Width = 175
       Height = 21
@@ -338,7 +345,7 @@ object frmConsPedido: TfrmConsPedido
       OnClick = RadioGroup2Click
     end
     object ComboBox2: TComboBox
-      Left = 739
+      Left = 754
       Top = 65
       Width = 175
       Height = 21
@@ -353,7 +360,7 @@ object frmConsPedido: TfrmConsPedido
         'Mostrar Todos')
     end
     object CurrencyEdit1: TCurrencyEdit
-      Left = 739
+      Left = 754
       Top = 23
       Width = 86
       Height = 21
@@ -363,7 +370,7 @@ object frmConsPedido: TfrmConsPedido
       TabOrder = 14
     end
     object CurrencyEdit2: TCurrencyEdit
-      Left = 739
+      Left = 754
       Top = 44
       Width = 86
       Height = 21
@@ -373,7 +380,7 @@ object frmConsPedido: TfrmConsPedido
       TabOrder = 15
     end
     object cbImpCliente: TComboBox
-      Left = 739
+      Left = 754
       Top = 86
       Width = 175
       Height = 21
@@ -396,9 +403,9 @@ object frmConsPedido: TfrmConsPedido
       OnClick = ckAprovadoClick
     end
     object Edit2: TEdit
-      Left = 553
+      Left = 578
       Top = 107
-      Width = 96
+      Width = 86
       Height = 21
       Ctl3D = True
       ParentCtl3D = False
@@ -422,7 +429,7 @@ object frmConsPedido: TfrmConsPedido
       TabOrder = 21
     end
     object ComboBox4: TComboBox
-      Left = 739
+      Left = 754
       Top = 107
       Width = 175
       Height = 21
@@ -451,9 +458,9 @@ object frmConsPedido: TfrmConsPedido
       OnEnter = RxDBLookupCombo5Enter
     end
     object RxDBLookupCombo7: TRxDBLookupCombo
-      Left = 739
+      Left = 754
       Top = 128
-      Width = 259
+      Width = 176
       Height = 21
       DropDownCount = 8
       Ctl3D = True
@@ -464,6 +471,21 @@ object frmConsPedido: TfrmConsPedido
       TabOrder = 19
       OnEnter = RxDBLookupCombo2Enter
       OnKeyDown = RxDBLookupCombo2KeyDown
+    end
+    object ComboBox5: TComboBox
+      Left = 578
+      Top = 128
+      Width = 86
+      Height = 21
+      Style = csDropDownList
+      ItemHeight = 13
+      ItemIndex = 0
+      TabOrder = 22
+      Text = 'Ambos'
+      Items.Strings = (
+        'Ambos'
+        'Tran'#231'adeira'
+        'Tear')
     end
   end
   object RzPageControl1: TRzPageControl
@@ -4944,7 +4966,7 @@ object frmConsPedido: TfrmConsPedido
     end
     object DateEdit5: TDateEdit
       Left = 231
-      Top = -1
+      Top = 0
       Width = 100
       Height = 21
       Ctl3D = True

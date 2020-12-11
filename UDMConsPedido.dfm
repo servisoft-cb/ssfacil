@@ -1035,8 +1035,8 @@ object DMConsPedido: TDMConsPedido
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 39
-    Top = 345
+    Left = 37
+    Top = 343
     object sdsBaixa_PedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -1182,7 +1182,7 @@ object DMConsPedido: TDMConsPedido
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 40
-    Top = 399
+    Top = 398
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido

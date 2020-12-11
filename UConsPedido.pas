@@ -131,6 +131,8 @@ type
     NxSplitter1: TNxSplitter;
     TS_PedidoDtEntrega: TRzTabSheet;
     SMDBGrid13: TSMDBGrid;
+    ComboBox5: TComboBox;
+    Label37: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -331,7 +333,12 @@ begin
     if trim(RxDBLookupCombo7.Text) <> '' then
       vComando := vComando + ' AND CLI.ID_GRUPO = ' + IntToStr(RxDBLookupCombo7.KeyValue);
 
+    case ComboBox5.ItemIndex of
+      1 : vComando := vComando + ' AND PRO.TIPO_PRODUCAO = ' + QuotedStr('T');
+      2 : vComando := vComando + ' AND PRO.TIPO_PRODUCAO = ' + QuotedStr('E');
+    end;
   end;
+
   fDMConsPedido.sdsPedido_Item.CommandText := fDMConsPedido.sdsPedido_Item.CommandText + vComando;
   fDMConsPedido.cdsPedido_Item.Open;
 //  fDMConsPedido.cdsPedido_Item.IndexFieldNames := 'PEDIDO_CLIENTE;DTEMISSAO';
@@ -457,6 +464,8 @@ begin
   ComboBox4.Visible := (fDMConsPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S');
   Label35.Visible          := (fDMConsPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S');
   RxDBLookupCombo6.Visible := (fDMConsPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString = 'S');
+  Label37.Visible          := (fDMConsPedido.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
+  ComboBox5.Visible        := (fDMConsPedido.qParametros_LoteLOTE_TEXTIL.AsString = 'S');
 end;
 
 procedure TfrmConsPedido.SMDBGrid1TitleClick(Column: TColumn);
@@ -691,6 +700,10 @@ begin
       2: vComando := vComando + ' AND V.QTD_CANCELADO > 0 ';
       4: vComando := vComando + ' AND V.QTD_FUT > 0 ';
     end;
+    case ComboBox5.ItemIndex of
+      1 : vComando := vComando + ' AND V.TIPO_PRODUCAO = ' + QuotedStr('T');
+      2 : vComando := vComando + ' AND V.TIPO_PRODUCAO = ' + QuotedStr('E');
+    end;
   end;
   fDMConsPedido.sdsPedido.CommandText := vComando + '  ' + vComandoAux;
   fDMConsPedido.cdsPedido.Open;
@@ -896,6 +909,10 @@ begin
       2: vComando := vComando + ' AND V.QTD_CANCELADO > 0 ';
       4: vComando := vComando + ' AND V.QTD_FUT > 0 ';
     end;
+    case ComboBox5.ItemIndex of
+      1 : vComando := vComando + ' AND V.TIPO_PRODUCAO = ' + QuotedStr('T');
+      2 : vComando := vComando + ' AND V.TIPO_PRODUCAO = ' + QuotedStr('E');
+    end;
   end;
 end;
 
@@ -1040,6 +1057,10 @@ begin
     vOpcaoAux := vOpcaoAux + '(Exp.Fin: ' + DateEdit8.Text + ')';
   if RxDBLookupCombo5.Text <> '' then
     vOpcaoAux := vOpcaoAux + '(Vendedor: ' + RxDBLookupCombo5.Text + ')';
+  case ComboBox5.ItemIndex of
+    1: vOpcaoAux := vOpcaoAux + ' (' + ComboBox5.Text + ') ';
+    2: vOpcaoAux := vOpcaoAux + ' (' + ComboBox5.Text + ') ';
+  end;
   case ComboBox2.ItemIndex of
     0: vOpcaoAux := vOpcaoAux + '(Somente Ped. Estoque)';
   end;
@@ -1803,6 +1824,10 @@ begin
       1: vComando := vComando + ' AND V.QTD_FATURADO > 0 ';
       2: vComando := vComando + ' AND V.QTD_CANCELADO > 0 ';
       4: vComando := vComando + ' AND V.QTD_FUT > 0 ';
+    end;
+    case ComboBox5.ItemIndex of
+      1 : vComando := vComando + ' AND V.TIPO_PRODUCAO = ' + QuotedStr('T');
+      2 : vComando := vComando + ' AND V.TIPO_PRODUCAO = ' + QuotedStr('E');
     end;
   end;
   fDMConsPedido.sdsPedido_GPessoa.CommandText := vComando + '  ' + vComandoAux;
