@@ -616,6 +616,7 @@ var
 
     vMSG := '   Ola, ' + vNomeCliAux + #13 + #13
             + '  Se você está recebendo esse email, é porque o seu pedido Nº ' + qPedido2PEDIDO_CLIENTE.AsString
+            + ' (Ped.Interno: ' + qPedido2NUM_PEDIDO.AsString + ')'
             + '  já está disponível pra coleta. ' +#13
             + '  Se tiver qualquer dúvida, liga pra gente 51 3594 1465.' + #13 + #13 + #13
             + ' Não precisa responder esse email. '
@@ -751,7 +752,7 @@ var
       api.User := qFilial_SMSLOGIN.AsString;
       api.Password := qFilial_SMSSENHA.Text;
       //ShowMessage( api.sendSms(de_sms.Text, para_sms.Text, sms.Text) );
-      vMSG := 'JW Laser informa que seu pedido ' + qPedido2PEDIDO_CLIENTE.AsString + ' ja esta diponivel para coleta ';
+      vMSG := 'JW Laser informa que seu pedido ' + qPedido2PEDIDO_CLIENTE.AsString + ' (Ped.Int: ' + qPedido2NUM_PEDIDO.AsString + ') ja esta diponivel para coleta ';
       //ShowMessage( api.sendSms(qFilial_SMSFONE_ORIGEM.AsString, qPedido2DDD.AsString + qPedido2FONE.AsString, vMSG) );
       ShowMessage( api.sendSms(qFilial_SMSFONE_ORIGEM.AsString, qPedido2DDD.AsString + vFone, vMSG) );
       Result := 'S';

@@ -121,6 +121,7 @@ type
     cdsFilialNOME: TStringField;
     cdsConsItensOBS_REDUZIDA: TStringField;
     cdsConsPedidoFATURADO: TStringField;
+    cdsConsItensCAMINHO_ARQUIVO_PDF: TStringField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

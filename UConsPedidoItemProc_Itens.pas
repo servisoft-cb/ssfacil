@@ -18,10 +18,13 @@ type
     Label30: TLabel;
     ShapeConf: TShape;
     Label68: TLabel;
+    Label1: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
       AFont: TFont; var Background: TColor; Highlight: Boolean);
+    procedure KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
 
@@ -39,7 +42,7 @@ var
 
 implementation
 
-uses rsDBUtils, DmdDatabase;
+uses rsDBUtils, DmdDatabase, uMostraPDF;
 
 {$R *.dfm}
 
@@ -123,6 +126,27 @@ begin
     if Field.AsInteger < 1 then
       AFont.Color := clWindow;
   end;
+end;
+
+procedure TfrmConsPedidoItemProc_Itens.KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+var
+  vCaminhoPDF: String;
+begin
+  //ctrl + P (Imprimir PDF)
+  if (Shift = [ssCtrl]) and (Key = 80) then
+  begin
+    frmMostraPDF := TfrmMostraPDF.Create(Self);
+    try
+      vCaminhoPDF := fDMConsPedidoProc.cdsConsItensCAMINHO_ARQUIVO_PDF.AsString;
+      frmMostraPDF.vCaminhoPDF := vCaminhoPDF;
+      frmMostraPDF.edtCaminhoPDF.Text := vCaminhoPDF;
+      frmMostraPDF.ShowModal;
+    finally
+      FreeAndNil(frmMostraPDF);
+    end;
+  end;
+
 end;
 
 end.

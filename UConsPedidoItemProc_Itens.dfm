@@ -1,18 +1,20 @@
 object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
-  Left = 149
-  Top = 141
+  Left = 44
+  Top = 115
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmConsPedidoItemProc_Itens'
-  ClientHeight = 469
-  ClientWidth = 1061
+  ClientHeight = 495
+  ClientWidth = 1259
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  Position = poScreenCenter
   OnClose = FormClose
   OnShow = FormShow
   PixelsPerInch = 96
@@ -20,7 +22,7 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
   object NxPanel1: TNxPanel
     Left = 0
     Top = 0
-    Width = 1061
+    Width = 1259
     Height = 32
     Align = alTop
     UseDockManager = False
@@ -68,6 +70,20 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
       ParentFont = False
       Transparent = True
     end
+    object Label1: TLabel
+      Left = 754
+      Top = 10
+      Width = 189
+      Height = 16
+      Caption = 'CTRL P pra imprimir o Desenho'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clMaroon
+      Font.Height = -13
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      Transparent = True
+    end
     object NxButton1: TNxButton
       Left = 19
       Top = 5
@@ -79,8 +95,8 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
   object AdvPanel1: TAdvPanel
     Left = 0
     Top = 32
-    Width = 1061
-    Height = 437
+    Width = 1259
+    Height = 463
     Align = alClient
     BevelWidth = 10
     Font.Charset = DEFAULT_CHARSET
@@ -109,8 +125,8 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
     object SMDBGrid2: TSMDBGrid
       Left = 10
       Top = 10
-      Width = 1041
-      Height = 417
+      Width = 1239
+      Height = 443
       Align = alClient
       Ctl3D = False
       DataSource = DMConsPedidoProc.dsConsItens
@@ -123,6 +139,7 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnKeyDown = KeyDown
       Flat = True
       BandsFont.Charset = DEFAULT_CHARSET
       BandsFont.Color = clWindowText
@@ -232,7 +249,7 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
           Title.Alignment = taCenter
           Title.Caption = 'Item'
           Title.Color = 8454016
-          Width = 32
+          Width = 35
           Visible = True
         end
         item
@@ -259,7 +276,7 @@ object frmConsPedidoItemProc_Itens: TfrmConsPedidoItemProc_Itens
           Title.Alignment = taCenter
           Title.Caption = 'Nome Produto'
           Title.Color = 8454016
-          Width = 401
+          Width = 336
           Visible = True
         end
         item

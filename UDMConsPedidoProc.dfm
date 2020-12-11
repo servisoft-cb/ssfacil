@@ -415,114 +415,115 @@ object DMConsPedidoProc: TDMConsPedidoProc
       'UTO, TIP.COMPLEMENTO_NOME, IT.QTD, IT.QTD_RESTANTE,'#13#10'       IT.Q' +
       'TD_FATURADO, TIP.COMPRIMENTO, TIP.LARGURA, TIP.ALTURA, TIP.VLR_K' +
       'G, TIP.ESPESSURA, TIP.TIPO_MAT, TIP.ID_CHAPA,'#13#10'       TIP.VLR_DO' +
-      'BRA, IT.OBS_REDUZIDA,'#13#10'cast((select'#13#10'                           ' +
-      '        case'#13#10'                                     when IPROC.DT' +
-      'ENTRADA is not null and IPROC.DTBAIXA is not null then 2'#13#10'      ' +
-      '                               when IPROC.DTENTRADA is not null ' +
-      'and IPROC.DTBAIXA is null then 1'#13#10'                              ' +
-      '       when IPROC.DTENTRADA is null and IPROC.DTBAIXA is null an' +
-      'd IPROC.ID > 0 then 0'#13#10'                                     else' +
-      ' null'#13#10'                                   end STATUS'#13#10'          ' +
-      '                  from PEDIDO_ITEM_PROCESSO IPROC'#13#10'             ' +
-      '               inner join PROCESSO PP on IPROC.ID_PROCESSO = PP.' +
-      'ID'#13#10'                            where IPROC.ID = IT.ID and'#13#10'    ' +
-      '                              PP.ORDEM_MAPA = 1 and'#13#10'           ' +
-      '                       IPROC.ITEM = IT.ITEM) as integer) PROCESS' +
-      'O_01,'#13#10#13#10'       cast((select'#13#10'                    case'#13#10'        ' +
-      '              when IPROC.DTENTRADA is not null and IPROC.DTBAIXA' +
-      ' is not null then 2'#13#10'                      when IPROC.DTENTRADA ' +
-      'is not null and IPROC.DTBAIXA is null then 1'#13#10'                  ' +
-      '    when IPROC.DTENTRADA is null and IPROC.DTBAIXA is null and I' +
-      'PROC.ID > 0 then 0'#13#10'                      else null'#13#10'           ' +
-      '         end STATUS'#13#10'             from PEDIDO_ITEM_PROCESSO IPRO' +
-      'C'#13#10'             inner join PROCESSO PP on IPROC.ID_PROCESSO = PP' +
-      '.ID'#13#10'             where IPROC.ID = IT.ID and'#13#10'                  ' +
-      ' PP.ORDEM_MAPA = 2 and'#13#10'                   IPROC.ITEM = IT.ITEM)' +
-      ' as integer) PROCESSO_02,'#13#10#13#10'       cast((select'#13#10'              ' +
-      '      case'#13#10'                      when IPROC.DTENTRADA is not nu' +
-      'll and IPROC.DTBAIXA is not null then 2'#13#10'                      w' +
-      'hen IPROC.DTENTRADA is not null and IPROC.DTBAIXA is null then 1' +
-      #13#10'                      when IPROC.DTENTRADA is null and IPROC.D' +
-      'TBAIXA is null and IPROC.ID > 0 then 0'#13#10'                      el' +
-      'se null'#13#10'                    end STATUS'#13#10'             from PEDID' +
-      'O_ITEM_PROCESSO IPROC'#13#10'             inner join PROCESSO PP on IP' +
-      'ROC.ID_PROCESSO = PP.ID'#13#10'             where IPROC.ID = IT.ID and' +
-      #13#10'                   PP.ORDEM_MAPA = 3 and'#13#10'                   I' +
-      'PROC.ITEM = IT.ITEM) as integer) PROCESSO_03,'#13#10#13#10'       cast((se' +
-      'lect'#13#10'                    case'#13#10'                      when IPROC' +
-      '.DTENTRADA is not null and IPROC.DTBAIXA is not null then 2'#13#10'   ' +
-      '                   when IPROC.DTENTRADA is not null and IPROC.DT' +
-      'BAIXA is null then 1'#13#10'                      when IPROC.DTENTRADA' +
-      ' is null and IPROC.DTBAIXA is null and IPROC.ID > 0 then 0'#13#10'    ' +
-      '                  else null'#13#10'                    end STATUS'#13#10'   ' +
-      '          from PEDIDO_ITEM_PROCESSO IPROC'#13#10'             inner jo' +
-      'in PROCESSO PP on IPROC.ID_PROCESSO = PP.ID'#13#10'             where ' +
-      'IPROC.ID = IT.ID and'#13#10'                   PP.ORDEM_MAPA = 4 and'#13#10 +
-      '                   IPROC.ITEM = IT.ITEM) as integer) PROCESSO_04' +
-      ','#13#10#13#10'       cast((select'#13#10'                    case'#13#10'            ' +
-      '          when IPROC.DTENTRADA is not null and IPROC.DTBAIXA is ' +
-      'not null then 2'#13#10'                      when IPROC.DTENTRADA is n' +
-      'ot null and IPROC.DTBAIXA is null then 1'#13#10'                      ' +
-      'when IPROC.DTENTRADA is null and IPROC.DTBAIXA is null and IPROC' +
-      '.ID > 0 then 0'#13#10'                      else null'#13#10'               ' +
-      '     end STATUS'#13#10'             from PEDIDO_ITEM_PROCESSO IPROC'#13#10' ' +
-      '            inner join PROCESSO PP on IPROC.ID_PROCESSO = PP.ID'#13 +
-      #10'             where IPROC.ID = IT.ID and'#13#10'                   PP.' +
-      'ORDEM_MAPA = 5 and'#13#10'                   IPROC.ITEM = IT.ITEM) as ' +
-      'integer) PROCESSO_05,'#13#10#13#10'       cast((select'#13#10'                  ' +
-      '  case'#13#10'                      when IPROC.DTENTRADA is not null a' +
-      'nd IPROC.DTBAIXA is not null then 2'#13#10'                      when ' +
-      'IPROC.DTENTRADA is not null and IPROC.DTBAIXA is null then 1'#13#10'  ' +
-      '                    when IPROC.DTENTRADA is null and IPROC.DTBAI' +
-      'XA is null and IPROC.ID > 0 then 0'#13#10'                      else n' +
-      'ull'#13#10'                    end STATUS'#13#10'             from PEDIDO_IT' +
-      'EM_PROCESSO IPROC'#13#10'             inner join PROCESSO PP on IPROC.' +
-      'ID_PROCESSO = PP.ID'#13#10'             where IPROC.ID = IT.ID and'#13#10'  ' +
-      '                 PP.ORDEM_MAPA = 6 and'#13#10'                   IPROC' +
-      '.ITEM = IT.ITEM) as integer) PROCESSO_06,'#13#10#13#10'       cast((select' +
-      #13#10'                    case'#13#10'                      when IPROC.DTE' +
-      'NTRADA is not null and IPROC.DTBAIXA is not null then 2'#13#10'       ' +
+      'BRA, IT.OBS_REDUZIDA, TIP.CAMINHO_ARQUIVO_PDF,'#13#10'cast((select'#13#10'  ' +
+      '                                 case'#13#10'                         ' +
+      '            when IPROC.DTENTRADA is not null and IPROC.DTBAIXA i' +
+      's not null then 2'#13#10'                                     when IPR' +
+      'OC.DTENTRADA is not null and IPROC.DTBAIXA is null then 1'#13#10'     ' +
+      '                                when IPROC.DTENTRADA is null and' +
+      ' IPROC.DTBAIXA is null and IPROC.ID > 0 then 0'#13#10'                ' +
+      '                     else null'#13#10'                                ' +
+      '   end STATUS'#13#10'                            from PEDIDO_ITEM_PROC' +
+      'ESSO IPROC'#13#10'                            inner join PROCESSO PP o' +
+      'n IPROC.ID_PROCESSO = PP.ID'#13#10'                            where I' +
+      'PROC.ID = IT.ID and'#13#10'                                  PP.ORDEM_' +
+      'MAPA = 1 and'#13#10'                                  IPROC.ITEM = IT.' +
+      'ITEM) as integer) PROCESSO_01,'#13#10#13#10'       cast((select'#13#10'         ' +
+      '           case'#13#10'                      when IPROC.DTENTRADA is n' +
+      'ot null and IPROC.DTBAIXA is not null then 2'#13#10'                  ' +
+      '    when IPROC.DTENTRADA is not null and IPROC.DTBAIXA is null t' +
+      'hen 1'#13#10'                      when IPROC.DTENTRADA is null and IP' +
+      'ROC.DTBAIXA is null and IPROC.ID > 0 then 0'#13#10'                   ' +
+      '   else null'#13#10'                    end STATUS'#13#10'             from ' +
+      'PEDIDO_ITEM_PROCESSO IPROC'#13#10'             inner join PROCESSO PP ' +
+      'on IPROC.ID_PROCESSO = PP.ID'#13#10'             where IPROC.ID = IT.I' +
+      'D and'#13#10'                   PP.ORDEM_MAPA = 2 and'#13#10'               ' +
+      '    IPROC.ITEM = IT.ITEM) as integer) PROCESSO_02,'#13#10#13#10'       cas' +
+      't((select'#13#10'                    case'#13#10'                      when ' +
+      'IPROC.DTENTRADA is not null and IPROC.DTBAIXA is not null then 2' +
+      #13#10'                      when IPROC.DTENTRADA is not null and IPR' +
+      'OC.DTBAIXA is null then 1'#13#10'                      when IPROC.DTEN' +
+      'TRADA is null and IPROC.DTBAIXA is null and IPROC.ID > 0 then 0'#13 +
+      #10'                      else null'#13#10'                    end STATUS' +
+      #13#10'             from PEDIDO_ITEM_PROCESSO IPROC'#13#10'             inn' +
+      'er join PROCESSO PP on IPROC.ID_PROCESSO = PP.ID'#13#10'             w' +
+      'here IPROC.ID = IT.ID and'#13#10'                   PP.ORDEM_MAPA = 3 ' +
+      'and'#13#10'                   IPROC.ITEM = IT.ITEM) as integer) PROCES' +
+      'SO_03,'#13#10#13#10'       cast((select'#13#10'                    case'#13#10'       ' +
       '               when IPROC.DTENTRADA is not null and IPROC.DTBAIX' +
-      'A is null then 1'#13#10'                      when IPROC.DTENTRADA is ' +
-      'null and IPROC.DTBAIXA is null and IPROC.ID > 0 then 0'#13#10'        ' +
-      '              else null'#13#10'                    end STATUS'#13#10'       ' +
-      '      from PEDIDO_ITEM_PROCESSO IPROC'#13#10'             inner join P' +
-      'ROCESSO PP on IPROC.ID_PROCESSO = PP.ID'#13#10'             where IPRO' +
-      'C.ID = IT.ID and'#13#10'                   PP.ORDEM_MAPA = 7 and'#13#10'    ' +
-      '               IPROC.ITEM = IT.ITEM) as integer) PROCESSO_07,'#13#10#13 +
-      #10'       cast((select'#13#10'                    case'#13#10'                ' +
-      '      when IPROC.DTENTRADA is not null and IPROC.DTBAIXA is not ' +
-      'null then 2'#13#10'                      when IPROC.DTENTRADA is not n' +
-      'ull and IPROC.DTBAIXA is null then 1'#13#10'                      when' +
-      ' IPROC.DTENTRADA is null and IPROC.DTBAIXA is null and IPROC.ID ' +
-      '> 0 then 0'#13#10'                      else null'#13#10'                   ' +
-      ' end STATUS'#13#10'             from PEDIDO_ITEM_PROCESSO IPROC'#13#10'     ' +
-      '        inner join PROCESSO PP on IPROC.ID_PROCESSO = PP.ID'#13#10'   ' +
-      '          where IPROC.ID = IT.ID and'#13#10'                   PP.ORDE' +
-      'M_MAPA = 8 and'#13#10'                   IPROC.ITEM = IT.ITEM) as inte' +
-      'ger) PROCESSO_08,'#13#10#13#10'       cast((select'#13#10'                    ca' +
-      'se'#13#10'                      when IPROC.DTENTRADA is not null and I' +
-      'PROC.DTBAIXA is not null then 2'#13#10'                      when IPRO' +
-      'C.DTENTRADA is not null and IPROC.DTBAIXA is null then 1'#13#10'      ' +
-      '                when IPROC.DTENTRADA is null and IPROC.DTBAIXA i' +
-      's null and IPROC.ID > 0 then 0'#13#10'                      else null'#13 +
-      #10'                    end STATUS'#13#10'             from PEDIDO_ITEM_P' +
-      'ROCESSO IPROC'#13#10'             inner join PROCESSO PP on IPROC.ID_P' +
-      'ROCESSO = PP.ID'#13#10'             where IPROC.ID = IT.ID and'#13#10'      ' +
-      '             PP.ORDEM_MAPA = 9 and'#13#10'                   IPROC.ITE' +
-      'M = IT.ITEM) as integer) PROCESSO_09,'#13#10#13#10'       cast((select'#13#10'  ' +
-      '                  case'#13#10'                      when IPROC.DTENTRA' +
-      'DA is not null and IPROC.DTBAIXA is not null then 2'#13#10'           ' +
+      'A is not null then 2'#13#10'                      when IPROC.DTENTRADA' +
+      ' is not null and IPROC.DTBAIXA is null then 1'#13#10'                 ' +
+      '     when IPROC.DTENTRADA is null and IPROC.DTBAIXA is null and ' +
+      'IPROC.ID > 0 then 0'#13#10'                      else null'#13#10'          ' +
+      '          end STATUS'#13#10'             from PEDIDO_ITEM_PROCESSO IPR' +
+      'OC'#13#10'             inner join PROCESSO PP on IPROC.ID_PROCESSO = P' +
+      'P.ID'#13#10'             where IPROC.ID = IT.ID and'#13#10'                 ' +
+      '  PP.ORDEM_MAPA = 4 and'#13#10'                   IPROC.ITEM = IT.ITEM' +
+      ') as integer) PROCESSO_04,'#13#10#13#10'       cast((select'#13#10'             ' +
+      '       case'#13#10'                      when IPROC.DTENTRADA is not n' +
+      'ull and IPROC.DTBAIXA is not null then 2'#13#10'                      ' +
+      'when IPROC.DTENTRADA is not null and IPROC.DTBAIXA is null then ' +
+      '1'#13#10'                      when IPROC.DTENTRADA is null and IPROC.' +
+      'DTBAIXA is null and IPROC.ID > 0 then 0'#13#10'                      e' +
+      'lse null'#13#10'                    end STATUS'#13#10'             from PEDI' +
+      'DO_ITEM_PROCESSO IPROC'#13#10'             inner join PROCESSO PP on I' +
+      'PROC.ID_PROCESSO = PP.ID'#13#10'             where IPROC.ID = IT.ID an' +
+      'd'#13#10'                   PP.ORDEM_MAPA = 5 and'#13#10'                   ' +
+      'IPROC.ITEM = IT.ITEM) as integer) PROCESSO_05,'#13#10#13#10'       cast((s' +
+      'elect'#13#10'                    case'#13#10'                      when IPRO' +
+      'C.DTENTRADA is not null and IPROC.DTBAIXA is not null then 2'#13#10'  ' +
+      '                    when IPROC.DTENTRADA is not null and IPROC.D' +
+      'TBAIXA is null then 1'#13#10'                      when IPROC.DTENTRAD' +
+      'A is null and IPROC.DTBAIXA is null and IPROC.ID > 0 then 0'#13#10'   ' +
+      '                   else null'#13#10'                    end STATUS'#13#10'  ' +
+      '           from PEDIDO_ITEM_PROCESSO IPROC'#13#10'             inner j' +
+      'oin PROCESSO PP on IPROC.ID_PROCESSO = PP.ID'#13#10'             where' +
+      ' IPROC.ID = IT.ID and'#13#10'                   PP.ORDEM_MAPA = 6 and'#13 +
+      #10'                   IPROC.ITEM = IT.ITEM) as integer) PROCESSO_0' +
+      '6,'#13#10#13#10'       cast((select'#13#10'                    case'#13#10'           ' +
       '           when IPROC.DTENTRADA is not null and IPROC.DTBAIXA is' +
-      ' null then 1'#13#10'                      when IPROC.DTENTRADA is null' +
-      ' and IPROC.DTBAIXA is null and IPROC.ID > 0 then 0'#13#10'            ' +
-      '          else null'#13#10'                    end STATUS'#13#10'           ' +
-      '  from PEDIDO_ITEM_PROCESSO IPROC'#13#10'             inner join PROCE' +
-      'SSO PP on IPROC.ID_PROCESSO = PP.ID'#13#10'             where IPROC.ID' +
-      ' = IT.ID and'#13#10'                   PP.ORDEM_MAPA = 10 and'#13#10'       ' +
-      '            IPROC.ITEM = IT.ITEM) as integer) PROCESSO_10'#13#10#13#10'fro' +
-      'm PEDIDO_ITEM IT'#13#10'left join PEDIDO_ITEM_TIPO TIP on IT.ID = TIP.' +
-      'ID and IT.ITEM = TIP.ITEM'#13#10'where IT.ID = :ID   '#13#10
+      ' not null then 2'#13#10'                      when IPROC.DTENTRADA is ' +
+      'not null and IPROC.DTBAIXA is null then 1'#13#10'                     ' +
+      ' when IPROC.DTENTRADA is null and IPROC.DTBAIXA is null and IPRO' +
+      'C.ID > 0 then 0'#13#10'                      else null'#13#10'              ' +
+      '      end STATUS'#13#10'             from PEDIDO_ITEM_PROCESSO IPROC'#13#10 +
+      '             inner join PROCESSO PP on IPROC.ID_PROCESSO = PP.ID' +
+      #13#10'             where IPROC.ID = IT.ID and'#13#10'                   PP' +
+      '.ORDEM_MAPA = 7 and'#13#10'                   IPROC.ITEM = IT.ITEM) as' +
+      ' integer) PROCESSO_07,'#13#10#13#10'       cast((select'#13#10'                 ' +
+      '   case'#13#10'                      when IPROC.DTENTRADA is not null ' +
+      'and IPROC.DTBAIXA is not null then 2'#13#10'                      when' +
+      ' IPROC.DTENTRADA is not null and IPROC.DTBAIXA is null then 1'#13#10' ' +
+      '                     when IPROC.DTENTRADA is null and IPROC.DTBA' +
+      'IXA is null and IPROC.ID > 0 then 0'#13#10'                      else ' +
+      'null'#13#10'                    end STATUS'#13#10'             from PEDIDO_I' +
+      'TEM_PROCESSO IPROC'#13#10'             inner join PROCESSO PP on IPROC' +
+      '.ID_PROCESSO = PP.ID'#13#10'             where IPROC.ID = IT.ID and'#13#10' ' +
+      '                  PP.ORDEM_MAPA = 8 and'#13#10'                   IPRO' +
+      'C.ITEM = IT.ITEM) as integer) PROCESSO_08,'#13#10#13#10'       cast((selec' +
+      't'#13#10'                    case'#13#10'                      when IPROC.DT' +
+      'ENTRADA is not null and IPROC.DTBAIXA is not null then 2'#13#10'      ' +
+      '                when IPROC.DTENTRADA is not null and IPROC.DTBAI' +
+      'XA is null then 1'#13#10'                      when IPROC.DTENTRADA is' +
+      ' null and IPROC.DTBAIXA is null and IPROC.ID > 0 then 0'#13#10'       ' +
+      '               else null'#13#10'                    end STATUS'#13#10'      ' +
+      '       from PEDIDO_ITEM_PROCESSO IPROC'#13#10'             inner join ' +
+      'PROCESSO PP on IPROC.ID_PROCESSO = PP.ID'#13#10'             where IPR' +
+      'OC.ID = IT.ID and'#13#10'                   PP.ORDEM_MAPA = 9 and'#13#10'   ' +
+      '                IPROC.ITEM = IT.ITEM) as integer) PROCESSO_09,'#13#10 +
+      #13#10'       cast((select'#13#10'                    case'#13#10'               ' +
+      '       when IPROC.DTENTRADA is not null and IPROC.DTBAIXA is not' +
+      ' null then 2'#13#10'                      when IPROC.DTENTRADA is not ' +
+      'null and IPROC.DTBAIXA is null then 1'#13#10'                      whe' +
+      'n IPROC.DTENTRADA is null and IPROC.DTBAIXA is null and IPROC.ID' +
+      ' > 0 then 0'#13#10'                      else null'#13#10'                  ' +
+      '  end STATUS'#13#10'             from PEDIDO_ITEM_PROCESSO IPROC'#13#10'    ' +
+      '         inner join PROCESSO PP on IPROC.ID_PROCESSO = PP.ID'#13#10'  ' +
+      '           where IPROC.ID = IT.ID and'#13#10'                   PP.ORD' +
+      'EM_MAPA = 10 and'#13#10'                   IPROC.ITEM = IT.ITEM) as in' +
+      'teger) PROCESSO_10'#13#10#13#10'from PEDIDO_ITEM IT'#13#10'left join PEDIDO_ITEM' +
+      '_TIPO TIP on IT.ID = TIP.ID and IT.ITEM = TIP.ITEM'#13#10'where IT.ID ' +
+      '= :ID   '#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -635,6 +636,10 @@ object DMConsPedidoProc: TDMConsPedidoProc
     object cdsConsItensOBS_REDUZIDA: TStringField
       FieldName = 'OBS_REDUZIDA'
       Size = 250
+    end
+    object cdsConsItensCAMINHO_ARQUIVO_PDF: TStringField
+      FieldName = 'CAMINHO_ARQUIVO_PDF'
+      Size = 150
     end
   end
   object dsConsItens: TDataSource
