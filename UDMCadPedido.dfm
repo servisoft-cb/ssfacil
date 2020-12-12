@@ -437,6 +437,9 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object sdsPedidoTOTAL_PESO_TIPO: TFloatField
+      FieldName = 'TOTAL_PESO_TIPO'
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -454,7 +457,7 @@ object DMCadPedido: TDMCadPedido
     BeforePost = cdsPedidoBeforePost
     OnNewRecord = cdsPedidoNewRecord
     Left = 69
-    Top = 5
+    Top = 6
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -924,6 +927,9 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'REORDEM'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedidoTOTAL_PESO_TIPO: TFloatField
+      FieldName = 'TOTAL_PESO_TIPO'
     end
   end
   object dsPedido: TDataSource
@@ -12327,8 +12333,8 @@ object DMCadPedido: TDMCadPedido
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 591
-    Top = 422
+    Left = 592
+    Top = 423
   end
   object dspPerfil: TDataSetProvider
     DataSet = sdsPerfil

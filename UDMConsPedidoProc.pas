@@ -59,8 +59,8 @@ type
     cdsVendedorCODIGO: TIntegerField;
     cdsVendedorNOME: TStringField;
     cdsVendedorCNPJ_CPF: TStringField;
-    qPedido_Item_Proc: TSQLQuery;
-    qPedido_Item_ProcCONTADOR_PROC: TIntegerField;
+    qPedido_Item_ProcA: TSQLQuery;
+    qPedido_Item_ProcACONTADOR_PROC: TIntegerField;
     cdsConsPedidoPROCESSO_01: TIntegerField;
     cdsConsPedidoPROCESSO_02: TIntegerField;
     cdsConsPedidoPROCESSO_03: TIntegerField;

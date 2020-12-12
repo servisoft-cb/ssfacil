@@ -377,6 +377,8 @@ type
     Label88: TLabel;
     RomaneioParaExpedioNovo1: TMenuItem;
     Quantidadevarivel1: TMenuItem;
+    Label89: TLabel;
+    DBEdit20: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -1191,6 +1193,9 @@ begin
 
   prc_Abre_Filial_Menu(1,2);
   addLog('Fim Monta Menu','Tempo_Execucao.txt');
+
+  Label89.Visible  := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
+  DBEdit20.Visible := (fDMCadPedido.cdsParametrosEMPRESA_SUCATA.AsString = 'S');
 
   addLog('Finaliza','Tempo_Execucao.txt');
 end;

@@ -25,7 +25,7 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
     Top = 0
     Width = 747
     Height = 506
-    ActivePage = TS_Tubos
+    ActivePage = TS_Chapas
     ActivePageDefault = TS_Chapas
     Align = alClient
     BackgroundColor = 8404992
@@ -33,7 +33,7 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
     UseColoredTabs = True
     ParentBackgroundColor = False
     ShowShadow = False
-    TabIndex = 2
+    TabIndex = 0
     TabOrder = 0
     TextColors.DisabledShadow = clActiveCaption
     TextColors.Selected = 8404992
@@ -193,7 +193,7 @@ object frmCadPedido_TipoItem: TfrmCadPedido_TipoItem
       end
       object DBEdit4: TDBEdit
         Left = 112
-        Top = 70
+        Top = 71
         Width = 100
         Height = 21
         DataField = 'ESPESSURA'

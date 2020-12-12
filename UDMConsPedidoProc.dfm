@@ -22,7 +22,7 @@ object DMConsPedidoProc: TDMConsPedidoProc
       ' join PEDIDO_ITEM_TIPO PT on PC.ID = PT.ID and PC.ITEM = PT.ITEM' +
       #13#10'inner join PEDIDO P on PC.ID = P.ID'#13#10'inner join PROCESSO PR on' +
       ' PC.ID_PROCESSO = PR.ID'#13#10'left join PESSOA CLI on P.ID_CLIENTE = ' +
-      'CLI.CODIGO'#13#10
+      'CLI.CODIGO'#13#10'WHERE P.cancelado = '#39'N'#39#13#10'  AND I.cancelado = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -38,7 +38,7 @@ object DMConsPedidoProc: TDMConsPedidoProc
     Aggregates = <>
     Params = <>
     ProviderName = 'dspConsPedidoProc'
-    Left = 161
+    Left = 160
     Top = 49
     object cdsConsPedidoProcID: TIntegerField
       FieldName = 'ID'
@@ -139,79 +139,110 @@ object DMConsPedidoProc: TDMConsPedidoProc
       'SELECT PED.ID, PED.num_pedido, PED.dtemissao, PED.id_cliente,'#13#10'C' +
       'LI.NOME NOME_CLIENTE, PED.dtentrega, PED.faturado, '#13#10'PED.usuario' +
       ', PED.id_vendedor, VEND.NOME NOME_VENDEDOR,'#13#10'(select count(1) fr' +
-      'om pedido_item where id = ped.id) contador_itens,'#13#10'(select count' +
-      '(1) from pedido_item i2 where id = ped.id'#13#10'   and i2.status_prod' +
-      'ucao = '#39'1'#39') contador_iniciado,'#13#10'(select count(1) from pedido_ite' +
-      'm i2 where id = ped.id'#13#10'   and i2.status_producao = '#39'2'#39') contado' +
-      'r_encerrado,'#13#10#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESS' +
-      'O IPROC'#13#10'inner join processo pp on iproc.id_processo = pp.id'#13#10'wh' +
-      'ere IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 1) AS INTEGER) ' +
-      'PROCESSO_01,'#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO ' +
-      'IPROC'#13#10'inner join processo pp on iproc.id_processo = pp.id'#13#10'wher' +
-      'e IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 1'#13#10'      and ipro' +
-      'c.dtbaixa is not null) AS INTEGER) PROCESSO_01_A,'#13#10#13#10' cast((sele' +
-      'ct count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join process' +
-      'o pp on iproc.id_processo = pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10 +
-      '      pp.ordem_mapa = 2) AS INTEGER) PROCESSO_02,'#13#10' cast((select' +
-      ' count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join processo ' +
-      'pp on iproc.id_processo = pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10'  ' +
-      '    pp.ordem_mapa = 2'#13#10'      and iproc.dtbaixa is not null) AS I' +
-      'NTEGER) PROCESSO_02_A,'#13#10#13#10' cast((select count(1)'#13#10'from PEDIDO_IT' +
-      'EM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_processo =' +
-      ' pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 3) AS' +
-      ' INTEGER) PROCESSO_03,'#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM' +
-      '_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_processo = p' +
-      'p.id'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 3'#13#10'    ' +
-      '  and iproc.dtbaixa is not null) AS INTEGER) PROCESSO_03_A,'#13#10#13#10' ' +
-      'cast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner jo' +
-      'in processo pp on iproc.id_processo = pp.id'#13#10'where IPROC.ID = PE' +
-      'D.ID and'#13#10'      pp.ordem_mapa = 4) AS INTEGER) PROCESSO_04,'#13#10' ca' +
-      'st((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join' +
-      ' processo pp on iproc.id_processo = pp.id'#13#10'where IPROC.ID = PED.' +
-      'ID and'#13#10'      pp.ordem_mapa = 4'#13#10'      and iproc.dtbaixa is not ' +
-      'null) AS INTEGER) PROCESSO_04_A,'#13#10#13#10#13#10' cast((select count(1)'#13#10'fr' +
-      'om PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.i' +
-      'd_processo = pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_' +
-      'mapa = 5) AS INTEGER) PROCESSO_05,'#13#10' cast((select count(1)'#13#10'from' +
-      ' PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_' +
-      'processo = pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_ma' +
-      'pa = 5'#13#10'      and iproc.dtbaixa is not null) AS INTEGER) PROCESS' +
-      'O_05_A,'#13#10#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPR' +
-      'OC'#13#10'inner join processo pp on iproc.id_processo = pp.id'#13#10'where I' +
-      'PROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 6) AS INTEGER) PROCE' +
-      'SSO_06,'#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC' +
-      #13#10'inner join processo pp on iproc.id_processo = pp.id'#13#10'where IPR' +
-      'OC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 6'#13#10'      and iproc.dtb' +
-      'aixa is not null) AS INTEGER) PROCESSO_06_A,'#13#10#13#10' cast((select co' +
-      'unt(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp ' +
-      'on iproc.id_processo = pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10'     ' +
-      ' pp.ordem_mapa = 7) AS INTEGER) PROCESSO_07,'#13#10' cast((select coun' +
-      't(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp on' +
-      ' iproc.id_processo = pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10'      p' +
-      'p.ordem_mapa = 7'#13#10'      and iproc.dtbaixa is not null) AS INTEGE' +
-      'R) PROCESSO_07_A,'#13#10#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PR' +
-      'OCESSO IPROC'#13#10'inner join processo pp on iproc.id_processo = pp.i' +
-      'd'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 8) AS INTE' +
-      'GER) PROCESSO_08,'#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROC' +
+      'om pedido_item where id = ped.id and cancelado = '#39'N'#39')  contador_' +
+      'itens,'#13#10#13#10'(select count(1) from pedido_item i2 where id = ped.id' +
+      #13#10'   and i2.status_producao = '#39'1'#39' and cancelado = '#39'N'#39') contador_' +
+      'iniciado,'#13#10'(select count(1) from pedido_item i2 where id = ped.i' +
+      'd'#13#10'   and i2.status_producao = '#39'2'#39' and cancelado = '#39'N'#39') contador' +
+      '_encerrado,'#13#10#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO' +
+      ' IPROC'#13#10'inner join processo pp on iproc.id_processo = pp.id'#13#10'inn' +
+      'er join pedido_item i2 on iproc.id = i2.id and iproc.item = i2.i' +
+      'tem'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 1 and i2' +
+      '.cancelado = '#39'N'#39') AS INTEGER) PROCESSO_01,'#13#10' cast((select count(' +
+      '1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp on i' +
+      'proc.id_processo = pp.id'#13#10'inner join pedido_item i2 on iproc.id ' +
+      '= i2.id and iproc.item = i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10' ' +
+      '     pp.ordem_mapa = 1 and i2.cancelado = '#39'N'#39#13#10'      and iproc.d' +
+      'tbaixa is not null) AS INTEGER) PROCESSO_01_A,'#13#10#13#10' cast((select ' +
+      'count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join processo p' +
+      'p on iproc.id_processo = pp.id'#13#10'inner join pedido_item i2 on ipr' +
+      'oc.id = i2.id and iproc.item = i2.item'#13#10'where IPROC.ID = PED.ID ' +
+      'and'#13#10'      pp.ordem_mapa = 2 and i2.cancelado = '#39'N'#39') AS INTEGER)' +
+      ' PROCESSO_02,'#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO' +
+      ' IPROC'#13#10'inner join processo pp on iproc.id_processo = pp.id'#13#10'inn' +
+      'er join pedido_item i2 on iproc.id = i2.id and iproc.item = i2.i' +
+      'tem'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 2 and i2' +
+      '.cancelado = '#39'N'#39#13#10'      and iproc.dtbaixa is not null) AS INTEGE' +
+      'R)PROCESSO_02_A,'#13#10#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PRO' +
+      'CESSO IPROC'#13#10'inner join processo pp on iproc.id_processo = pp.id' +
+      #13#10'inner join pedido_item i2 on iproc.id = i2.id and iproc.item =' +
+      ' i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 3 a' +
+      'nd i2.cancelado = '#39'N'#39') AS INTEGER) PROCESSO_03,'#13#10' cast((select c' +
+      'ount(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp' +
+      ' on iproc.id_processo = pp.id'#13#10'inner join pedido_item i2 on ipro' +
+      'c.id = i2.id and iproc.item = i2.item'#13#10'where IPROC.ID = PED.ID a' +
+      'nd'#13#10'      pp.ordem_mapa = 3 and i2.cancelado = '#39'N'#39#13#10'      and ip' +
+      'roc.dtbaixa is not null) AS INTEGER)PROCESSO_03_A,'#13#10#13#10' cast((sel' +
+      'ect count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join proces' +
+      'so pp on iproc.id_processo = pp.id'#13#10'inner join pedido_item i2 on' +
+      ' iproc.id = i2.id and iproc.item = i2.item'#13#10'where IPROC.ID = PED' +
+      '.ID and'#13#10'      pp.ordem_mapa = 4 and i2.cancelado = '#39'N'#39') AS INTE' +
+      'GER) PROCESSO_04,'#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROC' +
       'ESSO IPROC'#13#10'inner join processo pp on iproc.id_processo = pp.id'#13 +
-      #10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 8'#13#10'      and' +
-      ' iproc.dtbaixa is not null) AS INTEGER) PROCESSO_08_A,'#13#10#13#10' cast(' +
+      #10'inner join pedido_item i2 on iproc.id = i2.id and iproc.item = ' +
+      'i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 4 an' +
+      'd i2.cancelado = '#39'N'#39#13#10'      and iproc.dtbaixa is not null) AS IN' +
+      'TEGER)PROCESSO_04_A,'#13#10#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM' +
+      '_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_processo = p' +
+      'p.id'#13#10'inner join pedido_item i2 on iproc.id = i2.id and iproc.it' +
+      'em = i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa =' +
+      ' 5 and i2.cancelado = '#39'N'#39') AS INTEGER) PROCESSO_05,'#13#10' cast((sele' +
+      'ct count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join process' +
+      'o pp on iproc.id_processo = pp.id'#13#10'inner join pedido_item i2 on ' +
+      'iproc.id = i2.id and iproc.item = i2.item'#13#10'where IPROC.ID = PED.' +
+      'ID and'#13#10'      pp.ordem_mapa = 5 and i2.cancelado = '#39'N'#39#13#10'      an' +
+      'd iproc.dtbaixa is not null) AS INTEGER)PROCESSO_05_A,'#13#10#13#10' cast(' +
       '(select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join pr' +
-      'ocesso pp on iproc.id_processo = pp.id'#13#10'where IPROC.ID = PED.ID ' +
-      'and'#13#10'      pp.ordem_mapa = 9) AS INTEGER) PROCESSO_09,'#13#10' cast((s' +
-      'elect count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join proc' +
-      'esso pp on iproc.id_processo = pp.id'#13#10'where IPROC.ID = PED.ID an' +
-      'd'#13#10'      pp.ordem_mapa = 9'#13#10'      and iproc.dtbaixa is not null)' +
-      ' AS INTEGER) PROCESSO_09_A,'#13#10#13#10' cast((select count(1)'#13#10'from PEDI' +
-      'DO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_proce' +
-      'sso = pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = ' +
-      '10) AS INTEGER) PROCESSO_10,'#13#10' cast((select count(1)'#13#10'from PEDID' +
-      'O_ITEM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_proces' +
-      'so = pp.id'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 9' +
-      #13#10'      and iproc.dtbaixa is not null) AS INTEGER) PROCESSO_10_A' +
-      #13#10#13#10'FROM pedido PED'#13#10'INNER JOIN PESSOA CLI'#13#10'ON PED.ID_CLIENTE = ' +
-      'CLI.CODIGO'#13#10'LEFT JOIN PESSOA VEND'#13#10'ON PED.id_vendedor = VEND.COD' +
-      'IGO'#13#10'WHERE ped.tipo_reg = '#39'P'#39#13#10
+      'ocesso pp on iproc.id_processo = pp.id'#13#10'inner join pedido_item i' +
+      '2 on iproc.id = i2.id and iproc.item = i2.item'#13#10'where IPROC.ID =' +
+      ' PED.ID and'#13#10'      pp.ordem_mapa = 6 and i2.cancelado = '#39'N'#39') AS ' +
+      'INTEGER) PROCESSO_06,'#13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_' +
+      'PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_processo = pp' +
+      '.id'#13#10'inner join pedido_item i2 on iproc.id = i2.id and iproc.ite' +
+      'm = i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = ' +
+      '6 and i2.cancelado = '#39'N'#39#13#10'      and iproc.dtbaixa is not null) A' +
+      'S INTEGER)PROCESSO_06_A,'#13#10#13#10' cast((select count(1)'#13#10'from PEDIDO_' +
+      'ITEM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_processo' +
+      ' = pp.id'#13#10'inner join pedido_item i2 on iproc.id = i2.id and ipro' +
+      'c.item = i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_ma' +
+      'pa = 7 and i2.cancelado = '#39'N'#39') AS INTEGER) PROCESSO_07,'#13#10' cast((' +
+      'select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join pro' +
+      'cesso pp on iproc.id_processo = pp.id'#13#10'inner join pedido_item i2' +
+      ' on iproc.id = i2.id and iproc.item = i2.item'#13#10'where IPROC.ID = ' +
+      'PED.ID and'#13#10'      pp.ordem_mapa = 7 and i2.cancelado = '#39'N'#39#13#10'    ' +
+      '  and iproc.dtbaixa is not null) AS INTEGER)PROCESSO_07_A,'#13#10#13#10' c' +
+      'ast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner joi' +
+      'n processo pp on iproc.id_processo = pp.id'#13#10'inner join pedido_it' +
+      'em i2 on iproc.id = i2.id and iproc.item = i2.item'#13#10'where IPROC.' +
+      'ID = PED.ID and'#13#10'      pp.ordem_mapa = 8 and i2.cancelado = '#39'N'#39')' +
+      ' AS INTEGER) PROCESSO_08,'#13#10' cast((select count(1)'#13#10'from PEDIDO_I' +
+      'TEM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_processo ' +
+      '= pp.id'#13#10'inner join pedido_item i2 on iproc.id = i2.id and iproc' +
+      '.item = i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.ordem_map' +
+      'a = 8 and i2.cancelado = '#39'N'#39#13#10'      and iproc.dtbaixa is not nul' +
+      'l) AS INTEGER)PROCESSO_08_A,'#13#10#13#10' cast((select count(1)'#13#10'from PED' +
+      'IDO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_proc' +
+      'esso = pp.id'#13#10'inner join pedido_item i2 on iproc.id = i2.id and ' +
+      'iproc.item = i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.orde' +
+      'm_mapa = 9 and i2.cancelado = '#39'N'#39') AS INTEGER) PROCESSO_09,'#13#10' ca' +
+      'st((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner join' +
+      ' processo pp on iproc.id_processo = pp.id'#13#10'inner join pedido_ite' +
+      'm i2 on iproc.id = i2.id and iproc.item = i2.item'#13#10'where IPROC.I' +
+      'D = PED.ID and'#13#10'      pp.ordem_mapa = 9 and i2.cancelado = '#39'N'#39#13#10 +
+      '      and iproc.dtbaixa is not null) AS INTEGER)PROCESSO_09_A,'#13#10 +
+      #13#10' cast((select count(1)'#13#10'from PEDIDO_ITEM_PROCESSO IPROC'#13#10'inner' +
+      ' join processo pp on iproc.id_processo = pp.id'#13#10'inner join pedid' +
+      'o_item i2 on iproc.id = i2.id and iproc.item = i2.item'#13#10'where IP' +
+      'ROC.ID = PED.ID and'#13#10'      pp.ordem_mapa = 10 and i2.cancelado =' +
+      ' '#39'N'#39') AS INTEGER) PROCESSO_10,'#13#10' cast((select count(1)'#13#10'from PED' +
+      'IDO_ITEM_PROCESSO IPROC'#13#10'inner join processo pp on iproc.id_proc' +
+      'esso = pp.id'#13#10'inner join pedido_item i2 on iproc.id = i2.id and ' +
+      'iproc.item = i2.item'#13#10'where IPROC.ID = PED.ID and'#13#10'      pp.orde' +
+      'm_mapa = 10 and i2.cancelado = '#39'N'#39#13#10'      and iproc.dtbaixa is n' +
+      'ot null) AS INTEGER)PROCESSO_10_A'#13#10#13#10'FROM pedido PED'#13#10'INNER JOIN' +
+      ' PESSOA CLI'#13#10'ON PED.ID_CLIENTE = CLI.CODIGO'#13#10'LEFT JOIN PESSOA VE' +
+      'ND'#13#10'ON PED.id_vendedor = VEND.CODIGO'#13#10'WHERE ped.tipo_reg = '#39'P'#39#13#10 +
+      '  AND PED.cancelado = '#39'N'#39#13#10#13#10#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -381,7 +412,7 @@ object DMConsPedidoProc: TDMConsPedidoProc
     Left = 475
     Top = 113
   end
-  object qPedido_Item_Proc: TSQLQuery
+  object qPedido_Item_ProcA: TSQLQuery
     MaxBlobSize = -1
     Params = <
       item
@@ -397,12 +428,16 @@ object DMConsPedidoProc: TDMConsPedidoProc
     SQL.Strings = (
       'select count(1) CONTADOR_PROC'
       'from PEDIDO_ITEM_PROCESSO IPROC'
+      
+        'inner join pedido_item i on iproc.id = i.id and iproc.item = i.i' +
+        'tem'
       'where IPROC.ID = :ID and'
-      '      IPROC.ITEM_PROCESSO = :ITEM_PROCESSO   ')
+      '      IPROC.ITEM_PROCESSO = :ITEM_PROCESSO   '
+      '      and i.cancelado = '#39'N'#39)
     SQLConnection = dmDatabase.scoDados
-    Left = 462
-    Top = 29
-    object qPedido_Item_ProcCONTADOR_PROC: TIntegerField
+    Left = 485
+    Top = 28
+    object qPedido_Item_ProcACONTADOR_PROC: TIntegerField
       FieldName = 'CONTADOR_PROC'
       Required = True
     end
@@ -523,11 +558,11 @@ object DMConsPedidoProc: TDMConsPedidoProc
       'EM_MAPA = 10 and'#13#10'                   IPROC.ITEM = IT.ITEM) as in' +
       'teger) PROCESSO_10'#13#10#13#10'from PEDIDO_ITEM IT'#13#10'left join PEDIDO_ITEM' +
       '_TIPO TIP on IT.ID = TIP.ID and IT.ITEM = TIP.ITEM'#13#10'where IT.ID ' +
-      '= :ID   '#13#10
+      '= :ID   '#13#10'  AND IT.cancelado = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <
       item
-        DataType = ftInteger
+        DataType = ftUnknown
         Name = 'ID'
         ParamType = ptInput
       end>

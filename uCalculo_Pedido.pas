@@ -440,6 +440,7 @@ var
   vDescontoItem: Real;
   vVlrDuplicata, vVlrDuplicata_Outros: Real;
   vPesoBruto, vPesoLiquido: Real;
+  vTotalPeso_Tipo : Real;
 begin
   fDMCadPedido.cdsPedido_Itens.First;
   if (fDMCadPedido.cdsPedido_Itens.RecordCount < 1) or (fDMCadPedido.cdsPedido_Itens.IsEmpty) then
@@ -481,7 +482,8 @@ begin
     vContadorOutros := fDMCadPedido.cdsPedido_Itens.RecordCount;
     vPesoBruto      := 0;
     vPesoLiquido    := 0;
-    
+    vTotalPeso_Tipo := 0;
+                         
     vCalcFrete     := fDMCadPedido.cdsPedidoVLR_FRETE.AsFloat;
     vCalcTotalNota := fDMCadPedido.cdsPedidoVLR_ITENS.AsFloat;
 
@@ -704,6 +706,14 @@ begin
 
     if not repetir then
     begin
+      //12/12/2020  calcula o Peso da tabela Pedido_Item_Tipo   JW vai usar
+      if Trim(fDMCadPedido.cdsPedido_ItensCANCELADO.AsString) <> 'S' then
+      begin
+        fDMCadPedido.cdsPedido_Item_Tipo.First;
+        vTotalPeso_Tipo := vTotalPeso_Tipo + StrToFloat(FormatFloat('0.0000',fDMCadPedido.cdsPedido_Item_TipoPESO.AsFloat));
+      end;
+      //**********************
+
       if (StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsProdutoPESOBRUTO.AsFloat)) > 0) and (StrToFloat(FormatFloat('0.00000',fDMCadPedido.cdsPedido_ItensQTD.AsFloat)) > 0) then
       begin
         if fDMCadPedido.qParametros_PedPEDIDO_LOJA.AsString = 'S' then
@@ -752,6 +762,8 @@ begin
 
   fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat := fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat + fDMCadPedido.cdsPedidoVLR_MAO_OBRA.AsFloat;
   fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat := fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat + fDMCadPedido.cdsPedidoVLR_MAO_OBRA.AsFloat;
+
+  fDMCadPedido.cdsPedidoTOTAL_PESO_TIPO.AsFloat := StrToFloat(FormatFloat('0.0000',vTotalPeso_Tipo));
 
   if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DESCONTO.AsFloat)) <= 0 then
     fDMCadPedido.cdsPedidoTIPO_DESCONTO.AsString := '';

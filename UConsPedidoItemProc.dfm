@@ -1,6 +1,6 @@
 object frmConsPedidoItemProc: TfrmConsPedidoItemProc
-  Left = 218
-  Top = 161
+  Left = 176
+  Top = 131
   Width = 928
   Height = 500
   Caption = 'frmConsPedidoItemProc'

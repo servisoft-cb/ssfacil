@@ -3938,6 +3938,8 @@ type
     mOrcamento_ItensDescricao_Tipo: TStringField;
     cdsOrcamento_ItensCOMPLEMENTO_NOME: TStringField;
     mOrcamento_ItensComplemento_Nome: TStringField;
+    sdsPedidoTOTAL_PESO_TIPO: TFloatField;
+    cdsPedidoTOTAL_PESO_TIPO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
