@@ -557,7 +557,6 @@ object fCobRemessa: TfCobRemessa
         FieldName = 'DTVENCIMENTO'
         Title.Alignment = taCenter
         Title.Caption = 'Data Vencimento'
-        Width = 64
         Visible = True
       end
       item
@@ -565,7 +564,6 @@ object fCobRemessa: TfCobRemessa
         FieldName = 'DTEMISSAO'
         Title.Alignment = taCenter
         Title.Caption = 'Data Emiss'#227'o'
-        Width = 64
         Visible = True
       end
       item
@@ -625,20 +623,17 @@ object fCobRemessa: TfCobRemessa
         Expanded = False
         FieldName = 'INSTRUCAO_PROTESTO'
         Title.Caption = 'Instru'#231#227'o de Protesto'
-        Width = 64
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'TAXA_BANCO'
         Title.Caption = 'Cobrar Taxa Banc'#225'ria'
-        Width = 64
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'ACEITE'
-        Width = 64
         Visible = True
       end>
   end

@@ -1379,6 +1379,10 @@ type
     qParametros_GeralUSA_NFCE_LOCAL: TStringField;
     sdsPRC_GRAVA_PESSOA_LOG: TSQLDataSet;
     qParametros_GeralESTACAO_SERVIDOR_NFCE: TStringField;
+    sdsPessoaQTD_DIAS_PROTESTO: TIntegerField;
+    sdsPessoaTIPO_PROTESTO: TStringField;
+    cdsPessoaQTD_DIAS_PROTESTO: TIntegerField;
+    cdsPessoaTIPO_PROTESTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPessoaNewRecord(DataSet: TDataSet);
     procedure dspPessoaUpdateError(Sender: TObject;

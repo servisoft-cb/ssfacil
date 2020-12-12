@@ -21,15 +21,16 @@ object DMCob_Eletronica: TDMCob_Eletronica
       'RA_CLIENTE, CLI.COBRAR_TAXA_BANCO TAXA_BANCO, NF.TIPO_REG, NF.NF' +
       'ECHAVEACESSO,'#13#10'       NS.COD_AUTENCIDADE_RET,'#13#10'CASE'#13#10'  WHEN DCOB' +
       '.id_ocorrencia > 0 THEN DCOB.ID_OCORRENCIA'#13#10'  ELSE :ID_OCORRENCI' +
-      'A'#13#10'  END ID_OCORRENCIA_COB'#13#10'from DUPLICATA DUP'#13#10'inner join PESSO' +
-      'A CLI on (DUP.ID_PESSOA = CLI.CODIGO)'#13#10'left join CONTAS CT on (D' +
-      'UP.ID_CONTA_BOLETO = CT.ID)'#13#10'left join COB_CARTEIRA CART on (DUP' +
-      '.ID_CARTEIRA = CART.ID)'#13#10'left join TIPOCOBRANCA TC on (DUP.ID_TI' +
-      'POCOBRANCA = TC.ID)'#13#10'left join NOTAFISCAL NF on DUP.ID_NOTA = NF' +
-      '.ID'#13#10'left join GRUPO_PESSOA GP on CLI.ID_GRUPO = GP.ID'#13#10'left joi' +
-      'n NOTASERVICO NS on DUP.ID_NOTA_SERVICO = NS.ID  '#13#10'left join dup' +
-      'licata_cob dcob'#13#10'  ON DUP.ID = DCOB.ID'#13#10'  AND DCOB.DATA >= :DCOB' +
-      '1'#13#10'  AND DCOB.DATA <= :DCOB2'#13#10'  AND DCOB.DTREMESSA IS NULL'#13#10#13#10
+      'A'#13#10'  END ID_OCORRENCIA_COB, CLI.qtd_dias_protesto, CLI.tipo_prot' +
+      'esto'#13#10'from DUPLICATA DUP'#13#10'inner join PESSOA CLI on (DUP.ID_PESSO' +
+      'A = CLI.CODIGO)'#13#10'left join CONTAS CT on (DUP.ID_CONTA_BOLETO = C' +
+      'T.ID)'#13#10'left join COB_CARTEIRA CART on (DUP.ID_CARTEIRA = CART.ID' +
+      ')'#13#10'left join TIPOCOBRANCA TC on (DUP.ID_TIPOCOBRANCA = TC.ID)'#13#10'l' +
+      'eft join NOTAFISCAL NF on DUP.ID_NOTA = NF.ID'#13#10'left join GRUPO_P' +
+      'ESSOA GP on CLI.ID_GRUPO = GP.ID'#13#10'left join NOTASERVICO NS on DU' +
+      'P.ID_NOTA_SERVICO = NS.ID  '#13#10'left join duplicata_cob dcob'#13#10'  ON ' +
+      'DUP.ID = DCOB.ID'#13#10'  AND DCOB.DATA >= :DCOB1'#13#10'  AND DCOB.DATA <= ' +
+      ':DCOB2'#13#10'  AND DCOB.DTREMESSA IS NULL'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -404,6 +405,14 @@ object DMCob_Eletronica: TDMCob_Eletronica
     end
     object sdsDuplicataID_CONTABIL_OPE_BAIXA: TIntegerField
       FieldName = 'ID_CONTABIL_OPE_BAIXA'
+    end
+    object sdsDuplicataQTD_DIAS_PROTESTO: TIntegerField
+      FieldName = 'QTD_DIAS_PROTESTO'
+    end
+    object sdsDuplicataTIPO_PROTESTO: TStringField
+      FieldName = 'TIPO_PROTESTO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dspDuplicata: TDataSetProvider
@@ -782,6 +791,14 @@ object DMCob_Eletronica: TDMCob_Eletronica
     end
     object cdsDuplicataID_CONTABIL_OPE_BAIXA: TIntegerField
       FieldName = 'ID_CONTABIL_OPE_BAIXA'
+    end
+    object cdsDuplicataQTD_DIAS_PROTESTO: TIntegerField
+      FieldName = 'QTD_DIAS_PROTESTO'
+    end
+    object cdsDuplicataTIPO_PROTESTO: TStringField
+      FieldName = 'TIPO_PROTESTO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsDuplicata: TDataSource

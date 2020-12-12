@@ -641,6 +641,14 @@ object DMCadPessoa: TDMCadPessoa
     object sdsPessoaINFADI_DESC_OS: TStringField
       FieldName = 'INFADI_DESC_OS'
     end
+    object sdsPessoaQTD_DIAS_PROTESTO: TIntegerField
+      FieldName = 'QTD_DIAS_PROTESTO'
+    end
+    object sdsPessoaTIPO_PROTESTO: TStringField
+      FieldName = 'TIPO_PROTESTO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspPessoa: TDataSetProvider
     DataSet = sdsPessoa
@@ -1330,6 +1338,14 @@ object DMCadPessoa: TDMCadPessoa
     end
     object cdsPessoaINFADI_DESC_OS: TStringField
       FieldName = 'INFADI_DESC_OS'
+    end
+    object cdsPessoaQTD_DIAS_PROTESTO: TIntegerField
+      FieldName = 'QTD_DIAS_PROTESTO'
+    end
+    object cdsPessoaTIPO_PROTESTO: TStringField
+      FieldName = 'TIPO_PROTESTO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsPessoa: TDataSource

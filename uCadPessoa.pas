@@ -622,6 +622,10 @@ type
     Label216: TLabel;
     DBEdit119: TDBEdit;
     SpeedButton12: TSpeedButton;
+    Label217: TLabel;
+    DBEdit120: TDBEdit;
+    RxDBComboBox19: TRxDBComboBox;
+    Label218: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormDestroy(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -757,6 +761,7 @@ type
     procedure NxButton1Click(Sender: TObject);
     procedure NxButton2Click(Sender: TObject);
     procedure SpeedButton12Click(Sender: TObject);
+    procedure DBCheckBox5Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadPessoa: TDMCadPessoa;
@@ -3154,6 +3159,14 @@ procedure TfrmCadPessoa.SpeedButton12Click(Sender: TObject);
 begin
   fDMCadPessoa.cdsContaOrcamento.Close;
   fDMCadPessoa.cdsContaOrcamento.Open;
+end;
+
+procedure TfrmCadPessoa.DBCheckBox5Click(Sender: TObject);
+begin
+  Label217.Visible        := DBCheckBox5.Checked;
+  DBEdit120.Visible       := DBCheckBox5.Checked;
+  Label218.Visible        := DBCheckBox5.Checked;
+  RxDBComboBox19.Visible  := DBCheckBox5.Checked;
 end;
 
 end.

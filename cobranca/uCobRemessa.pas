@@ -308,38 +308,6 @@ begin
   if (cbImpressao.ItemIndex = 0) and (fDmCob_Eletronica.cdsContasCONTROLA_EMISSAO_BOLETO.AsString = 'S') then
     fDmCob_Eletronica.xNossoNum := 0;
 
-  {  vMsgAux := '';
-  //vMsgDt  := '';
-  vGerar  := False;
-  fDmCob_Eletronica.cdsDuplicata.First;
-  while not fDmCob_Eletronica.cdsDuplicata.Eof do
-  begin
-    {if not(SMDBGrid1.SelectedRows.CurrentRowSelected) or (fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime < Date) then
-    begin
-      if (SMDBGrid1.SelectedRows.CurrentRowSelected) then
-        vMsgDt := vMsgDt + #13 + '*** Duplicata: ' + fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString + '/' + fDmCob_Eletronica.cdsDuplicataPARCELA.AsString + ' vencida!';
-      fDmCob_Eletronica.cdsDuplicata.Next;
-      Continue;
-    end;}
-    {if fDmCob_Eletronica.cdsDuplicataFILIAL.AsInteger = RxDBLookupCombo1.KeyValue then
-    begin
-      fDmCob_Eletronica.prc_Verificar_Carteira;
-      if fDMCob_Eletronica.vGeraRemessa = 'S' then
-      begin
-        vGerar := True;
-        fDMCob_Eletronica.cdsDuplicata.Last;
-      end;
-    end;
-    if not vGerar then
-    begin
-      MessageDlg('Não há títulos selecionados ou carteira não corresponde' + #13 +
-                 'à cobrança do banco definido para gerar remessa!', mtWarning, [mbOk], 0);
-      fDMCob_Eletronica.cdsDuplicata.Last;
-    end;
-    fDmCob_Eletronica.cdsDuplicata.Next;
-  end;}
-
-  //vMsgAux      := '';
   vContadorAux := 0;
   fDmCob_Eletronica.vValor_Com_Juros := 0;
   fDmCob_Eletronica.vValor_Multa_Juros := 0;
@@ -931,24 +899,39 @@ begin
     end
     else
     begin
-      DataProtesto := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime + fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
-      QtdDiaProtesto := fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
+      //12/12/2020  Qtd dias de protesto por cliente
+      if fDmCob_Eletronica.cdsDuplicataQTD_DIAS_PROTESTO.AsInteger > 0 then
+        QtdDiaProtesto := fDmCob_Eletronica.cdsDuplicataQTD_DIAS_PROTESTO.AsInteger
+      else
+        QtdDiaProtesto := fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
+      //DataProtesto := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime + fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
+      //QtdDiaProtesto := fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
+      DataProtesto := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime + QtdDiaProtesto;
     end;
 
     vTipoProtesto := fDmCob_Eletronica.fnc_busca_tipo_instrucao(fDmCob_Eletronica.cdsContasID_BANCO.AsInteger,
                                                                 fDmCob_Eletronica.cdsContasID_INSTRUCAO1.AsInteger,
                                                                 fDmCob_Eletronica.cdsContasID_INSTRUCAO2.AsInteger);
-
+                                                                
+    //12/12/2020  incluido para buscvar do cliente
+    if fDmCob_Eletronica.cdsDuplicataTIPO_PROTESTO.AsString = 'U' then
+      Titulo.TipoDiasProtesto := diUteis
+    else
+    if fDmCob_Eletronica.cdsDuplicataTIPO_PROTESTO.AsString = 'C' then
+      Titulo.TipoDiasProtesto := diCorridos
+    else
     if vTipoProtesto = 'U' then
       Titulo.TipoDiasProtesto := diUteis
     else
       Titulo.TipoDiasProtesto := diCorridos;
 
-   if (fDmCob_Eletronica.cdsContasCOD_BANCO.AsString = '748') and (fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger > 0) then
-     if (fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger = 3) or (fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger = 4) then
-       Titulo.TipoDiasProtesto := diUteis
-     else
-      Titulo.TipoDiasProtesto := diCorridos;
+    if (fDmCob_Eletronica.cdsContasCOD_BANCO.AsString = '748') and (fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger > 0) then
+    begin
+      if (fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger = 3) or (fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger = 4) then
+        Titulo.TipoDiasProtesto := diUteis
+      else
+        Titulo.TipoDiasProtesto := diCorridos;
+    end;
 
    // Sicredi - Quando qtde de dias > 4 = dias úteis senão dias corridos
 
