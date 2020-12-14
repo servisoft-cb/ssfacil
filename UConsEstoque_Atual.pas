@@ -124,18 +124,11 @@ begin
               + '          where v.id_produto = ea.ID_produto '
               + '          and v.id_cor = ea.ID_COR '
               + '          AND V.TAMANHO = ea.TAMANHO),0) QTD_SALDO_OC '
-              + 'from vestoque_atual ea ';
+              + 'from vestoque_atual ea '
+              + 'INNER JOIN PRODUTO PRO ON EA.ID_PRODUTO = PRO.ID '
+              + 'where 0 = 0 ';
     if RxDBLookupCombo1.Text <> '' then
-      vComando := vComando + ' where ea.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
-    vComando := vComando + ' group by ea.id_produto, ea.id_cor, ea.tamanho, ea.id_local_estoque '
-              + ') aux '
-              + 'INNER JOIN PRODUTO PRO '
-              + 'ON AUX.id_produto = PRO.ID '
-              + ' LEFT JOIN COMBINACAO COMB '
-              + ' ON AUX.ID_COR = COMB.ID '
-              + ' LEFT JOIN TAB_NCM NCM '
-              + ' ON PRO.ID_NCM = NCM.ID '
-              + ' WHERE PRO.ESTOQUE = ' + QuotedStr('S');
+      vComando := vComando + ' and ea.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
     if not ckInativo.Checked then
       vComando := vComando + ' AND PRO.INATIVO = ' + QuotedStr('N');
     if ceIDProduto.AsInteger > 0 then
@@ -155,6 +148,15 @@ begin
         end;
       end;
     end;
+    vComando := vComando + ' group by ea.id_produto, ea.id_cor, ea.tamanho, ea.id_local_estoque '
+              + ') aux '
+              + 'INNER JOIN PRODUTO PRO '
+              + 'ON AUX.id_produto = PRO.ID '
+              + ' LEFT JOIN COMBINACAO COMB '
+              + ' ON AUX.ID_COR = COMB.ID '
+              + ' LEFT JOIN TAB_NCM NCM '
+              + ' ON PRO.ID_NCM = NCM.ID '
+              + ' WHERE PRO.ESTOQUE = ' + QuotedStr('S');
     case RadioGroup1.ItemIndex of
       0: vComando := vComando + ' AND aux.QTD > ' + IntToStr(vQtdAux);
       1: vComando := vComando + ' AND aux.QTD < ' + IntToStr(vQtdAux);
