@@ -1610,8 +1610,8 @@ object DMCadDuplicata: TDMCadDuplicata
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 264
-    Top = 504
+    Left = 260
+    Top = 501
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial

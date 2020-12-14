@@ -126,12 +126,12 @@ object DMConsMaterial_Nec: TDMConsMaterial_Nec
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, NOME_INTERNO'#13#10'FROM FILIAL'#13#10
+    CommandText = 'SELECT ID, NOME, NOME_INTERNO'#13#10'FROM FILIAL'#13#10'WHERE INATIVO = '#39'N'#39' '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 456
-    Top = 72
+    Top = 73
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial

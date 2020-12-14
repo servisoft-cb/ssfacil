@@ -137,7 +137,9 @@ object DMConsDRE: TDMConsDRE
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, NOME_INTERNO, CNPJ_CPF'#13#10'FROM FILIAL'
+    CommandText = 
+      'SELECT ID, NOME, NOME_INTERNO, CNPJ_CPF'#13#10'FROM FILIAL'#13#10'WHERE INAT' +
+      'IVO = '#39'N'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -153,7 +155,7 @@ object DMConsDRE: TDMConsDRE
     Aggregates = <>
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 328
+    Left = 327
     Top = 152
     object cdsFilialID: TIntegerField
       FieldName = 'ID'

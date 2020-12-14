@@ -12,7 +12,8 @@ object DMConsNotas_ES: TDMConsNotas_ES
       'SELECT F.id, F.nome, F.endereco, F.complemento_end, F.num_end, F' +
       '.bairro, F.id_cidade, F.uf, F.cep, F.CNPJ_CPF, CID.NOME NOME_CID' +
       'ADE, F.NOME_INTERNO, F.EMAIL, F.DDD1, F.FONE1'#13#10'FROM FILIAL F'#13#10'LE' +
-      'FT JOIN CIDADE CID'#13#10'ON F.ID_CIDADE = CID.ID'
+      'FT JOIN CIDADE CID'#13#10'ON F.ID_CIDADE = CID.ID'#13#10'WHERE INATIVO = '#39'N'#39 +
+      ' '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -29,7 +30,7 @@ object DMConsNotas_ES: TDMConsNotas_ES
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 191
+    Left = 192
     Top = 248
     object cdsFilialID: TIntegerField
       FieldName = 'ID'

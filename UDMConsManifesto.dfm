@@ -1,18 +1,20 @@
 object DMConsManifesto: TDMConsManifesto
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 78
-  Top = 33
+  Left = 247
+  Top = 76
   Height = 451
   Width = 532
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, NOME_INTERNO'#13#10'FROM FILIAL'#13#10#13#10#13#10
+    CommandText = 
+      'SELECT ID, NOME, NOME_INTERNO'#13#10'FROM FILIAL'#13#10'WHERE INATIVO = '#39'N'#39#13 +
+      #10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 72
+    Left = 71
     Top = 168
   end
   object dspFilial: TDataSetProvider

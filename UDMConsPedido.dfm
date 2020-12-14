@@ -266,7 +266,9 @@ object DMConsPedido: TDMConsPedido
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, NOME_INTERNO, NOME_ETIQUETA'#13#10'FROM FILIAL'#13#10#13#10#13#10
+    CommandText = 
+      'SELECT ID, NOME, NOME_INTERNO, NOME_ETIQUETA'#13#10'FROM FILIAL'#13#10'WHERE' +
+      ' INATIVO = '#39'N'#39#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -906,7 +908,7 @@ object DMConsPedido: TDMConsPedido
     Params = <>
     StoreDefs = True
     Left = 704
-    Top = 184
+    Top = 185
     Data = {
       4D0000009619E0BD0100000018000000020000000000030000004D000A49445F
       50726F6475746F04000100000000000B4E6F6D6550726F6475746F0100490000

@@ -946,11 +946,11 @@ object DMConsNotaEletronica: TDMConsNotaEletronica
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME'#13#10'FROM FILIAL'#13#10#13#10#13#10
+    CommandText = 'SELECT ID, NOME'#13#10'FROM FILIAL'#13#10'WHERE INATIVO = '#39'N'#39' '#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 96
+    Left = 97
     Top = 200
     object sdsFilialID: TIntegerField
       FieldName = 'ID'

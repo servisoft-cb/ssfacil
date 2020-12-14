@@ -108,7 +108,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, NOME_INTERNO FROM FILIAL'
+    CommandText = 'SELECT ID, NOME, NOME_INTERNO FROM FILIAL'#13#10'WHERE INATIVO = '#39'N'#39' '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -125,7 +125,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
     Aggregates = <>
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 96
+    Left = 97
     Top = 138
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
@@ -236,6 +236,7 @@ object DMConsNCM_CFOP: TDMConsNCM_CFOP
           Top = 2.614100000000000000
           Width = 52.913420000000000000
           Height = 11.338590000000000000
+          DataSet = DMConsEstoque.frxEstoque_Mov
           DataSetName = 'frxEstoque_Mov'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack

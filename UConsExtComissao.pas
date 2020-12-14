@@ -417,11 +417,11 @@ end;
 
 procedure TfrmConsExtComissao.btnPagamentoClick(Sender: TObject);
 begin
-  if trim(RxDBLookupCombo1.Text) = '' then
+  {if trim(RxDBLookupCombo1.Text) = '' then
   begin
     MessageDlg('*** Filial não foi escolhida!', mtError, [mbOk], 0);
     exit;
-  end;
+  end;}
   if fDMCadExtComissao.mExtComissao_RedID_Vendedor.AsInteger <= 0 then
   begin
     MessageDlg('*** Vendedor não selecionado!', mtError, [mbOk], 0);
@@ -444,12 +444,21 @@ begin
   if MessageDlg('Realizar o pagamento de comissão do vendedor ' +
                 fDMCadExtComissao.mExtComissao_RedNomeVendedor.AsString,mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
-  vFilial      := RxDBLookupCombo1.KeyValue;
-  vFilial_Nome := RxDBLookupCombo1.Text;
+  if RxDBLookupCombo1.Text <> '' then
+  begin
+    vFilial      := RxDBLookupCombo1.KeyValue;
+    vFilial_Nome := RxDBLookupCombo1.Text;
+  end
+  else
+  begin
+    vFilial      := 0;
+    vFilial_Nome := '';
+  end;
 
   ffrmCadExtComissao_Pag := TfrmCadExtComissao_Pag.Create(self);
   ffrmCadExtComissao_Pag.fDMCadExtComissao := fDMCadExtComissao;
   ffrmCadExtComissao_Pag.vID_Vendedor      := fDMCadExtComissao.mExtComissao_RedID_Vendedor.AsInteger;
+  ffrmCadExtComissao_Pag.vFilial_Local     := vFilial;
   ffrmCadExtComissao_Pag.ShowModal;
 
   FreeAndNil(ffrmCadExtComissao_Pag);

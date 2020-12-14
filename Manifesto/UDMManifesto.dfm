@@ -13,7 +13,7 @@ object DMManifesto: TDMManifesto
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 456
-    Top = 48
+    Top = 49
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial

@@ -116,7 +116,7 @@ object DMConsFat_Mensal: TDMConsFat_Mensal
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM FILIAL '#13#10
+    CommandText = 'SELECT *'#13#10'FROM FILIAL '#13#10'WHERE INATIVO = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -133,7 +133,7 @@ object DMConsFat_Mensal: TDMConsFat_Mensal
     IndexFieldNames = 'ID'
     Params = <>
     ProviderName = 'dspFilial'
-    Left = 128
+    Left = 130
     Top = 168
     object cdsFilialID: TIntegerField
       FieldName = 'ID'

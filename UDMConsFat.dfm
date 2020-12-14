@@ -207,7 +207,7 @@ object DMConsFat: TDMConsFat
     GetMetadata = False
     CommandText = 
       'SELECT F.ID, F.NOME, F.NOME_INTERNO, F.CNPJ_CPF, F.PERC_IR, F.PE' +
-      'RC_CSLL'#13#10'FROM FILIAL F'#13#10
+      'RC_CSLL'#13#10'FROM FILIAL F'#13#10'WHERE INATIVO = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

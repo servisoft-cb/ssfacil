@@ -52,6 +52,7 @@ type
     { Public declarations }
     vID_Vendedor: Integer;
     vID_Conta_Orcamento : Integer;
+    vFilial_Local : Integer;
 
     fDMCadExtComissao: TDMCadExtComissao;
   end;
@@ -121,6 +122,10 @@ begin
   end;
   if not(fDMCadExtComissao.cdsExtComissao.Active) then
     fDMCadExtComissao.prc_Localizar(0);
+
+  fDMCadExtComissao.cdsContas.Locate('ID',RxDBLookupCombo1.KeyValue,[loCaseInsensitive]);
+  if vFilial_Local = 0 then
+    vFilial := fDMCadExtComissao.cdsContasFILIAL.AsInteger;
 
   sds := TSQLDataSet.Create(nil);
   ID.TransactionID  := 1;

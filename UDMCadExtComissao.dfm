@@ -813,7 +813,7 @@ object DMCadExtComissao: TDMCadExtComissao
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspContas'
-    Left = 600
+    Left = 601
     Top = 329
     object cdsContasID: TIntegerField
       FieldName = 'ID'

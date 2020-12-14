@@ -1045,8 +1045,8 @@ object DMImportarXML: TDMImportarXML
     Aggregates = <>
     DataSetField = cdsCabecalhodet
     Params = <>
-    Left = 456
-    Top = 368
+    Left = 454
+    Top = 369
     object cdsDetalhenItem: TIntegerField
       FieldName = 'nItem'
       Required = True
@@ -4982,7 +4982,9 @@ object DMImportarXML: TDMImportarXML
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'select F.ID, F.nome, F.nome_interno, F.cnpj_cpf'#13#10'from FILIAL F'#13#10
+    CommandText = 
+      'select F.ID, F.nome, F.nome_interno, F.cnpj_cpf'#13#10'from FILIAL F'#13#10 +
+      'WHERE INATIVO = '#39'N'#39' '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

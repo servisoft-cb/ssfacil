@@ -739,7 +739,7 @@ object DMConsPedidoProc: TDMConsPedidoProc
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 350
+    Left = 351
     Top = 168
   end
   object dspFilial: TDataSetProvider

@@ -9,7 +9,9 @@ object DMConsNotas: TDMConsNotas
   object sdsFilial: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, NOME_INTERNO, FONE1'#13#10'FROM FILIAL'#13#10#13#10#13#10
+    CommandText = 
+      'SELECT ID, NOME, NOME_INTERNO, FONE1'#13#10'FROM FILIAL'#13#10'WHERE INATIVO' +
+      ' = '#39'N'#39' '#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
