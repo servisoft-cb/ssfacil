@@ -306,18 +306,17 @@ object DMConsEstoque: TDMConsEstoque
       'ENCIA, PES.CNPJ_CPF, CFOP.CODCFOP, GR.NOME NOME_GRUPO,'#13#10'        ' +
       ' COMB.NOME NOME_COR, LEST.NOME NOME_LOCAL, LEST.COD_LOCAL, PRO.P' +
       'RECO_CUSTO,'#13#10'       CC.DESCRICAO NOME_CENTROCUSTO,   GR.CODIGO C' +
-      'ODIGO_GRUPO, DI.MOTIVO, CC.CODIGO CODIGO_CCUSTO,'#13#10'       CC1.COD' +
-      'IGO CODIGO_SUPERIOR, CC1.DESCRICAO DESC_SUPERIOR,  (EM.VLR_UNITA' +
-      'RIO * EM.QTD2) VLR_TOTAL,'#13#10'       em.espessura, EM.comprimento, ' +
-      'EM.largura'#13#10'from ESTOQUE_MOV EM  '#13#10'inner join PRODUTO PRO on (EM' +
-      '.ID_PRODUTO = PRO.ID)'#13#10'left join PESSOA PES on (EM.ID_PESSOA = P' +
-      'ES.CODIGO)  '#13#10'left join TAB_CFOP CFOP on (EM.ID_CFOP = CFOP.ID) ' +
-      ' '#13#10'left join GRUPO GR on (PRO.ID_GRUPO = GR.ID)  '#13#10'left join COM' +
-      'BINACAO COMB on (EM.ID_COR = COMB.ID)  '#13#10'left join LOCAL_ESTOQUE' +
-      ' LEST on (EM.ID_LOCAL_ESTOQUE = LEST.ID)  '#13#10'left join CENTROCUST' +
-      'O CC on EM.ID_CENTROCUSTO = CC.ID  '#13#10'left join DOCESTOQUE_ITENS ' +
-      'DI on DI.ID_MOVESTOQUE = EM.ID  '#13#10'left join CENTROCUSTO CC1 on C' +
-      'C1.ID = CC.SUPERIOR  '#13#10'where PRO.ESTOQUE = '#39'S'#39
+      'ODIGO_GRUPO, CC.CODIGO CODIGO_CCUSTO,'#13#10'       CC1.CODIGO CODIGO_' +
+      'SUPERIOR, CC1.DESCRICAO DESC_SUPERIOR,  (EM.VLR_UNITARIO * EM.QT' +
+      'D2) VLR_TOTAL,'#13#10'       em.espessura, EM.comprimento, EM.largura'#13 +
+      #10'from ESTOQUE_MOV EM  '#13#10'inner join PRODUTO PRO on (EM.ID_PRODUTO' +
+      ' = PRO.ID)'#13#10'left join PESSOA PES on (EM.ID_PESSOA = PES.CODIGO) ' +
+      ' '#13#10'left join TAB_CFOP CFOP on (EM.ID_CFOP = CFOP.ID)  '#13#10'left joi' +
+      'n GRUPO GR on (PRO.ID_GRUPO = GR.ID)  '#13#10'left join COMBINACAO COM' +
+      'B on (EM.ID_COR = COMB.ID)  '#13#10'left join LOCAL_ESTOQUE LEST on (E' +
+      'M.ID_LOCAL_ESTOQUE = LEST.ID)  '#13#10'left join CENTROCUSTO CC on EM.' +
+      'ID_CENTROCUSTO = CC.ID  '#13#10'left join CENTROCUSTO CC1 on CC1.ID = ' +
+      'CC.SUPERIOR  '#13#10'where PRO.ESTOQUE = '#39'S'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -515,13 +514,13 @@ object DMConsEstoque: TDMConsEstoque
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT *'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39#13#10'  AND ((TP_CLIENTE =' +
-      ' '#39'S'#39') OR'#13#10'           (TP_FORNECEDOR = '#39'S'#39'))'
+      'SELECT CODIGO, NOME, FANTASIA'#13#10'FROM PESSOA'#13#10'WHERE INATIVO = '#39'N'#39#13 +
+      #10'  AND ((TP_CLIENTE = '#39'S'#39') OR'#13#10'           (TP_FORNECEDOR = '#39'S'#39'))'
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 88
-    Top = 437
+    Top = 438
   end
   object dspPessoa: TDataSetProvider
     DataSet = sdsPessoa
@@ -641,9 +640,14 @@ object DMConsEstoque: TDMConsEstoque
     MaxBlobSize = -1
     Params = <>
     SQL.Strings = (
-      'SELECT *'
-      'FROM PARAMETROS'
-      'WHERE ID = 1')
+      
+        'select P.ID, P.ATUALIZAR_PRECO_DOC, P.BAIXAR_REQ_AUTOMATICO, P.U' +
+        'SA_GRADE, P.INFORMAR_COR_PROD, P.INFORMAR_COR_MATERIAL,'
+      
+        '       P.USA_LOCAL_ESTOQUE, P.USA_LOTE_CONTROLE, P.EMPRESA_SUCAT' +
+        'A'
+      'from PARAMETROS P'
+      'where ID = 1   ')
     SQLConnection = dmDatabase.scoDados
     Left = 912
     Top = 24
@@ -4229,7 +4233,7 @@ object DMConsEstoque: TDMConsEstoque
     Aggregates = <>
     Params = <>
     ProviderName = 'dspEstoque_Mov'
-    Left = 148
+    Left = 151
     Top = 151
     object cdsEstoque_MovID: TIntegerField
       FieldName = 'ID'
@@ -4404,10 +4408,6 @@ object DMConsEstoque: TDMConsEstoque
     end
     object cdsEstoque_MovCODIGO_GRUPO: TStringField
       FieldName = 'CODIGO_GRUPO'
-    end
-    object cdsEstoque_MovMOTIVO: TStringField
-      FieldName = 'MOTIVO'
-      Size = 100
     end
     object cdsEstoque_MovCODIGO_CCUSTO: TStringField
       FieldName = 'CODIGO_CCUSTO'

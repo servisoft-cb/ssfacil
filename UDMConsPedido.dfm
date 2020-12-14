@@ -61,10 +61,11 @@ object DMConsPedido: TDMConsPedido
   end
   object cdsPedido_Item: TClientDataSet
     Aggregates = <>
+    AggregatesActive = True
     Params = <>
     ProviderName = 'dspPedido_Item'
-    Left = 120
-    Top = 12
+    Left = 123
+    Top = 13
     object cdsPedido_ItemID_CLIENTE: TIntegerField
       FieldName = 'ID_CLIENTE'
     end
@@ -256,6 +257,21 @@ object DMConsPedido: TDMConsPedido
       FieldName = 'APROVADO_ORC'
       FixedChar = True
       Size = 1
+    end
+    object cdsPedido_ItemagVlr_Total: TAggregateField
+      FieldName = 'agVlr_Total'
+      Active = True
+      Expression = 'Sum(VLR_TOTAL)'
+    end
+    object cdsPedido_ItemagVlr_Pendente: TAggregateField
+      FieldName = 'agVlr_Pendente'
+      Active = True
+      Expression = 'SUM(VLR_RESTANTE)'
+    end
+    object cdsPedido_ItemagVlr_Faturado: TAggregateField
+      FieldName = 'agVlr_Faturado'
+      Active = True
+      Expression = 'SUM(VLR_FATURADO)'
     end
   end
   object dsPedido_Item: TDataSource

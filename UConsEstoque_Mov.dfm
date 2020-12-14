@@ -209,7 +209,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
     end
     object btnImprimir: TNxButton
       Left = 754
-      Top = 69
+      Top = 70
       Width = 161
       Height = 30
       Caption = 'Imprimir'

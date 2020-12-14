@@ -672,7 +672,6 @@ type
     cdsEstoque_MovPRECO_CUSTO: TFloatField;
     cdsEstoque_MovNOME_CENTROCUSTO: TStringField;
     cdsEstoque_MovCODIGO_GRUPO: TStringField;
-    cdsEstoque_MovMOTIVO: TStringField;
     cdsEstoque_MovCODIGO_CCUSTO: TStringField;
     cdsEstoque_MovCODIGO_SUPERIOR: TStringField;
     cdsEstoque_MovDESC_SUPERIOR: TStringField;

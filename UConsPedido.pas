@@ -6,7 +6,7 @@ uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons, Grids,
   DBGrids, SMDBGrid, FMTBcd, DB, Provider, DBClient, SqlExpr, UDMConsPedido, RxLookup, UCBase, Mask, RzPanel, ToolEdit,
   RzButton, RzTabs, UConsPedido_Nota, NxCollection, CurrEdit, Menus,
-  ComCtrls;
+  ComCtrls, DBCtrls;
 
 type
   TfrmConsPedido = class(TForm)
@@ -245,7 +245,7 @@ var
   vOpcaoConferido: String;
 begin
   fDMConsPedido.cdsPedido_Item.Close;
-  fDMConsPedido.cdsPedido_Item.IndexFieldNames := '';
+  //fDMConsPedido.cdsPedido_Item.IndexFieldNames := '';
 
   fDMConsPedido.sdsPedido_Item.CommandText := fDMConsPedido.ctPedido_Item;
   if fDMConsPedido.qParametros_GeralUSA_VENDEDOR_INT.AsString <> 'S' then
@@ -342,7 +342,16 @@ begin
   fDMConsPedido.sdsPedido_Item.CommandText := fDMConsPedido.sdsPedido_Item.CommandText + vComando;
   fDMConsPedido.cdsPedido_Item.Open;
 //  fDMConsPedido.cdsPedido_Item.IndexFieldNames := 'PEDIDO_CLIENTE;DTEMISSAO';
-  prc_Somar_cdsPedido_item;
+//  prc_Somar_cdsPedido_item;
+  Label20.Caption := '0';
+  Label21.Caption := '0';
+  Label24.Caption := '0';
+  if not fDMConsPedido.cdsPedido_ItemagVlr_Total.IsNull then
+    Label20.Caption := FormatFloat('###,###,##0.00',fDMConsPedido.cdsPedido_ItemagVlr_Total.Value);
+  if not fDMConsPedido.cdsPedido_ItemagVlr_Pendente.IsNull then
+    Label21.Caption := FormatFloat('###,###,##0.00',fDMConsPedido.cdsPedido_ItemagVlr_Pendente.Value);
+  if not fDMConsPedido.cdsPedido_ItemagVlr_Faturado.IsNull then
+    Label24.Caption := FormatFloat('###,###,##0.00',fDMConsPedido.cdsPedido_ItemagVlr_Faturado.Value);
 end;
 
 procedure TfrmConsPedido.FormClose(Sender: TObject;

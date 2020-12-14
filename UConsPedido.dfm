@@ -1,6 +1,6 @@
 object frmConsPedido: TfrmConsPedido
-  Left = 227
-  Top = 43
+  Left = 177
+  Top = 20
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'Consulta Pedidos'
@@ -556,8 +556,9 @@ object frmConsPedido: TfrmConsPedido
         GridStyle.OddColor = clWindow
         GridStyle.EvenColor = clWindow
         TitleHeight.PixelCount = 24
-        FooterColor = clBtnFace
-        ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        FooterColor = clSilver
+        FooterHeight = 25
+        ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoShowFooter, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
         OnGetCellParams = SMDBGrid1GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
@@ -756,6 +757,10 @@ object frmConsPedido: TfrmConsPedido
             Title.Alignment = taCenter
             Title.Caption = 'Qtd. Pedido'
             Visible = True
+            BandIndex = 0
+            FooterValue = 0.000000000000000000
+            FooterType = ftSum
+            FooterText = 'sum(qtd)'
           end
           item
             Expanded = False
@@ -842,6 +847,7 @@ object frmConsPedido: TfrmConsPedido
             Title.Caption = 'Vlr. Pendente'
             Width = 87
             Visible = True
+            FooterValue = 0.000000000000000000
           end
           item
             Expanded = False
@@ -4738,6 +4744,7 @@ object frmConsPedido: TfrmConsPedido
     Align = alBottom
     Color = clSilver
     TabOrder = 3
+    Visible = False
     object Label19: TLabel
       Left = 130
       Top = 8

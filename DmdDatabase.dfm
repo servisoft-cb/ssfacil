@@ -1,8 +1,8 @@
 object dmDatabase: TdmDatabase
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 376
-  Top = 187
+  Left = 385
+  Top = 134
   Height = 480
   Width = 515
   object scoDados: TSQLConnection
@@ -29,7 +29,7 @@ object dmDatabase: TdmDatabase
       'Trim Char=False')
     VendorLib = 'gds32.dll'
     Left = 59
-    Top = 18
+    Top = 19
   end
   object Decoder64: TIdDecoderMIME
     FillChar = '='

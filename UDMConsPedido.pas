@@ -1018,6 +1018,9 @@ type
     cdsPedido_RefComb_DtEPedQTD_METRO_REST: TFloatField;
     frxPedido_RefComb_DtEPed: TfrxDBDataset;
     cdsPedido_RefComb_DtEPedFANTASIA_CLIENTE: TStringField;
+    cdsPedido_ItemagVlr_Total: TAggregateField;
+    cdsPedido_ItemagVlr_Pendente: TAggregateField;
+    cdsPedido_ItemagVlr_Faturado: TAggregateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConsumoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_MatCalcFields(DataSet: TDataSet);
