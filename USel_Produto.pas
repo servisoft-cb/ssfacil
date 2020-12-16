@@ -404,10 +404,13 @@ var
   vMostra_Prom: String;
   vUsa_NFCe_Local : Boolean;
   vTexto: String;
+  vMostrar_Est : String;
 begin
   if Tag = 1 then
     oDBUtils.SetDataSourceProperties(Self, fDMSel_Produto);
   vUsa_NFCe_Local := dmDatabase.fnc_Usa_NFCe_Local;
+
+  vMostrar_Est := SQLLocate('PARAMETROS_PROD','ID','MOSTRAR_ESTOQUE_CONS','1');
 
   qFilial.Close;
   qFilial.Open;
@@ -450,18 +453,18 @@ begin
   ckFilial.Visible   := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
   if ((qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P')) and (vFilial > 0) then
     rxdbFilial.KeyValue := vFilial;
-  if (qFilialFILIAL.AsInteger < 2) or (qParametrosEMPRESA_VEICULO.AsString <> 'S') then
+  if (qFilialFILIAL.AsInteger < 2) or (qParametrosEMPRESA_VEICULO.AsString <> 'S') or (trim(vMostrar_Est) <> 'S') then
   begin
     for i := 0 to SMDBGrid1.ColCount - 2 do
     begin
       if (SMDBGrid1.Columns[i].FieldName = 'FILIAL') then
         SMDBGrid1.Columns[i].Visible := (qParametrosUSA_PRODUTO_FILIAL.AsString = 'S') or (qParametrosUSA_PRODUTO_FILIAL.AsString = 'P');
-      if qFilialFILIAL.AsInteger < 2 then
+      if (qFilialFILIAL.AsInteger < 2) or (trim(vMostrar_Est) <> 'S') then
       begin
         if SMDBGrid1.Columns[i].FieldName = 'QTDGERAL' then
           SMDBGrid1.Columns[i].Visible := False;
       end;
-      if vUsa_NFCe_Local then
+      if (vUsa_NFCe_Local) or (trim(vMostrar_Est) <> 'S') then
       begin
         if (SMDBGrid1.Columns[i].FieldName = 'QTDGERAL') or (SMDBGrid1.Columns[i].FieldName = 'QTD') then
           SMDBGrid1.Columns[i].Visible := False;
