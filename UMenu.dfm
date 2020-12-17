@@ -783,6 +783,10 @@ object fMenu: TfMenu
           Caption = 'Consulta Consumo (Faturamento)'
           OnClick = ConsultaConsumoFaturamento1Click
         end
+        object ConsultaConsumoPedidos1: TMenuItem
+          Caption = 'Consulta Consumo (Pedidos)'
+          OnClick = ConsultaConsumoPedidos1Click
+        end
         object ConsultaFaturamento1: TMenuItem
           Caption = 'Consulta Faturamento (Detalhado)'
           OnClick = ConsultaFaturamento1Click

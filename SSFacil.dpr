@@ -891,7 +891,8 @@ uses
   UDMRFID in 'UDMRFID.pas' {DMRFID: TDataModule},
   UDMCadCanalVendas in 'UDMCadCanalVendas.pas' {DMCadCanalVendas: TDataModule},
   UCadCanalVendas in 'UCadCanalVendas.pas' {frmCadCanalVendas},
-  uUtil_Pedido in 'uUtil_Pedido.pas';
+  uUtil_Pedido in 'uUtil_Pedido.pas',
+  uConsPedConsumo in 'uConsPedConsumo.pas' {frmConsPedConsumo};
 
 {$R *.res}
 

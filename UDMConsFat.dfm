@@ -2,8 +2,8 @@ object DMConsFat: TDMConsFat
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Left = 234
-  Top = 186
-  Height = 443
+  Top = 109
+  Height = 520
   Width = 948
   object sdsFatAcum: TSQLDataSet
     NoMetadata = True
@@ -263,8 +263,8 @@ object DMConsFat: TDMConsFat
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 42992.427233402800000000
-    ReportOptions.LastChange = 43725.755422199100000000
+    ReportOptions.CreateDate = 42052.436473541700000000
+    ReportOptions.LastChange = 44182.652406481480000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -1498,8 +1498,8 @@ object DMConsFat: TDMConsFat
       'UNIDADE_MAT=UNIDADE_MAT')
     DataSource = dsConsFatConsumo
     BCDToCurrency = False
-    Left = 685
-    Top = 282
+    Left = 674
+    Top = 271
   end
   object dsConsFatConsumo: TDataSource
     DataSet = cdsConsFatConsumo
@@ -1520,5 +1520,95 @@ object DMConsFat: TDMConsFat
       FixedChar = True
       Size = 1
     end
+  end
+  object sdsConsPedConsumo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select  aux.id_material, aux.nome_material, aux.id_cor, aux.nome' +
+      '_cor_mat, sum(aux.total_consumo) total_consumo,'#13#10'sum(aux.total_c' +
+      'onsumo_rest) total_consumo_rest, sum(aux.total_consumo_fat) tota' +
+      'l_consumo_fat,'#13#10'aux.tipo_reg, aux.unidade_mat'#13#10'from('#13#10'select v.i' +
+      'd_material, V.nome_material, V.id_cor, V.nome_cor_mat, V.total_c' +
+      'onsumo,'#13#10'V.total_consumo_rest, V.total_consumo_fat,'#13#10'V.tipo_reg,' +
+      ' V.unidade_mat'#13#10'from vconsumoped v'#13#10'WHERE 0 = 0'#13#10') aux'#13#10'GROUP BY' +
+      ' aux.id_material, aux.nome_material, aux.id_cor, aux.nome_cor_ma' +
+      't, aux.tipo_reg, aux.unidade_mat'#13#10#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 358
+    Top = 424
+  end
+  object dspConsPedConsumo: TDataSetProvider
+    DataSet = sdsConsPedConsumo
+    Left = 391
+    Top = 427
+  end
+  object cdsConsPedConsumo: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsPedConsumo'
+    Left = 424
+    Top = 428
+    object cdsConsPedConsumoID_MATERIAL: TIntegerField
+      FieldName = 'ID_MATERIAL'
+    end
+    object cdsConsPedConsumoNOME_MATERIAL: TStringField
+      FieldName = 'NOME_MATERIAL'
+      Size = 100
+    end
+    object cdsConsPedConsumoID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsConsPedConsumoNOME_COR_MAT: TStringField
+      FieldName = 'NOME_COR_MAT'
+      Size = 60
+    end
+    object cdsConsPedConsumoTOTAL_CONSUMO: TFloatField
+      FieldName = 'TOTAL_CONSUMO'
+      DisplayFormat = '###,###,##0.0000'
+    end
+    object cdsConsPedConsumoTOTAL_CONSUMO_REST: TFloatField
+      FieldName = 'TOTAL_CONSUMO_REST'
+      DisplayFormat = '###,###,##0.0000'
+    end
+    object cdsConsPedConsumoTOTAL_CONSUMO_FAT: TFloatField
+      FieldName = 'TOTAL_CONSUMO_FAT'
+      DisplayFormat = '###,###,##0.0000'
+    end
+    object cdsConsPedConsumoTIPO_REG: TStringField
+      FieldName = 'TIPO_REG'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsConsPedConsumoUNIDADE_MAT: TStringField
+      FieldName = 'UNIDADE_MAT'
+      Size = 6
+    end
+  end
+  object dsConsPedConsumo: TDataSource
+    DataSet = cdsConsPedConsumo
+    Left = 455
+    Top = 426
+  end
+  object frxConsPedConsumo: TfrxDBDataset
+    UserName = 'frxConsPedConsumo'
+    OnFirst = frxComprasServicoItemFirst
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_MATERIAL=ID_MATERIAL'
+      'NOME_MATERIAL=NOME_MATERIAL'
+      'ID_COR=ID_COR'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'TOTAL_CONSUMO=TOTAL_CONSUMO'
+      'TOTAL_CONSUMO_REST=TOTAL_CONSUMO_REST'
+      'TOTAL_CONSUMO_FAT=TOTAL_CONSUMO_FAT'
+      'TIPO_REG=TIPO_REG'
+      'UNIDADE_MAT=UNIDADE_MAT')
+    DataSource = dsConsPedConsumo
+    BCDToCurrency = False
+    Left = 519
+    Top = 422
   end
 end
