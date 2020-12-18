@@ -49,6 +49,8 @@ type
     sdsCondPgtoFRETE: TStringField;
     cdsCondPgtoIMPOSTOS: TStringField;
     cdsCondPgtoFRETE: TStringField;
+    sdsCondPgtoINATIVO: TStringField;
+    cdsCondPgtoINATIVO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspCondPgtoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -213,6 +215,7 @@ begin
   cdsCondPgtoMOSTRAR_NFCE.AsString  := 'N';
   cdsCondPgtoIMPOSTOS.AsString      := 'N';
   cdsCondPgtoFRETE.AsString         := 'N';
+  cdsCondPgtoINATIVO.AsString       := 'N';
 end;
 
 procedure TDMCadCondPgto.DoLogAdditionalValues(ATableName: string;

@@ -78,8 +78,8 @@ begin
     2 : vComando := vComando + ' AND  V.TIPO_PRODUCAO = ' + QuotedStr('E');
   end;
   case cbOpcao.ItemIndex of
-    1 : vComando := vComando + ' AND  V.TIPO_PRODUCAO = ' + QuotedStr('T');
-    2 : vComando := vComando + ' AND  V.TIPO_PRODUCAO = ' + QuotedStr('E');
+    1 : vComando := vComando + ' AND  V.QTD_RESTANTE > 0 ';
+    2 : vComando := vComando + ' AND  V.QTD_FATURADO > 0 ';
   end;
   if RxDBLookupCombo1.Text <> '' then
     vComando := vComando + ' AND  V.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);

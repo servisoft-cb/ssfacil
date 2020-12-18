@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, NxCollection, StdCtrls, Mask, ToolEdit, UDMConsFat, SqlExpr,
-  NxEdit, Grids, DBGrids, SMDBGrid, AdvPanel, ComCtrls;
+  NxEdit, Grids, DBGrids, SMDBGrid, AdvPanel, ComCtrls, RxLookup;
   //SysUtils, Classes, FMTBcd, DB, DBClient, Provider, , dbXPress, Math, Messages, Dialogs, LogTypes, Variants, frxClass, frxDBSet;
 
 
@@ -23,6 +23,8 @@ type
     cbTipo: TNxComboBox;
     Label3: TLabel;
     ProgressBar1: TProgressBar;
+    Label5: TLabel;
+    RxDBLookupCombo1: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -57,30 +59,13 @@ procedure TfrmConsFatConsumo.prc_Consultar;
 var
   vComando : String;
 begin
-  fDMConsFat.cdsConsFatConsumo.Close;
-  vComando := 'SELECT SUM(QTD_MATERIAL) QTD_MATERIAL, AUX.id_material, AUX.id_cor, AUX.nome_material, AUX.nome_cor_mat, '
-            + 'AUX.tipo_reg, AUX.unidade_mat '
-            + 'from ( '
-            + 'select v.id_material, v.id_cor, v.nome_material, v.nome_cor_mat, '
-            + 'v.tipo_reg, v.unidade_mat, '
-            + '((coalesce(v.qtd_conversor,1) * v.qtd) * v.qtd_consumo) QTD_MATERIAL '
-            + 'FROM vconsumofat v '
+  vComando := 'select  aux.id_material, aux.nome_material, aux.id_cor, aux.nome_cor_mat, sum(aux.total_consumo) total_consumo, '
+            + 'aux.tipo_reg, aux.unidade_mat '
+            + 'from(select v.id_material, V.nome_material, V.id_cor, V.nome_cor_mat, V.total_consumo, '
+            + 'V.tipo_reg, V.unidade_mat '
+            + 'from vconsumofat v '
             + 'WHERE 0 = 0 ';
-  if DateEdit1.Date > 10 then
-    vComando := vComando + '  AND V.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
-  if DateEdit2.Date > 10 then
-    vComando := vComando + '  AND V.DTEMISSAO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
-  case cbTipo.ItemIndex of
-    1 : vComando := vComando + ' AND  V.TIPO_PRODUCAO = ' + QuotedStr('T');
-    2 : vComando := vComando + ' AND  V.TIPO_PRODUCAO = ' + QuotedStr('E');
-  end;
 
-  vComando := vComando + ' union all '
-            + 'select v.id_material2, v.id_cor2, v.nome_material2, v.nome_cor2, '
-            + 'v.tipo_reg2, v.unidade2, '
-            + '((coalesce(v.qtd_conversor,1) * v.qtd) * v.qtd_consumo2) QTD_MATERIAL2 '
-            + 'FROM vconsumofat v '
-            + 'where v.id_material2 > 0 ';
   if DateEdit1.Date > 10 then
     vComando := vComando + '  AND V.DTEMISSAO >= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit1.date));
   if DateEdit2.Date > 10 then
@@ -89,9 +74,11 @@ begin
     1 : vComando := vComando + ' AND  V.TIPO_PRODUCAO = ' + QuotedStr('T');
     2 : vComando := vComando + ' AND  V.TIPO_PRODUCAO = ' + QuotedStr('E');
   end;
-  vComando := vComando + ' ) AUX '
-            + 'GROUP BY AUX.id_material, AUX.id_cor, AUX.nome_material, AUX.nome_cor_mat, '
-            + 'AUX.tipo_reg, AUX.unidade_mat ';
+  if RxDBLookupCombo1.Text <> '' then
+    vComando := vComando + ' AND  V.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
+  vComando := vComando + ') aux '
+            + 'GROUP BY aux.id_material, aux.nome_material, aux.id_cor, aux.nome_cor_mat, aux.tipo_reg, aux.unidade_mat ';
+  fDMConsFat.cdsConsFatConsumo.Close;
   fDMConsFat.sdsConsFatConsumo.CommandText := vComando;
   fDMConsFat.cdsConsFatConsumo.Open;
 end;

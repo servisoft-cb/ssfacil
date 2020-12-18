@@ -686,6 +686,10 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsDuplicata_HistID_COMISSAO_INT: TIntegerField
       FieldName = 'ID_COMISSAO_INT'
     end
+    object sdsDuplicata_HistOBS: TStringField
+      FieldName = 'OBS'
+      Size = 250
+    end
   end
   object cdsDuplicata_Hist: TClientDataSet
     Aggregates = <>
@@ -827,6 +831,10 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object cdsDuplicata_HistID_COMISSAO_INT: TIntegerField
       FieldName = 'ID_COMISSAO_INT'
+    end
+    object cdsDuplicata_HistOBS: TStringField
+      FieldName = 'OBS'
+      Size = 250
     end
   end
   object dsDuplicata_Hist: TDataSource
@@ -2142,7 +2150,7 @@ object DMCadDuplicata: TDMCadDuplicata
   object sdsCondPgto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10
+    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10'WHERE  coalesce(INATIVO,'#39'N'#39') = '#39'N'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

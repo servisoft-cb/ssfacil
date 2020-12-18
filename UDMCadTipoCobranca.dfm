@@ -490,7 +490,9 @@ object DMCadTipoCobranca: TDMCadTipoCobranca
   object sdsCondPagto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'select ID, NOME from CONDPGTO'
+    CommandText = 
+      'select ID, NOME from CONDPGTO'#13#10'WHERE  coalesce(INATIVO,'#39'N'#39') = '#39'N' +
+      #39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

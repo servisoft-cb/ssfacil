@@ -55,6 +55,8 @@ type
     RxDBComboBox2: TRxDBComboBox;
     Label11: TLabel;
     RxDBComboBox4: TRxDBComboBox;
+    CheckBox1: TCheckBox;
+    DBCheckBox4: TDBCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -184,10 +186,13 @@ end;
 procedure TfrmCadCondPgto.prc_Consultar;
 begin
   fDMCadCondPgto.cdsCondPgto.Close;
-  fDMCadCondPgto.sdsCondPgto.CommandText := fDMCadCondPgto.ctCommand;
+  fDMCadCondPgto.sdsCondPgto.CommandText := fDMCadCondPgto.ctCommand + ' WHERE 0 = 0 ';
   if Trim(edtNome.Text) <> '' then
     fDMCadCondPgto.sdsCondPgto.CommandText := fDMCadCondPgto.sdsCondPgto.CommandText
-                                    + ' WHERE NOME LIKE ' + QuotedStr('%'+edtNome.Text+'%');
+                                    + ' AND NOME LIKE ' + QuotedStr('%'+edtNome.Text+'%');
+  if not CheckBox1.Checked then
+    fDMCadCondPgto.sdsCondPgto.CommandText := fDMCadCondPgto.sdsCondPgto.CommandText
+                                    + ' AND coalesce(INATIVO,' + QuotedStr('N') + ') = ' + QuotedStr('N');  
   fDMCadCondPgto.cdsCondPgto.Open;
 end;
 

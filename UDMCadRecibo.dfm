@@ -1038,11 +1038,11 @@ object DMCadRecibo: TDMCadRecibo
   object sdsCondPgto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10
+    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10'WHERE  coalesce(INATIVO,'#39'N'#39') = '#39'N'#39' '#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 488
+    Left = 489
     Top = 212
     object sdsCondPgtoID: TIntegerField
       FieldName = 'ID'

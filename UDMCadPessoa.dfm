@@ -1410,7 +1410,7 @@ object DMCadPessoa: TDMCadPessoa
   object sdsCondPgto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10
+    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10'WHERE  coalesce(INATIVO,'#39'N'#39') = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -3421,7 +3421,7 @@ object DMCadPessoa: TDMCadPessoa
     BeforePost = cdsPessoaBeforePost
     OnNewRecord = cdsPessoaNewRecord
     Left = 552
-    Top = 8
+    Top = 9
     object cdsPessoa_ConsultaCODIGO: TIntegerField
       FieldName = 'CODIGO'
       ProviderFlags = [pfInWhere]

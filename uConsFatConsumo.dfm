@@ -17,9 +17,9 @@ object frmConsFatConsumo: TfrmConsFatConsumo
   TextHeight = 13
   object pnlPrincipal: TAdvPanel
     Left = 0
-    Top = 56
+    Top = 67
     Width = 967
-    Height = 391
+    Height = 380
     Align = alClient
     BevelWidth = 10
     Font.Charset = DEFAULT_CHARSET
@@ -49,7 +49,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       Left = 10
       Top = 10
       Width = 947
-      Height = 354
+      Height = 343
       Align = alClient
       Ctl3D = False
       DataSource = DMConsFat.dsConsFatConsumo
@@ -122,7 +122,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
         end
         item
           Expanded = False
-          FieldName = 'QTD_MATERIAL'
+          FieldName = 'TOTAL_CONSUMO'
           Title.Alignment = taCenter
           Title.Caption = 'Qtd. Material'
           Title.Color = clActiveCaption
@@ -142,7 +142,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
     end
     object ProgressBar1: TProgressBar
       Left = 10
-      Top = 364
+      Top = 353
       Width = 947
       Height = 17
       Align = alBottom
@@ -154,7 +154,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
     Left = 0
     Top = 0
     Width = 967
-    Height = 56
+    Height = 67
     Align = alTop
     BorderPen.Style = psClear
     UseDockManager = False
@@ -162,7 +162,7 @@ object frmConsFatConsumo: TfrmConsFatConsumo
     TabOrder = 1
     object Label1: TLabel
       Left = 17
-      Top = 16
+      Top = 29
       Width = 109
       Height = 13
       Alignment = taRightJustify
@@ -170,8 +170,8 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       Transparent = True
     end
     object Label2: TLabel
-      Left = 280
-      Top = 16
+      Left = 272
+      Top = 29
       Width = 25
       Height = 13
       Alignment = taRightJustify
@@ -180,42 +180,41 @@ object frmConsFatConsumo: TfrmConsFatConsumo
     end
     object Label3: TLabel
       Left = 102
-      Top = 34
+      Top = 47
       Width = 24
       Height = 13
       Alignment = taRightJustify
       Caption = 'Tipo:'
       Transparent = True
     end
+    object Label5: TLabel
+      Left = 103
+      Top = 10
+      Width = 23
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Filial:'
+      Transparent = True
+    end
     object btnConsultar: TNxButton
       Left = 418
-      Top = 30
+      Top = 38
       Width = 114
       Caption = 'Efetuar Pesquisa'
-      TabOrder = 3
+      TabOrder = 4
       OnClick = btnConsultarClick
     end
     object btnImprimir: TNxButton
       Left = 532
-      Top = 30
+      Top = 38
       Width = 114
       Caption = 'Imprimir'
-      TabOrder = 4
+      TabOrder = 5
       OnClick = btnImprimirClick
     end
     object DateEdit1: TDateEdit
       Left = 127
-      Top = 9
-      Width = 100
-      Height = 21
-      Ctl3D = False
-      NumGlyphs = 2
-      ParentCtl3D = False
-      TabOrder = 0
-    end
-    object DateEdit2: TDateEdit
-      Left = 307
-      Top = 8
+      Top = 22
       Width = 100
       Height = 21
       Ctl3D = False
@@ -223,12 +222,22 @@ object frmConsFatConsumo: TfrmConsFatConsumo
       ParentCtl3D = False
       TabOrder = 1
     end
-    object cbTipo: TNxComboBox
-      Left = 127
-      Top = 28
+    object DateEdit2: TDateEdit
+      Left = 299
+      Top = 21
       Width = 100
       Height = 21
+      Ctl3D = False
+      NumGlyphs = 2
+      ParentCtl3D = False
       TabOrder = 2
+    end
+    object cbTipo: TNxComboBox
+      Left = 127
+      Top = 41
+      Width = 100
+      Height = 21
+      TabOrder = 3
       Text = 'Ambos'
       HideFocus = False
       AutoCompleteDelay = 0
@@ -237,6 +246,19 @@ object frmConsFatConsumo: TfrmConsFatConsumo
         'Ambos'
         'Tran'#231'adeira'
         'Tear')
+    end
+    object RxDBLookupCombo1: TRxDBLookupCombo
+      Left = 127
+      Top = 2
+      Width = 272
+      Height = 21
+      DropDownCount = 8
+      Ctl3D = False
+      LookupField = 'ID'
+      LookupDisplay = 'NOME'
+      LookupSource = DMConsFat.dsFilial
+      ParentCtl3D = False
+      TabOrder = 0
     end
   end
 end

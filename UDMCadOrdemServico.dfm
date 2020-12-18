@@ -2283,7 +2283,9 @@ object DMCadOrdemServico: TDMCadOrdemServico
   object sdsCondPgto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT ID, NOME, ENTRADA'#13#10'FROM CONDPGTO'
+    CommandText = 
+      'SELECT ID, NOME, ENTRADA'#13#10'FROM CONDPGTO'#13#10'WHERE  coalesce(INATIVO' +
+      ','#39'N'#39') = '#39'N'#39#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

@@ -4,7 +4,8 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, UDMCadDuplicata,
-  StdCtrls, Buttons, RxLookup, DB, Mask, UCadContaOrc, Menus, RzTabs, ToolEdit, RXDBCtrl, dbXPress;
+  StdCtrls, Buttons, RxLookup, DB, Mask, UCadContaOrc, Menus, RzTabs, ToolEdit, RXDBCtrl, dbXPress,
+  DBCtrls;
 
 type
   TfrmCadDuplicata_Alt = class(TForm)
@@ -20,6 +21,8 @@ type
     RxDBLookupCombo9: TRxDBLookupCombo;
     Label21: TLabel;
     DBDateEdit2: TDBDateEdit;
+    Label1: TLabel;
+    Edit1: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -68,6 +71,8 @@ begin
   oDBUtils.SetDataSourceProperties(Self, fDMCadDuplicata);
   fDMCadDuplicata.cdsDuplicata.Edit;
   vDtAnt := fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsDateTime;
+  if RzPageControl1.ActivePage = TS_DtVencimento then
+    DBDateEdit2.SetFocus;
 end;
 
 procedure TfrmCadDuplicata_Alt.BitBtn1Click(Sender: TObject);
@@ -186,8 +191,9 @@ begin
   fDMCadDuplicata.cdsDuplicata_HistDTHISTORICO.AsDateTime  := Date;
   fDMCadDuplicata.cdsDuplicata_HistTIPO_ES.AsString        := 'E';
   fDMCadDuplicata.cdsDuplicata_HistCOMPLEMENTO.AsString    := 'DATA DE VENCIMENTO ALTERADA DE ' + DateToStr(vDtAnt) + ' PARA ' + fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsString;
-  fDMCadDuplicata.cdsDuplicata_HistID_DESCONTADA.AsInteger                 := 0;
-  fDMCadDuplicata.cdsDuplicata_HistVLR_LANCAMENTO.AsFloat                  := 0;
+  fDMCadDuplicata.cdsDuplicata_HistID_DESCONTADA.AsInteger := 0;
+  fDMCadDuplicata.cdsDuplicata_HistVLR_LANCAMENTO.AsFloat  := 0;
+  fDMCadDuplicata.cdsDuplicata_HistOBS.AsString            := Edit1.Text;
   fDMCadDuplicata.cdsDuplicata_Hist.Post;
 end;
 

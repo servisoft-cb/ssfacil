@@ -279,6 +279,7 @@ type
     Label69: TLabel;
     GravardeComissoqueestanocadastrodoClientenasDuplicatasVendedorInterno1: TMenuItem;
     GerarcomissoconformeconsultaVendedorInterno1: TMenuItem;
+    AlterarDatadeVencimetno1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure OnShow(Sender: TObject);
@@ -379,6 +380,7 @@ type
       Sender: TObject);
     procedure GerarcomissoconformeconsultaVendedorInterno1Click(
       Sender: TObject);
+    procedure AlterarDatadeVencimetno1Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadDuplicata: TDMCadDuplicata;
@@ -910,7 +912,7 @@ begin
     exit;
   if (fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat > 0) or (fDMCadDuplicata.cdsDuplicataVLR_DEVOLUCAO.AsFloat > 0) then
   begin
-    ShowMessage('*** Fatura não pode ser alterada pois consta pagamento/devolução!');
+    ShowMessage('*** Título não pode ser alterada pois consta pagamento/devolução!');
     exit;
   end;
   if fDMCadDuplicata.cdsDuplicataTIPO_MOV.AsString = 'H' then
@@ -920,7 +922,7 @@ begin
   end;
   if fDMCadDuplicata.cdsDuplicataCANCELADA.AsString = 'S' then
   begin
-    ShowMessage('Fatura cancelada!');
+    ShowMessage('Título cancelada!');
     Exit;
   end;
 
@@ -3500,6 +3502,36 @@ begin
   end;
   SMDBGrid1.EnableScroll;
   MessageDlg('*** Geração Concluída!', mtInformation, [mbOk], 0);
+end;
+
+procedure TfrmCadDuplicata.AlterarDatadeVencimetno1Click(Sender: TObject);
+var
+  vIDAux: Integer;
+  vDtVecto: TDateTime;
+begin
+  vIDAux := fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger;
+  if not(fDMCadDuplicata.cdsDuplicata_Consulta.Active) or (fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger <= 0) then
+    exit;
+  prc_Posiciona_Duplicata(fDMCadDuplicata.cdsDuplicata_ConsultaID.AsInteger);
+  if fDMCadDuplicata.cdsDuplicata.IsEmpty then
+    exit;
+  if StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_PAGO.AsFloat)) > 0 then
+  begin
+    MessageDlg('*** Título com pagamento, não pode ser alterada a data de vencimento!', mtInformation, [mbOk], 0);
+    exit;
+  end;
+  vDtVecto := fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsDateTime;
+  ffrmCadDuplicata_Alt := TfrmCadDuplicata_Alt.Create(self);
+  ffrmCadDuplicata_Alt.fDMCadDuplicata := fDMCadDuplicata;
+  ffrmCadDuplicata_Alt.TS_ContaOrcamento.TabVisible := False;
+  ffrmCadDuplicata_Alt.RzPageControl1.ActivePage := ffrmCadDuplicata_Alt.TS_DtVencimento;
+  ffrmCadDuplicata_Alt.ShowModal;
+  FreeAndNil(ffrmCadDuplicata_Alt);
+  if fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsDateTime <> vDtVecto then
+  begin
+    btnConsultarClick(Sender);
+    fDMCadDuplicata.cdsDuplicata_Consulta.Locate('ID', vIDAux, [loCaseInsensitive]);
+  end;
 end;
 
 end.

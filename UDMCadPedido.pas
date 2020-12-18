@@ -1814,12 +1814,6 @@ type
     sdsCondPgto_DiaQTDDIAS: TIntegerField;
     dsCondPgto_Mestre: TDataSource;
     sdsCondPgto: TSQLDataSet;
-    sdsCondPgtoID: TIntegerField;
-    sdsCondPgtoNOME: TStringField;
-    sdsCondPgtoTIPO: TStringField;
-    sdsCondPgtoENTRADA: TStringField;
-    sdsCondPgtoTIPO_CONDICAO: TStringField;
-    sdsCondPgtoQTD_PARCELA: TIntegerField;
     dspCondPgto: TDataSetProvider;
     cdsCondPgto: TClientDataSet;
     cdsCondPgtoID: TIntegerField;

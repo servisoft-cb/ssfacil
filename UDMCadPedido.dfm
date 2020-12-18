@@ -13625,38 +13625,12 @@ object DMCadPedido: TDMCadPedido
   object sdsCondPgto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10
+    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10'WHERE  coalesce(INATIVO,'#39'N'#39') = '#39'N'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 459
     Top = 422
-    object sdsCondPgtoID: TIntegerField
-      FieldName = 'ID'
-      Required = True
-    end
-    object sdsCondPgtoNOME: TStringField
-      FieldName = 'NOME'
-      Size = 40
-    end
-    object sdsCondPgtoTIPO: TStringField
-      FieldName = 'TIPO'
-      FixedChar = True
-      Size = 1
-    end
-    object sdsCondPgtoENTRADA: TStringField
-      FieldName = 'ENTRADA'
-      FixedChar = True
-      Size = 1
-    end
-    object sdsCondPgtoTIPO_CONDICAO: TStringField
-      FieldName = 'TIPO_CONDICAO'
-      FixedChar = True
-      Size = 1
-    end
-    object sdsCondPgtoQTD_PARCELA: TIntegerField
-      FieldName = 'QTD_PARCELA'
-    end
   end
   object dspCondPgto: TDataSetProvider
     DataSet = sdsCondPgto
@@ -13668,7 +13642,7 @@ object DMCadPedido: TDMCadPedido
     IndexFieldNames = 'NOME'
     Params = <>
     ProviderName = 'dspCondPgto'
-    Left = 507
+    Left = 506
     Top = 422
     object cdsCondPgtoID: TIntegerField
       FieldName = 'ID'

@@ -23,7 +23,7 @@ object frmCadCondPgto: TfrmCadCondPgto
     Top = 0
     Width = 710
     Height = 468
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -31,7 +31,7 @@ object frmCadCondPgto: TfrmCadCondPgto
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -400,8 +400,8 @@ object frmCadCondPgto: TfrmCadCondPgto
           OnKeyDown = edtNomeKeyDown
         end
         object btnConsultar: TNxButton
-          Left = 314
-          Top = 2
+          Left = 468
+          Top = 1
           Width = 177
           Height = 30
           Caption = 'Efetuar Pesquisa'
@@ -470,6 +470,14 @@ object frmCadCondPgto: TfrmCadCondPgto
           TabOrder = 1
           Transparent = True
           OnClick = btnConsultarClick
+        end
+        object CheckBox1: TCheckBox
+          Left = 335
+          Top = 6
+          Width = 97
+          Height = 17
+          Caption = 'Mostrar Inativo'
+          TabOrder = 2
         end
       end
     end
@@ -1023,6 +1031,18 @@ object frmCadCondPgto: TfrmCadCondPgto
             'P'
             'U'
             'N')
+        end
+        object DBCheckBox4: TDBCheckBox
+          Left = 395
+          Top = 93
+          Width = 121
+          Height = 17
+          Caption = 'Inativo'
+          DataField = 'INATIVO'
+          DataSource = DMCadCondPgto.dsCondPgto
+          TabOrder = 12
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
         end
       end
       object SMDBGrid2: TSMDBGrid

@@ -4,7 +4,7 @@ object frmCadDuplicata_Alt: TfrmCadDuplicata_Alt
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Alterar Conta Or'#231'amento'
-  ClientHeight = 99
+  ClientHeight = 134
   ClientWidth = 587
   Color = clMoneyGreen
   Font.Charset = DEFAULT_CHARSET
@@ -22,7 +22,7 @@ object frmCadDuplicata_Alt: TfrmCadDuplicata_Alt
   TextHeight = 13
   object Panel3: TPanel
     Left = 0
-    Top = 65
+    Top = 100
     Width = 587
     Height = 34
     Align = alBottom
@@ -30,7 +30,7 @@ object frmCadDuplicata_Alt: TfrmCadDuplicata_Alt
     TabOrder = 0
     object BitBtn4: TBitBtn
       Left = 301
-      Top = 5
+      Top = 6
       Width = 98
       Height = 25
       Caption = '(F10) Ca&ncelar'
@@ -45,7 +45,7 @@ object frmCadDuplicata_Alt: TfrmCadDuplicata_Alt
     end
     object BitBtn1: TBitBtn
       Left = 203
-      Top = 5
+      Top = 6
       Width = 98
       Height = 25
       Caption = '&Confirmar'
@@ -63,7 +63,7 @@ object frmCadDuplicata_Alt: TfrmCadDuplicata_Alt
     Left = 0
     Top = 0
     Width = 587
-    Height = 65
+    Height = 100
     ActivePage = TS_DtVencimento
     Align = alClient
     TabIndex = 1
@@ -159,27 +159,63 @@ object frmCadDuplicata_Alt: TfrmCadDuplicata_Alt
     end
     object TS_DtVencimento: TRzTabSheet
       Color = clMoneyGreen
-      Caption = 'Alterar'
+      Caption = 'Alterar Dt Vencimento'
       object Label21: TLabel
-        Left = 137
+        Left = 23
         Top = 19
-        Width = 85
-        Height = 13
+        Width = 118
+        Height = 16
         Alignment = taRightJustify
         Caption = 'Data Vencimento:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
+      end
+      object Label1: TLabel
+        Left = 110
+        Top = 44
+        Width = 31
+        Height = 16
+        Alignment = taRightJustify
+        Caption = 'Obs:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
       end
       object DBDateEdit2: TDBDateEdit
-        Left = 224
+        Left = 144
         Top = 11
         Width = 121
         Height = 21
         DataField = 'DTVENCIMENTO'
         DataSource = DMCadDuplicata.dsDuplicata
         Ctl3D = False
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = []
         NumGlyphs = 2
         ParentCtl3D = False
+        ParentFont = False
         TabOrder = 0
         StartOfWeek = Sun
+      end
+      object Edit1: TEdit
+        Left = 145
+        Top = 38
+        Width = 418
+        Height = 20
+        AutoSize = False
+        Ctl3D = False
+        ParentCtl3D = False
+        TabOrder = 1
       end
     end
   end

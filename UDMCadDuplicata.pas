@@ -1104,6 +1104,8 @@ type
     cdsDuplicata_ConsultaPERC_COMISSAO_INT: TFloatField;
     sdsDuplicata_HistID_COMISSAO_INT: TIntegerField;
     cdsDuplicata_HistID_COMISSAO_INT: TIntegerField;
+    sdsDuplicata_HistOBS: TStringField;
+    cdsDuplicata_HistOBS: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);

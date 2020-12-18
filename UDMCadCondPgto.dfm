@@ -64,6 +64,10 @@ object DMCadCondPgto: TDMCadCondPgto
       FixedChar = True
       Size = 1
     end
+    object sdsCondPgtoINATIVO: TStringField
+      FieldName = 'INATIVO'
+      Size = 1
+    end
   end
   object dspCondPgto: TDataSetProvider
     DataSet = sdsCondPgto
@@ -135,6 +139,10 @@ object DMCadCondPgto: TDMCadCondPgto
     object cdsCondPgtoFRETE: TStringField
       FieldName = 'FRETE'
       FixedChar = True
+      Size = 1
+    end
+    object cdsCondPgtoINATIVO: TStringField
+      FieldName = 'INATIVO'
       Size = 1
     end
   end

@@ -6677,7 +6677,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
   object sdsCondPgto: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
-    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10
+    CommandText = 'SELECT *'#13#10'FROM CONDPGTO'#13#10'WHERE  coalesce(INATIVO,'#39'N'#39') = '#39'N'#39
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -6734,7 +6734,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     Params = <>
     ProviderName = 'dspCondPgto'
     Left = 819
-    Top = 271
+    Top = 272
     object cdsCondPgtoID: TIntegerField
       FieldName = 'ID'
       Required = True

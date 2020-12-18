@@ -264,13 +264,13 @@ object DMConsFat: TDMConsFat
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44182.652406481480000000
+    ReportOptions.LastChange = 44183.434969432870000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 88
-    Top = 176
+    Top = 177
   end
   object frxDBDataset1: TfrxDBDataset
     UserName = 'frxDBDataset1'
@@ -1428,17 +1428,13 @@ object DMConsFat: TDMConsFat
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT SUM(QTD_MATERIAL) QTD_MATERIAL,'#13#10'AUX.id_material, AUX.id_' +
-      'cor, AUX.nome_material, AUX.nome_cor_mat,'#13#10'AUX.tipo_reg, AUX.uni' +
-      'dade_mat'#13#10'from ('#13#10'select v.id_material, v.id_cor, v.nome_materia' +
-      'l, v.nome_cor_mat,'#13#10'v.tipo_reg, v.unidade_mat,'#13#10'((coalesce(v.qtd' +
-      '_conversor,1) * v.qtd) * v.qtd_consumo) QTD_MATERIAL'#13#10'FROM vcons' +
-      'umofat v'#13#10#13#10'union all'#13#10#13#10'select v.id_material2, v.id_cor2, v.nom' +
-      'e_material2, v.nome_cor2,'#13#10'v.tipo_reg2, v.unidade2,'#13#10'((coalesce(' +
-      'v.qtd_conversor,1) * v.qtd) * v.qtd_consumo2) QTD_MATERIAL2'#13#10'FRO' +
-      'M vconsumofat v'#13#10'where v.id_material2 > 0) AUX'#13#10'GROUP BY AUX.id_' +
-      'material, AUX.id_cor, AUX.nome_material, AUX.nome_cor_mat,'#13#10'AUX.' +
-      'tipo_reg, AUX.unidade_mat'#13#10#13#10
+      'select  aux.id_material, aux.nome_material, aux.id_cor, aux.nome' +
+      '_cor_mat, sum(aux.total_consumo) total_consumo,'#13#10'aux.tipo_reg, a' +
+      'ux.unidade_mat'#13#10'from('#13#10'select v.id_material, V.nome_material, V.' +
+      'id_cor, V.nome_cor_mat, V.total_consumo,'#13#10'V.tipo_reg, V.unidade_' +
+      'mat'#13#10'from vconsumofat v'#13#10'WHERE 0 = 0'#13#10') aux'#13#10'GROUP BY aux.id_mat' +
+      'erial, aux.nome_material, aux.id_cor, aux.nome_cor_mat, aux.tipo' +
+      '_reg, aux.unidade_mat'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -1456,23 +1452,22 @@ object DMConsFat: TDMConsFat
     ProviderName = 'dspConsFatConsumo'
     Left = 763
     Top = 322
-    object cdsConsFatConsumoQTD_MATERIAL: TFloatField
-      FieldName = 'QTD_MATERIAL'
-      DisplayFormat = '0.000##'
-    end
     object cdsConsFatConsumoID_MATERIAL: TIntegerField
       FieldName = 'ID_MATERIAL'
-    end
-    object cdsConsFatConsumoID_COR: TIntegerField
-      FieldName = 'ID_COR'
     end
     object cdsConsFatConsumoNOME_MATERIAL: TStringField
       FieldName = 'NOME_MATERIAL'
       Size = 100
     end
+    object cdsConsFatConsumoID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
     object cdsConsFatConsumoNOME_COR_MAT: TStringField
       FieldName = 'NOME_COR_MAT'
       Size = 60
+    end
+    object cdsConsFatConsumoTOTAL_CONSUMO: TFloatField
+      FieldName = 'TOTAL_CONSUMO'
     end
     object cdsConsFatConsumoTIPO_REG: TStringField
       FieldName = 'TIPO_REG'
@@ -1483,23 +1478,6 @@ object DMConsFat: TDMConsFat
       FieldName = 'UNIDADE_MAT'
       Size = 6
     end
-  end
-  object frxConsFatConsumo: TfrxDBDataset
-    UserName = 'frxConsFatConsumo'
-    OnFirst = frxComprasServicoItemFirst
-    CloseDataSource = False
-    FieldAliases.Strings = (
-      'QTD_MATERIAL=QTD_MATERIAL'
-      'ID_MATERIAL=ID_MATERIAL'
-      'ID_COR=ID_COR'
-      'NOME_MATERIAL=NOME_MATERIAL'
-      'NOME_COR_MAT=NOME_COR_MAT'
-      'TIPO_REG=TIPO_REG'
-      'UNIDADE_MAT=UNIDADE_MAT')
-    DataSource = dsConsFatConsumo
-    BCDToCurrency = False
-    Left = 674
-    Top = 271
   end
   object dsConsFatConsumo: TDataSource
     DataSet = cdsConsFatConsumo
@@ -1537,7 +1515,7 @@ object DMConsFat: TDMConsFat
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 358
+    Left = 357
     Top = 424
   end
   object dspConsPedConsumo: TDataSetProvider
@@ -1610,5 +1588,22 @@ object DMConsFat: TDMConsFat
     BCDToCurrency = False
     Left = 519
     Top = 422
+  end
+  object frxConsFatConsumo: TfrxDBDataset
+    UserName = 'frxConsFatConsumo'
+    OnFirst = frxComprasServicoItemFirst
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID_MATERIAL=ID_MATERIAL'
+      'NOME_MATERIAL=NOME_MATERIAL'
+      'ID_COR=ID_COR'
+      'NOME_COR_MAT=NOME_COR_MAT'
+      'TOTAL_CONSUMO=TOTAL_CONSUMO'
+      'TIPO_REG=TIPO_REG'
+      'UNIDADE_MAT=UNIDADE_MAT')
+    DataSource = dsConsFatConsumo
+    BCDToCurrency = False
+    Left = 657
+    Top = 293
   end
 end
