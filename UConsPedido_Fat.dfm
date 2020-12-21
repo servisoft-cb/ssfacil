@@ -294,7 +294,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     Top = 146
     Width = 898
     Height = 465
-    ActivePage = TS_Item
+    ActivePage = TS_Fatura
     ActivePageDefault = TS_Item
     Align = alClient
     Color = 16755027
@@ -308,7 +308,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
     ParentColor = False
     ParentFont = False
     TabColors.Unselected = clGray
-    TabIndex = 0
+    TabIndex = 3
     TabOrder = 2
     TextColors.Unselected = 5197647
     OnChange = RzPageControl1Change
@@ -825,7 +825,7 @@ object frmConsPedido_Fat: TfrmConsPedido_Fat
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
-        OnTitleClick = SMDBGrid4TitleClick
+        OnTitleClick = SMDBGrid2TitleClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
         BandsFont.Color = clWindowText

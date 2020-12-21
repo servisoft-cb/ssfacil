@@ -4584,6 +4584,12 @@ object fMenu: TfMenu
         CompName = 'RomaneioParaExpedioNovo1'
         Caption = 'Romaneio Para Expedi'#231#227'o (Novo)'
         GroupName = 'Pedidos'
+      end
+      item
+        FormName = 'frmCadPedido'
+        CompName = 'EtiquetaPDF1'
+        Caption = 'Etiqueta PDF'
+        GroupName = 'Pedidos'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True

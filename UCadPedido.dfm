@@ -25,7 +25,7 @@ object frmCadPedido: TfrmCadPedido
     Top = 0
     Width = 1097
     Height = 679
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -34,7 +34,7 @@ object frmCadPedido: TfrmCadPedido
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -2480,7 +2480,7 @@ object frmCadPedido: TfrmCadPedido
         Top = 190
         Width = 1093
         Height = 397
-        ActivePage = TS_Valores
+        ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
         BackgroundColor = clSilver
@@ -2488,7 +2488,7 @@ object frmCadPedido: TfrmCadPedido
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 1
         FixedDimension = 19
         object RzTabSheet1: TRzTabSheet
@@ -7004,8 +7004,8 @@ object frmCadPedido: TfrmCadPedido
     Top = 334
   end
   object PopupMenu1: TPopupMenu
-    Left = 1012
-    Top = 67
+    Left = 1013
+    Top = 69
     object Pedido1: TMenuItem
       Caption = 'Pedido'
       object Normal1: TMenuItem
@@ -7071,6 +7071,10 @@ object frmCadPedido: TfrmCadPedido
       object EtiquetaA4ItensPersonalizado1: TMenuItem
         Caption = 'Etiqueta (A4) Itens Personalizado'
         OnClick = EtiquetaA4ItensPersonalizado1Click
+      end
+      object EtiquetaPDF1: TMenuItem
+        Caption = 'Etiqueta PDF'
+        OnClick = EtiquetaPDF1Click
       end
     end
     object EtiquetaRtulo1: TMenuItem
@@ -7161,7 +7165,7 @@ object frmCadPedido: TfrmCadPedido
   end
   object PopupMenu3: TPopupMenu
     Left = 868
-    Top = 32
+    Top = 33
     object Excel1: TMenuItem
       Caption = 'Excel'
       OnClick = Excel1Click

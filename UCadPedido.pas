@@ -1,4 +1,4 @@
-UNIT UCadPedido;
+unit UCadPedido;
 
 interface
 
@@ -379,6 +379,7 @@ type
     Quantidadevarivel1: TMenuItem;
     Label89: TLabel;
     DBEdit20: TDBEdit;
+    EtiquetaPDF1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -510,6 +511,7 @@ type
     procedure btnAltPrecoClick(Sender: TObject);
     procedure RomaneioParaExpedioNovo1Click(Sender: TObject);
     procedure Quantidadevarivel1Click(Sender: TObject);
+    procedure EtiquetaPDF1Click(Sender: TObject);
   private
     { Private declarations }
     fLista: TStringList;
@@ -5238,6 +5240,29 @@ begin
   frmGerar_Pedido_Etiqueta.CurrencyEdit1.Value := fDMCadPedido.cdsPedidoImpNUM_PEDIDO.AsInteger;
   frmGerar_Pedido_Etiqueta.btnConsultarClick(Sender);
   frmGerar_Pedido_Etiqueta.ShowModal;
+end;
+
+
+procedure TfrmCadPedido.EtiquetaPDF1Click(Sender: TObject);
+var
+  vArq, x: String;
+  email: TValidaEmail;
+  enviar: TfrxMailExport;
+  pdf: TfrxPDFExport;
+begin
+  prc_Posiciona_Imp;
+
+  fDMCadPedido.cdsPedidoImp_Itens.IndexFieldNames := 'ID;ITEM';
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Etiqueta_JW_PDF.fr3';
+
+  if (FileExists(vArq)) and (trim(vArq) <> '') then
+    fDMCadPedido.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatório não localizado! ' + vArq);
+    Exit;
+  end;
+  fDMCadPedido.frxReport1.ShowReport;
 end;
 
 end.

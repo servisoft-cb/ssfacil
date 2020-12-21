@@ -1,11 +1,11 @@
 object frmConsPedido: TfrmConsPedido
-  Left = 177
-  Top = 20
+  Left = -4
+  Top = -4
   BorderIcons = [biSystemMenu, biMaximize]
   BorderStyle = bsSingle
   Caption = 'Consulta Pedidos'
-  ClientHeight = 611
-  ClientWidth = 1017
+  ClientHeight = 705
+  ClientWidth = 1366
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -22,7 +22,7 @@ object frmConsPedido: TfrmConsPedido
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1017
+    Width = 1366
     Height = 150
     Align = alTop
     BevelOuter = bvNone
@@ -491,8 +491,8 @@ object frmConsPedido: TfrmConsPedido
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 203
-    Width = 1017
-    Height = 378
+    Width = 1366
+    Height = 472
     ActivePage = TS_Item
     ActivePageDefault = TS_Item
     Align = alClient
@@ -522,16 +522,16 @@ object frmConsPedido: TfrmConsPedido
       Font.Style = []
       ParentFont = False
       object NxSplitter1: TNxSplitter
-        Left = 766
+        Left = 1115
         Top = 37
-        Height = 318
+        Height = 412
         Align = alRight
       end
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 37
-        Width = 766
-        Height = 318
+        Width = 1115
+        Height = 412
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido_Item
@@ -892,7 +892,7 @@ object frmConsPedido: TfrmConsPedido
       object Panel6: TPanel
         Left = 0
         Top = 0
-        Width = 1013
+        Width = 1362
         Height = 37
         Align = alTop
         Color = clSilver
@@ -990,10 +990,10 @@ object frmConsPedido: TfrmConsPedido
         end
       end
       object SMDBGrid12: TSMDBGrid
-        Left = 775
+        Left = 1124
         Top = 37
         Width = 238
-        Height = 318
+        Height = 412
         Align = alRight
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido_Item_Proc
@@ -1075,8 +1075,8 @@ object frmConsPedido: TfrmConsPedido
       object SMDBGrid4: TSMDBGrid
         Left = 0
         Top = 25
-        Width = 1013
-        Height = 330
+        Width = 1362
+        Height = 424
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido
@@ -1130,6 +1130,7 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
+            Width = 64
             Visible = True
           end
           item
@@ -1140,7 +1141,6 @@ object frmConsPedido: TfrmConsPedido
             Title.Font.Height = -11
             Title.Font.Name = 'MS Sans Serif'
             Title.Font.Style = []
-            Width = 64
             Visible = True
           end
           item
@@ -1433,7 +1433,7 @@ object frmConsPedido: TfrmConsPedido
       object Panel4: TPanel
         Left = 0
         Top = 0
-        Width = 1013
+        Width = 1362
         Height = 25
         Align = alTop
         Color = clSilver
@@ -1501,8 +1501,8 @@ object frmConsPedido: TfrmConsPedido
       object SMDBGrid2: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1013
-        Height = 355
+        Width = 1362
+        Height = 449
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido_Ref
@@ -1904,8 +1904,8 @@ object frmConsPedido: TfrmConsPedido
       object RzPageControl3: TRzPageControl
         Left = 0
         Top = 0
-        Width = 1013
-        Height = 355
+        Width = 1362
+        Height = 449
         ActivePage = TS_Ref_Acum_Prod
         Align = alClient
         BackgroundColor = 8453888
@@ -1921,8 +1921,8 @@ object frmConsPedido: TfrmConsPedido
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1009
-            Height = 332
+            Width = 1358
+            Height = 426
             Align = alClient
             Ctl3D = False
             DataSource = DMConsPedido.dsPedido_Ref_Acum
@@ -2181,8 +2181,8 @@ object frmConsPedido: TfrmConsPedido
           object SMDBGrid11: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1009
-            Height = 332
+            Width = 1358
+            Height = 426
             Align = alClient
             Ctl3D = False
             DataSource = DMConsPedido.dsPedido_GPessoa
@@ -2371,8 +2371,8 @@ object frmConsPedido: TfrmConsPedido
       object SMDBGrid5: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1013
-        Height = 355
+        Width = 1362
+        Height = 449
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido_Cli
@@ -2631,8 +2631,8 @@ object frmConsPedido: TfrmConsPedido
       object SMDBGrid6: TSMDBGrid
         Left = 0
         Top = 0
-        Width = 1013
-        Height = 355
+        Width = 1362
+        Height = 449
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido_Comb
@@ -2909,8 +2909,8 @@ object frmConsPedido: TfrmConsPedido
       object SMDBGrid7: TSMDBGrid
         Left = 0
         Top = 28
-        Width = 1013
-        Height = 327
+        Width = 1362
+        Height = 421
         Align = alClient
         Ctl3D = False
         DataSource = DMConsPedido.dsPedido_Ref2
@@ -3268,7 +3268,7 @@ object frmConsPedido: TfrmConsPedido
       object Panel7: TPanel
         Left = 0
         Top = 0
-        Width = 1013
+        Width = 1362
         Height = 28
         Align = alTop
         Color = clSilver
@@ -3296,8 +3296,8 @@ object frmConsPedido: TfrmConsPedido
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 0
-        Width = 1013
-        Height = 355
+        Width = 1362
+        Height = 449
         ActivePage = TS_RefComb_Acum
         ActivePageDefault = TS_RefComb_Acum
         Align = alClient
@@ -3323,8 +3323,8 @@ object frmConsPedido: TfrmConsPedido
           object SMDBGrid8: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1009
-            Height = 332
+            Width = 1358
+            Height = 426
             Align = alClient
             Ctl3D = False
             DataSource = DMConsPedido.dsPedido_RefComb
@@ -3582,8 +3582,8 @@ object frmConsPedido: TfrmConsPedido
           object SMDBGrid9: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1009
-            Height = 332
+            Width = 1358
+            Height = 426
             Align = alClient
             Ctl3D = False
             DataSource = DMConsPedido.dsPedido_RefComb_DtEntrega
@@ -3858,8 +3858,8 @@ object frmConsPedido: TfrmConsPedido
           object SMDBGrid10: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1009
-            Height = 332
+            Width = 1358
+            Height = 426
             Align = alClient
             Ctl3D = False
             DataSource = DMConsPedido.dsPedido_RefComb_DtECliente
@@ -4152,8 +4152,8 @@ object frmConsPedido: TfrmConsPedido
           object SMDBGrid13: TSMDBGrid
             Left = 0
             Top = 0
-            Width = 1009
-            Height = 332
+            Width = 1358
+            Height = 426
             Align = alClient
             Ctl3D = False
             DataSource = DMConsPedido.dsPedido_RefComb_DtEPed
@@ -4464,7 +4464,7 @@ object frmConsPedido: TfrmConsPedido
   object Panel2: TPanel
     Left = 0
     Top = 173
-    Width = 1017
+    Width = 1366
     Height = 30
     Align = alTop
     Color = clSilver
@@ -4738,8 +4738,8 @@ object frmConsPedido: TfrmConsPedido
   end
   object pnlTotal: TPanel
     Left = 0
-    Top = 581
-    Width = 1017
+    Top = 675
+    Width = 1366
     Height = 30
     Align = alBottom
     Color = clSilver
@@ -4933,7 +4933,7 @@ object frmConsPedido: TfrmConsPedido
   object Panel5: TPanel
     Left = 0
     Top = 150
-    Width = 1017
+    Width = 1366
     Height = 23
     Align = alTop
     BevelOuter = bvNone

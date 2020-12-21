@@ -137,6 +137,9 @@ type
     RLDetailGrid1: TRLDetailGrid;
     RLDBText45: TRLDBText;
     RLLabel42: TRLLabel;
+    RLLabel43: TRLLabel;
+    RLDBText46: TRLDBText;
+    RLDBText47: TRLDBText;
     procedure RLReport1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand1BeforePrint(Sender: TObject; var PrintIt: Boolean);
     procedure RLBand7BeforePrint(Sender: TObject; var PrintIt: Boolean);

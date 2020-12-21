@@ -897,9 +897,9 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           ParentFont = False
         end
         object RLDraw4: TRLDraw
-          Left = 521
+          Left = 647
           Top = 171
-          Width = 549
+          Width = 424
           Height = 21
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -908,7 +908,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           Font.Style = []
         end
         object RLLabel32: TRLLabel
-          Left = 529
+          Left = 650
           Top = 175
           Width = 63
           Height = 12
@@ -922,9 +922,9 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           ParentFont = False
         end
         object RLDBText41: TRLDBText
-          Left = 595
+          Left = 716
           Top = 175
-          Width = 470
+          Width = 350
           Height = 12
           AutoSize = False
           DataField = 'NOME_TRA'
@@ -939,7 +939,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
         object RLDraw12: TRLDraw
           Left = 0
           Top = 171
-          Width = 525
+          Width = 648
           Height = 21
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -964,10 +964,55 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
         object RLDBText43: TRLDBText
           Left = 64
           Top = 175
-          Width = 448
+          Width = 426
           Height = 12
           AutoSize = False
           DataField = 'NOME_VENDEDOR'
+          DataSource = DMCadPedido.dsPedidoImp
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLLabel43: TRLLabel
+          Left = 496
+          Top = 176
+          Width = 27
+          Height = 12
+          Alignment = taRightJustify
+          Caption = 'Fone:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDBText46: TRLDBText
+          Left = 525
+          Top = 176
+          Width = 27
+          Height = 12
+          Alignment = taRightJustify
+          AutoSize = False
+          DataField = 'DDD_VENDAS'
+          DataSource = DMCadPedido.dsPedidoImp
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDBText47: TRLDBText
+          Left = 553
+          Top = 176
+          Width = 91
+          Height = 12
+          AutoSize = False
+          DataField = 'FONE_VENDAS'
           DataSource = DMCadPedido.dsPedidoImp
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack

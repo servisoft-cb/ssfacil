@@ -45,7 +45,7 @@ object fRelPedido_JW: TfRelPedido_JW
         Left = 0
         Top = 0
         Width = 1071
-        Height = 192
+        Height = 193
         BandType = btTitle
         BeforePrint = RLBand1BeforePrint
         object RLDraw9: TRLDraw
@@ -924,9 +924,9 @@ object fRelPedido_JW: TfRelPedido_JW
           ParentFont = False
         end
         object RLDraw4: TRLDraw
-          Left = 0
+          Left = 647
           Top = 171
-          Width = 1069
+          Width = 424
           Height = 21
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -935,7 +935,7 @@ object fRelPedido_JW: TfRelPedido_JW
           Font.Style = []
         end
         object RLLabel39: TRLLabel
-          Left = 9
+          Left = 650
           Top = 175
           Width = 63
           Height = 12
@@ -949,11 +949,97 @@ object fRelPedido_JW: TfRelPedido_JW
           ParentFont = False
         end
         object RLDBText43: TRLDBText
-          Left = 76
+          Left = 716
           Top = 175
-          Width = 53
+          Width = 350
           Height = 12
+          AutoSize = False
           DataField = 'NOME_TRA'
+          DataSource = DMCadPedido.dsPedidoImp
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDraw12: TRLDraw
+          Left = 0
+          Top = 171
+          Width = 648
+          Height = 21
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+        end
+        object RLLabel43: TRLLabel
+          Left = 15
+          Top = 175
+          Width = 45
+          Height = 12
+          Alignment = taRightJustify
+          Caption = 'Vendedor:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDBText46: TRLDBText
+          Left = 64
+          Top = 175
+          Width = 426
+          Height = 12
+          AutoSize = False
+          DataField = 'NOME_VENDEDOR'
+          DataSource = DMCadPedido.dsPedidoImp
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLLabel44: TRLLabel
+          Left = 496
+          Top = 176
+          Width = 27
+          Height = 12
+          Alignment = taRightJustify
+          Caption = 'Fone:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDBText47: TRLDBText
+          Left = 525
+          Top = 176
+          Width = 27
+          Height = 12
+          Alignment = taRightJustify
+          AutoSize = False
+          DataField = 'DDD_VENDAS'
+          DataSource = DMCadPedido.dsPedidoImp
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -9
+          Font.Name = 'Arial'
+          Font.Style = []
+          ParentFont = False
+        end
+        object RLDBText48: TRLDBText
+          Left = 553
+          Top = 176
+          Width = 91
+          Height = 12
+          AutoSize = False
+          DataField = 'FONE_VENDAS'
           DataSource = DMCadPedido.dsPedidoImp
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
@@ -965,7 +1051,7 @@ object fRelPedido_JW: TfRelPedido_JW
       end
       object RLSubDetail2: TRLSubDetail
         Left = 0
-        Top = 192
+        Top = 193
         Width = 1071
         Height = 227
         DataSource = DMCadPedido.dsPedidoImp_Itens
@@ -979,7 +1065,7 @@ object fRelPedido_JW: TfRelPedido_JW
           object RLDBText21: TRLDBText
             Left = 730
             Top = 2
-            Width = 59
+            Width = 60
             Height = 13
             Alignment = taCenter
             AutoSize = False
@@ -1624,7 +1710,7 @@ object fRelPedido_JW: TfRelPedido_JW
       end
       object RLBand7: TRLBand
         Left = 0
-        Top = 419
+        Top = 420
         Width = 1071
         Height = 36
         BandType = btSummary

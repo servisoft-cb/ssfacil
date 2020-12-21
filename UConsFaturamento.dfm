@@ -399,7 +399,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     Top = 112
     Width = 1349
     Height = 373
-    ActivePage = TS_Cupom
+    ActivePage = TS_Produto_Det
     ActivePageDefault = TS_Cliente
     Align = alClient
     BackgroundColor = clGray
@@ -412,7 +412,7 @@ object frmConsFaturamento: TfrmConsFaturamento
     ParentBackgroundColor = False
     ParentFont = False
     TabColors.Shadow = clSilver
-    TabIndex = 7
+    TabIndex = 5
     TabOrder = 1
     TextColors.Selected = clBlue
     FixedDimension = 19
@@ -2264,10 +2264,10 @@ object frmConsFaturamento: TfrmConsFaturamento
         Top = 33
         Width = 1345
         Height = 290
-        ActivePage = ts_CupomFiscalAnalitico
+        ActivePage = ts_CupomFiscalSintetico
         ActivePageDefault = ts_CupomFiscalSintetico
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 0
         FixedDimension = 19
         object ts_CupomFiscalSintetico: TRzTabSheet

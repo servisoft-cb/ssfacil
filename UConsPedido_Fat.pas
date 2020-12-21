@@ -70,6 +70,7 @@ type
     procedure RxDBLookupCombo5Enter(Sender: TObject);
     procedure BitBtn3Click(Sender: TObject);
     procedure RzPageControl1Change(Sender: TObject);
+    procedure SMDBGrid2TitleClick(Column: TColumn);
   private
     { Private declarations }
     fDMConsPedido: TDMConsPedido;
@@ -582,6 +583,18 @@ begin
   RxDBLookupCombo2.Visible := (RzPageControl1.ActivePage = TS_Item_Acum);
   Label9.Visible    := (RzPageControl1.ActivePage <> TS_Fatura);
   ComboBox2.Visible := (RzPageControl1.ActivePage <> TS_Fatura);
+end;
+
+procedure TfrmConsPedido_Fat.SMDBGrid2TitleClick(Column: TColumn);
+var
+  i : Integer;
+begin
+  ColunaOrdenada := Column.FieldName;
+  fDMConsPedido.cdsPedidoFaturas.IndexFieldNames := Column.FieldName;
+  Column.Title.Color := clBtnShadow;
+  for i := 0 to SMDBGrid2.Columns.Count - 1 do
+    if not (SMDBGrid2.Columns.Items[I] = Column) then
+      SMDBGrid2.Columns.Items[I].Title.Color := clBtnFace;
 end;
 
 end.

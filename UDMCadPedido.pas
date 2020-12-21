@@ -3934,6 +3934,9 @@ type
     mOrcamento_ItensComplemento_Nome: TStringField;
     sdsPedidoTOTAL_PESO_TIPO: TFloatField;
     cdsPedidoTOTAL_PESO_TIPO: TFloatField;
+    cdsPedidoImp_ItensCONTADOR_PROD_USADO: TIntegerField;
+    cdsPedidoImpDDD_VENDAS: TIntegerField;
+    cdsPedidoImpFONE_VENDAS: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

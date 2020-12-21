@@ -457,7 +457,7 @@ object DMCadPedido: TDMCadPedido
     BeforePost = cdsPedidoBeforePost
     OnNewRecord = cdsPedidoNewRecord
     Left = 69
-    Top = 6
+    Top = 7
     object cdsPedidoID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -4175,47 +4175,47 @@ object DMCadPedido: TDMCadPedido
       'FIL.CNPJ_CPF CNPJ_CPF_FILIAL, FIL.INSCR_EST INSCR_EST_FILIAL, FI' +
       'L.NUM_END NUM_END_FILIAL, FIL.ENDLOGO,'#13#10'       FIL.NOME_INTERNO ' +
       'NOME_INTERNO_FIL,FIL.EMAIL EMAIL_FIL, FIL.DDDFAX DDDFAX_FIL, FIL' +
-      '.FAX FAX_FIL,'#13#10'       FIL.complemento_end COMPL_END_FILIAL,'#13#10#13#10' ' +
-      '      TRA.NOME NOME_TRA, TRA.ENDERECO END_TRA, TRA.NUM_END NUM_E' +
-      'ND_TRA, TRA.BAIRRO BAIRRO_TRA, TRA.CIDADE CIDADE_TRA,'#13#10'       TR' +
-      'A.UF UF_TRA, TRA.DDDFONE1 DDD_TRA, TRA.TELEFONE1 FONE_TRA, TRA.D' +
-      'DDFAX DDD_FAX_TRA, TRA.FAX FAX_TRA,'#13#10'       TRA.CNPJ_CPF CNPJ_CP' +
-      'F_TRA, TRA.INSCR_EST INSCR_EST_TRA, TRA.CEP CEP_TRA,'#13#10#13#10'       R' +
-      'ED.NOME NOME_RED, COND.NOME NOME_CONDPGTO,'#13#10'       (PED.VLR_TOTA' +
-      'L + PED.VLR_DESCONTO) VLR_ITENS2, VEND.NOME NOME_VENDEDOR, VEND.' +
-      'DDDFONE1 VENDEDOR_DDD,'#13#10'       VEND.TELEFONE1 VENDEDOR_FONE, TRA' +
-      '.NOME NOME_TRANSPORTADORA, FUN.CODIGO ID_FUNCIONARIO, FUN.NOME N' +
-      'OME_FUNCIONARIO,'#13#10'       FUN.EMAIL EMAIL_FUNCIONARIO,'#13#10#13#10'       ' +
-      'MAPA.NUM_MAPA, MAPA.NOME NOME_MAPA, ATE.NOME NOME_ATELIER, OPN.N' +
-      'OME NOME_OPERACAO, OPN.TIPO_NOTA,'#13#10'       GP.NOME NOME_GRUPO_PES' +
-      'SOA, CLI.IMP_COR_CLIENTE, CAST(PED.DDD AS VARCHAR(02)) DDD_PEDID' +
-      'O, PED.FONE FONE_PEDIDO,'#13#10'       CLI.OBS_AVISO, CLI.MOSTRAR_AVIS' +
-      'O, ATE.CNPJ_CPF CNPJ_CPF_ATELIER, ATE.PESSOA PESSOA_ATELIER, CLI' +
-      '.NOME_CONTATO,'#13#10'       CLI.IMP_ETIQUETA_ROT,'#13#10'       CASE'#13#10'     ' +
-      '    WHEN PED.ID_CLIENTE = (SELECT PA2.ID_CLIENTE_CONSUMIDOR'#13#10'   ' +
-      '                             FROM PARAMETROS PA2) THEN PED.NOME_' +
-      'CONSUMIDOR'#13#10'         ELSE PED.NOME_CLIENTE'#13#10'       END NOME_CLIE' +
-      'NTE2,'#13#10'       CASE'#13#10'         WHEN PED.TIPO_FRETE = '#39'1'#39' THEN '#39'1 E' +
-      'mitente'#39#13#10'         WHEN PED.TIPO_FRETE = '#39'2'#39' THEN '#39' 2 Destinat'#225'r' +
-      'io'#39#13#10'         WHEN PED.TIPO_FRETE = '#39'3'#39' THEN '#39' 3 Terceiros'#39#13#10'   ' +
-      '      WHEN PED.TIPO_FRETE = '#39'4'#39' THEN '#39' 4 Transporte Pr'#243'prio por ' +
-      'conta do Remetente'#39#13#10'         WHEN PED.TIPO_FRETE = '#39'5'#39' THEN '#39' 5' +
-      ' Transporte Pr'#243'prio por conta do Destinat'#225'rio'#39#13#10'         WHEN PE' +
-      'D.TIPO_FRETE = '#39'9'#39' THEN '#39' 9 Sem Frete'#39#13#10'       END DESC_TIPO_FRE' +
-      'TE, vint.nome nome_vendedor_int, TCOB.NOME NOME_TIPO_COBRANCA'#13#10#13 +
-      #10'FROM PEDIDO PED'#13#10'LEFT JOIN PESSOA CLI ON PED.ID_CLIENTE = CLI.C' +
-      'ODIGO'#13#10'INNER JOIN FILIAL FIL ON (PED.FILIAL = FIL.ID)'#13#10'LEFT JOIN' +
-      ' PESSOA TRA ON (PED.ID_TRANSPORTADORA = TRA.CODIGO)'#13#10'LEFT JOIN P' +
-      'ESSOA RED ON (PED.ID_REDESPACHO = RED.CODIGO)'#13#10'LEFT JOIN CONDPGT' +
-      'O COND ON (PED.ID_CONDPGTO = COND.ID)'#13#10'LEFT JOIN PESSOA VEND ON ' +
-      '(PED.ID_VENDEDOR = VEND.CODIGO)'#13#10'LEFT JOIN PESSOA VINT ON (PED.i' +
-      'd_vendedor_int = VINT.CODIGO)'#13#10'LEFT JOIN FUNCIONARIO FUN ON (PED' +
-      '.ID_FUNCIONARIO = FUN.CODIGO)'#13#10'LEFT JOIN MAPA_COMPRAS MAPA ON (P' +
-      'ED.ID_MAPA = MAPA.ID)'#13#10'LEFT JOIN PESSOA ATE ON (PED.ID_ATELIER =' +
-      ' ATE.CODIGO)'#13#10'LEFT JOIN OPERACAO_NOTA OPN ON (PED.ID_OPERACAO_NO' +
-      'TA = OPN.ID)'#13#10'LEFT JOIN GRUPO_PESSOA GP ON PED.ID_GRUPO_PESSOA =' +
-      ' GP.ID'#13#10'LEFT JOIN tipocobranca TCOB ON PED.id_tipo_cobranca = TC' +
-      'OB.ID'#13#10#13#10'WHERE PED.ID = :ID'#13#10
+      '.FAX FAX_FIL,'#13#10'       FIL.complemento_end COMPL_END_FILIAL, FIL.' +
+      'ddd_vendas, FIL.fone_vendas,'#13#10#13#10'       TRA.NOME NOME_TRA, TRA.EN' +
+      'DERECO END_TRA, TRA.NUM_END NUM_END_TRA, TRA.BAIRRO BAIRRO_TRA, ' +
+      'TRA.CIDADE CIDADE_TRA,'#13#10'       TRA.UF UF_TRA, TRA.DDDFONE1 DDD_T' +
+      'RA, TRA.TELEFONE1 FONE_TRA, TRA.DDDFAX DDD_FAX_TRA, TRA.FAX FAX_' +
+      'TRA,'#13#10'       TRA.CNPJ_CPF CNPJ_CPF_TRA, TRA.INSCR_EST INSCR_EST_' +
+      'TRA, TRA.CEP CEP_TRA,'#13#10#13#10'       RED.NOME NOME_RED, COND.NOME NOM' +
+      'E_CONDPGTO,'#13#10'       (PED.VLR_TOTAL + PED.VLR_DESCONTO) VLR_ITENS' +
+      '2, VEND.NOME NOME_VENDEDOR, VEND.DDDFONE1 VENDEDOR_DDD,'#13#10'       ' +
+      'VEND.TELEFONE1 VENDEDOR_FONE, TRA.NOME NOME_TRANSPORTADORA, FUN.' +
+      'CODIGO ID_FUNCIONARIO, FUN.NOME NOME_FUNCIONARIO,'#13#10'       FUN.EM' +
+      'AIL EMAIL_FUNCIONARIO,'#13#10#13#10'       MAPA.NUM_MAPA, MAPA.NOME NOME_M' +
+      'APA, ATE.NOME NOME_ATELIER, OPN.NOME NOME_OPERACAO, OPN.TIPO_NOT' +
+      'A,'#13#10'       GP.NOME NOME_GRUPO_PESSOA, CLI.IMP_COR_CLIENTE, CAST(' +
+      'PED.DDD AS VARCHAR(02)) DDD_PEDIDO, PED.FONE FONE_PEDIDO,'#13#10'     ' +
+      '  CLI.OBS_AVISO, CLI.MOSTRAR_AVISO, ATE.CNPJ_CPF CNPJ_CPF_ATELIE' +
+      'R, ATE.PESSOA PESSOA_ATELIER, CLI.NOME_CONTATO,'#13#10'       CLI.IMP_' +
+      'ETIQUETA_ROT,'#13#10'       CASE'#13#10'         WHEN PED.ID_CLIENTE = (SELE' +
+      'CT PA2.ID_CLIENTE_CONSUMIDOR'#13#10'                                FR' +
+      'OM PARAMETROS PA2) THEN PED.NOME_CONSUMIDOR'#13#10'         ELSE PED.N' +
+      'OME_CLIENTE'#13#10'       END NOME_CLIENTE2,'#13#10'       CASE'#13#10'         WH' +
+      'EN PED.TIPO_FRETE = '#39'1'#39' THEN '#39'1 Emitente'#39#13#10'         WHEN PED.TIP' +
+      'O_FRETE = '#39'2'#39' THEN '#39' 2 Destinat'#225'rio'#39#13#10'         WHEN PED.TIPO_FRE' +
+      'TE = '#39'3'#39' THEN '#39' 3 Terceiros'#39#13#10'         WHEN PED.TIPO_FRETE = '#39'4'#39 +
+      ' THEN '#39' 4 Transporte Pr'#243'prio por conta do Remetente'#39#13#10'         W' +
+      'HEN PED.TIPO_FRETE = '#39'5'#39' THEN '#39' 5 Transporte Pr'#243'prio por conta d' +
+      'o Destinat'#225'rio'#39#13#10'         WHEN PED.TIPO_FRETE = '#39'9'#39' THEN '#39' 9 Sem' +
+      ' Frete'#39#13#10'       END DESC_TIPO_FRETE, vint.nome nome_vendedor_int' +
+      ', TCOB.NOME NOME_TIPO_COBRANCA'#13#10#13#10'FROM PEDIDO PED'#13#10'LEFT JOIN PES' +
+      'SOA CLI ON PED.ID_CLIENTE = CLI.CODIGO'#13#10'INNER JOIN FILIAL FIL ON' +
+      ' (PED.FILIAL = FIL.ID)'#13#10'LEFT JOIN PESSOA TRA ON (PED.ID_TRANSPOR' +
+      'TADORA = TRA.CODIGO)'#13#10'LEFT JOIN PESSOA RED ON (PED.ID_REDESPACHO' +
+      ' = RED.CODIGO)'#13#10'LEFT JOIN CONDPGTO COND ON (PED.ID_CONDPGTO = CO' +
+      'ND.ID)'#13#10'LEFT JOIN PESSOA VEND ON (PED.ID_VENDEDOR = VEND.CODIGO)' +
+      #13#10'LEFT JOIN PESSOA VINT ON (PED.id_vendedor_int = VINT.CODIGO)'#13#10 +
+      'LEFT JOIN FUNCIONARIO FUN ON (PED.ID_FUNCIONARIO = FUN.CODIGO)'#13#10 +
+      'LEFT JOIN MAPA_COMPRAS MAPA ON (PED.ID_MAPA = MAPA.ID)'#13#10'LEFT JOI' +
+      'N PESSOA ATE ON (PED.ID_ATELIER = ATE.CODIGO)'#13#10'LEFT JOIN OPERACA' +
+      'O_NOTA OPN ON (PED.ID_OPERACAO_NOTA = OPN.ID)'#13#10'LEFT JOIN GRUPO_P' +
+      'ESSOA GP ON PED.ID_GRUPO_PESSOA = GP.ID'#13#10'LEFT JOIN tipocobranca ' +
+      'TCOB ON PED.id_tipo_cobranca = TCOB.ID'#13#10#13#10'WHERE PED.ID = :ID'#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -4956,6 +4956,13 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'NOME_TIPO_COBRANCA'
       Size = 30
     end
+    object cdsPedidoImpDDD_VENDAS: TIntegerField
+      FieldName = 'DDD_VENDAS'
+    end
+    object cdsPedidoImpFONE_VENDAS: TStringField
+      FieldName = 'FONE_VENDAS'
+      Size = 15
+    end
   end
   object dsPedidoImp: TDataSource
     DataSet = cdsPedidoImp
@@ -5009,21 +5016,25 @@ object DMCadPedido: TDMCadPedido
       ','#13#10'case'#13#10'  when coalesce(PI.vlr_unitario_ipi,0) > 0 THEN (pi.vlr' +
       '_unitario_ipi * pi.qtd) - (coalesce(pi.vlr_desconto,0) + coalesc' +
       'e(pi.vlr_descontorateio,0))'#13#10'  else pi.vlr_total'#13#10'  end vlr_tota' +
-      'l_com_ipi'#13#10#13#10'FROM PEDIDO_ITEM PI'#13#10'inner JOIN PRODUTO PRO ON (PI.' +
-      'ID_PRODUTO = PRO.ID)'#13#10'LEFT JOIN MARCA ON (PRO.ID_MARCA = MARCA.I' +
-      'D)'#13#10'LEFT JOIN PEDIDO_ITEM_TIPO PT ON (PI.ID = PT.ID AND PI.ITEM ' +
-      '= PT.ITEM)'#13#10'LEFT JOIN TAB_NCM NCM ON (PRO.ID_NCM = NCM.ID)'#13#10'LEFT' +
-      ' JOIN COMBINACAO COMB ON (PI.ID_COR = COMB.ID)'#13#10'LEFT JOIN PRODUT' +
-      'O_TAM PTAM ON (PI.id_produto = PTAM.id AND PI.tamanho = PTAM.tam' +
-      'anho)'#13#10'LEFT JOIN PESSOA ATE ON (PI.id_atelier = ATE.CODIGO )'#13#10'LE' +
-      'FT JOIN PRODUTO_LOTE PLOTE ON (PI.ID_PRODUTO = PLOTE.ID AND PI.N' +
-      'UM_LOTE_CONTROLE = PLOTE.NUM_LOTE_CONTROLE)'#13#10'LEFT JOIN TIPO_MATE' +
-      'RIAL TMAT ON (PT.ID_TIPO_MATERIAL = TMAT.ID)'#13#10'LEFT JOIN MATRIZ_P' +
-      'RECO MP ON MP.ID = PT.ID_ACABAMENTO'#13#10'LEFT JOIN UNIDADE UNI ON PI' +
-      '.UNIDADE = UNI.unidade'#13#10'LEFT JOIN COMBINACAO CORP ON PT.id_cor_p' +
-      'erfil = CORP.ID'#13#10'LEFT JOIN COMBINACAO CORV ON PT.id_cor_vidro = ' +
-      'CORV.ID'#13#10#13#10'WHERE PI.ID = :ID'#13#10'AND ((PI.TIPO_ACESSORIO = '#39'N'#39') OR ' +
-      '(PI.TIPO_ACESSORIO IS NULL))'#13#10' AND (PI.QTD > 0)'#13#10#13#10
+      'l_com_ipi,'#13#10#13#10'case'#13#10'  when (select empresa_sucata from parametro' +
+      's ) = '#39'S'#39' then'#13#10'  (SELECT count(1) contador'#13#10'FROM PEDIDO_ITEM I'#13 +
+      #10'WHERE I.cancelado = '#39'N'#39#13#10'  AND I.tipo_reg = '#39'P'#39#13#10'  AND I.nomepr' +
+      'oduto = pi.nomeproduto'#13#10'  and i.id <> pi.id   )'#13#10'  else 0'#13#10'  end' +
+      ' Contador_Prod_Usado'#13#10#13#10'FROM PEDIDO_ITEM PI'#13#10'inner JOIN PRODUTO ' +
+      'PRO ON (PI.ID_PRODUTO = PRO.ID)'#13#10'LEFT JOIN MARCA ON (PRO.ID_MARC' +
+      'A = MARCA.ID)'#13#10'LEFT JOIN PEDIDO_ITEM_TIPO PT ON (PI.ID = PT.ID A' +
+      'ND PI.ITEM = PT.ITEM)'#13#10'LEFT JOIN TAB_NCM NCM ON (PRO.ID_NCM = NC' +
+      'M.ID)'#13#10'LEFT JOIN COMBINACAO COMB ON (PI.ID_COR = COMB.ID)'#13#10'LEFT ' +
+      'JOIN PRODUTO_TAM PTAM ON (PI.id_produto = PTAM.id AND PI.tamanho' +
+      ' = PTAM.tamanho)'#13#10'LEFT JOIN PESSOA ATE ON (PI.id_atelier = ATE.C' +
+      'ODIGO )'#13#10'LEFT JOIN PRODUTO_LOTE PLOTE ON (PI.ID_PRODUTO = PLOTE.' +
+      'ID AND PI.NUM_LOTE_CONTROLE = PLOTE.NUM_LOTE_CONTROLE)'#13#10'LEFT JOI' +
+      'N TIPO_MATERIAL TMAT ON (PT.ID_TIPO_MATERIAL = TMAT.ID)'#13#10'LEFT JO' +
+      'IN MATRIZ_PRECO MP ON MP.ID = PT.ID_ACABAMENTO'#13#10'LEFT JOIN UNIDAD' +
+      'E UNI ON PI.UNIDADE = UNI.unidade'#13#10'LEFT JOIN COMBINACAO CORP ON ' +
+      'PT.id_cor_perfil = CORP.ID'#13#10'LEFT JOIN COMBINACAO CORV ON PT.id_c' +
+      'or_vidro = CORV.ID'#13#10#13#10'WHERE PI.ID = :ID'#13#10'AND ((PI.TIPO_ACESSORIO' +
+      ' = '#39'N'#39') OR (PI.TIPO_ACESSORIO IS NULL))'#13#10' AND (PI.QTD > 0)'#13#10#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -5659,6 +5670,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedidoImp_ItensQTD_POR_ROTULO: TIntegerField
       FieldName = 'QTD_POR_ROTULO'
+    end
+    object cdsPedidoImp_ItensCONTADOR_PROD_USADO: TIntegerField
+      FieldName = 'CONTADOR_PROD_USADO'
     end
   end
   object dsPedidoImp_Itens: TDataSource
@@ -11059,13 +11073,13 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44144.936853715300000000
+    ReportOptions.LastChange = 44186.676854375000000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnPreview = frxReport1Preview
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 988
+    Left = 990
     Top = 105
   end
   object frxDBDataset1: TfrxDBDataset
@@ -11484,7 +11498,9 @@ object DMCadPedido: TDMCadPedido
       'PRECO_COR_VIDRO=PRECO_COR_VIDRO'
       'VLR_UNITARIO_IPI=VLR_UNITARIO_IPI'
       'VLR_TOTAL_COM_IPI=VLR_TOTAL_COM_IPI'
-      'OBS_REDUZIDA=OBS_REDUZIDA')
+      'OBS_REDUZIDA=OBS_REDUZIDA'
+      'QTD_POR_ROTULO=QTD_POR_ROTULO'
+      'CONTADOR_PROD_USADO=CONTADOR_PROD_USADO')
     DataSource = dsPedidoImp_Itens
     BCDToCurrency = False
     Left = 1058
@@ -19214,7 +19230,7 @@ object DMCadPedido: TDMCadPedido
     DataSource = dsPedidoItemTipoFoto
     BCDToCurrency = False
     Left = 1141
-    Top = 284
+    Top = 285
   end
   object cdsCloneItem: TClientDataSet
     Active = True

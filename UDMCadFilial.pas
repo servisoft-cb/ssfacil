@@ -699,6 +699,10 @@ type
     cdsFilialUSA_RESPTECNICO: TStringField;
     sdsFilialUTILIZA_APP: TStringField;
     cdsFilialUTILIZA_APP: TStringField;
+    sdsFilialFONE_VENDAS: TStringField;
+    cdsFilialFONE_VENDAS: TStringField;
+    sdsFilialDDD_VENDAS: TIntegerField;
+    cdsFilialDDD_VENDAS: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsFilialNewRecord(DataSet: TDataSet);
     procedure cdsFilialBeforePost(DataSet: TDataSet);
