@@ -4108,6 +4108,11 @@ object DMCadDuplicata: TDMCadDuplicata
       FixedChar = True
       Size = 1
     end
+    object qParametros_FinINF_VLR_PAGO_SEL: TStringField
+      FieldName = 'INF_VLR_PAGO_SEL'
+      FixedChar = True
+      Size = 1
+    end
   end
   object qParametros_Usuario: TSQLQuery
     MaxBlobSize = -1

@@ -5,22 +5,11 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, UDMCadDuplicata, Mask,
   StdCtrls, Buttons, RxLookup, DBCtrls, DB, RxDBComb, ToolEdit, RXDBCtrl, CurrEdit, NxCollection, RzPanel, uCadContas,
-  uCadTipoCobranca;
+  uCadTipoCobranca, AdvPanel;
 
 type
   TfrmCadDuplicata_Pag_Sel = class(TForm)
-    Panel3: TPanel;
-    BitBtn4: TBitBtn;
-    BitBtn1: TBitBtn;
-    Panel2: TPanel;
-    Label13: TLabel;
-    DtPagamento: TDateEdit;
-    gbxCheque: TRzGroupBox;
-    Label21: TLabel;
-    Label27: TLabel;
-    DateEdit1: TDateEdit;
-    ceNumCheque: TCurrencyEdit;
-    Panel1: TPanel;
+    pnlConta: TAdvPanel;
     Label3: TLabel;
     SpeedButton2: TSpeedButton;
     SpeedButton6: TSpeedButton;
@@ -29,16 +18,35 @@ type
     SpeedButton3: TSpeedButton;
     RxDBLookupCombo1: TRxDBLookupCombo;
     RxDBLookupCombo2: TRxDBLookupCombo;
-    Label59: TLabel;
-    RxDBLookupCombo12: TRxDBLookupCombo;
+    pnlDtPagamento: TAdvPanel;
+    Label13: TLabel;
+    DtPagamento: TDateEdit;
+    ckVencimento: TCheckBox;
+    pnlVlrPago: TAdvPanel;
+    Label5: TLabel;
+    Label6: TLabel;
+    ceVlrPago: TCurrencyEdit;
+    ceVlrRestante: TCurrencyEdit;
+    pnlCheque: TAdvPanel;
+    pnlHistorico: TAdvPanel;
     Label9: TLabel;
     Edit1: TEdit;
+    Label21: TLabel;
+    ceNumCheque: TCurrencyEdit;
+    Label27: TLabel;
+    DateEdit1: TDateEdit;
+    pnlConfirmar: TAdvPanel;
+    btnConfirmar: TNxButton;
+    btnCancelar: TNxButton;
+    AdvPanel1: TAdvPanel;
+    lblPessoa: TLabel;
     Label2: TLabel;
-    ckVencimento: TCheckBox;
+    lblVlrTotal: TLabel;
+    pnlOperacaoBaixa: TAdvPanel;
+    Label59: TLabel;
+    RxDBLookupCombo12: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
-    procedure BitBtn1Click(Sender: TObject);
-    procedure BitBtn4Click(Sender: TObject);
     procedure SpeedButton2Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
@@ -50,6 +58,10 @@ type
     procedure Panel1Exit(Sender: TObject);
     procedure gbxChequeExit(Sender: TObject);
     procedure ckVencimentoClick(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure pnlContaExit(Sender: TObject);
+    procedure ceVlrPagoExit(Sender: TObject);
   private
     { Private declarations }
     ffrmCadContas: TfrmCadContas;
@@ -61,6 +73,12 @@ type
     { Public declarations }
     fDMCadDuplicata: TDMCadDuplicata;
     vTipo_ES: String;
+    vID_Pessoa_Local: Integer;
+    vNome_Pessoa_Local: String;
+    vContador_Tit : Integer;
+    vVlrTotal_Tit : Real;
+    vCli_For : String; //E= Cliente    S= Fornecedor
+
   end;
 
 var
@@ -88,49 +106,21 @@ begin
   oDBUtils.SetDataSourceProperties(Self,fDMCadDuplicata);
   vConfirmar := False;
   fDMCadDuplicata.mCheque.EmptyDataSet;
-end;
-
-procedure TfrmCadDuplicata_Pag_Sel.BitBtn1Click(Sender: TObject);
-begin
-  if (DtPagamento.Date < 10) and not(ckVencimento.Checked) then
-  begin
-    MessageDlg('*** Data de pagamento não informada!', mtError, [mbOk], 0);
-    exit;
-  end;
-  if (gbxCheque.Visible) and (ceNumCheque.AsInteger > 0) and (DateEdit1.Date < 10) then
-  begin
-    MessageDlg('*** Não foi informada a data do cheque!', mtError, [mbOk], 0);
-    exit;
-  end;
-
-  vConfirmar := True;
-
-  if ckVencimento.Checked then
-    fDMCadDuplicata.vDtPgtoSel := 0
+  if (vNome_Pessoa_Local = '') and (vCli_For = 'S') then
+    lblPessoa.Caption := 'Total de  ' + IntToStr(vContador_Tit) + '  títulos selecionados de Fornecedores'
   else
-    fDMCadDuplicata.vDtPgtoSel := DtPagamento.Date;
-  fDMCadDuplicata.vUsar_DtVencimento := ckVencimento.Checked;
-  fDMCadDuplicata.vID_ContaPgtoSel := RxDBLookupCombo1.KeyValue;
-  if Trim(RxDBLookupCombo12.Text) <> '' then
-    fDMCadDuplicata.vId_Contabil_OP_Baixa := RxDBLookupCombo12.KeyValue
+  if (vNome_Pessoa_Local = '') and (vCli_For = 'E') then
+    lblPessoa.Caption := 'Total de  ' + IntToStr(vContador_Tit) + '  títulos selecionados de Clientes'
   else
-    fDMCadDuplicata.vId_Contabil_OP_Baixa := 0;
-
-  if RxDBLookupCombo2.Text <> '' then
-    fDMCadDuplicata.vID_FormaPgto := RxDBLookupCombo2.KeyValue
+  if (vCli_For = 'S') then
+    lblPessoa.Caption := 'Total de  ' + IntToStr(vContador_Tit) + '  títulos do fornecedor:  ' + vNome_Pessoa_Local
   else
-    fDMCadDuplicata.vID_FormaPgto := 0;
-  fDMCadDuplicata.vNum_Cheque := 0;
-  fDMCadDuplicata.vDtCheque   := 0;
-  if (ceNumCheque.AsInteger > 0) and (gbxCheque.Visible) then
-  begin
-    fDMCadDuplicata.vNum_Cheque := ceNumCheque.AsInteger;
-    fDMCadDuplicata.vDtCheque   := DateEdit1.Date;
-  end;
-  fDMCadDuplicata.vHistorico_PagSel := '';
-  if trim(Edit1.Text) <> '' then
-    fDMCadDuplicata.vHistorico_PagSel := Edit1.Text;
-  Close;
+  if (vCli_For = 'E') then
+    lblPessoa.Caption := 'Total de  ' + IntToStr(vContador_Tit) + '  títulos do cliente:  ' + vNome_Pessoa_Local;
+  lblVlrTotal.Caption := 'R$ ' + FormatFloat('###,###,##0.00',vVlrTotal_Tit);
+  pnlVlrPago.Visible := (trim(vNome_Pessoa_Local) <> '') and (fDMCadDuplicata.qParametros_FinINF_VLR_PAGO_SEL.AsString = 'S');
+  pnlOperacaoBaixa.Visible := (fDMCadDuplicata.qParametros_GeralMOSTRAR_COD_CONTABIL.AsString = 'S');
+  RxDBLookupCombo1.SetFocus;
 end;
 
 function TfrmCadDuplicata_Pag_Sel.fnc_Erro: Boolean;
@@ -151,18 +141,6 @@ begin
   Result := False;
 end;
 
-procedure TfrmCadDuplicata_Pag_Sel.BitBtn4Click(Sender: TObject);
-begin
-  fDMCadDuplicata.vID_ContaPgtoSel := 0;
-  fDMCadDuplicata.vID_FormaPgto    := 0;
-  fDMCadDuplicata.vDtPgtoSel       := 0;
-  fDMCadDuplicata.vNum_Cheque      := 0;
-  fDMCadDuplicata.vDtCheque        := 0;
-  if MessageDlg('Deseja cancelar a inclusão/alteração?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
-    exit;
-  Close;
-end;
-
 procedure TfrmCadDuplicata_Pag_Sel.SpeedButton2Click(Sender: TObject);
 begin
   ffrmCadContas := TfrmCadContas.Create(self);
@@ -176,7 +154,7 @@ procedure TfrmCadDuplicata_Pag_Sel.FormKeyDown(Sender: TObject;
   var Key: Word; Shift: TShiftState);
 begin
   if (Key = Vk_F10) then
-    BitBtn4Click(Sender);
+    btnCancelarClick(Sender);
 end;
 
 procedure TfrmCadDuplicata_Pag_Sel.SpeedButton6Click(Sender: TObject);
@@ -211,7 +189,7 @@ begin
     vFlag := (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'B');
   if (vFlag) and (vTipo_ES <> 'S') then
     vFlag := False;
-  gbxCheque.Visible := (vFlag);
+  pnlCheque.Visible := (vFlag);
 end;
 
 procedure TfrmCadDuplicata_Pag_Sel.ceNumChequeExit(Sender: TObject);
@@ -270,6 +248,88 @@ begin
   if ckVencimento.Checked then
     DtPagamento.Clear;
 
+end;
+
+procedure TfrmCadDuplicata_Pag_Sel.btnConfirmarClick(Sender: TObject);
+begin
+  if (DtPagamento.Date < 10) and not(ckVencimento.Checked) then
+  begin
+    MessageDlg('*** Data de pagamento não informada!', mtError, [mbOk], 0);
+    exit;
+  end;
+  if (pnlCheque.Visible) and (ceNumCheque.AsInteger > 0) and (DateEdit1.Date < 10) then
+  begin
+    MessageDlg('*** Não foi informada a data do cheque!', mtError, [mbOk], 0);
+    exit;
+  end;
+  if (pnlVlrPago.Visible) and (ceVlrPago.Value <= 0) then
+  begin
+    MessageDlg('*** Valor pago não informado!', mtError, [mbOk], 0);
+    exit;
+  end;
+
+  vConfirmar := True;
+
+  if ckVencimento.Checked then
+    fDMCadDuplicata.vDtPgtoSel := 0
+  else
+    fDMCadDuplicata.vDtPgtoSel := DtPagamento.Date;
+  fDMCadDuplicata.vUsar_DtVencimento := ckVencimento.Checked;
+  fDMCadDuplicata.vID_ContaPgtoSel := RxDBLookupCombo1.KeyValue;
+  if Trim(RxDBLookupCombo12.Text) <> '' then
+    fDMCadDuplicata.vId_Contabil_OP_Baixa := RxDBLookupCombo12.KeyValue
+  else
+    fDMCadDuplicata.vId_Contabil_OP_Baixa := 0;
+
+  if RxDBLookupCombo2.Text <> '' then
+    fDMCadDuplicata.vID_FormaPgto := RxDBLookupCombo2.KeyValue
+  else
+    fDMCadDuplicata.vID_FormaPgto := 0;
+  fDMCadDuplicata.vNum_Cheque := 0;
+  fDMCadDuplicata.vDtCheque   := 0;
+  if (ceNumCheque.AsInteger > 0) and (pnlCheque.Visible) then
+  begin
+    fDMCadDuplicata.vNum_Cheque := ceNumCheque.AsInteger;
+    fDMCadDuplicata.vDtCheque   := DateEdit1.Date;
+  end;
+  fDMCadDuplicata.vHistorico_PagSel := '';
+  if trim(Edit1.Text) <> '' then
+    fDMCadDuplicata.vHistorico_PagSel := Edit1.Text;
+  fDMCadDuplicata.vVlrTotal_Pago  := ceVlrPago.Value;
+  fDMCadDuplicata.vAbater_VlrPago := (pnlVlrPago.Visible);
+  Close;
+end;
+
+procedure TfrmCadDuplicata_Pag_Sel.btnCancelarClick(Sender: TObject);
+begin
+  fDMCadDuplicata.vID_ContaPgtoSel := 0;
+  fDMCadDuplicata.vID_FormaPgto    := 0;
+  fDMCadDuplicata.vDtPgtoSel       := 0;
+  fDMCadDuplicata.vNum_Cheque      := 0;
+  fDMCadDuplicata.vDtCheque        := 0;
+  if MessageDlg('Deseja cancelar o pagamentos dos títulos?',mtConfirmation,[mbYes,mbNo],0) <> mrYes then
+    exit;
+  Close;
+end;
+
+procedure TfrmCadDuplicata_Pag_Sel.pnlContaExit(Sender: TObject);
+begin
+  fDMCadDuplicata.vID_Banco_Cheque := 0;
+  if RxDBLookupCombo1.Text = '' then
+    exit;
+  if (fDMCadDuplicata.cdsContasID.AsInteger <> RxDBLookupCombo1.KeyValue) then
+    fDMCadDuplicata.cdsContas.Locate('ID',RxDBLookupCombo1.KeyValue,[loCaseInsensitive]);
+  if (fDMCadDuplicata.cdsContasTIPO_CONTA.AsString = 'B') and (fDMCadDuplicata.cdsContasID_BANCO.AsInteger > 0) then
+    fDMCadDuplicata.vID_Banco_Cheque := fDMCadDuplicata.cdsContasID_BANCO.AsInteger;
+end;
+
+procedure TfrmCadDuplicata_Pag_Sel.ceVlrPagoExit(Sender: TObject);
+begin
+  ceVlrRestante.Value := ceVlrPago.Value - vVlrTotal_Tit;
+  if ceVlrRestante.Value < 0 then
+    ceVlrRestante.Font.Color := clRed
+  else
+    ceVlrRestante.Font.Color := clWindowText;
 end;
 
 end.

@@ -1106,6 +1106,7 @@ type
     cdsDuplicata_HistID_COMISSAO_INT: TIntegerField;
     sdsDuplicata_HistOBS: TStringField;
     cdsDuplicata_HistOBS: TStringField;
+    qParametros_FinINF_VLR_PAGO_SEL: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
@@ -1158,6 +1159,8 @@ type
     vImpObs: Boolean;
     vImpCCusto: Boolean;
     vHistorico_PagSel: String;
+    vVlrTotal_Pago : Real;
+    vAbater_VlrPago : Boolean;
 
     vCReceber_Tot, vCReceber_Pago_Tot, vCReceber_Pend_Tot, vCReceber_Atraso_Tot: Real;
     vCPagar_Tot, vCPagar_Pago_Tot, vCPagar_Pend_Tot, vCPagar_Atraso_Tot: Real;

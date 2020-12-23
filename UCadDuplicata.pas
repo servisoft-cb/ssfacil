@@ -1741,9 +1741,22 @@ end;
 procedure TfrmCadDuplicata.btnPagtoSelecionadoClick(Sender: TObject);
 var
   vFlag: Boolean;
+  vIDAux : Integer;
+  vNomeAux : String;
+  vVlrTotalAux:Real;
+  vContadorAux:Integer;
+  vCli_ForAux: String;
+
 begin
   if not (fDMCadDuplicata.cdsDuplicata_Consulta.Active) or (fDMCadDuplicata.cdsDuplicata_Consulta.IsEmpty) then
     Exit;
+
+  vIDAux  := -1;
+  vNomeAux := '';
+  vVlrTotalAux := 0;
+  vContadorAux := 0;
+  vCli_ForAux  := '';
+
   if fDMCadDuplicata.qParametros_FinUSA_APROVA_DUP.AsString = 'S' then
   begin
     vFlag := True;
@@ -1771,14 +1784,56 @@ begin
   fDMCadDuplicata.cdsDuplicata_Consulta.First;
   while not fDMCadDuplicata.cdsDuplicata_Consulta.Eof do
   begin
-    if (fDMCadDuplicata.cdsDuplicata_ConsultaCANCELADA.AsString = 'S') then
+    if (SMDBGrid1.SelectedRows.CurrentRowSelected) and (fDMCadDuplicata.cdsDuplicata_ConsultaCANCELADA.AsString = 'S') then
     begin
       vFlag := False;
       fDMCadDuplicata.cdsDuplicata_Consulta.Last;
     end;
+    if (SMDBGrid1.SelectedRows.CurrentRowSelected) and (fDMCadDuplicata.cdsDuplicata_ConsultaTIPO_MOV.AsString = 'H') then
+    begin
+      vFlag := False;
+      vCli_ForAux := 'ERROH';
+      fDMCadDuplicata.cdsDuplicata_Consulta.Last;
+    end;
+    if (SMDBGrid1.SelectedRows.CurrentRowSelected) then
+    begin
+      vVlrTotalAux := vVlrTotalAux + fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat;
+      vContadorAux := vContadorAux + 1;
+      if (vIDAux = -1) then
+      begin
+        vIDAux   := fDMCadDuplicata.cdsDuplicata_ConsultaID_PESSOA.AsInteger;
+        vNomeAux := fDMCadDuplicata.cdsDuplicata_ConsultaNOME_PESSOA.AsString;
+      end
+      else
+      if (vIDAux > 0 ) and (vIDAux <> fDMCadDuplicata.cdsDuplicata_ConsultaID_PESSOA.AsInteger) then
+      begin
+        vIDAux   := 0;
+        vNomeAux := '';
+      end;
+      if (vCli_ForAux = '') then
+        vCli_ForAux := fDMCadDuplicata.cdsDuplicata_ConsultaTIPO_ES.AsString
+      else
+      if (vCli_ForAux <> fDMCadDuplicata.cdsDuplicata_ConsultaTIPO_ES.AsString) then
+      begin
+        vCli_ForAux := 'ERRO';
+        vFlag := False;
+      end;
+    end;
     fDMCadDuplicata.cdsDuplicata_Consulta.Next;
   end;
   SMDBGrid1.EnableScroll;
+  if not(vFlag) and (vCli_ForAux = 'ERROH') then
+  begin
+    MessageDlg('*** Não pode escolher cheques nesta opção!', mtInformation, [mbOk], 0);
+    exit;
+  end
+  else
+  if not(vFlag) and (vCli_ForAux = 'ERRO') then
+  begin
+    MessageDlg('*** Não pode escolher títulos a pagar e a receber juntos!', mtInformation, [mbOk], 0);
+    exit;
+  end
+  else
   if not vFlag then
   begin
     MessageDlg('*** Foi selecionda fatura cancelada!', mtInformation, [mbOk], 0);
@@ -1789,6 +1844,13 @@ begin
   fDMCadDuplicata.vHistorico_PagSel := '';
   fDMCadDuplicata.vID_Cheque := 0;
   ffrmCadDuplicata_Pag_Sel := TfrmCadDuplicata_Pag_Sel.Create(self);
+
+  ffrmCadDuplicata_Pag_Sel.vID_Pessoa_Local   := vIDAux;
+  ffrmCadDuplicata_Pag_Sel.vNome_Pessoa_Local := vNomeAux;
+  ffrmCadDuplicata_Pag_Sel.vContador_Tit      := vContadorAux;
+  ffrmCadDuplicata_Pag_Sel.vVlrTotal_Tit      := StrToFloat(FormatFloat('0.00',vVlrTotalAux));
+  ffrmCadDuplicata_Pag_Sel.vCli_For           := vCli_ForAux;
+
   case RadioGroup2.ItemIndex of
     0:
       ffrmCadDuplicata_Pag_Sel.vTipo_ES := 'E';
