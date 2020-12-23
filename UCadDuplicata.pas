@@ -1213,7 +1213,7 @@ var
   ColunaOrdenada: string;
 begin
   ColunaOrdenada := Column.FieldName;
-  fDMCadDuplicata.cdsDuplicata_Consulta.IndexFieldNames := Column.FieldName;
+  fDMCadDuplicata.cdsDuplicata_Consulta.IndexFieldNames := Column.FieldName + ';DTVENCIMENTO';
   Column.Title.Color := clBtnShadow;
   for i := 0 to SMDBGrid1.Columns.Count - 1 do
     if not (SMDBGrid1.Columns.Items[I] = Column) then
@@ -1315,12 +1315,15 @@ var
   vPagou: Boolean;
   vQtdePagto: Integer;
   vVlrPago: Real;
+  vVlrPendenteAux: Real;
+  vVlrAux: Real;
 begin
   if fDMCadDuplicata.vID_ContaPgtoSel > 0 then
     fDMCadDuplicata.cdsContas.Locate('ID',fDMCadDuplicata.vID_ContaPgtoSel, [loCaseInsensitive]);
   vQtdePagto := 0;
   vPagou := False;
   fDMCadDuplicata.vID_Cheque := 0;
+  vVlrPendenteAux := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrTotal_Pago));
   fDMCadDuplicata.cdsDuplicata_Consulta.First;
   while not fDMCadDuplicata.cdsDuplicata_Consulta.Eof do
   begin
@@ -1338,13 +1341,26 @@ begin
           fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime := fDMCadDuplicata.cdsDuplicataDTVENCIMENTO.AsDateTime
         else
           fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime := fDMCadDuplicata.vDtPgtoSel;
+        //23/12/2020
+        vVlrAux := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+        if (fDMCadDuplicata.vAbater_VlrPago) then
+        begin
+          if StrToFloat(FormatFloat('0.00',vVlrPendenteAux)) < StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) then
+            vVlrAux := StrToFloat(FormatFloat('0.00',vVlrPendenteAux));
+        end;
+        //23/12/2020
+          vVlrPago := StrToFloat(FormatFloat('0.00',vVlrAux));
         //06/06/2020
-        vVlrPago := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+        //  vVlrPago := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+          
         if fDMCadDuplicata.qContasTIPO_CONTA.AsString = 'A' then
         begin
           vVlrPago := uUtilCliente.fnc_Saldo_Adto(fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger);
-          if StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) <= StrToFloat(FormatFloat('0.00',vVlrPago)) then
-            vVlrPago := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+          //23/12/2020
+          //if StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) <= StrToFloat(FormatFloat('0.00',vVlrPago)) then
+            //vVlrPago := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat));
+          if StrToFloat(FormatFloat('0.00',vVlrAux)) <= StrToFloat(FormatFloat('0.00',vVlrPago)) then
+            vVlrPago := StrToFloat(FormatFloat('0.00',vVlrAux));
           fDMCadDuplicata.cdsDuplicataVLR_ADTO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',vVlrPago));
         end;
         //******************
@@ -1367,7 +1383,11 @@ begin
         fDMCadDuplicata.cdsDuplicataVLR_JUROSPAGOS.AsFloat := 0;
         fDMCadDuplicata.cdsDuplicataVLR_DESCONTO.AsFloat := 0;
         fDMCadDuplicata.cdsDuplicataVLR_DESPESAS.AsFloat := 0;
-        fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat := 0;
+        fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat - vVlrAux));
+
+        if (fDMCadDuplicata.vAbater_VlrPago) then
+          vVlrPendenteAux := StrToFloat(FormatFloat('0.00',vVlrPendenteAux - vVlrAux));
+
         fDMCadDuplicata.cdsDuplicata.Post;
         vTipo_ES_Loc := fDMCadDuplicata.cdsDuplicataTIPO_ES.AsString;
         fDMCadDuplicata.cdsDuplicata.ApplyUpdates(0);

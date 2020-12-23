@@ -267,7 +267,12 @@ begin
     MessageDlg('*** Valor pago não informado!', mtError, [mbOk], 0);
     exit;
   end;
-
+  if (fDMCadDuplicata.qParametros_FinINF_VLR_PAGO_SEL.AsString = 'S') and (pnlVlrPago.Visible) then
+  begin
+    if ceVlrRestante.Value < 0 then
+      if MessageDlg('Valor lançado a menor...' + #13 + #13 + 'confirma o pagamento dos títulos selecionados?',mtConfirmation,[mbYes,mbNo],0) <> mrYes then
+        exit;
+  end;
   vConfirmar := True;
 
   if ckVencimento.Checked then

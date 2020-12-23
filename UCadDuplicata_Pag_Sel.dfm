@@ -292,7 +292,7 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 2
+    TabOrder = 3
     TabStop = True
     UseDockManager = True
     Version = '1.6.0.3'
@@ -340,12 +340,13 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
     end
     object ceVlrPago: TCurrencyEdit
       Left = 113
-      Top = 9
+      Top = 10
       Width = 121
       Height = 21
       AutoSize = False
       Color = 16747146
       Ctl3D = False
+      DisplayFormat = '0.00'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
       Font.Height = -13
@@ -390,7 +391,7 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 3
+    TabOrder = 4
     TabStop = True
     UseDockManager = True
     Visible = False
@@ -476,7 +477,7 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 4
+    TabOrder = 5
     TabStop = True
     UseDockManager = True
     Version = '1.6.0.3'
@@ -527,7 +528,7 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 5
+    TabOrder = 6
     TabStop = True
     UseDockManager = True
     Version = '1.6.0.3'
@@ -546,9 +547,9 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
     StatusBar.Font.Style = []
     FullHeight = 0
     object btnConfirmar: TNxButton
-      Left = 152
-      Top = 5
-      Width = 169
+      Left = 149
+      Top = 3
+      Width = 186
       Height = 31
       Caption = 'Confirmar Pagamentos'
       Down = True
@@ -556,15 +557,15 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
       Font.Color = clBlue
       Font.Height = -13
       Font.Name = 'Verdana'
-      Font.Style = []
+      Font.Style = [fsBold]
       ParentFont = False
       TabOrder = 0
       OnClick = btnConfirmarClick
     end
     object btnCancelar: TNxButton
-      Left = 320
-      Top = 4
-      Width = 169
+      Left = 334
+      Top = 3
+      Width = 186
       Height = 31
       Caption = '(F10) Cancelar'
       Down = True
@@ -592,8 +593,7 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 6
-    TabStop = True
+    TabOrder = 7
     UseDockManager = True
     Version = '1.6.0.3'
     Caption.Color = clHighlight
@@ -664,7 +664,7 @@ object frmCadDuplicata_Pag_Sel: TfrmCadDuplicata_Pag_Sel
     Font.Name = 'Tahoma'
     Font.Style = []
     ParentFont = False
-    TabOrder = 7
+    TabOrder = 2
     TabStop = True
     UseDockManager = True
     Version = '1.6.0.3'
