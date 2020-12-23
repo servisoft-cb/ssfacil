@@ -735,6 +735,7 @@ type
     cdsEstoque_TransfVLR_CUSTO: TFloatField;
     cdsEstoque_TransfQtd_Total: TAggregateField;
     frxEstoque_Transf: TfrxDBDataset;
+    cdsEstoque_AtualNOME_LOCAL_ESTOQUE: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

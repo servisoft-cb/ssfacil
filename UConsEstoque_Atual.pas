@@ -49,6 +49,9 @@ type
     SMDBGrid7: TSMDBGrid;
     CheckBox1: TCheckBox;
     ckInativo: TCheckBox;
+    pnlLocalEstoque: TPanel;
+    Label6: TLabel;
+    RxDBLookupCombo2: TRxDBLookupCombo;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -113,7 +116,7 @@ begin
     vQtdAux := 0;
     fDMConsEstoque.cdsEstoque_Atual.Close;
     vComando := 'select aux.*, PRO.NOME NOME_PRODUTO, PRO.REFERENCIA, '
-              + 'COMB.NOME NOME_COMBINACAO, PRO.localizacao, '
+              + 'COMB.NOME NOME_COMBINACAO, PRO.localizacao, LE.NOME NOME_LOCAL_ESTOQUE, '
               + 'PRO.qtd_estoque_min, PRO.UNIDADE, PRO.ID_NCM, NCM.NCM, NCM.NOME NOME_NCM, '
               + '(AUX.QTD - AUX.QTD_RESERVA) QTD_SUB_SALDO, (AUX.QTD - AUX.QTD_RESERVA + AUX.QTD_SALDO_OC) QTD_SALDO_FINAL '
               + 'from ( '
@@ -127,6 +130,8 @@ begin
               + 'from vestoque_atual ea '
               + 'INNER JOIN PRODUTO PRO ON EA.ID_PRODUTO = PRO.ID '
               + 'where 0 = 0 ';
+    if (RxDBLookupCombo2.Text <> '') and (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S') then
+      vComando := vComando + ' AND ea.ID_LOCAL_ESTOQUE = ' + IntToStr(RxDBLookupCombo2.KeyValue);
     if RxDBLookupCombo1.Text <> '' then
       vComando := vComando + ' and ea.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
     if not ckInativo.Checked then
@@ -156,6 +161,7 @@ begin
               + ' ON AUX.ID_COR = COMB.ID '
               + ' LEFT JOIN TAB_NCM NCM '
               + ' ON PRO.ID_NCM = NCM.ID '
+              + ' left join LOCAL_ESTOQUE LE ON AUX.ID_LOCAL_ESTOQUE = LE.ID '
               + ' WHERE PRO.ESTOQUE = ' + QuotedStr('S');
     case RadioGroup1.ItemIndex of
       0: vComando := vComando + ' AND aux.QTD > ' + IntToStr(vQtdAux);
@@ -186,6 +192,20 @@ begin
   fDMConsEstoque.cdsFilial.First;
   if (fDMConsEstoque.cdsFilial.RecordCount < 2) and (fDMConsEstoque.cdsFilialID.AsInteger > 0) then
     RxDBLookupCombo1.KeyValue := fDMConsEstoque.cdsFilialID.AsInteger;
+  pnlLocalEstoque.Visible  := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
+
+  for i := 0 to SMDBGrid1.ColCount - 2 do
+  begin
+    if SMDBGrid1.Columns[i].FieldName = 'NOME_LOCAL_ESTOQUE' then
+      SMDBGrid1.Columns[i].Visible := (fDMConsEstoque.qParametrosUSA_LOCAL_ESTOQUE.AsString = 'S');
+    if SMDBGrid1.Columns[i].FieldName = 'NOME_COMBINACAO' then
+      SMDBGrid1.Columns[i].Visible := ((fDMConsEstoque.qParametrosINFORMAR_COR_MATERIAL.AsString = 'S')
+                                    or (fDMConsEstoque.qParametrosINFORMAR_COR_PROD.AsString = 'C')
+                                    or (fDMConsEstoque.qParametrosINFORMAR_COR_PROD.AsString = 'B'));
+    if SMDBGrid1.Columns[i].FieldName = 'TAMANHO' then
+      SMDBGrid1.Columns[i].Visible := (fDMConsEstoque.qParametrosUSA_GRADE.AsString = 'S');
+  end;
+
 end;
 
 procedure TfrmConsEstoque_Atual.SMDBGrid1TitleClick(Column: TColumn);
@@ -194,10 +214,6 @@ var
 begin
   ColunaOrdenada := Column.FieldName;
   fDMConsEstoque.cdsEstoque_Atual.IndexFieldNames := Column.FieldName;
-  //Column.Title.Color := clBtnShadow;
-  //for i := 0 to SMDBGrid1.Columns.Count - 1 do
-  //  if not (SMDBGrid1.Columns.Items[I] = Column) then
-  //    SMDBGrid1.Columns.Items[I].Title.Color := clBtnFace;
 end;
 
 procedure TfrmConsEstoque_Atual.edtRefKeyDown(Sender: TObject; var Key: Word;

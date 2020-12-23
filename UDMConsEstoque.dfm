@@ -3293,22 +3293,30 @@ object DMConsEstoque: TDMConsEstoque
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select aux.*,'#13#10'PRO.NOME NOME_PRODUTO, PRO.REFERENCIA,'#13#10'COMB.NOME' +
-      ' NOME_COMBINACAO, PRO.localizacao,'#13#10'PRO.qtd_estoque_min, PRO.UNI' +
-      'DADE, PRO.ID_NCM, NCM.NCM, NCM.NOME NOME_NCM,'#13#10'(AUX.QTD - AUX.QT' +
-      'D_RESERVA) QTD_SUB_SALDO, (AUX.QTD - AUX.QTD_RESERVA + AUX.QTD_S' +
-      'ALDO_OC) QTD_SALDO_FINAL'#13#10#13#10'from ('#13#10'select ea.id_produto, cast(s' +
-      'um(ea.qtd) as double precision) qtd, ea.id_cor, ea.tamanho,'#13#10'ea.' +
-      'id_local_estoque, cast(sum(ea.qtd_reserva) as double precision) ' +
-      'qtd_reserva,'#13#10'coalesce((select sum(v.qtd_saldo)'#13#10'          from ' +
-      'vestoque_oc v'#13#10'          where v.id_produto = ea.ID_produto'#13#10'   ' +
-      '       and v.id_cor = ea.ID_COR'#13#10'          AND V.TAMANHO = ea.TA' +
-      'MANHO),0) QTD_SALDO_OC'#13#10#13#10'from vestoque_atual ea'#13#10'where ea.id_pr' +
-      'oduto = 11'#13#10'group by ea.id_produto, ea.filial, ea.id_cor, ea.tam' +
-      'anho,'#13#10'ea.id_local_estoque'#13#10') aux'#13#10'INNER JOIN PRODUTO PRO'#13#10'ON AU' +
-      'X.id_produto = PRO.ID'#13#10'LEFT JOIN COMBINACAO COMB'#13#10'ON AUX.ID_COR ' +
-      '= COMB.ID'#13#10'LEFT JOIN TAB_NCM NCM'#13#10'ON PRO.ID_NCM = NCM.ID'#13#10'WHERE ' +
-      'PRO.ESTOQUE = '#39'S'#39#13#10'   AND PRO.INATIVO = '#39'N'#39#13#10'   and pro.id = 11'
+      'select AUX.*, PRO.NOME NOME_PRODUTO, PRO.REFERENCIA, COMB.NOME N' +
+      'OME_COMBINACAO, PRO.LOCALIZACAO,'#13#10'       LE.NOME NOME_LOCAL_ESTO' +
+      'QUE, PRO.QTD_ESTOQUE_MIN, PRO.UNIDADE, PRO.ID_NCM, NCM.NCM, NCM.' +
+      'NOME NOME_NCM,'#13#10'       (AUX.QTD - AUX.QTD_RESERVA) QTD_SUB_SALDO' +
+      ','#13#10'       (AUX.QTD - AUX.QTD_RESERVA + AUX.QTD_SALDO_OC) QTD_SAL' +
+      'DO_FINAL'#13#10'from (select EA.ID_PRODUTO, cast(sum(EA.QTD) as double' +
+      ' precision) QTD, EA.ID_COR, EA.TAMANHO, EA.ID_LOCAL_ESTOQUE,'#13#10'  ' +
+      '           cast(sum(EA.QTD_RESERVA) as double precision) QTD_RES' +
+      'ERVA, coalesce((select sum(V.QTD_SALDO)'#13#10'                       ' +
+      '                                                           from ' +
+      'VESTOQUE_OC V'#13#10'                                                 ' +
+      '                                 where V.ID_PRODUTO = EA.ID_PROD' +
+      'UTO and'#13#10'                                                       ' +
+      '                                 V.ID_COR = EA.ID_COR and'#13#10'     ' +
+      '                                                                ' +
+      '                   V.TAMANHO = EA.TAMANHO), 0) QTD_SALDO_OC'#13#10'   ' +
+      '   from VESTOQUE_ATUAL EA'#13#10'      inner join PRODUTO PRO on EA.ID' +
+      '_PRODUTO = PRO.ID'#13#10'      where 0 = 0 and'#13#10'            PRO.INATIV' +
+      'O = '#39'N'#39' and'#13#10'            PRO.TIPO_REG = '#39'P'#39#13#10'      group by EA.I' +
+      'D_PRODUTO, EA.ID_COR, EA.TAMANHO, EA.ID_LOCAL_ESTOQUE) AUX'#13#10'inne' +
+      'r join PRODUTO PRO on AUX.ID_PRODUTO = PRO.ID'#13#10'left join COMBINA' +
+      'CAO COMB on AUX.ID_COR = COMB.ID'#13#10'left join TAB_NCM NCM on PRO.I' +
+      'D_NCM = NCM.ID'#13#10'left join LOCAL_ESTOQUE LE on AUX.ID_LOCAL_ESTOQ' +
+      'UE = LE.ID'#13#10'where PRO.ESTOQUE = '#39'S'#39'   '
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -3397,6 +3405,10 @@ object DMConsEstoque: TDMConsEstoque
     object cdsEstoque_AtualQTD_SALDO_FINAL: TFloatField
       FieldName = 'QTD_SALDO_FINAL'
       DisplayFormat = '0.000#'
+    end
+    object cdsEstoque_AtualNOME_LOCAL_ESTOQUE: TStringField
+      FieldName = 'NOME_LOCAL_ESTOQUE'
+      Size = 60
     end
   end
   object dsEstoque_Atual: TDataSource

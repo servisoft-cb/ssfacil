@@ -20,7 +20,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
   TextHeight = 13
   object Panel2: TPanel
     Left = 0
-    Top = 106
+    Top = 102
     Width = 926
     Height = 31
     Align = alTop
@@ -44,15 +44,16 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
     Left = 0
     Top = 0
     Width = 926
-    Height = 106
+    Height = 102
     Align = alTop
     Color = clSilver
     TabOrder = 1
     object Label1: TLabel
       Left = 240
-      Top = 30
+      Top = 31
       Width = 55
       Height = 13
+      Alignment = taRightJustify
       Caption = 'Refer'#234'ncia:'
     end
     object Label2: TLabel
@@ -60,18 +61,19 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
       Top = 9
       Width = 23
       Height = 13
+      Alignment = taRightJustify
       Caption = 'Filial:'
     end
     object Label5: TLabel
       Left = 536
-      Top = 30
+      Top = 31
       Width = 54
       Height = 13
       Caption = 'ID Produto:'
     end
     object edtRef: TEdit
       Left = 296
-      Top = 22
+      Top = 23
       Width = 182
       Height = 21
       CharCase = ecUpperCase
@@ -93,7 +95,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
       Left = 1
       Top = 1
       Width = 96
-      Height = 104
+      Height = 100
       Align = alLeft
       Caption = ' Op'#231#227'o '
       ItemIndex = 3
@@ -102,13 +104,13 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         'Negativo'
         'M'#237'nimo'
         'Ambos')
-      TabOrder = 4
+      TabOrder = 5
     end
     object rgTipo: TRadioGroup
       Left = 97
       Top = 1
       Width = 120
-      Height = 104
+      Height = 100
       Align = alLeft
       Caption = ' Tipo '
       ItemIndex = 0
@@ -118,11 +120,11 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         'Material Consumo'
         'Semi Acabado'
         'Imobilizado')
-      TabOrder = 5
+      TabOrder = 6
     end
     object btnConsultar: TNxButton
       Left = 295
-      Top = 45
+      Top = 46
       Width = 177
       Height = 30
       Caption = 'Efetuar Pesquisa'
@@ -188,13 +190,13 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 3
+      TabOrder = 4
       Transparent = True
       OnClick = btnConsultarClick
     end
     object ceIDProduto: TCurrencyEdit
       Left = 592
-      Top = 22
+      Top = 23
       Width = 65
       Height = 21
       AutoSize = False
@@ -205,7 +207,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
     end
     object btnImprimir: TNxButton
       Left = 471
-      Top = 45
+      Top = 46
       Width = 177
       Height = 30
       Caption = 'Imprimir'
@@ -271,24 +273,24 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
       GlyphSpacing = 5
       ParentFont = False
-      TabOrder = 6
+      TabOrder = 7
       Transparent = True
       OnClick = btnImprimirClick
     end
     object ckInativo: TCheckBox
       Left = 667
-      Top = 24
+      Top = 26
       Width = 150
       Height = 17
       Caption = 'Mostrar Produto Inativo'
-      TabOrder = 7
+      TabOrder = 3
     end
   end
   object RzPageControl1: TRzPageControl
     Left = 0
-    Top = 137
+    Top = 133
     Width = 926
-    Height = 380
+    Height = 384
     ActivePage = TS_Estoque
     ActivePageDefault = TS_Estoque
     Align = alClient
@@ -300,9 +302,9 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
       Caption = 'Estoque Geral'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 0
+        Top = 28
         Width = 922
-        Height = 357
+        Height = 333
         Align = alClient
         Ctl3D = False
         DataSource = DMConsEstoque.dsEstoque_Atual
@@ -342,7 +344,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 14
+        ColCount = 15
         RowCount = 2
         Columns = <
           item
@@ -386,10 +388,18 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
           end
           item
             Expanded = False
+            FieldName = 'NOME_LOCAL_ESTOQUE'
+            Title.Alignment = taCenter
+            Title.Caption = 'Local Estoque'
+            Width = 133
+            Visible = True
+          end
+          item
+            Expanded = False
             FieldName = 'UNIDADE'
             Title.Alignment = taCenter
             Title.Caption = 'Unid.'
-            Width = 57
+            Width = 33
             Visible = True
           end
           item
@@ -449,6 +459,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
             FieldName = 'LOCALIZACAO'
             Title.Alignment = taCenter
             Title.Caption = 'Localiza'#231#227'o'
+            Width = 64
             Visible = True
           end
           item
@@ -460,6 +471,34 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
             Visible = True
           end>
       end
+      object pnlLocalEstoque: TPanel
+        Left = 0
+        Top = 0
+        Width = 922
+        Height = 28
+        Align = alTop
+        Color = clSilver
+        TabOrder = 1
+        object Label6: TLabel
+          Left = 8
+          Top = 12
+          Width = 71
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Local Estoque:'
+        end
+        object RxDBLookupCombo2: TRxDBLookupCombo
+          Left = 80
+          Top = 4
+          Width = 361
+          Height = 21
+          DropDownCount = 15
+          LookupField = 'ID'
+          LookupDisplay = 'NOME'
+          LookupSource = DMConsEstoque.dsLocal_Estoque
+          TabOrder = 0
+        end
+      end
     end
     object TS_DeTerceiros: TRzTabSheet
       Caption = 'Estoque De Terceiros'
@@ -467,7 +506,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         Left = 0
         Top = 32
         Width = 922
-        Height = 325
+        Height = 329
         ActivePage = TS_DeTerceiros_Prod
         Align = alClient
         TabIndex = 0
@@ -479,7 +518,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
             Left = 0
             Top = 0
             Width = 918
-            Height = 302
+            Height = 306
             Align = alClient
             Ctl3D = False
             DataSource = DMConsEstoque.dsEstoque_De_Terc
@@ -577,6 +616,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
                 Title.Alignment = taCenter
                 Title.Caption = 'Unid.'
                 Title.Color = 16777124
+                Width = 64
                 Visible = True
               end
               item
@@ -593,6 +633,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
                 Title.Alignment = taCenter
                 Title.Caption = 'Tipo SPED'
                 Title.Color = 16777124
+                Width = 64
                 Visible = True
               end>
           end
@@ -603,7 +644,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
             Left = 0
             Top = 0
             Width = 918
-            Height = 302
+            Height = 306
             Align = alClient
             Ctl3D = False
             DataSource = DMConsEstoque.dsEstoque_De_Terc_Pes
@@ -677,6 +718,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
                 Title.Alignment = taCenter
                 Title.Caption = 'Refer'#234'ncia'
                 Title.Color = 7864319
+                Width = 64
                 Visible = True
               end
               item
@@ -722,6 +764,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
                 Title.Alignment = taCenter
                 Title.Caption = 'Unid.'
                 Title.Color = 7864319
+                Width = 64
                 Visible = True
               end
               item
@@ -738,6 +781,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
                 Title.Alignment = taCenter
                 Title.Caption = 'Tipo Produto SPED'
                 Title.Color = 7864319
+                Width = 64
                 Visible = True
               end>
           end
@@ -807,7 +851,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         Left = 0
         Top = 32
         Width = 922
-        Height = 325
+        Height = 329
         ActivePage = TS_EmTerceiros_Prod
         Align = alClient
         TabIndex = 0
@@ -819,7 +863,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
             Left = 0
             Top = 0
             Width = 918
-            Height = 302
+            Height = 306
             Align = alClient
             Ctl3D = False
             DataSource = DMConsEstoque.dsEstoque_Em_Terc
@@ -939,7 +983,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
             Left = 0
             Top = 0
             Width = 918
-            Height = 302
+            Height = 306
             Align = alClient
             Ctl3D = False
             DataSource = DMConsEstoque.dsEstoque_Em_Terc_Pes
@@ -1089,7 +1133,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         Left = 0
         Top = 0
         Width = 754
-        Height = 357
+        Height = 361
         Align = alClient
         Ctl3D = False
         DataSource = DMConsEstoque.dsmNCM
@@ -1163,7 +1207,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         Left = 792
         Top = 0
         Width = 130
-        Height = 357
+        Height = 361
         Align = alRight
         Ctl3D = False
         DataSource = DMConsEstoque.dsmUnidade
@@ -1208,7 +1252,7 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
         Left = 754
         Top = 0
         Width = 38
-        Height = 357
+        Height = 361
         Align = alRight
         Color = clSilver
         TabOrder = 2

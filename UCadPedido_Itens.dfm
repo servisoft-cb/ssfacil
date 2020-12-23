@@ -1129,7 +1129,7 @@ object frmCadPedido_Itens: TfrmCadPedido_Itens
         FFFFFFFFFF3F3F00404040FFFFFFFFFFFFFFFFFFFFFFFFFFFFFF}
     end
     object btnGrade: TNxButton
-      Left = 227
+      Left = 228
       Top = 5
       Width = 142
       Height = 25

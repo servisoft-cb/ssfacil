@@ -2956,7 +2956,6 @@ procedure TfrmCadPedidoLoja.prc_Estoque(ID_Produto: Integer);
 var
   vQtdAux: Real;
 begin
-  vQtdAux := 0;
   vQtdAux := fnc_Buscar_Estoque(ID_Produto,fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger,0,fDMCadPedido.cdsPedidoFILIAL.AsInteger);
   ceEstoque.Value := StrToFloat(FormatFloat('0.####',vQtdAux));
 end;
