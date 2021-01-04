@@ -702,7 +702,7 @@ procedure TfCarnePgto.FormCloseQuery(Sender: TObject;
   var CanClose: Boolean);
 begin
   CanClose := True;
-  if CurrencyEdit4.Value > 0 then
+  if (CurrencyEdit4.Value > 0) or (not fdmPagamento.mPagamentos.IsEmpty) then
   begin
     ShowMessage('Existe valor de saldo!');
     if MessageDlg('Deseja realmente fechar?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
