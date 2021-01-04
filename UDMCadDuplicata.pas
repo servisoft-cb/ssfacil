@@ -1107,6 +1107,11 @@ type
     sdsDuplicata_HistOBS: TStringField;
     cdsDuplicata_HistOBS: TStringField;
     qParametros_FinINF_VLR_PAGO_SEL: TStringField;
+    sdsFinanceiroID_CONTA_VINCULADA: TIntegerField;
+    sdsFinanceiroID_FINANCEIRO_VINC: TIntegerField;
+    cdsFinanceiroID_CONTA_VINCULADA: TIntegerField;
+    cdsFinanceiroID_FINANCEIRO_VINC: TIntegerField;
+    qContasFILIAL: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
@@ -1161,6 +1166,7 @@ type
     vHistorico_PagSel: String;
     vVlrTotal_Pago : Real;
     vAbater_VlrPago : Boolean;
+    vVlrRestante_Adto : Real;
 
     vCReceber_Tot, vCReceber_Pago_Tot, vCReceber_Pend_Tot, vCReceber_Atraso_Tot: Real;
     vCPagar_Tot, vCPagar_Pago_Tot, vCPagar_Pend_Tot, vCPagar_Atraso_Tot: Real;

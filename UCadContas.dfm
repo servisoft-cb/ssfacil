@@ -771,10 +771,10 @@ object frmCadContas: TfrmCadContas
         Top = 30
         Width = 837
         Height = 511
-        ActivePage = TS_Cobranca
+        ActivePage = TS_Dados
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 1
+        TabIndex = 0
         TabOrder = 1
         FixedDimension = 19
         object TS_Dados: TRzTabSheet

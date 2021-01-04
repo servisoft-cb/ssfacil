@@ -302,6 +302,8 @@ begin
     fDMCadDuplicata.vHistorico_PagSel := Edit1.Text;
   fDMCadDuplicata.vVlrTotal_Pago  := ceVlrPago.Value;
   fDMCadDuplicata.vAbater_VlrPago := (pnlVlrPago.Visible);
+  if (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S') and (ceVlrRestante.Value > 0) and (trim(vNome_Pessoa_Local) <> '') then
+    fDMCadDuplicata.vVlrRestante_Adto := ceVlrRestante.Value;
   Close;
 end;
 
