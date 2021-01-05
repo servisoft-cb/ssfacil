@@ -351,7 +351,8 @@ object dmPagamento: TdmPagamento
     GetMetadata = False
     CommandText = 
       'SELECT C.ID, C.CLIENTE_NOME, C.NUMCUPOM, C.DTEMISSAO, C.CLIENTE_' +
-      'OBS, C.FILIAL'#13#10'FROM CUPOMFISCAL C'#13#10'WHERE C.ID = :ID'
+      'OBS, C.FILIAL, C.ID_CLIENTE'#13#10'FROM CUPOMFISCAL C'#13#10'WHERE C.ID = :I' +
+      'D'
     MaxBlobSize = -1
     Params = <
       item
@@ -397,6 +398,10 @@ object dmPagamento: TdmPagamento
       item
         Name = 'FILIAL'
         DataType = ftInteger
+      end
+      item
+        Name = 'ID_CLIENTE'
+        DataType = ftInteger
       end>
     IndexDefs = <>
     Params = <>
@@ -424,6 +429,9 @@ object dmPagamento: TdmPagamento
     end
     object cdsCupomFiscalFILIAL: TIntegerField
       FieldName = 'FILIAL'
+    end
+    object cdsCupomFiscalID_CLIENTE: TIntegerField
+      FieldName = 'ID_CLIENTE'
     end
   end
   object dsCupomFiscal: TDataSource

@@ -173,11 +173,13 @@ begin
         vNumDoc  := fDmPagamento.cdsCupomFiscalNUMCUPOM.AsString;
         vNomeCli := fDmPagamento.cdsCupomFiscalCLIENTE_NOME.AsString;
         vObsCli  := fDmPagamento.cdsCupomFiscalCLIENTE_OBS.AsString;
+        vIdCliente := fDmPagamento.cdsCupomFiscalID_CLIENTE.AsInteger;
       end
       else
       begin
         vNumDoc  := fDmPagamento.cdsDuplicataNUMNOTA.AsString;
         vNomeCli := fDmPagamento.cdsDuplicataNOME_CLI.AsString;
+        vIdCliente := fDmPagamento.cdsDuplicataID_PESSOA.AsInteger;
         vObsCli  := '';
       end;
       fDmPagamento.mSelecionadas.Insert;

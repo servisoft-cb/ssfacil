@@ -255,6 +255,7 @@ type
     frxDBDataset3: TfrxDBDataset;
     sdsRenegociacaoNOME: TStringField;
     cdsRenegociacaoNOME: TStringField;
+    cdsCupomFiscalID_CLIENTE: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
     procedure cdsRenegociacaoAfterScroll(DataSet: TDataSet);
