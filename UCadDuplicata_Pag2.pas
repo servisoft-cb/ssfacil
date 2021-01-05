@@ -83,6 +83,8 @@ type
     RxDBLookupCombo12: TRxDBLookupCombo;
     lblDescSaldo: TLabel;
     lblSaldoCredito: TLabel;
+    lblAdiantamento: TLabel;
+    ceVlrAdiantamento: TCurrencyEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
@@ -113,6 +115,7 @@ type
     procedure btnBuscarChequeClick(Sender: TObject);
     procedure btnAtualizaVlrClick(Sender: TObject);
     procedure ceAdtoKeyPress(Sender: TObject; var Key: Char);
+    procedure ceVlrAdiantamentoExit(Sender: TObject);
   private
     { Private declarations }
     ffrmCadContas: TfrmCadContas;
@@ -168,6 +171,9 @@ begin
   ceMulta.Visible := (fDMCadDuplicata.qParametros_FinMOSTRAR_VLR_MULTA_DUP.AsString = 'S');
   //*****************
   vVlrSaldo_Adto := 0;
+
+  lblAdiantamento.Visible   := (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S');
+  ceVlrAdiantamento.Visible := (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S');
 end;
 
 procedure TfrmCadDuplicata_Pag2.BitBtn1Click(Sender: TObject);
@@ -178,6 +184,8 @@ var
   vComDesconto: String;
   vVlrCheque: Real;
   vVlrAux: Real;
+  vGravou : Boolean;
+  vIDDup:Integer;
 begin
   if fnc_Erro then
     exit;
@@ -204,10 +212,12 @@ begin
     end;
   end;
 
+  vGravou := False;
   ID.TransactionID  := 2;
   ID.IsolationLevel := xilREADCOMMITTED;
   dmDatabase.scoDados.StartTransaction(ID);
   try
+    vIDDup := fDMCadDuplicata.cdsDuplicataID.AsInteger;
     if not(fDMCadDuplicata.cdsDuplicata.State in [dsEdit,dsInsert]) then
       fDMCadDuplicata.cdsDuplicata.Edit;
     if fDMCadDuplicata.cdsDuplicataID_CONTA.AsInteger <> fDMCadDuplicata.cdsContasID.AsInteger then
@@ -276,11 +286,21 @@ begin
 
     dmDatabase.scoDados.Commit(ID);
 
+    //04/01/2021
+    if (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S') and (ceVlrAdiantamento.Visible) then
+    begin
+      fDMCadDuplicata.vVlrRestante_Adto := ceVlrAdiantamento.Value;
+      fDMCadDuplicata.prc_Localizar(vIDDup);
+    end;
+    //*************************
+
 //    fDMCadDuplicata.mCheque.EmptyDataSet;
   except
     dmDatabase.scoDados.Rollback(ID);
     raise;
   end;
+
+ 
   Close;
 end;
 
@@ -345,6 +365,7 @@ begin
       exit;
     end;
   end;
+  fDMCadDuplicata.vVlrTotal_Pago := cePagamento.Value;
 
   if StrToFloat(FormatFloat('0.00',cePagamento.Value)) < StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat)) then
     ceDesconto.Value := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.cdsDuplicataVLR_RESTANTE.AsFloat - cePagamento.Value))
@@ -414,6 +435,7 @@ end;
 procedure TfrmCadDuplicata_Pag2.cePagamentoEnter(Sender: TObject);
 begin
   cePagamento.ReadOnly := not(fDMCadDuplicata.mCheque.IsEmpty);
+  fDMCadDuplicata.vVlrTotal_Pago := cePagamento.Value;
 end;
 
 procedure TfrmCadDuplicata_Pag2.gbxChequeExit(Sender: TObject);
@@ -501,6 +523,9 @@ begin
     lblDescSaldo.Visible    := (fDMCadDuplicata.qContasTIPO_CONTA.AsString = 'A');
     lblSaldoCredito.Visible := (fDMCadDuplicata.qContasTIPO_CONTA.AsString = 'A');
 
+    lblAdiantamento.Visible   := ((fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadDuplicata.qContasTIPO_CONTA.AsString <> 'A'));
+    ceVlrAdiantamento.Visible := ((fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S') and (fDMCadDuplicata.qContasTIPO_CONTA.AsString <> 'A'));
+
     if fDMCadDuplicata.qContasTIPO_CONTA.AsString = 'A' then
     begin
       vVlrSaldo_Adto := uUtilCliente.fnc_Saldo_Adto(fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger);
@@ -554,7 +579,7 @@ procedure TfrmCadDuplicata_Pag2.ceJurosExit(Sender: TObject);
 var
   vVlrAux : Real;
 begin
-
+  ceVlrAdiantamento.Value := 0;
   if (fDMCadDuplicata.qContasTIPO_CONTA.AsString = 'A') then
   begin
     vVlrAux := cePagamento.Value + ceJuros.Value;
@@ -564,7 +589,18 @@ begin
       ceJuros.SetFocus;
       exit;
     end;
+  end
+  else
+  if fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S' then
+  begin
+    vVlrAux := cePagamento.Value + ceJuros.Value;
+    if StrToFloat(FormatFloat('0.00',vVlrAux)) < StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrTotal_Pago)) then
+    begin
+      vVlrAux := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrTotal_Pago - vVlrAux));
+      ceVlrAdiantamento.Value := vVlrAux;
+    end;
   end;
+
   prc_Calcular_Total;
 end;
 
@@ -692,6 +728,29 @@ begin
   fDMCadDuplicata.qContas.Close;
   fDMCadDuplicata.qContas.ParamByName('ID').AsInteger := fDMCadDuplicata.cdsDuplicataID_CONTA.AsInteger;
   fDMCadDuplicata.qContas.Open;
+end;
+
+procedure TfrmCadDuplicata_Pag2.ceVlrAdiantamentoExit(Sender: TObject);
+var
+  vVlrAux : Real;
+begin
+  if fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S' then
+  begin
+    vVlrAux := cePagamento.Value + ceVlrAdiantamento.Value;
+    if StrToFloat(FormatFloat('0.00',vVlrAux)) > StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrTotal_Pago)) then
+    begin
+      MessageDlg('*** Vlr. adiantamento + vlr. pagamento maior que R$ ' + FormatFloat('###,###,##0.00',fDMCadDuplicata.vVlrTotal_Pago) , mtError, [mbOk], 0);
+      ceVlrAdiantamento.SetFocus;
+      exit;
+    end
+    else
+    if StrToFloat(FormatFloat('0.00',vVlrAux)) < StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrTotal_Pago)) then
+    begin
+      vVlrAux := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrTotal_Pago - vVlrAux));
+      ceJuros.Value := vVlrAux;
+    end;
+  end;
+
 end;
 
 end.

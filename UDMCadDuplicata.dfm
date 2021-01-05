@@ -2065,6 +2065,18 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsFinanceiroID_TERMINAL: TIntegerField
       FieldName = 'ID_TERMINAL'
     end
+    object sdsFinanceiroID_CONTA_VINCULADA: TIntegerField
+      FieldName = 'ID_CONTA_VINCULADA'
+    end
+    object sdsFinanceiroID_FINANCEIRO_VINC: TIntegerField
+      FieldName = 'ID_FINANCEIRO_VINC'
+    end
+    object sdsFinanceiroVLR_SAIDA: TFloatField
+      FieldName = 'VLR_SAIDA'
+    end
+    object sdsFinanceiroVLR_ENTRADA: TFloatField
+      FieldName = 'VLR_ENTRADA'
+    end
   end
   object dspFinanceiro: TDataSetProvider
     DataSet = sdsFinanceiro
@@ -2140,6 +2152,18 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object cdsFinanceiroID_TERMINAL: TIntegerField
       FieldName = 'ID_TERMINAL'
+    end
+    object cdsFinanceiroID_CONTA_VINCULADA: TIntegerField
+      FieldName = 'ID_CONTA_VINCULADA'
+    end
+    object cdsFinanceiroID_FINANCEIRO_VINC: TIntegerField
+      FieldName = 'ID_FINANCEIRO_VINC'
+    end
+    object cdsFinanceiroVLR_SAIDA: TFloatField
+      FieldName = 'VLR_SAIDA'
+    end
+    object cdsFinanceiroVLR_ENTRADA: TFloatField
+      FieldName = 'VLR_ENTRADA'
     end
   end
   object dsFinanceiro: TDataSource
@@ -5482,7 +5506,7 @@ object DMCadDuplicata: TDMCadDuplicata
         ParamType = ptInput
       end>
     SQL.Strings = (
-      'select C.ID, C.NOME, C.TIPO_CONTA'
+      'select C.ID, C.NOME, C.TIPO_CONTA, FILIAL'
       'from CONTAS C'
       'where C.ID = :ID   ')
     SQLConnection = dmDatabase.scoDados
@@ -5500,6 +5524,9 @@ object DMCadDuplicata: TDMCadDuplicata
       FieldName = 'TIPO_CONTA'
       FixedChar = True
       Size = 1
+    end
+    object qContasFILIAL: TIntegerField
+      FieldName = 'FILIAL'
     end
   end
 end
