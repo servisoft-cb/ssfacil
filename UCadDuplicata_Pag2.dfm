@@ -295,6 +295,14 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
       Font.Style = []
       ParentFont = False
     end
+    object lblAdiantamento: TLabel
+      Left = 243
+      Top = 154
+      Width = 86
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Vlr. Adiantamento:'
+    end
     object cePagamento: TCurrencyEdit
       Left = 122
       Top = 69
@@ -311,7 +319,7 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
     end
     object ceJuros: TCurrencyEdit
       Left = 122
-      Top = 109
+      Top = 110
       Width = 100
       Height = 21
       AutoSize = False
@@ -748,6 +756,18 @@ object frmCadDuplicata_Pag2: TfrmCadDuplicata_Pag2
       ParentCtl3D = False
       ParentFont = False
       TabOrder = 8
+    end
+    object ceVlrAdiantamento: TCurrencyEdit
+      Left = 330
+      Top = 147
+      Width = 100
+      Height = 21
+      AutoSize = False
+      Ctl3D = False
+      DisplayFormat = '0.00'
+      ParentCtl3D = False
+      TabOrder = 16
+      OnExit = ceVlrAdiantamentoExit
     end
   end
   object Panel4: TPanel

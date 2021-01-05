@@ -2071,6 +2071,12 @@ object DMCadDuplicata: TDMCadDuplicata
     object sdsFinanceiroID_FINANCEIRO_VINC: TIntegerField
       FieldName = 'ID_FINANCEIRO_VINC'
     end
+    object sdsFinanceiroVLR_SAIDA: TFloatField
+      FieldName = 'VLR_SAIDA'
+    end
+    object sdsFinanceiroVLR_ENTRADA: TFloatField
+      FieldName = 'VLR_ENTRADA'
+    end
   end
   object dspFinanceiro: TDataSetProvider
     DataSet = sdsFinanceiro
@@ -2152,6 +2158,12 @@ object DMCadDuplicata: TDMCadDuplicata
     end
     object cdsFinanceiroID_FINANCEIRO_VINC: TIntegerField
       FieldName = 'ID_FINANCEIRO_VINC'
+    end
+    object cdsFinanceiroVLR_SAIDA: TFloatField
+      FieldName = 'VLR_SAIDA'
+    end
+    object cdsFinanceiroVLR_ENTRADA: TFloatField
+      FieldName = 'VLR_ENTRADA'
     end
   end
   object dsFinanceiro: TDataSource

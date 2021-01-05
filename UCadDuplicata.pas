@@ -7,7 +7,7 @@ uses
   ExtCtrls, StdCtrls, DB, RzTabs, DBCtrls, ToolEdit, UCBase, RxLookup, Mask, CurrEdit, RxDBComb, RXDBCtrl, RzChkLst, RzPanel,
   URelDuplicata, UCadDuplicata_Pag2, Variants, UCadDuplicata_Pag_Sel, NxEdit, Menus, ComObj, NxCollection,
   StrUtils, DateUtils, UCadDuplicata_Gerar, UDMCadCheque, UCadDuplicata_Alt, UCadDuplicata_EscTipo, RzLstBox, SqlExpr, ComCtrls,
-  UCadDuplicata_Total, ValorPor;
+  UCadDuplicata_Total, ValorPor, dbXPress;
 
 type
   TEnumMostraNossoNumero = (tpTodos,tpSim, tpNao);
@@ -1200,6 +1200,7 @@ begin
   ffrmCadDuplicata_Pag.fDMCadDuplicata := fDMCadDuplicata;
   ffrmCadDuplicata_Pag.ShowModal;
   FreeAndNil(ffrmCadDuplicata_Pag);}
+  fDMCadDuplicata.vVlrRestante_Adto := 0;
   fDMCadDuplicata.cdsDuplicata.Edit;
   ffrmCadDuplicata_Pag2 := TfrmCadDuplicata_Pag2.Create(self);
   ffrmCadDuplicata_Pag2.fDMCadDuplicata := fDMCadDuplicata;
@@ -1207,7 +1208,17 @@ begin
   FreeAndNil(ffrmCadDuplicata_Pag2);
   if (fDMCadDuplicata.mCheque.RecordCount > 0) and (fDMCadDuplicata.cdsDuplicataTIPO_ES.AsString = 'S') then
     prc_Imprimir_Cheque;
-  fDMCadDuplicata.mCheque.EmptyDataSet;  
+
+  //04/01/2021
+  if (fDMCadDuplicata.qParametros_FinUSA_ADTO.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrRestante_Adto)) > 0) then
+  begin
+    fDMCadDuplicata.vDtPgtoSel := fDMCadDuplicata.cdsDuplicataDTULTPAGAMENTO.AsDateTime;
+    MessageDlg('*** Sistema vai gerar o Adiantamento com o valor de R$ ' + FormatFloat('###,###,##0.00',fDMCadDuplicata.vVlrRestante_Adto) + '!', mtConfirmation, [mbOk], 0);
+    prc_Gravar_Financeiro_Adto(fDMCadDuplicata.cdsDuplicataID_CONTA.AsInteger,fDMCadDuplicata.cdsDuplicataID_PESSOA.AsInteger);
+  end;
+  //******************
+  
+  fDMCadDuplicata.mCheque.EmptyDataSet;
   btnConsultarClick(Sender);
   btnPagamento.Enabled := False;
   btnPagtoSelecionado.Enabled := False;
@@ -3650,6 +3661,7 @@ var
   vAux: Integer;
   vIDContaAdto: Integer;
   vFilialAdto: Integer;
+  ID: TTransactionDesc;
 begin
   fDMCadDuplicata.qContas.Close;
   fDMCadDuplicata.qContas.ParamByName('ID').AsInteger := ID_Conta;
@@ -3664,28 +3676,43 @@ begin
     exit;
   end;
 
-  vAux := dmDatabase.ProximaSequencia('FINANCEIRO',0);
-  fDMCadDuplicata.cdsFinanceiro.Insert;
-  fDMCadDuplicata.cdsFinanceiroID.AsInteger             := vAux;
-  fDMCadDuplicata.cdsFinanceiroTIPO_ES.AsString         := 'E';
-  fDMCadDuplicata.cdsFinanceiroID_CONTA.AsInteger       := vIDContaAdto;
-  fDMCadDuplicata.cdsFinanceiroDTMOVIMENTO.AsDateTime   := fDMCadDuplicata.vDtPgtoSel;
-  fDMCadDuplicata.cdsFinanceiroVLR_MOVIMENTO.AsFloat    := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrRestante_Adto));
-  fDMCadDuplicata.cdsFinanceiroHISTORICO_COMPL.AsString := 'ADIANTAMENTO REF CRÉDITO DE PAGAMENTO DE TÍTULOS';
-  fDMCadDuplicata.cdsFinanceiroID_PESSOA.AsInteger      := ID_Pessoa;
-  fDMCadDuplicata.cdsFinanceiroFILIAL.AsInteger         := vFilialAdto; 
-  fDMCadDuplicata.cdsFinanceiroUSUARIO.AsString         := vUsuario;
-  fDMCadDuplicata.cdsFinanceiroDTUSUARIO.AsDateTime     := Date;
-  fDMCadDuplicata.cdsFinanceiroHRUSUARIO.AsDateTime     := Now;
-  if fDMCadDuplicata.vID_FormaPgto > 0 then
-    fDMCadDuplicata.cdsFinanceiroID_FORMA_PAGAMENTO.AsInteger := fDMCadDuplicata.vID_FormaPgto;
-  if vTerminal > 0 then
-    fDMCadDuplicata.cdsFinanceiroID_TERMINAL.AsInteger := vTerminal;
-  fDMCadDuplicata.cdsFinanceiroID_CONTA_VINCULADA.AsInteger := ID_Conta;
-  fDMCadDuplicata.cdsFinanceiro.Post;
-  fDMCadDuplicata.cdsFinanceiro.ApplyUpdates(0);
+  ID.TransactionID  := 22;
+  ID.IsolationLevel := xilREADCOMMITTED;
+  dmDatabase.scoDados.StartTransaction(ID);
+  try
+    vAux := dmDatabase.ProximaSequencia('FINANCEIRO',0);
+    fDMCadDuplicata.cdsFinanceiro.Insert;
+    fDMCadDuplicata.cdsFinanceiroID.AsInteger             := vAux;
+    fDMCadDuplicata.cdsFinanceiroTIPO_ES.AsString         := 'E';
+    fDMCadDuplicata.cdsFinanceiroID_CONTA.AsInteger       := vIDContaAdto;
+    fDMCadDuplicata.cdsFinanceiroDTMOVIMENTO.AsDateTime   := fDMCadDuplicata.vDtPgtoSel;
+    fDMCadDuplicata.cdsFinanceiroVLR_MOVIMENTO.AsFloat    := StrToFloat(FormatFloat('0.00',fDMCadDuplicata.vVlrRestante_Adto));
+    fDMCadDuplicata.cdsFinanceiroHISTORICO_COMPL.AsString := 'ADIANTAMENTO REF CRÉDITO DE PAGTO DE TÍTULOS NO TOTAL DE R$ ' + FormatFloat('###,###,##0.00',fDMCadDuplicata.vVlrTotal_Pago);
+    fDMCadDuplicata.cdsFinanceiroID_PESSOA.AsInteger      := ID_Pessoa;
+    fDMCadDuplicata.cdsFinanceiroFILIAL.AsInteger         := vFilialAdto; 
+    fDMCadDuplicata.cdsFinanceiroUSUARIO.AsString         := vUsuario;
+    fDMCadDuplicata.cdsFinanceiroDTUSUARIO.AsDateTime     := Date;
+    fDMCadDuplicata.cdsFinanceiroHRUSUARIO.AsDateTime     := Now;
+    if fDMCadDuplicata.vID_FormaPgto > 0 then
+      fDMCadDuplicata.cdsFinanceiroID_FORMA_PAGAMENTO.AsInteger := fDMCadDuplicata.vID_FormaPgto;
+    if vTerminal > 0 then
+      fDMCadDuplicata.cdsFinanceiroID_TERMINAL.AsInteger := vTerminal;
+    fDMCadDuplicata.cdsFinanceiroID_CONTA_VINCULADA.AsInteger := ID_Conta;
+    fDMCadDuplicata.cdsFinanceiro.Post;
+    fDMCadDuplicata.cdsFinanceiro.ApplyUpdates(0);
 
-  prc_Gravar_Financeiro_Vinculado(vAux,ID_Conta);
+    prc_Gravar_Financeiro_Vinculado(vAux,ID_Conta);
+    
+    dmDatabase.scoDados.Commit(ID);
+  except
+     on e: Exception do
+      begin
+        dmDatabase.scoDados.Rollback(ID);
+        raise Exception.Create('Erro ao gravar o Arquivo Suframal: ' + #13 + e.Message);
+      end;
+  end;
+
+
 end;
 
 procedure TfrmCadDuplicata.prc_Gravar_Financeiro_Vinculado(ID, ID_Conta: Integer);
@@ -3702,7 +3729,7 @@ begin
 
     sds.Close;
     sds.CommandText := 'SELECT TIPO_ES, DTMOVIMENTO, VLR_MOVIMENTO, ID_HISTORICO, HISTORICO_COMPL, ID_PESSOA, FILIAL, '
-                     + 'USUARIO, DTUSUARIO, HRUSUARIO, ID_FORMA_PAGAMENTO, VLR_SAIDA, VLR_ENTRADA, ID_CONTA_ORCAMENTO '
+                     + 'USUARIO, DTUSUARIO, HRUSUARIO, ID_FORMA_PAGAMENTO, VLR_SAIDA, VLR_ENTRADA, ID_CONTA_ORCAMENTO, ID_TERMINAL '
                      + 'FROM FINANCEIRO '
                      + 'WHERE ID = ' + IntToStr(ID);
     sds.Open;

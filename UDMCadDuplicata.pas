@@ -1112,6 +1112,10 @@ type
     cdsFinanceiroID_CONTA_VINCULADA: TIntegerField;
     cdsFinanceiroID_FINANCEIRO_VINC: TIntegerField;
     qContasFILIAL: TIntegerField;
+    sdsFinanceiroVLR_SAIDA: TFloatField;
+    sdsFinanceiroVLR_ENTRADA: TFloatField;
+    cdsFinanceiroVLR_SAIDA: TFloatField;
+    cdsFinanceiroVLR_ENTRADA: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsDuplicata_ConsultaCalcFields(DataSet: TDataSet);
     procedure cdsDuplicataNewRecord(DataSet: TDataSet);
