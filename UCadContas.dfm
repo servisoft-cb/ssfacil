@@ -23,7 +23,7 @@ object frmCadContas: TfrmCadContas
     Top = 0
     Width = 833
     Height = 556
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -31,7 +31,7 @@ object frmCadContas: TfrmCadContas
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -289,7 +289,7 @@ object frmCadContas: TfrmCadContas
           OnClick = btnExcluirClick
         end
         object btnPesquisar: TNxButton
-          Left = 305
+          Left = 152
           Top = 1
           Width = 153
           Height = 28
@@ -362,7 +362,7 @@ object frmCadContas: TfrmCadContas
           OnClick = btnPesquisarClick
         end
         object btnImprimir: TNxButton
-          Left = 152
+          Left = 305
           Top = 1
           Width = 153
           Height = 28
@@ -1674,8 +1674,7 @@ object frmCadContas: TfrmCadContas
                   'Itau'
                   'Santander'
                   'Sicoob'
-                  'Sicredi'
-                  '')
+                  'Sicredi')
                 TabOrder = 0
                 Values.Strings = (
                   '01'
