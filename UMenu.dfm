@@ -1,8 +1,8 @@
 object fMenu: TfMenu
-  Left = 295
-  Top = 3
-  Width = 837
-  Height = 686
+  Left = -4
+  Top = -4
+  Width = 1374
+  Height = 736
   Caption = 'Menu'
   Color = clSilver
   Constraints.MinHeight = 650
@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 635
+    Height = 685
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68
@@ -1143,6 +1143,10 @@ object fMenu: TfMenu
         object ConsultaRealizadoComprasxProjetadoFaturado1: TMenuItem
           Caption = 'Consulta Realizado (Compras) x Projetado (Faturado Consumo) '
           OnClick = ConsultaRealizadoComprasxProjetadoFaturado1Click
+        end
+        object ContasaReceberPorBanco1: TMenuItem
+          Caption = 'Contas a Receber Por Conta (Banco)'
+          OnClick = ContasaReceberPorBanco1Click
         end
       end
       object N18: TMenuItem

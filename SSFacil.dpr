@@ -892,7 +892,8 @@ uses
   UDMCadCanalVendas in 'UDMCadCanalVendas.pas' {DMCadCanalVendas: TDataModule},
   UCadCanalVendas in 'UCadCanalVendas.pas' {frmCadCanalVendas},
   uUtil_Pedido in 'uUtil_Pedido.pas',
-  uConsPedConsumo in 'uConsPedConsumo.pas' {frmConsPedConsumo};
+  uConsPedConsumo in 'uConsPedConsumo.pas' {frmConsPedConsumo},
+  UConsReceberContas in 'UConsReceberContas.pas' {frmConsReceberContas};
 
 {$R *.res}
 

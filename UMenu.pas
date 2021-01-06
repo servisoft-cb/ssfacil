@@ -380,6 +380,7 @@ type
     ConsultaEstoqueTransfernciaentreFiliais1: TMenuItem;
     CanaldeVendas1: TMenuItem;
     ConsultaConsumoPedidos1: TMenuItem;
+    ContasaReceberPorBanco1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure Pais1Click(Sender: TObject);
     procedure UF1Click(Sender: TObject);
@@ -667,6 +668,7 @@ type
       Sender: TObject);
     procedure CanaldeVendas1Click(Sender: TObject);
     procedure ConsultaConsumoPedidos1Click(Sender: TObject);
+    procedure ContasaReceberPorBanco1Click(Sender: TObject);
   private
     { Private declarations }
     vPedLoja: String; //L = Loja, M = Mensal, N = Normal
@@ -733,7 +735,7 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   uConsFatConsumo, UConsEstoque_Compras, UConsEstoque_Prod_Mov,
   UConsProduto_Vendas_PCusto, UGerarEstoque_Mov, UComissao_Prod,
   UBaixaPedido_Processo, UConsPedidoItemProc, UConsEstoque_Transf,
-  UCadCanalVendas, uConsPedConsumo;
+  UCadCanalVendas, uConsPedConsumo, UConsReceberContas;
 
 {$R *.dfm}
 
@@ -2415,6 +2417,11 @@ end;
 procedure TfMenu.ConsultaConsumoPedidos1Click(Sender: TObject);
 begin
   OpenForm(TfrmConsPedConsumo,wsMaximized);
+end;
+
+procedure TfMenu.ContasaReceberPorBanco1Click(Sender: TObject);
+begin
+  OpenForm(TfrmConsReceberContas,wsMaximized);
 end;
 
 initialization

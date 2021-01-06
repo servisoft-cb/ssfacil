@@ -3,7 +3,8 @@ unit UDMConsDuplicata;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, SqlExpr, DBClient, Provider;
+  SysUtils, Classes, FMTBcd, DB, SqlExpr, DBClient, Provider, frxClass,
+  frxDBSet, frxExportPDF, frxBarcode;
 
 type
   TDMConsDuplicata = class(TDataModule)
@@ -56,12 +57,39 @@ type
     qParametros_UsuarioMOSTRAR_TOTAL_PEDIDO: TStringField;
     qParametros_UsuarioMOSTRAR_DUP_REC_PAG: TStringField;
     qParametros_UsuarioPERMITE_APROVAR_DUP: TStringField;
+    sdsReceberContas: TSQLDataSet;
+    dspReceberContas: TDataSetProvider;
+    cdsReceberContas: TClientDataSet;
+    dsReceberContas: TDataSource;
+    cdsReceberContasID: TIntegerField;
+    cdsReceberContasNUMDUPLICATA: TStringField;
+    cdsReceberContasPARCELA: TIntegerField;
+    cdsReceberContasID_CONTA_BOLETO: TIntegerField;
+    cdsReceberContasVLR_PARCELA: TFloatField;
+    cdsReceberContasDTEMISSAO: TDateField;
+    cdsReceberContasDTVENCIMENTO: TDateField;
+    cdsReceberContasTIPO_ES: TStringField;
+    cdsReceberContasNOSSONUMERO: TStringField;
+    cdsReceberContasID_PESSOA: TIntegerField;
+    cdsReceberContasDTULTPAGAMENTO: TDateField;
+    cdsReceberContasVLR_RESTANTE: TFloatField;
+    cdsReceberContasVLR_PAGO: TFloatField;
+    cdsReceberContasNOME_PESSOA: TStringField;
+    cdsReceberContasFANTASIA: TStringField;
+    cdsReceberContasFILIAL: TIntegerField;
+    cdsReceberContasDTREMESSA: TDateField;
+    cdsReceberContasNOME_CONTA: TStringField;
+    frxReport1: TfrxReport;
+    frxBarCodeObject1: TfrxBarCodeObject;
+    frxPDFExport1: TfrxPDFExport;
+    frxReceberContas: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
   public
     { Public declarations }
     ctSaldo_Pessoa : String;
+    ctReceberContas: String;
 
   end;
 
@@ -76,7 +104,8 @@ uses DmdDatabase, uUtilPadrao;
 
 procedure TDMConsDuplicata.DataModuleCreate(Sender: TObject);
 begin
-  ctSaldo_Pessoa := sdsSaldo_Pessoa.CommandText;
+  ctSaldo_Pessoa  := sdsSaldo_Pessoa.CommandText;
+  ctReceberContas := sdsReceberContas.CommandText;
   cdsFilial.Open;
   cdsVendedor.Open;
   qParametros_Fin.Open;
