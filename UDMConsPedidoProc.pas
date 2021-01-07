@@ -122,6 +122,8 @@ type
     cdsConsItensOBS_REDUZIDA: TStringField;
     cdsConsPedidoFATURADO: TStringField;
     cdsConsItensCAMINHO_ARQUIVO_PDF: TStringField;
+    qParametros_Ped: TSQLQuery;
+    qParametros_PedID_PROCESSO_FINAL: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

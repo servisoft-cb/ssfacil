@@ -2000,7 +2000,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             Left = 168
             Top = 7
             Width = 94
-            Height = 20
+            Height = 19
             TabStop = False
             BevelOuter = bvNone
             Color = clSilver
@@ -2021,7 +2021,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             Left = 33
             Top = 7
             Width = 72
-            Height = 20
+            Height = 19
             TabStop = False
             BevelOuter = bvNone
             Color = clSilver
@@ -2670,7 +2670,6 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'N'#186' Lote Controle'
                 Title.Color = 12582847
-                Width = 64
                 Visible = True
               end
               item
@@ -2701,6 +2700,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Expanded = False
                 FieldName = 'UNIDADE'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
@@ -8349,7 +8349,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
   end
   object PopupMenu3: TPopupMenu
     Left = 827
-    Top = 51
+    Top = 52
     object XML1: TMenuItem
       Caption = 'XML'
       OnClick = XML1Click

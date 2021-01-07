@@ -768,4 +768,17 @@ object DMConsPedidoProc: TDMConsPedidoProc
     Left = 477
     Top = 167
   end
+  object qParametros_Ped: TSQLQuery
+    MaxBlobSize = -1
+    Params = <>
+    SQL.Strings = (
+      'SELECT ID_PROCESSO_FINAL'
+      'FROM PARAMETROS_PED')
+    SQLConnection = dmDatabase.scoDados
+    Left = 414
+    Top = 279
+    object qParametros_PedID_PROCESSO_FINAL: TIntegerField
+      FieldName = 'ID_PROCESSO_FINAL'
+    end
+  end
 end
