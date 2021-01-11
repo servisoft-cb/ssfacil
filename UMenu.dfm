@@ -1,7 +1,7 @@
 object fMenu: TfMenu
-  Left = -4
-  Top = -4
-  Width = 1374
+  Left = 0
+  Top = 0
+  Width = 1366
   Height = 736
   Caption = 'Menu'
   Color = clSilver

@@ -4,44 +4,73 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, UDMCadInventario, Grids, DBGrids, Mask, 
-  SMDBGrid, ExtCtrls, NxCollection, ComCtrls, StdCtrls, ToolEdit, CurrEdit, SqlExpr;
+  SMDBGrid, ExtCtrls, NxCollection, ComCtrls, StdCtrls, ToolEdit, CurrEdit, SqlExpr,
+  NxEdit, RzTabs;
 
 type
   TfrmCadInventario_Prod = class(TForm)
-    PageControl1: TPageControl;
-    TS_Produto: TTabSheet;
+    RzPageControl1: TRzPageControl;
+    TS_Produto: TRzTabSheet;
+    TS_Arquivo: TRzTabSheet;
+    Panel2: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    NxButton3: TNxButton;
+    RadioGroup1: TRadioGroup;
+    Edit1: TEdit;
+    CurrencyEdit1: TCurrencyEdit;
+    Edit2: TEdit;
     SMDBGrid1: TSMDBGrid;
     Panel1: TPanel;
     btnConfirmar: TNxButton;
     ProgressBar1: TProgressBar;
-    Panel2: TPanel;
-    NxButton3: TNxButton;
-    RadioGroup1: TRadioGroup;
-    Label1: TLabel;
-    Edit1: TEdit;
-    Label2: TLabel;
-    CurrencyEdit1: TCurrencyEdit;
-    Label3: TLabel;
-    Edit2: TEdit;
     NxFlipPanel1: TNxFlipPanel;
     SMDBGrid2: TSMDBGrid;
-    Label4: TLabel;
+    NxPanel1: TNxPanel;
+    NxLabel1: TNxLabel;
+    NxLabel2: TNxLabel;
+    NxLabel3: TNxLabel;
+    NxLabel4: TNxLabel;
+    NxLabel5: TNxLabel;
+    NxLabel6: TNxLabel;
+    NxLabel7: TNxLabel;
+    NxComboBox1: TNxComboBox;
+    NxComboBox2: TNxComboBox;
+    NxComboBox3: TNxComboBox;
+    NxComboBox4: TNxComboBox;
+    Edit3: TEdit;
+    NxComboBox5: TNxComboBox;
+    btnGerarAuxiliar: TNxButton;
+    FilenameEdit1: TFilenameEdit;
+    SMDBGrid3: TSMDBGrid;
+    btnGravarInventario: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure NxButton3Click(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
     procedure RadioGroup1Click(Sender: TObject);
+    procedure btnGerarAuxiliarClick(Sender: TObject);
+    procedure btnGravarInventarioClick(Sender: TObject);
   private
     { Private declarations }
     vVazio: Boolean;
     vItem_Inventario: Integer;
     vMSGProd : String;
+    vArquivo_Str : TStringList;
+    vPreco_Custo, vPreco_Venda, vQtd : Real;
+    vID_Produto : Integer;
+    vCodBarra : String;
+    vReferencia: String;
+    vCampos : array [1..7] of string;
 
-    procedure prc_Gravar_Itens;
+    procedure prc_Gravar_Itens(Arquivo : Boolean = False);
     procedure prc_Filtrar;
 
     function fnc_existe_prod : Boolean;
+    procedure prc_Ler_Produto(Cod_Barra, Referencia : String ; ID : Integer);
 
   public
     { Public declarations }
@@ -53,7 +82,7 @@ var
 
 implementation
 
-uses DB, rsDBUtils, DmdDatabase;
+uses DB, rsDBUtils, DmdDatabase, uUtilPadrao;
 
 {$R *.dfm}
 
@@ -83,7 +112,7 @@ begin
   begin
     ProgressBar1.Position := ProgressBar1.Position + 1; 
     if (SMDBGrid1.SelectedRows.CurrentRowSelected) and not(fnc_existe_prod) then
-      prc_Gravar_Itens;
+      prc_Gravar_Itens(False);
     fDMCadInventario.cdsProduto.Next;
   end;
   SMDBGrid1.EnableScroll;
@@ -91,44 +120,64 @@ begin
     NxFlipPanel1.Expanded := True;
 end;
 
-procedure TfrmCadInventario_Prod.prc_Gravar_Itens;
+procedure TfrmCadInventario_Prod.prc_Gravar_Itens(Arquivo : Boolean);
 var
-  //vItem: Integer;
   vTam: String;
+  vExiste : Boolean;
 begin
   if (trim(fDMCadInventario.cdsProdutoTAMANHO.AsString) = '') or (fDMCadInventario.cdsProdutoTAMANHO.IsNull) then
     vTam := ''
   else
     vTam := fDMCadInventario.cdsProdutoTAMANHO.AsString;
+  vExiste := False;
   if not vVazio then
   begin
     if fDMCadInventario.cdsProdutoID_COR_COMBINACAO.AsInteger > 0 then
     begin
       if fDMCadInventario.cdsInventario_Itens.Locate('ID_PRODUTO;TAMANHO;ID_COR',VarArrayOf([fDMCadInventario.cdsProdutoID.AsInteger,vTam,fDMCadInventario.cdsProdutoID_COR_COMBINACAO.AsInteger]),[locaseinsensitive]) then
-        exit;
+        vExiste := True;
     end
     else
     begin
       if fDMCadInventario.cdsInventario_Itens.Locate('ID_PRODUTO;TAMANHO',VarArrayOf([fDMCadInventario.cdsProdutoID.AsInteger,vTam]),[locaseinsensitive]) then
-        exit;
+        vExiste := True;
     end;
   end;
-  vItem_Inventario := vItem_Inventario + 1;
-  fDMCadInventario.cdsInventario_Itens.Insert;
-  fDMCadInventario.cdsInventario_ItensID.AsInteger         := fDMCadInventario.cdsInventarioID.AsInteger;
-  fDMCadInventario.cdsInventario_ItensITEM.AsInteger       := vItem_Inventario;
-  fDMCadInventario.cdsInventario_ItensID_PRODUTO.AsInteger := fDMCadInventario.cdsProdutoID.AsInteger;
-  fDMCadInventario.cdsInventario_ItensTAMANHO.AsString     := fDMCadInventario.cdsProdutoTAMANHO.AsString;
-  //fDMCadInventario.cdsInventario_ItensQTD_ESTOQUE.AsFloat  := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoclQtd.AsFloat));
-  fDMCadInventario.cdsInventario_ItensQTD_ESTOQUE.AsFloat  := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoQTD.AsFloat));
-  if fDMCadInventario.qParametrosINV_TRAZER_QTD_ZERADA.AsString = 'S' then
-    fDMCadInventario.cdsInventario_ItensQTD_INVENTARIO.AsFloat := StrToFloat(FormatFloat('0.000000',0))
+  if not(Arquivo) and (vExiste) then
+    exit;
+
+  if vExiste then
+  begin
+    fDMCadInventario.cdsInventario_Itens.Edit;
+  end
   else
-    fDMCadInventario.cdsInventario_ItensQTD_INVENTARIO.AsFloat := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoQTD.AsFloat));
+  begin
+    vItem_Inventario := vItem_Inventario + 1;
+    fDMCadInventario.cdsInventario_Itens.Insert;
+    fDMCadInventario.cdsInventario_ItensID.AsInteger         := fDMCadInventario.cdsInventarioID.AsInteger;
+    fDMCadInventario.cdsInventario_ItensITEM.AsInteger       := vItem_Inventario;
+    fDMCadInventario.cdsInventario_ItensID_PRODUTO.AsInteger := fDMCadInventario.cdsProdutoID.AsInteger;
+    fDMCadInventario.cdsInventario_ItensTAMANHO.AsString     := fDMCadInventario.cdsProdutoTAMANHO.AsString;
+  end;
+  fDMCadInventario.cdsInventario_ItensQTD_ESTOQUE.AsFloat  := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoQTD.AsFloat));
+  if Arquivo then
+  begin
+    fDMCadInventario.cdsInventario_ItensQTD_INVENTARIO.AsFloat := StrToFloat(FormatFloat('0.000000',fDMCadInventario.mAuxInventarioQtd.AsFloat));
+  end
+  else
+  begin
+    if fDMCadInventario.qParametrosINV_TRAZER_QTD_ZERADA.AsString = 'S' then
+      fDMCadInventario.cdsInventario_ItensQTD_INVENTARIO.AsFloat := StrToFloat(FormatFloat('0.000000',0))
+    else
+      fDMCadInventario.cdsInventario_ItensQTD_INVENTARIO.AsFloat := StrToFloat(FormatFloat('0.000000',fDMCadInventario.cdsProdutoQTD.AsFloat));
+  end;
   fDMCadInventario.cdsInventario_ItensQTD_AJUSTE.AsFloat   := 0;
   fDMCadInventario.cdsInventario_ItensTIPO_AJUSTE.AsString := 'N';
-  fDMCadInventario.cdsInventario_ItensVLR_UNITARIO.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadInventario.cdsProdutoPRECO_CUSTO.AsFloat));
   fDMCadInventario.cdsInventario_ItensPERC_IPI.AsFloat     := StrToFloat(FormatFloat('0.00000',fDMCadInventario.cdsProdutoPERC_IPI.AsFloat));
+  if Arquivo then
+    fDMCadInventario.cdsInventario_ItensVLR_UNITARIO.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadInventario.mAuxInventarioPreco_Custo.AsFloat))
+  else
+    fDMCadInventario.cdsInventario_ItensVLR_UNITARIO.AsFloat := StrToFloat(FormatFloat('0.00000',fDMCadInventario.cdsProdutoPRECO_CUSTO.AsFloat));
   fDMCadInventario.cdsInventario_ItensPERC_ICMS.AsFloat    := StrToFloat(FormatFloat('0.00000',0));
   fDMCadInventario.cdsInventario_ItensREFERENCIA.AsString  := fDMCadInventario.cdsProdutoREFERENCIA.AsString;
   fDMCadInventario.cdsInventario_ItensNOME.AsString        := fDMCadInventario.cdsProdutoNOME.AsString;
@@ -245,6 +294,166 @@ begin
       fDMCadInventario.cdsProduto.Filter := 'QTD < 0,00000';
     fDMCadInventario.cdsProduto.Filtered := True;
   end;
+end;
+
+procedure TfrmCadInventario_Prod.btnGerarAuxiliarClick(Sender: TObject);
+var
+  i : Integer;
+  Texto1 : String;
+begin
+  if (NxComboBox1.ItemIndex = 0) and (NxComboBox2.ItemIndex = 0) and (NxComboBox3.ItemIndex = 0) and (NxComboBox4.ItemIndex = 0) then
+  begin
+    MessageDlg('*** É obrigatório informar uma coluna!', mtError, [mbOk], 0);
+    exit;
+  end;
+  if ((NxComboBox1.ItemIndex = 0) or (NxComboBox1.ItemIndex > 3)) and
+     ((NxComboBox2.ItemIndex = 0) or (NxComboBox2.ItemIndex > 3)) and
+     ((NxComboBox3.ItemIndex = 0) or (NxComboBox3.ItemIndex > 3)) and
+     ((NxComboBox4.ItemIndex = 0) or (NxComboBox4.ItemIndex > 3)) then
+  begin
+    MessageDlg('*** É obrigatório informar uma coluna com (Cod.Barra, ID ou Referência)!', mtError, [mbOk], 0);
+    exit;
+  end;
+  if (NxComboBox1.ItemIndex > 0) and ((NxComboBox1.ItemIndex = NxComboBox2.ItemIndex) or
+     (NxComboBox1.ItemIndex = NxComboBox3.ItemIndex) or
+     (NxComboBox1.ItemIndex = NxComboBox4.ItemIndex)) then
+  begin
+    MessageDlg('*** Coluna 1 esta se repetindo!', mtError, [mbOk], 0);
+    exit;
+  end;
+  if (NxComboBox2.ItemIndex > 0) and ((NxComboBox2.ItemIndex = NxComboBox3.ItemIndex) or
+     (NxComboBox2.ItemIndex = NxComboBox4.ItemIndex)) then
+  begin
+    MessageDlg('*** Coluna 2 esta se repetindo!', mtError, [mbOk], 0);
+    exit;
+  end;
+  if (NxComboBox3.ItemIndex > 0) and (NxComboBox3.ItemIndex = NxComboBox4.ItemIndex) then
+  begin
+    MessageDlg('*** Coluna 3 esta se repetindo!', mtError, [mbOk], 0);
+    exit;
+  end;
+  for i := 1 to 7 do
+    vCampos[i] := '';
+
+  vArquivo_Str := TStringList.Create;
+  try
+    vArquivo_Str.LoadFromFile(FilenameEdit1.Text);
+    i := vArquivo_Str.Count;
+    for i := 0 to vArquivo_Str.Count - 1 do
+    begin
+      vRegistro_CSV  := vArquivo_Str.Strings[i];
+      vRegistro_CSV2 := vArquivo_Str.Strings[i];
+      Texto1 := fnc_Montar_Campo(';',vRegistro_CSV);
+      if Texto1 <> '' then
+        vCampos[NxComboBox1.ItemIndex] := Texto1;
+      Texto1 := fnc_Montar_Campo(';',vRegistro_CSV);
+      if Texto1 <> '' then
+        vCampos[NxComboBox2.ItemIndex] := Texto1;
+      Texto1 := fnc_Montar_Campo(';',vRegistro_CSV);
+      if Texto1 <> '' then
+        vCampos[NxComboBox3.ItemIndex] := Texto1;
+      Texto1 := fnc_Montar_Campo(';',vRegistro_CSV);
+      if Texto1 <> '' then
+        vCampos[NxComboBox4.ItemIndex] := Texto1;
+      if vCampos[1] <> '' then
+        prc_Ler_Produto(vCampos[1],'',0)
+      else
+      if vCampos[2] <> '' then
+        prc_Ler_Produto('','',StrToInt(vCampos[2]))
+      else
+      if vCampos[3] <> '' then
+        prc_Ler_Produto('',vCampos[3],0);
+      if NxComboBox5.ItemIndex = 1 then
+        vCampos[4] := '1';
+
+      if fDMCadInventario.mAuxInventario.Locate('ID',StrToInt(vCampos[2]),[loCaseInsensitive]) then
+        fDMCadInventario.mAuxInventario.Edit
+      else
+      begin
+        fDMCadInventario.mAuxInventario.Insert;
+        fDMCadInventario.mAuxInventarioID.AsInteger          := StrToInt(vCampos[2]);
+        fDMCadInventario.mAuxInventarioCodBarra.AsString     := vCampos[1];
+        fDMCadInventario.mAuxInventarioReferencia.AsString   := vCampos[3];
+        fDMCadInventario.mAuxInventarioNome_Produto.AsString := vCampos[7];
+        fDMCadInventario.mAuxInventarioPreco_Custo.AsString  := vCampos[5];
+        fDMCadInventario.mAuxInventarioPreco_Venda.AsString  := vCampos[6];
+        fDMCadInventario.mAuxInventarioQtd.AsFloat           := 0;
+      end;
+      fDMCadInventario.mAuxInventarioQtd.AsFloat := fDMCadInventario.mAuxInventarioQtd.AsFloat + StrToFloat(vCampos[4]);
+      fDMCadInventario.mAuxInventario.Post;
+    end;
+
+
+  finally
+    FreeAndNil(vArquivo_Str);
+  end;
+  
+
+
+
+{Cod.Barra
+ID Produto
+Referência
+Qtd
+Preço Custo
+Preço Venda}
+
+
+end;
+
+procedure TfrmCadInventario_Prod.prc_Ler_Produto(Cod_Barra, Referencia: String; ID: Integer);
+var
+  sds: TSQLDataSet;
+begin
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'SELECT P.ID, P.REFERENCIA, P.cod_barra, P.NOME, P.preco_custo, P.preco_custo_total, P.preco_venda FROM PRODUTO P ';
+    if trim(Cod_Barra) <> '' then
+      sds.CommandText := sds.CommandText + ' WHERE P.COD_BARRA = ' + QuotedStr(Cod_Barra)
+    else
+    if trim(Referencia) <> '' then
+      sds.CommandText := sds.CommandText + ' WHERE P.REFERENCIA = ' + QuotedStr(Referencia)
+    else
+    if ID > 0 then
+      sds.CommandText := sds.CommandText + ' WHERE P.ID = ' + IntToStr(ID);
+    sds.Open;
+    vID_Produto  := sds.FieldByName('ID').AsInteger;
+    vCampos[2]   := sds.FieldByName('ID').AsString;
+    vCampos[3]   := sds.FieldByName('REFERENCIA').AsString;
+    if StrToFloat(FormatFloat('0.0000',sds.FieldByName('PRECO_CUSTO_TOTAL').AsFloat)) > 0 then
+      vPreco_Custo := StrToFloat(FormatFloat('0.0000',sds.FieldByName('PRECO_CUSTO_TOTAL').AsFloat))
+    else
+      vPreco_Custo := StrToFloat(FormatFloat('0.0000',sds.FieldByName('PRECO_CUSTO').AsFloat));
+    vCampos[5] := FormatFloat('0.0000',vPreco_Custo);
+    vCampos[6] := FormatFloat('0.0000',sds.FieldByName('PRECO_VENDA').AsFloat);
+    vPreco_Venda := StrToFloat(FormatFloat('0.0000',sds.FieldByName('PRECO_VENDA').AsFloat));
+    vCampos[7] := sds.FieldByName('NOME').AsString;
+
+  finally
+    FreeAndNil(sds);
+  end;
+  
+end;
+
+procedure TfrmCadInventario_Prod.btnGravarInventarioClick(Sender: TObject);
+begin
+  vVazio := False;
+  fDMCadInventario.cdsInventario_Itens.Last;
+  vItem_Inventario := fDMCadInventario.cdsInventario_ItensITEM.AsInteger;
+  if fDMCadInventario.cdsInventario_Itens.RecordCount <= 0 then
+    vVazio := True;
+  fDMCadInventario.mAuxInventario.First;
+  while not fDMCadInventario.mAuxInventario.Eof do
+  begin
+    fDMCadInventario.prc_Abrir_Produto(fDMCadInventario.cdsInventarioTIPO_REG.AsString,'','',fDMCadInventario.mAuxInventarioID.AsInteger);
+    prc_Gravar_Itens(True);
+
+    fDMCadInventario.mAuxInventario.Next;
+  end;
+
 end;
 
 end.

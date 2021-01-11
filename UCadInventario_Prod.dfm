@@ -18,21 +18,123 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object PageControl1: TPageControl
+  object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
     Width = 1007
     Height = 562
-    ActivePage = TS_Produto
+    ActivePage = TS_Arquivo
+    ActivePageDefault = TS_Produto
     Align = alClient
+    TabIndex = 1
     TabOrder = 0
-    object TS_Produto: TTabSheet
-      Caption = 'Produto'
+    FixedDimension = 19
+    object TS_Produto: TRzTabSheet
+      Caption = 'Por Produto'
+      object Panel2: TPanel
+        Left = 0
+        Top = 0
+        Width = 1003
+        Height = 85
+        Align = alTop
+        Color = clSilver
+        TabOrder = 0
+        object Label1: TLabel
+          Left = 32
+          Top = 68
+          Width = 31
+          Height = 13
+          Caption = 'Nome:'
+        end
+        object Label2: TLabel
+          Left = 9
+          Top = 44
+          Width = 54
+          Height = 13
+          Caption = 'ID Produto:'
+        end
+        object Label3: TLabel
+          Left = 229
+          Top = 44
+          Width = 55
+          Height = 13
+          Caption = 'Refer'#234'ncia:'
+        end
+        object Label4: TLabel
+          Left = 294
+          Top = 9
+          Width = 331
+          Height = 18
+          Caption = 'Saldo do Estoque at'#233' dia 08/01/2021'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -16
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold, fsUnderline]
+          ParentFont = False
+        end
+        object NxButton3: TNxButton
+          Left = 413
+          Top = 56
+          Width = 149
+          Height = 27
+          Caption = 'Efetuar Pesquisa'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 4
+          OnClick = NxButton3Click
+        end
+        object RadioGroup1: TRadioGroup
+          Left = 7
+          Top = 1
+          Width = 251
+          Height = 32
+          Caption = ' Op'#231#227'o '
+          Columns = 3
+          ItemIndex = 0
+          Items.Strings = (
+            'Ambos'
+            'Com Saldo'
+            'Negativo')
+          TabOrder = 0
+          OnClick = RadioGroup1Click
+        end
+        object Edit1: TEdit
+          Left = 64
+          Top = 60
+          Width = 347
+          Height = 21
+          CharCase = ecUpperCase
+          TabOrder = 3
+        end
+        object CurrencyEdit1: TCurrencyEdit
+          Left = 64
+          Top = 37
+          Width = 76
+          Height = 21
+          AutoSize = False
+          DecimalPlaces = 0
+          DisplayFormat = '0'
+          TabOrder = 1
+        end
+        object Edit2: TEdit
+          Left = 291
+          Top = 37
+          Width = 121
+          Height = 21
+          CharCase = ecUpperCase
+          TabOrder = 2
+        end
+      end
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 85
-        Width = 999
-        Height = 282
+        Width = 1003
+        Height = 287
         Align = alClient
         Ctl3D = False
         DataSource = DMCadInventario.dsProduto
@@ -45,7 +147,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         ParentCtl3D = False
         ParentFont = False
         ReadOnly = True
-        TabOrder = 0
+        TabOrder = 1
         TitleFont.Charset = DEFAULT_CHARSET
         TitleFont.Color = clWindowText
         TitleFont.Height = -11
@@ -152,12 +254,12 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
       end
       object Panel1: TPanel
         Left = 0
-        Top = 497
-        Width = 999
+        Top = 502
+        Width = 1003
         Height = 37
         Align = alBottom
         Color = 8404992
-        TabOrder = 1
+        TabOrder = 2
         object btnConfirmar: TNxButton
           Left = 2
           Top = 1
@@ -240,109 +342,10 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
           Visible = False
         end
       end
-      object Panel2: TPanel
-        Left = 0
-        Top = 0
-        Width = 999
-        Height = 85
-        Align = alTop
-        Color = clSilver
-        TabOrder = 2
-        object Label1: TLabel
-          Left = 32
-          Top = 68
-          Width = 31
-          Height = 13
-          Caption = 'Nome:'
-        end
-        object Label2: TLabel
-          Left = 9
-          Top = 44
-          Width = 54
-          Height = 13
-          Caption = 'ID Produto:'
-        end
-        object Label3: TLabel
-          Left = 229
-          Top = 44
-          Width = 55
-          Height = 13
-          Caption = 'Refer'#234'ncia:'
-        end
-        object Label4: TLabel
-          Left = 294
-          Top = 9
-          Width = 331
-          Height = 18
-          Caption = 'Saldo do Estoque at'#233' dia 08/01/2021'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clMaroon
-          Font.Height = -16
-          Font.Name = 'Verdana'
-          Font.Style = [fsBold, fsUnderline]
-          ParentFont = False
-        end
-        object NxButton3: TNxButton
-          Left = 413
-          Top = 56
-          Width = 149
-          Height = 27
-          Caption = 'Efetuar Pesquisa'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBlue
-          Font.Height = -11
-          Font.Name = 'Verdana'
-          Font.Style = [fsBold]
-          ParentFont = False
-          TabOrder = 4
-          OnClick = NxButton3Click
-        end
-        object RadioGroup1: TRadioGroup
-          Left = 7
-          Top = 1
-          Width = 251
-          Height = 32
-          Caption = ' Op'#231#227'o '
-          Columns = 3
-          ItemIndex = 0
-          Items.Strings = (
-            'Ambos'
-            'Com Saldo'
-            'Negativo')
-          TabOrder = 0
-          OnClick = RadioGroup1Click
-        end
-        object Edit1: TEdit
-          Left = 64
-          Top = 60
-          Width = 347
-          Height = 21
-          CharCase = ecUpperCase
-          TabOrder = 3
-        end
-        object CurrencyEdit1: TCurrencyEdit
-          Left = 64
-          Top = 37
-          Width = 76
-          Height = 21
-          AutoSize = False
-          DecimalPlaces = 0
-          DisplayFormat = '0'
-          TabOrder = 1
-        end
-        object Edit2: TEdit
-          Left = 291
-          Top = 37
-          Width = 121
-          Height = 21
-          CharCase = ecUpperCase
-          TabOrder = 2
-        end
-      end
       object NxFlipPanel1: TNxFlipPanel
         Left = 0
-        Top = 367
-        Width = 999
+        Top = 372
+        Width = 1003
         Height = 130
         Align = alBottom
         Caption = 
@@ -391,7 +394,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         object SMDBGrid2: TSMDBGrid
           Left = 0
           Top = 18
-          Width = 999
+          Width = 1003
           Height = 112
           Align = alClient
           Ctl3D = False
@@ -522,6 +525,357 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
               Visible = True
             end>
         end
+      end
+    end
+    object TS_Arquivo: TRzTabSheet
+      Caption = 'Por Arquivo'
+      object NxPanel1: TNxPanel
+        Left = 0
+        Top = 0
+        Width = 1003
+        Height = 174
+        Align = alTop
+        UseDockManager = False
+        ParentBackground = False
+        TabOrder = 0
+        object NxLabel1: TNxLabel
+          Left = 16
+          Top = 13
+          Width = 46
+          Height = 13
+          Caption = '1'#186' Coluna'
+          Transparent = True
+          HorizontalPosition = hpLeft
+          InnerHorizontal = True
+          InnerVertical = False
+          InnerMargins.Horizontal = 0
+          InnerMargins.Vertical = 2
+          VerticalPosition = vpTop
+        end
+        object NxLabel2: TNxLabel
+          Left = 140
+          Top = 13
+          Width = 46
+          Height = 13
+          Caption = '2'#186' Coluna'
+          Transparent = True
+          HorizontalPosition = hpLeft
+          InnerHorizontal = True
+          InnerVertical = False
+          InnerMargins.Horizontal = 0
+          InnerMargins.Vertical = 2
+          VerticalPosition = vpTop
+        end
+        object NxLabel3: TNxLabel
+          Left = 263
+          Top = 13
+          Width = 46
+          Height = 13
+          Caption = '3'#186' Coluna'
+          Transparent = True
+          HorizontalPosition = hpLeft
+          InnerHorizontal = True
+          InnerVertical = False
+          InnerMargins.Horizontal = 0
+          InnerMargins.Vertical = 2
+          VerticalPosition = vpTop
+        end
+        object NxLabel4: TNxLabel
+          Left = 386
+          Top = 13
+          Width = 46
+          Height = 13
+          Caption = '4'#186' Coluna'
+          Transparent = True
+          HorizontalPosition = hpLeft
+          InnerHorizontal = True
+          InnerVertical = False
+          InnerMargins.Horizontal = 0
+          InnerMargins.Vertical = 2
+          VerticalPosition = vpTop
+        end
+        object NxLabel5: TNxLabel
+          Left = 16
+          Top = 71
+          Width = 67
+          Height = 13
+          Caption = 'Separado por:'
+          Transparent = True
+          HorizontalPosition = hpLeft
+          InnerHorizontal = True
+          InnerVertical = False
+          InnerMargins.Horizontal = 0
+          InnerMargins.Vertical = 2
+          VerticalPosition = vpTop
+        end
+        object NxLabel6: TNxLabel
+          Left = 25
+          Top = 91
+          Width = 58
+          Height = 13
+          Caption = 'Quantidade:'
+          Transparent = True
+          HorizontalPosition = hpLeft
+          InnerHorizontal = True
+          InnerVertical = False
+          InnerMargins.Horizontal = 0
+          InnerMargins.Vertical = 2
+          VerticalPosition = vpTop
+        end
+        object NxLabel7: TNxLabel
+          Left = 44
+          Top = 112
+          Width = 39
+          Height = 13
+          Caption = 'Arquivo:'
+          Transparent = True
+          HorizontalPosition = hpLeft
+          InnerHorizontal = True
+          InnerVertical = False
+          InnerMargins.Horizontal = 0
+          InnerMargins.Vertical = 2
+          VerticalPosition = vpTop
+        end
+        object NxComboBox1: TNxComboBox
+          Left = 16
+          Top = 30
+          Width = 121
+          Height = 21
+          Cursor = crArrow
+          TabOrder = 0
+          ReadOnly = True
+          HideFocus = False
+          Style = dsDropDownList
+          AutoCompleteDelay = 0
+          ItemIndex = 0
+          Items.Strings = (
+            ''
+            'Cod.Barra'
+            'ID Produto'
+            'Refer'#234'ncia'
+            'Qtd'
+            'Pre'#231'o Custo'
+            'Pre'#231'o Venda')
+        end
+        object NxComboBox2: TNxComboBox
+          Left = 140
+          Top = 30
+          Width = 121
+          Height = 21
+          Cursor = crArrow
+          TabOrder = 1
+          ReadOnly = True
+          HideFocus = False
+          Style = dsDropDownList
+          AutoCompleteDelay = 0
+          ItemIndex = 0
+          Items.Strings = (
+            ''
+            'Cod.Barra'
+            'ID Produto'
+            'Refer'#234'ncia'
+            'Qtd'
+            'Pre'#231'o Custo'
+            'Pre'#231'o Venda')
+        end
+        object NxComboBox3: TNxComboBox
+          Left = 263
+          Top = 30
+          Width = 121
+          Height = 21
+          Cursor = crArrow
+          TabOrder = 2
+          ReadOnly = True
+          HideFocus = False
+          Style = dsDropDownList
+          AutoCompleteDelay = 0
+          ItemIndex = 0
+          Items.Strings = (
+            ''
+            'Cod.Barra'
+            'ID Produto'
+            'Refer'#234'ncia'
+            'Qtd'
+            'Pre'#231'o Custo'
+            'Pre'#231'o Venda')
+        end
+        object NxComboBox4: TNxComboBox
+          Left = 386
+          Top = 30
+          Width = 121
+          Height = 21
+          Cursor = crArrow
+          TabOrder = 3
+          ReadOnly = True
+          HideFocus = False
+          Style = dsDropDownList
+          AutoCompleteDelay = 0
+          ItemIndex = 0
+          Items.Strings = (
+            ''
+            'Cod.Barra'
+            'ID Produto'
+            'Refer'#234'ncia'
+            'Qtd'
+            'Pre'#231'o Custo'
+            'Pre'#231'o Venda')
+        end
+        object Edit3: TEdit
+          Left = 86
+          Top = 63
+          Width = 29
+          Height = 19
+          Color = clSilver
+          Ctl3D = False
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          MaxLength = 3
+          ParentCtl3D = False
+          ParentFont = False
+          ReadOnly = True
+          TabOrder = 4
+          Text = '  ;'
+        end
+        object NxComboBox5: TNxComboBox
+          Left = 86
+          Top = 83
+          Width = 191
+          Height = 21
+          Cursor = crArrow
+          TabOrder = 5
+          Text = 'Conforme Registros Lan'#231'ados'
+          ReadOnly = True
+          HideFocus = False
+          Style = dsDropDownList
+          AutoCompleteDelay = 0
+          ItemIndex = 1
+          Items.Strings = (
+            'Informar no arquivo'
+            'Conforme Registros Lan'#231'ados')
+        end
+        object btnGerarAuxiliar: TNxButton
+          Left = 86
+          Top = 128
+          Width = 145
+          Height = 30
+          Caption = 'Gerar Auxiliar'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -12
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 7
+          OnClick = btnGerarAuxiliarClick
+        end
+        object FilenameEdit1: TFilenameEdit
+          Left = 86
+          Top = 103
+          Width = 496
+          Height = 21
+          Filter = 'Modelo Word|*.doc|All files (*.*)|*.*|Modelo Word|*.docx'
+          Ctl3D = False
+          NumGlyphs = 1
+          ParentCtl3D = False
+          TabOrder = 6
+        end
+        object btnGravarInventario: TNxButton
+          Left = 246
+          Top = 128
+          Width = 145
+          Height = 30
+          Caption = 'Gravar Invent'#225'rio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -12
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 8
+          OnClick = btnGravarInventarioClick
+        end
+      end
+      object SMDBGrid3: TSMDBGrid
+        Left = 0
+        Top = 174
+        Width = 1003
+        Height = 365
+        Align = alClient
+        Ctl3D = False
+        DataSource = DMCadInventario.dsmAuxInventario
+        Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        ParentCtl3D = False
+        TabOrder = 1
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'MS Sans Serif'
+        TitleFont.Style = []
+        Flat = True
+        BandsFont.Charset = DEFAULT_CHARSET
+        BandsFont.Color = clWindowText
+        BandsFont.Height = -11
+        BandsFont.Name = 'MS Sans Serif'
+        BandsFont.Style = []
+        Groupings = <>
+        GridStyle.Style = gsCustom
+        GridStyle.OddColor = clWindow
+        GridStyle.EvenColor = clWindow
+        TitleHeight.PixelCount = 24
+        FooterColor = clBtnFace
+        ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+        RegistryKey = 'Software\Scalabium'
+        RegistrySection = 'SMDBGrid'
+        WidthOfIndicator = 11
+        DefaultRowHeight = 17
+        ScrollBars = ssHorizontal
+        ColCount = 8
+        RowCount = 2
+        Columns = <
+          item
+            Expanded = False
+            FieldName = 'ID'
+            ReadOnly = True
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'CodBarra'
+            ReadOnly = True
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Referencia'
+            ReadOnly = True
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Nome_Produto'
+            ReadOnly = True
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Qtd'
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Preco_Custo'
+            Width = 89
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'Preco_Venda'
+            Width = 92
+            Visible = True
+          end>
       end
     end
   end
