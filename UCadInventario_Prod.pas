@@ -25,6 +25,7 @@ type
     Edit2: TEdit;
     NxFlipPanel1: TNxFlipPanel;
     SMDBGrid2: TSMDBGrid;
+    Label4: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnConfirmarClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -153,6 +154,11 @@ begin
   end;
   //RadioGroup1.Visible := (fDMCadInventario.qParametros_EstINVENTARIO_ESTMOV.AsString = 'S'); 08/10/2020
   NxFlipPanel1.Expanded := False;
+  if fDMCadInventario.qParametros_EstINVENTARIO_ESTMOV.AsString = 'S' then
+    Label4.Caption := 'Saldo do Estoque até dia ' + fDMCadInventario.cdsInventarioDATA.AsString
+  else
+    Label4.Caption := 'Saldo do Estoque até dia ' + DateToStr(Date)  + ' (Saldo Atual)';
+  
 end;
 
 procedure TfrmCadInventario_Prod.NxButton3Click(Sender: TObject);

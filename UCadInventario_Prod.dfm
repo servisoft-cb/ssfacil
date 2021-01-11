@@ -36,8 +36,14 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         Align = alClient
         Ctl3D = False
         DataSource = DMCadInventario.dsProduto
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
         ParentCtl3D = False
+        ParentFont = False
         ReadOnly = True
         TabOrder = 0
         TitleFont.Charset = DEFAULT_CHARSET
@@ -141,7 +147,6 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Grupo'
-            Width = 64
             Visible = True
           end>
       end
@@ -263,6 +268,19 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
           Width = 55
           Height = 13
           Caption = 'Refer'#234'ncia:'
+        end
+        object Label4: TLabel
+          Left = 294
+          Top = 9
+          Width = 331
+          Height = 18
+          Caption = 'Saldo do Estoque at'#233' dia 08/01/2021'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clMaroon
+          Font.Height = -16
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold, fsUnderline]
+          ParentFont = False
         end
         object NxButton3: TNxButton
           Left = 413
