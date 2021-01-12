@@ -1,8 +1,8 @@
 object fMenu: TfMenu
   Left = 0
-  Top = 0
+  Top = 32
   Width = 1366
-  Height = 736
+  Height = 704
   Caption = 'Menu'
   Color = clSilver
   Constraints.MinHeight = 650
@@ -31,7 +31,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 70
-    Height = 685
+    Height = 653
     Align = alLeft
     AutoSize = True
     ButtonHeight = 68

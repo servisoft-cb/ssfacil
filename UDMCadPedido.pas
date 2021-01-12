@@ -3937,6 +3937,9 @@ type
     cdsPedidoImp_ItensCONTADOR_PROD_USADO: TIntegerField;
     cdsPedidoImpDDD_VENDAS: TIntegerField;
     cdsPedidoImpFONE_VENDAS: TStringField;
+    sdsPedidoVLR_SALDO_USADO: TFloatField;
+    cdsPedidoVLR_SALDO_USADO: TFloatField;
+    qParametros_PedUSAR_ADIANTAMENTO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

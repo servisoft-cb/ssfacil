@@ -440,6 +440,9 @@ object DMCadPedido: TDMCadPedido
     object sdsPedidoTOTAL_PESO_TIPO: TFloatField
       FieldName = 'TOTAL_PESO_TIPO'
     end
+    object sdsPedidoVLR_SALDO_USADO: TFloatField
+      FieldName = 'VLR_SALDO_USADO'
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -930,6 +933,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedidoTOTAL_PESO_TIPO: TFloatField
       FieldName = 'TOTAL_PESO_TIPO'
+    end
+    object cdsPedidoVLR_SALDO_USADO: TFloatField
+      FieldName = 'VLR_SALDO_USADO'
     end
   end
   object dsPedido: TDataSource
@@ -15662,6 +15668,11 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_PedID_PROCESSO_FINAL: TIntegerField
       FieldName = 'ID_PROCESSO_FINAL'
+    end
+    object qParametros_PedUSAR_ADIANTAMENTO: TStringField
+      FieldName = 'USAR_ADIANTAMENTO'
+      FixedChar = True
+      Size = 1
     end
   end
   object sdsMetas_Acum: TSQLDataSet
