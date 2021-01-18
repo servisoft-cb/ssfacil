@@ -3937,6 +3937,10 @@ type
     cdsPedidoImp_ItensCONTADOR_PROD_USADO: TIntegerField;
     cdsPedidoImpDDD_VENDAS: TIntegerField;
     cdsPedidoImpFONE_VENDAS: TStringField;
+    sdsPedidoVLR_SALDO_USADO: TFloatField;
+    cdsPedidoVLR_SALDO_USADO: TFloatField;
+    qParametros_PedUSAR_ADIANTAMENTO: TStringField;
+    cdsPedido_Item_TipoclPrecoKG_Real: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -4719,6 +4723,15 @@ end;
 
 procedure TDMCadPedido.cdsPedido_Item_TipoCalcFields(DataSet: TDataSet);
 begin
+  if cdsParametrosEMPRESA_SUCATA.AsString = 'S' then
+  begin
+    if (StrToFloat(FormatFloat('0.0000',cdsPedido_Item_TipoVLR_UNITARIO.AsFloat)) > 0) and (StrToFloat(FormatFloat('0.0000',cdsPedido_Item_TipoPESO.AsFloat)) > 0) then
+    begin
+      cdsPedido_Item_TipoclPrecoKG_Real.AsFloat := StrToFloat(FormatCurr('0.0000',cdsPedido_Item_TipoVLR_UNITARIO.AsFloat / cdsPedido_Item_TipoPESO.AsFloat));
+      cdsPedido_Item_TipoclPrecoKG_Real.AsFloat := RoundTo(cdsPedido_Item_TipoclPrecoKG_Real.AsFloat,-2);
+    end;
+  end;
+
   if cdsParametrosEMPRESA_AMBIENTES.AsString = 'S' then
   begin
     if cdsPedido_Item_TipoID_ACABAMENTO.AsInteger > 0 then

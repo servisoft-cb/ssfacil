@@ -10318,12 +10318,6 @@ object dmCadProduto: TdmCadProduto
     Left = 616
     Top = 640
   end
-  object dspProduto_Consumo_Prod: TDataSetProvider
-    DataSet = sdsProduto_Consumo_Proc
-    UpdateMode = upWhereKeyOnly
-    Left = 1120
-    Top = 464
-  end
   object sdsProduto_Consumo_Proc: TSQLDataSet
     NoMetadata = True
     GetMetadata = False
@@ -10375,8 +10369,8 @@ object dmCadProduto: TdmCadProduto
     DataSetField = cdsProduto_ConsumosdsProduto_Consumo_Proc
     IndexFieldNames = 'ID;ITEM;ITEM_PROC'
     Params = <>
-    Left = 1160
-    Top = 464
+    Left = 1140
+    Top = 463
     object cdsProduto_Consumo_ProcID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
@@ -10411,8 +10405,8 @@ object dmCadProduto: TdmCadProduto
   end
   object dsProduto_Consumo_Proc: TDataSource
     DataSet = cdsProduto_Consumo_Proc
-    Left = 1200
-    Top = 464
+    Left = 1180
+    Top = 465
   end
   object frxProdutoConsulta: TfrxDBDataset
     UserName = 'frxProdutoConsulta'

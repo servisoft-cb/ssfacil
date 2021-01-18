@@ -1823,7 +1823,6 @@ type
     qParametros_ProdMOSTRAR_FORMA: TStringField;
     cdsProdutoProcessoID_POSICAO: TIntegerField;
     cdsProdutoProcessolkPosicao: TStringField;
-    dspProduto_Consumo_Prod: TDataSetProvider;
     sdsProduto_Consumo_Proc: TSQLDataSet;
     sdsProduto_Consumo_ProcID: TIntegerField;
     sdsProduto_Consumo_ProcITEM: TIntegerField;

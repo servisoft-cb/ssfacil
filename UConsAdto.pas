@@ -54,7 +54,7 @@ begin
   fDMConsFinanceiro.sdsConsAdto_Saldo.CommandText := fDMConsFinanceiro.ctConsAdto_Saldo;
   if trim(Edit1.Text) <> '' then
     fDMConsFinanceiro.sdsConsAdto_Saldo.CommandText := fDMConsFinanceiro.sdsConsAdto_Saldo.CommandText
-                                                     + ' WHERE P.NOME LIKE ' + QuotedStr('%'+Edit1.Text+'%');
+                                                     + ' AND P.NOME LIKE ' + QuotedStr('%'+Edit1.Text+'%');
   fDMConsFinanceiro.cdsConsAdto_Saldo.Open;
 end;
 

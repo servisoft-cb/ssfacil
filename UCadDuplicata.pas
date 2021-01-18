@@ -2106,6 +2106,7 @@ end;
 
 procedure TfrmCadDuplicata.SMDBGrid1ChangeSelection(Sender: TObject);
 begin
+
   btnPagamento.Enabled := ((SMDBGrid1.SelectedRows.Count = 1) and (vUser_Pagto) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0));
   btnPagtoSelecionado.Enabled := ((SMDBGrid1.SelectedRows.Count > 0) and (vUser_Pagto) and (StrToFloat(FormatFloat('0.00', fDMCadDuplicata.cdsDuplicata_ConsultaVLR_RESTANTE.AsFloat)) > 0));
   EstornoPagtoDevoluo1.Enabled := ((SMDBGrid1.SelectedRows.Count = 1)

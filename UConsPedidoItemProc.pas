@@ -94,6 +94,8 @@ var
   sds: TSQLDataSet;
   i: Integer;
 begin
+  fDMConsPedidoProc.qParametros_Ped.Close;
+  fDMConsPedidoProc.qParametros_Ped.Open;
   sds := TSQLDataSet.Create(nil);
   try
     sds.SQLConnection := dmDatabase.scoDados;
@@ -167,7 +169,7 @@ begin
           Background  := $000080FF;
       end
       else
-      if (fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName).AsString = SQLLocate('PARAMETROS_PED','ID','ID_PROCESSO_FINAL','1')) then
+      if (fDMConsPedidoProc.cdsConsPedido.FieldByName(Field.FieldName).AsString = fDMConsPedidoProc.qParametros_PedID_PROCESSO_FINAL.AsString) then
       begin
         if (fDMConsPedidoProc.cdsConsPedidoDTENTREGA.AsDateTime  < Date) and (fDMConsPedidoProc.cdsConsPedidoFATURADO.AsString <> 'S') then
         begin

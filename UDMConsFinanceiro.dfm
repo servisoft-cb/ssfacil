@@ -3060,7 +3060,7 @@ object DMConsFinanceiro: TDMConsFinanceiro
     GetMetadata = False
     CommandText = 
       'select A.*, P.NOME NOME_PESSOA'#13#10'from adto_saldo a'#13#10'INNER JOIN PE' +
-      'SSOA P'#13#10'ON A.id_pessoa = P.codigo'
+      'SSOA P'#13#10'ON A.id_pessoa = P.codigo'#13#10'WHERE A.valor <> 0'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados

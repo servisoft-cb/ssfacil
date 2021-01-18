@@ -194,6 +194,15 @@ type
     mNaoGravadosNum_Inventario: TIntegerField;
     cdsProdutoQTD: TFloatField;
     cdsProdutoQTD_GERAL: TFloatField;
+    mAuxInventario: TClientDataSet;
+    mAuxInventarioID: TIntegerField;
+    mAuxInventarioCodBarra: TStringField;
+    mAuxInventarioReferencia: TStringField;
+    mAuxInventarioQtd: TFloatField;
+    mAuxInventarioPreco_Custo: TFloatField;
+    mAuxInventarioPreco_Venda: TFloatField;
+    dsmAuxInventario: TDataSource;
+    mAuxInventarioNome_Produto: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsInventarioNewRecord(DataSet: TDataSet);
     procedure dspInventarioUpdateError(Sender: TObject;

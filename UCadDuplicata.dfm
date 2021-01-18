@@ -4714,7 +4714,7 @@ object frmCadDuplicata: TfrmCadDuplicata
     Top = 103
   end
   object PopupMenu5: TPopupMenu
-    Left = 697
+    Left = 698
     Top = 328
     object Devoluo1: TMenuItem
       Caption = 'Devolu'#231#227'o'

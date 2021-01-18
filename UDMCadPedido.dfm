@@ -440,6 +440,9 @@ object DMCadPedido: TDMCadPedido
     object sdsPedidoTOTAL_PESO_TIPO: TFloatField
       FieldName = 'TOTAL_PESO_TIPO'
     end
+    object sdsPedidoVLR_SALDO_USADO: TFloatField
+      FieldName = 'VLR_SALDO_USADO'
+    end
   end
   object dspPedido: TDataSetProvider
     DataSet = sdsPedido
@@ -930,6 +933,9 @@ object DMCadPedido: TDMCadPedido
     end
     object cdsPedidoTOTAL_PESO_TIPO: TFloatField
       FieldName = 'TOTAL_PESO_TIPO'
+    end
+    object cdsPedidoVLR_SALDO_USADO: TFloatField
+      FieldName = 'VLR_SALDO_USADO'
     end
   end
   object dsPedido: TDataSource
@@ -4233,6 +4239,7 @@ object DMCadPedido: TDMCadPedido
     Top = 350
   end
   object cdsPedidoImp: TClientDataSet
+    Active = True
     Aggregates = <>
     IndexFieldNames = 'ID'
     Params = <>
@@ -10625,6 +10632,12 @@ object DMCadPedido: TDMCadPedido
       FieldName = 'FOTO'
       Size = 200
     end
+    object cdsPedido_Item_TipoclPrecoKG_Real: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'clPrecoKG_Real'
+      ProviderFlags = []
+      Calculated = True
+    end
   end
   object dsPedido_Item_Tipo: TDataSource
     DataSet = cdsPedido_Item_Tipo
@@ -11073,7 +11086,7 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44186.676854375000000000
+    ReportOptions.LastChange = 44211.604306979160000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -15662,6 +15675,11 @@ object DMCadPedido: TDMCadPedido
     end
     object qParametros_PedID_PROCESSO_FINAL: TIntegerField
       FieldName = 'ID_PROCESSO_FINAL'
+    end
+    object qParametros_PedUSAR_ADIANTAMENTO: TStringField
+      FieldName = 'USAR_ADIANTAMENTO'
+      FixedChar = True
+      Size = 1
     end
   end
   object sdsMetas_Acum: TSQLDataSet

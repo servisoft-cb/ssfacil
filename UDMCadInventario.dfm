@@ -1063,4 +1063,46 @@ object DMCadInventario: TDMCadInventario
     Left = 794
     Top = 453
   end
+  object mAuxInventario: TClientDataSet
+    Active = True
+    Aggregates = <>
+    Params = <>
+    Left = 103
+    Top = 450
+    Data = {
+      B60000009619E0BD010000001800000007000000000003000000B60002494404
+      0001000000000008436F64426172726101004900000001000557494454480200
+      02000E000A5265666572656E6369610100490000000100055749445448020002
+      0014000351746408000400000000000B507265636F5F437573746F0800040000
+      0000000B507265636F5F56656E646108000400000000000C4E6F6D655F50726F
+      6475746F0100490000000100055749445448020002003C000000}
+    object mAuxInventarioID: TIntegerField
+      FieldName = 'ID'
+    end
+    object mAuxInventarioCodBarra: TStringField
+      FieldName = 'CodBarra'
+      Size = 14
+    end
+    object mAuxInventarioReferencia: TStringField
+      FieldName = 'Referencia'
+    end
+    object mAuxInventarioQtd: TFloatField
+      FieldName = 'Qtd'
+    end
+    object mAuxInventarioPreco_Custo: TFloatField
+      FieldName = 'Preco_Custo'
+    end
+    object mAuxInventarioPreco_Venda: TFloatField
+      FieldName = 'Preco_Venda'
+    end
+    object mAuxInventarioNome_Produto: TStringField
+      FieldName = 'Nome_Produto'
+      Size = 60
+    end
+  end
+  object dsmAuxInventario: TDataSource
+    DataSet = mAuxInventario
+    Left = 152
+    Top = 451
+  end
 end
