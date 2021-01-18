@@ -23,9 +23,9 @@ object frmCadOrcamento: TfrmCadOrcamento
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 1008
-    Height = 677
-    ActivePage = TS_Consulta
+    Width = 1000
+    Height = 669
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadOrcamento: TfrmCadOrcamento
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -41,8 +41,8 @@ object frmCadOrcamento: TfrmCadOrcamento
       Caption = 'Tela de Consulta'
       object Splitter1: TSplitter
         Left = 0
-        Top = 477
-        Width = 1004
+        Top = 469
+        Width = 996
         Height = 7
         Cursor = crVSplit
         Align = alBottom
@@ -50,7 +50,7 @@ object frmCadOrcamento: TfrmCadOrcamento
       object pnlPesquisa: TPanel
         Left = 0
         Top = 31
-        Width = 1004
+        Width = 996
         Height = 92
         Align = alTop
         Color = clSilver
@@ -238,7 +238,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             'Ambos')
         end
         object gbImpressao: TGroupBox
-          Left = 818
+          Left = 810
           Top = 1
           Width = 185
           Height = 90
@@ -307,8 +307,8 @@ object frmCadOrcamento: TfrmCadOrcamento
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 637
-        Width = 1004
+        Top = 629
+        Width = 996
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -326,7 +326,7 @@ object frmCadOrcamento: TfrmCadOrcamento
       object Panel11: TPanel
         Left = 0
         Top = 0
-        Width = 1004
+        Width = 996
         Height = 31
         Align = alTop
         Color = clSilver
@@ -639,7 +639,7 @@ object frmCadOrcamento: TfrmCadOrcamento
         object Panel5: TPanel
           Left = 1
           Top = 1
-          Width = 1002
+          Width = 994
           Height = 30
           Align = alTop
           Color = clSilver
@@ -1037,8 +1037,8 @@ object frmCadOrcamento: TfrmCadOrcamento
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 123
-        Width = 1004
-        Height = 354
+        Width = 996
+        Height = 346
         Align = alClient
         Ctl3D = False
         DataSource = DMCadPedido.dsPedido_Consulta
@@ -1173,8 +1173,8 @@ object frmCadOrcamento: TfrmCadOrcamento
       end
       object Panel2: TPanel
         Left = 0
-        Top = 615
-        Width = 1004
+        Top = 607
+        Width = 996
         Height = 22
         Align = alBottom
         Color = clSilver
@@ -1238,14 +1238,14 @@ object frmCadOrcamento: TfrmCadOrcamento
       end
       object pnlItens_Consulta: TPanel
         Left = 0
-        Top = 484
-        Width = 1004
+        Top = 476
+        Width = 996
         Height = 131
         Align = alBottom
         Caption = 'pnlItens_Consulta'
         TabOrder = 5
         object Splitter2: TSplitter
-          Left = 691
+          Left = 683
           Top = 1
           Height = 129
           Align = alRight
@@ -1253,7 +1253,7 @@ object frmCadOrcamento: TfrmCadOrcamento
         object RzDBGrid1: TRzDBGrid
           Left = 1
           Top = 1
-          Width = 690
+          Width = 682
           Height = 129
           Align = alClient
           Color = clSilver
@@ -1345,7 +1345,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             end>
         end
         object DBMemo3: TDBMemo
-          Left = 694
+          Left = 686
           Top = 1
           Width = 309
           Height = 129
@@ -1364,7 +1364,7 @@ object frmCadOrcamento: TfrmCadOrcamento
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 1004
+        Width = 996
         Height = 32
         Align = alTop
         Color = 8404992
@@ -1593,7 +1593,7 @@ object frmCadOrcamento: TfrmCadOrcamento
       object pnlCadastro: TPanel
         Left = 0
         Top = 32
-        Width = 1004
+        Width = 996
         Height = 188
         Align = alTop
         Enabled = False
@@ -1601,13 +1601,13 @@ object frmCadOrcamento: TfrmCadOrcamento
         object pnlCliente: TPanel
           Left = 1
           Top = 48
-          Width = 1002
+          Width = 994
           Height = 139
           Align = alClient
           TabOrder = 1
           OnEnter = pnlClienteEnter
           DesignSize = (
-            1002
+            994
             139)
           object Label18: TLabel
             Left = 24
@@ -2299,7 +2299,7 @@ object frmCadOrcamento: TfrmCadOrcamento
         object pnlNota: TPanel
           Left = 1
           Top = 1
-          Width = 1002
+          Width = 994
           Height = 22
           Align = alTop
           Color = clSilver
@@ -2354,7 +2354,7 @@ object frmCadOrcamento: TfrmCadOrcamento
         object Panel6: TPanel
           Left = 1
           Top = 23
-          Width = 1002
+          Width = 994
           Height = 25
           Align = alTop
           TabOrder = 0
@@ -2414,8 +2414,8 @@ object frmCadOrcamento: TfrmCadOrcamento
       end
       object Panel10: TPanel
         Left = 0
-        Top = 630
-        Width = 1004
+        Top = 622
+        Width = 996
         Height = 24
         Align = alBottom
         Color = clSilver
@@ -2512,9 +2512,9 @@ object frmCadOrcamento: TfrmCadOrcamento
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 220
-        Width = 1004
-        Height = 389
-        ActivePage = RzTabSheet1
+        Width = 996
+        Height = 381
+        ActivePage = TabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
         BackgroundColor = clSilver
@@ -2522,7 +2522,7 @@ object frmCadOrcamento: TfrmCadOrcamento
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 1
         FixedDimension = 19
         object RzTabSheet1: TRzTabSheet
@@ -2530,8 +2530,8 @@ object frmCadOrcamento: TfrmCadOrcamento
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 30
-            Width = 1000
-            Height = 147
+            Width = 992
+            Height = 139
             Align = alClient
             DataSource = DMCadPedido.dsPedido_Itens
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -2696,7 +2696,7 @@ object frmCadOrcamento: TfrmCadOrcamento
           object pnlItem: TPanel
             Left = 0
             Top = 0
-            Width = 1000
+            Width = 992
             Height = 30
             Align = alTop
             Color = clSilver
@@ -2953,14 +2953,14 @@ object frmCadOrcamento: TfrmCadOrcamento
           end
           object pnlTipoItem: TPanel
             Left = 0
-            Top = 295
-            Width = 1000
+            Top = 287
+            Width = 992
             Height = 71
             Align = alBottom
             Caption = 'pnlMaterial'
             TabOrder = 2
             object NxSplitter1: TNxSplitter
-              Left = 681
+              Left = 673
               Top = 1
               Height = 69
               Align = alRight
@@ -2968,7 +2968,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             object SMDBGrid6: TSMDBGrid
               Left = 1
               Top = 1
-              Width = 680
+              Width = 672
               Height = 69
               Align = alClient
               Ctl3D = False
@@ -3135,7 +3135,7 @@ object frmCadOrcamento: TfrmCadOrcamento
                 end>
             end
             object SMDBGrid3: TSMDBGrid
-              Left = 690
+              Left = 682
               Top = 1
               Width = 309
               Height = 69
@@ -3198,8 +3198,8 @@ object frmCadOrcamento: TfrmCadOrcamento
           end
           object pnlVidro: TPanel
             Left = 0
-            Top = 236
-            Width = 1000
+            Top = 228
+            Width = 992
             Height = 59
             Align = alBottom
             Caption = 'pnlMaterial'
@@ -3208,7 +3208,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             object SMDBGrid7: TSMDBGrid
               Left = 1
               Top = 1
-              Width = 998
+              Width = 990
               Height = 57
               Align = alClient
               Color = 12189625
@@ -3334,8 +3334,8 @@ object frmCadOrcamento: TfrmCadOrcamento
           end
           object pnlPorta: TPanel
             Left = 0
-            Top = 177
-            Width = 1000
+            Top = 169
+            Width = 992
             Height = 59
             Align = alBottom
             TabOrder = 4
@@ -3343,7 +3343,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             object SMDBGrid8: TSMDBGrid
               Left = 1
               Top = 1
-              Width = 998
+              Width = 990
               Height = 57
               Align = alClient
               Color = 12189625
@@ -3474,7 +3474,7 @@ object frmCadOrcamento: TfrmCadOrcamento
           object pnlServico: TPanel
             Left = 0
             Top = 0
-            Width = 1000
+            Width = 992
             Height = 30
             Align = alTop
             Color = clSilver
@@ -3712,8 +3712,8 @@ object frmCadOrcamento: TfrmCadOrcamento
           object SMDBGrid5: TSMDBGrid
             Left = 0
             Top = 30
-            Width = 1000
-            Height = 247
+            Width = 992
+            Height = 239
             Align = alClient
             DataSource = DMCadPedido.dsPedidoServico
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -3781,8 +3781,8 @@ object frmCadOrcamento: TfrmCadOrcamento
           end
           object DBMemo2: TDBMemo
             Left = 0
-            Top = 277
-            Width = 1000
+            Top = 269
+            Width = 992
             Height = 89
             Align = alBottom
             DataField = 'COMPLEMENTO_SERVICO'
@@ -3795,15 +3795,15 @@ object frmCadOrcamento: TfrmCadOrcamento
           object pnlTransporte_Geral: TPanel
             Left = 0
             Top = 0
-            Width = 1000
-            Height = 366
+            Width = 992
+            Height = 358
             Align = alClient
             TabOrder = 0
             object RzGroupBox1: TRzGroupBox
               Left = 1
               Top = 67
-              Width = 998
-              Height = 298
+              Width = 990
+              Height = 290
               Align = alClient
               BorderColor = clLime
               BorderInner = fsButtonUp
@@ -3842,7 +3842,7 @@ object frmCadOrcamento: TfrmCadOrcamento
             object pnlObservacao: TPanel
               Left = 1
               Top = 1
-              Width = 998
+              Width = 990
               Height = 66
               Align = alTop
               Enabled = False
@@ -3952,8 +3952,8 @@ object frmCadOrcamento: TfrmCadOrcamento
           Caption = 'Valores'
           Enabled = False
           DesignSize = (
-            1000
-            366)
+            992
+            358)
           object Label27: TLabel
             Left = 351
             Top = 46
@@ -4291,7 +4291,7 @@ object frmCadOrcamento: TfrmCadOrcamento
           object pnlValores: TPanel
             Left = 0
             Top = 0
-            Width = 1000
+            Width = 992
             Height = 32
             Align = alTop
             Color = clSilver
@@ -4385,7 +4385,7 @@ object frmCadOrcamento: TfrmCadOrcamento
           object Panel3: TPanel
             Left = 0
             Top = 0
-            Width = 1000
+            Width = 992
             Height = 30
             Align = alTop
             Color = clSilver
@@ -4620,8 +4620,8 @@ object frmCadOrcamento: TfrmCadOrcamento
           object SMDBGrid9: TSMDBGrid
             Left = 0
             Top = 30
-            Width = 1000
-            Height = 336
+            Width = 992
+            Height = 328
             Align = alClient
             DataSource = DMCadPedido.dsPedido_Ace
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -4713,7 +4713,7 @@ object frmCadOrcamento: TfrmCadOrcamento
           object Panel4: TPanel
             Left = 0
             Top = 0
-            Width = 1000
+            Width = 992
             Height = 30
             Align = alTop
             Color = clSilver
@@ -4948,8 +4948,8 @@ object frmCadOrcamento: TfrmCadOrcamento
           object SMDBGrid10: TSMDBGrid
             Left = 0
             Top = 30
-            Width = 1000
-            Height = 336
+            Width = 992
+            Height = 328
             Align = alClient
             DataSource = DMCadPedido.dsPedido_Rol
             Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -5039,8 +5039,8 @@ object frmCadOrcamento: TfrmCadOrcamento
       end
       object pnlAcessorios: TPanel
         Left = 0
-        Top = 609
-        Width = 1004
+        Top = 601
+        Width = 996
         Height = 21
         Align = alBottom
         Color = clSilver

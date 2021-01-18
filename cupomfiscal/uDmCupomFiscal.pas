@@ -1611,7 +1611,7 @@ type
     vID_NCM: Integer;
     vPerc_ICMS, vPerc_IPI, vPerc_TribICMS : Real;
     vPerc_Trib_Efet, vPerc_ICMS_Efet: Real;
-    vBase_ICMS_Efet : Real;
+    vBase_ICMS_Efet: Real;
     vMotivoCancelamento: String;
     vDescricao_Operacao: String;
     vSair_Tela: Boolean;
@@ -2325,11 +2325,16 @@ begin
            vTexto := ' ' + vTexto;
          Printer.Canvas.TextOut(0,vLinha,vTexto);
          vLinha := vLinha + cAvanco;
+         Printer.Canvas.TextOut(0,vLinha,'');
+         vLinha := vLinha + cAvanco;
 
          Printer.Canvas.Font.Size  := 8;
          printer.Canvas.Font.Style := [];
 
-         vTexto := 'CÓD  DESCRIÇÃO               QTD  VL.ITEM';
+         vTexto := 'COD        DESCRICAO                      ';
+         Printer.Canvas.TextOut(0,vLinha,vTexto);
+         vLinha := vLinha + cAvanco;
+         vTexto := '   QTD      V.UNIT     V.DESC      V.TOTAL';
          Printer.Canvas.TextOut(0,vLinha,vTexto);
          vLinha := vLinha + cAvanco;
 
@@ -2340,21 +2345,28 @@ begin
 
     1: begin //'VendeItem
          vPosicao := 1;
-         vCod := Copy(vCod,Length(vCod)-4,4);
-         for i := 1 to 4 - Length(vCod) do
+         vCod := Copy(vCod,Length(vCod)-4,10);
+         for i := 1 to 10 - Length(vCod) do
            vCod := vCod + ' ';
 
-         vProd := Copy(vProd,1,21);
-         for i := 1 to 22 - Length(vProd) do
+         vProd := Copy(vProd,1,31);
+         for i := 1 to 31 - Length(vProd) do
            vProd := vProd + ' ';
+         vTexto := vCod + ' ' + vProd;
 
-         for i := 1 to 5 - Length(vQtd) do
+         Printer.Canvas.TextOut(0,vLinha,vTexto);
+         vLinha := vLinha + cAvanco;
+
+         for i := 1 to 6 - Length(vQtd) do
            vQtd := ' ' + vQtd;
-
-         for i := 1 to 7 - Length(vVlrTot) do
+         for i := 1 to 11 - Length(vVlrUnit) do
+           vVlrUnit := ' ' + vVlrUnit;
+         for i := 1 to 10 - Length(vVlrDesc) do
+           vVlrDesc := ' ' + vVlrDesc;
+         for i := 1 to 12 - Length(vVlrTot) do
            vVlrTot := ' ' + vVlrTot;
 
-         vTexto := vCod + ' ' + vProd + ' ' + vQtd + ' ' + vVlrTot;//'VendeItem
+         vTexto := vQtd + ' ' + vVlrUnit + ' ' + vVlrDesc + ' ' + vVlrTot;//'VendeItem
          Printer.Canvas.TextOut(0,vLinha,vTexto);
          vLinha := vLinha + cAvanco;
        end;
@@ -2369,7 +2381,7 @@ begin
 
 //         Printer.Canvas.Font.Style := [fsBold]; //Declarar Graphics
          vTexto := 'TOTAL: ' + vVlrTot;
-         for i := 1 to 41 - Length(vTexto) do
+         for i := 1 to 42 - Length(vTexto) do
            vTexto := ' ' + vTexto;
          Printer.Canvas.TextOut(0,vLinha,vTexto);
          vLinha := vLinha + cAvanco;
@@ -2378,7 +2390,7 @@ begin
          if vVlrDesc <> 'R$ 0,00' then
          begin
            vTexto := 'DESCONTO: ' + vVlrDesc;
-           for i := 1 to 41 - Length(vTexto) do
+           for i := 1 to 42 - Length(vTexto) do
              vTexto := ' ' + vTexto;
            Printer.Canvas.TextOut(0,vLinha,vTexto);
            vLinha := vLinha + cAvanco;
@@ -2387,7 +2399,7 @@ begin
          if vQtd <> 'R$ 0,00' then
          begin
            vTexto := 'VLR. PAGO: ' + vQtd;
-           for i := 1 to 41 - Length(vTexto) do
+           for i := 1 to 42 - Length(vTexto) do
              vTexto := ' ' + vTexto;
            Printer.Canvas.TextOut(0,vLinha,vTexto);
            vLinha := vLinha + cAvanco;
@@ -2397,7 +2409,7 @@ begin
          if vVlrUnit <> '' then
          begin
            vTexto := 'TROCO: ' + vVlrUnit;
-           for i := 1 to 41 - Length(vTexto) do
+           for i := 1 to 42 - Length(vTexto) do
              vTexto := ' ' + vTexto;
          end;
          Printer.Canvas.TextOut(0,vLinha,vTexto);
@@ -3101,7 +3113,9 @@ begin
            vTexto := ' ' + vTexto;
          WriteLn(f,vTexto);
 
-         vTexto := 'COD  DESCRICAO                QTD  VL.ITEM';
+         vTexto := 'COD        DESCRICAO                      ';
+         WriteLn(f,vTexto);
+         vTexto := '   QTD      V.UNIT       V.DESC    V.TOTAL';
          WriteLn(f,vTexto);
 
          vTexto := '------------------------------------------';
@@ -3110,24 +3124,32 @@ begin
 
     1: begin //'VendeItem
          vPosicao := 1;
-         vCod := Copy(vCod,1,4);
-         for i := 1 to 4 - Length(Copy(vCod,Length(vCod)-4,4)) do
+         vCod := Copy(vCod,1,10);
+         for i := 1 to 10 - Length(Copy(vCod,Length(vCod)-10,10)) do
            vCod := vCod + ' ';
 
          //Passado para 21   25/01/2016
          //vProd := Copy(vProd,1,23);
 //         vProd := Copy(vProd,1,22);
-         vProd := Copy(vProd,1,22);
-         for i := 1 to 23 - Length(vProd) do
+         vProd := Copy(vProd,1,32);
+         for i := 1 to 32 - Length(vProd) do
            vProd := vProd + ' ';
+         vTexto := vCod + ' ' + vProd;
+         WriteLn(f,vTexto);
 
-         for i := 1 to 5 - Length(vQtd) do
+         for i := 1 to 6 - Length(vQtd) do
            vQtd := ' ' + vQtd;
 
-         for i := 1 to 7 - Length(vVlrTot) do
+         for i := 1 to 6 - Length(vQtd) do
+           vQtd := ' ' + vQtd;
+         for i := 1 to 7 - Length(vVlrUnit) do
+           vVlrUnit := ' ' + vVlrUnit;
+         for i := 1 to 6 - Length(vVlrDesc) do
+           vVlrDesc := ' ' + vVlrDesc;
+         for i := 1 to 6 - Length(vVlrTot) do
            vVlrTot := ' ' + vVlrTot;
 
-         vTexto := vCod + ' ' + vProd + ' ' + vQtd + ' ' + vVlrTot;//'VendeItem
+         vTexto := vQtd + ' ' + vVlrUnit + ' ' + vVlrDesc + ' ' + vVlrTot;//'VendeItem
          WriteLn(f,vTexto);
        end;
 
@@ -3247,13 +3269,15 @@ begin
                    cdsCupom_ItensNOME_PRODUTO.AsString,
                    cdsCupom_ItensQTD.AsString,
                    FormatFloat('0.00',cdsCupom_ItensVLR_UNITARIO.AsCurrency),
-                   FormatFloat('0.00',cdsCupom_ItensVLR_UNITARIO.AsCurrency * cdsCupom_ItensQTD.AsCurrency),'')
+                   FormatFloat('0.00',cdsCupom_ItensVLR_TOTAL.AsCurrency),
+                   FormatFloat('0.00',cdsCupom_ItensVLR_DESCONTO.AsCurrency + cdsCupom_ItensVLR_DESCONTORATEIO.AsCurrency))
     else
       ImpNaoFiscalW('VendeItem',vCodRef,
                      cdsCupom_ItensNOME_PRODUTO.AsString,
                      cdsCupom_ItensQTD.AsString,
                      FormatFloat('0.00',cdsCupom_ItensVLR_UNITARIO.AsCurrency),
-                     FormatFloat('0.00',cdsCupom_ItensVLR_TOTAL.AsCurrency * cdsCupom_ItensQTD.AsCurrency),'');
+                     FormatFloat('0.00',cdsCupom_ItensVLR_TOTAL.AsCurrency * cdsCupom_ItensQTD.AsCurrency),
+                     FormatFloat('0.00',cdsCupom_ItensVLR_DESCONTO.AsCurrency +  cdsCupom_ItensVLR_DESCONTO.AsCurrency));
     cdsCupom_Itens.Next;
   end;
   if vModelo = 'modCanvas' then

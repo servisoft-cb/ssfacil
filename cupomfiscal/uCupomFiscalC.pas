@@ -244,10 +244,10 @@ begin
   if fDmCupomFiscal.cdsParametrosIMPRESSORA_FISCAL.AsInteger = 0 then
     ckTeste.Checked := True;
 
-  PanelTotais1.Visible := (((fDmCupomFiscal.cdsCupomParametrosUSA_CARTAO_COMANDA.AsString = 'S') or
+{  PanelTotais1.Visible := (((fDmCupomFiscal.cdsCupomParametrosUSA_CARTAO_COMANDA.AsString = 'S') or
                           (fDmCupomFiscal.cdsCupomParametrosMOSTRAR_BARRA_TOTAL.AsString = 'S')) and
                           ((fDmCupomFiscal.qParametros_UsuarioCUPOM_TOTAIS.AsString = 'S') or
-                          (fDmCupomFiscal.qParametros_UsuarioCUPOM_TOTAIS.IsNull)));
+                          (fDmCupomFiscal.qParametros_UsuarioCUPOM_TOTAIS.IsNull)));}
 
   if fDmCupomFiscal.cdsCupomParametrosUSA_CARTAO_COMANDA.AsString = 'S' then
     ComboBox1.ItemIndex := 5
