@@ -108,6 +108,12 @@ type
     Label33: TLabel;
     Edit1: TEdit;
     ckExcluirVinculada: TCheckBox;
+    SemSaldo1: TMenuItem;
+    ComSaldo1: TMenuItem;
+    SemSaldo2: TMenuItem;
+    ComSaldo2: TMenuItem;
+    SemSaldo3: TMenuItem;
+    ComSaldo3: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -129,8 +135,6 @@ type
     procedure btnRecalcularClick(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
     procedure RzPageControl1Change(Sender: TObject);
-    procedure Conta1Click(Sender: TObject);
-    procedure FormadePagamento1Click(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -142,10 +146,15 @@ type
     procedure RxDBLookupCombo6KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure RxDBLookupCombo7Enter(Sender: TObject);
-    procedure MovimentopData1Click(Sender: TObject);
     procedure Recebimento1Click(Sender: TObject);
     procedure Pagamento1Click(Sender: TObject);
     procedure RxDBLookupCombo4Exit(Sender: TObject);
+    procedure SemSaldo1Click(Sender: TObject);
+    procedure ComSaldo1Click(Sender: TObject);
+    procedure ComSaldo2Click(Sender: TObject);
+    procedure SemSaldo2Click(Sender: TObject);
+    procedure ComSaldo3Click(Sender: TObject);
+    procedure SemSaldo3Click(Sender: TObject);
   private
     { Private declarations }
     fDMCadFinanceiro: TDMCadFinanceiro;
@@ -160,8 +169,10 @@ type
     procedure prc_Abrir_Movimento_Data(D1: TDate; D2: TDate; Filial: Integer);
     procedure prc_Abrir_Saldo_Movimento(DataInicial: TDate);
     procedure prc_Imp_Recibo;
+    function fnc_Monta_Cab : String;
 
     function fnc_Fechamento: Boolean;
+    procedure prc_Monta_Cab;
   public
     { Public declarations }
   end;
@@ -581,42 +592,6 @@ begin
   end;
 end;
 
-procedure TfrmCadFinanceiro.Conta1Click(Sender: TObject);
-begin
-  if not(fDMCadFinanceiro.cdsFinanceiro_Consulta.Active) or
-        (fDMCadFinanceiro.cdsFinanceiro_Consulta.IsEmpty) or
-        (fDMCadFinanceiro.cdsFinanceiro_ConsultaID.AsInteger <= 0) then
-    exit;
-  vTipo_Config_Email := 3;
-  fDMCadFinanceiro.cdsFinanceiro_Consulta.IndexFieldNames := 'NOME_CONTA;DTMOVIMENTO;TIPO_ES';
-  if DateEdit1.Date > 10 then
-    prc_Abrir_qSaldoMov
-  else
-    fDMCadFinanceiro.qSaldoMov.Close;
-
-  fRelFinanceiro_Conta                  := TfRelFinanceiro_Conta.Create(Self);
-  fRelFinanceiro_Conta.fDMCadFinanceiro := fDMCadFinanceiro;
-  fRelFinanceiro_Conta.RLReport1.PreviewModal;
-  fRelFinanceiro_Conta.RLReport1.Free;
-  FreeAndNil(fRelFinanceiro_Conta);
-end;
-
-procedure TfrmCadFinanceiro.FormadePagamento1Click(Sender: TObject);
-begin
-  if not(fDMCadFinanceiro.cdsFinanceiro_Consulta.Active) or
-        (fDMCadFinanceiro.cdsFinanceiro_Consulta.IsEmpty) or
-        (fDMCadFinanceiro.cdsFinanceiro_ConsultaID.AsInteger <= 0) then
-    exit;
-  vTipo_Config_Email := 3;
-  fDMCadFinanceiro.cdsFinanceiro_Consulta.IndexFieldNames := 'NOME_FORMAPGTO;DTMOVIMENTO;TIPO_ES;NOME_CONTA';
-
-  fRelFinanceiro_FPgto                  := TfRelFinanceiro_FPgto.Create(Self);
-  fRelFinanceiro_FPgto.fDMCadFinanceiro := fDMCadFinanceiro;
-  fRelFinanceiro_FPgto.RLReport1.PreviewModal;
-  fRelFinanceiro_FPgto.RLReport1.Free;
-  FreeAndNil(fRelFinanceiro_FPgto);
-end;
-
 procedure TfrmCadFinanceiro.btnPesquisarClick(Sender: TObject);
 begin
   pnlPesquisa.Visible := not(pnlPesquisa.Visible);
@@ -681,29 +656,6 @@ end;
 procedure TfrmCadFinanceiro.RxDBLookupCombo7Enter(Sender: TObject);
 begin
   fdmCadFinanceiro.cdsPessoa.IndexFieldNames := 'NOME';
-end;
-
-procedure TfrmCadFinanceiro.MovimentopData1Click(Sender: TObject);
-var
-  vArq: String;
-  vDataIni,vDataFin: TDate;
-begin
-  vDataIni := DateEdit1.Date;
-  vDataFin := DateEdit2.Date;
-  if vDataFin < 10 then
-     vDataFin := Date;
-  prc_Abrir_Saldo_Movimento(vDataIni);
-  prc_Abrir_Movimento_Data(vDataIni,vDataFin,fDMCadFinanceiro.cdsFilialID.AsInteger);
-  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Movimento_Fin_Data.fr3';
-  if FileExists(vArq) then
-    fDMCadFinanceiro.frxReport1.Report.LoadFromFile(vArq)
-  else
-  begin
-    ShowMessage('Relatorio não localizado! ' + vArq);
-    Exit;
-  end;
-  fDMCadFinanceiro.frxReport1.Variables['Nome_Empresa'] := QuotedStr(fDMCadFinanceiro.cdsFilialNOME.AsString);
-  fDMCadFinanceiro.frxReport1.ShowReport;
 end;
 
 procedure TfrmCadFinanceiro.prc_Abrir_Movimento_Data(D1, D2: TDate;
@@ -805,6 +757,165 @@ begin
     RxDBLookupCombo8.Visible := False;
     Label32.Visible          := False;
   end;
+end;
+
+procedure TfrmCadFinanceiro.SemSaldo1Click(Sender: TObject);
+var
+  vArq: String;
+begin
+  prc_Monta_Cab;
+  fDMCadFinanceiro.cdsFinanceiro_Consulta.IndexFieldNames := 'NOME_CONTA;DTMOVIMENTO;TIPO_ES';
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Financeiro_Contas.fr3';
+  if FileExists(vArq) then
+    fDMCadFinanceiro.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatorio não localizado! ' + vArq);
+    Exit;
+  end;
+  fDMCadFinanceiro.frxReport1.Variables['ImpOpcao'] := QuotedStr(fnc_Monta_Cab);
+  fDMCadFinanceiro.frxReport1.ShowReport;
+end;
+
+procedure TfrmCadFinanceiro.prc_Monta_Cab;
+begin
+
+end;
+
+function TfrmCadFinanceiro.fnc_Monta_Cab: String;
+var
+  vAux : String;
+begin
+  Result := '';
+  vAux   := '';
+  if RxDBLookupCombo1.Text <> '' then
+    vAux := vAux + '(Filial: ' + RxDBLookupCombo1.Text + ')';
+  if RxDBLookupCombo5.Text <> '' then
+    vAux := vAux + '(Forma Pagto: ' + RxDBLookupCombo5.Text + ')';
+  if trim(Edit1.Text) <> '' then
+    vAux := vAux + '(Pessoa: ' + Edit1.Text + ')';
+  if (DateEdit1.Date > 10) and (DateEdit2.Date > 10) then
+    vAux := vAux + '(Dt.Financeiro: ' + DateEdit1.Text + ' até ' + DateEdit2.Text + ')'
+  else
+  if (DateEdit1.Date > 10) then
+    vAux := vAux + '(Dt.Financeiro Inicial: ' + DateEdit1.Text + ')'
+  else
+  if (DateEdit2.Date > 10) then
+    vAux := vAux + '(Dt.Financeiro Final: ' + DateEdit2.Text + ')';
+
+  if (DateEdit3.Date > 10) and (DateEdit4.Date > 10) then
+    vAux := vAux + '(Dt.Lançamento: ' + DateEdit3.Text + ' até ' + DateEdit4.Text + ')'
+  else
+  if (DateEdit3.Date > 10) then
+    vAux := vAux + '(Dt.Lançamento Inicial: ' + DateEdit3.Text + ')'
+  else
+  if (DateEdit4.Date > 10) then
+    vAux := vAux + '(Dt.Lançamento Final: ' + DateEdit4.Text + ')';
+  case RadioGroup2.ItemIndex of
+    0 : vAux := vAux + '(Entrada)';
+    1 : vAux := vAux + '(Saídas)';
+  end;
+  Result := vAux;
+end;
+
+procedure TfrmCadFinanceiro.ComSaldo1Click(Sender: TObject);
+begin
+  SMDBGrid1.DisableScroll;
+  if not(fDMCadFinanceiro.cdsFinanceiro_Consulta.Active) or
+        (fDMCadFinanceiro.cdsFinanceiro_Consulta.IsEmpty) or
+        (fDMCadFinanceiro.cdsFinanceiro_ConsultaID.AsInteger <= 0) then
+    exit;
+  vTipo_Config_Email := 3;
+  fDMCadFinanceiro.cdsFinanceiro_Consulta.IndexFieldNames := 'NOME_CONTA;DTMOVIMENTO;TIPO_ES';
+  if DateEdit1.Date > 10 then
+    prc_Abrir_qSaldoMov
+  else
+    fDMCadFinanceiro.qSaldoMov.Close;
+
+  fRelFinanceiro_Conta                  := TfRelFinanceiro_Conta.Create(Self);
+  fRelFinanceiro_Conta.fDMCadFinanceiro := fDMCadFinanceiro;
+  fRelFinanceiro_Conta.RLReport1.PreviewModal;
+  fRelFinanceiro_Conta.RLReport1.Free;
+  FreeAndNil(fRelFinanceiro_Conta);
+  SMDBGrid1.EnableScroll;
+end;
+
+procedure TfrmCadFinanceiro.ComSaldo2Click(Sender: TObject);
+begin
+  SMDBGrid1.DisableScroll;
+  if not(fDMCadFinanceiro.cdsFinanceiro_Consulta.Active) or
+        (fDMCadFinanceiro.cdsFinanceiro_Consulta.IsEmpty) or
+        (fDMCadFinanceiro.cdsFinanceiro_ConsultaID.AsInteger <= 0) then
+    exit;
+  vTipo_Config_Email := 3;
+  fDMCadFinanceiro.cdsFinanceiro_Consulta.IndexFieldNames := 'NOME_FORMAPGTO;DTMOVIMENTO;TIPO_ES;NOME_CONTA';
+
+  fRelFinanceiro_FPgto                  := TfRelFinanceiro_FPgto.Create(Self);
+  fRelFinanceiro_FPgto.fDMCadFinanceiro := fDMCadFinanceiro;
+  fRelFinanceiro_FPgto.RLReport1.PreviewModal;
+  fRelFinanceiro_FPgto.RLReport1.Free;
+  FreeAndNil(fRelFinanceiro_FPgto);
+  SMDBGrid1.EnableScroll;
+end;
+
+procedure TfrmCadFinanceiro.SemSaldo2Click(Sender: TObject);
+var
+  vArq: String;
+begin
+  prc_Monta_Cab;
+  fDMCadFinanceiro.cdsFinanceiro_Consulta.IndexFieldNames := 'NOME_FORMAPGTO;DTMOVIMENTO;TIPO_ES;NOME_CONTA';
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Financeiro_FormaPagto.fr3';
+  if FileExists(vArq) then
+    fDMCadFinanceiro.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatorio não localizado! ' + vArq);
+    Exit;
+  end;
+  fDMCadFinanceiro.frxReport1.Variables['ImpOpcao'] := QuotedStr(fnc_Monta_Cab);
+  fDMCadFinanceiro.frxReport1.ShowReport;
+end;
+
+procedure TfrmCadFinanceiro.ComSaldo3Click(Sender: TObject);
+var
+  vArq: String;
+  vDataIni,vDataFin: TDate;
+begin
+  vDataIni := DateEdit1.Date;
+  vDataFin := DateEdit2.Date;
+  if vDataFin < 10 then
+     vDataFin := Date;
+  prc_Abrir_Saldo_Movimento(vDataIni);
+  prc_Abrir_Movimento_Data(vDataIni,vDataFin,fDMCadFinanceiro.cdsFilialID.AsInteger);
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Movimento_Fin_Data.fr3';
+  if FileExists(vArq) then
+    fDMCadFinanceiro.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatorio não localizado! ' + vArq);
+    Exit;
+  end;
+  fDMCadFinanceiro.frxReport1.Variables['Nome_Empresa'] := QuotedStr(fDMCadFinanceiro.cdsFilialNOME.AsString);
+  fDMCadFinanceiro.frxReport1.ShowReport;
+end;
+
+procedure TfrmCadFinanceiro.SemSaldo3Click(Sender: TObject);
+var
+  vArq: String;
+  vDataIni,vDataFin: TDate;
+begin
+  prc_Monta_Cab;
+  fDMCadFinanceiro.cdsFinanceiro_Consulta.IndexFieldNames := 'DTMOVIMENTO;TIPO_ES;NOME_CONTA';
+  vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\Financeiro_Data.fr3';
+  if FileExists(vArq) then
+    fDMCadFinanceiro.frxReport1.Report.LoadFromFile(vArq)
+  else
+  begin
+    ShowMessage('Relatorio não localizado! ' + vArq);
+    Exit;
+  end;
+  fDMCadFinanceiro.frxReport1.Variables['ImpOpcao'] := QuotedStr(fnc_Monta_Cab);
+  fDMCadFinanceiro.frxReport1.ShowReport;
 end;
 
 end.

@@ -716,7 +716,7 @@ object DMCadFinanceiro: TDMCadFinanceiro
     Aggregates = <>
     Params = <>
     ProviderName = 'dspFinanceiro_Consulta'
-    Left = 96
+    Left = 97
     Top = 416
     object cdsFinanceiro_ConsultaID: TIntegerField
       Alignment = taCenter
@@ -1956,16 +1956,16 @@ object DMCadFinanceiro: TDMCadFinanceiro
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
-    PrintOptions.Printer = 'Default'
+    PrintOptions.Printer = 'Padr'#227'o'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 43399.644061967600000000
-    ReportOptions.LastChange = 43657.479058761600000000
+    ReportOptions.CreateDate = 43126.609795740700000000
+    ReportOptions.LastChange = 43130.455992997700000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
     OnReportPrint = 'frxReportOnReportPrint'
     Left = 704
-    Top = 408
+    Top = 409
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -2003,8 +2003,8 @@ object DMCadFinanceiro: TDMCadFinanceiro
       'FLAG=FLAG')
     DataSet = cdsFinAgrupado
     BCDToCurrency = False
-    Left = 767
-    Top = 459
+    Left = 791
+    Top = 451
   end
   object mDupAuxiliar: TClientDataSet
     Active = True
@@ -2201,8 +2201,8 @@ object DMCadFinanceiro: TDMCadFinanceiro
       'SALDO=SALDO')
     DataSource = dsMovimentoData
     BCDToCurrency = False
-    Left = 703
-    Top = 459
+    Left = 680
+    Top = 461
   end
   object sdsMovimentoData: TSQLDataSet
     NoMetadata = True
@@ -2319,8 +2319,8 @@ object DMCadFinanceiro: TDMCadFinanceiro
       'SALDO_INICIAL=SALDO_INICIAL')
     DataSet = qSaldoMovData
     BCDToCurrency = False
-    Left = 735
-    Top = 459
+    Left = 754
+    Top = 476
   end
   object qSaldoMovData: TSQLQuery
     MaxBlobSize = -1
@@ -2561,8 +2561,8 @@ object DMCadFinanceiro: TDMCadFinanceiro
       'Filial_CNPJ=Filial_CNPJ')
     DataSet = mRecibo
     BCDToCurrency = False
-    Left = 800
-    Top = 460
+    Left = 862
+    Top = 466
   end
   object qCaixaAberto: TSQLQuery
     MaxBlobSize = -1
@@ -2703,5 +2703,40 @@ object DMCadFinanceiro: TDMCadFinanceiro
     DataSet = mPedOrc
     Left = 710
     Top = 232
+  end
+  object frxFinanceiro_Consulta: TfrxDBDataset
+    UserName = 'frxFinanceiro_Consulta'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'TIPO_ES=TIPO_ES'
+      'ID_CONTA=ID_CONTA'
+      'DTMOVIMENTO=DTMOVIMENTO'
+      'ID_MOVDUPLICATA=ID_MOVDUPLICATA'
+      'ITEM_MOVDUPLICATA=ITEM_MOVDUPLICATA'
+      'VLR_MOVIMENTO=VLR_MOVIMENTO'
+      'ID_HISTORICO=ID_HISTORICO'
+      'HISTORICO_COMPL=HISTORICO_COMPL'
+      'ID_PESSOA=ID_PESSOA'
+      'FILIAL=FILIAL'
+      'USUARIO=USUARIO'
+      'DTUSUARIO=DTUSUARIO'
+      'ID_FORMA_PAGAMENTO=ID_FORMA_PAGAMENTO'
+      'HRUSUARIO=HRUSUARIO'
+      'NOME_CONTA=NOME_CONTA'
+      'NOME_FORMAPGTO=NOME_FORMAPGTO'
+      'VLR_SAIDA=VLR_SAIDA'
+      'VLR_ENTRADA=VLR_ENTRADA'
+      'ID_CHEQUE=ID_CHEQUE'
+      'ID_TRANSFERENCIA=ID_TRANSFERENCIA'
+      'ID_TERMINAL=ID_TERMINAL'
+      'ID_FECHAMENTO=ID_FECHAMENTO'
+      'NOME_PESSOA=NOME_PESSOA'
+      'CONTA_ORCAMENTO=CONTA_ORCAMENTO'
+      'NOME_ORCAMENTO=NOME_ORCAMENTO')
+    DataSource = dsFinanceiro_Consulta
+    BCDToCurrency = False
+    Left = 705
+    Top = 515
   end
 end

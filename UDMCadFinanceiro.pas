@@ -403,6 +403,7 @@ type
     cdsFinanceiro_ConsultaNOME_PESSOA: TStringField;
     cdsFinanceiro_ConsultaCONTA_ORCAMENTO: TStringField;
     cdsFinanceiro_ConsultaNOME_ORCAMENTO: TStringField;
+    frxFinanceiro_Consulta: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspFinanceiroUpdateError(Sender: TObject; DataSet: TCustomClientDataSet; E: EUpdateError; UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsFinanceiroBeforePost(DataSet: TDataSet);

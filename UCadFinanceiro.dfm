@@ -25,7 +25,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
     Top = 0
     Width = 904
     Height = 670
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -33,7 +33,7 @@ object frmCadFinanceiro: TfrmCadFinanceiro
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -1772,19 +1772,40 @@ object frmCadFinanceiro: TfrmCadFinanceiro
     Top = 44
   end
   object PopupMenu1: TPopupMenu
-    Left = 521
+    Left = 525
     Top = 23
     object Conta1: TMenuItem
       Caption = 'Conta'
-      OnClick = Conta1Click
+      object SemSaldo1: TMenuItem
+        Caption = 'Sem Saldo'
+        OnClick = SemSaldo1Click
+      end
+      object ComSaldo1: TMenuItem
+        Caption = 'Com Saldo'
+        OnClick = ComSaldo1Click
+      end
     end
     object FormadePagamento1: TMenuItem
       Caption = 'Forma de Pagamento'
-      OnClick = FormadePagamento1Click
+      object SemSaldo2: TMenuItem
+        Caption = 'Sem Saldo'
+        OnClick = SemSaldo2Click
+      end
+      object ComSaldo2: TMenuItem
+        Caption = 'Com Saldo'
+        OnClick = ComSaldo2Click
+      end
     end
     object MovimentopData1: TMenuItem
       Caption = 'Movimento p/Data'
-      OnClick = MovimentopData1Click
+      object SemSaldo3: TMenuItem
+        Caption = 'Sem Saldo'
+        OnClick = SemSaldo3Click
+      end
+      object ComSaldo3: TMenuItem
+        Caption = 'Com Saldo'
+        OnClick = ComSaldo3Click
+      end
     end
     object Recibo1: TMenuItem
       Caption = 'Recibo'
