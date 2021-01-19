@@ -203,12 +203,11 @@ begin
   if fDmCupomFiscal.cdsCupomParametrosABRIR_CUPOM.AsString = 'C' then
     fDmCupomFiscal.vCancelar := False;
 
-  prc_Grava_Grid(SMDBGrid1,Name,fDmCupomFiscal.qParametros_GeralENDGRIDS.AsString);
-
   if (fDmCupomFiscal.cdsCupomParametrosUSA_BALANCA.AsString = 'S') then
     if vBalanca = 'URANO' then
       fim := _FechaPortaSerial();
 
+  prc_Grava_Grid(SMDBGrid1,Name,fDmCupomFiscal.qParametros_GeralENDGRIDS.AsString);
   Action := Cafree;
 end;
 

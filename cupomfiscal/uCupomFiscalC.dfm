@@ -555,6 +555,7 @@ object fCupomFiscalC: TfCupomFiscalC
     Width = 1358
     Height = 106
     Align = alTop
+    Caption = 'to'
     Color = 3683329
     TabOrder = 1
     Visible = False

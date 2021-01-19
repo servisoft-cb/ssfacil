@@ -1186,7 +1186,11 @@ begin
           btnParcelasClick(Sender);
       end
       else
+      begin
+        DBEdit5.Clear;
+        fDmCupomFiscal.cdsCupomFiscalCPF.Clear;
         RxDBLookupCombo2.SetFocus;
+      end;
       fDmCupomFiscal.vClienteID := ceCodCliente.AsInteger;
     end
     else
@@ -1216,6 +1220,11 @@ begin
   begin
     DBEdit5.Text                              := fDmCupomFiscal.cdsPessoaCNPJ_CPF.AsString;
     fDmCupomFiscal.cdsCupomFiscalCPF.AsString := fDmCupomFiscal.cdsPessoaCNPJ_CPF.AsString;
+  end
+  else
+  begin
+    DBEdit5.Clear;
+    fDmCupomFiscal.cdsCupomFiscalCPF.Clear;
   end;
 end;
 

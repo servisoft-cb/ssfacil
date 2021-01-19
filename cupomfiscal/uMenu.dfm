@@ -25,7 +25,7 @@ object fMenu: TfMenu
     Left = 0
     Top = 0
     Width = 89
-    Height = 566
+    Height = 558
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clWindowText
     Font.Height = -12
@@ -2715,6 +2715,12 @@ object fMenu: TfMenu
         GroupName = 'Fechamento Caixa'
       end
       item
+        FormName = 'fRenegociacao'
+        CompName = 'btnExcluir'
+        Caption = 'Excluir'
+        GroupName = 'Renegociacao'
+      end
+      item
         FormName = 'fCupomFiscalC'
         CompName = 'ckMostrar_Zerados'
         Caption = 'Mostrar Zerados'
@@ -2722,15 +2728,21 @@ object fMenu: TfMenu
       end
       item
         FormName = 'fCupomFiscalC'
-        CompName = 'PanelTotais'
-        Caption = 'Mostrar Totais'
+        CompName = 'btnCancelar_Nota2'
+        Caption = 'Cancelar NFCe'
         GroupName = 'Cupom'
       end
       item
-        FormName = 'fRenegociacao'
-        CompName = 'btnExcluir'
-        Caption = 'Excluir'
-        GroupName = 'Renegociacao'
+        FormName = 'fCupomFiscalC'
+        CompName = 'btnCancelar'
+        Caption = 'Cancelar / Excluir'
+        GroupName = 'Cupom'
+      end
+      item
+        FormName = 'fCupomFiscalC'
+        CompName = 'PanelTotais1'
+        Caption = 'Painel de Totais'
+        GroupName = 'Cupom'
       end>
     LoginMode = lmActive
     UsersProfile.Active = True
