@@ -1105,4 +1105,101 @@ object DMCadInventario: TDMCadInventario
     Left = 152
     Top = 451
   end
+  object mAuxErro: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Codigo'
+        DataType = ftString
+        Size = 40
+      end
+      item
+        Name = 'Obs'
+        DataType = ftString
+        Size = 200
+      end
+      item
+        Name = 'Cod_Barra'
+        DataType = ftString
+        Size = 20
+      end
+      item
+        Name = 'Qtd'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Referencia'
+        DataType = ftString
+        Size = 20
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 99
+    Top = 319
+    Data = {
+      960000009619E0BD010000001800000005000000000003000000960006436F64
+      69676F0100490000000100055749445448020002002800034F62730100490000
+      00010005574944544802000200C80009436F645F426172726101004900000001
+      000557494454480200020014000351746408000400000000000A526566657265
+      6E63696101004900000001000557494454480200020014000000}
+    object mAuxErroCodigo: TStringField
+      FieldName = 'Codigo'
+      Size = 40
+    end
+    object mAuxErroObs: TStringField
+      FieldName = 'Obs'
+      Size = 200
+    end
+    object mAuxErroCod_Barra: TStringField
+      FieldName = 'Cod_Barra'
+    end
+    object mAuxErroQtd: TFloatField
+      FieldName = 'Qtd'
+    end
+    object mAuxErroReferencia: TStringField
+      FieldName = 'Referencia'
+    end
+  end
+  object dsmAuxErro: TDataSource
+    DataSet = mAuxErro
+    Left = 136
+    Top = 320
+  end
+  object mAuxErroLinha: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'Linha'
+        DataType = ftString
+        Size = 250
+      end
+      item
+        Name = 'Numero_Linha'
+        DataType = ftInteger
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 101
+    Top = 368
+    Data = {
+      490000009619E0BD0100000018000000020000000000030000004900054C696E
+      6861010049000000010005574944544802000200FA000C4E756D65726F5F4C69
+      6E686104000100000000000000}
+    object mAuxErroLinhaLinha: TStringField
+      FieldName = 'Linha'
+      Size = 250
+    end
+    object mAuxErroLinhaNumero_Linha: TIntegerField
+      FieldName = 'Numero_Linha'
+    end
+  end
+  object dsmAuxErroLinha: TDataSource
+    DataSet = mAuxErroLinha
+    Left = 144
+    Top = 370
+  end
 end

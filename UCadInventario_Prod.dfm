@@ -1,11 +1,11 @@
 object frmCadInventario_Prod: TfrmCadInventario_Prod
-  Left = 275
-  Top = 83
+  Left = 203
+  Top = 28
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmCadInventario_Prod'
-  ClientHeight = 562
-  ClientWidth = 1007
+  ClientHeight = 617
+  ClientWidth = 1079
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,8 +21,8 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 1007
-    Height = 562
+    Width = 1079
+    Height = 617
     ActivePage = TS_Arquivo
     ActivePageDefault = TS_Produto
     Align = alClient
@@ -34,7 +34,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 1003
+        Width = 1075
         Height = 85
         Align = alTop
         Color = clSilver
@@ -133,8 +133,8 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 85
-        Width = 1003
-        Height = 287
+        Width = 1075
+        Height = 342
         Align = alClient
         Ctl3D = False
         DataSource = DMCadInventario.dsProduto
@@ -249,13 +249,14 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
             FieldName = 'NOME_GRUPO'
             Title.Alignment = taCenter
             Title.Caption = 'Grupo'
+            Width = 64
             Visible = True
           end>
       end
       object Panel1: TPanel
         Left = 0
-        Top = 502
-        Width = 1003
+        Top = 557
+        Width = 1075
         Height = 37
         Align = alBottom
         Color = 8404992
@@ -344,8 +345,8 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
       end
       object NxFlipPanel1: TNxFlipPanel
         Left = 0
-        Top = 372
-        Width = 1003
+        Top = 427
+        Width = 1075
         Height = 130
         Align = alBottom
         Caption = 
@@ -394,7 +395,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         object SMDBGrid2: TSMDBGrid
           Left = 0
           Top = 18
-          Width = 1003
+          Width = 1075
           Height = 112
           Align = alClient
           Ctl3D = False
@@ -532,8 +533,8 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
       object NxPanel1: TNxPanel
         Left = 0
         Top = 0
-        Width = 1003
-        Height = 174
+        Width = 1075
+        Height = 152
         Align = alTop
         UseDockManager = False
         ParentBackground = False
@@ -596,7 +597,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         end
         object NxLabel5: TNxLabel
           Left = 16
-          Top = 71
+          Top = 61
           Width = 67
           Height = 13
           Caption = 'Separado por:'
@@ -610,7 +611,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         end
         object NxLabel6: TNxLabel
           Left = 25
-          Top = 91
+          Top = 81
           Width = 58
           Height = 13
           Caption = 'Quantidade:'
@@ -624,7 +625,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         end
         object NxLabel7: TNxLabel
           Left = 44
-          Top = 112
+          Top = 102
           Width = 39
           Height = 13
           Caption = 'Arquivo:'
@@ -722,7 +723,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         end
         object Edit3: TEdit
           Left = 86
-          Top = 63
+          Top = 53
           Width = 29
           Height = 19
           Color = clSilver
@@ -741,7 +742,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         end
         object NxComboBox5: TNxComboBox
           Left = 86
-          Top = 83
+          Top = 73
           Width = 191
           Height = 21
           Cursor = crArrow
@@ -758,7 +759,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         end
         object btnGerarAuxiliar: TNxButton
           Left = 86
-          Top = 128
+          Top = 118
           Width = 145
           Height = 30
           Caption = 'Gerar Auxiliar'
@@ -773,10 +774,9 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         end
         object FilenameEdit1: TFilenameEdit
           Left = 86
-          Top = 103
+          Top = 93
           Width = 496
           Height = 21
-          Filter = 'Modelo Word|*.doc|All files (*.*)|*.*|Modelo Word|*.docx'
           Ctl3D = False
           NumGlyphs = 1
           ParentCtl3D = False
@@ -784,7 +784,7 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
         end
         object btnGravarInventario: TNxButton
           Left = 246
-          Top = 128
+          Top = 118
           Width = 145
           Height = 30
           Caption = 'Gravar Invent'#225'rio'
@@ -797,12 +797,202 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
           TabOrder = 8
           OnClick = btnGravarInventarioClick
         end
+        object gbxVendedor: TRzGroupBox
+          Left = 777
+          Top = 10
+          Width = 244
+          Height = 124
+          BorderColor = clNavy
+          BorderInner = fsButtonUp
+          BorderOuter = fsBump
+          Caption = ' Registros '
+          Ctl3D = True
+          FlatColor = clNavy
+          FlatColorAdjustment = 2
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clNavy
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = []
+          ParentCtl3D = False
+          ParentFont = False
+          TabOrder = 9
+          VisualStyle = vsGradient
+          object NxLabel9: TNxLabel
+            Left = 90
+            Top = 18
+            Width = 55
+            Height = 13
+            Caption = 'Total Geral:'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object lblTotal: TNxLabel
+            Left = 151
+            Top = 17
+            Width = 6
+            Height = 13
+            Caption = '0'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object lblGravados: TNxLabel
+            Left = 151
+            Top = 50
+            Width = 6
+            Height = 13
+            Caption = '0'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object NxLabel12: TNxLabel
+            Left = 29
+            Top = 50
+            Width = 116
+            Height = 13
+            Caption = 'Total Gravados (Linhas):'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object lblErro: TNxLabel
+            Left = 151
+            Top = 66
+            Width = 6
+            Height = 13
+            Caption = '0'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object NxLabel14: TNxLabel
+            Left = 32
+            Top = 66
+            Width = 113
+            Height = 13
+            Caption = 'Total Com Erro (Linhas):'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object NxLabel8: TNxLabel
+            Left = 90
+            Top = 34
+            Width = 55
+            Height = 13
+            Caption = 'Total Lidos:'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object lblLidos: TNxLabel
+            Left = 151
+            Top = 34
+            Width = 6
+            Height = 13
+            Caption = '0'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object NxLabel10: TNxLabel
+            Left = 9
+            Top = 90
+            Width = 136
+            Height = 13
+            Caption = 'Total de Produtos Gravados:'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object lblProdutosGravados: TNxLabel
+            Left = 151
+            Top = 90
+            Width = 6
+            Height = 13
+            Caption = '0'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object NxLabel13: TNxLabel
+            Left = 12
+            Top = 106
+            Width = 133
+            Height = 13
+            Caption = 'Total de Produtos Com Erro:'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+          object lblProdutosErro: TNxLabel
+            Left = 151
+            Top = 106
+            Width = 6
+            Height = 13
+            Caption = '0'
+            Transparent = True
+            HorizontalPosition = hpLeft
+            InnerHorizontal = True
+            InnerVertical = False
+            InnerMargins.Horizontal = 0
+            InnerMargins.Vertical = 2
+            VerticalPosition = vpTop
+          end
+        end
       end
       object SMDBGrid3: TSMDBGrid
         Left = 0
-        Top = 174
-        Width = 1003
-        Height = 365
+        Top = 152
+        Width = 1075
+        Height = 236
         Align = alClient
         Ctl3D = False
         DataSource = DMCadInventario.dsmAuxInventario
@@ -876,6 +1066,253 @@ object frmCadInventario_Prod: TfrmCadInventario_Prod
             Width = 92
             Visible = True
           end>
+      end
+      object NxFlipPanel2: TNxFlipPanel
+        Left = 0
+        Top = 388
+        Width = 1075
+        Height = 206
+        Align = alBottom
+        Caption = 'C'#243'digos N'#227'o Encontrados no Cadastro do Produtos'
+        CollapseGlyph.Data = {
+          7A010000424D7A01000000000000360000002800000009000000090000000100
+          2000000000004401000000000000000000000000000000000000604830406048
+          30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+          90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+          30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D8C0FFF0D0C0FFD0B8
+          A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FFF0E0E0FFF0D8D0FFF0D0
+          C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+          30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFFFFF0
+          F0FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFF8FFFFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+          A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+        Color = clSilver
+        ExpandGlyph.Data = {
+          7A010000424D7A01000000000000360000002800000009000000090000000100
+          2000000000004401000000000000000000000000000000000000604830406048
+          30FF604830FF604830FF604830FF604830FF604830FF604830FF60483040C0A8
+          90FFFFF0E0FFE0D0C0FFE0C8B0FFE0C0B0FFD0B8A0FFD0B8A0FFD0B8A0FF6048
+          30FFC0A890FFFFF8F0FFFFF0E0FFF0E0E0FF604830FFF0D8C0FFF0D0C0FFD0B8
+          A0FF604830FFC0A890FFFFF8FFFFFFF8F0FFFFF0E0FF604830FFF0D8D0FFF0D0
+          C0FFD0B8A0FF604830FFC0A8A0FFFFFFFFFF604830FF604830FF604830FF6048
+          30FF604830FFE0C0B0FF604830FFC0A8A0FFFFFFFFFFFFFFFFFFFFF8FFFF6048
+          30FFFFF0E0FFF0E8E0FFE0C0B0FF604830FFC0B0A0FFFFFFFFFFFFFFFFFFFFFF
+          FFFF604830FFFFF0F0FFFFF0E0FFE0D0C0FF604830FFC0B0A0FFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFFFFF8FFFFFFF0F0FFF0F0E0FF604830FFC0B0A040C0B0
+          A0FFC0B0A0FFC0A8A0FFC0A8A0FFC0A8A0FFC0A890FFC0A090FF60483040}
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clRed
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        HeaderFont.Charset = DEFAULT_CHARSET
+        HeaderFont.Color = clRed
+        HeaderFont.Height = -11
+        HeaderFont.Name = 'Verdana'
+        HeaderFont.Style = [fsBold]
+        ParentFont = False
+        FullHeight = 0
+        object SMDBGrid4: TSMDBGrid
+          Left = 0
+          Top = 18
+          Width = 579
+          Height = 188
+          Align = alLeft
+          Ctl3D = False
+          DataSource = DMCadInventario.dsmAuxErro
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+          ParentCtl3D = False
+          ParentFont = False
+          TabOrder = 0
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clRed
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = [fsBold]
+          Flat = True
+          BandsFont.Charset = DEFAULT_CHARSET
+          BandsFont.Color = clWindowText
+          BandsFont.Height = -11
+          BandsFont.Name = 'MS Sans Serif'
+          BandsFont.Style = []
+          Groupings = <>
+          GridStyle.Style = gsCustom
+          GridStyle.OddColor = clWindow
+          GridStyle.EvenColor = clWindow
+          TitleHeight.PixelCount = 24
+          FooterColor = clBtnFace
+          ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+          RegistryKey = 'Software\Scalabium'
+          RegistrySection = 'SMDBGrid'
+          WidthOfIndicator = 11
+          DefaultRowHeight = 17
+          ScrollBars = ssHorizontal
+          RowCount = 2
+          Columns = <
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'Codigo'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Caption = 'ID'
+              Title.Color = 8454143
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Width = 120
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'Cod_Barra'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Caption = 'C'#243'd. Barra'
+              Title.Color = 8454143
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Width = 152
+              Visible = True
+            end
+            item
+              Alignment = taCenter
+              Expanded = False
+              FieldName = 'Referencia'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Caption = 'Refer'#234'ncia'
+              Title.Color = 8454143
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Width = 183
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Qtd'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              Title.Alignment = taCenter
+              Title.Caption = 'Qtde.'
+              Title.Color = 8454143
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'Verdana'
+              Title.Font.Style = []
+              Width = 57
+              Visible = True
+            end>
+        end
+        object SMDBGrid5: TSMDBGrid
+          Left = 618
+          Top = 18
+          Width = 457
+          Height = 188
+          Align = alRight
+          Ctl3D = False
+          DataSource = DMCadInventario.dsmAuxErroLinha
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clRed
+          Font.Height = -11
+          Font.Name = 'MS Sans Serif'
+          Font.Style = [fsBold]
+          Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+          ParentCtl3D = False
+          ParentFont = False
+          TabOrder = 1
+          TitleFont.Charset = DEFAULT_CHARSET
+          TitleFont.Color = clRed
+          TitleFont.Height = -11
+          TitleFont.Name = 'MS Sans Serif'
+          TitleFont.Style = [fsBold]
+          Flat = True
+          BandsFont.Charset = DEFAULT_CHARSET
+          BandsFont.Color = clWindowText
+          BandsFont.Height = -11
+          BandsFont.Name = 'MS Sans Serif'
+          BandsFont.Style = []
+          Groupings = <>
+          GridStyle.Style = gsCustom
+          GridStyle.OddColor = clWindow
+          GridStyle.EvenColor = clWindow
+          TitleHeight.PixelCount = 24
+          FooterColor = clBtnFace
+          ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+          RegistryKey = 'Software\Scalabium'
+          RegistrySection = 'SMDBGrid'
+          WidthOfIndicator = 11
+          DefaultRowHeight = 17
+          ScrollBars = ssHorizontal
+          ColCount = 3
+          RowCount = 2
+          Columns = <
+            item
+              Expanded = False
+              FieldName = 'Numero_Linha'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              Title.Caption = 'N'#186' da Linha'
+              Title.Color = 11064319
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'MS Sans Serif'
+              Title.Font.Style = []
+              Width = 63
+              Visible = True
+            end
+            item
+              Expanded = False
+              FieldName = 'Linha'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              Title.Color = 11064319
+              Title.Font.Charset = DEFAULT_CHARSET
+              Title.Font.Color = clWindowText
+              Title.Font.Height = -11
+              Title.Font.Name = 'MS Sans Serif'
+              Title.Font.Style = []
+              Visible = True
+            end>
+        end
       end
     end
   end

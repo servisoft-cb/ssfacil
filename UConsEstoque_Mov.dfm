@@ -137,7 +137,7 @@ object frmConsEstoque_Mov: TfrmConsEstoque_Mov
     end
     object btnConsultar: TNxButton
       Left = 753
-      Top = 40
+      Top = 42
       Width = 161
       Height = 30
       Caption = 'Efetuar Pesquisa'

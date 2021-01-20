@@ -203,6 +203,17 @@ type
     mAuxInventarioPreco_Venda: TFloatField;
     dsmAuxInventario: TDataSource;
     mAuxInventarioNome_Produto: TStringField;
+    mAuxErro: TClientDataSet;
+    mAuxErroCodigo: TStringField;
+    dsmAuxErro: TDataSource;
+    mAuxErroObs: TStringField;
+    mAuxErroCod_Barra: TStringField;
+    mAuxErroQtd: TFloatField;
+    mAuxErroReferencia: TStringField;
+    mAuxErroLinha: TClientDataSet;
+    mAuxErroLinhaLinha: TStringField;
+    dsmAuxErroLinha: TDataSource;
+    mAuxErroLinhaNumero_Linha: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsInventarioNewRecord(DataSet: TDataSet);
     procedure dspInventarioUpdateError(Sender: TObject;
