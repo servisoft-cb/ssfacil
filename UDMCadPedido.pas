@@ -4011,6 +4011,7 @@ type
     vImp_cabecalho: Boolean;
     vID_Operacao: Integer;
     vFinalidade: String;
+    vVlr_Saldo_Usado  : Real;  //Crédito do adiantamento do Cliente   JG vai usar 20/01/2021
 
     vVlr_Unitario_Copia: Real;
     vID_Cor_Copia: Integer;

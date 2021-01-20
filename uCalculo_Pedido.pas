@@ -47,7 +47,7 @@ uses
 
 implementation
 
-uses uUtilPadrao, DateUtils, SysConst;
+uses uUtilPadrao, DateUtils, SysConst, uUtilCliente;
 
 var
   vCalcFrete, vCalcTotalNota: Real;
@@ -65,7 +65,6 @@ var
   i, i2: Integer;
   vItem_Imp: Integer;
   vQtd_Caixa: Integer;
-  vItem_Rot: Integer;
   vMSGAux: WideString;
   vQtdAux: Integer;
   vItem_Tam: Integer;
@@ -442,6 +441,14 @@ var
   vPesoBruto, vPesoLiquido: Real;
   vTotalPeso_Tipo : Real;
 begin
+  //25/05/2020
+  if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') and (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and
+      (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0) then
+    fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00', fnc_Saldo_Adto(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger) + fDMCadPedido.vVlr_Saldo_Usado))
+  else
+    fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',0));
+  //*************************
+
   fDMCadPedido.cdsPedido_Itens.First;
   if (fDMCadPedido.cdsPedido_Itens.RecordCount < 1) or (fDMCadPedido.cdsPedido_Itens.IsEmpty) then
   begin                    
@@ -777,6 +784,21 @@ begin
     uCalculo_Pedido.prc_Calcular_Trilhos(fDMCadPedido);
     uCalculo_Pedido.prc_Calcular_Roldanas(fDMCadPedido);
   end;
+
+  //20/01/2021
+  if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') and (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and
+     (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0) then
+  begin
+    if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat)) then
+    begin
+      fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat));
+      fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat   := StrToFloat(FormatFloat('0.00',0));
+    end
+    else
+      fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
+  end;
+  //**********************
+
 end;
 
 procedure prc_Calculo_GeralItem(fDMCadPedido: TDMCadPedido; Qtd,VlrUnitario,DescontoItem,PercDescontoItem,VlrTotal: Real);

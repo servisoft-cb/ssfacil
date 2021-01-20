@@ -118,7 +118,6 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FieldName = 'PEDIDO_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Pedido Cliente (OC)'
-            Width = 64
             Visible = True
           end
           item
@@ -164,7 +163,6 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             Expanded = False
             FieldName = 'QTD'
             Title.Caption = 'Qtd. Produtos'
-            Width = 64
             Visible = True
           end
           item
@@ -173,7 +171,6 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FieldName = 'FATURADO'
             Title.Alignment = taCenter
             Title.Caption = 'Faturado'
-            Width = 64
             Visible = True
           end
           item
@@ -204,7 +201,6 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FieldName = 'DTAPROVADO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Aprovado'
-            Width = 64
             Visible = True
           end
           item
@@ -220,7 +216,6 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
-            Width = 64
             Visible = True
           end
           item
@@ -3022,6 +3017,84 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               OnClick = btnLucratividadeClick
             end
           end
+          object gbxVlr_Adiantado: TRzGroupBox
+            Left = 22
+            Top = 266
+            Width = 423
+            Height = 33
+            BorderColor = clMaroon
+            BorderInner = fsButtonUp
+            BorderOuter = fsBump
+            Ctl3D = True
+            FlatColor = clMaroon
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clMaroon
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentCtl3D = False
+            ParentFont = False
+            TabOrder = 5
+            Visible = False
+            VisualStyle = vsGradient
+            object Label121: TLabel
+              Left = 22
+              Top = 17
+              Width = 104
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Cr'#233'dito Adiantamento:'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+            end
+            object dbedtVlr_Saldo_Usado: TDBEdit
+              Left = 128
+              Top = 9
+              Width = 136
+              Height = 21
+              TabStop = False
+              Color = clBtnFace
+              DataField = 'VLR_SALDO_USADO'
+              DataSource = DMCadPedido.dsPedido
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              ReadOnly = True
+              TabOrder = 0
+            end
+            object btnGerarSaldo_Usado: TNxButton
+              Left = 266
+              Top = 6
+              Width = 25
+              Caption = '...'
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 1
+              TabStop = False
+              Transparent = True
+              OnClick = btnGerarSaldo_UsadoClick
+            end
+            object btnZerarSaldo: TNxButton
+              Left = 292
+              Top = 6
+              Width = 25
+              Hint = 'Zerar o Saldo do Cr'#233'dito dessa nota'
+              Caption = '0'
+              ParentShowHint = False
+              ShowHint = True
+              TabOrder = 2
+              TabStop = False
+              Transparent = True
+              OnClick = btnZerarSaldoClick
+            end
+          end
         end
         object SMDBGrid2: TSMDBGrid
           Left = 499
@@ -3179,7 +3252,6 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               Title.Alignment = taCenter
               Title.Caption = 'Vlr. Desconto'
               Title.Color = 9568255
-              Width = 64
               Visible = True
             end
             item
@@ -3214,7 +3286,6 @@ object frmCadPedidoLoja: TfrmCadPedidoLoja
               FieldName = 'CODCFOP'
               Title.Alignment = taCenter
               Title.Color = 9568255
-              Width = 64
               Visible = True
             end>
         end

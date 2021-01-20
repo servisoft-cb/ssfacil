@@ -3181,10 +3181,6 @@ begin
       if fDMCadNotaFiscal.cdsNotaFiscalID_VENDEDOR_INT.AsInteger > 0 then
         fDMCadNotaFiscal.cdsNotaFiscalPERC_COMISSAO_INT.AsFloat := fDMCadNotaFiscal.cdsClientePERC_COMISSAO_INT.AsFloat;
     end;
-    //******************************
-    //if (fDMCadNotaFiscal.cdsNotaFiscal.State in [dsInsert]) then
-      //if trim(fDMCadNotaFiscal.cdsClienteENDERECO_ENT.AsString) <> '' then
-        //fDMCadNotaFiscal.cdsNotaFiscalLOCALENTREGA.AsString := 'E';
     //27/08/2018  Foi incluido o IF
     if fDMCadNotaFiscal.cdsNotaFiscalID_PREFAT.AsInteger <= 0 then
     begin
