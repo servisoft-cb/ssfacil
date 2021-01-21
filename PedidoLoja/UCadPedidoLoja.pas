@@ -445,6 +445,7 @@ var
   ffrmSenha: TfrmSenha;
   vID_LocalAux: Integer;
   vAprazo_Avista: String;
+  vVlrAux: Real;
 begin
   //Alerta valores em atraso 11/05/2015
   if (fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger <= 0) and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString <> 'S') then
@@ -488,6 +489,8 @@ begin
         vAux := StrToFloat(FormatFloat('0.00',vAux + fDMCadPedido.cdsPedido_ParcVLR_VENCIMENTO.AsFloat));
         fDMCadPedido.cdsPedido_Parc.Next;
       end;
+      if SQLLocate('PARAMETROS_PED','ID','USAR_ADIANTAMENTO','1') = 'S' then
+        vAux := vAux + fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat;
       if StrToFloat(FormatFloat('0.00',vAux)) <> StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat)) then
       begin
         if MessageDlg('Parcelas com valor diferente do valor do pedido, gravar assim mesmo?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
@@ -3335,6 +3338,7 @@ begin
   frmBaixaPedido.Edit1.Text := fDMCadPedido.cdsPedido_ConsultaPEDIDO_CLIENTE.AsString;
   frmBaixaPedido.btnConsultarClick(Sender);
   frmBaixaPedido.ShowModal;
+  FreeAndNil(frmBaixaPedido);
 end;
 
 procedure TfrmCadPedidoLoja.btnGerarSaldo_UsadoClick(Sender: TObject);

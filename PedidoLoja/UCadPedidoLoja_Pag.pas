@@ -201,16 +201,32 @@ begin
 end;
 
 procedure TfrmCadPedidoLoja_Pag.btnGerarParcelasClick(Sender: TObject);
+var
+  vVlrAux : Real;
 begin
-  if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat)) <= 0 then
+  if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') then
+    vVlrAux := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat))
+  else
+    vVlrAux := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
+  //if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat)) <= 0 then
+  if StrToFloat(FormatFloat('0.00',vVlrAux)) <= 0 then
   begin
     fDMCadPedido.cdsPedido_Parc.First;
     while not fDMCadPedido.cdsPedido_Parc.Eof do
       fDMCadPedido.cdsPedido_Parc.Delete;
   end
   else
-  if not uCalculo_Pedido.fnc_Gerar_Pedido_Parc(fDMCadPedido) then
-    MessageDlg(fDMCadPedido.vMsgErroParc, mtError, [mbOk], 0);
+  begin
+    //21/01/2021
+    if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0)  then
+    begin
+      if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat)) then
+        fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat));
+    end;
+    //*****************
+    if not uCalculo_Pedido.fnc_Gerar_Pedido_Parc(fDMCadPedido) then
+      MessageDlg(fDMCadPedido.vMsgErroParc, mtError, [mbOk], 0);
+  end;
 end;
 
 procedure TfrmCadPedidoLoja_Pag.btnExcluirParcelasClick(Sender: TObject);

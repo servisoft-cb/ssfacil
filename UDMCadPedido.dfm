@@ -15890,6 +15890,9 @@ object DMCadPedido: TDMCadPedido
       FixedChar = True
       Size = 1
     end
+    object qParametros_NFeID_CONTA_ADTO: TIntegerField
+      FieldName = 'ID_CONTA_ADTO'
+    end
   end
   object qIcmsPartilha: TSQLQuery
     MaxBlobSize = -1
