@@ -5164,9 +5164,9 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               OnKeyDown = DBEdit5KeyDown
             end
             object btnGerarParcelas: TNxButton
-              Left = 372
+              Left = 371
               Top = 98
-              Width = 23
+              Width = 25
               Height = 30
               Hint = 'Gerar autom'#225'tico os servi'#231'os'
               Enabled = False

@@ -47,7 +47,7 @@ uses
 
 implementation
 
-uses uUtilPadrao, DateUtils, SysConst;
+uses uUtilPadrao, DateUtils, SysConst, uUtilCliente;
 
 var
   vCalcFrete, vCalcTotalNota: Real;
@@ -65,7 +65,6 @@ var
   i, i2: Integer;
   vItem_Imp: Integer;
   vQtd_Caixa: Integer;
-  vItem_Rot: Integer;
   vMSGAux: WideString;
   vQtdAux: Integer;
   vItem_Tam: Integer;
@@ -442,6 +441,14 @@ var
   vPesoBruto, vPesoLiquido: Real;
   vTotalPeso_Tipo : Real;
 begin
+  //25/05/2020
+  if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') and (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and
+      (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0) then
+    fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00', fnc_Saldo_Adto(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger) + fDMCadPedido.vVlr_Saldo_Usado))
+  else
+    fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',0));
+  //*************************
+
   fDMCadPedido.cdsPedido_Itens.First;
   if (fDMCadPedido.cdsPedido_Itens.RecordCount < 1) or (fDMCadPedido.cdsPedido_Itens.IsEmpty) then
   begin                    
@@ -777,6 +784,21 @@ begin
     uCalculo_Pedido.prc_Calcular_Trilhos(fDMCadPedido);
     uCalculo_Pedido.prc_Calcular_Roldanas(fDMCadPedido);
   end;
+
+  //20/01/2021
+  if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') and (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and
+     (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0) then
+  begin
+    if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat)) then
+    begin
+      fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat));
+      fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat   := StrToFloat(FormatFloat('0.00',0));
+    end
+    else
+      fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
+  end;
+  //**********************
+
 end;
 
 procedure prc_Calculo_GeralItem(fDMCadPedido: TDMCadPedido; Qtd,VlrUnitario,DescontoItem,PercDescontoItem,VlrTotal: Real);
@@ -1138,10 +1160,10 @@ begin
     fDMCadPedido.cdsPedido_Parc.Delete;
 
   //19/05/2020
-  if fDMCadPedido.qParametros_FinUSA_ADTO.AsString = 'S' then
+  if fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S' then
   begin
-    //vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
-    vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
+    vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
+    //vVlrTotal := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
     if StrToFloat(FormatFloat('0.00',vVlrTotal)) <= 0 then
     begin
       Result := True;
@@ -1171,7 +1193,7 @@ begin
       uCalculo_Pedido.prc_Gravar_Pedido_Parc(fDMCadPedido,0,vID_Tipo_Cobranca_Aux,vID_Conta_Aux,fDMCadPedido.cdsPedidoDTEMISSAO.AsDateTime,fDMCadPedido.cdsPedidoVLR_ENTRADA.AsFloat);
     end;
     Result := True;
-    exit;                                       
+    exit;
   end;
   //***************
 
@@ -1228,12 +1250,18 @@ begin
   if (fDMCadPedido.cdsCondPgtoENTRADA.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_ENTRADA.AsFloat)) <= 0) then
   begin
     i := vQtdParc + 1;
-    vValorParc := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat / i));
+    if fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S' then
+      vValorParc := StrToFloat(FormatFloat('0.00',(fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat) / i))
+    else
+      vValorParc := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat / i));
     fDMCadPedido.cdsPedidoVLR_ENTRADA.AsFloat := StrToFloat(FormatFloat('0.00',vValorParc));
   end;
   if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_ENTRADA.AsFloat)) > 0 then
   begin
-    vValorParc := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_ENTRADA.AsFloat));
+    if fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S' then
+      vValorParc := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat - fDMCadPedido.cdsPedidoVLR_ENTRADA.AsFloat))
+    else
+      vValorParc := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_ENTRADA.AsFloat));
     if fDMCadPedido.cdsParametrosID_TIPO_COBRANCA_PADRAO.AsInteger > 0 then
       vID_Tipo_Cobranca_Aux := fDMCadPedido.cdsParametrosID_TIPO_COBRANCA_PADRAO.AsInteger
     else
@@ -1245,7 +1273,12 @@ begin
     uCalculo_Pedido.prc_Gravar_Pedido_Parc(fDMCadPedido,0,vID_Tipo_Cobranca_Aux,vID_Conta_Aux,vDataOri,fDMCadPedido.cdsPedidoVLR_ENTRADA.AsFloat);
   end
   else
-    vValorParc := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
+  begin
+    if fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S' then
+      vValorParc := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat))
+    else
+      vValorParc := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat));
+  end;
   vValorOri  := StrToFloat(FormatFloat('0.00',vValorParc));
   if vQtdParc > 0 then
     vValorParc := StrToFloat(FormatFloat('0.00',vValorParc / vQtdParc));

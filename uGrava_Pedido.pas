@@ -238,6 +238,8 @@ var
   Form: TForm;
 begin
   fDMCadPedido.vMSGErro := '';
+  fDMCadPedido.qParametros_NFe.Close;
+  fDMCadPedido.qParametros_NFe.Open;
   vGravou  := False;
   vVerificaCampos := 0;
   if fDMCadPedido.cdsCondPgtoID.AsInteger <> fDMCadPedido.cdsPedidoID_CONDPGTO.AsInteger then
@@ -266,7 +268,7 @@ begin
   if (fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S') and (fDMCadPedido.cdsPedidoTIPO_ATENDIMENTO.AsInteger = 4)
     and (fDMCadPedido.cdsPedidoID_TRANSPORTADORA.AsInteger <= 0) then
     fDMCadPedido.vMSGErro := fDMCadPedido.vMSGErro + #13 + '*** Quando for entrega a domicílio é obrigado informar a transportadora!';
-  //Condição incluída 20/01/2020  
+  //Condição incluída 20/01/2020
   if (fDMCadPedido.cdsParametrosCONTROLAR_DUP_PEDIDO.AsString = 'S') and (fDMCadPedido.cdsPedidoID_CONTA.AsInteger <= 0) and
      (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and (fDMCadPedido.cdsCondPgtoTIPO_CONDICAO.AsString = 'V') and
      (fDMCadPedido.cdsPedidoID_CONDPGTO.AsInteger > 0)   then
@@ -371,6 +373,9 @@ begin
     if vAux > 0 then
       fDMCadPedido.vMSGErro := fDMCadPedido.vMSGErro + #13 + '*** Nº Pedido do cliente já foi digitado, está no pedido interno ' + IntToStr(vAux);
   end;
+  if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') and (fDMCadPedido.qParametros_NFeID_CONTA_ADTO.AsInteger <= 0 ) and
+     (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0) then
+    fDMCadPedido.vMSGErro := fDMCadPedido.vMSGErro + #13 + '*** Não foi informada a conta de adiantamento nos parâmetros';
   if fDMCadPedido.vMSGErro <> '' then
     exit;
 

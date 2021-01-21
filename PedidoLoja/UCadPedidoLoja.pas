@@ -191,6 +191,11 @@ type
     Label40: TLabel;
     RxDBLookupCombo2: TRxDBLookupCombo;
     btnFaturar: TNxButton;
+    gbxVlr_Adiantado: TRzGroupBox;
+    Label121: TLabel;
+    dbedtVlr_Saldo_Usado: TDBEdit;
+    btnGerarSaldo_Usado: TNxButton;
+    btnZerarSaldo: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -292,6 +297,8 @@ type
     procedure dbedtQtd_PecaKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
     procedure btnFaturarClick(Sender: TObject);
+    procedure btnGerarSaldo_UsadoClick(Sender: TObject);
+    procedure btnZerarSaldoClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadPedido: TDMCadPedido;
@@ -438,6 +445,7 @@ var
   ffrmSenha: TfrmSenha;
   vID_LocalAux: Integer;
   vAprazo_Avista: String;
+  vVlrAux: Real;
 begin
   //Alerta valores em atraso 11/05/2015
   if (fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger <= 0) and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString <> 'S') then
@@ -481,6 +489,8 @@ begin
         vAux := StrToFloat(FormatFloat('0.00',vAux + fDMCadPedido.cdsPedido_ParcVLR_VENCIMENTO.AsFloat));
         fDMCadPedido.cdsPedido_Parc.Next;
       end;
+      if SQLLocate('PARAMETROS_PED','ID','USAR_ADIANTAMENTO','1') = 'S' then
+        vAux := vAux + fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat;
       if StrToFloat(FormatFloat('0.00',vAux)) <> StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_TOTAL.AsFloat)) then
       begin
         if MessageDlg('Parcelas com valor diferente do valor do pedido, gravar assim mesmo?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
@@ -492,6 +502,13 @@ begin
   //10/11/2015
   if fDMCadPedido.cdsParametrosUSA_ADIANTAMENTO_PEDIDO.AsString = 'S' then
   begin
+    //20/01/2021
+    if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') and (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0)  then
+    begin
+      if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat)) then
+        fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_DUPLICATA.AsFloat));
+    end;
+    //25/05/2020
     fDMCadPedido.cdsPedido_Parc.First;
     while not fDMCadPedido.cdsPedido_Parc.Eof do
       fDMCadPedido.cdsPedido_Parc.Delete;
@@ -626,8 +643,6 @@ begin
   fDMCadPedido.prc_Abrir_cdsCliente;
   Label21.Visible     := (fDMCadPedido.cdsParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P');
   DBDateEdit2.Visible := (fDMCadPedido.cdsParametrosOPCAO_DTENTREGAPEDIDO.AsString = 'P');
-  //lblTabPreco.Visible  := (fDMCadPedido.cdsParametrosUSA_TAB_PRECO.AsString = 'S');
-  //lblTabPreco.Caption  := '';
 
   if vNum_Pedido_Pos > 0 then
   begin
@@ -760,6 +775,8 @@ begin
   if fDMCadPedido.qParametros_PedPEDIDO_COMERCIO.AsString = 'S' then
     pnlProduto.Height := 40;
   //***************
+
+  gbxVlr_Adiantado.Visible := (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S');
 end;
 
 procedure TfrmCadPedidoLoja.prc_Consultar(ID: Integer);
@@ -889,6 +906,8 @@ begin
     if (fDMCadPedido.cdsPedidoAPROVADO_PED.AsString = 'P') and (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S') then
       vVerSenha := False;
   end;
+
+  fDMCadPedido.vVlr_Saldo_Usado := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat));
 
   vInclusao_Edicao   := 'E';
   fDMCadPedido.vID_Cond_Pagto_Ant := fDMCadPedido.cdsPedidoID_CONDPGTO.AsInteger;
@@ -1104,10 +1123,6 @@ end;
 
 procedure TfrmCadPedidoLoja.btnCalcular_ValoresClick(Sender: TObject);
 begin                                                                           
-//aqui calcular Alumminium
-//  try
-    //if fDMCadPedido.cdsParametrosEMPRESA_AMBIENTES.AsString = 'S' then
-
   SMDBGrid2.DataSource := nil;
   SMDBGrid2.DisableScroll;
   uCalculo_Pedido.prc_Calcular_Desconto_Novo(fDMCadPedido,False);
@@ -1117,9 +1132,8 @@ end;
 
 procedure TfrmCadPedidoLoja.pnlClienteExit(Sender: TObject);
 var
-  //vCalcICMSSimples: Boolean;
-  //vPercSimples: Real;
   vID_Aux: Integer;
+  vVlrSaldo : Real;
 begin
   prc_Posicionar_Cliente;
 
@@ -1168,6 +1182,21 @@ begin
     fDMCadPedido.cdsPedidoID_TIPO_COBRANCA.AsInteger  := fDMCadPedido.cdsClienteID_TIPOCOBRANCA.AsInteger;
   if fDMCadPedido.cdsClienteID_CONTABOLETO.AsInteger > 0 then
     fDMCadPedido.cdsPedidoID_CONTA.AsInteger  := fDMCadPedido.cdsClienteID_CONTABOLETO.AsInteger;
+
+  //20/01/2021
+  if (fDMCadPedido.qParametros_PedUSAR_ADIANTAMENTO.AsString = 'S') then
+  begin
+    vVlrSaldo := StrToFloat(FormatFloat('0.00',fnc_Saldo_Adto(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger) + fDMCadPedido.vVlr_Saldo_Usado));
+    if StrToFloat(FormatFloat('0.00',vVlrSaldo)) > 0 then
+    begin
+      if MessageDlg('*** Cliente com Saldo Crédito de ' + FormatFloat('###,###,##0.00',vVlrSaldo) + #13 +
+                    '    Usar este saldo neste Pedido?'      ,mtConfirmation,[mbYes,mbNo],0) <> mrYes then
+        fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',0))
+      else
+        fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',vVlrSaldo));
+    end;
+  end;
+  //*********************
 end;
 
 procedure TfrmCadPedidoLoja.prc_Posicionar_Cliente;
@@ -3309,6 +3338,32 @@ begin
   frmBaixaPedido.Edit1.Text := fDMCadPedido.cdsPedido_ConsultaPEDIDO_CLIENTE.AsString;
   frmBaixaPedido.btnConsultarClick(Sender);
   frmBaixaPedido.ShowModal;
+  FreeAndNil(frmBaixaPedido);
+end;
+
+procedure TfrmCadPedidoLoja.btnGerarSaldo_UsadoClick(Sender: TObject);
+var
+  vVlrAux : Real;
+begin
+  vVlrAux := StrToFloat(FormatFloat('0.00',fnc_Saldo_Adto(fDMCadPedido.cdsPedidoID_CLIENTE.AsInteger) + fDMCadPedido.vVlr_Saldo_Usado));
+  if MessageDlg('*** Cliente com Saldo de Crédito de ' + FormatFloat('###,###,##0.00',vVlrAux) + #13 +
+                '    Usar o saldo do cliente nesta nota ?' ,mtConfirmation,[mbYes,mbNo],0) = mrYes then
+  begin
+    fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',vVlrAux));
+    btnCalcular_ValoresClick(Sender);
+  end;
+end;
+
+procedure TfrmCadPedidoLoja.btnZerarSaldoClick(Sender: TObject);
+begin
+  if StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat)) > 0 then
+  begin
+    if MessageDlg('*** Zerar o saldo do cliente nesta nota ?' ,mtConfirmation,[mbYes,mbNo],0) = mrYes then
+    begin
+      fDMCadPedido.cdsPedidoVLR_SALDO_USADO.AsFloat := StrToFloat(FormatFloat('0.00',0));
+      btnCalcular_ValoresClick(Sender);
+    end;
+  end;
 end;
 
 end.

@@ -3941,6 +3941,7 @@ type
     cdsPedidoVLR_SALDO_USADO: TFloatField;
     qParametros_PedUSAR_ADIANTAMENTO: TStringField;
     cdsPedido_Item_TipoclPrecoKG_Real: TFloatField;
+    qParametros_NFeID_CONTA_ADTO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);
@@ -4011,6 +4012,7 @@ type
     vImp_cabecalho: Boolean;
     vID_Operacao: Integer;
     vFinalidade: String;
+    vVlr_Saldo_Usado  : Real;  //Crédito do adiantamento do Cliente   JG vai usar 20/01/2021
 
     vVlr_Unitario_Copia: Real;
     vID_Cor_Copia: Integer;
