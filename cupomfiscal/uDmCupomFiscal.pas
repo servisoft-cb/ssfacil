@@ -2334,7 +2334,7 @@ begin
          vTexto := 'COD        DESCRICAO                      ';
          Printer.Canvas.TextOut(0,vLinha,vTexto);
          vLinha := vLinha + cAvanco;
-         vTexto := '   QTD      V.UNIT     V.DESC      V.TOTAL';
+         vTexto := '   QTD      V.UNIT     V.DESC     V.TOTAL';
          Printer.Canvas.TextOut(0,vLinha,vTexto);
          vLinha := vLinha + cAvanco;
 
@@ -2363,7 +2363,7 @@ begin
            vVlrUnit := ' ' + vVlrUnit;
          for i := 1 to 10 - Length(vVlrDesc) do
            vVlrDesc := ' ' + vVlrDesc;
-         for i := 1 to 12 - Length(vVlrTot) do
+         for i := 1 to 11 - Length(vVlrTot) do
            vVlrTot := ' ' + vVlrTot;
 
          vTexto := vQtd + ' ' + vVlrUnit + ' ' + vVlrDesc + ' ' + vVlrTot;//'VendeItem
@@ -2381,7 +2381,7 @@ begin
 
 //         Printer.Canvas.Font.Style := [fsBold]; //Declarar Graphics
          vTexto := 'TOTAL: ' + vVlrTot;
-         for i := 1 to 42 - Length(vTexto) do
+         for i := 1 to 41 - Length(vTexto) do
            vTexto := ' ' + vTexto;
          Printer.Canvas.TextOut(0,vLinha,vTexto);
          vLinha := vLinha + cAvanco;
@@ -2390,7 +2390,7 @@ begin
          if vVlrDesc <> 'R$ 0,00' then
          begin
            vTexto := 'DESCONTO: ' + vVlrDesc;
-           for i := 1 to 42 - Length(vTexto) do
+           for i := 1 to 41 - Length(vTexto) do
              vTexto := ' ' + vTexto;
            Printer.Canvas.TextOut(0,vLinha,vTexto);
            vLinha := vLinha + cAvanco;
@@ -2399,7 +2399,7 @@ begin
          if vQtd <> 'R$ 0,00' then
          begin
            vTexto := 'VLR. PAGO: ' + vQtd;
-           for i := 1 to 42 - Length(vTexto) do
+           for i := 1 to 41 - Length(vTexto) do
              vTexto := ' ' + vTexto;
            Printer.Canvas.TextOut(0,vLinha,vTexto);
            vLinha := vLinha + cAvanco;
@@ -2409,7 +2409,7 @@ begin
          if vVlrUnit <> '' then
          begin
            vTexto := 'TROCO: ' + vVlrUnit;
-           for i := 1 to 42 - Length(vTexto) do
+           for i := 1 to 41 - Length(vTexto) do
              vTexto := ' ' + vTexto;
          end;
          Printer.Canvas.TextOut(0,vLinha,vTexto);
