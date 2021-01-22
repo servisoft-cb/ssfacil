@@ -157,6 +157,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'VLR_DESPESAS'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Despesas'
+            Width = 64
             Visible = True
           end
           item
@@ -164,6 +165,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'VLR_JUROSPAGOS'
             Title.Alignment = taCenter
             Title.Caption = 'Vlr. Juros Pagos'
+            Width = 64
             Visible = True
           end
           item
@@ -180,6 +182,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'TRANSFERENCIA_ICMS'
             Title.Alignment = taCenter
             Title.Caption = 'Transf. ICMS'
+            Width = 64
             Visible = True
           end
           item
@@ -201,6 +204,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'COD_BANCO'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Banco'
+            Width = 64
             Visible = True
           end
           item
@@ -249,6 +253,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
             FieldName = 'CNPJ_CPF'
             Title.Alignment = taCenter
             Title.Caption = 'CNPJ/CPF'
+            Width = 64
             Visible = True
           end>
       end
@@ -261,7 +266,7 @@ object frmConsDuplicata_Pag: TfrmConsDuplicata_Pag
         Color = clSilver
         TabOrder = 1
         object btnConsultar: TNxButton
-          Left = 178
+          Left = 179
           Top = 2
           Width = 177
           Height = 30

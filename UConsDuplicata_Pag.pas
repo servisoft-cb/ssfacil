@@ -445,7 +445,9 @@ begin
   planilha.caption := 'Exportando dados do dbGrid para o Excel';
   planilha.visible := true;
 
+  SMDBGrid1.DisableScroll;
   prc_Gerar_Lista_Excel(planilha);
+  SMDBGrid1.EnableScroll;
 
   planilha.columns.Autofit;
   vTexto := ExtractFilePath(Application.ExeName);

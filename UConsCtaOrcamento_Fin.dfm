@@ -104,7 +104,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
         'Data Pagamento:')
     end
     object RxDBLookupCombo1: TRxDBLookupCombo
-      Left = 378
+      Left = 379
       Top = 4
       Width = 299
       Height = 21
@@ -117,7 +117,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       TabOrder = 1
     end
     object ComboBox2: TComboBox
-      Left = 378
+      Left = 379
       Top = 64
       Width = 121
       Height = 21
@@ -137,7 +137,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
         'Anal'#237'tica')
     end
     object ComboBox1: TComboBox
-      Left = 378
+      Left = 379
       Top = 24
       Width = 121
       Height = 21
@@ -334,7 +334,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
       end
     end
     object comboCentroCusto: TRxDBLookupCombo
-      Left = 378
+      Left = 379
       Top = 84
       Width = 299
       Height = 21
@@ -399,10 +399,10 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
     Top = 137
     Width = 1161
     Height = 348
-    ActivePage = ts_Centro_Orcamento
+    ActivePage = ts_CentroCusto
     ActivePageDefault = TS_Resumido
     Align = alClient
-    TabIndex = 2
+    TabIndex = 1
     TabOrder = 2
     OnChange = RzPageControl1Change
     FixedDimension = 19

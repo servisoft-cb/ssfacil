@@ -59,7 +59,7 @@ object DMConsFinanceiro: TDMConsFinanceiro
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 72
+    Left = 73
     Top = 80
   end
   object dspConsulta_Conta_Orc: TDataSetProvider
@@ -1688,7 +1688,7 @@ object DMConsFinanceiro: TDMConsFinanceiro
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 72
+    Left = 67
     Top = 336
   end
   object dspConsulta_Conta_Orc_CCus: TDataSetProvider
@@ -3096,5 +3096,66 @@ object DMConsFinanceiro: TDMConsFinanceiro
     DataSet = cdsConsAdto_Saldo
     Left = 397
     Top = 413
+  end
+  object SQLDataSet1: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT sum(DUP.VLR_PARCELA) VLR_PARCELA, sum(DUP.VLR_DEVOLUCAO) ' +
+      'VLR_DEVOLUCAO,'#13#10'sum(DUP.VLR_RESTANTE) VLR_RESTANTE, sum(DUP.VLR_' +
+      'PAGO) VLR_PAGO, DUP.TIPO_ES,'#13#10'ORC.descricao NOME_CONTA_ORCAMENTO' +
+      ','#13#10'ORC.codigo COD_CONTA_ORCAMENTO, DUP.ID_CONTA_ORCAMENTO, ORC.S' +
+      'UPERIOR, ORC.NIVEL'#13#10'FROM DUPLICATA DUP'#13#10'LEFT JOIN CONTA_ORCAMENT' +
+      'O ORC'#13#10'ON DUP.id_conta_orcamento = ORC.ID'#13#10'WHERE DUP.TIPO_MOV <>' +
+      ' '#39'H'#39#13#10'GROUP BY DUP.TIPO_ES,'#13#10'ORC.descricao, ORC.codigo, DUP.ID_C' +
+      'ONTA_ORCAMENTO, ORC.SUPERIOR, ORC.NIVEL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 788
+    Top = 246
+  end
+  object sdsConsulta_Conta_OrcPag: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select DUP.VLR_PARCELA, sum(HIST.VLR_DEVOLUCAO) VLR_DEVOLUCAO, D' +
+      'UP.VLR_RESTANTE, sum(HIST.VLR_PAGAMENTO) VLR_PAGO,'#13#10'       DUP.T' +
+      'IPO_ES, ORC.DESCRICAO NOME_CONTA_ORCAMENTO, ORC.CODIGO COD_CONTA' +
+      '_ORCAMENTO, DUP.ID_CONTA_ORCAMENTO,'#13#10'       ORC.SUPERIOR, ORC.NI' +
+      'VEL'#13#10'from DUPLICATA_HIST HIST'#13#10'inner join DUPLICATA DUP on HIST.' +
+      'ID = DUP.ID'#13#10'left join CONTA_ORCAMENTO ORC on DUP.ID_CONTA_ORCAM' +
+      'ENTO = ORC.ID'#13#10'where DUP.TIPO_MOV <> '#39'H'#39' '#13#10'group by DUP.VLR_PARC' +
+      'ELA, DUP.TIPO_ES, ORC.DESCRICAO, ORC.CODIGO, DUP.ID_CONTA_ORCAME' +
+      'NTO, ORC.SUPERIOR, ORC.NIVEL, DUP.VLR_RESTANTE  '#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 23
+    Top = 48
+  end
+  object sdsConsulta_Conta_Orc_CCusPag: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select sum(iif (DCCUS.valor > 0, DCCUS.valor, Dup.vlr_parcela)) ' +
+      'VLR_PARCELA, sum(DUP.VLR_DEVOLUCAO) VLR_DEVOLUCAO, sum(DUP.VLR_R' +
+      'ESTANTE) VLR_RESTANTE,'#13#10'       sum(DUP.VLR_PAGO) VLR_PAGO, DUP.T' +
+      'IPO_ES, ORC.DESCRICAO NOME_CONTA_ORCAMENTO, ORC.CODIGO COD_CONTA' +
+      '_ORCAMENTO,'#13#10'       DUP.ID_CONTA_ORCAMENTO, ORC.SUPERIOR, ORC.NI' +
+      'VEL, DCCUS.ID_CENTROCUSTO, CC.DESCRICAO NOME_CCUSTO,'#13#10'       CC.' +
+      'CODIGO CODIGO_CCUSTO, CC.NIVEL NIVEL_CCUSTO, SUM(DCCUS.VALOR) VL' +
+      'R_CCUS'#13#10'from DUPLICATA DUP'#13#10'left join CONTA_ORCAMENTO ORC on DUP' +
+      '.ID_CONTA_ORCAMENTO = ORC.ID'#13#10'left join DUPLICATA_CCUSTO DCCUS o' +
+      'n DCCUS.ID = DUP.ID and (DCCUS.VALOR > 0)'#13#10'left join CENTROCUSTO' +
+      ' CC on CC.ID = DCCUS.ID_CENTROCUSTO'#13#10'where DUP.TIPO_MOV <> '#39'H'#39' a' +
+      'nd'#13#10'      DUP.FILIAL = 1'#13#10'GROUP BY DUP.TIPO_ES, ORC.DESCRICAO, O' +
+      'RC.CODIGO, DUP.ID_CONTA_ORCAMENTO, ORC.SUPERIOR, ORC.NIVEL,'#13#10'   ' +
+      '      DCCUS.ID_CENTROCUSTO, CC.DESCRICAO, CC.CODIGO, CC.NIVEL'
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 24
+    Top = 326
   end
 end

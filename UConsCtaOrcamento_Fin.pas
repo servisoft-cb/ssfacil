@@ -147,7 +147,8 @@ begin
     prc_Consultar;
     prc_Le_Consulta;
     //prc_Le_Pedido_Pend;
-    prc_Le_Pedido_Cli;
+    if (CheckBox2.Checked) or (CheckBox3.Checked) then
+      prc_Le_Pedido_Cli;
     fDMConsFinanceiro.mConta_Orc.IndexFieldNames := 'TIPO_ES;CODIGO';
   end
   else
@@ -183,21 +184,31 @@ var
   i: Integer;
 begin
   fDMConsFinanceiro.cdsConsulta_Conta_Orc.Close;
-  i := PosEx('GROUP', fDMConsFinanceiro.ctConsulta_Conta_Orc, 0);
-  vComandoAux := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc, i, Length(fDMConsFinanceiro.ctConsulta_Conta_Orc) - i + 1);
-  vComandoAux2 := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc, 1, i - 1);
+  if NxComboBox2.ItemIndex = 2 then
+  begin
+    i := PosEx('GROUP',UpperCase(fDMConsFinanceiro.ctConsulta_Conta_OrcPag), 0);
+    vComandoAux := copy(fDMConsFinanceiro.ctConsulta_Conta_OrcPag, i, Length(fDMConsFinanceiro.ctConsulta_Conta_OrcPag) - i + 1);
+    vComandoAux2 := copy(fDMConsFinanceiro.ctConsulta_Conta_OrcPag, 1, i - 1);
+  end
+  else
+  begin
+    i := PosEx('GROUP',UpperCase(fDMConsFinanceiro.ctConsulta_Conta_Orc), 0);
+    vComandoAux := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc, i, Length(fDMConsFinanceiro.ctConsulta_Conta_Orc) - i + 1);
+    vComandoAux2 := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc, 1, i - 1);
+  end;
 
   //vComando := ' WHERE 0 = 0 ';
   if RxDBLookupCombo1.Text <> '' then
     vComando := vComando + ' AND DUP.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
   if NxComboBox2.ItemIndex = 0 then
-    vComando := vComando + ' AND DUP.DTULTPAGAMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
+    vComando := vComando + ' AND DUP.DTEMISSAO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
   else
   if NxComboBox2.ItemIndex = 1 then
     vComando := vComando + ' AND DUP.DTVENCIMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
   else
   if NxComboBox2.ItemIndex = 2 then
-    vComando := vComando + ' AND DUP.DTULTPAGAMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date));
+    vComando := vComando + ' AND HIST.DTLANCAMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
+                         + ' AND HIST.TIPO_HISTORICO = ' + QuotedStr('PAG');
 
   case ComboBox1.ItemIndex of
     0:
@@ -560,6 +571,12 @@ procedure TfrmConsCtaOrcamento_Fin.SMDBGrid1DblClick(Sender: TObject);
 var
   ffrmConsCtaOrcamento_Det: TfrmConsCtaOrcamento_Det;
 begin
+  if (fDMConsFinanceiro.mConta_OrcTipo_Conta.AsString = 'S') then
+  begin
+    MessageDlg('*** Só pode ser detalhada contas análiticas (são as contas que possuem os lançamentos)!', mtInformation, [mbOk], 0);
+    exit;
+  end;
+
   ffrmConsCtaOrcamento_Det := TfrmConsCtaOrcamento_Det.Create(self);
   ffrmConsCtaOrcamento_Det.fDMConsFinanceiro := fDMConsFinanceiro;
   fDMConsFinanceiro.vDtInicial := DateEdit1.Date;
@@ -690,7 +707,7 @@ begin
   if RxDBLookupCombo1.Text <> '' then
     vComando := vComando + ' AND DUP.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
   if NxComboBox2.ItemIndex = 0 then
-    vComando := vComando + ' AND DUP.DTULTPAGAMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
+    vComando := vComando + ' AND DUP.DTEMISSAO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
   else if NxComboBox2.ItemIndex = 1 then
     vComando := vComando + ' AND DUP.DTVENCIMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date));
 

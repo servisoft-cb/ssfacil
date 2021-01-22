@@ -380,6 +380,9 @@ type
     cdsConsAdto_SaldoID_PESSOA: TIntegerField;
     cdsConsAdto_SaldoVALOR: TFloatField;
     cdsConsAdto_SaldoNOME_PESSOA: TStringField;
+    SQLDataSet1: TSQLDataSet;
+    sdsConsulta_Conta_OrcPag: TSQLDataSet;
+    sdsConsulta_Conta_Orc_CCusPag: TSQLDataSet;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConta_OrcNewRecord(DataSet: TDataSet);
     procedure mDespesaNewRecord(DataSet: TDataSet);
@@ -391,10 +394,12 @@ type
   public
     { Public declarations }
     ctConsulta_Conta_Orc, ctConsulta_Conta_Orc_Dt, ctConsulta_Conta_Orc_CCus, ctCCustoOrcamento : String;
+    ctConsulta_Conta_OrcPag : String;
+    ctConsulta_Conta_Orc_CCusPag : String;
     ctDespesa : String;
     ctOC_Pendente : String;
     ctDuplicata_Det : String;
-    ctDuplicata_CCusto : sTRING;    
+    ctDuplicata_CCusto : sTRING;
     ctDuplicata_Cli : String;
     ctPedido_Cli : String;
     ctPedido_Pend : String;
@@ -430,8 +435,10 @@ procedure TDMConsFinanceiro.DataModuleCreate(Sender: TObject);
 begin
   cdsFilial.Open;
   ctConsulta_Conta_Orc      := sdsConsulta_Conta_Orc.CommandText;
+  ctConsulta_Conta_OrcPag   := sdsConsulta_Conta_OrcPag.CommandText;
   ctConsulta_Conta_Orc_CCus := sdsConsulta_Conta_Orc_CCus.CommandText;
-  ctConsulta_Conta_Orc_Dt  := sdsConsulta_Conta_Orc_Dt.CommandText;
+  ctConsulta_Conta_Orc_CCusPag := sdsConsulta_Conta_Orc_CCusPag.CommandText;
+  ctConsulta_Conta_Orc_Dt      := sdsConsulta_Conta_Orc_Dt.CommandText;
   ctCCustoOrcamento       := sdsCCustoOrcamento.CommandText;
   ctDespesa               := sdsDespesa.CommandText;
   ctOC_Pendente           := sdsOC_Pendente.CommandText;
