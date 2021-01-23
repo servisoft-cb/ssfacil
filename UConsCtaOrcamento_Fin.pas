@@ -58,6 +58,8 @@ type
     procedure SMDBGrid3DblClick(Sender: TObject);
     procedure SMDBGrid2DblClick(Sender: TObject);
     procedure btnExcelClick(Sender: TObject);
+    procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
   private
     { Private declarations }
     fDMConsFinanceiro: TDMConsFinanceiro;
@@ -247,7 +249,8 @@ begin
     RadioGroup1.ItemIndex := 2
   else
     RadioGroup1.ItemIndex := 0;
-  RadioGroup1.Enabled := (RadioGroup1.ItemIndex = 0); 
+  RadioGroup1.Enabled := (RadioGroup1.ItemIndex = 0);
+  ts_Centro_Orcamento.TabVisible := (SQLLocate('PARAMETROS_FIN','ID','USA_CONS_CCUSTOORC','1') = 'S');
 end;
 
 procedure TfrmConsCtaOrcamento_Fin.prc_Le_Consulta;
@@ -699,17 +702,31 @@ var
   i: Integer;
 begin
   fDMConsFinanceiro.cdsConsulta_Conta_Orc_CCus.Close;
-  i := PosEx('GROUP', fDMConsFinanceiro.ctConsulta_Conta_Orc_CCus, 0);
-  vComandoAux := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCus, i, Length(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCus) - i + 1);
-  vComandoAux2 := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCus, 1, i - 1);
+  if NxComboBox2.ItemIndex = 2 then
+  begin
+    i := PosEx('GROUP', UpperCase(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCusPag), 0);
+    vComandoAux := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCusPag, i, Length(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCusPag) - i + 1);
+    vComandoAux2 := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCusPag, 1, i - 1);
+  end
+  else
+  begin
+    i := PosEx('GROUP', UpperCase(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCus), 0);
+    vComandoAux := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCus, i, Length(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCus) - i + 1);
+    vComandoAux2 := copy(fDMConsFinanceiro.ctConsulta_Conta_Orc_CCus, 1, i - 1);
+  end;
 
   //vComando := ' WHERE 0 = 0 ';
   if RxDBLookupCombo1.Text <> '' then
     vComando := vComando + ' AND DUP.FILIAL = ' + IntToStr(RxDBLookupCombo1.KeyValue);
   if NxComboBox2.ItemIndex = 0 then
     vComando := vComando + ' AND DUP.DTEMISSAO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
-  else if NxComboBox2.ItemIndex = 1 then
-    vComando := vComando + ' AND DUP.DTVENCIMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date));
+  else
+  if NxComboBox2.ItemIndex = 1 then
+    vComando := vComando + ' AND DUP.DTVENCIMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
+  else
+  if NxComboBox2.ItemIndex = 2 then
+    vComando := vComando + ' AND HIST.DTLANCAMENTO BETWEEN ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit1.Date)) + ' AND ' + QuotedStr(FormatDateTime('MM/DD/YYYY', DateEdit2.Date))
+                         + ' AND HIST.TIPO_HISTORICO = ' + QuotedStr('PAG');
 
   case ComboBox1.ItemIndex of
     0: vComando := vComando + ' AND DUP.VLR_PAGO > 0 ';
@@ -926,6 +943,13 @@ begin
       grid.EnableScroll;
     end;
   end;
+end;
+
+procedure TfrmConsCtaOrcamento_Fin.SMDBGrid2GetCellParams(Sender: TObject;
+  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+begin
+  if (fDMConsFinanceiro.mContas_Orc_CCustoTipo_Conta.AsString = 'S') then
+    Background := $00CECECE;
 end;
 
 end.

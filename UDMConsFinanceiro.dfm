@@ -2574,82 +2574,6 @@ object DMConsFinanceiro: TDMConsFinanceiro
     Left = 552
     Top = 416
   end
-  object sdsCCustoOrcamento: TSQLDataSet
-    NoMetadata = True
-    GetMetadata = False
-    CommandText = 
-      'SELECT AUX.*,'#13#10' (select SUM(vd2.vlr_entrada) from vduplicata_cen' +
-      'trocusto vd2'#13#10'  where vd2.id_centrocusto = aux.id_centrocusto'#13#10' ' +
-      '   and VD2.DTULTPAGAMENTO between :DTINICIAL and :DTFINAL and'#13#10' ' +
-      '       VD2.FILIAL = :FILIAL AND VD2.TIPO_HISTORICO = :TIPO_HISTO' +
-      'RICO) VLR_TOTAL_ENTRADA'#13#10#13#10'FROM ('#13#10'select sum(VD.VLR_ENTRADA) VL' +
-      'R_ENTRADA, sum(VD.VLR_SAIDA) VLR_SAIDA, VD.CODIGO_GRUPO, VD.CODI' +
-      'GO_GRUPO_SUP,'#13#10'       VD.NOME_GRUPO, VD.CONTA_ORCAMENTO, VD.ID_C' +
-      'ONTA_ORCAMENTO, VD.NOME_ORCAMENTO,'#13#10'       VD.VLR_CONTRATO, VD.V' +
-      'LR_CONTRATO_SERVICO, vd.id_centrocusto'#13#10'from VDUPLICATA_CENTROCU' +
-      'STO VD'#13#10'where VD.DTULTPAGAMENTO between :DTINICIAL and :DTFINAL ' +
-      'and'#13#10'      ((:ID_CENTROCUSTO = 0) or (VD.ID_CENTROCUSTO = :ID_CE' +
-      'NTROCUSTO)) and'#13#10'      VD.FILIAL = :FILIAL AND (VD.TIPO_HISTORIC' +
-      'O = :TIPO_HISTORICO)'#13#10'group by VD.CODIGO_GRUPO, VD.CODIGO_GRUPO_' +
-      'SUP, VD.NOME_GRUPO, VD.CONTA_ORCAMENTO,'#13#10'VD.ID_CONTA_ORCAMENTO, ' +
-      'VD.NOME_ORCAMENTO, VD.VLR_CONTRATO, VD.VLR_CONTRATO_SERVICO,'#13#10'vd' +
-      '.id_centrocusto) AUX'#13#10#13#10#13#10#13#10
-    MaxBlobSize = -1
-    Params = <
-      item
-        DataType = ftDate
-        Name = 'DTINICIAL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftDate
-        Name = 'DTFINAL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'FILIAL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'TIPO_HISTORICO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftDate
-        Name = 'DTINICIAL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftDate
-        Name = 'DTFINAL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'ID_CENTROCUSTO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'ID_CENTROCUSTO'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftInteger
-        Name = 'FILIAL'
-        ParamType = ptInput
-      end
-      item
-        DataType = ftString
-        Name = 'TIPO_HISTORICO'
-        ParamType = ptInput
-      end>
-    SQLConnection = dmDatabase.scoDados
-    Left = 264
-    Top = 296
-  end
   object dspCCustoOrcamento: TDataSetProvider
     DataSet = sdsCCustoOrcamento
     Left = 296
@@ -3138,24 +3062,101 @@ object DMConsFinanceiro: TDMConsFinanceiro
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'select sum(iif (DCCUS.valor > 0, DCCUS.valor, Dup.vlr_parcela)) ' +
-      'VLR_PARCELA, sum(DUP.VLR_DEVOLUCAO) VLR_DEVOLUCAO, sum(DUP.VLR_R' +
-      'ESTANTE) VLR_RESTANTE,'#13#10'       sum(DUP.VLR_PAGO) VLR_PAGO, DUP.T' +
-      'IPO_ES, ORC.DESCRICAO NOME_CONTA_ORCAMENTO, ORC.CODIGO COD_CONTA' +
-      '_ORCAMENTO,'#13#10'       DUP.ID_CONTA_ORCAMENTO, ORC.SUPERIOR, ORC.NI' +
-      'VEL, DCCUS.ID_CENTROCUSTO, CC.DESCRICAO NOME_CCUSTO,'#13#10'       CC.' +
-      'CODIGO CODIGO_CCUSTO, CC.NIVEL NIVEL_CCUSTO, SUM(DCCUS.VALOR) VL' +
-      'R_CCUS'#13#10'from DUPLICATA DUP'#13#10'left join CONTA_ORCAMENTO ORC on DUP' +
-      '.ID_CONTA_ORCAMENTO = ORC.ID'#13#10'left join DUPLICATA_CCUSTO DCCUS o' +
-      'n DCCUS.ID = DUP.ID and (DCCUS.VALOR > 0)'#13#10'left join CENTROCUSTO' +
-      ' CC on CC.ID = DCCUS.ID_CENTROCUSTO'#13#10'where DUP.TIPO_MOV <> '#39'H'#39' a' +
-      'nd'#13#10'      DUP.FILIAL = 1'#13#10'GROUP BY DUP.TIPO_ES, ORC.DESCRICAO, O' +
-      'RC.CODIGO, DUP.ID_CONTA_ORCAMENTO, ORC.SUPERIOR, ORC.NIVEL,'#13#10'   ' +
-      '      DCCUS.ID_CENTROCUSTO, CC.DESCRICAO, CC.CODIGO, CC.NIVEL'
+      'select iif (DCCUS.valor > 0, DCCUS.valor, Dup.vlr_parcela) VLR_P' +
+      'ARCELA, sum(HIST.VLR_DEVOLUCAO) VLR_DEVOLUCAO,'#13#10'DUP.VLR_RESTANTE' +
+      ','#13#10'       sum(HIST.vlr_pagamento) VLR_PAGO, DUP.TIPO_ES, ORC.DES' +
+      'CRICAO NOME_CONTA_ORCAMENTO, ORC.CODIGO COD_CONTA_ORCAMENTO,'#13#10'  ' +
+      '     DUP.ID_CONTA_ORCAMENTO, ORC.SUPERIOR, ORC.NIVEL, DCCUS.ID_C' +
+      'ENTROCUSTO, CC.DESCRICAO NOME_CCUSTO,'#13#10'       CC.CODIGO CODIGO_C' +
+      'CUSTO, CC.NIVEL NIVEL_CCUSTO, DCCUS.VALOR VLR_CCUS'#13#10'from duplica' +
+      'ta_hist hist'#13#10'inner join DUPLICATA DUP on hist.id = dup.id'#13#10'left' +
+      ' join CONTA_ORCAMENTO ORC on DUP.ID_CONTA_ORCAMENTO = ORC.ID'#13#10'le' +
+      'ft join DUPLICATA_CCUSTO DCCUS on DCCUS.ID = DUP.ID and (DCCUS.V' +
+      'ALOR > 0)'#13#10'left join CENTROCUSTO CC on CC.ID = DCCUS.ID_CENTROCU' +
+      'STO'#13#10'where DUP.TIPO_MOV <> '#39'H'#39' '#13#10'GROUP BY DUP.TIPO_ES, ORC.DESCR' +
+      'ICAO, ORC.CODIGO, DUP.ID_CONTA_ORCAMENTO, ORC.SUPERIOR, ORC.NIVE' +
+      'L,'#13#10'         DCCUS.ID_CENTROCUSTO, CC.DESCRICAO, CC.CODIGO, CC.N' +
+      'IVEL, DCCUS.valor, Dup.vlr_parcela, DUP.VLR_RESTANTE'#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 24
     Top = 326
+  end
+  object sdsCCustoOrcamento: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT AUX.*,'#13#10' (select SUM(vd2.vlr_entrada) from vduplicata_cen' +
+      'trocusto vd2'#13#10'  where vd2.id_centrocusto = aux.id_centrocusto'#13#10' ' +
+      '   and VD2.DTULTPAGAMENTO between :DTINICIAL and :DTFINAL and'#13#10' ' +
+      '       VD2.FILIAL = :FILIAL AND VD2.TIPO_HISTORICO = :TIPO_HISTO' +
+      'RICO) VLR_TOTAL_ENTRADA'#13#10#13#10'FROM ('#13#10'select sum(VD.VLR_ENTRADA) VL' +
+      'R_ENTRADA, sum(VD.VLR_SAIDA) VLR_SAIDA, VD.CODIGO_GRUPO, VD.CODI' +
+      'GO_GRUPO_SUP,'#13#10'       VD.NOME_GRUPO, VD.CONTA_ORCAMENTO, VD.ID_C' +
+      'ONTA_ORCAMENTO, VD.NOME_ORCAMENTO,'#13#10'       VD.VLR_CONTRATO, VD.V' +
+      'LR_CONTRATO_SERVICO, vd.id_centrocusto'#13#10'from VDUPLICATA_CENTROCU' +
+      'STO VD'#13#10'where VD.DTULTPAGAMENTO between :DTINICIAL and :DTFINAL ' +
+      'and'#13#10'      ((:ID_CENTROCUSTO = 0) or (VD.ID_CENTROCUSTO = :ID_CE' +
+      'NTROCUSTO)) and'#13#10'      VD.FILIAL = :FILIAL AND (VD.TIPO_HISTORIC' +
+      'O = :TIPO_HISTORICO)'#13#10'group by VD.CODIGO_GRUPO, VD.CODIGO_GRUPO_' +
+      'SUP, VD.NOME_GRUPO, VD.CONTA_ORCAMENTO,'#13#10'VD.ID_CONTA_ORCAMENTO, ' +
+      'VD.NOME_ORCAMENTO, VD.VLR_CONTRATO, VD.VLR_CONTRATO_SERVICO,'#13#10'vd' +
+      '.id_centrocusto) AUX'#13#10#13#10#13#10#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftDate
+        Name = 'DTINICIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DTFINAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'FILIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'TIPO_HISTORICO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DTINICIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DTFINAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_CENTROCUSTO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_CENTROCUSTO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'FILIAL'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'TIPO_HISTORICO'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 264
+    Top = 296
   end
 end

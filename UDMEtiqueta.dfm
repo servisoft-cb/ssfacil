@@ -267,7 +267,7 @@ object DMEtiqueta: TDMEtiqueta
   end
   object dsmEtiqueta_Nav: TDataSource
     DataSet = mEtiqueta_Nav
-    Left = 176
+    Left = 177
     Top = 39
   end
   object qPessoa: TSQLQuery
@@ -1007,19 +1007,19 @@ object DMEtiqueta: TDMEtiqueta
   object frxReport1: TfrxReport
     Tag = 1
     Version = '5.6.8'
-    DotMatrixReport = False
+    DotMatrixReport = True
     EngineOptions.PrintIfEmpty = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 41928.578144409700000000
-    ReportOptions.LastChange = 44172.593295104170000000
+    ReportOptions.CreateDate = 44218.450194027800000000
+    ReportOptions.LastChange = 44218.452291018500000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 472
+    Left = 473
     Top = 232
   end
   object frxPDFExport1: TfrxPDFExport

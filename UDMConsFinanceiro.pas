@@ -308,7 +308,6 @@ type
     mContas_Orc_CCustoVlr_CentroCusto: TFloatField;
     frxReport1: TfrxReport;
     frxCentroCusto: TfrxDBDataset;
-    sdsCCustoOrcamento: TSQLDataSet;
     dspCCustoOrcamento: TDataSetProvider;
     cdsCCustoOrcamento: TClientDataSet;
     dsCCustoOrcamento: TDataSource;
@@ -383,6 +382,7 @@ type
     SQLDataSet1: TSQLDataSet;
     sdsConsulta_Conta_OrcPag: TSQLDataSet;
     sdsConsulta_Conta_Orc_CCusPag: TSQLDataSet;
+    sdsCCustoOrcamento: TSQLDataSet;
     procedure DataModuleCreate(Sender: TObject);
     procedure mConta_OrcNewRecord(DataSet: TDataSet);
     procedure mDespesaNewRecord(DataSet: TDataSet);

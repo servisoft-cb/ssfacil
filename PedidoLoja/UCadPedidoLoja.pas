@@ -1721,8 +1721,7 @@ begin
         sds.Next;
       end;
       vSaldo_Ant   := StrToFloat(FormatFloat('0.00',vSaldo_Ant + vVlr_Recto));
-      vSaldo_Final := StrToFloat(FormatFloat('0.00',(vSaldo_Ant - vVlr_Recto ) + fDMCadPedido.cdsPedidoImpVLR_TOTAL.AsFloat));
-
+      vSaldo_Final := StrToFloat(FormatFloat('0.00',(vSaldo_Ant - vVlr_Recto ) + (fDMCadPedido.cdsPedidoImpVLR_TOTAL.AsFloat - fDMCadPedido.cdsPedidoImpVLR_SALDO_USADO.AsFloat)));
     finally
       FreeAndNil(sds);
     end;

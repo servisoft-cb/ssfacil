@@ -114,7 +114,7 @@ object fMenu: TfMenu
     end
   end
   object MainMenu1: TMainMenu
-    Left = 650
+    Left = 648
     Top = 415
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
