@@ -63,7 +63,7 @@ object frmSel_ContaOrc: TfrmSel_ContaOrc
     end
     object ComboBox2: TComboBox
       Left = 10
-      Top = 4
+      Top = 5
       Width = 129
       Height = 21
       BevelKind = bkSoft

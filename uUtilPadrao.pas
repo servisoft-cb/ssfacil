@@ -62,6 +62,8 @@ uses
   function fnc_Busca_Nome_Filial: String;
   procedure prc_Preencher_Excel(planilha: Variant; vDados: TDataSource);
   procedure prc_Preencher_Excel2(planilha: Variant;  vDados: TDataSource; Grid :TSMDBGrid);
+  procedure prc_Preencher_CSV(vDados: TDataSource; Grid :TSMDBGrid ; vNomeArq : String);
+
   function fnc_Max_Codigo(Tabela,Campo: String):Integer;
 
   function fnc_Ajusta_DtVencimento(Dia_Vecto,Dia1,Dia2,QDias_MPag: Integer ; DtVecto: TDateTime): TDateTime;
@@ -236,6 +238,7 @@ var
   vSerie_Sel: String;
   vTipo_Dig_Cupom: String;
   vID_ANP_Pos : Integer;
+  vEndereco_Arq : String;
 
 implementation
 
@@ -2751,5 +2754,63 @@ begin
   Result := aValue;
 end;
 
+procedure prc_Preencher_CSV(vDados: TDataSource; Grid :TSMDBGrid ; vNomeArq : String);
+var
+  linha, coluna: Integer;
+  valorCampo: String;
+  ColunaP: Integer;
+  vTexto: String;
+  vTexto2: String;
+  vArquivo: TStringList;
+begin
+  vArquivo := TStringList.Create;
+  vTexto   := '';
+  linha   := 1;
+  for coluna := 0 to Grid.FieldCount - 1 do
+  begin
+    if Grid.Columns[coluna].Visible then
+    begin
+      valorcampo := Grid.Columns[coluna].Title.Caption;
+      if trim(vTexto) <> '' then
+        vTexto := vTexto + ';' + valorcampo
+      else
+        vTexto := valorcampo;
+    end;
+  end;
+  vArquivo.Add(vTexto);
+
+  vTexto := '';
+  vDados.DataSet.First;
+  while not vDados.DataSet.Eof do
+  begin
+    for coluna := 0 to Grid.FieldCount - 1 do
+    begin
+      if Grid.Columns[coluna].Visible then
+      begin
+        vTexto2 := vDados.DataSet.FieldByName(grid.Columns[coluna].FieldName).AsString;
+        if trim(vTexto2) <> '' then
+          valorcampo := vDados.DataSet.FieldByName(grid.Columns[coluna].FieldName).Value
+        else
+          valorcampo := '';
+        if FieldTypeNames[vDados.DataSet.FieldByName(grid.Columns[coluna].FieldName).DataType] = 'Integer' then
+        begin
+          if valorcampo = '' then
+            valorCampo := '0';
+        end;
+        if vTexto <> '' then
+          vTexto := vTexto + ';' + valorCampo
+        else
+          vTexto := valorCampo;
+      end;
+    end;
+    vArquivo.Add(vTexto);
+    vTexto := '';
+    vDados.DataSet.Next;
+  end;
+  if copy(vEndereco_Arq,Length(vEndereco_Arq),1) <> '\' then
+    vEndereco_Arq := vEndereco_Arq + '\';
+  vArquivo.SaveToFile(vEndereco_Arq + vNomeArq);
+  FreeAndNil(vArquivo);
+end;
 
 end.

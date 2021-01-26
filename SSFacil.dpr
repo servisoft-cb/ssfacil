@@ -282,8 +282,6 @@ uses
   uRelPedido_Tam2 in 'URelPedido_Tam2.pas' {fRelPedido_Tam2},
   UDMCadPosicao in 'PCP\UDMCadPosicao.pas' {DMCadPosicao: TDataModule},
   UCadPosicao in 'PCP\UCadPosicao.pas' {frmCadPosicao},
-  UDMCadPrevisao in 'UDMCadPrevisao.pas' {DMCadPrevisao: TDataModule},
-  UCadPrevisao in 'UCadPrevisao.pas' {frmCadPrevisao},
   UGerar_NFSe in 'UGerar_NFSe.pas' {frmGerar_NFSe},
   uCadCheque in 'uCadCheque.pas' {frmCadCheque},
   UDMCopiarProduto in 'UDMCopiarProduto.pas' {DMCopiarProduto: TDataModule},
@@ -893,7 +891,9 @@ uses
   UCadCanalVendas in 'UCadCanalVendas.pas' {frmCadCanalVendas},
   uUtil_Pedido in 'uUtil_Pedido.pas',
   uConsPedConsumo in 'uConsPedConsumo.pas' {frmConsPedConsumo},
-  UConsReceberContas in 'UConsReceberContas.pas' {frmConsReceberContas};
+  UConsReceberContas in 'UConsReceberContas.pas' {frmConsReceberContas},
+  UCadContaOrc_Prev in 'UCadContaOrc_Prev.pas' {frmCadContaOrc_Prev},
+  UInformeEndereco in 'UInformeEndereco.pas' {frmInformeEndereco};
 
 {$R *.res}
 

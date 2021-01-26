@@ -356,6 +356,24 @@ object frmConsEstoque_Bal: TfrmConsEstoque_Bal
       TabOrder = 10
       Visible = False
     end
+    object btnExcel: TNxButton
+      Left = 730
+      Top = 79
+      Width = 177
+      Height = 30
+      Caption = 'Exportar Para'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Arial'
+      Font.Style = []
+      GlyphSpacing = 5
+      ParentFont = False
+      PopupMenu = PopupMenu1
+      ShowArrow = True
+      TabOrder = 11
+      Transparent = True
+    end
   end
   object StaticText1: TStaticText
     Left = 0
@@ -823,6 +841,18 @@ object frmConsEstoque_Bal: TfrmConsEstoque_Bal
           Visible = False
         end
       end
+    end
+  end
+  object PopupMenu1: TPopupMenu
+    Left = 889
+    Top = 103
+    object Excel1: TMenuItem
+      Caption = 'Excel'
+      OnClick = Excel1Click
+    end
+    object CSV1: TMenuItem
+      Caption = 'CSV'
+      OnClick = CSV1Click
     end
   end
 end

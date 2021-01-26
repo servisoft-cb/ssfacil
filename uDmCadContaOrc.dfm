@@ -1,8 +1,8 @@
 object dmCadContaOrc: TdmCadContaOrc
   OldCreateOrder = False
   OnCreate = DataModuleCreate
-  Left = 216
-  Top = 86
+  Left = 240
+  Top = 82
   Height = 480
   Width = 906
   object sdsContaOrc: TSQLDataSet
@@ -887,5 +887,154 @@ object dmCadContaOrc: TdmCadContaOrc
       FixedChar = True
       Size = 1
     end
+  end
+  object sdsContaOrc_Prev: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'select *'#13#10'from CONTA_ORCAMENTO_PREV'#13#10'where ID = :ID'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 28
+    Top = 216
+    object sdsContaOrc_PrevID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsContaOrc_PrevITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsContaOrc_PrevDTVENCIMENTO: TDateField
+      FieldName = 'DTVENCIMENTO'
+    end
+    object sdsContaOrc_PrevTIPO: TStringField
+      FieldName = 'TIPO'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsContaOrc_PrevANO_REF: TIntegerField
+      FieldName = 'ANO_REF'
+    end
+    object sdsContaOrc_PrevMES_REF: TIntegerField
+      FieldName = 'MES_REF'
+    end
+    object sdsContaOrc_PrevVLR_PREVISAO: TFloatField
+      FieldName = 'VLR_PREVISAO'
+    end
+  end
+  object dspContaOrc_Prev: TDataSetProvider
+    DataSet = sdsContaOrc_Prev
+    UpdateMode = upWhereKeyOnly
+    Left = 59
+    Top = 215
+  end
+  object cdsContaOrc_Prev: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID;ITEM'
+    Params = <>
+    ProviderName = 'dspContaOrc_Prev'
+    BeforePost = cdsContaOrc_PrevBeforePost
+    Left = 92
+    Top = 215
+    object cdsContaOrc_PrevID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsContaOrc_PrevITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsContaOrc_PrevDTVENCIMENTO: TDateField
+      FieldName = 'DTVENCIMENTO'
+    end
+    object cdsContaOrc_PrevTIPO: TStringField
+      FieldName = 'TIPO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsContaOrc_PrevANO_REF: TIntegerField
+      FieldName = 'ANO_REF'
+    end
+    object cdsContaOrc_PrevMES_REF: TIntegerField
+      FieldName = 'MES_REF'
+    end
+    object cdsContaOrc_PrevVLR_PREVISAO: TFloatField
+      FieldName = 'VLR_PREVISAO'
+      DisplayFormat = '0.00'
+    end
+  end
+  object dsContaOrc_Prev: TDataSource
+    DataSet = cdsContaOrc_Prev
+    Left = 124
+    Top = 215
+  end
+  object mGerarPrev: TClientDataSet
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'DtVencimento'
+        DataType = ftDate
+      end
+      item
+        Name = 'VlrParcela'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Ano'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Mes'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Tipo'
+        DataType = ftString
+        Size = 1
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 628
+    Top = 179
+    Data = {
+      730000009619E0BD01000000180000000500000000000300000073000C447456
+      656E63696D656E746F04000600000000000A566C7250617263656C6108000400
+      0000000003416E6F0400010000000000034D6573040001000000000004546970
+      6F01004900000001000557494454480200020001000000}
+    object mGerarPrevDtVencimento: TDateField
+      FieldName = 'DtVencimento'
+      EditMask = '99/99/9999'
+    end
+    object mGerarPrevVlrParcela: TFloatField
+      FieldName = 'VlrParcela'
+      DisplayFormat = '0.00'
+    end
+    object mGerarPrevAno: TIntegerField
+      FieldName = 'Ano'
+    end
+    object mGerarPrevMes: TIntegerField
+      FieldName = 'Mes'
+    end
+    object mGerarPrevTipo: TStringField
+      FieldName = 'Tipo'
+      Size = 1
+    end
+  end
+  object dsmGerarPrev: TDataSource
+    DataSet = mGerarPrev
+    Left = 664
+    Top = 176
   end
 end
