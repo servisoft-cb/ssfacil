@@ -3,7 +3,8 @@ unit UDMConsEstoque;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, frxClass, frxDBSet, frxRich, frxExportMail, frxExportPDF,
+  frxExportTXT, frxExportXLS;
 
 type
   TDMConsEstoque = class(TDataModule)
@@ -736,6 +737,8 @@ type
     cdsEstoque_TransfQtd_Total: TAggregateField;
     frxEstoque_Transf: TfrxDBDataset;
     cdsEstoque_AtualNOME_LOCAL_ESTOQUE: TStringField;
+    frxXLSExport1: TfrxXLSExport;
+    frxTXTExport1: TfrxTXTExport;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspEstoqueUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

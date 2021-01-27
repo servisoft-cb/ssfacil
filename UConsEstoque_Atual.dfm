@@ -459,7 +459,6 @@ object frmConsEstoque_Atual: TfrmConsEstoque_Atual
             FieldName = 'LOCALIZACAO'
             Title.Alignment = taCenter
             Title.Caption = 'Localiza'#231#227'o'
-            Width = 64
             Visible = True
           end
           item

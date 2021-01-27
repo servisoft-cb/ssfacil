@@ -4743,4 +4743,38 @@ object DMConsEstoque: TDMConsEstoque
     Left = 716
     Top = 541
   end
+  object frxXLSExport1: TfrxXLSExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    ExportEMF = True
+    AsText = False
+    Background = True
+    FastExport = True
+    PageBreaks = True
+    EmptyLines = True
+    SuppressPageHeadersFooters = False
+    Left = 698
+    Top = 513
+  end
+  object frxTXTExport1: TfrxTXTExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    ScaleWidth = 1.000000000000000000
+    ScaleHeight = 1.000000000000000000
+    Borders = False
+    Pseudogrpahic = False
+    PageBreaks = True
+    OEMCodepage = False
+    EmptyLines = False
+    LeadSpaces = False
+    PrintAfter = False
+    PrinterDialog = True
+    UseSavedProps = True
+    Left = 743
+    Top = 522
+  end
 end

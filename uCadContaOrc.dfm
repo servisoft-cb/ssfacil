@@ -22,9 +22,9 @@ object frmCadContaOrc: TfrmCadContaOrc
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 833
-    Height = 543
-    ActivePage = TS_Consulta
+    Width = 841
+    Height = 551
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +32,7 @@ object frmCadContaOrc: TfrmCadContaOrc
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -41,8 +41,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 66
-        Width = 829
-        Height = 386
+        Width = 837
+        Height = 394
         Align = alClient
         Ctl3D = False
         DataSource = dmCadContaOrc.dsConsulta
@@ -122,7 +122,6 @@ object frmCadContaOrc: TfrmCadContaOrc
             FieldName = 'clPerc_Adim'
             Title.Alignment = taCenter
             Title.Caption = '% ADM.'
-            Width = 64
             Visible = True
           end
           item
@@ -137,7 +136,7 @@ object frmCadContaOrc: TfrmCadContaOrc
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 829
+        Width = 837
         Height = 31
         Align = alTop
         Color = clSilver
@@ -490,8 +489,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 503
-        Width = 829
+        Top = 511
+        Width = 837
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -507,7 +506,7 @@ object frmCadContaOrc: TfrmCadContaOrc
       object pnlPesquisa: TPanel
         Left = 0
         Top = 31
-        Width = 829
+        Width = 837
         Height = 35
         Align = alTop
         Color = clSilver
@@ -604,8 +603,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       end
       object Panel5: TPanel
         Left = 0
-        Top = 452
-        Width = 829
+        Top = 460
+        Width = 837
         Height = 51
         Align = alBottom
         Color = 16768185
@@ -784,7 +783,7 @@ object frmCadContaOrc: TfrmCadContaOrc
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 829
+        Width = 837
         Height = 31
         Align = alTop
         Color = 8404992
@@ -1013,8 +1012,8 @@ object frmCadContaOrc: TfrmCadContaOrc
       object pnlCadastro: TPanel
         Left = 0
         Top = 31
-        Width = 829
-        Height = 228
+        Width = 837
+        Height = 188
         Align = alClient
         Enabled = False
         TabOrder = 0
@@ -1358,15 +1357,15 @@ object frmCadContaOrc: TfrmCadContaOrc
           TabOrder = 14
         end
       end
-      object pc_Itens: TRzPageControl
+      object RzPageControl2: TRzPageControl
         Left = 0
-        Top = 259
-        Width = 829
-        Height = 261
-        ActivePage = ts_CentroCusto
+        Top = 219
+        Width = 837
+        Height = 309
+        ActivePage = TS_Previsao
         ActivePageDefault = ts_CentroCusto
         Align = alBottom
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 2
         FixedDimension = 19
         object ts_CentroCusto: TRzTabSheet
@@ -1374,8 +1373,8 @@ object frmCadContaOrc: TfrmCadContaOrc
           object SMDBGrid3: TSMDBGrid
             Left = 0
             Top = 31
-            Width = 825
-            Height = 207
+            Width = 833
+            Height = 255
             Align = alClient
             Ctl3D = False
             DataSource = dmCadContaOrc.dsContaOrc_CCusto
@@ -1441,7 +1440,7 @@ object frmCadContaOrc: TfrmCadContaOrc
           object Panel3: TPanel
             Left = 0
             Top = 0
-            Width = 825
+            Width = 833
             Height = 31
             Align = alTop
             TabOrder = 1
@@ -1678,8 +1677,8 @@ object frmCadContaOrc: TfrmCadContaOrc
           object SMDBGrid2: TSMDBGrid
             Left = 0
             Top = 62
-            Width = 825
-            Height = 176
+            Width = 833
+            Height = 224
             Align = alClient
             Ctl3D = False
             DataSource = dmCadContaOrc.dsContaOrc_Itens
@@ -1735,7 +1734,7 @@ object frmCadContaOrc: TfrmCadContaOrc
           object Panel4: TPanel
             Left = 0
             Top = 0
-            Width = 825
+            Width = 833
             Height = 31
             Align = alTop
             Enabled = False
@@ -1775,7 +1774,7 @@ object frmCadContaOrc: TfrmCadContaOrc
                 'A')
             end
             object RxDBComboBox1: TRxDBComboBox
-              Left = 312
+              Left = 313
               Top = 4
               Width = 145
               Height = 21
@@ -1799,7 +1798,7 @@ object frmCadContaOrc: TfrmCadContaOrc
           object Panel7: TPanel
             Left = 0
             Top = 31
-            Width = 825
+            Width = 833
             Height = 31
             Align = alTop
             TabOrder = 2
@@ -2031,13 +2030,172 @@ object frmCadContaOrc: TfrmCadContaOrc
             end
           end
         end
+        object TS_Previsao: TRzTabSheet
+          Caption = 'Previs'#245'es'
+          object NxPanel1: TNxPanel
+            Left = 0
+            Top = 0
+            Width = 833
+            Height = 30
+            Align = alTop
+            UseDockManager = False
+            ParentBackground = False
+            TabOrder = 0
+            object NxLabel1: TNxLabel
+              Left = 15
+              Top = 9
+              Width = 22
+              Height = 13
+              Alignment = taRightJustify
+              Caption = 'Ano:'
+              Transparent = True
+              HorizontalPosition = hpLeft
+              InnerHorizontal = True
+              InnerVertical = False
+              InnerMargins.Horizontal = 0
+              InnerMargins.Vertical = 2
+              VerticalPosition = vpTop
+            end
+            object CurrencyEdit6: TCurrencyEdit
+              Left = 40
+              Top = 4
+              Width = 47
+              Height = 21
+              AutoSize = False
+              Ctl3D = False
+              DecimalPlaces = 0
+              DisplayFormat = '0'
+              ParentCtl3D = False
+              TabOrder = 0
+            end
+            object NxButton3: TNxButton
+              Left = 89
+              Top = 3
+              Width = 75
+              Caption = 'Filtrar'
+              TabOrder = 1
+              OnClick = NxButton3Click
+            end
+            object btnGerar_Previsao: TNxButton
+              Left = 398
+              Top = 6
+              Width = 138
+              Caption = 'Gerar Previs'#227'o'
+              Enabled = False
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clBlue
+              Font.Height = -11
+              Font.Name = 'Verdana'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 2
+              OnClick = btnGerar_PrevisaoClick
+            end
+          end
+          object SMDBGrid4: TSMDBGrid
+            Left = 0
+            Top = 30
+            Width = 833
+            Height = 256
+            Align = alClient
+            Ctl3D = False
+            DataSource = dmCadContaOrc.dsContaOrc_Prev
+            Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+            ParentCtl3D = False
+            ReadOnly = True
+            TabOrder = 1
+            TitleFont.Charset = DEFAULT_CHARSET
+            TitleFont.Color = clWindowText
+            TitleFont.Height = -11
+            TitleFont.Name = 'MS Sans Serif'
+            TitleFont.Style = []
+            Flat = True
+            BandsFont.Charset = DEFAULT_CHARSET
+            BandsFont.Color = clWindowText
+            BandsFont.Height = -11
+            BandsFont.Name = 'MS Sans Serif'
+            BandsFont.Style = []
+            Groupings = <>
+            GridStyle.Style = gsCustom
+            GridStyle.OddColor = clWindow
+            GridStyle.EvenColor = clWindow
+            TitleHeight.PixelCount = 24
+            FooterColor = clBtnFace
+            ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+            RegistryKey = 'Software\Scalabium'
+            RegistrySection = 'SMDBGrid'
+            WidthOfIndicator = 11
+            DefaultRowHeight = 17
+            ScrollBars = ssHorizontal
+            ColCount = 7
+            RowCount = 2
+            Columns = <
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'ITEM'
+                Title.Alignment = taCenter
+                Title.Caption = 'Item'
+                Title.Color = 10944511
+                Width = 50
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'TIPO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Tipo'
+                Title.Color = 10944511
+                Width = 35
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'DTVENCIMENTO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Dt. Vencimento'
+                Title.Color = 10944511
+                Width = 82
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'ANO_REF'
+                Title.Alignment = taCenter
+                Title.Caption = 'Ano Ref.'
+                Title.Color = 10944511
+                Visible = True
+              end
+              item
+                Alignment = taCenter
+                Expanded = False
+                FieldName = 'MES_REF'
+                Title.Alignment = taCenter
+                Title.Caption = 'M'#234's Ref.'
+                Title.Color = 10944511
+                Visible = True
+              end
+              item
+                Expanded = False
+                FieldName = 'VLR_PREVISAO'
+                Title.Alignment = taCenter
+                Title.Caption = 'Vlr. Previs'#227'o'
+                Title.Color = 10944511
+                Width = 121
+                Visible = True
+              end>
+          end
+        end
       end
     end
   end
   object StatusBar1: TStatusBar
     Left = 0
-    Top = 543
-    Width = 833
+    Top = 551
+    Width = 841
     Height = 19
     Panels = <
       item

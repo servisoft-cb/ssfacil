@@ -1,5 +1,6 @@
 object DMEtiqueta: TDMEtiqueta
   OldCreateOrder = False
+  OnCreate = DataModuleCreate
   Left = 359
   Top = 188
   Height = 450
@@ -1007,20 +1008,20 @@ object DMEtiqueta: TDMEtiqueta
   object frxReport1: TfrxReport
     Tag = 1
     Version = '5.6.8'
-    DotMatrixReport = True
+    DotMatrixReport = False
     EngineOptions.PrintIfEmpty = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
     PreviewOptions.Zoom = 1.000000000000000000
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
-    ReportOptions.CreateDate = 44218.450194027800000000
-    ReportOptions.LastChange = 44218.452291018500000000
+    ReportOptions.CreateDate = 41928.578144409700000000
+    ReportOptions.LastChange = 44218.395941666700000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnReportPrint = 'frxReportOnReportPrint'
-    Left = 473
-    Top = 232
+    Left = 472
+    Top = 233
   end
   object frxPDFExport1: TfrxPDFExport
     UseFileCache = True
@@ -1098,5 +1099,62 @@ object DMEtiqueta: TDMEtiqueta
     BCDToCurrency = False
     Left = 472
     Top = 276
+  end
+  object sdsParametros_Fin: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select ID, ZEBRA_TEMPERATURA, ZEBRA_VELOCIDADE, ZEBRA_ENDERECO'#13#10 +
+      'from PARAMETROS_ETIQ'#13#10'where ID = 1'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 122
+    Top = 199
+    object sdsParametros_FinID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object sdsParametros_FinZEBRA_TEMPERATURA: TIntegerField
+      FieldName = 'ZEBRA_TEMPERATURA'
+    end
+    object sdsParametros_FinZEBRA_VELOCIDADE: TIntegerField
+      FieldName = 'ZEBRA_VELOCIDADE'
+    end
+    object sdsParametros_FinZEBRA_ENDERECO: TStringField
+      FieldName = 'ZEBRA_ENDERECO'
+      Size = 200
+    end
+  end
+  object dspParametros_Fin: TDataSetProvider
+    DataSet = sdsParametros_Fin
+    Left = 161
+    Top = 200
+  end
+  object cdsParametros_Fin: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspParametros_Fin'
+    Left = 203
+    Top = 199
+    object cdsParametros_FinID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsParametros_FinZEBRA_TEMPERATURA: TIntegerField
+      FieldName = 'ZEBRA_TEMPERATURA'
+    end
+    object cdsParametros_FinZEBRA_VELOCIDADE: TIntegerField
+      FieldName = 'ZEBRA_VELOCIDADE'
+    end
+    object cdsParametros_FinZEBRA_ENDERECO: TStringField
+      FieldName = 'ZEBRA_ENDERECO'
+      Size = 200
+    end
+  end
+  object dsParametros_Fin: TDataSource
+    DataSet = cdsParametros_Fin
+    Left = 239
+    Top = 200
   end
 end

@@ -1656,28 +1656,6 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           Width = 1071
           Height = 64
           DataSource = DMCadPedido.dsPedidoImp_Item_Proc
-          object RLDetailGrid1: TRLDetailGrid
-            Left = 0
-            Top = 0
-            Width = 1071
-            Height = 29
-            ColCount = 4
-            object RLDBText45: TRLDBText
-              Left = 99
-              Top = 8
-              Width = 165
-              Height = 16
-              DataField = 'NOME_PROCESSO'
-              DataSource = DMCadPedido.dsPedidoImp_Item_Proc
-            end
-            object RLLabel42: TRLLabel
-              Left = 35
-              Top = 8
-              Width = 63
-              Height = 16
-              Caption = 'Processo:'
-            end
-          end
         end
       end
       object RLBand7: TRLBand

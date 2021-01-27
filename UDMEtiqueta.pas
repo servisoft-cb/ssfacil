@@ -221,6 +221,19 @@ type
     mEtiqueta_NavNUM_RFID: TStringField;
     mEtiqueta_NavFantasia_Filial: TStringField;
     mEtiqueta_NavSelecionado: TStringField;
+    sdsParametros_Fin: TSQLDataSet;
+    dspParametros_Fin: TDataSetProvider;
+    cdsParametros_Fin: TClientDataSet;
+    dsParametros_Fin: TDataSource;
+    sdsParametros_FinID: TIntegerField;
+    sdsParametros_FinZEBRA_TEMPERATURA: TIntegerField;
+    sdsParametros_FinZEBRA_VELOCIDADE: TIntegerField;
+    cdsParametros_FinID: TIntegerField;
+    cdsParametros_FinZEBRA_TEMPERATURA: TIntegerField;
+    cdsParametros_FinZEBRA_VELOCIDADE: TIntegerField;
+    sdsParametros_FinZEBRA_ENDERECO: TStringField;
+    cdsParametros_FinZEBRA_ENDERECO: TStringField;
+    procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }
     vCod_Cor_Cli, vProd_Cliente : String;
@@ -388,6 +401,11 @@ begin
     end;
     cdsNotaFiscal_Itens.Next;
   end;
+end;
+
+procedure TDMEtiqueta.DataModuleCreate(Sender: TObject);
+begin
+  cdsParametros_Fin.Open;
 end;
 
 end.

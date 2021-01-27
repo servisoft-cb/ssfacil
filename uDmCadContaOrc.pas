@@ -169,12 +169,38 @@ type
     qTotalParesPREVISAO: TFMTBCDField;
     qParametros_Fin: TSQLQuery;
     qParametros_FinINF_ZERO_PERC_CC: TStringField;
+    sdsContaOrc_Prev: TSQLDataSet;
+    dspContaOrc_Prev: TDataSetProvider;
+    cdsContaOrc_Prev: TClientDataSet;
+    dsContaOrc_Prev: TDataSource;
+    sdsContaOrc_PrevID: TIntegerField;
+    sdsContaOrc_PrevITEM: TIntegerField;
+    sdsContaOrc_PrevDTVENCIMENTO: TDateField;
+    sdsContaOrc_PrevTIPO: TStringField;
+    sdsContaOrc_PrevANO_REF: TIntegerField;
+    sdsContaOrc_PrevMES_REF: TIntegerField;
+    sdsContaOrc_PrevVLR_PREVISAO: TFloatField;
+    cdsContaOrc_PrevID: TIntegerField;
+    cdsContaOrc_PrevITEM: TIntegerField;
+    cdsContaOrc_PrevDTVENCIMENTO: TDateField;
+    cdsContaOrc_PrevTIPO: TStringField;
+    cdsContaOrc_PrevANO_REF: TIntegerField;
+    cdsContaOrc_PrevMES_REF: TIntegerField;
+    cdsContaOrc_PrevVLR_PREVISAO: TFloatField;
+    mGerarPrev: TClientDataSet;
+    mGerarPrevDtVencimento: TDateField;
+    mGerarPrevVlrParcela: TFloatField;
+    mGerarPrevAno: TIntegerField;
+    mGerarPrevMes: TIntegerField;
+    dsmGerarPrev: TDataSource;
+    mGerarPrevTipo: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspContaOrcUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
       UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsContaOrcNewRecord(DataSet: TDataSet);
     procedure cdsConsultaCalcFields(DataSet: TDataSet);
+    procedure cdsContaOrc_PrevBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -183,6 +209,7 @@ type
     vMsgConta: String;
     ctCommand: String;
     ctConsulta: String;
+    ctContaOrc_Prev : String;
 
     procedure prc_Localizar(ID: Integer); //-1 = Inclusão
     procedure prc_Inserir;
@@ -192,6 +219,8 @@ type
     procedure prc_Inserir_CentroCusto;
     procedure prc_Abrir_CentroCusto(ID:Integer);
     procedure prc_Inserir_Itens;
+    procedure prc_Abrir_ContaoOrc_Prev(ID,Ano : Integer);
+    function fnc_proximo_Item_Prev(ID : Integer) : Integer;
   end;
 
 var
@@ -267,17 +296,19 @@ begin
     vTotalAliq := vTotalAliq + cdsContaOrc_CCustoPERCENTUAL.AsFloat;
     cdsContaOrc_CCusto.Next;
   end;
+  if (cdsContaOrcTIPO.AsString <> 'A') and (cdsContaOrc_Prev.Active) and (cdsContaOrc_Prev.RecordCount > 0) then
+    vMsgConta := vMsgConta + #13 + '*** Previsão só pode ser informada quando for conta Analítica!';
   //if Trim( qParametros_FinINF_ZERO_PERC_CC.AsString) <> 'S' then
   //begin
     if (vTotalAliq > 0) and (vTotalAliq < 100) then
       if MessageDlg('Soma das alíquotas do Centro de Custo não atingiu os 100%, deseja Confirmar?',mtConfirmation,[mbYes,mbNo],0) <> mrYes then
-        vMsgConta := 'O Registro não foi gravado!';
+        vMsgConta := vMsgConta + #13 + '*** O Registro não foi gravado!';
   //end;
 
   if (vTotalAliq > 0) and (vTotalAliq > 100) then
-    vMsgConta := 'Soma das alíquotas do Centro de Custo ultrapassou os 100%';
+    vMsgConta := vMsgConta + #13 + '*** Soma das alíquotas do Centro de Custo ultrapassou os 100%';
   if trim(cdsContaOrcDESCRICAO.AsString) = '' then
-    vMsgConta := '*** Descrição não informada!';
+    vMsgConta := vMsgConta + #13 + '*** Descrição não informada!';
   if (trim(cdsContaOrcCODIGO.AsString) = '') then
     vMsgConta := vMsgConta + #13 + '*** Código da conta não informado!';
   if (cdsContaOrcTIPO_RD.AsString <> 'R') and (cdsContaOrcTIPO_RD.AsString <> 'D') then
@@ -295,6 +326,9 @@ begin
   cdsContaOrcNIVEL.AsInteger := vNivelAux;
   vIDAux := cdsContaOrcID.AsInteger;
   cdsContaOrc.Post;
+  if cdsContaOrc_Prev.Active then
+    cdsContaOrc_Prev.ApplyUpdates(0);
+
   if cdsContaOrc.ChangeCount > 0 then
     cdsContaOrc.ApplyUpdates(0);
 
@@ -324,6 +358,7 @@ var
 begin
   ctCommand  := sdsContaOrc.CommandText;
   ctConsulta := sdsConsulta.CommandText;
+  ctContaOrc_Prev := sdsContaOrc_Prev.CommandText;
   cdsPessoa.Open;
   qParametros.Close;
   qParametros.Open;
@@ -457,6 +492,43 @@ begin
   cdsContaOrc_Itens.Insert;
   cdsContaOrc_ItensID.AsInteger   := cdsContaOrcID.AsInteger;
   cdsContaOrc_ItensITEM.AsInteger := vItemAux + 1;
+end;
+
+procedure TdmCadContaOrc.cdsContaOrc_PrevBeforePost(DataSet: TDataSet);
+begin
+  if (cdsContaOrc_PrevTIPO.AsString = 'A') or (cdsContaOrc_PrevTIPO.AsString = 'a') then
+    cdsContaOrc_PrevTIPO.AsString := 'A'
+  else
+    cdsContaOrc_PrevTIPO.AsString := 'M';
+end;
+
+function TdmCadContaOrc.fnc_proximo_Item_Prev(ID: Integer): Integer;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 0;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados; //--
+    sds.NoMetadata  := True;
+    sds.GetMetadata := False;
+    sds.CommandText := ' SELECT MAX(ITEM) ITEM FROM CONTA_ORCAMENTO_PREV WHERE ID = :ID ';
+    sds.ParamByName('ID').AsInteger := ID;
+    sds.Open;
+    Result := sds.FieldByName('ITEM').AsInteger;
+  finally
+    FreeAndNil(sds);
+  end;
+end;
+
+procedure TdmCadContaOrc.prc_Abrir_ContaoOrc_Prev(ID, Ano: Integer);
+begin
+  cdsContaOrc_Prev.Close;
+  sdsContaOrc_Prev.CommandText := ctContaOrc_Prev;
+  if Ano > 0 then
+    sdsContaOrc_Prev.CommandText := sdsContaOrc_Prev.CommandText + ' AND ANO_REF = ' + IntToStr(Ano);
+  sdsContaOrc_Prev.ParamByName('ID').AsInteger := ID;
+  cdsContaOrc_Prev.Open;
 end;
 
 end.
