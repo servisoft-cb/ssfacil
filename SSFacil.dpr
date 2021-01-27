@@ -893,7 +893,8 @@ uses
   uConsPedConsumo in 'uConsPedConsumo.pas' {frmConsPedConsumo},
   UConsReceberContas in 'UConsReceberContas.pas' {frmConsReceberContas},
   UCadContaOrc_Prev in 'UCadContaOrc_Prev.pas' {frmCadContaOrc_Prev},
-  UInformeEndereco in 'UInformeEndereco.pas' {frmInformeEndereco};
+  UInformeEndereco in 'UInformeEndereco.pas' {frmInformeEndereco},
+  UEtiqueta_Zebra in 'UEtiqueta_Zebra.pas';
 
 {$R *.res}
 
