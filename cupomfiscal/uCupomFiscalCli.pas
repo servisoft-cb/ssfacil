@@ -20,6 +20,8 @@ type
     brCancelar: TNxButton;
     NxButton1: TNxButton;
     ComboBox1: TComboBox;
+    Label2: TLabel;
+    Edit2: TEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
@@ -159,7 +161,7 @@ procedure TfCupomFiscalCli.BitBtn4Click(Sender: TObject);
 var
   sds: TSQLDataSet;
 begin
-  if trim(Edit1.Text) = '' then
+  if (trim(Edit1.Text) = '') and (trim(Edit2.Text) = '')  then
   begin
     ValueListEditor1.Strings.Clear;
     Exit;
@@ -172,13 +174,17 @@ begin
     sds.SQLConnection := dmDatabase.scoDados;
     sds.NoMetadata    := True;
     sds.GetMetadata   := False;
-    sds.CommandText   := 'SELECT CODIGO, NOME FROM PESSOA ';
-    sds.CommandText   := sds.CommandText + 'WHERE NOME LIKE ''%' + Edit1.Text + '%'' ';
+    sds.CommandText   := 'SELECT CODIGO, NOME, FANTASIA FROM PESSOA WHERE 1 = 1';
+    if (trim(Edit1.Text) <> '') then
+      sds.CommandText := sds.CommandText + 'AND NOME LIKE ''%' + Edit1.Text + '%''';
+    if (trim(Edit2.Text) <> '') then
+      sds.CommandText := sds.CommandText + 'AND FANTASIA LIKE ''%' + Edit2.Text + '%''';
     sds.CommandText   := sds.CommandText + 'ORDER BY NOME';
     sds.Open;
     while not sds.Eof do
     begin
-      ValueListEditor1.InsertRow(sds.FieldByName('CODIGO').AsString,sds.FieldByName('NOME').AsString,True);
+      ValueListEditor1.InsertRow(sds.FieldByName('CODIGO').AsString,sds.FieldByName('NOME').AsString + ' / ' +
+                                                                    sds.FieldByName('FANTASIA').AsString,True);
       sds.Next;
     end;
   finally

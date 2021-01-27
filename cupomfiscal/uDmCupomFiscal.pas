@@ -2387,6 +2387,17 @@ begin
          vLinha := vLinha + cAvanco;
          Printer.Canvas.Font.Style := []; //Declarar Graphics
 
+         if Copy(vVlrDesc,1,1) = '-' then
+         begin
+           Delete(vVlrDesc,1,1);
+           vTexto := 'JUROS: ' + vVlrDesc;
+           for i := 1 to 41 - Length(vTexto) do
+             vTexto := ' ' + vTexto;
+           Printer.Canvas.TextOut(0,vLinha,vTexto);
+           vLinha := vLinha + cAvanco;
+
+         end
+         else
          if vVlrDesc <> 'R$ 0,00' then
          begin
            vTexto := 'DESCONTO: ' + vVlrDesc;
@@ -3281,12 +3292,14 @@ begin
     cdsCupom_Itens.Next;
   end;
   if vModelo = 'modCanvas' then
+  begin
     ImpNaoFiscalC('Pagamento','',cdsCupomFiscalID_TIPOCOBRANCA.AsString,
                  FormatFloat('R$ 0.00',cdsCupomFiscalVLR_RECEBIDO.AsCurrency),
                  FormatFloat('R$ 0.00',cdsCupomFiscalVLR_TROCO.AsCurrency),
                  FormatFloat('R$ 0.00',cdsCupomFiscalVLR_PRODUTOS.AsCurrency),
                  FormatFloat('R$ 0.00',cdsCupomFiscalVLR_PRODUTOS.AsCurrency -
-                                       cdsCupomFiscalVLR_TOTAL.AsCurrency))
+                                       cdsCupomFiscalVLR_TOTAL.AsCurrency));
+  end
   else
     ImpNaoFiscalW('Pagamento','',cdsCupomFiscalID_TIPOCOBRANCA.AsString,
                   FormatFloat('R$ 0.00',cdsCupomFiscalVLR_RECEBIDO.AsCurrency),
