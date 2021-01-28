@@ -134,9 +134,9 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
       Caption = 'Etiquetas'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 53
+        Top = 46
         Width = 1178
-        Height = 488
+        Height = 495
         Align = alClient
         Ctl3D = False
         DataSource = DMEtiqueta.dsmEtiqueta_Nav
@@ -162,6 +162,7 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
+        OnGetCellParams = SMDBGrid1GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 11
@@ -276,39 +277,85 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
         Left = 0
         Top = 0
         Width = 1178
-        Height = 53
+        Height = 46
         Align = alTop
         Color = 13619151
         TabOrder = 1
         object Label1: TLabel
           Left = 19
-          Top = 24
-          Width = 160
-          Height = 13
+          Top = 23
+          Width = 216
+          Height = 14
           Caption = 'Informe a Quantidade por Pacote:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
+        end
+        object Shape1: TShape
+          Left = 745
+          Top = 7
+          Width = 26
+          Height = 17
+          Brush.Color = clYellow
+        end
+        object Label7: TLabel
+          Left = 773
+          Top = 10
+          Width = 199
+          Height = 13
+          Caption = 'N'#227'o enviado ao WebService da Beira Rio'
+        end
+        object Label8: TLabel
+          Left = 773
+          Top = 26
+          Width = 39
+          Height = 13
+          Caption = 'Enviado'
+        end
+        object Shape2: TShape
+          Left = 745
+          Top = 23
+          Width = 26
+          Height = 17
+          Brush.Color = clLime
         end
         object CurrencyEdit1: TCurrencyEdit
-          Left = 182
+          Left = 236
           Top = 14
           Width = 87
           Height = 21
           AutoSize = False
           DecimalPlaces = 0
           DisplayFormat = '0'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clWindowText
+          Font.Height = -12
+          Font.Name = 'Verdana'
+          Font.Style = []
+          ParentFont = False
           TabOrder = 0
         end
         object btnGerar: TNxButton
-          Left = 280
-          Top = 11
+          Left = 325
+          Top = 10
           Width = 101
           Height = 26
           Caption = 'Gerar'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          ParentFont = False
           TabOrder = 1
           OnClick = btnGerarClick
         end
         object btnImprimirA4: TNxButton
-          Left = 563
-          Top = 11
+          Left = 1057
+          Top = 3
           Width = 101
           Height = 26
           Caption = 'Imprimir A4'
@@ -317,22 +364,58 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
           OnClick = btnImprimirA4Click
         end
         object CheckBox1: TCheckBox
-          Left = 743
-          Top = 21
-          Width = 97
+          Left = 1025
+          Top = 26
+          Width = 57
           Height = 17
           Caption = 'Teste'
           TabOrder = 3
           Visible = False
         end
         object btnImprimir: TNxButton
-          Left = 386
-          Top = 10
+          Left = 425
+          Top = 11
           Width = 101
           Height = 26
           Caption = 'Imprimir'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          ParentFont = False
           TabOrder = 4
           OnClick = btnImprimirClick
+        end
+        object btnReenvio: TNxButton
+          Left = 526
+          Top = 11
+          Width = 101
+          Height = 26
+          Caption = 'Reenvio'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 5
+          OnClick = btnReenvioClick
+        end
+        object btnExcluir: TNxButton
+          Left = 627
+          Top = 11
+          Width = 102
+          Height = 26
+          Caption = 'Excluir Tabela'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -11
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          ParentFont = False
+          TabOrder = 6
+          OnClick = btnExcluirClick
         end
       end
     end

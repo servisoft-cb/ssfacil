@@ -3,13 +3,13 @@ unit UEtiqueta_Zebra;
 interface
 
 Uses
-  UDMEtiqueta, SysUtils, Messages, Dialogs, uUtilPadrao;
+  UDMEtiqueta, SysUtils, Messages, Dialogs, uUtilPadrao, SqlExpr;
 
   procedure prc_Etiqueta_ZebraZT410(fDMEtiqueta: TDMEtiqueta); //Etiqueta para imprimir o RFID para a Beira Rio  tamanho  10cm x 10cm
 
 implementation
 
-uses DB, MaskUtils;
+uses DB, MaskUtils, DmdDatabase;
 
 procedure prc_Etiqueta_ZebraZT410(fDMEtiqueta: TDMEtiqueta);
 var
@@ -82,10 +82,16 @@ begin
     vNome_Mat[3] := copy(fDMEtiqueta.mEtiqueta_NavNome_Produto.AsString,61,30);
     vNome_Mat[4] := copy(fDMEtiqueta.mEtiqueta_NavNome_Produto.AsString,91,30);
     Imprimir;
+
+    fDMEtiqueta.mEtiqueta_Nav.Edit;
+    fDMEtiqueta.mEtiqueta_NavEnviado.AsString := fDMEtiqueta.fnc_Verifica_Enviado_BeiraRio(fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsLargeInt,fDMEtiqueta.mEtiqueta_NavFilial.AsInteger);
+    fDMEtiqueta.mEtiqueta_Nav.Post;
+
     fDMEtiqueta.mEtiqueta_Nav.Next;
   end;
 
   CloseFile(F);
 end;
+
 
 end.

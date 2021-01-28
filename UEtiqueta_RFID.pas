@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, NxCollection, ExtCtrls, StdCtrls, Mask, ToolEdit, CurrEdit, UDMEtiqueta,
-  Grids, DBGrids, SMDBGrid, SqlExpr, UDMRFID, RzTabs, RzPanel, DBCtrls;
+  Grids, DBGrids, SMDBGrid, SqlExpr, UDMRFID, RzTabs, RzPanel, DBCtrls, DB;
 
 type
   TfrmEtiqueta_RFID = class(TForm)
@@ -31,6 +31,12 @@ type
     Label6: TLabel;
     DBEdit3: TDBEdit;
     btnImprimir: TNxButton;
+    Shape1: TShape;
+    Label7: TLabel;
+    Label8: TLabel;
+    Shape2: TShape;
+    btnReenvio: TNxButton;
+    btnExcluir: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
@@ -40,20 +46,29 @@ type
     procedure btnAlterar_EtiqClick(Sender: TObject);
     procedure btnConfirmar_EtiqClick(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
+    procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
+    procedure btnReenvioClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
     fDMEtiqueta: TDMEtiqueta;
     fDMRFID: TDMRFID;
     vSeq: Integer;
+    vImprimir : Boolean;
 
     procedure prc_Gravar_RFID;
     procedure prc_Grava_Seq_Aux;
     procedure prc_Imprimir;
+    procedure prc_Envio_RFID;
+
     function fnc_Ultima_Seq : Integer;
+
 
   public
     { Public declarations }
-    vID_Nota : Integer;
+    vID_Nota_Local : Integer;
+    
   end;
 
 var
@@ -61,7 +76,7 @@ var
 
 implementation
 
-uses DmdDatabase, DB, rsDBUtils, uUtilPadrao, UEtiqueta_Zebra;
+uses DmdDatabase, rsDBUtils, uUtilPadrao, UEtiqueta_Zebra;
 
 {$R *.dfm}
 
@@ -78,14 +93,15 @@ begin
   fDMEtiqueta := TDMEtiqueta.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMEtiqueta);
   fDMRFID := TDMRFID.Create(Self);
-  
+
+  fDMEtiqueta.prc_Le_NotaFiscal_RFID(vID_Nota_Local);
 
   //SMDBGrid1.ExOptions := [eoCheckBoxSelect,eoENTERlikeTAB,eoKeepSelection,eoStandardPopup,eoBLOBEditor,eoTitleWordWrap];
 end;
 
 procedure TfrmEtiqueta_RFID.btnGerarClick(Sender: TObject);
 begin
-  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',vID_Nota,CurrencyEdit1.AsInteger,True);
+  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',vID_Nota_Local,CurrencyEdit1.AsInteger,True);
 end;
 
 procedure TfrmEtiqueta_RFID.btnImprimirA4Click(Sender: TObject);
@@ -132,7 +148,7 @@ begin
       if (Assigned(FRoutine)) then
       begin
         try
-          FRoutine(IntToStr(vID_Nota));
+          FRoutine(IntToStr(vID_Nota_Local));
           vImp := true;
         except
           on E : Exception do
@@ -264,15 +280,8 @@ begin
 end;
 
 procedure TfrmEtiqueta_RFID.btnImprimirClick(Sender: TObject);
-const
-  C_Dll : string = 'EnviaRFID.dll';
-var
-  vArq: String;
-  FHandle: THandle;
-  FRoutine: function (const pID: WideString): Boolean;
-  vImp: Boolean;
-  Form: TForm;
 begin
+  vImprimir := False;
   vSeq := fnc_Ultima_Seq;
   fDMEtiqueta.mEtiqueta_Nav.IndexFieldNames := 'ID_Nota;Item_Nota';
   fDMEtiqueta.mEtiqueta_Nav.First;
@@ -288,35 +297,75 @@ begin
     fDMEtiqueta.mEtiqueta_Nav.Next;
   end;
   if (CheckBox1.Checked) and (CheckBox1.Visible) then
-    vImp := True
+    vImprimir := True
   else
-  begin
-    Form := TForm.Create(Application);
-    uUtilPadrao.prc_Form_Aguarde(Form);
-
-    FHandle := LoadLibrary(PAnsiChar(C_Dll));
-    try
-      vImp := False;
-      FRoutine := GetProcAddress(FHandle, 'EnviarRFID');
-      if (Assigned(FRoutine)) then
-      begin
-        try
-          FRoutine(IntToStr(vID_Nota));
-          vImp := true;
-        except
-          on E : Exception do
-            FreeLibrary(FHandle);
-        end;
-      end
-      else
-        raise Exception.Create('Dll não encontrada!');
-    finally
-      FreeLibrary(FHandle);
-      FreeAndNil(Form);
-    end;
-  end;
-  if vImp then
+    prc_Envio_RFID;
+  if vImprimir then
     uEtiqueta_Zebra.prc_Etiqueta_ZebraZT410(fDMEtiqueta);
+end;
+
+procedure TfrmEtiqueta_RFID.SMDBGrid1GetCellParams(Sender: TObject;
+  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+begin
+  if fDMEtiqueta.mEtiqueta_NavEnviado.AsString = 'N' then
+    Background := clYellow
+  else
+  if fDMEtiqueta.mEtiqueta_NavEnviado.AsString = 'S' then
+    Background := clLime;
+end;
+
+procedure TfrmEtiqueta_RFID.prc_Envio_RFID;
+const
+  C_Dll : string = 'EnviaRFID.dll';
+var
+  FHandle: THandle;
+  FRoutine: function (const pID: WideString): Boolean;
+  Form: TForm;
+begin
+  vImprimir := False;
+  
+  Form := TForm.Create(Application);
+  uUtilPadrao.prc_Form_Aguarde(Form);
+
+  FHandle := LoadLibrary(PAnsiChar(C_Dll));
+  try
+    FRoutine := GetProcAddress(FHandle, 'EnviarRFID');
+    if (Assigned(FRoutine)) then
+    begin
+      try
+        FRoutine(IntToStr(vID_Nota_Local));
+        vImprimir := True;
+      except
+        on E : Exception do
+          FreeLibrary(FHandle);
+      end;
+    end
+    else
+      raise Exception.Create('Dll não encontrada!');
+  finally
+    FreeLibrary(FHandle);
+    FreeAndNil(Form);
+  end;
+end;
+
+procedure TfrmEtiqueta_RFID.btnReenvioClick(Sender: TObject);
+begin
+  prc_Envio_RFID;
+  fDMEtiqueta.mEtiqueta_Nav.First;
+  while not fDMEtiqueta.mEtiqueta_Nav.Eof do
+  begin
+    fDMEtiqueta.mEtiqueta_Nav.Edit;
+    fDMEtiqueta.mEtiqueta_NavEnviado.AsString := fDMEtiqueta.fnc_Verifica_Enviado_BeiraRio(fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsLargeInt,fDMEtiqueta.mEtiqueta_NavFilial.AsInteger);
+    fDMEtiqueta.mEtiqueta_Nav.Post;
+
+    fDMEtiqueta.mEtiqueta_Nav.Next;
+  end;
+
+end;
+
+procedure TfrmEtiqueta_RFID.btnExcluirClick(Sender: TObject);
+begin
+  fDMEtiqueta.mEtiqueta_Nav.EmptyDataSet;
 end;
 
 end.
