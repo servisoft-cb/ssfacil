@@ -182,7 +182,8 @@ var
 
 implementation
 
-uses DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, Variants, URelFinanceiro_Conta, URelFinanceiro_FPgto, DateUtils, USel_ContaOrc;
+uses DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, Variants, URelFinanceiro_Conta, URelFinanceiro_FPgto, DateUtils, USel_ContaOrc,
+  UConsSaldo_Conta_Data;
 
 {$R *.dfm}
 
@@ -609,6 +610,7 @@ procedure TfrmCadFinanceiro.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 var
   ffrmConsSaldo_Conta: TfrmConsSaldo_Conta;
+  ffrmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data;
 begin
   if (Key = Vk_F5) then
   begin
@@ -618,7 +620,14 @@ begin
   end
   else
   if (Shift = [ssCtrl]) and (Key = 82) then
-    ckExcluirVinculada.Visible := not(ckExcluirVinculada.Visible);
+    ckExcluirVinculada.Visible := not(ckExcluirVinculada.Visible)
+  else
+  if (Key = Vk_F6) then
+  begin
+    ffrmConsSaldo_Conta_Data := TfrmConsSaldo_Conta_Data.Create(self);
+    ffrmConsSaldo_Conta_Data.ShowModal;
+    FreeAndNil(ffrmConsSaldo_Conta_Data);
+  end;
 end;
 
 procedure TfrmCadFinanceiro.RxDBLookupCombo6Enter(Sender: TObject);

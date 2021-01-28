@@ -894,7 +894,8 @@ uses
   UConsReceberContas in 'UConsReceberContas.pas' {frmConsReceberContas},
   UCadContaOrc_Prev in 'UCadContaOrc_Prev.pas' {frmCadContaOrc_Prev},
   UInformeEndereco in 'UInformeEndereco.pas' {frmInformeEndereco},
-  UEtiqueta_Zebra in 'UEtiqueta_Zebra.pas';
+  UEtiqueta_Zebra in 'UEtiqueta_Zebra.pas',
+  UConsSaldo_Conta_Data in 'UConsSaldo_Conta_Data.pas' {frmConsSaldo_Conta_Data};
 
 {$R *.res}
 

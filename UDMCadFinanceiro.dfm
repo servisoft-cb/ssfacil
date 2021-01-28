@@ -2739,4 +2739,74 @@ object DMCadFinanceiro: TDMCadFinanceiro
     Left = 705
     Top = 515
   end
+  object sdsSaldo_Data: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT CT.ID, CT.NOME NOME_CONTA, SUM(F.vlr_entrada) VLR_ENTRADA' +
+      ', SUM(F.vlr_saida) VLR_SAIDA'#13#10'FROM CONTAS CT'#13#10'LEFT JOIN FINANCEI' +
+      'RO F'#13#10'ON CT.ID = F.id_conta'#13#10'WHERE coalesce(CT.inativo,'#39'N'#39') = '#39'N' +
+      #39#13#10'GROUP BY CT.ID, CT.NOME'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 459
+    Top = 378
+  end
+  object dspSaldo_Data: TDataSetProvider
+    DataSet = sdsSaldo_Data
+    Left = 492
+    Top = 379
+  end
+  object cdsSaldo_Data: TClientDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    Params = <>
+    ProviderName = 'dspSaldo_Data'
+    OnCalcFields = cdsSaldo_DataCalcFields
+    Left = 522
+    Top = 376
+    object cdsSaldo_DataID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsSaldo_DataNOME_CONTA: TStringField
+      FieldName = 'NOME_CONTA'
+      Size = 30
+    end
+    object cdsSaldo_DataVLR_ENTRADA: TFloatField
+      FieldName = 'VLR_ENTRADA'
+      DisplayFormat = '###,###,###,##0.00'
+    end
+    object cdsSaldo_DataVLR_SAIDA: TFloatField
+      FieldName = 'VLR_SAIDA'
+      DisplayFormat = '###,###,###,##0.00'
+    end
+    object cdsSaldo_DataclSaldo: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'clSaldo'
+      DisplayFormat = '###,###,###,##0.00'
+      Calculated = True
+    end
+    object cdsSaldo_DataagTotal_Entrada: TAggregateField
+      FieldName = 'agTotal_Entrada'
+      Active = True
+      Expression = 'SUM(VLR_ENTRADA)'
+    end
+    object cdsSaldo_DataagTotal_Saida: TAggregateField
+      FieldName = 'agTotal_Saida'
+      Active = True
+      Expression = 'SUM(VLR_SAIDA)'
+    end
+    object cdsSaldo_DataagSaldo: TAggregateField
+      FieldName = 'agSaldo'
+      Active = True
+      Expression = 'SUM(VLR_ENTRADA - VLR_SAIDA)'
+    end
+  end
+  object dsSaldo_Data: TDataSource
+    DataSet = cdsSaldo_Data
+    Left = 556
+    Top = 379
+  end
 end

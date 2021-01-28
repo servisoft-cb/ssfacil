@@ -1,8 +1,8 @@
 object frmConsSaldo_Conta: TfrmConsSaldo_Conta
   Left = 221
   Top = 155
-  Width = 726
-  Height = 400
+  Width = 758
+  Height = 457
   BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'Consulta Saldo das Contas'
   Color = clBtnFace
@@ -21,17 +21,17 @@ object frmConsSaldo_Conta: TfrmConsSaldo_Conta
   TextHeight = 13
   object Panel2: TPanel
     Left = 0
-    Top = 33
-    Width = 710
-    Height = 329
+    Top = 37
+    Width = 750
+    Height = 389
     Align = alClient
     Color = clMoneyGreen
     TabOrder = 0
     object SMDBGrid1: TSMDBGrid
       Left = 1
       Top = 1
-      Width = 708
-      Height = 327
+      Width = 748
+      Height = 387
       Align = alClient
       Ctl3D = False
       DataSource = DMCadFinanceiro.dsSaldo
@@ -82,20 +82,23 @@ object frmConsSaldo_Conta: TfrmConsSaldo_Conta
         item
           Expanded = False
           FieldName = 'VLR_ENTRADA'
+          Title.Alignment = taCenter
           Title.Color = 16763025
-          Width = 121
+          Width = 131
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VLR_SAIDA'
+          Title.Alignment = taCenter
           Title.Color = 16763025
-          Width = 107
+          Width = 120
           Visible = True
         end
         item
           Expanded = False
           FieldName = 'VLR_SALDO'
+          Title.Alignment = taCenter
           Title.Color = 16763025
           Width = 127
           Visible = True
@@ -105,14 +108,14 @@ object frmConsSaldo_Conta: TfrmConsSaldo_Conta
   object Panel4: TPanel
     Left = 0
     Top = 0
-    Width = 710
-    Height = 33
+    Width = 750
+    Height = 37
     Align = alTop
     Color = clMoneyGreen
     TabOrder = 1
     object btnConsultar: TNxButton
-      Left = 3
-      Top = 3
+      Left = 5
+      Top = 4
       Width = 176
       Height = 30
       Caption = 'Efetuar Pesquisa'
