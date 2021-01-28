@@ -5908,7 +5908,7 @@ begin
     exit;
   end;
   frmEtiqueta_RFID := TfrmEtiqueta_RFID.Create(self);
-  frmEtiqueta_RFID.vID_Nota := fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger;
+  frmEtiqueta_RFID.vID_Nota_Local := fDMCadNotaFiscal.cdsNotaFiscal_ConsultaID.AsInteger;
   frmEtiqueta_RFID.ShowModal;
   FreeAndNil(frmEtiqueta_RFID);
 end;

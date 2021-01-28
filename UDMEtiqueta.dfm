@@ -135,15 +135,21 @@ object DMEtiqueta: TDMEtiqueta
         Name = 'Selecionado'
         DataType = ftString
         Size = 1
+      end
+      item
+        Name = 'Enviado'
+        DataType = ftString
+        Size = 1
       end>
     IndexDefs = <>
     IndexFieldNames = 'Nome_Etiqueta;Tamanho'
     Params = <>
     StoreDefs = True
-    Left = 150
+    OnNewRecord = mEtiqueta_NavNewRecord
+    Left = 151
     Top = 40
     Data = {
-      FD0200009619E0BD01000000180000001B000000000003000000FD020C4E6F6D
+      190300009619E0BD01000000180000001C00000000000300000019030C4E6F6D
       655F456D70726573610100490000000100055749445448020002000F0004466F
       6E650100490000000100055749445448020002000C000D4E6F6D655F45746971
       7565746101004900000001000557494454480200020019000754616D616E686F
@@ -166,8 +172,8 @@ object DMEtiqueta: TDMEtiqueta
       656D5F4E6F746104000100000000000646696C69616C0400010000000000084E
       554D5F5246494401004900000001000557494454480200020018000F46616E74
       617369615F46696C69616C01004900000001000557494454480200020019000B
-      53656C6563696F6E61646F010049000000010005574944544802000200010000
-      00}
+      53656C6563696F6E61646F010049000000010005574944544802000200010007
+      456E766961646F01004900000001000557494454480200020001000000}
     object mEtiqueta_NavNome_Empresa: TStringField
       FieldName = 'Nome_Empresa'
       Size = 15
@@ -263,6 +269,10 @@ object DMEtiqueta: TDMEtiqueta
     end
     object mEtiqueta_NavSelecionado: TStringField
       FieldName = 'Selecionado'
+      Size = 1
+    end
+    object mEtiqueta_NavEnviado: TStringField
+      FieldName = 'Enviado'
       Size = 1
     end
   end
@@ -1156,5 +1166,79 @@ object DMEtiqueta: TDMEtiqueta
     DataSet = cdsParametros_Fin
     Left = 239
     Top = 200
+  end
+  object sdsConsNotaFiscal_RFID: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select R.*'#13#10'from NOTAFISCAL_RFID R'#13#10'where R.ID = :ID and'#13#10'      ' +
+      'R.ITEM_NOTA = :ITEM_NOTA'#13#10#13#10'  '
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ITEM_NOTA'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 231
+    Top = 339
+  end
+  object dspConsNotaFiscal_RFID: TDataSetProvider
+    DataSet = sdsConsNotaFiscal_RFID
+    Left = 270
+    Top = 339
+  end
+  object cdsConsNotaFiscal_RFID: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspConsNotaFiscal_RFID'
+    Left = 312
+    Top = 339
+    object cdsConsNotaFiscal_RFIDID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsConsNotaFiscal_RFIDITEM_NOTA: TIntegerField
+      FieldName = 'ITEM_NOTA'
+      Required = True
+    end
+    object cdsConsNotaFiscal_RFIDITEM_RFID: TIntegerField
+      FieldName = 'ITEM_RFID'
+      Required = True
+    end
+    object cdsConsNotaFiscal_RFIDFILIAL: TIntegerField
+      FieldName = 'FILIAL'
+    end
+    object cdsConsNotaFiscal_RFIDCNPJ_FILIAL: TStringField
+      FieldName = 'CNPJ_FILIAL'
+      Size = 18
+    end
+    object cdsConsNotaFiscal_RFIDSEQUENCIA: TFMTBCDField
+      FieldName = 'SEQUENCIA'
+      Precision = 15
+      Size = 0
+    end
+    object cdsConsNotaFiscal_RFIDQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsConsNotaFiscal_RFIDUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsConsNotaFiscal_RFIDNUM_RFID: TStringField
+      FieldName = 'NUM_RFID'
+      Size = 24
+    end
+    object cdsConsNotaFiscal_RFIDENVIADO: TStringField
+      FieldName = 'ENVIADO'
+      FixedChar = True
+      Size = 1
+    end
   end
 end
