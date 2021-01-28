@@ -279,8 +279,11 @@ begin
   while not fDMEtiqueta.mEtiqueta_Nav.Eof do
   begin
     begin
-      prc_Grava_Seq_Aux;
-      prc_Gravar_RFID;
+      if fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsInteger <= 0 then
+      begin
+        prc_Grava_Seq_Aux;
+        prc_Gravar_RFID;
+      end;
     end;
     fDMEtiqueta.mEtiqueta_Nav.Next;
   end;

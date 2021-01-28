@@ -23,10 +23,10 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
     Top = 0
     Width = 1182
     Height = 564
-    ActivePage = TS_Configuracao
+    ActivePage = TS_Etiquetas
     ActivePageDefault = TS_Etiquetas
     Align = alClient
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Configuracao: TRzTabSheet

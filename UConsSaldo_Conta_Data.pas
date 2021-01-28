@@ -5,18 +5,18 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, UDMCadFinanceiro,
   StdCtrls, Buttons, Mask, RxDBComb, CurrEdit, Grids, SMDBGrid, DBGrids,
-  NxCollection, ToolEdit, DateUtils;
+  NxCollection, ToolEdit, DateUtils, SqlExpr;
 
 type
   TfrmConsSaldo_Conta_Data = class(TForm)
     Panel2: TPanel;
-    SMDBGrid1: TSMDBGrid;
     NxPanel1: TNxPanel;
     btnConsultar: TNxButton;
     DateEdit1: TDateEdit;
     Label1: TLabel;
     DateEdit2: TDateEdit;
     Label2: TLabel;
+    SMDBGrid1: TSMDBGrid;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
@@ -27,6 +27,7 @@ type
     fDMCadFinanceiro : TDMCadFinanceiro;
 
     procedure prc_Consultar;
+    procedure prc_Le_Conta;
 
   public
     { Public declarations }
@@ -74,29 +75,42 @@ var
   i : Integer;
 begin
   prc_Consultar;
-  fDMCadFinanceiro.cdsSaldo_Data.IndexFieldNames := 'NOME_CONTA';
+  prc_Le_Conta;
+  fDMCadFinanceiro.mSaldo_Conta.IndexFieldNames := 'Nome_Conta';
   for i := 1 to SMDBGrid1.ColCount - 2 do
   begin
-    if (SMDBGrid1.Columns[i].FieldName = 'VLR_ENTRADA') then
+    if (UpperCase(SMDBGrid1.Columns[i].FieldName) = 'VLR_ENTRADA') then
     begin
-      if fDMCadFinanceiro.cdsSaldo_DataagTotal_Entrada.IsNull then
+      {if fDMCadFinanceiro.cdsSaldo_DataagTotal_Entrada.IsNull then
         SMDBGrid1.Columns[i].FooterValue := 0
       else
-        SMDBGrid1.Columns[i].FooterValue := FormatFloat('###,###,###,##0.00',fDMCadFinanceiro.cdsSaldo_DataagTotal_Entrada.Value);
+        SMDBGrid1.Columns[i].FooterValue := FormatFloat('###,###,###,##0.00',fDMCadFinanceiro.cdsSaldo_DataagTotal_Entrada.Value);}
+      if trim(fDMCadFinanceiro.mSaldo_ContaagTotal_Entrada.AsString) = '' then
+        SMDBGrid1.Columns[i].FooterValue := 0
+      else
+        SMDBGrid1.Columns[i].FooterValue := FormatFloat('###,###,###,##0.00',fDMCadFinanceiro.mSaldo_ContaagTotal_Entrada.Value);
+
     end;
-    if (SMDBGrid1.Columns[i].FieldName = 'VLR_SAIDA') then
+    if (UpperCase(SMDBGrid1.Columns[i].FieldName) = 'VLR_SAIDA') then
     begin
-      if fDMCadFinanceiro.cdsSaldo_DataagTotal_Saida.IsNull then
+      if trim(fDMCadFinanceiro.mSaldo_ContaagTotal_Saida.AsString) = '' then
         SMDBGrid1.Columns[i].FooterValue := 0
       else
-        SMDBGrid1.Columns[i].FooterValue := FormatFloat('###,###,###,##0.00',fDMCadFinanceiro.cdsSaldo_DataagTotal_Saida.Value);
+        SMDBGrid1.Columns[i].FooterValue := FormatFloat('###,###,###,##0.00',fDMCadFinanceiro.mSaldo_ContaagTotal_Saida.Value);
     end;
-    if (SMDBGrid1.Columns[i].FieldName = 'clSaldo') then
+    if (UpperCase(SMDBGrid1.Columns[i].FieldName) = 'VLR_SALDO') then
     begin
-      if fDMCadFinanceiro.cdsSaldo_DataagSaldo.IsNull then
+      if trim(fDMCadFinanceiro.mSaldo_ContaagSaldo.AsString) = '' then
         SMDBGrid1.Columns[i].FooterValue := 0
       else
-        SMDBGrid1.Columns[i].FooterValue := FormatFloat('###,###,###,##0.00',fDMCadFinanceiro.cdsSaldo_DataagSaldo.Value);
+        SMDBGrid1.Columns[i].FooterValue := FormatFloat('###,###,###,##0.00',fDMCadFinanceiro.mSaldo_ContaagSaldo.Value);
+    end;
+    if (UpperCase(SMDBGrid1.Columns[i].FieldName) = 'VLR_CHEQUE_ABERTO') then
+    begin
+      if trim(fDMCadFinanceiro.mSaldo_ContaagTotal_Cheque.AsString) = '' then
+        SMDBGrid1.Columns[i].FooterValue := 0
+      else
+        SMDBGrid1.Columns[i].FooterValue := FormatFloat('###,###,###,##0.00',fDMCadFinanceiro.mSaldo_ContaagTotal_Cheque.Value);
     end;
   end;
   SMDBGrid1.Refresh;
@@ -120,6 +134,53 @@ begin
     vComandoAux2 := vComandoAux2 + ' AND F.DTMOVIMENTO <= ' + QuotedStr(FormatDateTime('MM/DD/YYYY',DateEdit2.date));
   fDMCadFinanceiro.sdsSaldo_Data.CommandText := vComandoAux2 + vComandoAux;
   fDMCadFinanceiro.cdsSaldo_Data.Open;
+end;
+
+procedure TfrmConsSaldo_Conta_Data.prc_Le_Conta;
+var
+  sds: TSQLDataSet;
+begin
+  fDMCadFinanceiro.mSaldo_Conta.EmptyDataSet;
+  fDMCadFinanceiro.cdsContas.Close;
+  fDMCadFinanceiro.cdsContas.Open;
+  sds  := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata  := True;
+    sds.GetMetadata := False;
+    fDMCadFinanceiro.cdsContas.First;
+    while not fDMCadFinanceiro.cdsContas.Eof do
+    begin
+      fDMCadFinanceiro.mSaldo_Conta.Insert;
+      fDMCadFinanceiro.mSaldo_ContaID_Conta.AsInteger  := fDMCadFinanceiro.cdsContasID.AsInteger;
+      fDMCadFinanceiro.mSaldo_ContaNome_Conta.AsString := fDMCadFinanceiro.cdsContasNOME.AsString;
+      if fDMCadFinanceiro.cdsSaldo_Data.Locate('ID',fDMCadFinanceiro.cdsContasID.AsInteger,[loCaseInsensitive]) then
+      begin
+        fDMCadFinanceiro.mSaldo_ContaVlr_Entrada.AsFloat := fDMCadFinanceiro.cdsSaldo_DataVLR_ENTRADA.AsFloat;
+        fDMCadFinanceiro.mSaldo_ContaVlr_Saida.AsFloat   := fDMCadFinanceiro.cdsSaldo_DataVLR_SAIDA.AsFloat;
+        fDMCadFinanceiro.mSaldo_ContaVlr_Saldo.AsFloat   := fDMCadFinanceiro.cdsSaldo_DataclSaldo.AsFloat;
+      end;
+      sds.Close;
+      sds.CommandText := 'select sum(ch.valor) VLR_CHEQUE from cheque ch WHERE CH.id_conta = ' + IntToStr(fDMCadFinanceiro.cdsContasID.AsInteger)
+                       + ' AND CH.dtcompensado IS NULL ';
+      if DateEdit2.Date > 10 then
+      begin
+        sds.CommandText := sds.CommandText + ' AND CH.dtbom_para <= :DTCHEQUE ';
+        sds.ParamByName('DTCHEQUE').AsDate := DateEdit2.Date;
+      end;
+      sds.Open;
+      fDMCadFinanceiro.mSaldo_ContaVlr_Cheque_Aberto.AsFloat := sds.FieldByName('VLR_CHEQUE').AsFloat;
+      fDMCadFinanceiro.mSaldo_Conta.Post;
+
+      fDMCadFinanceiro.cdsContas.Next;
+    end;
+
+  finally
+    FreeAndNil(sds);
+  end;
+
+
+
 end;
 
 end.

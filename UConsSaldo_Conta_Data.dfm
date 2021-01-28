@@ -1,8 +1,8 @@
 object frmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data
-  Left = 233
-  Top = 163
-  Width = 758
-  Height = 457
+  Left = 361
+  Top = 113
+  Width = 854
+  Height = 521
   BorderIcons = [biSystemMenu, biMaximize]
   Caption = 'Consulta Saldo das Contas Por Data'
   Color = clBtnFace
@@ -22,143 +22,20 @@ object frmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 750
-    Height = 426
+    Width = 846
+    Height = 490
     Align = alClient
     Color = clMoneyGreen
     TabOrder = 0
-    object SMDBGrid1: TSMDBGrid
-      Left = 1
-      Top = 49
-      Width = 748
-      Height = 376
-      Align = alClient
-      Ctl3D = False
-      DataSource = DMCadFinanceiro.dsSaldo_Data
-      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
-      ParentCtl3D = False
-      ReadOnly = True
-      TabOrder = 0
-      TitleFont.Charset = DEFAULT_CHARSET
-      TitleFont.Color = clWindowText
-      TitleFont.Height = -11
-      TitleFont.Name = 'MS Sans Serif'
-      TitleFont.Style = []
-      Flat = True
-      Bands.Strings = (
-        'AA')
-      BandsFont.Charset = DEFAULT_CHARSET
-      BandsFont.Color = clWindowText
-      BandsFont.Height = -11
-      BandsFont.Name = 'MS Sans Serif'
-      BandsFont.Style = []
-      Groupings = <
-        item
-          Expression = 'SUM(VLR_ENTRADA)'
-          Font.Charset = DEFAULT_CHARSET
-          Font.Color = clBtnText
-          Font.Height = -11
-          Font.Name = 'MS Sans Serif'
-          Font.Style = [fsBold]
-          Color = clBtnFace
-        end>
-      GridStyle.Style = gsAquaBlue
-      GridStyle.OddColor = 16774361
-      GridStyle.EvenColor = 16768959
-      TitleHeight.PixelCount = 24
-      FooterColor = 8454016
-      ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoShowFooter, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
-      RegistryKey = 'Software\Scalabium'
-      RegistrySection = 'SMDBGrid'
-      WidthOfIndicator = 11
-      DefaultRowHeight = 16
-      ScrollBars = ssHorizontal
-      ColCount = 6
-      RowCount = 2
-      Columns = <
-        item
-          Expanded = False
-          FieldName = 'ID'
-          Title.Alignment = taCenter
-          Title.Caption = 'ID Conta'
-          Title.Color = 16765864
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -11
-          Title.Font.Name = 'Verdana'
-          Title.Font.Style = []
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'NOME_CONTA'
-          Title.Alignment = taCenter
-          Title.Caption = 'Nome Conta'
-          Title.Color = 16765864
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -11
-          Title.Font.Name = 'Verdana'
-          Title.Font.Style = []
-          Width = 233
-          Visible = True
-        end
-        item
-          Expanded = False
-          FieldName = 'VLR_ENTRADA'
-          Title.Alignment = taCenter
-          Title.Caption = 'Vlr. Entrada'
-          Title.Color = 16765864
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -11
-          Title.Font.Name = 'Verdana'
-          Title.Font.Style = []
-          Width = 131
-          Visible = True
-          FooterValue = 0.000000000000000000
-          FooterType = ftSum
-        end
-        item
-          Expanded = False
-          FieldName = 'VLR_SAIDA'
-          Title.Alignment = taCenter
-          Title.Caption = 'Vlr. Sa'#237'da'
-          Title.Color = 16765864
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -11
-          Title.Font.Name = 'Verdana'
-          Title.Font.Style = []
-          Width = 120
-          Visible = True
-          FooterValue = 0.000000000000000000
-          FooterType = ftSum
-        end
-        item
-          Expanded = False
-          FieldName = 'clSaldo'
-          Title.Alignment = taCenter
-          Title.Caption = 'Saldo'
-          Title.Color = 16765864
-          Title.Font.Charset = DEFAULT_CHARSET
-          Title.Font.Color = clWindowText
-          Title.Font.Height = -11
-          Title.Font.Name = 'Verdana'
-          Title.Font.Style = []
-          Width = 127
-          Visible = True
-        end>
-    end
     object NxPanel1: TNxPanel
       Left = 1
       Top = 1
-      Width = 748
+      Width = 844
       Height = 48
       Align = alTop
       UseDockManager = False
       ParentBackground = False
-      TabOrder = 1
+      TabOrder = 0
       object Label1: TLabel
         Left = 16
         Top = 23
@@ -269,6 +146,99 @@ object frmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data
         ParentCtl3D = False
         TabOrder = 2
       end
+    end
+    object SMDBGrid1: TSMDBGrid
+      Left = 1
+      Top = 49
+      Width = 844
+      Height = 440
+      Align = alClient
+      Ctl3D = False
+      DataSource = DMCadFinanceiro.dsmSaldo_Conta
+      Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgMultiSelect]
+      ParentCtl3D = False
+      ReadOnly = True
+      TabOrder = 1
+      TitleFont.Charset = DEFAULT_CHARSET
+      TitleFont.Color = clWindowText
+      TitleFont.Height = -11
+      TitleFont.Name = 'MS Sans Serif'
+      TitleFont.Style = []
+      Flat = True
+      BandsFont.Charset = DEFAULT_CHARSET
+      BandsFont.Color = clWindowText
+      BandsFont.Height = -11
+      BandsFont.Name = 'MS Sans Serif'
+      BandsFont.Style = []
+      Groupings = <>
+      GridStyle.Style = gsAquaBlue
+      GridStyle.OddColor = 16774361
+      GridStyle.EvenColor = 16768959
+      TitleHeight.PixelCount = 24
+      FooterColor = 13041606
+      ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoShowFooter, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+      RegistryKey = 'Software\Scalabium'
+      RegistrySection = 'SMDBGrid'
+      WidthOfIndicator = 11
+      DefaultRowHeight = 16
+      ScrollBars = ssHorizontal
+      ColCount = 7
+      RowCount = 2
+      Columns = <
+        item
+          Expanded = False
+          FieldName = 'ID_Conta'
+          Title.Alignment = taCenter
+          Title.Caption = 'ID da Conta'
+          Title.Color = 16763025
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Nome_Conta'
+          Title.Alignment = taCenter
+          Title.Caption = 'Nome da Conta'
+          Title.Color = 16763025
+          Width = 233
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Vlr_Entrada'
+          Title.Alignment = taCenter
+          Title.Caption = 'Vlr. Entrada'
+          Title.Color = 16763025
+          Width = 131
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Vlr_Saida'
+          Title.Alignment = taCenter
+          Title.Caption = 'Vlr. Sa'#237'da'
+          Title.Color = 16763025
+          Width = 120
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Vlr_Saldo'
+          Title.Alignment = taCenter
+          Title.Caption = 'Saldo'
+          Title.Color = 16763025
+          Width = 127
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'Vlr_Cheque_Aberto'
+          Title.Alignment = taCenter
+          Title.Caption = 'Cheques em Aberto'
+          Title.Color = 16763025
+          Width = 103
+          Visible = True
+          FooterValue = 0.000000000000000000
+        end>
     end
   end
 end

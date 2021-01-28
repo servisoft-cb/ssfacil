@@ -416,6 +416,11 @@ type
     cdsSaldo_DataagTotal_Entrada: TAggregateField;
     cdsSaldo_DataagTotal_Saida: TAggregateField;
     cdsSaldo_DataagSaldo: TAggregateField;
+    mSaldo_ContaVlr_Cheque_Aberto: TFloatField;
+    mSaldo_ContaagTotal_Entrada: TAggregateField;
+    mSaldo_ContaagTotal_Saida: TAggregateField;
+    mSaldo_ContaagSaldo: TAggregateField;
+    mSaldo_ContaagTotal_Cheque: TAggregateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspFinanceiroUpdateError(Sender: TObject; DataSet: TCustomClientDataSet; E: EUpdateError; UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsFinanceiroBeforePost(DataSet: TDataSet);

@@ -1,10 +1,10 @@
 object frmSel_Titulos: TfrmSel_Titulos
-  Left = 214
+  Left = 172
   Top = 103
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'frmSel_Titulos'
-  ClientHeight = 523
+  ClientHeight = 529
   ClientWidth = 1010
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -117,7 +117,7 @@ object frmSel_Titulos: TfrmSel_Titulos
     Left = 0
     Top = 65
     Width = 1010
-    Height = 441
+    Height = 447
     Align = alClient
     Ctl3D = False
     DataSource = DMCob_Eletronica.dsDuplicata
@@ -149,9 +149,17 @@ object frmSel_Titulos: TfrmSel_Titulos
     WidthOfIndicator = 15
     DefaultRowHeight = 17
     ScrollBars = ssHorizontal
-    ColCount = 13
+    ColCount = 14
     RowCount = 2
     Columns = <
+      item
+        Alignment = taCenter
+        Expanded = False
+        FieldName = 'ID'
+        Title.Alignment = taCenter
+        Title.Color = 12582784
+        Visible = True
+      end
       item
         Alignment = taCenter
         Expanded = False
@@ -263,7 +271,7 @@ object frmSel_Titulos: TfrmSel_Titulos
   end
   object StaticText1: TStaticText
     Left = 0
-    Top = 506
+    Top = 512
     Width = 1010
     Height = 17
     Align = alBottom

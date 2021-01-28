@@ -337,6 +337,10 @@ begin
 
   fDMCadFinanceiro.qCheques.Close;
   fDMCadFinanceiro.qCheques.ParamByName('DATA').AsDate := Date;
+  if trim(RxDBLookupCombo2.Text) <> '' then
+    fDMCadFinanceiro.qCheques.ParamByName('ID_CONTA').AsInteger := RxDBLookupCombo2.KeyValue
+  else
+    fDMCadFinanceiro.qCheques.ParamByName('ID_CONTA').AsInteger := 0;
   fDMCadFinanceiro.qCheques.Open;
   Label21.Caption := FormatFloat('###,###,##0.00',fDMCadFinanceiro.qChequesVLR_VENCIDO.AsFloat);
   lblChequeVencido.Caption := FormatFloat('###,###,##0.00',fDMCadFinanceiro.qChequesVLR_VENCIDO.AsFloat);
