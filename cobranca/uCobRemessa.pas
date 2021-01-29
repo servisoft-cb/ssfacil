@@ -15,7 +15,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, NxCollection, ACBrBase, db, ACBrBoleto,
   ACBrBoletoFCFortesFr, Grids, DBGrids, SMDBGrid, UDMCob_Eletronica, ExtCtrls, StdCtrls, NxEdit, RxLookup, ACBrUtil, Buttons,
-  rsDBUtils, uUtilPadrao, strUtils, UDMRel, ComCtrls, ACBrMail, Mask, ToolEdit, CurrEdit;
+  rsDBUtils, uUtilPadrao, strUtils, UDMRel, ComCtrls, ACBrMail, Mask, ToolEdit, CurrEdit, ACBrBoletoConversao;
 
 type
   TfCobRemessa = class(TForm)
@@ -808,21 +808,28 @@ begin
 
     SeuNumero := fDmCob_Eletronica.cdsDuplicataFILIAL.AsString + '.' + fDmCob_Eletronica.cdsDuplicataID.AsString;
     if fDmCob_Eletronica.cdsContasCONTROLA_EMISSAO_BOLETO.AsString <> 'S' then
-      EmissaoBoleto := '2'
-    else if (trim(fDmCob_Eletronica.cdsDuplicataNOSSONUMERO.AsString) = '') or (fDmCob_Eletronica.cdsDuplicataNOSSONUMERO.IsNull) or
-            (fDmCob_Eletronica.cdsDuplicataEMISSAO_BOLETO.AsString = '') or (fDmCob_Eletronica.cdsDuplicataEMISSAO_BOLETO.IsNull) then
-      EmissaoBoleto := IntToStr(cbImpressao.ItemIndex + 1)
+      ACBrBoleto1.Cedente.ResponEmissao := tbCliEmite
     else
-      EmissaoBoleto := fDmCob_Eletronica.cdsDuplicataEMISSAO_BOLETO.AsString;
+    if (trim(fDmCob_Eletronica.cdsDuplicataNOSSONUMERO.AsString) = '') or (fDmCob_Eletronica.cdsDuplicataNOSSONUMERO.IsNull) or
+            (fDmCob_Eletronica.cdsDuplicataEMISSAO_BOLETO.AsString = '') or (fDmCob_Eletronica.cdsDuplicataEMISSAO_BOLETO.IsNull) then
+      ACBrBoleto1.Cedente.ResponEmissao := tbBancoEmite
+    else
+    if fDmCob_Eletronica.cdsDuplicataEMISSAO_BOLETO.AsString = '2' then
+      ACBrBoleto1.Cedente.ResponEmissao := tbCliEmite
+    else
+    if fDmCob_Eletronica.cdsDuplicataEMISSAO_BOLETO.AsString = '1' then
+      ACBrBoleto1.Cedente.ResponEmissao := tbBancoEmite;
+
     ValorDocumento := fDmCob_Eletronica.cdsDuplicataVLR_PARCELA.AsFloat;
     if fDmCob_Eletronica.vValor_Com_Juros > 0 then
     begin
-      ValorCorrigido := fDmCob_Eletronica.vValor_Com_Juros;
-      ValorMultaJuros := fDmCob_Eletronica.vValor_Multa_Juros;
+      Mensagem.Add('2ª VIA - VALOR ATUALIZADO');
+      Mensagem.Add('Valor Documento: ' + FormatCurr('R$ #,##0.00', fDmCob_Eletronica.vValor_Com_Juros));
+      Mensagem.Add('Mora/Multa: ' + FormatCurr('R$ #,##0.00',fDmCob_Eletronica.vValor_Multa_Juros));
     end;
     if fDmCob_Eletronica.cdsDuplicataTAXA_BANCO.AsString = 'S' then
     begin
-      ValorTaxaBancaria := fDmCob_Eletronica.cdsContasVLR_TAXA.AsFloat;
+      Mensagem.Add('Taxa Bancária ' + FormatCurr('R$ #,##0.00',fDmCob_Eletronica.cdsContasVLR_TAXA.AsFloat));
       ValorDocumento := ValorDocumento + fDmCob_Eletronica.cdsContasVLR_TAXA.AsFloat;
     end;
 
@@ -892,23 +899,20 @@ begin
     DataDesconto := 0;
     DataAbatimento := 0;
 
+
     if SQLLocate('PESSOA','CODIGO','GERAR_PROTESTO',fDmCob_Eletronica.cdsDuplicataID_PESSOA.AsString) = 'N' then
     begin
       DataProtesto := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime;
-      QtdDiaProtesto := 0;
     end
     else
     begin
       //12/12/2020  Qtd dias de protesto por cliente
       if fDmCob_Eletronica.cdsDuplicataQTD_DIAS_PROTESTO.AsInteger > 0 then
-        QtdDiaProtesto := fDmCob_Eletronica.cdsDuplicataQTD_DIAS_PROTESTO.AsInteger
+        DataProtesto := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime + fDmCob_Eletronica.cdsDuplicataQTD_DIAS_PROTESTO.AsInteger
       else
-        QtdDiaProtesto := fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
-      //DataProtesto := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime + fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
-      //QtdDiaProtesto := fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
-      DataProtesto := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime + QtdDiaProtesto;
+      if fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger > 0 then
+        DataProtesto := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime + fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
     end;
-
     vTipoProtesto := fDmCob_Eletronica.fnc_busca_tipo_instrucao(fDmCob_Eletronica.cdsContasID_BANCO.AsInteger,
                                                                 fDmCob_Eletronica.cdsContasID_INSTRUCAO1.AsInteger,
                                                                 fDmCob_Eletronica.cdsContasID_INSTRUCAO2.AsInteger);
@@ -936,6 +940,9 @@ begin
    // Sicredi - Quando qtde de dias > 4 = dias úteis senão dias corridos
 
     PercentualMulta := fDmCob_Eletronica.cdsContasPERC_MULTA.AsCurrency;
+    if (PercentualMulta > 0) then
+      DataMulta := IncDay(fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime,1);
+
     Mensagem.Text := fDmCob_Eletronica.cdsContasMENSAGEM_FIXA.AsString;
 
     fDmCob_Eletronica.cdsCob_Tipo_Cadastro.Close;
@@ -949,7 +956,7 @@ begin
       if ACBrBoleto1.Banco.Numero = 33 then
         Instrucao1 := trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString)
       else
-        Instrucao1 := padL(trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString), 2, '0');
+        Instrucao1 := PadLeft(trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString), 2, '0');
     end;
     if fDmCob_Eletronica.cdsContasID_INSTRUCAO2.AsInteger > 0 then
     begin
@@ -957,7 +964,7 @@ begin
       if ACBrBoleto1.Banco.Numero = 33 then
         Instrucao2 := trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString)
       else
-        Instrucao2 := padL(trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString), 2, '0');
+        Instrucao2 := PadLeft(trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString), 2, '0');
     end;
 
     //20/05/2019 - Gera sem instrução quando tiver Gerar_Protesto "N" no Cadastro Cliente - Bradesco (outros bancos controlam de outra maneira o protesto)

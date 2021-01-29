@@ -23,7 +23,7 @@ object frmCadContas: TfrmCadContas
     Top = 0
     Width = 833
     Height = 556
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -31,7 +31,7 @@ object frmCadContas: TfrmCadContas
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -430,7 +430,6 @@ object frmCadContas: TfrmCadContas
             FEFEFEFFFFFFFFFFFFFFFFFFFFFFFF000000}
           GlyphSpacing = 5
           ParentFont = False
-          PopupMenu = PopupMenu1
           ShowArrow = True
           TabOrder = 3
           Transparent = True
@@ -5188,24 +5187,6 @@ object frmCadContas: TfrmCadContas
       item
         Width = 300
       end>
-  end
-  object PopupMenu1: TPopupMenu
-    Left = 665
-    Top = 191
-    object Normal1: TMenuItem
-      Caption = 'Imp. Seq. Nosso N'#250'mero'
-      OnClick = Normal1Click
-    end
-  end
-  object ACBrBoleto1: TACBrBoleto
-    Banco.Numero = 1
-    Banco.TamanhoMaximoNossoNum = 0
-    Banco.TipoCobranca = cobBancoDoBrasil
-    Cedente.TipoInscricao = pJuridica
-    NumeroArquivo = 0
-    LayoutRemessa = c240
-    Left = 656
-    Top = 256
   end
   object UCControls1: TUCControls
     GroupName = 'Contas'

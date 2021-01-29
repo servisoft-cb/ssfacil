@@ -2425,6 +2425,6 @@ begin
 end;
 
 initialization
-  RLConsts.SetVersion(3,72,'B');
+  //RLConsts.SetVersion(3,72,'B');
 
 end.

@@ -93,7 +93,7 @@ begin
   FACBrMail.SetTLS := FTSL;
   FACBrMail.SetSSL := FSSL;
   FACBrMail.DefaultCharset := TMailCharset(15); //
-  //FACBrMail.IDECharset := TMailCharset(15); //CP1252
+  FACBrMail.IDECharset := TMailCharset(15); //CP1252
   FACBrMail.AddAddress(FDestinatario, FNomeDestinatario);
 
   for i := 0 to FCC.Count - 1 do

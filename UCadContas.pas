@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs, Buttons, Grids, SMDBGrid, UDMCadContas, DBGrids,
   ExtCtrls, StdCtrls, DB, RzTabs, DBCtrls, ToolEdit, UCBase, RxLookup, Mask, RXDBCtrl, RxDBComb, UCadContas_Ret, NxCollection,
-  Menus, ACBrBoleto, ACBrBase, ComCtrls, StrUtils;
+  Menus, ComCtrls, StrUtils;
 
 type
   TfrmCadContas = class(TForm)
@@ -137,10 +137,7 @@ type
     ts_Sicredi: TRzTabSheet;
     Label51: TLabel;
     RxDBComboBox7: TRxDBComboBox;
-    PopupMenu1: TPopupMenu;
-    Normal1: TMenuItem;
     btnImprimir: TNxButton;
-    ACBrBoleto1: TACBrBoleto;
     ts_Santander: TRzTabSheet;
     Label52: TLabel;
     RxDBComboBox8: TRxDBComboBox;
@@ -451,7 +448,6 @@ type
     procedure RzPageControl1Change(Sender: TObject);
     procedure BitBtn1Click(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
-    procedure Normal1Click(Sender: TObject);
     procedure RxDBComboBox1Exit(Sender: TObject);
   private
     { Private declarations }
@@ -466,10 +462,8 @@ type
     procedure prc_Gravar_Registro;
     procedure prc_Consultar;
     procedure prc_Limpar_Edit_Consulta;
-    procedure prc_ConfiguraACBR;
     procedure prc_Desabilita_Aba;
     procedure prc_Habilita_Aba;
-    function geraRegistroAcbr: string;
   public
     { Public declarations }
   end;
@@ -480,7 +474,7 @@ var
 implementation
 
 uses
-  DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, ACBrUtil, URelTesteNossoNumero;
+  DmdDatabase, rsDBUtils, UMenu, uUtilPadrao, URelTesteNossoNumero;
 
 {$R *.dfm}
 
@@ -727,213 +721,6 @@ end;
 procedure TfrmCadContas.prc_Limpar_Edit_Consulta;
 begin
   Edit4.Clear;
-end;
-
-function TfrmCadContas.geraRegistroAcbr: string;
-var
-  Titulo: TACBrTitulo;
-  vTamAux: Integer;
-  vNossoNumAux: string;
-  vCodCarteira: string;
-begin
-  Titulo := ACBrBoleto1.CriarTituloNaLista;
-  with Titulo do
-  begin
-    //TipoImpressao     := tipNormal;//se for carnê, tipCarne
-    //Vencimento        := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime;
-    //DataDocumento     := fDmCob_Eletronica.cdsDuplicataDTEMISSAO.AsDateTime;
-    //NumeroDocumento   := fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString + '/' + fDmCob_Eletronica.cdsDuplicataPARCELA.AsString;
-    //if not fDmCob_Eletronica.cdsEspecie.Active then
-    //  fDmCob_Eletronica.cdsEspecie.Open;
-    //fDmCob_Eletronica.cdsEspecie.IndexFieldNames := 'ID;ID_BANCO';
-    //fDmCob_Eletronica.cdsEspecie.FindKey([fDmCob_Eletronica.cdsContasID_ESPECIE.AsInteger,fDmCob_Eletronica.cdsContasID_BANCO.AsInteger]);
-    //if trim(fDmCob_Eletronica.cdsEspecieCOD_REDUZIDO.AsString) = '' then
-    //  EspecieDoc := fDmCob_Eletronica.cdsEspecieCODIGO.AsString
-    //else
-    //  EspecieDoc := fDmCob_Eletronica.cdsEspecieCOD_REDUZIDO.AsString;
-    {if (trim(fDmCob_Eletronica.cdsDuplicataACEITE.AsString) = '') or (fDmCob_Eletronica.cdsDuplicataACEITE.IsNull) then
-    begin
-      fDmCob_Eletronica.vAceite := fDmCob_Eletronica.cdsContasACEITE.AsString;
-      if fDmCob_Eletronica.cdsContasACEITE.AsString = 'A' then
-        Aceite := atSim
-      else
-        Aceite := atNao;
-    end
-    else
-    if fDmCob_Eletronica.cdsDuplicataACEITE.AsString = 'A' then
-      Aceite := atSim
-    else
-      Aceite := atNao;}
-    //DataProcessamento := Now;
-    //if not(fDmCob_Eletronica.cdsDuplicataCOD_CARTEIRA.IsNull) and (trim(fDmCob_Eletronica.cdsDuplicataCOD_CARTEIRA.AsString) <> '')  then
-    //  Carteira := fDmCob_Eletronica.cdsDuplicataCOD_CARTEIRA.AsString
-    //else
-    //  Carteira := fDmCob_Eletronica.cdsContasCOD_CARTEIRA.AsString;
-    Carteira := vCarteira;
-    //fDmCob_Eletronica.prc_Verificar_Carteira;
-    //if ((fDmCob_Eletronica.cdsDuplicataNOSSONUMERO.IsNull) or
-    //   (fDmCob_Eletronica.cdsDuplicataNOSSONUMERO.AsString = '')) and (fDmCob_Eletronica.vGera_NossoNumero = 'S')  then
-    //begin
-    xNossoNum := xNossoNum + 1;
-    vNossoNumAux := IntToStr(xNossoNum);
-    vTamAux := ACBrBoleto.Banco.CalcularTamMaximoNossoNumero(Carteira, vNossoNumAux);
-    NossoNumero := IntToStrZero(xNossoNum, vTamAux);
-
-    if fDMCadContas.cdsBanco.Locate('ID', fDMCadContas.cdsContasID_BANCO.AsInteger, [loCaseInsensitive]) then
-    begin
-      if fDMCadContas.cdsBancoACBR_USAR_MONTAR_NOSSONUMERO.AsString = 'S' then
-      begin
-        vNossoNumero_Montado := ACBrBoleto.Banco.MontarCampoNossoNumero(Titulo);
-        //ShowMessage(vNossoNumero_Montado);
-      end
-      else
-        vNossoNumero_Montado := NossoNumero;
-    end
-    else
-      vNossoNumero_Montado := NossoNumero;
-    //SeuNumero         := fDmCob_Eletronica.cdsDuplicataFILIAL.AsString + '.' + fDmCob_Eletronica.cdsDuplicataID.AsString;
-    //ValorDocumento    := fDmCob_Eletronica.cdsDuplicataVLR_PARCELA.AsFloat;
-    //Sacado.NomeSacado := fDmCob_Eletronica.cdsDuplicataNOME_CLIENTE.AsString;
-    //Sacado.CNPJCPF    := fDmCob_Eletronica.cdsDuplicataCNPJ_CPF.AsString;
-    //Sacado.Logradouro := fDmCob_Eletronica.cdsDuplicataENDERECO.AsString;
-    //Sacado.Numero     := fDmCob_Eletronica.cdsDuplicataNUM_END.AsString;
-    //Sacado.Bairro     := fDmCob_Eletronica.cdsDuplicataBAIRRO.AsString;
-    //Sacado.Cidade     := fDmCob_Eletronica.cdsDuplicataCIDADE.AsString;
-    //Sacado.UF         := fDmCob_Eletronica.cdsDuplicataUF.AsString;
-    //Sacado.CEP        := fDmCob_Eletronica.cdsDuplicataCEP.AsString;
-    //case AnsiIndexStr(fDmCob_Eletronica.cdsDuplicataPESSOA.AsString,['F','J']) of
-      //0: Sacado.Pessoa := pFisica;
-      //1: Sacado.Pessoa := pJuridica;
-    //end;
-    //ValorAbatimento   := 0;
-    //LocalPagamento    := fDmCob_Eletronica.cdsContasLOCAL_PAGAMENTO.AsString;
-    //ValorMoraJuros    := fDmCob_Eletronica.cdsContasPERC_JUROS.AsCurrency / 100 * fDmCob_Eletronica.cdsDuplicataVLR_PARCELA.AsFloat;
-    //ValorDesconto     := 0;
-    //ValorAbatimento   := 0;
-    //DataMoraJuros     := 0;
-    //DataDesconto      := 0;
-    //DataAbatimento    := 0;
-    //DataProtesto      := fDmCob_Eletronica.cdsDuplicataDTVENCIMENTO.AsDateTime + fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsInteger;
-    //PercentualMulta   := fDmCob_Eletronica.cdsContasPERC_MULTA.AsCurrency;
-    //Mensagem.Text     := fDmCob_Eletronica.cdsContasMENSAGEM_FIXA.AsString;
-
-    //fDmCob_Eletronica.cdsCob_Tipo_Cadastro.Close;
-    //fDmCob_Eletronica.sdsCob_Tipo_Cadastro.CommandText := fDmCob_Eletronica.ctCobTpCadastro +
-      //                                                    ' WHERE ID_BANCO = ' + IntToStr(vIdBanco);
-    //fDmCob_Eletronica.cdsCob_Tipo_Cadastro.Open;
-
-    //fDmCob_Eletronica.cdsCob_Tipo_Cadastro.IndexFieldNames := 'ID';
-    //if fDmCob_Eletronica.cdsContasID_INSTRUCAO1.AsInteger > 0 then
-    //begin
-     // fDmCob_Eletronica.cdsCob_Tipo_Cadastro.FindKey([fDmCob_Eletronica.cdsContasID_INSTRUCAO1.AsInteger]);
-      //Instrucao1 := padL(trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString),2,'0');
-    //end;
-    //if fDmCob_Eletronica.cdsContasID_INSTRUCAO2.AsInteger > 0 then
-    //begin
-      //fDmCob_Eletronica.cdsCob_Tipo_Cadastro.FindKey([fDmCob_Eletronica.cdsContasID_INSTRUCAO2.AsInteger]);
-      //Instrucao2 := padL(trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString),2,'0');
-    //end;
-    //if (fDmCob_Eletronica.cdsContasTIPO_IMPRESSAO.AsString = 'C') or (fDmCob_Eletronica.cdsContasCOD_BANCO.AsString <> '748') then
-    //  Parcela := fDmCob_Eletronica.cdsDuplicataPARCELA.AsInteger
-    //else
-     // Parcela := 0;
-
-    //OcorrenciaOriginal.Tipo := toRemessaRegistrar;
-  end;
-  //result := Titulo.NossoNumero;
-  result := vNossoNumero_Montado;
-end;
-
-procedure TfrmCadContas.prc_ConfiguraACBR;
-var
-  vExtensao: string;
-begin
-  case fDMCadContas.cdsContasACBR_TIPOCOBRANCA.AsInteger of
-    1: ACBrBoleto1.Banco.TipoCobranca := cobBancoDoBrasil;
-    2: ACBrBoleto1.Banco.TipoCobranca := cobBancoDoNordeste;
-    3: ACBrBoleto1.Banco.TipoCobranca := cobBancoMercantil;
-    4: ACBrBoleto1.Banco.TipoCobranca := cobBancoob;
-    5: ACBrBoleto1.Banco.TipoCobranca := cobBanestes;
-    6: ACBrBoleto1.Banco.TipoCobranca := cobBanrisul;
-    7: ACBrBoleto1.Banco.TipoCobranca := cobBicBanco;
-    8: ACBrBoleto1.Banco.TipoCobranca := cobBradesco;
-    9: ACBrBoleto1.Banco.TipoCobranca := cobBradescoSICOOB;
-    10: ACBrBoleto1.Banco.TipoCobranca := cobBRB;
-    11: ACBrBoleto1.Banco.TipoCobranca := cobCaixaEconomica;
-    12: ACBrBoleto1.Banco.TipoCobranca := cobCaixaSicob;
-    13: ACBrBoleto1.Banco.TipoCobranca := cobHSBC;
-    14: ACBrBoleto1.Banco.TipoCobranca := cobItau;
-    15: ACBrBoleto1.Banco.TipoCobranca := cobNenhum;
-    16: ACBrBoleto1.Banco.TipoCobranca := cobSantander;
-    17: ACBrBoleto1.Banco.TipoCobranca := cobSicred;
-  end;
-
-  //ACBrBoleto1.ACBrBoletoFC.DirLogo  := fDmCob_Eletronica.cdsContasBANCO_LOGO.AsString;
-  //ACBrBoleto1.ACBrBoletoFC.ArquivoLogo := fDmCob_Eletronica.cdsContasBANCO_LOGO.AsString;
-  //ACBrBoleto1.ACBrBoletoFC.Filtro   := fiNenhum;
-  //ACBrBoleto1.Cedente.Nome          := fDmCob_Eletronica.cdsFilialNOME.AsString;
-  ACBrBoleto1.Cedente.CodigoCedente := fDMCadContas.cdsContasCOD_CEDENTE.AsString;
-  ACBrBoleto1.Cedente.Agencia       := fDMCadContas.cdsContasAGENCIA.AsString;
-  ACBrBoleto1.Cedente.AgenciaDigito := fDMCadContas.cdsContasDIG_AGENCIA.AsString;
-  ACBrBoleto1.Cedente.Conta         := fDMCadContas.cdsContasNUMCONTA.AsString;
-  ACBrBoleto1.Cedente.ContaDigito   := fDMCadContas.cdsContasDIG_CONTA.AsString;
-  ACBrBoleto1.Cedente.Convenio      := fDMCadContas.cdsContasCOD_TRANSMISSAO.AsString;
-  //ACBrBoleto1.Cedente.UF            := fDmCob_Eletronica.cdsFilialUF.AsString;
-  //ACBrBoleto1.DirArqRemessa         := fDmCob_Eletronica.cdsContasEND_ARQUIVO_REM.AsString;
-  //ACBrBoleto1.NomeArqRemessa        := 'COB_' + FormatDateTime('YYYYMMDD_HHMMSS',Now)+'.TXT';
-
-  {if fDMCadContas.cdsContasACBR_TIPOCOBRANCA.AsInteger = 17 then //se for cobrança SICREDI
-    ACBrBoleto1.NomeArqRemessa := fDmCob_Eletronica.Monta_NomeSicredi(fDmCob_Eletronica.cdsContasEND_ARQUIVO_REM.AsString,
-                                  fDmCob_Eletronica.cdsContasCOD_CEDENTE.AsString)
-  else
-  begin
-    ACBrBoleto1.NomeArqRemessa := fDmCob_Eletronica.cdsContasINICIAL_NOME_ARQ_REMESSA.AsString +
-                                  FormatFloat('00',fDmCob_Eletronica.cdsContasFILIAL.AsInteger) +
-                                  FormatFloat('00',MonthOf(Date)) + FormatFloat('00',DayOf(Date));
-    if trim(fDmCob_Eletronica.cdsContasEXTENSAO_ARQ_REM.AsString) = '' then
-      vExtensao := 'REM'
-    else
-      vExtensao := fDmCob_Eletronica.cdsContasEXTENSAO_ARQ_REM.AsString;
-    if fDmCob_Eletronica.vSeq_Remessa_Dia = 1 then
-      ACBrBoleto1.NomeArqRemessa := ACBrBoleto1.NomeArqRemessa + '.' + vExtensao
-    else
-    if fDmCob_Eletronica.vSeq_Remessa_Dia < 100 then
-      ACBrBoleto1.NomeArqRemessa := ACBrBoleto1.NomeArqRemessa + '.' + Copy(vExtensao,1,1) +
-                                    FormatFloat('00',fDmCob_Eletronica.vSeq_Remessa_Dia)
-    else
-      ACBrBoleto1.NomeArqRemessa := ACBrBoleto1.NomeArqRemessa + '.' +
-                                    FormatFloat('000',fDmCob_Eletronica.vSeq_Remessa_Dia);
-  end;}
-end;
-
-procedure TfrmCadContas.Normal1Click(Sender: TObject);
-var
-  vAux: string;
-  vQtd: Integer;
-  i: Integer;
-begin
-  ACBrBoleto1.ListadeBoletos.Clear;
-  prc_ConfiguraACBR;
-
-  fDMCadContas.mArqNumero.EmptyDataSet;
-  vAux := InputBox('Gerar Nosso Número', 'Informe a qtde. para gerar: ', '');
-  vAux := Monta_Texto(vAux, 0);
-  if trim(vAux) = '' then
-    exit;
-  vQtd := StrToInt(vAux);
-  vCarteira := InputBox('Carteira', 'Informe a Carteira: ', '');
-  for i := 1 to vQtd do
-  begin
-    fDMCadContas.mArqNumero.Insert;
-    fDMCadContas.mArqNumeroNossoNumero.AsString := geraRegistroAcbr;
-    fDMCadContas.mArqNumero.Post;
-  end;
-
-  fRelTesteNossoNumero := TfRelTesteNossoNumero.Create(Self);
-  fRelTesteNossoNumero.fDMCadContas := fDMCadContas;
-  fRelTesteNossoNumero.RLReport1.PreviewModal;
-  fRelTesteNossoNumero.RLReport1.Free;
-  FreeAndNil(fRelTesteNossoNumero);
 end;
 
 procedure TfrmCadContas.prc_Desabilita_Aba;

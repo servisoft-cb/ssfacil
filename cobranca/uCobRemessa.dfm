@@ -557,6 +557,7 @@ object fCobRemessa: TfCobRemessa
         FieldName = 'DTVENCIMENTO'
         Title.Alignment = taCenter
         Title.Caption = 'Data Vencimento'
+        Width = 64
         Visible = True
       end
       item
@@ -564,6 +565,7 @@ object fCobRemessa: TfCobRemessa
         FieldName = 'DTEMISSAO'
         Title.Alignment = taCenter
         Title.Caption = 'Data Emiss'#227'o'
+        Width = 64
         Visible = True
       end
       item
@@ -623,17 +625,20 @@ object fCobRemessa: TfCobRemessa
         Expanded = False
         FieldName = 'INSTRUCAO_PROTESTO'
         Title.Caption = 'Instru'#231#227'o de Protesto'
+        Width = 64
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'TAXA_BANCO'
         Title.Caption = 'Cobrar Taxa Banc'#225'ria'
+        Width = 64
         Visible = True
       end
       item
         Expanded = False
         FieldName = 'ACEITE'
+        Width = 64
         Visible = True
       end>
   end
@@ -832,14 +837,23 @@ object fCobRemessa: TfCobRemessa
     Banco.Numero = 1
     Banco.TamanhoMaximoNossoNum = 0
     Banco.TipoCobranca = cobBancoDoBrasil
+    Banco.LayoutVersaoArquivo = 0
+    Banco.LayoutVersaoLote = 0
+    Banco.CasasDecimaisMoraJuros = 2
     Cedente.TipoInscricao = pJuridica
+    Cedente.IdentDistribuicao = tbBancoDistribui
     NumeroArquivo = 0
     ACBrBoletoFC = ACBrBoletoFCFortes1
+    Configuracoes.Arquivos.LogRegistro = False
+    Configuracoes.WebService.SSLHttpLib = httpOpenSSL
+    Configuracoes.WebService.StoreName = 'My'
+    Configuracoes.WebService.Ambiente = taHomologacao
+    Configuracoes.WebService.Operacao = tpInclui
+    Configuracoes.WebService.VersaoDF = '1.2'
     Left = 176
     Top = 280
   end
   object ACBrBoletoFCFortes1: TACBrBoletoFCFortes
-    ACBrBoleto = ACBrBoleto1
     SoftwareHouse = 'ServiSoft Info.'
     Left = 208
     Top = 280

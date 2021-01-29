@@ -4,8 +4,9 @@ interface
 
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, Grids, DBGrids, SMDBGrid, StdCtrls,
-  UDMCob_Eletronica, NxCollection, ExtCtrls, DB, Mask, ToolEdit, RzTabs, ACBrBoleto, ACBrBoletoFCFortesFr, ACBrBase, NxEdit,
-  uCobRemessa, RzPanel, Buttons;
+  UDMCob_Eletronica, NxCollection, ExtCtrls, DB, Mask, ToolEdit, RzTabs, NxEdit, uCobRemessa, RzPanel, Buttons;
+//  CBrBoleto, ACBrBoletoFCFortesFr, ACBrBase,
+
 
 type
   TfrmEnviaEmailTitulos = class(TForm)

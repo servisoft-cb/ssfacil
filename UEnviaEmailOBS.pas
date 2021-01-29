@@ -5,8 +5,8 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Grids, DBGrids, SMDBGrid, StdCtrls, UDMEmail,
-  NxCollection, ExtCtrls, DB, Mask, ToolEdit, RzTabs, ACBrBoleto,
-  ACBrBoletoFCFortesFr, ACBrBase, uCobRemessa, NxEdit, RzPanel, RxLookup;
+  NxCollection, ExtCtrls, DB, Mask, ToolEdit, RzTabs, NxEdit, RzPanel, RxLookup;
+//  ACBrBoleto, ACBrBoletoFCFortesFr, ACBrBase, uCobRemessa;
 
 type
   TfrmEnviaEmailOBS = class(TForm)
