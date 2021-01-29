@@ -3942,6 +3942,8 @@ type
     qParametros_PedUSAR_ADIANTAMENTO: TStringField;
     cdsPedido_Item_TipoclPrecoKG_Real: TFloatField;
     qParametros_NFeID_CONTA_ADTO: TIntegerField;
+    cdsPedidoImpVLR_SALDO_USADO: TFloatField;
+    cdsPedidoImpID_ADTO: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

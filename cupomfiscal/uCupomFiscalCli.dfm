@@ -1,11 +1,11 @@
 object fCupomFiscalCli: TfCupomFiscalCli
   Left = 343
-  Top = 217
+  Top = 166
   Hint = 'Pesquisar'
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'fCupomFiscalCli - Cliente'
-  ClientHeight = 387
+  ClientHeight = 438
   ClientWidth = 527
   Color = clMoneyGreen
   Font.Charset = DEFAULT_CHARSET
@@ -50,9 +50,23 @@ object fCupomFiscalCli: TfCupomFiscalCli
     Font.Style = []
     ParentFont = False
   end
+  object Label2: TLabel
+    Left = 31
+    Top = 74
+    Width = 76
+    Height = 18
+    Alignment = taRightJustify
+    Caption = 'Fantasia:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+  end
   object Panel1: TPanel
     Left = 0
-    Top = 346
+    Top = 397
     Width = 527
     Height = 41
     Align = alBottom
@@ -145,9 +159,9 @@ object fCupomFiscalCli: TfCupomFiscalCli
   end
   object ValueListEditor1: TValueListEditor
     Left = 0
-    Top = 68
+    Top = 96
     Width = 527
-    Height = 278
+    Height = 301
     Align = alBottom
     FixedColor = clInfoBk
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect, goThumbTracking]
@@ -215,5 +229,20 @@ object fCupomFiscalCli: TfCupomFiscalCli
     Items.Strings = (
       'CPF'
       'CNPJ')
+  end
+  object Edit2: TEdit
+    Left = 109
+    Top = 66
+    Width = 377
+    Height = 26
+    CharCase = ecUpperCase
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'Verdana'
+    Font.Style = []
+    ParentFont = False
+    TabOrder = 7
+    OnKeyDown = Edit1KeyDown
   end
 end

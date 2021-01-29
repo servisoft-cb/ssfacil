@@ -125,6 +125,7 @@ begin
           0: fDMConsEstoque.sdsEstoque.CommandText := fDMConsEstoque.sdsEstoque.CommandText + ' AND AUX.QTD > ' + IntToStr(vQtdAux);
           1: fDMConsEstoque.sdsEstoque.CommandText := fDMConsEstoque.sdsEstoque.CommandText + ' AND AUX.QTD < ' + IntToStr(vQtdAux);
           2: fDMConsEstoque.sdsEstoque.CommandText := fDMConsEstoque.sdsEstoque.CommandText + ' AND coalesce(AUX.QTD,0) < coalesce(AUX.QTD_ESTOQUE_MIN,0) ';
+          3: fDMConsEstoque.sdsEstoque.CommandText := fDMConsEstoque.sdsEstoque.CommandText + ' AND AUX.QTD = 0 ';
         end;
       end;
       if RxDBLookupCombo2.Text <> '' then

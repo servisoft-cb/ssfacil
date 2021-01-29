@@ -64,7 +64,7 @@ type
     lblPesquisaConta: TLabel;
     Label18: TLabel;
     RxDBLookupCombo3: TRxDBLookupCombo;
-    pc_Itens: TRzPageControl;
+    RzPageControl2: TRzPageControl;
     ts_CentroCusto: TRzTabSheet;
     SMDBGrid3: TSMDBGrid;
     Panel3: TPanel;
@@ -94,6 +94,13 @@ type
     btnInserir_Itens: TNxButton;
     btnAlterar_Itens: TNxButton;
     btnExcluir_Itens: TNxButton;
+    TS_Previsao: TRzTabSheet;
+    NxPanel1: TNxPanel;
+    NxLabel1: TNxLabel;
+    CurrencyEdit6: TCurrencyEdit;
+    NxButton3: TNxButton;
+    SMDBGrid4: TSMDBGrid;
+    btnGerar_Previsao: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
@@ -129,6 +136,8 @@ type
     procedure btnInserir_ItensClick(Sender: TObject);
     procedure btnAlterar_ItensClick(Sender: TObject);
     procedure btnExcluir_ItensClick(Sender: TObject);
+    procedure NxButton3Click(Sender: TObject);
+    procedure btnGerar_PrevisaoClick(Sender: TObject);
   private
     { Private declarations }
     fDMCadContaOrc: TDMCadContaOrc;
@@ -155,7 +164,7 @@ implementation
 
 uses
   DmdDatabase, rsDBUtils, StdConvs, URelContaOrc, USel_ContaOrc, uUtilPadrao, UCadContaOrc_CentroCusto, UCadContaOrc_Itens,
-  USel_CentroCusto, USel_Plano_Contabil, DateUtils;
+  USel_CentroCusto, USel_Plano_Contabil, DateUtils, UCadContaOrc_Prev;
 
 {$R *.dfm}
 
@@ -186,6 +195,7 @@ begin
   btnConfirmar.Enabled := not (btnConfirmar.Enabled);
   btnAlterar.Enabled := not (btnAlterar.Enabled);
   prc_habilita;
+  fDMCadContaOrc.cdsContaOrc_Prev.Close;
 
   btnConsultarClick(Nil);
   fDMCadContaOrc.cdsConsulta.Locate('ID',vIDAux,[loCaseInsensitive]);
@@ -239,6 +249,7 @@ begin
   uUtilPadrao.fnc_Busca_Nome_Filial;
   StatusBar1.Panels[0].Text := vUsuario;
   StatusBar1.Panels[1].Text := vFilial_Nome;
+  TS_Previsao.TabVisible := (SQLLocate('PARAMETROS_FIN','ID','MOSTRAR_ABA_PREV','1') = 'S');
 
   Label10.Visible := (fDMCadContaOrc.qParametrosUSA_PREVISAO.AsString = 'S');
   DBEdit5.Visible := (fDMCadContaOrc.qParametrosUSA_PREVISAO.AsString = 'S');
@@ -257,12 +268,15 @@ begin
   lblPesquisaConta.Visible     := (fDMCadContaOrc.qParametros_GeralMOSTRAR_COD_CONTABIL.AsString = 'S');
   Label9.Visible               := (fDMCadContaOrc.qParametros_Cta_OrcMOSTRAR_PESSOA.AsString = 'S');
   RxDBLookupCombo2.Visible     := (fDMCadContaOrc.qParametros_Cta_OrcMOSTRAR_PESSOA.AsString = 'S');
+  if TS_Previsao.TabVisible then
+    RzPageControl2.ActivePage := TS_Previsao
+  else
   if Trim(fDMCadContaOrc.qParametros_FinINF_ZERO_PERC_CC.AsString) <> 'S' then
   begin
     if ts_Orc_ValoresAnuais.TabVisible then
     begin
-      pc_Itens.ActivePageDefault := ts_Orc_ValoresAnuais;
-      pc_Itens.ActivePage        := ts_Orc_ValoresAnuais;
+      RzPageControl2.ActivePageDefault := ts_Orc_ValoresAnuais;
+      RzPageControl2.ActivePage        := ts_Orc_ValoresAnuais;
     end;
   end;
   CurrencyEdit4.AsInteger := YearOf(Date);
@@ -315,6 +329,7 @@ begin
   btnAlterar.Enabled := not (btnAlterar.Enabled);
   prc_habilita;
   fDMCadContaOrc.cdsConsulta.Locate('ID',vIDAux,[loCaseInsensitive]);
+  fDMCadContaOrc.cdsContaOrc_Prev.Close;
 end;
 
 procedure TfrmCadContaOrc.SMDBGrid1DblClick(Sender: TObject);
@@ -508,6 +523,8 @@ begin
 
     fDMCadContaOrc.prc_Abrir_CentroCusto(fDMCadContaOrc.cdsContaOrcID.AsInteger);
     prc_Abrir_qPlano_Contabil(fDMCadContaOrc.cdsContaOrcCOD_CONTABIL.AsInteger);
+
+    fDMCadContaOrc.cdsContaOrc_Prev.Close;
   end;
 end;
 
@@ -541,6 +558,8 @@ begin
 end;
 
 procedure TfrmCadContaOrc.prc_habilita;
+var
+  i : Integer;
 begin
   btnInserir_CentroCusto.Enabled := not(btnInserir_CentroCusto.Enabled);
   btnAlterar_CentroCusto.Enabled := not(btnAlterar_CentroCusto.Enabled);
@@ -549,6 +568,19 @@ begin
   btnInserir_Itens.Enabled       := not(btnInserir_Itens.Enabled);
   btnAlterar_Itens.Enabled       := not(btnAlterar_Itens.Enabled);
   btnExcluir_Itens.Enabled       := not(btnExcluir_Itens.Enabled);
+  btnGerar_Previsao.Enabled      := not(btnGerar_Previsao.Enabled);
+  SMDBGrid4.ReadOnly             := not(SMDBGrid4.ReadOnly);
+
+  if not SMDBGrid4.ReadOnly then
+  begin
+    for i := 1 to SMDBGrid4.ColCount - 2 do
+    begin
+      if (SMDBGrid4.Columns[i].FieldName = 'ITEM') then
+        SMDBGrid1.Columns[i].ReadOnly := True
+      else
+        SMDBGrid4.Columns[i].ReadOnly := False;
+    end;
+  end;
 end;
 
 procedure TfrmCadContaOrc.btnInserir_CentroCustoClick(Sender: TObject);
@@ -700,6 +732,24 @@ begin
   if MessageDlg('Deseja excluir este registro?',mtConfirmation,[mbYes,mbNo],0) = mrNo then
     exit;
   fDMCadContaOrc.cdsContaOrc_Itens.Delete;
+end;
+
+procedure TfrmCadContaOrc.NxButton3Click(Sender: TObject);
+begin
+  fDMCadContaOrc.prc_Abrir_ContaoOrc_Prev(fDMCadContaOrc.cdsContaOrcID.AsInteger,CurrencyEdit6.AsInteger);
+end;
+
+procedure TfrmCadContaOrc.btnGerar_PrevisaoClick(Sender: TObject);
+begin
+  if fDMCadContaOrc.cdsContaOrcTIPO.AsString <> 'A' then
+  begin
+    MessageDlg('*** Previsão só pode ser informada quando a conta for Analítica!', mtInformation, [mbOk], 0);
+    exit;
+  end;
+  frmCadContaOrc_Prev := TfrmCadContaOrc_Prev.Create(Self);
+  frmCadContaOrc_Prev.fDMCadContaOrc := fDMCadContaOrc;
+  frmCadContaOrc_Prev.ShowModal;
+  FreeAndNil(frmCadContaOrc_Prev);
 end;
 
 end.

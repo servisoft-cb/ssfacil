@@ -4246,7 +4246,7 @@ object DMCadPedido: TDMCadPedido
     ProviderName = 'dspPedidoImp'
     AfterScroll = cdsPedidoImpAfterScroll
     OnCalcFields = pedidoImpCalcFields
-    Left = 209
+    Left = 210
     Top = 351
     object cdsPedidoImpID: TIntegerField
       FieldName = 'ID'
@@ -4969,6 +4969,12 @@ object DMCadPedido: TDMCadPedido
     object cdsPedidoImpFONE_VENDAS: TStringField
       FieldName = 'FONE_VENDAS'
       Size = 15
+    end
+    object cdsPedidoImpVLR_SALDO_USADO: TFloatField
+      FieldName = 'VLR_SALDO_USADO'
+    end
+    object cdsPedidoImpID_ADTO: TIntegerField
+      FieldName = 'ID_ADTO'
     end
   end
   object dsPedidoImp: TDataSource
@@ -11086,7 +11092,7 @@ object DMCadPedido: TDMCadPedido
     PrintOptions.Printer = 'Default'
     PrintOptions.PrintOnSheet = 0
     ReportOptions.CreateDate = 42052.436473541700000000
-    ReportOptions.LastChange = 44211.604306979160000000
+    ReportOptions.LastChange = 44219.445625011580000000
     ScriptLanguage = 'PascalScript'
     StoreInDFM = False
     OnBeforePrint = frxReport1BeforePrint
@@ -11285,11 +11291,15 @@ object DMCadPedido: TDMCadPedido
       'NOME_VENDEDOR_INT=NOME_VENDEDOR_INT'
       'AMOSTRA=AMOSTRA'
       'ID_TIPO_COBRANCA=ID_TIPO_COBRANCA'
-      'NOME_TIPO_COBRANCA=NOME_TIPO_COBRANCA')
+      'NOME_TIPO_COBRANCA=NOME_TIPO_COBRANCA'
+      'DDD_VENDAS=DDD_VENDAS'
+      'FONE_VENDAS=FONE_VENDAS'
+      'VLR_SALDO_USADO=VLR_SALDO_USADO'
+      'ID_ADTO=ID_ADTO')
     DataSource = dsPedidoImp
     BCDToCurrency = False
     Left = 1114
-    Top = 283
+    Top = 284
   end
   object frxDBDataset2: TfrxDBDataset
     UserName = 'frxPedidoImp_Cli'
@@ -14714,7 +14724,7 @@ object DMCadPedido: TDMCadPedido
       'Total_Volume=Total_Volume')
     DataSource = dsmRotulos
     BCDToCurrency = False
-    Left = 976
+    Left = 977
     Top = 239
   end
   object frxDBDataset13: TfrxDBDataset

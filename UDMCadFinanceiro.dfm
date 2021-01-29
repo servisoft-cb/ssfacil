@@ -893,15 +893,44 @@ object DMCadFinanceiro: TDMCadFinanceiro
   object mSaldo_Conta: TClientDataSet
     Active = True
     Aggregates = <>
+    AggregatesActive = True
+    FieldDefs = <
+      item
+        Name = 'ID_Conta'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Conta'
+        DataType = ftString
+        Size = 30
+      end
+      item
+        Name = 'Vlr_Entrada'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Saida'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Saldo'
+        DataType = ftFloat
+      end
+      item
+        Name = 'Vlr_Cheque_Aberto'
+        DataType = ftFloat
+      end>
+    IndexDefs = <>
     Params = <>
-    Left = 456
+    StoreDefs = True
+    Left = 458
     Top = 24
     Data = {
-      820000009619E0BD01000000180000000500000000000300000082000849445F
+      9C0000009619E0BD0100000018000000060000000000030000009C000849445F
       436F6E746104000100000000000A4E6F6D655F436F6E74610100490000000100
       055749445448020002001E000B566C725F456E74726164610800040000000000
       09566C725F5361696461080004000000000009566C725F53616C646F08000400
-      000000000000}
+      0000000011566C725F4368657175655F41626572746F08000400000000000000}
     object mSaldo_ContaID_Conta: TIntegerField
       FieldName = 'ID_Conta'
     end
@@ -911,15 +940,39 @@ object DMCadFinanceiro: TDMCadFinanceiro
     end
     object mSaldo_ContaVlr_Entrada: TFloatField
       FieldName = 'Vlr_Entrada'
-      DisplayFormat = '0.00'
+      DisplayFormat = '###,###,###,###,##0.00'
     end
     object mSaldo_ContaVlr_Saida: TFloatField
       FieldName = 'Vlr_Saida'
-      DisplayFormat = '0.00'
+      DisplayFormat = '###,###,###,###,##0.00'
     end
     object mSaldo_ContaVlr_Saldo: TFloatField
       FieldName = 'Vlr_Saldo'
-      DisplayFormat = '0.00'
+      DisplayFormat = '###,###,###,###,##0.00'
+    end
+    object mSaldo_ContaVlr_Cheque_Aberto: TFloatField
+      FieldName = 'Vlr_Cheque_Aberto'
+      DisplayFormat = '###,###,###,###,##0.00'
+    end
+    object mSaldo_ContaagTotal_Entrada: TAggregateField
+      FieldName = 'agTotal_Entrada'
+      Active = True
+      Expression = 'SUM(Vlr_Entrada)'
+    end
+    object mSaldo_ContaagTotal_Saida: TAggregateField
+      FieldName = 'agTotal_Saida'
+      Active = True
+      Expression = 'SUM(Vlr_Saida)'
+    end
+    object mSaldo_ContaagSaldo: TAggregateField
+      FieldName = 'agSaldo'
+      Active = True
+      Expression = 'SUM(Vlr_Entrada - Vlr_Saida)'
+    end
+    object mSaldo_ContaagTotal_Cheque: TAggregateField
+      FieldName = 'agTotal_Cheque'
+      Active = True
+      Expression = 'SUM(Vlr_Cheque_Aberto)'
     end
   end
   object dsmSaldo_Conta: TDataSource
@@ -1209,21 +1262,46 @@ object DMCadFinanceiro: TDMCadFinanceiro
         ParamType = ptInput
       end
       item
+        DataType = ftUnknown
+        Name = 'ID_CONTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_CONTA'
+        ParamType = ptUnknown
+      end
+      item
         DataType = ftDate
         Name = 'DATA'
         ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_CONTA'
+        ParamType = ptUnknown
+      end
+      item
+        DataType = ftUnknown
+        Name = 'ID_CONTA'
+        ParamType = ptUnknown
       end>
     SQL.Strings = (
       'Select'
       '   (SELECT SUM(ATR.VALOR)'
-      ''
       '         FROM CHEQUE ATR'
       '         WHERE ATR.DTCOMPENSADO IS NULL'
-      '           AND ATR.DTBOM_PARA <= :DATA) VLR_VENCIDO,'
+      '           AND ATR.DTBOM_PARA <= :DATA'
+      
+        '           and (ATR.id_conta = :ID_CONTA or :ID_CONTA = 0)) VLR_' +
+        'VENCIDO,'
       '       (SELECT SUM(AV.VALOR) '
       '         FROM CHEQUE AV'
       '         WHERE AV.DTCOMPENSADO IS NULL'
-      '         AND AV.DTBOM_PARA > :DATA) VLR_AVENCER'
+      '         AND AV.DTBOM_PARA > :DATA'
+      
+        '        and (AV.id_conta = :ID_CONTA or :ID_CONTA = 0)) VLR_AVEN' +
+        'CER'
       'From RDB$DATABASE')
     SQLConnection = dmDatabase.scoDados
     Left = 680
@@ -2738,5 +2816,75 @@ object DMCadFinanceiro: TDMCadFinanceiro
     BCDToCurrency = False
     Left = 705
     Top = 515
+  end
+  object sdsSaldo_Data: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'SELECT CT.ID, CT.NOME NOME_CONTA, SUM(F.vlr_entrada) VLR_ENTRADA' +
+      ', SUM(F.vlr_saida) VLR_SAIDA'#13#10'FROM CONTAS CT'#13#10'LEFT JOIN FINANCEI' +
+      'RO F'#13#10'ON CT.ID = F.id_conta'#13#10'WHERE coalesce(CT.inativo,'#39'N'#39') = '#39'N' +
+      #39#13#10'GROUP BY CT.ID, CT.NOME'#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 459
+    Top = 380
+  end
+  object dspSaldo_Data: TDataSetProvider
+    DataSet = sdsSaldo_Data
+    Left = 492
+    Top = 379
+  end
+  object cdsSaldo_Data: TClientDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    Params = <>
+    ProviderName = 'dspSaldo_Data'
+    OnCalcFields = cdsSaldo_DataCalcFields
+    Left = 522
+    Top = 375
+    object cdsSaldo_DataID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsSaldo_DataNOME_CONTA: TStringField
+      FieldName = 'NOME_CONTA'
+      Size = 30
+    end
+    object cdsSaldo_DataVLR_ENTRADA: TFloatField
+      FieldName = 'VLR_ENTRADA'
+      DisplayFormat = '###,###,###,##0.00'
+    end
+    object cdsSaldo_DataVLR_SAIDA: TFloatField
+      FieldName = 'VLR_SAIDA'
+      DisplayFormat = '###,###,###,##0.00'
+    end
+    object cdsSaldo_DataclSaldo: TFloatField
+      FieldKind = fkCalculated
+      FieldName = 'clSaldo'
+      DisplayFormat = '###,###,###,##0.00'
+      Calculated = True
+    end
+    object cdsSaldo_DataagTotal_Entrada: TAggregateField
+      FieldName = 'agTotal_Entrada'
+      Active = True
+      Expression = 'SUM(VLR_ENTRADA)'
+    end
+    object cdsSaldo_DataagTotal_Saida: TAggregateField
+      FieldName = 'agTotal_Saida'
+      Active = True
+      Expression = 'SUM(VLR_SAIDA)'
+    end
+    object cdsSaldo_DataagSaldo: TAggregateField
+      FieldName = 'agSaldo'
+      Active = True
+      Expression = 'SUM(VLR_ENTRADA - VLR_SAIDA)'
+    end
+  end
+  object dsSaldo_Data: TDataSource
+    DataSet = cdsSaldo_Data
+    Left = 556
+    Top = 379
   end
 end

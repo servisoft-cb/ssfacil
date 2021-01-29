@@ -1646,8 +1646,8 @@ object frmEtiq_Individual: TfrmEtiq_Individual
     end
   end
   object PopupMenu1: TPopupMenu
-    Left = 722
-    Top = 255
+    Left = 720
+    Top = 254
     object Modelo11: TMenuItem
       Caption = 'Modelo 1'
       OnClick = Modelo11Click

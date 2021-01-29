@@ -1412,6 +1412,7 @@ object fCupomFiscalC: TfCupomFiscalC
       Top = 90
       Width = 71
       Height = 13
+      Alignment = taRightJustify
       Caption = 'Valor M'#233'dio:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
@@ -1425,6 +1426,7 @@ object fCupomFiscalC: TfCupomFiscalC
       Top = 58
       Width = 66
       Height = 13
+      Alignment = taRightJustify
       Caption = 'Comandas:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
@@ -1438,7 +1440,22 @@ object fCupomFiscalC: TfCupomFiscalC
       Top = 26
       Width = 95
       Height = 13
+      Alignment = taRightJustify
       Caption = 'Total de Vendas:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWhite
+      Font.Height = -11
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+    end
+    object Label8: TLabel
+      Left = 406
+      Top = 26
+      Width = 78
+      Height = 13
+      Alignment = taRightJustify
+      Caption = 'Total Filtrado:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWhite
       Font.Height = -11
@@ -1551,6 +1568,21 @@ object fCupomFiscalC: TfCupomFiscalC
       Font.Style = []
       ParentFont = False
       TabOrder = 0
+    end
+    object ceTotalFiltrado: TCurrencyEdit
+      Left = 490
+      Top = 13
+      Width = 232
+      Height = 26
+      AutoSize = False
+      DecimalPlaces = 0
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -19
+      Font.Name = 'Verdana'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 4
     end
   end
   object PopupMenu2: TPopupMenu

@@ -114,7 +114,7 @@ object fMenu: TfMenu
     end
   end
   object MainMenu1: TMainMenu
-    Left = 650
+    Left = 649
     Top = 415
     object Cadastro1: TMenuItem
       Caption = 'Manuten'#231#227'o'
@@ -364,7 +364,7 @@ object fMenu: TfMenu
           OnClick = CentrosdeCusto1Click
         end
         object ContasOramento1: TMenuItem
-          Caption = 'Contas de Or'#231'amento/Previs'#227'o'
+          Caption = 'Contas de Or'#231'amento / Previs'#227'o'
           OnClick = ContasOramento1Click
         end
         object MetasdeVendas1: TMenuItem
@@ -377,7 +377,6 @@ object fMenu: TfMenu
         end
         object PrevisesdeContas1: TMenuItem
           Caption = 'Previs'#245'es de Contas'
-          OnClick = PrevisesdeContas1Click
         end
         object ipoCobrana1: TMenuItem
           Caption = 'Tipo Cobran'#231'a / Forma Pagamento'

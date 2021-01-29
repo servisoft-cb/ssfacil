@@ -5,37 +5,70 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, NxCollection, ExtCtrls, StdCtrls, Mask, ToolEdit, CurrEdit, UDMEtiqueta,
-  Grids, DBGrids, SMDBGrid, SqlExpr, UDMRFID;
+  Grids, DBGrids, SMDBGrid, SqlExpr, UDMRFID, RzTabs, RzPanel, DBCtrls, DB;
 
 type
   TfrmEtiqueta_RFID = class(TForm)
+    RzPageControl1: TRzPageControl;
+    TS_Configuracao: TRzTabSheet;
+    TS_Etiquetas: TRzTabSheet;
+    SMDBGrid1: TSMDBGrid;
+    RzGroupBox1: TRzGroupBox;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Label5: TLabel;
+    DBEdit1: TDBEdit;
+    btnAlterar_Etiq: TNxButton;
     Panel1: TPanel;
     Label1: TLabel;
     CurrencyEdit1: TCurrencyEdit;
     btnGerar: TNxButton;
-    btnImprimir: TNxButton;
-    SMDBGrid1: TSMDBGrid;
+    btnImprimirA4: TNxButton;
     CheckBox1: TCheckBox;
+    DBEdit2: TDBEdit;
+    btnConfirmar_Etiq: TNxButton;
+    Label6: TLabel;
+    DBEdit3: TDBEdit;
+    btnImprimir: TNxButton;
+    Shape1: TShape;
+    Label7: TLabel;
+    Label8: TLabel;
+    Shape2: TShape;
+    btnReenvio: TNxButton;
+    btnExcluir: TNxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
-    procedure btnImprimirClick(Sender: TObject);
+    procedure btnImprimirA4Click(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure btnAlterar_EtiqClick(Sender: TObject);
+    procedure btnConfirmar_EtiqClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
+    procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
+    procedure btnReenvioClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
   private
     { Private declarations }
     fDMEtiqueta: TDMEtiqueta;
     fDMRFID: TDMRFID;
     vSeq: Integer;
+    vImprimir : Boolean;
 
     procedure prc_Gravar_RFID;
     procedure prc_Grava_Seq_Aux;
     procedure prc_Imprimir;
+    procedure prc_Envio_RFID;
+
     function fnc_Ultima_Seq : Integer;
+
 
   public
     { Public declarations }
-    vID_Nota : Integer;
+    vID_Nota_Local : Integer;
+    
   end;
 
 var
@@ -43,7 +76,7 @@ var
 
 implementation
 
-uses DmdDatabase, DB, rsDBUtils, uUtilPadrao;
+uses DmdDatabase, rsDBUtils, uUtilPadrao, UEtiqueta_Zebra;
 
 {$R *.dfm}
 
@@ -61,15 +94,17 @@ begin
   oDBUtils.SetDataSourceProperties(Self, fDMEtiqueta);
   fDMRFID := TDMRFID.Create(Self);
 
+  fDMEtiqueta.prc_Le_NotaFiscal_RFID(vID_Nota_Local);
+
   //SMDBGrid1.ExOptions := [eoCheckBoxSelect,eoENTERlikeTAB,eoKeepSelection,eoStandardPopup,eoBLOBEditor,eoTitleWordWrap];
 end;
 
 procedure TfrmEtiqueta_RFID.btnGerarClick(Sender: TObject);
 begin
-  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',vID_Nota,CurrencyEdit1.AsInteger,True);
+  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',vID_Nota_Local,CurrencyEdit1.AsInteger,True);
 end;
 
-procedure TfrmEtiqueta_RFID.btnImprimirClick(Sender: TObject);
+procedure TfrmEtiqueta_RFID.btnImprimirA4Click(Sender: TObject);
 const
   C_Dll : string = 'EnviaRFID.dll';
 var
@@ -113,7 +148,7 @@ begin
       if (Assigned(FRoutine)) then
       begin
         try
-          FRoutine(IntToStr(vID_Nota));
+          FRoutine(IntToStr(vID_Nota_Local));
           vImp := true;
         except
           on E : Exception do
@@ -155,7 +190,7 @@ begin
   fDMRFID.cdsNotaFiscal_RFIDQTD.AsInteger        := fDMEtiqueta.mEtiqueta_NavQtd.AsInteger;
   fDMRFID.cdsNotaFiscal_RFIDUNIDADE.AsString     := fDMEtiqueta.mEtiqueta_NavUnidade.AsString;
   fDMRFID.cdsNotaFiscal_RFIDNUM_RFID.AsString    := Monta_Numero(fDMEtiqueta.mEtiqueta_NavCNPJ_Filial.AsString,14)
-                                                      + Monta_Numero(fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsString,10);
+                                                  + Monta_Numero(fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsString,10);
   fDMRFID.cdsNotaFiscal_RFID.Post;
   fDMRFID.cdsNotaFiscal_RFID.ApplyUpdates(0);
 
@@ -206,6 +241,131 @@ procedure TfrmEtiqueta_RFID.FormKeyDown(Sender: TObject; var Key: Word;
 begin
   if (Shift = [ssCtrl]) and (Key = 87) then
     CheckBox1.Visible := not(CheckBox1.Visible);
+end;
+
+procedure TfrmEtiqueta_RFID.btnAlterar_EtiqClick(Sender: TObject);
+begin
+  RzGroupBox1.Enabled       := True;
+  btnConfirmar_Etiq.Enabled := True;
+  if fDMEtiqueta.cdsParametros_FinID.AsInteger <= 0 then
+  begin
+    fDMEtiqueta.cdsParametros_Fin.Insert;
+    fDMEtiqueta.cdsParametros_FinID.AsInteger;
+    fDMEtiqueta.cdsParametros_FinZEBRA_TEMPERATURA.AsInteger := 20;
+    fDMEtiqueta.cdsParametros_FinZEBRA_VELOCIDADE.AsInteger  := 2;
+  end
+  else
+  begin
+    fDMEtiqueta.cdsParametros_Fin.Edit;
+    if fDMEtiqueta.cdsParametros_FinZEBRA_TEMPERATURA.AsInteger <= 0 then
+      fDMEtiqueta.cdsParametros_FinZEBRA_TEMPERATURA.AsInteger := 20;
+    if fDMEtiqueta.cdsParametros_FinZEBRA_VELOCIDADE.AsInteger <= 0 then
+      fDMEtiqueta.cdsParametros_FinZEBRA_VELOCIDADE.AsInteger := 2;
+  end;
+end;
+
+procedure TfrmEtiqueta_RFID.btnConfirmar_EtiqClick(Sender: TObject);
+begin
+  if fDMEtiqueta.cdsParametros_Fin.State in [dsEdit,dsInsert] then
+  begin
+    if fDMEtiqueta.cdsParametros_FinZEBRA_TEMPERATURA.AsInteger <= 0 then
+      fDMEtiqueta.cdsParametros_FinZEBRA_TEMPERATURA.AsInteger := 20;
+    if fDMEtiqueta.cdsParametros_FinZEBRA_VELOCIDADE.AsInteger <= 0 then
+      fDMEtiqueta.cdsParametros_FinZEBRA_TEMPERATURA.AsInteger := 2;
+    fDMEtiqueta.cdsParametros_Fin.Post;
+    fDMEtiqueta.cdsParametros_Fin.ApplyUpdates(0);
+  end;
+  btnConfirmar_Etiq.Enabled := False;
+  RzGroupBox1.Enabled       := False;
+end;
+
+procedure TfrmEtiqueta_RFID.btnImprimirClick(Sender: TObject);
+begin
+  vImprimir := False;
+  vSeq := fnc_Ultima_Seq;
+  fDMEtiqueta.mEtiqueta_Nav.IndexFieldNames := 'ID_Nota;Item_Nota';
+  fDMEtiqueta.mEtiqueta_Nav.First;
+  while not fDMEtiqueta.mEtiqueta_Nav.Eof do
+  begin
+    begin
+      if fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsInteger <= 0 then
+      begin
+        prc_Grava_Seq_Aux;
+        prc_Gravar_RFID;
+      end;
+    end;
+    fDMEtiqueta.mEtiqueta_Nav.Next;
+  end;
+  if (CheckBox1.Checked) and (CheckBox1.Visible) then
+    vImprimir := True
+  else
+    prc_Envio_RFID;
+  if vImprimir then
+    uEtiqueta_Zebra.prc_Etiqueta_ZebraZT410(fDMEtiqueta);
+end;
+
+procedure TfrmEtiqueta_RFID.SMDBGrid1GetCellParams(Sender: TObject;
+  Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
+begin
+  if fDMEtiqueta.mEtiqueta_NavEnviado.AsString = 'N' then
+    Background := clYellow
+  else
+  if fDMEtiqueta.mEtiqueta_NavEnviado.AsString = 'S' then
+    Background := clLime;
+end;
+
+procedure TfrmEtiqueta_RFID.prc_Envio_RFID;
+const
+  C_Dll : string = 'EnviaRFID.dll';
+var
+  FHandle: THandle;
+  FRoutine: function (const pID: WideString): Boolean;
+  Form: TForm;
+begin
+  vImprimir := False;
+  
+  Form := TForm.Create(Application);
+  uUtilPadrao.prc_Form_Aguarde(Form);
+
+  FHandle := LoadLibrary(PAnsiChar(C_Dll));
+  try
+    FRoutine := GetProcAddress(FHandle, 'EnviarRFID');
+    if (Assigned(FRoutine)) then
+    begin
+      try
+        FRoutine(IntToStr(vID_Nota_Local));
+        vImprimir := True;
+      except
+        on E : Exception do
+          FreeLibrary(FHandle);
+      end;
+    end
+    else
+      raise Exception.Create('Dll não encontrada!');
+  finally
+    FreeLibrary(FHandle);
+    FreeAndNil(Form);
+  end;
+end;
+
+procedure TfrmEtiqueta_RFID.btnReenvioClick(Sender: TObject);
+begin
+  prc_Envio_RFID;
+  fDMEtiqueta.mEtiqueta_Nav.First;
+  while not fDMEtiqueta.mEtiqueta_Nav.Eof do
+  begin
+    fDMEtiqueta.mEtiqueta_Nav.Edit;
+    fDMEtiqueta.mEtiqueta_NavEnviado.AsString := fDMEtiqueta.fnc_Verifica_Enviado_BeiraRio(fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsLargeInt,fDMEtiqueta.mEtiqueta_NavFilial.AsInteger);
+    fDMEtiqueta.mEtiqueta_Nav.Post;
+
+    fDMEtiqueta.mEtiqueta_Nav.Next;
+  end;
+
+end;
+
+procedure TfrmEtiqueta_RFID.btnExcluirClick(Sender: TObject);
+begin
+  fDMEtiqueta.mEtiqueta_Nav.EmptyDataSet;
 end;
 
 end.

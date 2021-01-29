@@ -507,7 +507,9 @@ object frmCadFinanceiro: TfrmCadFinanceiro
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
-        Caption = 'Duplo clique para consultar       F5-Consulta Saldo'
+        Caption = 
+          'Duplo clique para consultar       F5-Consulta Saldo      F6-Sald' +
+          'o Por Data'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = 16384
         Font.Height = -11

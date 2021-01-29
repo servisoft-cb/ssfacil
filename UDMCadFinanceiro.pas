@@ -404,6 +404,23 @@ type
     cdsFinanceiro_ConsultaCONTA_ORCAMENTO: TStringField;
     cdsFinanceiro_ConsultaNOME_ORCAMENTO: TStringField;
     frxFinanceiro_Consulta: TfrxDBDataset;
+    sdsSaldo_Data: TSQLDataSet;
+    dspSaldo_Data: TDataSetProvider;
+    cdsSaldo_Data: TClientDataSet;
+    dsSaldo_Data: TDataSource;
+    cdsSaldo_DataID: TIntegerField;
+    cdsSaldo_DataNOME_CONTA: TStringField;
+    cdsSaldo_DataVLR_ENTRADA: TFloatField;
+    cdsSaldo_DataVLR_SAIDA: TFloatField;
+    cdsSaldo_DataclSaldo: TFloatField;
+    cdsSaldo_DataagTotal_Entrada: TAggregateField;
+    cdsSaldo_DataagTotal_Saida: TAggregateField;
+    cdsSaldo_DataagSaldo: TAggregateField;
+    mSaldo_ContaVlr_Cheque_Aberto: TFloatField;
+    mSaldo_ContaagTotal_Entrada: TAggregateField;
+    mSaldo_ContaagTotal_Saida: TAggregateField;
+    mSaldo_ContaagSaldo: TAggregateField;
+    mSaldo_ContaagTotal_Cheque: TAggregateField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspFinanceiroUpdateError(Sender: TObject; DataSet: TCustomClientDataSet; E: EUpdateError; UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsFinanceiroBeforePost(DataSet: TDataSet);
@@ -413,6 +430,7 @@ type
     procedure frxMovimentoDataFirst(Sender: TObject);
     procedure frxMovimentoDataNext(Sender: TObject);
     procedure mFaturamentoNewRecord(DataSet: TDataSet);
+    procedure cdsSaldo_DataCalcFields(DataSet: TDataSet);
   private
     vSaldo: Real;
     { Private declarations }
@@ -425,6 +443,7 @@ type
     vMsgErro: string;
     ctCommand: string;
     ctFinanceiro_Consulta: string;
+    ctSaldo_Data: String;
     vDataIni, vDataFim: string;
     procedure prc_Localizar(ID: Integer);
     procedure prc_Inserir;
@@ -571,6 +590,7 @@ var
 begin
   ctCommand := sdsFinanceiro.CommandText;
   ctFinanceiro_Consulta := sdsFinanceiro_Consulta.CommandText;
+  ctSaldo_Data          := sdsSaldo_Data.CommandText;
 
   cdsContas.Open;
   cdsFilial.Close;
@@ -719,6 +739,11 @@ begin
     FreeAndNil(sds);
   end;
 
+end;
+
+procedure TDMCadFinanceiro.cdsSaldo_DataCalcFields(DataSet: TDataSet);
+begin
+  cdsSaldo_DataclSaldo.AsFloat := StrToFloat(FormatFloat('0.00',cdsSaldo_DataVLR_ENTRADA.AsFloat - cdsSaldo_DataVLR_SAIDA.AsFloat));
 end;
 
 end.

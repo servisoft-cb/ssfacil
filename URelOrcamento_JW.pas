@@ -134,9 +134,6 @@ type
     RLLabel41: TRLLabel;
     RLDBText44: TRLDBText;
     RLSubDetail3: TRLSubDetail;
-    RLDetailGrid1: TRLDetailGrid;
-    RLDBText45: TRLDBText;
-    RLLabel42: TRLLabel;
     RLLabel43: TRLLabel;
     RLDBText46: TRLDBText;
     RLDBText47: TRLDBText;

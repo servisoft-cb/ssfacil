@@ -475,7 +475,6 @@ type
     procedure BaixaLoteTalo1Click(Sender: TObject);
     procedure Contrato1Click(Sender: TObject);
     procedure Posio1Click(Sender: TObject);
-    procedure PrevisesdeContas1Click(Sender: TObject);
     procedure GerarNotaServio1Click(Sender: TObject);
     procedure Cheques1Click(Sender: TObject);
     procedure ConsultaEstoqueClienteExtrato1Click(Sender: TObject);
@@ -710,7 +709,7 @@ uses DmdDatabase, uCadFilial, UCadNFe_Inutilizacao, uFrmSobre, UCadPais, UCadUF,
   UCadContrato, UCadServico, UCadProvedor, UCadNatureza, UCadServico_Int, uCadCentroCusto, uCadPedidoSimples, uCadContaOrc,
   UConsPedido_Fat, UCadMarca, UCadAtividade_Cid, uCadSetor, UConsNotas_ES, UCadRequisicao, UCob_TestarNossoNum, UCadMaterial,
   UGerarMovimento, UConsNotas_SER, UCadRet_Tabela_Rej, uUtilPadrao, UCadTamanho, uCadGrade, UGerar_Lote, UBaixaLote, UDMUtil,
-  UCadPosicao, UCadPrevisao, uCadCheque, uConsEstoque_Cli, UCadInventario, UConsEstoque_Bal, UCadOrdemServico, UCadFeriado,
+  UCadPosicao, uCadCheque, uConsEstoque_Cli, UCadInventario, UConsEstoque_Bal, UCadOrdemServico, UCadFeriado,
   UBaixaOrdemServico, UConsOrdemServico, uCadMaquina, UCadTipo_Matriz, UAtualiza_Ped, USel_TabPreco, UCadFeriado_Fixo, uCadOC,
   uCobRetorno, UConsSaldo_Conta, UConsFinanceiro, uCadContratoServ, UConsDuplicata_Pag, UCadTab_IBPT, uConsFluxoCaixa, UCadCor,
   UGerar_Lote_Calc, UGerar_Rotulos, UCadLinha, UCadEDI_Config, UGerar_Pedido_EDI, UCadFaixa_Simples, UCadContabilista, UMinuta,
@@ -1401,11 +1400,6 @@ end;
 procedure TfMenu.Posio1Click(Sender: TObject);
 begin
   OpenForm(TfrmCadPosicao,wsMaximized);
-end;
-
-procedure TfMenu.PrevisesdeContas1Click(Sender: TObject);
-begin
-  OpenForm(TfrmCadPrevisao,wsMaximized);
 end;
 
 procedure TfMenu.GerarNotaServio1Click(Sender: TObject);

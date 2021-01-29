@@ -3517,7 +3517,7 @@ begin
                        'AND PF.COD_MATERIAL_FORN = :COD_MATERIAL_FORN ' +
                        'AND PF.TAMANHO_CLIENTE = :TAMANHO_CLIENTE ' +
                        'AND P.INATIVO = ' + QuotedStr('N');
-    if vImpAux = 'S' then
+    if (vImpAux = 'S') or (trim(Cod_Cor_Forn) <> '')  then
     begin
       sds.CommandText := sds.CommandText + ' AND PF.COD_COR_FORN = :COD_COR_FORN '
                        + ' AND PF.TAMANHO_CLIENTE = :TAMANHO_CLIENTE ';

@@ -5,7 +5,7 @@ interface
 uses
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons, Grids, Mask,
   DBGrids, SMDBGrid, FMTBcd, DB, Provider, DBClient, SqlExpr, UDMConsEstoque, RxLookup, UCBase, NxCollection, ToolEdit, DBFilter,
-  RzTabs, CurrEdit, UDMEstoque, RzLstBox, RzChkLst;
+  RzTabs, CurrEdit, UDMEstoque, RzLstBox, RzChkLst, Menus, ComObj;
 
 type
   TfrmConsEstoque_Bal = class(TForm)
@@ -41,6 +41,10 @@ type
     RadioGroup2: TRadioGroup;
     btnImpGrade: TNxButton;
     ckImpressora: TCheckBox;
+    btnExcel: TNxButton;
+    PopupMenu1: TPopupMenu;
+    Excel1: TMenuItem;
+    CSV1: TMenuItem;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure SMDBGrid1TitleClick(Column: TColumn);
@@ -70,6 +74,8 @@ type
     procedure btnTipoSpedClick(Sender: TObject);
     procedure ComboBox1Click(Sender: TObject);
     procedure btnImpGradeClick(Sender: TObject);
+    procedure Excel1Click(Sender: TObject);
+    procedure CSV1Click(Sender: TObject);
   private
     { Private declarations }
     fDMConsEstoque: TDMConsEstoque;
@@ -78,6 +84,7 @@ type
 
     procedure prc_Consultar;
     procedure prc_Gravar_Estoque;
+    procedure prc_CriaExcel(vDados: TDataSource);
 
   public
     { Public declarations }
@@ -88,7 +95,8 @@ var
 
 implementation
 
-uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, URelEstoque_Bal, UConsEstoque_Bal_Det, USel_Balanco;
+uses DmdDatabase, uUtilPadrao, rsDBUtils, UMenu, URelEstoque_Bal, UConsEstoque_Bal_Det, USel_Balanco,
+  UInformeEndereco, DateUtils;
 
 {$R *.dfm}
 
@@ -659,6 +667,67 @@ begin
     fDMConsEstoque.frxReport1.ShowReport;
   end;
   SMDBGrid1.EnableScroll;
+end;
+
+procedure TfrmConsEstoque_Bal.Excel1Click(Sender: TObject);
+begin
+  prc_CriaExcel(SMDBGrid1.DataSource);
+end;
+
+procedure TfrmConsEstoque_Bal.prc_CriaExcel(vDados: TDataSource);
+var
+  planilha: variant;
+  vTexto: string;
+begin
+  Screen.Cursor := crHourGlass;
+  vDados.DataSet.First;
+  SMDBGrid1.DisableScroll;
+
+  try
+    planilha := CreateOleObject('Excel.Application');
+    planilha.WorkBooks.add(1);
+    planilha.caption := 'Exportando dados do tela para o Excel';
+    planilha.visible := true;
+
+    prc_Preencher_Excel2(planilha, vDados, SMDBGrid1);
+
+    planilha.columns.Autofit;
+    vTexto := ExtractFilePath(Application.ExeName);
+
+    vTexto := vTexto + Name + '_' + RzPageControl1.ActivePage.Caption;
+
+    Planilha.ActiveWorkBook.SaveAs(vTexto);
+  finally
+    begin
+      Screen.Cursor := crDefault;
+      SMDBGrid1.EnableScroll;
+    end;
+  end;
+end;
+
+procedure TfrmConsEstoque_Bal.CSV1Click(Sender: TObject);
+var
+  ffrmInformeEndereco: TfrmInformeEndereco;
+  vAno,vMes : Integer;
+begin
+  ffrmInformeEndereco := TfrmInformeEndereco.Create(self);
+  ffrmInformeEndereco.ShowModal;
+  FreeAndNil(ffrmInformeEndereco);
+
+  if copy(vEndereco_Arq,Length(vEndereco_Arq),1) <> '\' then
+    vEndereco_Arq := vEndereco_Arq + '\';
+
+  vAno := YearOf(DateEdit1.Date);
+  vMes := MonthOf(DateEdit1.Date);
+
+  SMDBGrid1.DisableScroll;
+  try
+    prc_Preencher_CSV(SMDBGrid1.DataSource, SMDBGrid1,'BALANCO_' + FormatFloat('0000',vAno) + '_' + FormatFloat('00',vMes) + '.CSV');
+  finally
+    SMDBGrid1.EnableScroll;
+  end;
+
+  MessageDlg('*** Arquivo gerado  ' + vEndereco_Arq + 'BALANCO_' + FormatFloat('0000',vAno) + '_' + FormatFloat('00',vMes) + '.CSV', mtConfirmation, [mbOk], 0);
 end;
 
 end.

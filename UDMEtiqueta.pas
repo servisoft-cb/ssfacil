@@ -221,15 +221,46 @@ type
     mEtiqueta_NavNUM_RFID: TStringField;
     mEtiqueta_NavFantasia_Filial: TStringField;
     mEtiqueta_NavSelecionado: TStringField;
+    sdsParametros_Fin: TSQLDataSet;
+    dspParametros_Fin: TDataSetProvider;
+    cdsParametros_Fin: TClientDataSet;
+    dsParametros_Fin: TDataSource;
+    sdsParametros_FinID: TIntegerField;
+    sdsParametros_FinZEBRA_TEMPERATURA: TIntegerField;
+    sdsParametros_FinZEBRA_VELOCIDADE: TIntegerField;
+    cdsParametros_FinID: TIntegerField;
+    cdsParametros_FinZEBRA_TEMPERATURA: TIntegerField;
+    cdsParametros_FinZEBRA_VELOCIDADE: TIntegerField;
+    sdsParametros_FinZEBRA_ENDERECO: TStringField;
+    cdsParametros_FinZEBRA_ENDERECO: TStringField;
+    mEtiqueta_NavEnviado: TStringField;
+    sdsConsNotaFiscal_RFID: TSQLDataSet;
+    dspConsNotaFiscal_RFID: TDataSetProvider;
+    cdsConsNotaFiscal_RFID: TClientDataSet;
+    cdsConsNotaFiscal_RFIDID: TIntegerField;
+    cdsConsNotaFiscal_RFIDITEM_NOTA: TIntegerField;
+    cdsConsNotaFiscal_RFIDITEM_RFID: TIntegerField;
+    cdsConsNotaFiscal_RFIDFILIAL: TIntegerField;
+    cdsConsNotaFiscal_RFIDCNPJ_FILIAL: TStringField;
+    cdsConsNotaFiscal_RFIDSEQUENCIA: TFMTBCDField;
+    cdsConsNotaFiscal_RFIDQTD: TFloatField;
+    cdsConsNotaFiscal_RFIDUNIDADE: TStringField;
+    cdsConsNotaFiscal_RFIDNUM_RFID: TStringField;
+    cdsConsNotaFiscal_RFIDENVIADO: TStringField;
+    procedure DataModuleCreate(Sender: TObject);
+    procedure mEtiqueta_NavNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     vCod_Cor_Cli, vProd_Cliente : String;
-
     procedure prc_Busca_Produto_Cliente;
-    
+
   public
     { Public declarations }
     procedure prc_Monta_Etiqueta_Calcado(Tipo: String; ID: Integer; Qtd : Integer ; RFID : Boolean); //D= DOS   A=A4 em windows
+
+    procedure prc_Le_NotaFiscal_RFID(ID : Integer);
+
+    function fnc_Verifica_Enviado_BeiraRio(Sequencial : Int64; Filial : Integer) : String;
 
   end;
 
@@ -387,6 +418,118 @@ begin
         mEtiqueta_Nav.Post;
     end;
     cdsNotaFiscal_Itens.Next;
+  end;
+end;
+
+procedure TDMEtiqueta.DataModuleCreate(Sender: TObject);
+begin
+  cdsParametros_Fin.Open;
+end;
+
+procedure TDMEtiqueta.mEtiqueta_NavNewRecord(DataSet: TDataSet);
+begin
+  mEtiqueta_NavEnviado.AsString := 'N';
+end;
+
+procedure TDMEtiqueta.prc_Le_NotaFiscal_RFID(ID: Integer);
+begin
+  qNotaFiscal.Close;
+  qNotaFiscal.ParamByName('ID').AsInteger := ID;
+  qNotaFiscal.Open;
+  cdsNotaFiscal_Itens.Close;
+  sdsNotaFiscal_Itens.ParamByName('ID').AsInteger := ID;
+  cdsNotaFiscal_Itens.Open;
+  mEtiqueta_Nav.EmptyDataSet;
+  cdsNotaFiscal_Itens.First;
+  while not cdsNotaFiscal_Itens.Eof do
+  begin
+    cdsConsNotaFiscal_RFID.Close;
+    sdsConsNotaFiscal_RFID.ParamByName('ID').AsInteger        := cdsNotaFiscal_ItensID.AsInteger;
+    sdsConsNotaFiscal_RFID.ParamByName('ITEM_NOTA').AsInteger := cdsNotaFiscal_ItensITEM.AsInteger;
+    cdsConsNotaFiscal_RFID.Open;
+    cdsConsNotaFiscal_RFID.First;
+    while not cdsConsNotaFiscal_RFID.Eof do
+    begin
+      mEtiqueta_Nav.Insert;
+      mEtiqueta_NavNum_Nota.AsInteger        := qNotaFiscalNUMNOTA.AsInteger;
+      mEtiqueta_NavID_Nota.AsInteger         := qNotaFiscalID.AsInteger;
+      mEtiqueta_NavItem_Nota.AsInteger       := cdsNotaFiscal_ItensITEM.AsInteger;
+      mEtiqueta_NavFilial.AsInteger          := qNotaFiscalFILIAL.AsInteger;
+      mEtiqueta_NavReferencia.AsString       := cdsNotaFiscal_ItensREFERENCIA.AsString;
+      mEtiqueta_NavNome_Produto.AsString     := cdsNotaFiscal_ItensNOME_PRODUTO.AsString;
+      mEtiqueta_NavItem_Ped.AsInteger        := cdsNotaFiscal_ItensITEM.AsInteger;
+      mEtiqueta_NavCod_Cor_Cliente.AsString  := cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString;
+      vProd_Cliente := '';
+      if (trim(cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString) = '') then
+      begin
+        prc_Busca_Produto_Cliente;
+        mEtiqueta_NavCod_Cor_Cliente.AsString := vCod_Cor_Cli;
+      end;
+      mEtiqueta_NavNome_Cor_Cliente.AsString := cdsNotaFiscal_ItensNOME_COR_CLIENTE.AsString;
+      mEtiqueta_NavCNPJ_Filial.AsString      := SQLLocate('FILIAL','ID','CNPJ_CPF',qNotaFiscalFILIAL.AsString);
+      if (qNotaFiscalIMP_COR_CLIENTE.AsString = 'S') and (cdsNotaFiscal_ItensID_COR.AsInteger > 0) and
+         (cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString <> '') then
+      begin
+        if (trim(cdsNotaFiscal_ItensTAMANHO_CLIENTE.AsString) <> '') and (trim(cdsNotaFiscal_ItensTAMANHO_CLIENTE.AsString) <> '0') then
+          mEtiqueta_NavNome_Produto.AsString := mEtiqueta_NavNome_Produto.AsString + ' TAM. ' + cdsNotaFiscal_ItensTAMANHO_CLIENTE.AsString;
+      end
+      else
+      if cdsNotaFiscal_ItensID_COR.AsInteger > 0 then
+        mEtiqueta_NavNome_Produto.AsString := mEtiqueta_NavNome_Produto.AsString + ' ' + cdsNotaFiscal_ItensNOME_COR.AsString;
+      mEtiqueta_NavTamanho.AsString      := cdsNotaFiscal_ItensTAMANHO.AsString;
+      mEtiqueta_NavNumOS.AsString        := cdsNotaFiscal_ItensNUMERO_OS.AsString;
+      mEtiqueta_NavUnidade.AsString      := cdsNotaFiscal_ItensUNIDADE.AsString;
+      mEtiqueta_NavEncerado.AsString     := '';
+      if trim(cdsNotaFiscal_ItensCOD_PRODUTO_CLIENTE.AsString) <> '' then
+        mEtiqueta_NavProd_Cliente.AsString := cdsNotaFiscal_ItensCOD_PRODUTO_CLIENTE.AsString
+      else
+      begin
+        mEtiqueta_NavProd_Cliente.AsString := fnc_Busca_CodProduto_Cliente(cdsNotaFiscal_ItensID_PRODUTO.AsInteger,
+                                                                           qNotaFiscalID_CLIENTE.AsInteger,
+                                                                           cdsNotaFiscal_ItensID_COR.AsInteger,'',
+                                                                           cdsNotaFiscal_ItensTAMANHO_CLIENTE.AsString);
+      end;
+      if (trim(mEtiqueta_NavProd_Cliente.AsString) = '') then
+        mEtiqueta_NavProd_Cliente.AsString := vProd_Cliente;
+
+      mEtiqueta_NavDtEmissao.AsDateTime      := qNotaFiscalDTEMISSAO.AsDateTime;
+      mEtiqueta_NavNome_Empresa.AsString     := qNotaFiscalNOME_INTERNO.AsString;
+      mEtiqueta_NavNome_Cliente.AsString     := qNotaFiscalNOME_CLIENTE.AsString;
+      mEtiqueta_NavFantasia_Cli.AsString     := qNotaFiscalFANTASIA.AsString;
+      mEtiqueta_NavPedido_Cliente.AsString   := cdsNotaFiscal_ItensNUMERO_OC.AsString;
+      mEtiqueta_NavQtd.AsInteger             := cdsConsNotaFiscal_RFIDQTD.AsInteger;
+      mEtiqueta_NavSequencia_RFID.AsLargeInt := cdsConsNotaFiscal_RFIDSEQUENCIA.AsInteger;
+      mEtiqueta_NavNUM_RFID.AsString         := cdsConsNotaFiscal_RFIDNUM_RFID.AsString;
+      mEtiqueta_NavEnviado.AsString          := cdsConsNotaFiscal_RFIDENVIADO.AsString;
+      mEtiqueta_Nav.Post;
+      cdsConsNotaFiscal_RFID.Next;
+    end;
+    cdsNotaFiscal_Itens.Next;
+  end;
+end;
+
+function TDMEtiqueta.fnc_Verifica_Enviado_BeiraRio(Sequencial: Int64;
+  Filial: Integer): String;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 'N';
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.GetMetadata   := False;
+    sds.NoMetadata    := True;
+    sds.CommandText   := 'select count(1) CONTADOR from NOTAFISCAL_RFID R '
+                       + 'where R.FILIAL = :FILIAL and '
+                       + '      R.SEQUENCIA = :SEQUENCIA and '
+                       + '      coalesce(R.ENVIADO, ' + QuotedStr('N') + ') = ' + QuotedStr('N');
+    sds.ParamByName('FILIAL').AsInteger    := Filial;
+    sds.ParamByName('SEQUENCIA').AsInteger := Sequencial;
+    sds.Open;
+    if sds.FieldByName('CONTADOR').AsInteger <= 0 then
+      Result := 'S';
+  finally
+    FreeAndNil(sds);
   end;
 end;
 

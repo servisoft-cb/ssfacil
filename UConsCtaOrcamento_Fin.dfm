@@ -1,6 +1,6 @@
 object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
-  Left = 131
-  Top = 50
+  Left = 132
+  Top = 86
   Width = 1169
   Height = 533
   Caption = 'frmConsCtaOrcamento_Fin'
@@ -399,10 +399,10 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
     Top = 137
     Width = 1161
     Height = 348
-    ActivePage = ts_CentroCusto
+    ActivePage = ts_Centro_Orcamento
     ActivePageDefault = TS_Resumido
     Align = alClient
-    TabIndex = 1
+    TabIndex = 2
     TabOrder = 2
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -589,6 +589,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
         Width = 1157
         Height = 325
         Align = alClient
+        Ctl3D = False
         DataSource = DMConsFinanceiro.dsmContas_Orc_CCusto
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
@@ -596,6 +597,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
         Font.Name = 'Courier New'
         Font.Style = []
         Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
+        ParentCtl3D = False
         ParentFont = False
         ReadOnly = True
         TabOrder = 0
@@ -605,7 +607,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
         OnDblClick = SMDBGrid2DblClick
-        Flat = False
+        Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
         BandsFont.Color = clWindowText
         BandsFont.Height = -11
@@ -618,6 +620,7 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
         TitleHeight.PixelCount = 24
         FooterColor = clBtnFace
         ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+        OnGetCellParams = SMDBGrid2GetCellParams
         RegistryKey = 'Software\Scalabium'
         RegistrySection = 'SMDBGrid'
         WidthOfIndicator = 11
@@ -652,16 +655,19 @@ object frmConsCtaOrcamento_Fin: TfrmConsCtaOrcamento_Fin
           item
             Expanded = False
             FieldName = 'Vlr_Total'
+            Width = 115
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Vlr_Pago'
+            Width = 121
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Vlr_Restante'
+            Width = 122
             Visible = True
           end
           item

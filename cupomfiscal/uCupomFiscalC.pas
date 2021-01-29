@@ -96,6 +96,8 @@ type
     Promissria2: TMenuItem;
     Label7: TLabel;
     RxDBLookupCombo2: TRxDBLookupCombo;
+    Label8: TLabel;
+    ceTotalFiltrado: TCurrencyEdit;
     procedure FormShow(Sender: TObject);
     procedure btnConsultarClick(Sender: TObject);
     procedure btnPesquisarClick(Sender: TObject);
@@ -152,6 +154,7 @@ type
     procedure Gravar_Estoque(vFinanceiro: Boolean);
     procedure prc_PosicionaFormaPgto(vId: Integer);
     procedure Gravar_CReceber;
+    procedure prc_SomaFiltrados;
   public
     { Public declarations }
     fDmParametros: TDmParametros;
@@ -312,6 +315,7 @@ begin
     exit;
   end;
   Monta_sqlCupom_Cons(0,0);
+  prc_SomaFiltrados;
   fdmCupomFiscal.cdsCupom_Cons.First;
   vPosicionar := True;
 end;
@@ -2398,6 +2402,23 @@ begin
     fDmCupomFiscal.prcLocalizar(fDmCupomFiscal.cdsCupom_ConsID.AsInteger);
     fDmCupomFiscal.frxReport1.ShowReport;
   end;
+end;
+
+procedure TfCupomFiscalC.prc_SomaFiltrados;
+var
+  vTot: Currency;
+begin
+  SMDBGrid1.DisableScroll;
+  vTot := 0;
+  fdmCupomFiscal.cdsCupom_Cons.First;
+  while not fdmCupomFiscal.cdsCupom_Cons.Eof do
+  begin
+    if fdmCupomFiscal.cdsCupom_ConsTIPO.AsString <> 'ORC' then
+      vTot := vTot + fdmCupomFiscal.cdsCupom_ConsVLR_TOTAL.AsCurrency;
+    fdmCupomFiscal.cdsCupom_Cons.Next;
+  end;
+  ceTotalFiltrado.Value := vTot;
+  SMDBGrid1.EnableScroll;
 end;
 
 end.
