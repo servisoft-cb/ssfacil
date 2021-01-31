@@ -138,6 +138,8 @@ type
     procedure btnExcluir_ItensClick(Sender: TObject);
     procedure NxButton3Click(Sender: TObject);
     procedure btnGerar_PrevisaoClick(Sender: TObject);
+    procedure FormKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMCadContaOrc: TDMCadContaOrc;
@@ -284,6 +286,14 @@ end;
 
 procedure TfrmCadContaOrc.prc_Consultar;
 begin
+  fDMCadContaOrc.cdsPesquisa.Close;
+  if trim(Edit4.Text) <> '' then
+  begin
+    fDMCadContaOrc.sdsPesquisa.CommandText := 'SELECT C.ID, C.CODIGO, C.DESCRICAO FROM CONTA_ORCAMENTO C '
+                            + ' WHERE C.DESCRICAO LIKE ' + QuotedStr('%'+Edit4.Text+'%');
+    fDMCadContaOrc.cdsPesquisa.Open;
+  end;
+      
   prc_Calcular_Fixa;
   {fDMCadContaOrc.cdsContaOrc.Close;
   fDMCadContaOrc.sdsContaOrc.CommandText := fDMCadContaOrc.ctCommand + ' WHERE 0 = 0 ';
@@ -295,11 +305,14 @@ begin
 
   fDMCadContaOrc.cdsConsulta.Close;
   fDMCadContaOrc.sdsConsulta.CommandText := fDMCadContaOrc.ctConsulta + ' WHERE 0 = 0 ';
-  if Trim(Edit4.Text) <> '' then
-    fDMCadContaOrc.sdsConsulta.CommandText := fDMCadContaOrc.sdsConsulta.CommandText + ' AND C.DESCRICAO LIKE ' + QuotedStr('%' + Edit4.Text + '%');
+  //if Trim(Edit4.Text) <> '' then
+  //  fDMCadContaOrc.sdsConsulta.CommandText := fDMCadContaOrc.sdsConsulta.CommandText + ' AND C.DESCRICAO LIKE ' + QuotedStr('%' + Edit4.Text + '%');
   fDMCadContaOrc.cdsConsulta.IndexFieldNames := 'CODIGO';
   fDMCadContaOrc.cdsConsulta.Open;
   prc_Calcular;
+
+  if (fDMCadContaOrc.cdsPesquisa.Active) and (fDMCadContaOrc.cdsPesquisaID.AsInteger > 0) then
+    fDMCadContaOrc.cdsConsulta.Locate('ID',fDMCadContaOrc.cdsPesquisaID.AsInteger,([loCaseInsensitive]));
 end;
 
 procedure TfrmCadContaOrc.btnConsultarClick(Sender: TObject);
@@ -573,7 +586,7 @@ begin
 
   if not SMDBGrid4.ReadOnly then
   begin
-    for i := 1 to SMDBGrid4.ColCount - 2 do
+    for i := 0 to SMDBGrid4.ColCount - 2 do
     begin
       if (SMDBGrid4.Columns[i].FieldName = 'ITEM') then
         SMDBGrid1.Columns[i].ReadOnly := True
@@ -750,6 +763,24 @@ begin
   frmCadContaOrc_Prev.fDMCadContaOrc := fDMCadContaOrc;
   frmCadContaOrc_Prev.ShowModal;
   FreeAndNil(frmCadContaOrc_Prev);
+end;
+
+procedure TfrmCadContaOrc.FormKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if (Key = Vk_F3) and (RzPageControl1.ActivePage = TS_Consulta) then
+  begin
+    if (fDMCadContaOrc.cdsConsulta.Active) and (fDMCadContaOrc.cdsPesquisa.Active) then
+    begin
+      SMDBGrid1.SetFocus;
+      if fDMCadContaOrc.cdsPesquisa.RecordCount <> fDMCadContaOrc.cdsPesquisa.RecNo then
+        fDMCadContaOrc.cdsPesquisa.Next
+      else
+        fDMCadContaOrc.cdsPesquisa.First;
+      fDMCadContaOrc.cdsConsulta.Locate('ID',fDMCadContaOrc.cdsPesquisaID.AsInteger,([loCaseInsensitive]));
+    end;
+  end;
+
 end;
 
 end.

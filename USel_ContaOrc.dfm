@@ -263,7 +263,7 @@ object frmSel_ContaOrc: TfrmSel_ContaOrc
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 208
+    Left = 206
     Top = 216
   end
   object dspPesquisa: TDataSetProvider

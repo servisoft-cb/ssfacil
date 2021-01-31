@@ -1689,7 +1689,7 @@ object DMConsFinanceiro: TDMConsFinanceiro
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 67
-    Top = 336
+    Top = 335
   end
   object dspConsulta_Conta_Orc_CCus: TDataSetProvider
     DataSet = sdsConsulta_Conta_Orc_CCus

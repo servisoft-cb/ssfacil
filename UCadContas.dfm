@@ -21,9 +21,9 @@ object frmCadContas: TfrmCadContas
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 833
-    Height = 556
-    ActivePage = TS_Consulta
+    Width = 841
+    Height = 564
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -31,7 +31,7 @@ object frmCadContas: TfrmCadContas
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -40,8 +40,8 @@ object frmCadContas: TfrmCadContas
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 63
-        Width = 829
-        Height = 470
+        Width = 837
+        Height = 478
         Align = alClient
         Ctl3D = False
         DataSource = DMCadContas.dsContas
@@ -133,7 +133,7 @@ object frmCadContas: TfrmCadContas
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 829
+        Width = 837
         Height = 30
         Align = alTop
         Color = clSilver
@@ -438,7 +438,7 @@ object frmCadContas: TfrmCadContas
       object pnlPesquisa: TPanel
         Left = 0
         Top = 30
-        Width = 829
+        Width = 837
         Height = 33
         Align = alTop
         Color = clSilver
@@ -539,7 +539,7 @@ object frmCadContas: TfrmCadContas
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 829
+        Width = 837
         Height = 30
         Align = alTop
         Color = 8404992
@@ -768,12 +768,12 @@ object frmCadContas: TfrmCadContas
       object RzPageControl2: TRzPageControl
         Left = 0
         Top = 30
-        Width = 829
-        Height = 503
-        ActivePage = TS_Dados
+        Width = 837
+        Height = 511
+        ActivePage = TabSheet8
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 0
+        TabIndex = 2
         TabOrder = 1
         FixedDimension = 19
         object TS_Dados: TRzTabSheet
@@ -781,8 +781,8 @@ object frmCadContas: TfrmCadContas
           object pnlCadastro: TPanel
             Left = 0
             Top = 0
-            Width = 825
-            Height = 480
+            Width = 833
+            Height = 488
             Align = alClient
             Enabled = False
             TabOrder = 0
@@ -1517,15 +1517,15 @@ object frmCadContas: TfrmCadContas
           object TS_Bancos: TRzPageControl
             Left = 0
             Top = 0
-            Width = 825
-            Height = 480
-            ActivePage = TabSheet1
+            Width = 833
+            Height = 488
+            ActivePage = TabSheet7
             ActivePageDefault = TabSheet1
             Align = alClient
             UseColoredTabs = True
             Enabled = False
             ParentColor = False
-            TabIndex = 0
+            TabIndex = 1
             TabOrder = 0
             FixedDimension = 19
             object TabSheet1: TRzTabSheet
@@ -1673,7 +1673,8 @@ object frmCadContas: TfrmCadContas
                   'Itau'
                   'Santander'
                   'Sicoob'
-                  'Sicredi')
+                  'Sicredi'
+                  'Safra')
                 TabOrder = 0
                 Values.Strings = (
                   '01'
@@ -1684,7 +1685,8 @@ object frmCadContas: TfrmCadContas
                   '14'
                   '16'
                   '04'
-                  '17')
+                  '17'
+                  '18')
               end
               object RxDBComboBox3: TRxDBComboBox
                 Left = 133
@@ -5016,8 +5018,8 @@ object frmCadContas: TfrmCadContas
               object SMDBGrid2: TSMDBGrid
                 Left = 0
                 Top = 22
-                Width = 821
-                Height = 435
+                Width = 829
+                Height = 443
                 Align = alClient
                 DataSource = DMCadContas.dsContas_Calculo
                 Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -5075,7 +5077,7 @@ object frmCadContas: TfrmCadContas
               object Panel4: TPanel
                 Left = 0
                 Top = 0
-                Width = 821
+                Width = 829
                 Height = 22
                 Align = alTop
                 TabOrder = 1
@@ -5101,16 +5103,16 @@ object frmCadContas: TfrmCadContas
           object pnlSacado: TPanel
             Left = 0
             Top = 0
-            Width = 825
-            Height = 480
+            Width = 833
+            Height = 488
             Align = alClient
             Enabled = False
             TabOrder = 0
             object SMDBGrid3: TSMDBGrid
               Left = 1
               Top = 1
-              Width = 823
-              Height = 478
+              Width = 831
+              Height = 486
               Align = alClient
               DataSource = DMCadContas.dsContas_Sacado
               Options = [dgEditing, dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit]
@@ -5172,8 +5174,8 @@ object frmCadContas: TfrmCadContas
   end
   object stat1: TStatusBar
     Left = 0
-    Top = 556
-    Width = 833
+    Top = 564
+    Width = 841
     Height = 18
     Panels = <
       item

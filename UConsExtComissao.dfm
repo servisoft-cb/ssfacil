@@ -443,10 +443,10 @@ object frmConsExtComissao: TfrmConsExtComissao
         Top = 129
         Width = 1036
         Height = 535
-        ActivePage = TS_Resumido
+        ActivePage = TS_Detalhado
         ActivePageDefault = TS_Resumido
         Align = alClient
-        TabIndex = 0
+        TabIndex = 1
         TabOrder = 1
         OnChange = RzPageControl2Change
         FixedDimension = 19
@@ -977,14 +977,12 @@ object frmConsExtComissao: TfrmConsExtComissao
                 Expanded = False
                 FieldName = 'DTCADASTRO'
                 Title.Color = 13303754
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'ID'
                 Title.Color = 13303754
-                Width = 64
                 Visible = True
               end
               item

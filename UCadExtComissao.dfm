@@ -25,7 +25,7 @@ object frmCadExtComissao: TfrmCadExtComissao
     Top = 0
     Width = 875
     Height = 687
-    ActivePage = TS_Consulta
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 15759360
@@ -33,7 +33,7 @@ object frmCadExtComissao: TfrmCadExtComissao
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -146,11 +146,13 @@ object frmCadExtComissao: TfrmCadExtComissao
           item
             Expanded = False
             FieldName = 'DTCADASTRO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ID'
+            Width = 64
             Visible = True
           end
           item
@@ -567,10 +569,10 @@ object frmCadExtComissao: TfrmCadExtComissao
             Caption = '0,00'
           end
           object Label14: TLabel
-            Left = 40
+            Left = 41
             Top = 102
-            Width = 38
-            Height = 14
+            Width = 37
+            Height = 13
             Alignment = taRightJustify
             Caption = 'Saldo:'
             Font.Charset = DEFAULT_CHARSET

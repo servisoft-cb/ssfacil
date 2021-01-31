@@ -16,6 +16,7 @@ object frmCadContaOrc: TfrmCadContaOrc
   Position = poDefault
   OnClose = FormClose
   OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
@@ -24,7 +25,7 @@ object frmCadContaOrc: TfrmCadContaOrc
     Top = 0
     Width = 841
     Height = 551
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -32,7 +33,7 @@ object frmCadContaOrc: TfrmCadContaOrc
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -122,6 +123,7 @@ object frmCadContaOrc: TfrmCadContaOrc
             FieldName = 'clPerc_Adim'
             Title.Alignment = taCenter
             Title.Caption = '% ADM.'
+            Width = 64
             Visible = True
           end
           item
@@ -2078,7 +2080,7 @@ object frmCadContaOrc: TfrmCadContaOrc
             end
             object btnGerar_Previsao: TNxButton
               Left = 398
-              Top = 6
+              Top = 5
               Width = 138
               Caption = 'Gerar Previs'#227'o'
               Enabled = False

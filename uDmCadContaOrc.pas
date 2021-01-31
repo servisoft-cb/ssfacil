@@ -194,6 +194,12 @@ type
     mGerarPrevMes: TIntegerField;
     dsmGerarPrev: TDataSource;
     mGerarPrevTipo: TStringField;
+    sdsPesquisa: TSQLDataSet;
+    dspPesquisa: TDataSetProvider;
+    cdsPesquisa: TClientDataSet;
+    cdsPesquisaID: TIntegerField;
+    cdsPesquisaDESCRICAO: TStringField;
+    cdsPesquisaCODIGO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspContaOrcUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;

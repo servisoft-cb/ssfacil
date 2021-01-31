@@ -3,7 +3,8 @@ unit UDMCadExtComissao;
 interface
 
 uses
-  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, dbXPress, UDMGravarFinanceiro, Dialogs, LogTypes;
+  SysUtils, Classes, FMTBcd, DB, DBClient, Provider, SqlExpr, dbXPress, UDMGravarFinanceiro, Dialogs, LogTypes,
+  frxClass, frxDBSet, frxRich, frxExportPDF, frxExportMail;
 
 type
   TDMCadExtComissao = class(TDataModule)
@@ -342,6 +343,48 @@ type
     mImp_ReduzidoSaldo_Total: TFloatField;
     mImp_ReduzidoVlr_Desconto: TFloatField;
     mExtComissao_RedVlr_Desconto: TFloatField;
+    dspConsComissao_AnoMes: TDataSetProvider;
+    cdsConsComissao_AnoMes: TClientDataSet;
+    dsConsComissao_AnoMes: TDataSource;
+    cdsConsComissao_AnoMesANO: TIntegerField;
+    cdsConsComissao_AnoMesMES: TIntegerField;
+    cdsConsComissao_AnoMesID_VENDEDOR: TIntegerField;
+    cdsConsComissao_AnoMesNOME_VENDEDOR: TStringField;
+    cdsConsComissao_AnoMesVLR_ENTRADA: TFloatField;
+    cdsConsComissao_AnoMesVLR_PAGO: TFloatField;
+    cdsConsComissao_AnoMesSALDO: TFloatField;
+    cdsConsComissao_AnoMesVLR_ANTERIOR: TFloatField;
+    cdsConsComissao_AnoMesSALDO_MES: TFloatField;
+    cdsConsComissao_AnoMesagTotal_Entrada: TAggregateField;
+    cdsConsComissao_AnoMesagTotal_Pago: TAggregateField;
+    cdsConsComissao_AnoMesagTotal_Saldo: TAggregateField;
+    cdsConsComissao_AnoMesagTotal_Anterior: TAggregateField;
+    cdsConsComissao_AnoMesagTotal_Mes: TAggregateField;
+    cdsConsComissao_AnoMesBASE_COMISSAO: TFloatField;
+    cdsConsComissao_AnoMesagTotal_Base: TAggregateField;
+    cdsConsComissao_AnoMesANOMES: TStringField;
+    sdsConsComissao_AnoMes: TSQLDataSet;
+    frxReport1: TfrxReport;
+    frxMailExport1: TfrxMailExport;
+    frxPDFExport1: TfrxPDFExport;
+    frxRichObject1: TfrxRichObject;
+    frxConsComissao_AnoMes: TfrxDBDataset;
+    cdsConsComissao_AnoMesDESCRICAO_MES: TStringField;
+    dspConsTitulos: TDataSetProvider;
+    cdsConsTitulos: TClientDataSet;
+    dsConsTitulos: TDataSource;
+    sdsConsTitulos: TSQLDataSet;
+    cdsConsTitulosID: TIntegerField;
+    cdsConsTitulosTIPO_REG: TStringField;
+    cdsConsTitulosDTBASE: TDateField;
+    cdsConsTitulosPERC_COMISSAO: TFloatField;
+    cdsConsTitulosVLR_COMISSAO: TFloatField;
+    cdsConsTitulosBASE_COMISSAO: TFloatField;
+    cdsConsTitulosOBS: TStringField;
+    cdsConsTitulosPARCELA: TIntegerField;
+    cdsConsTitulosNUM_NOTA: TIntegerField;
+    cdsConsTitulosSERIE: TStringField;
+    frxConsTitulos: TfrxDBDataset;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsExtComissaoNewRecord(DataSet: TDataSet);
     procedure mExtComissao_RedNewRecord(DataSet: TDataSet);
@@ -352,6 +395,7 @@ type
       var Action: TReconcileAction);
     procedure mExtPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedido_VendCalcFields(DataSet: TDataSet);
+    procedure frxConsComissao_AnoMesFirst(Sender: TObject);
   private
     { Private declarations }
     procedure prc_Gravar_mExtComissao_Red;
@@ -367,10 +411,12 @@ type
     ctConsulta: String;
     ctPrevisao, ctPrevisao_Ped: String;
     ctPedido_Vend: String;
+    ctConsComissao_AnoMes: String;
     vEntrada_Ext, vPagamento_Ext, vAdiantamento_Ext, vDevolucao_Ext, vDesconto_Ext: Real;
     vPrevisao_Dup_Ext, vPrevisao_Ped_Ext: Real;
     vSaldo_Ant : Real;
     vAno, vMes: Integer;
+    vImpTitulos: Boolean;
 
     procedure prc_Localizar(ID: Integer);
     procedure prc_Inserir;
@@ -383,6 +429,8 @@ type
 
     procedure prc_Gravar_Financeiro;
     procedure prc_Excluir_Financeiro;
+
+    procedure prc_Abrir_ConsTitulos(ID_Vendedor, Ano, Mes : Integer);
 
     function fnc_Mover_Comissao(ID_Comissao :Integer; Tipo_Reg, Serie, Obs: WideString; DtCadastro, DtBase: TDateTime ;
                                 Filial, ID_Vendedor, ID_Nota, ID_Duplicata, Item_Duplicata_Hist, Num_Nota, ID_Cliente,
@@ -401,7 +449,7 @@ var
 
 implementation
 
-uses DmdDatabase, LogProvider, uUtilPadrao, uGrava_Erro;
+uses DmdDatabase, LogProvider, uUtilPadrao, uGrava_Erro, DateUtils;
 
 {$R *.dfm}
 
@@ -416,6 +464,7 @@ begin
   ctPrevisao     := sdsPrevisao.CommandText;
   ctPrevisao_Ped := sdsPrevisao_Ped.CommandText;
   ctPedido_Vend  := sdsPedido_Vend.CommandText;
+  ctConsComissao_AnoMes := sdsConsComissao_AnoMes.CommandText;
   qParametros.Open;
   qParametros_Fin.Open;
   qParametros_Com.Close;
@@ -1030,6 +1079,28 @@ begin
   finally
     FreeAndNil(sds);
   end;
+end;
+
+procedure TDMCadExtComissao.prc_Abrir_ConsTitulos(ID_Vendedor, Ano, Mes : Integer);
+var
+  vData1, vData2 : TDateTime;
+  vDia:Integer;
+begin
+  vData1 := EncodeDate(Ano,Mes,01);
+  vDia   := DaysInAMonth(Ano,Mes);
+  vData2 := EncodeDate(Ano,Mes,vDia);
+  cdsConsTitulos.Close;
+  sdsConsTitulos.ParamByName('ID_VENDEDOR').AsInteger := ID_Vendedor;
+  sdsConsTitulos.ParamByName('DATA1').AsDate          := vData1;
+  sdsConsTitulos.ParamByName('DATA2').AsDate          := vData2;
+  cdsConsTitulos.Open;
+end;
+
+procedure TDMCadExtComissao.frxConsComissao_AnoMesFirst(Sender: TObject);
+begin
+  cdsConsTitulos.Close;
+  if vImpTitulos then
+    prc_Abrir_ConsTitulos(cdsConsComissao_AnoMesID_VENDEDOR.AsInteger,cdsConsComissao_AnoMesANO.AsInteger,cdsConsComissao_AnoMesMES.AsInteger);
 end;
 
 end.

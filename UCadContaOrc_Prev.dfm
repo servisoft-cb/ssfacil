@@ -172,6 +172,7 @@ object frmCadContaOrc_Prev: TfrmCadContaOrc_Prev
     TabOrder = 0
     Text = 'Mensal'
     ReadOnly = True
+    OnExit = NxComboBox1Exit
     HideFocus = False
     Style = dsDropDownList
     AutoCompleteDelay = 0

@@ -68,7 +68,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
         end
         object RLDraw8: TRLDraw
           Left = 128
-          Top = 1
+          Top = 2
           Width = 943
           Height = 26
         end
@@ -172,7 +172,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           ParentFont = False
         end
         object RLLabel7: TRLLabel
-          Left = 599
+          Left = 527
           Top = 9
           Width = 67
           Height = 14
@@ -185,7 +185,7 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           ParentFont = False
         end
         object RLDBText2: TRLDBText
-          Left = 667
+          Left = 595
           Top = 9
           Width = 66
           Height = 14
@@ -1019,6 +1019,33 @@ object fRelOrcamento_JW: TfRelOrcamento_JW
           Font.Height = -9
           Font.Name = 'Arial'
           Font.Style = []
+          ParentFont = False
+        end
+        object RLLabel42: TRLLabel
+          Left = 777
+          Top = 9
+          Width = 62
+          Height = 14
+          Caption = 'Dt.Entrega:'
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
+          ParentFont = False
+        end
+        object RLDBText45: TRLDBText
+          Left = 843
+          Top = 9
+          Width = 66
+          Height = 14
+          DataField = 'DTENTREGA'
+          DataSource = DMCadPedido.dsPedidoImp
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlack
+          Font.Height = -11
+          Font.Name = 'Arial'
+          Font.Style = [fsBold]
           ParentFont = False
         end
       end

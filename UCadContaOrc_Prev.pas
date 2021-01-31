@@ -25,6 +25,7 @@ type
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
+    procedure NxComboBox1Exit(Sender: TObject);
   private
     { Private declarations }
     vTipo_ES: String;
@@ -76,7 +77,10 @@ begin
   fDMCadContaOrc.cdsContaOrc_Prev.Insert;
   fDMCadContaOrc.cdsContaOrc_PrevID.AsInteger   := fDMCadContaOrc.cdsContaOrcID.AsInteger;
   fDMCadContaOrc.cdsContaOrc_PrevITEM.AsInteger := vItem;
-  fDMCadContaOrc.cdsContaOrc_PrevDTVENCIMENTO.AsDateTime := vData;
+  if vData <= 10 then
+    fDMCadContaOrc.cdsContaOrc_PrevDTVENCIMENTO.Clear
+  else
+    fDMCadContaOrc.cdsContaOrc_PrevDTVENCIMENTO.AsDateTime := vData;
   case NxComboBox1.ItemIndex of
     0 : fDMCadContaOrc.cdsContaOrc_PrevTIPO.AsString := 'A';
     1 : fDMCadContaOrc.cdsContaOrc_PrevTIPO.AsString := 'M';
@@ -116,7 +120,7 @@ begin
     DateEdit1.SetFocus;
     exit;
   end;
-  if (CurrencyEdit2.AsInteger <= 0) or (CurrencyEdit2.AsInteger > 12) then
+  if (NxComboBox1.ItemIndex = 1) and ((CurrencyEdit2.AsInteger <= 0) or (CurrencyEdit2.AsInteger > 12)) then
   begin
     MessageDlg('*** Mês incorreto!', mtError, [mbOk], 0);
     CurrencyEdit2.SetFocus;
@@ -172,6 +176,11 @@ begin
     raise;
   end;
   Close;
+end;
+
+procedure TfrmCadContaOrc_Prev.NxComboBox1Exit(Sender: TObject);
+begin
+  CurrencyEdit3.AsInteger := 1;
 end;
 
 end.

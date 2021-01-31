@@ -1,6 +1,6 @@
 object frmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data
-  Left = 361
-  Top = 113
+  Left = 331
+  Top = 114
   Width = 854
   Height = 521
   BorderIcons = [biSystemMenu, biMaximize]
@@ -31,31 +31,28 @@ object frmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data
       Left = 1
       Top = 1
       Width = 844
-      Height = 48
+      Height = 46
       Align = alTop
       UseDockManager = False
       ParentBackground = False
       TabOrder = 0
-      object Label1: TLabel
-        Left = 16
-        Top = 23
-        Width = 47
-        Height = 13
-        Alignment = taRightJustify
-        Caption = 'Dt. In'#237'cio:'
-        Transparent = True
-      end
       object Label2: TLabel
-        Left = 175
+        Left = 42
         Top = 23
-        Width = 42
+        Width = 87
         Height = 13
         Alignment = taRightJustify
-        Caption = 'Dt. Final:'
+        Caption = 'Dt. Refer'#234'ncia:'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -11
+        Font.Name = 'Verdana'
+        Font.Style = []
+        ParentFont = False
         Transparent = True
       end
       object btnConsultar: TNxButton
-        Left = 322
+        Left = 234
         Top = 6
         Width = 176
         Height = 30
@@ -126,8 +123,8 @@ object frmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data
         Transparent = True
         OnClick = btnConsultarClick
       end
-      object DateEdit1: TDateEdit
-        Left = 66
+      object DateEdit2: TDateEdit
+        Left = 130
         Top = 15
         Width = 100
         Height = 21
@@ -136,22 +133,12 @@ object frmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data
         ParentCtl3D = False
         TabOrder = 1
       end
-      object DateEdit2: TDateEdit
-        Left = 218
-        Top = 15
-        Width = 100
-        Height = 21
-        Ctl3D = False
-        NumGlyphs = 2
-        ParentCtl3D = False
-        TabOrder = 2
-      end
     end
     object SMDBGrid1: TSMDBGrid
       Left = 1
-      Top = 49
+      Top = 47
       Width = 844
-      Height = 440
+      Height = 442
       Align = alClient
       Ctl3D = False
       DataSource = DMCadFinanceiro.dsmSaldo_Conta
@@ -176,7 +163,7 @@ object frmConsSaldo_Conta_Data: TfrmConsSaldo_Conta_Data
       GridStyle.EvenColor = 16768959
       TitleHeight.PixelCount = 24
       FooterColor = 13041606
-      ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoShowFooter, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+      ExOptions = [eoENTERlikeTAB, eoKeepSelection, eoShowFooter, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap, eoShowFilterBar]
       RegistryKey = 'Software\Scalabium'
       RegistrySection = 'SMDBGrid'
       WidthOfIndicator = 11

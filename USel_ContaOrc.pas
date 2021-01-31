@@ -145,21 +145,10 @@ begin
     if (cdsContaOrc.Active) and (trim(Edit1.Text) <> '') then
     begin
       if cdsPesquisa.RecordCount <> cdsPesquisa.RecNo then
-        cdsPesquisa.Next;
+        cdsPesquisa.Next
+      else
+        cdsPesquisa.First;
       cdsContaOrc.Locate('ID',cdsPesquisaID.AsInteger,([loCaseInsensitive]));
-      //if cdsPesquisa.FindNearest([Edit1.Text]) then
-      {vIDAux := cdsPesquisaID.AsInteger;
-      cdsPesquisa.FindNearest([Edit1.Text]);
-      if vIDAux <> cdsPesquisaID.AsInteger then
-        cdsContaOrc.Locate('ID',cdsPesquisaID.AsInteger,([loCaseInsensitive]));}
-
-      //if cdsPesquisa.Locate('DESCRICAO',Edit1.Text,([loPartialKey])) then
-      //begin
-
-       // if qPesquisa.Locate('DESCRICAO',Edit1.Text,([loPartialKey])) then
-
-      //end;
-
     end;
   end;
 

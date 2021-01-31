@@ -629,6 +629,12 @@ begin
   if (Key = Vk_F6) then
   begin
     ffrmConsSaldo_Conta_Data := TfrmConsSaldo_Conta_Data.Create(self);
+    ffrmConsSaldo_Conta_Data.vIDFilial_Local := 0;
+    ffrmConsSaldo_Conta_Data.vIDConta_Local  := 0;
+    if RxDBLookupCombo1.Text <> '' then
+      ffrmConsSaldo_Conta_Data.vIDFilial_Local := RxDBLookupCombo1.KeyValue;
+    if RxDBLookupCombo2.Text <> '' then
+      ffrmConsSaldo_Conta_Data.vIDConta_Local := RxDBLookupCombo2.KeyValue;
     ffrmConsSaldo_Conta_Data.ShowModal;
     FreeAndNil(ffrmConsSaldo_Conta_Data);
   end;

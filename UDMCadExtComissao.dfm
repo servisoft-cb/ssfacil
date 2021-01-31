@@ -436,12 +436,12 @@ object DMCadExtComissao: TDMCadExtComissao
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 528
-    Top = 265
+    Top = 241
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
     Left = 560
-    Top = 265
+    Top = 241
   end
   object cdsFilial: TClientDataSet
     Aggregates = <>
@@ -449,7 +449,7 @@ object DMCadExtComissao: TDMCadExtComissao
     Params = <>
     ProviderName = 'dspFilial'
     Left = 600
-    Top = 265
+    Top = 241
     object cdsFilialID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -466,7 +466,7 @@ object DMCadExtComissao: TDMCadExtComissao
   object dsFilial: TDataSource
     DataSet = cdsFilial
     Left = 640
-    Top = 265
+    Top = 241
   end
   object mExtComissao_Red: TClientDataSet
     Active = True
@@ -801,12 +801,12 @@ object DMCadExtComissao: TDMCadExtComissao
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 528
-    Top = 329
+    Top = 305
   end
   object dspContas: TDataSetProvider
     DataSet = sdsContas
     Left = 560
-    Top = 329
+    Top = 305
   end
   object cdsContas: TClientDataSet
     Aggregates = <>
@@ -814,7 +814,7 @@ object DMCadExtComissao: TDMCadExtComissao
     Params = <>
     ProviderName = 'dspContas'
     Left = 601
-    Top = 329
+    Top = 305
     object cdsContasID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -830,7 +830,7 @@ object DMCadExtComissao: TDMCadExtComissao
   object dsContas: TDataSource
     DataSet = cdsContas
     Left = 640
-    Top = 329
+    Top = 305
   end
   object sdsTipoCobranca: TSQLDataSet
     NoMetadata = True
@@ -840,19 +840,19 @@ object DMCadExtComissao: TDMCadExtComissao
     Params = <>
     SQLConnection = dmDatabase.scoDados
     Left = 536
-    Top = 392
+    Top = 368
   end
   object dspTipoCobranca: TDataSetProvider
     DataSet = sdsTipoCobranca
     Left = 568
-    Top = 392
+    Top = 368
   end
   object cdsTipoCobranca: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspTipoCobranca'
     Left = 600
-    Top = 392
+    Top = 368
     object cdsTipoCobrancaID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -865,7 +865,7 @@ object DMCadExtComissao: TDMCadExtComissao
   object dsTipoCobranca: TDataSource
     DataSet = cdsTipoCobranca
     Left = 632
-    Top = 392
+    Top = 368
   end
   object sdsPrevisao: TSQLDataSet
     NoMetadata = True
@@ -897,7 +897,7 @@ object DMCadExtComissao: TDMCadExtComissao
     ProviderName = 'dspPrevisao'
     OnCalcFields = cdsPrevisaoCalcFields
     Left = 952
-    Top = 128
+    Top = 129
     object cdsPrevisaoID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1441,21 +1441,21 @@ object DMCadExtComissao: TDMCadExtComissao
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 536
-    Top = 520
+    Left = 800
+    Top = 70
   end
   object dspDupAux: TDataSetProvider
     DataSet = sdsDupAux
-    Left = 592
-    Top = 520
+    Left = 856
+    Top = 70
   end
   object cdsDupAux: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspDupAux'
     OnCalcFields = cdsPrevisaoCalcFields
-    Left = 656
-    Top = 520
+    Left = 920
+    Top = 70
     object cdsDupAuxID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1787,5 +1787,334 @@ object DMCadExtComissao: TDMCadExtComissao
     SQLConnection = dmDatabase.scoDados
     Left = 832
     Top = 526
+  end
+  object dspConsComissao_AnoMes: TDataSetProvider
+    DataSet = sdsConsComissao_AnoMes
+    Left = 570
+    Top = 432
+  end
+  object cdsConsComissao_AnoMes: TClientDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    Params = <>
+    ProviderName = 'dspConsComissao_AnoMes'
+    Left = 599
+    Top = 433
+    object cdsConsComissao_AnoMesANO: TIntegerField
+      FieldName = 'ANO'
+    end
+    object cdsConsComissao_AnoMesMES: TIntegerField
+      FieldName = 'MES'
+    end
+    object cdsConsComissao_AnoMesID_VENDEDOR: TIntegerField
+      FieldName = 'ID_VENDEDOR'
+    end
+    object cdsConsComissao_AnoMesNOME_VENDEDOR: TStringField
+      FieldName = 'NOME_VENDEDOR'
+      Size = 60
+    end
+    object cdsConsComissao_AnoMesVLR_ENTRADA: TFloatField
+      FieldName = 'VLR_ENTRADA'
+    end
+    object cdsConsComissao_AnoMesVLR_PAGO: TFloatField
+      FieldName = 'VLR_PAGO'
+    end
+    object cdsConsComissao_AnoMesSALDO: TFloatField
+      FieldName = 'SALDO'
+    end
+    object cdsConsComissao_AnoMesVLR_ANTERIOR: TFloatField
+      FieldName = 'VLR_ANTERIOR'
+    end
+    object cdsConsComissao_AnoMesSALDO_MES: TFloatField
+      FieldName = 'SALDO_MES'
+    end
+    object cdsConsComissao_AnoMesBASE_COMISSAO: TFloatField
+      FieldName = 'BASE_COMISSAO'
+    end
+    object cdsConsComissao_AnoMesANOMES: TStringField
+      FieldName = 'ANOMES'
+      Size = 6
+    end
+    object cdsConsComissao_AnoMesDESCRICAO_MES: TStringField
+      FieldName = 'DESCRICAO_MES'
+      Required = True
+      FixedChar = True
+      Size = 9
+    end
+    object cdsConsComissao_AnoMesagTotal_Entrada: TAggregateField
+      FieldName = 'agTotal_Entrada'
+      Active = True
+      DisplayFormat = '###,###,###,##0.00'
+      Expression = 'SUM(VLR_ENTRADA)'
+    end
+    object cdsConsComissao_AnoMesagTotal_Pago: TAggregateField
+      FieldName = 'agTotal_Pago'
+      Active = True
+      DisplayFormat = '###,###,###,##0.00'
+      Expression = 'SUM(VLR_PAGO)'
+    end
+    object cdsConsComissao_AnoMesagTotal_Saldo: TAggregateField
+      FieldName = 'agTotal_Saldo'
+      Active = True
+      DisplayFormat = '###,###,###,##0.00'
+      Expression = 'SUM(SALDO)'
+    end
+    object cdsConsComissao_AnoMesagTotal_Anterior: TAggregateField
+      FieldName = 'agTotal_Anterior'
+      Active = True
+      DisplayFormat = '###,###,###,##0.00'
+      Expression = 'SUM(VLR_ANTERIOR)'
+    end
+    object cdsConsComissao_AnoMesagTotal_Mes: TAggregateField
+      FieldName = 'agTotal_Mes'
+      Active = True
+      DisplayFormat = '###,###,###,##0.00'
+      Expression = 'SUM(SALDO_MES)'
+    end
+    object cdsConsComissao_AnoMesagTotal_Base: TAggregateField
+      FieldName = 'agTotal_Base'
+      Active = True
+      DisplayFormat = '###,###,###,##0.00'
+      Expression = 'SUM(BASE_COMISSAO)'
+    end
+  end
+  object dsConsComissao_AnoMes: TDataSource
+    DataSet = cdsConsComissao_AnoMes
+    Left = 632
+    Top = 432
+  end
+  object sdsConsComissao_AnoMes: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select AUX.ANO, AUX.MES, AUX.ID_VENDEDOR, AUX.VLR_ENTRADA, AUX.V' +
+      'LR_PAGO, AUX.BASE_COMISSAO, AUX.ANOMES,'#13#10'       AUX.VLR_ANTERIOR' +
+      ', AUX.NOME_VENDEDOR,'#13#10'       (coalesce(AUX.VLR_ANTERIOR, 0) + co' +
+      'alesce(AUX.VLR_ENTRADA, 0)) - coalesce(AUX.VLR_PAGO, 0) SALDO,'#13#10 +
+      '       coalesce(AUX.VLR_ENTRADA, 0) - coalesce(AUX.VLR_PAGO, 0) ' +
+      'SALDO_MES,'#13#10'case'#13#10'  WHEN AUX.MES = 01 THEN '#39'Janeiro'#39#13#10'  WHEN AUX' +
+      '.MES = 02 THEN '#39'Fevereiro'#39#13#10'  WHEN AUX.MES = 03 THEN '#39'Mar'#231'o'#39#13#10'  ' +
+      'WHEN AUX.MES = 04 THEN '#39'Abril'#39#13#10'  WHEN AUX.MES = 05 THEN '#39'Maio'#39#13 +
+      #10'  WHEN AUX.MES = 06 THEN '#39'Junho'#39#13#10'  WHEN AUX.MES = 07 THEN '#39'Jul' +
+      'ho'#39#13#10'  WHEN AUX.MES = 08 THEN '#39'Agosto'#39#13#10'  WHEN AUX.MES = 09 THEN' +
+      ' '#39'Setembro'#39#13#10'  WHEN AUX.MES = 10 THEN '#39'Outubro'#39#13#10'  WHEN AUX.MES ' +
+      '= 11 THEN '#39'Novembro'#39#13#10'  WHEN AUX.MES = 12 THEN '#39'Dezembro'#39#13#10'  els' +
+      'e '#39#39#13#10'  end DESCRICAO_MES'#13#10#13#10'from (select V.ANO, V.MES, V.ID_VEN' +
+      'DEDOR, V.NOME_VENDEDOR, sum(V.VLR_ENTRADA) VLR_ENTRADA, sum(V.VL' +
+      'R_PAGO) VLR_PAGO,'#13#10'             sum(V.BASE_COMISSAO) BASE_COMISS' +
+      'AO, V.ANOMES, sum((select sum(coalesce(V2.VLR_ENTRADA, 0) - coal' +
+      'esce(V2.VLR_PAGO, 0)) VLR_ANTERIOR'#13#10'                            ' +
+      '                                    from VEXTRATO_COMISSAO V2'#13#10' ' +
+      '                                                               w' +
+      'here V2.ID_VENDEDOR = V.ID_VENDEDOR and'#13#10'                       ' +
+      '                                               V2.ANOMES < (lpad' +
+      '(V.ANO, 4, 0) || lpad(V.MES, 2, 0)))) VLR_ANTERIOR'#13#10'      from V' +
+      'EXTRATO_COMISSAO V'#13#10'      where V.ANOMES between :ANOMES1 and :A' +
+      'NOMES2'#13#10'      group by V.ANO, V.MES, V.ID_VENDEDOR, V.NOME_VENDE' +
+      'DOR, V.ANOMES) AUX  '
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftString
+        Name = 'ANOMES1'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'ANOMES2'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 528
+    Top = 434
+  end
+  object frxReport1: TfrxReport
+    Tag = 1
+    Version = '5.6.8'
+    DotMatrixReport = False
+    IniFile = '\Software\Fast Reports'
+    PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator, pbExportQuick]
+    PreviewOptions.Zoom = 1.000000000000000000
+    PrintOptions.Printer = 'Default'
+    PrintOptions.PrintOnSheet = 0
+    ReportOptions.CreateDate = 43918.638275659700000000
+    ReportOptions.LastChange = 44227.809193298610000000
+    ScriptLanguage = 'PascalScript'
+    StoreInDFM = False
+    OnReportPrint = 'frxReportOnReportPrint'
+    Left = 964
+    Top = 27
+  end
+  object frxMailExport1: TfrxMailExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    ShowExportDialog = True
+    SmtpPort = 25
+    UseIniFile = True
+    TimeOut = 60
+    ConfurmReading = False
+    UseMAPI = SMTP
+    MAPISendFlag = 0
+    Left = 997
+    Top = 25
+  end
+  object frxPDFExport1: TfrxPDFExport
+    UseFileCache = True
+    ShowProgress = True
+    OverwritePrompt = False
+    DataOnly = False
+    PrintOptimized = False
+    Outline = False
+    Background = False
+    HTMLTags = True
+    Quality = 95
+    Transparency = False
+    Author = 'FastReport'
+    Subject = 'FastReport PDF export'
+    ProtectionFlags = [ePrint, eModify, eCopy, eAnnot]
+    HideToolbar = False
+    HideMenubar = False
+    HideWindowUI = False
+    FitWindow = False
+    CenterWindow = False
+    PrintScaling = False
+    PdfA = False
+    Left = 1028
+    Top = 24
+  end
+  object frxRichObject1: TfrxRichObject
+    Left = 1061
+    Top = 24
+  end
+  object frxConsComissao_AnoMes: TfrxDBDataset
+    UserName = 'frxConsComissao_AnoMes'
+    OnFirst = frxConsComissao_AnoMesFirst
+    OnNext = frxConsComissao_AnoMesFirst
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ANO=ANO'
+      'MES=MES'
+      'ID_VENDEDOR=ID_VENDEDOR'
+      'NOME_VENDEDOR=NOME_VENDEDOR'
+      'VLR_ENTRADA=VLR_ENTRADA'
+      'VLR_PAGO=VLR_PAGO'
+      'SALDO=SALDO'
+      'VLR_ANTERIOR=VLR_ANTERIOR'
+      'SALDO_MES=SALDO_MES'
+      'BASE_COMISSAO=BASE_COMISSAO'
+      'ANOMES=ANOMES'
+      'DESCRICAO_MES=DESCRICAO_MES'
+      'agTotal_Entrada=agTotal_Entrada'
+      'agTotal_Pago=agTotal_Pago'
+      'agTotal_Saldo=agTotal_Saldo'
+      'agTotal_Anterior=agTotal_Anterior'
+      'agTotal_Mes=agTotal_Mes'
+      'agTotal_Base=agTotal_Base')
+    DataSource = dsConsComissao_AnoMes
+    BCDToCurrency = False
+    Left = 676
+    Top = 432
+  end
+  object dspConsTitulos: TDataSetProvider
+    DataSet = sdsConsTitulos
+    Left = 569
+    Top = 490
+  end
+  object cdsConsTitulos: TClientDataSet
+    Aggregates = <>
+    AggregatesActive = True
+    Params = <>
+    ProviderName = 'dspConsTitulos'
+    Left = 598
+    Top = 492
+    object cdsConsTitulosID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsConsTitulosTIPO_REG: TStringField
+      FieldName = 'TIPO_REG'
+      Size = 3
+    end
+    object cdsConsTitulosDTBASE: TDateField
+      FieldName = 'DTBASE'
+    end
+    object cdsConsTitulosPERC_COMISSAO: TFloatField
+      FieldName = 'PERC_COMISSAO'
+    end
+    object cdsConsTitulosVLR_COMISSAO: TFloatField
+      FieldName = 'VLR_COMISSAO'
+    end
+    object cdsConsTitulosBASE_COMISSAO: TFloatField
+      FieldName = 'BASE_COMISSAO'
+    end
+    object cdsConsTitulosOBS: TStringField
+      FieldName = 'OBS'
+      Size = 250
+    end
+    object cdsConsTitulosPARCELA: TIntegerField
+      FieldName = 'PARCELA'
+    end
+    object cdsConsTitulosNUM_NOTA: TIntegerField
+      FieldName = 'NUM_NOTA'
+    end
+    object cdsConsTitulosSERIE: TStringField
+      FieldName = 'SERIE'
+      Size = 3
+    end
+  end
+  object dsConsTitulos: TDataSource
+    DataSet = cdsConsTitulos
+    Left = 631
+    Top = 490
+  end
+  object sdsConsTitulos: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select E.ID, E.TIPO_REG, E.DTBASE, E.PERC_COMISSAO, E.VLR_COMISS' +
+      'AO, E.BASE_COMISSAO, E.OBS, E.PARCELA, E.NUM_NOTA,'#13#10'       E.SER' +
+      'IE'#13#10'from EXTCOMISSAO E'#13#10'where E.ID_VENDEDOR = :ID_VENDEDOR and'#13#10 +
+      '      E.DTBASE between :DATA1 and :DATA2'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID_VENDEDOR'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DATA1'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftDate
+        Name = 'DATA2'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 526
+    Top = 492
+  end
+  object frxConsTitulos: TfrxDBDataset
+    UserName = 'frxConsTitulos'
+    CloseDataSource = False
+    FieldAliases.Strings = (
+      'ID=ID'
+      'TIPO_REG=TIPO_REG'
+      'DTBASE=DTBASE'
+      'PERC_COMISSAO=PERC_COMISSAO'
+      'VLR_COMISSAO=VLR_COMISSAO'
+      'BASE_COMISSAO=BASE_COMISSAO'
+      'OBS=OBS'
+      'PARCELA=PARCELA'
+      'NUM_NOTA=NUM_NOTA'
+      'SERIE=SERIE')
+    DataSource = dsConsTitulos
+    BCDToCurrency = False
+    Left = 671
+    Top = 493
   end
 end

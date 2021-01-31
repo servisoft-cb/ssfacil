@@ -1244,6 +1244,8 @@ begin
       ACBrBoleto1.Banco.TipoCobranca := cobSantander;
     17:
       ACBrBoleto1.Banco.TipoCobranca := cobSicred;
+    18:
+      ACBrBoleto1.Banco.TipoCobranca := cobBancoSafra;
   end;
 
   ACBrBoleto1.ACBrBoletoFC.DirLogo := fDmCob_Eletronica.cdsContasBANCO_LOGO.AsString;

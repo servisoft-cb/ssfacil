@@ -378,7 +378,7 @@ object dmCadContaOrc: TdmCadContaOrc
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 392
+    Left = 391
     Top = 112
     object sdsPessoaCODIGO: TIntegerField
       FieldName = 'CODIGO'
@@ -469,7 +469,7 @@ object dmCadContaOrc: TdmCadContaOrc
       'WHERE CTA.inativo = '#39'N'#39
       '  AND CTA.tipo_despesa = '#39'F'#39)
     SQLConnection = dmDatabase.scoDados
-    Left = 712
+    Left = 713
     Top = 56
     object qCalculoVALOR: TFloatField
       FieldName = 'VALOR'
@@ -595,7 +595,7 @@ object dmCadContaOrc: TdmCadContaOrc
       'SELECT * FROM CENTROCUSTO'
       'WHERE ID = :ID')
     SQLConnection = dmDatabase.scoDados
-    Left = 648
+    Left = 649
     Top = 8
     object qCentroCustoID: TIntegerField
       FieldName = 'ID'
@@ -625,7 +625,7 @@ object dmCadContaOrc: TdmCadContaOrc
       'from PLANO_CONTABIL A'
       'where A.ID = :ID   ')
     SQLConnection = dmDatabase.scoDados
-    Left = 680
+    Left = 681
     Top = 8
     object qPlanoContabilID: TIntegerField
       FieldName = 'ID'
@@ -1036,5 +1036,39 @@ object dmCadContaOrc: TdmCadContaOrc
     DataSet = mGerarPrev
     Left = 664
     Top = 176
+  end
+  object sdsPesquisa: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 'SELECT C.ID, C.CODIGO, C.DESCRICAO'#13#10'FROM CONTA_ORCAMENTO C '#13#10
+    MaxBlobSize = -1
+    Params = <>
+    SQLConnection = dmDatabase.scoDados
+    Left = 484
+    Top = 335
+  end
+  object dspPesquisa: TDataSetProvider
+    DataSet = sdsPesquisa
+    Left = 535
+    Top = 335
+  end
+  object cdsPesquisa: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'CODIGO'
+    Params = <>
+    ProviderName = 'dspPesquisa'
+    Left = 583
+    Top = 335
+    object cdsPesquisaID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsPesquisaDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 50
+    end
+    object cdsPesquisaCODIGO: TStringField
+      FieldName = 'CODIGO'
+    end
   end
 end
