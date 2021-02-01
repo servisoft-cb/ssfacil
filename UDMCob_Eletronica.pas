@@ -905,6 +905,7 @@ type
     vCod_Carteira, vCod_Carteira_Red: string;
     vNossoNumero: string;
     vNossoNumero_Montado: string;
+    vNossoNumero_Mascara: String;
     vGeraRemessa: string;
     vNum_Remessa: Integer;
     vEnd_Arq_Remessa: string;

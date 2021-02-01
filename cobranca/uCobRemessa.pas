@@ -770,6 +770,9 @@ begin
         fDmCob_Eletronica.vNossoNumero_Montado := ACBrBoleto.Banco.MontarCampoNossoNumero(Titulo)
       else
         fDmCob_Eletronica.vNossoNumero_Montado := NossoNumero;
+      //01/02/2021
+      fDmCob_Eletronica.vNossoNumero_Mascara := ACBrBoleto.Banco.MontarCampoNossoNumero(Titulo)
+      //*******************
 
       //if (fDmCob_Eletronica.cdsContasACBR_TIPOCOBRANCA.AsString = '01') and (Length(fDmCob_Eletronica.cdsContasCOD_TRANSMISSAO.AsString) > 6) then
        //NossoNumero := fDmCob_Eletronica.cdsContasCOD_TRANSMISSAO.AsString + NossoNumero;

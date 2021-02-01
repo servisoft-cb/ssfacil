@@ -296,12 +296,11 @@ begin
     end;
     fDMEtiqueta.mEtiqueta_Nav.Next;
   end;
+  uEtiqueta_Zebra.prc_Etiqueta_ZebraZT410(fDMEtiqueta);
   if (CheckBox1.Checked) and (CheckBox1.Visible) then
     vImprimir := True
   else
     prc_Envio_RFID;
-  if vImprimir then
-    uEtiqueta_Zebra.prc_Etiqueta_ZebraZT410(fDMEtiqueta);
 end;
 
 procedure TfrmEtiqueta_RFID.SMDBGrid1GetCellParams(Sender: TObject;
