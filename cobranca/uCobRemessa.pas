@@ -1286,6 +1286,9 @@ begin
   else
   if fDmCob_Eletronica.cdsContasACBR_TIPOCOBRANCA.AsInteger = 11 then //se for cobrança CEF
   begin
+    //01/02/2021  incluido para controlar o cedente com 7 dígitos
+    if Length(ACBrBoleto1.Cedente.CodigoCedente) > 6 then
+      ACBrBoleto1.Banco.LayoutVersaoArquivo := 007; 
     ACBrBoleto1.NomeArqRemessa := fDmCob_Eletronica.cdsContasINICIAL_NOME_ARQ_REMESSA.AsString + FormatFloat('00', DayOf(Date)) + formatFloat('0000', CurrencyEdit1.AsInteger) + FormatFloat('0', CurrencyEdit2.AsInteger);
     if trim(fDmCob_Eletronica.cdsContasEXTENSAO_ARQ_REM.AsString) = '' then
       vExtensao := 'REM'
