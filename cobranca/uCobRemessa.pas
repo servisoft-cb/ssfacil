@@ -595,12 +595,20 @@ begin
   if (ACBrBoleto1.Banco.Numero = 104) then
     ACBrBoleto1.ACBrBoletoFC.LayOut := lPadrao;
 
-  ACBrBoleto1.Cedente.Agencia := fDmCob_Eletronica.cdsContasAGENCIA.AsString; // '0785';
+  if fDmCob_Eletronica.cdsContasACBR_TIPOCOBRANCA.AsInteger = 18 then //Banco Safra
+    ACBrBoleto1.Cedente.Agencia := Monta_Numero(fDmCob_Eletronica.cdsContasAGENCIA.AsString,5)
+  else
+    ACBrBoleto1.Cedente.Agencia := fDmCob_Eletronica.cdsContasAGENCIA.AsString; // '0785';
   if trim(fDmCob_Eletronica.cdsContasDIG_AGENCIA.AsString) <> '' then
     ACBrBoleto1.Cedente.AgenciaDigito := fDmCob_Eletronica.cdsContasDIG_AGENCIA.AsString; // '1';
-  ACBrBoleto1.Cedente.Conta := fDmCob_Eletronica.cdsContasNUMCONTA.AsString; // '06.022038.0';
+
+  if fDmCob_Eletronica.cdsContasACBR_TIPOCOBRANCA.AsInteger = 18 then //Banco Safra
+    ACBrBoleto1.Cedente.Conta := Monta_Numero(fDmCob_Eletronica.cdsContasNUMCONTA.AsString,9)
+  else
+    ACBrBoleto1.Cedente.Conta := fDmCob_Eletronica.cdsContasNUMCONTA.AsString; // '06.022038.0'
   if trim(fDmCob_Eletronica.cdsContasDIG_CONTA.AsString) <> '' then
     ACBrBoleto1.Cedente.ContaDigito := fDmCob_Eletronica.cdsContasDIG_CONTA.AsString; // '3';
+
   ACBrBoleto1.Cedente.CNPJCPF := fDmCob_Eletronica.cdsFilialCNPJ_CPF.AsString; // '09.348.462/0001-79';
   ACBrBoleto1.Cedente.CodigoCedente := fDmCob_Eletronica.cdsContasCOD_CEDENTE.AsString; // '0785022038017';
   ACBrBoleto1.Cedente.Logradouro := fDmCob_Eletronica.cdsFilialENDERECO.AsString;

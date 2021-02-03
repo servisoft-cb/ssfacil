@@ -511,6 +511,13 @@ begin
   fDMCadContas.cdsContasEND_ARQUIVO_REM.AsString := DirectoryEdit2.Text;
   fDMCadContas.cdsContasEND_ARQUIVO_RET.AsString := DirectoryEdit3.Text;
 
+  if fDMCadContas.cdsBancoID.AsInteger <> fDMCadContas.cdsContasID_BANCO.AsInteger then
+    fDMCadContas.cdsBanco.Locate('ID',fDMCadContas.cdsContasID_BANCO.AsInteger,[loCaseInsensitive]);
+  if fDMCadContas.cdsBancoPOSSUI_DIG_AGENCIA.AsString = 'N' then
+    fDMCadContas.cdsContasDIG_AGENCIA.AsString := '';
+  if fDMCadContas.cdsBancoPOSSUI_DIG_CONTA.AsString = 'N' then
+    fDMCadContas.cdsContasDIG_CONTA.AsString := '';
+
   fDMCadContas.prc_Gravar;
   if fDMCadContas.cdsContas.State in [dsEdit, dsInsert] then
   begin
@@ -681,6 +688,10 @@ begin
     fDMCadContas.prc_Abrir_Ocorrencia(RxDBLookupCombo2.KeyValue);
     prc_Habilita_Aba;
   end;
+  Label38.Visible  := (trim(fDMCadContas.cdsBancoPOSSUI_DIG_AGENCIA.AsString) <> 'N');
+  DBEdit17.Visible := (trim(fDMCadContas.cdsBancoPOSSUI_DIG_AGENCIA.AsString) <> 'N');
+  Label11.Visible  := (trim(fDMCadContas.cdsBancoPOSSUI_DIG_CONTA.AsString) <> 'N');
+  DBEdit10.Visible := (trim(fDMCadContas.cdsBancoPOSSUI_DIG_CONTA.AsString) <> 'N');
 end;
 
 procedure TfrmCadContas.RzPageControl1Change(Sender: TObject);
@@ -693,6 +704,12 @@ begin
     fDMCadContas.prc_Abrir_Ocorrencia(fDMCadContas.cdsContasID_BANCO.AsInteger);
     prc_Habilita_Aba;
     RxDBComboBox1Exit(Sender);
+    if fDMCadContas.cdsBancoID.AsInteger <> fDMCadContas.cdsContasID_BANCO.AsInteger then
+      fDMCadContas.cdsBanco.Locate('ID',fDMCadContas.cdsContasID_BANCO.AsInteger,[loCaseInsensitive]);
+    Label38.Visible  := (trim(fDMCadContas.cdsBancoPOSSUI_DIG_AGENCIA.AsString) <> 'N');
+    DBEdit17.Visible := (trim(fDMCadContas.cdsBancoPOSSUI_DIG_AGENCIA.AsString) <> 'N');
+    Label11.Visible  := (trim(fDMCadContas.cdsBancoPOSSUI_DIG_CONTA.AsString) <> 'N');
+    DBEdit10.Visible := (trim(fDMCadContas.cdsBancoPOSSUI_DIG_CONTA.AsString) <> 'N');
   end;
 
   DirectoryEdit1.Text := fDMCadContas.cdsContasBANCO_LOGO.AsString;

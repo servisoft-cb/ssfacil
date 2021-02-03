@@ -744,6 +744,16 @@ object DMCadContas: TDMCadContas
       FieldName = 'INICIAL_NOME_ARQ_REMESSA'
       Size = 2
     end
+    object cdsBancoPOSSUI_DIG_AGENCIA: TStringField
+      FieldName = 'POSSUI_DIG_AGENCIA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsBancoPOSSUI_DIG_CONTA: TStringField
+      FieldName = 'POSSUI_DIG_CONTA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dsBanco: TDataSource
     DataSet = cdsBanco

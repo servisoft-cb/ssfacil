@@ -367,6 +367,8 @@ type
     cdsContas_VinculadaNOME: TStringField;
     sdsContasID_CONTA_VINCULADA: TIntegerField;
     cdsContasID_CONTA_VINCULADA: TIntegerField;
+    cdsBancoPOSSUI_DIG_AGENCIA: TStringField;
+    cdsBancoPOSSUI_DIG_CONTA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspContasUpdateError(Sender: TObject; DataSet: TCustomClientDataSet; E: EUpdateError; UpdateKind: TUpdateKind; var Response: TResolverResponse);
     procedure cdsContas_CalculoNewRecord(DataSet: TDataSet);

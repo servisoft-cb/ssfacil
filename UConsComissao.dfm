@@ -10,6 +10,7 @@ object frmConsComissao: TfrmConsComissao
   Font.Height = -11
   Font.Name = 'MS Sans Serif'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
   OnClose = FormClose
   OnShow = FormShow
@@ -156,6 +157,7 @@ object frmConsComissao: TfrmConsComissao
       Ctl3D = False
       ParentCtl3D = False
       TabOrder = 5
+      OnKeyDown = Edit1KeyDown
     end
     object btnConsultar: TNxButton
       Left = 328

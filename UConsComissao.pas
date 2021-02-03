@@ -32,6 +32,8 @@ type
     procedure btnConsultarClick(Sender: TObject);
     procedure btnImprimirClick(Sender: TObject);
     procedure SMDBGrid1DblClick(Sender: TObject);
+    procedure Edit1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMCadExtComissao: TDMCadExtComissao;
@@ -165,14 +167,14 @@ begin
   if RxDBLookupCombo1.Text <> '' then
     vComandoAux2 := vComandoAux2 + ' AND V.FILIAL = :FILIAL ';
   if trim(Edit1.Text) <> '' then
-    vComandoAux2 := vComandoAux2 + ' AND V.NOME_VENDEDOR LIKE ' + QuotedStr('%'+':NOME_VENDEDOR'+'%');
-  fDMCadExtComissao.sdsConsComissao_AnoMes.CommandText := vComandoAux2 + vComandoAux;
+    vComandoAux2 := vComandoAux2 + ' AND V.NOME_VENDEDOR LIKE :NOME_VENDEDOR';
+  fDMCadExtComissao.sdsConsComissao_AnoMes.CommandText := vComandoAux2 + ' ' + vComandoAux;
   fDMCadExtComissao.sdsConsComissao_AnoMes.ParamByName('ANOMES1').AsString := FormatFloat('0000',CurrencyEdit1.AsInteger) + FormatFloat('00',NxComboBox1.ItemIndex);
   fDMCadExtComissao.sdsConsComissao_AnoMes.ParamByName('ANOMES2').AsString := FormatFloat('0000',CurrencyEdit2.AsInteger) + FormatFloat('00',NxComboBox2.ItemIndex);
   if RxDBLookupCombo1.Text <> '' then
     fDMCadExtComissao.sdsConsComissao_AnoMes.ParamByName('FILIAL').AsInteger := RxDBLookupCombo1.KeyValue;
   if trim(Edit1.Text) <> '' then
-    fDMCadExtComissao.sdsConsComissao_AnoMes.ParamByName('NOME_VENDEDOR').AsString := Edit1.Text;
+    fDMCadExtComissao.sdsConsComissao_AnoMes.ParamByName('NOME_VENDEDOR').AsString := '%' + Edit1.Text + '%';
   fDMCadExtComissao.cdsConsComissao_AnoMes.Open;
   fDMCadExtComissao.cdsConsComissao_AnoMes.IndexFieldNames := 'ANOMES;NOME_VENDEDOR';
 end;
@@ -223,6 +225,13 @@ begin
   frmConsComissao_Titulos.fDMCadExtComissao   := fDMCadExtComissao;
   frmConsComissao_Titulos.ShowModal;
   FreeAndNil(frmConsComissao_Titulos);
+end;
+
+procedure TfrmConsComissao.Edit1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = Vk_Return then
+    btnConsultarClick(Sender);
 end;
 
 end.

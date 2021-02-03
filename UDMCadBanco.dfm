@@ -45,6 +45,16 @@ object DMCadBanco: TDMCadBanco
       FixedChar = True
       Size = 1
     end
+    object sdsBancoPOSSUI_DIG_AGENCIA: TStringField
+      FieldName = 'POSSUI_DIG_AGENCIA'
+      FixedChar = True
+      Size = 1
+    end
+    object sdsBancoPOSSUI_DIG_CONTA: TStringField
+      FieldName = 'POSSUI_DIG_CONTA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspBanco: TDataSetProvider
     DataSet = sdsBanco
@@ -91,6 +101,16 @@ object DMCadBanco: TDMCadBanco
     end
     object cdsBancoIMP_DIG_AGENCIA_DEP: TStringField
       FieldName = 'IMP_DIG_AGENCIA_DEP'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsBancoPOSSUI_DIG_AGENCIA: TStringField
+      FieldName = 'POSSUI_DIG_AGENCIA'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsBancoPOSSUI_DIG_CONTA: TStringField
+      FieldName = 'POSSUI_DIG_CONTA'
       FixedChar = True
       Size = 1
     end

@@ -770,10 +770,10 @@ object frmCadContas: TfrmCadContas
         Top = 30
         Width = 837
         Height = 511
-        ActivePage = TabSheet8
+        ActivePage = TS_Dados
         ActivePageDefault = TS_Dados
         Align = alClient
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 1
         FixedDimension = 19
         object TS_Dados: TRzTabSheet
@@ -1519,13 +1519,13 @@ object frmCadContas: TfrmCadContas
             Top = 0
             Width = 833
             Height = 488
-            ActivePage = TabSheet7
+            ActivePage = TabSheet1
             ActivePageDefault = TabSheet1
             Align = alClient
             UseColoredTabs = True
             Enabled = False
             ParentColor = False
-            TabIndex = 1
+            TabIndex = 0
             TabOrder = 0
             FixedDimension = 19
             object TabSheet1: TRzTabSheet

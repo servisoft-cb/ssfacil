@@ -839,6 +839,30 @@ object frmCadBanco: TfrmCadBanco
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
+        object DBCheckBox5: TDBCheckBox
+          Left = 201
+          Top = 157
+          Width = 199
+          Height = 17
+          Caption = 'Possui d'#237'gito na Ag'#234'ncia'
+          DataField = 'POSSUI_DIG_AGENCIA'
+          DataSource = DMCadBanco.dsBanco
+          TabOrder = 7
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
+        object DBCheckBox2: TDBCheckBox
+          Left = 201
+          Top = 182
+          Width = 199
+          Height = 17
+          Caption = 'Possui d'#237'gito na Conta'
+          DataField = 'POSSUI_DIG_CONTA'
+          DataSource = DMCadBanco.dsBanco
+          TabOrder = 8
+          ValueChecked = 'S'
+          ValueUnchecked = 'N'
+        end
       end
     end
   end
@@ -846,7 +870,7 @@ object frmCadBanco: TfrmCadBanco
     GroupName = 'Banco'
     UserControl = fMenu.UserControl1
     NotAllowed = naDisabled
-    Left = 404
-    Top = 251
+    Left = 553
+    Top = 178
   end
 end

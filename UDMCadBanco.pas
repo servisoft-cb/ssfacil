@@ -25,6 +25,10 @@ type
     cdsBancoINICIAL_NOME_ARQ_REMESSA: TStringField;
     sdsBancoIMP_DIG_AGENCIA_DEP: TStringField;
     cdsBancoIMP_DIG_AGENCIA_DEP: TStringField;
+    sdsBancoPOSSUI_DIG_AGENCIA: TStringField;
+    sdsBancoPOSSUI_DIG_CONTA: TStringField;
+    cdsBancoPOSSUI_DIG_AGENCIA: TStringField;
+    cdsBancoPOSSUI_DIG_CONTA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure dspBancoUpdateError(Sender: TObject;
       DataSet: TCustomClientDataSet; E: EUpdateError;
@@ -152,6 +156,8 @@ end;
 procedure TDMCadBanco.cdsBancoNewRecord(DataSet: TDataSet);
 begin
   cdsBancoACBR_USAR_MONTAR_NOSSONUMERO.AsString := 'N';
+  cdsBancoPOSSUI_DIG_AGENCIA.AsString           := 'S';
+  cdsBancoPOSSUI_DIG_CONTA.AsString             := 'S';
 end;
 
 end.
