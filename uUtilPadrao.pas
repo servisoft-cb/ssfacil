@@ -142,6 +142,7 @@ uses
   function Preenche(STRI, FloodStr:String; TAM:Integer ; JUST : Integer):String ;
   function FormaCNPJ(aValue : String) : String;
   function DeletaString(aValue, Caracter : String) : String;
+  function fnc_Qtd_Nota_Dif_OS(NumNota, Serie, ID_Cliente : Integer) : Boolean;
 
 var
   Enter,Esc,F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12,Q: Word;
@@ -239,6 +240,7 @@ var
   vTipo_Dig_Cupom: String;
   vID_ANP_Pos : Integer;
   vEndereco_Arq : String;
+  vQtd_Nota_OS : Real;
 
 implementation
 
@@ -2811,6 +2813,56 @@ begin
     vEndereco_Arq := vEndereco_Arq + '\';
   vArquivo.SaveToFile(vEndereco_Arq + vNomeArq);
   FreeAndNil(vArquivo);
+end;
+
+function fnc_Qtd_Nota_Dif_OS(NumNota, Serie, ID_Cliente : Integer) : Boolean;
+var
+  sds: TSQLDataSet;
+  vQtdOS : Real;
+begin
+  Result   := False;
+  vQtdOS   := 0;
+  vQtd_Nota_OS := 0;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata := True;
+    sds.GetMetadata := False;
+    sds.Close;
+    sds.CommandText := 'select sum(I.QTD_NOTA) QTD_NOTA, ' +QuotedStr('O') + ' TIPO '
+                     + 'from ORDEMSERVICO O '
+                     + 'inner join ORDEMSERVICO_ITENS I on O.ID = I.ID '
+                     + 'where O.NUM_NOTA = :NUM_NOTA and '
+                     + '      O.SERIE_NOTA = :SERIE_NOTA and '
+                     + '      O.ID_CLIENTE = :ID_CLIENTE '
+                     + 'union all '
+                     + 'select sum(NI.QTD) QTD_NOTA , ' +QuotedStr('N') + ' TIPO '
+                     + 'from NOTAFISCAL N '
+                     + 'inner join NOTAFISCAL_ITENS NI on N.ID = NI.ID '
+                     + 'where N.NUMNOTA = :NUM_NOTA and '
+                     + '      N.SERIE = :SERIE_NOTA and '
+                     + '      (N.ID_CLIENTE = :ID_CLIENTE OR N.ID_CLIENTETRIANG = :ID_CLIENTE) ';
+    sds.ParamByName('NUM_NOTA').AsInteger   := NumNota;
+    sds.ParamByName('SERIE_NOTA').AsInteger := Serie;
+    sds.ParamByName('ID_CLIENTE').AsInteger := ID_Cliente;
+    sds.Open;
+    while not sds.Eof do
+    begin
+      if sds.FieldByName('TIPO').AsString = 'O' then
+        vQtdOS := sds.FieldByName('QTD_NOTA').AsFloat
+      else
+        vQtd_Nota_OS := sds.FieldByName('QTD_NOTA').AsFloat;
+      sds.Next;
+    end;
+    if StrToFloat(FormatFloat('0.0000',vQtd_Nota_OS)) = StrToFloat(FormatFloat('0.0000',vQtdOS)) then
+      Result := True
+    else
+      MessageDlg('*** Quantidade informada na nota diferente da informada na OS!' , mtInformation, [mbOk], 0);
+    sds.Close;
+  finally
+    FreeAndNil(sds);
+  end;
+
 end;
 
 end.

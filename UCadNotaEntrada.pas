@@ -284,7 +284,7 @@ var
 implementation
 
 uses rsDBUtils, uUtilPadrao, USel_Pessoa, uCalculo_NotaFiscal, URelNotaEnt, DmdDatabase, USel_ContaOrc, uGrava_NotaFiscal,
-  UCadNotaFiscal_Custo, UCadNotaEntrada_Itens_Ajuste;
+  UCadNotaFiscal_Custo, UCadNotaEntrada_Itens_Ajuste, UConsQtdOS_Nota;
 
 {$R *.dfm}
 
@@ -335,6 +335,7 @@ var
   ID: TTransactionDesc;
   vDescAux: Real;
   vID_LocalAux: Integer;
+  vIDCliAux : Integer;
 begin
   //fDMCadNotaFiscal.prc_Gravar;
   if (fDMCadNotaFiscal.cdsNotaFiscalID_LOCAL_ESTOQUE.AsInteger <= 0) and (fDMCadNotaFiscal.cdsParametrosUSA_LOCAL_ESTOQUE.AsString <> 'S') then
@@ -457,6 +458,22 @@ begin
     end
   end;
 
+  if (SQLLocate('PARAMETROS_NTE','ID','CONTROLAR_QTD_OS','1') = 'S') then
+  begin
+    fDMCadNotaFiscal.prc_Localizar(vIDAux);
+    vIDCliAux := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTE.AsInteger;
+    if fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTETRIANG.AsInteger > 0 then
+      vIDCliAux := fDMCadNotaFiscal.cdsNotaFiscalID_CLIENTETRIANG.AsInteger;
+    if not (uUtilPadrao.fnc_Qtd_Nota_Dif_OS(fDMCadNotaFiscal.cdsNotaFiscalNUMNOTA.AsInteger,fDMCadNotaFiscal.cdsNotaFiscalSERIE.AsInteger,vIDCliAux)) then
+    begin
+      frmConsQtdOS_Nota := TfrmConsQtdOS_Nota.Create(self);
+      frmConsQtdOS_Nota.vID_Cliente_Local := vIDCliAux;
+      frmConsQtdOS_Nota.vNumNota_Local    := fDMCadNotaFiscal.cdsNotaFiscalNUMNOTA.AsInteger;
+      frmConsQtdOS_Nota.vSerie_Local      := fDMCadNotaFiscal.cdsNotaFiscalSERIE.AsInteger;
+      frmConsQtdOS_Nota.ShowModal;
+      FreeAndNil(frmConsQtdOS_Nota);
+    end;
+  end;
   FreeAndNil(fDMCadProduto_Lote);
 
   TS_Consulta.TabEnabled    := True;

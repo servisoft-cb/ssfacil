@@ -605,7 +605,7 @@ begin
           ffCobRemessa.prc_ConfiguraACBR;
           ffCobRemessa.geraCabecalhoAcbr;
           fDMCob_Eletronica.vMsgCarteira := '';
-          vTexto := ffCobRemessa.geraRegistroAcbr;
+          vTexto := ffCobRemessa.geraRegistroAcbr(False,True);
           if trim(fDMCob_Eletronica.vMsgCarteira) <> '' then
             MessageDlg(fDMCob_Eletronica.vMsgCarteira,mtInformation,[mbOK],0)
           else

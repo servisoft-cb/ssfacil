@@ -21,9 +21,9 @@ object frmCadCob_Carteira: TfrmCadCob_Carteira
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 717
-    Height = 452
-    ActivePage = TS_Consulta
+    Width = 725
+    Height = 459
+    ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -31,7 +31,7 @@ object frmCadCob_Carteira: TfrmCadCob_Carteira
     FlatColor = clGray
     ParentBackgroundColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 0
     FixedDimension = 19
     object TS_Consulta: TRzTabSheet
@@ -39,8 +39,8 @@ object frmCadCob_Carteira: TfrmCadCob_Carteira
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 85
-        Width = 713
-        Height = 327
+        Width = 721
+        Height = 334
         Align = alClient
         Ctl3D = True
         DataSource = DMCadCob_Carteira.dsCob_Carteira
@@ -128,7 +128,7 @@ object frmCadCob_Carteira: TfrmCadCob_Carteira
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 713
+        Width = 721
         Height = 32
         Align = alTop
         Color = clSilver
@@ -356,8 +356,8 @@ object frmCadCob_Carteira: TfrmCadCob_Carteira
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 412
-        Width = 713
+        Top = 419
+        Width = 721
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -373,7 +373,7 @@ object frmCadCob_Carteira: TfrmCadCob_Carteira
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 713
+        Width = 721
         Height = 53
         Align = alTop
         Color = clSilver
@@ -492,7 +492,7 @@ object frmCadCob_Carteira: TfrmCadCob_Carteira
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 713
+        Width = 721
         Height = 35
         Align = alTop
         Color = 8404992
@@ -718,8 +718,8 @@ object frmCadCob_Carteira: TfrmCadCob_Carteira
       object pnlCadastro: TPanel
         Left = 0
         Top = 35
-        Width = 713
-        Height = 394
+        Width = 721
+        Height = 401
         Align = alClient
         Enabled = False
         TabOrder = 0

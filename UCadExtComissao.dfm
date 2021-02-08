@@ -1,6 +1,6 @@
 object frmCadExtComissao: TfrmCadExtComissao
-  Left = 169
-  Top = 6
+  Left = 184
+  Top = 28
   Width = 883
   Height = 718
   Caption = 'Cadastro do Comiss'#227'o'

@@ -118,7 +118,7 @@ type
     vAssunto_Email_Rem: string;
     procedure prc_ConfiguraACBR;
     procedure geraCabecalhoAcbr;
-    function geraRegistroAcbr(Segundavia: Boolean = false): string;
+    function geraRegistroAcbr(Segundavia: Boolean ; Imprimir_Tit : Boolean): string;
   end;
 
 var
@@ -361,7 +361,7 @@ begin
         if fDMCob_Eletronica.vGeraRemessa = 'S' then
         begin
           vContadorAux := vContadorAux + 1;
-          fDmCob_Eletronica.vNossoNumero := geraRegistroACBR;
+          fDmCob_Eletronica.vNossoNumero := geraRegistroACBR(False, False);
           fDMCob_Eletronica.prc_Gravar_Duplicata('R');
         end;
       end;
@@ -661,7 +661,7 @@ begin
 
 end;
 
-function TfCobRemessa.geraRegistroAcbr(Segundavia: Boolean = false): string;
+function TfCobRemessa.geraRegistroAcbr(Segundavia: Boolean ; Imprimir_Tit : Boolean): string;
 var
   Titulo: TACBrTitulo;
   vTamAux: Integer;
@@ -745,6 +745,9 @@ begin
         CarteiraEnvio := tceCedente;
     end;}
     fDmCob_Eletronica.prc_Verificar_Carteira;
+    if (fDmCob_Eletronica.cdsContasCOD_BANCO.AsString = '033') and not(Imprimir_Tit) then //Santander
+      Carteira := fDmCob_Eletronica.vCod_Carteira
+    else
     if trim(fDmCob_Eletronica.vCod_Carteira_Red) <> '' then
       Carteira := fDmCob_Eletronica.vCod_Carteira_Red
     else
@@ -978,8 +981,12 @@ begin
         Instrucao2 := trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString)
       else
         Instrucao2 := PadLeft(trim(fDmCob_Eletronica.cdsCob_Tipo_CadastroCODIGO.AsString), 2, '0');
+      //03/02/2021  Banco Safra controla os dias de protesto na terceira instrução
+      if (fDmCob_Eletronica.cdsContasACBR_TIPOCOBRANCA.AsInteger = 18) and (Titulo.Instrucao2 = '10') then //Banco Safra
+        Titulo.Instrucao3 := fDmCob_Eletronica.cdsContasDIAS_PROTESTO.AsString;
+      //**************
     end;
-
+    
     //20/05/2019 - Gera sem instrução quando tiver Gerar_Protesto "N" no Cadastro Cliente - Bradesco (outros bancos controlam de outra maneira o protesto)
     if SQLLocate('PESSOA','CODIGO','GERAR_PROTESTO',fDmCob_Eletronica.cdsDuplicataID_PESSOA.AsString) = 'N' then
       if ACBrBoleto1.Banco.Numero = 237 then
@@ -1138,7 +1145,7 @@ begin
     begin
       vContadorAux := vContadorAux + 1;
       geraCabecalhoAcbr;
-      fDmCob_Eletronica.vNossoNumero := geraRegistroAcbr;
+      fDmCob_Eletronica.vNossoNumero := geraRegistroAcbr(False,True);
       fDMCob_Eletronica.prc_Gravar_Duplicata('I');
     end;
     fDmCob_Eletronica.cdsDuplicata.Next;
@@ -1490,7 +1497,7 @@ begin
       lista_Anexo.Clear;
       vContadorAux := vContadorAux + 1;
       geraCabecalhoAcbr;
-      fDmCob_Eletronica.vNossoNumero := geraRegistroAcbr;
+      fDmCob_Eletronica.vNossoNumero := geraRegistroAcbr(False,True);
       fDMCob_Eletronica.prc_Gravar_Duplicata('E');
       ACBrBoleto1.ACBrBoletoFC.NomeArquivo := vNomeArqAux + 'Boleto_' + fDmCob_Eletronica.cdsDuplicataNUMDUPLICATA.AsString + '_' +
                                               fDmCob_Eletronica.cdsDuplicataPARCELA.AsString + '.pdf';
@@ -1838,7 +1845,7 @@ begin
     begin
       i := fDmCob_Eletronica.cdsContasCOD_BANCO.AsInteger;
       geraCabecalhoAcbr;
-      fDmCob_Eletronica.vNossoNumero := geraRegistroAcbr(True);
+      fDmCob_Eletronica.vNossoNumero := geraRegistroAcbr(True,True);
     end;
     try
       fDMRel := TDMRel.Create(DMRel);

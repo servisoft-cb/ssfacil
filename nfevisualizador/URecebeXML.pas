@@ -569,7 +569,7 @@ implementation
 
 uses
   DmdDatabase, uUtilPadrao, UMenu, rsDBUtils, uNFeComandos, USel_Pessoa, USel_Grupo, USel_Produto_Cor, USel_ContaOrc, VarUtils,
-  uRecebeXML_CFOP, USel_CentroCusto;
+  uRecebeXML_CFOP, USel_CentroCusto, UConsQtdOS_Nota;
 
 {$R *.dfm}
 
@@ -3051,6 +3051,7 @@ var
   vErro: String;
   vVlrAux: Real;
   vIDAux: Integer;
+  vNumNotaAux, vSerieAux, vIDClienteAux : Integer;
 begin
   fDMRecebeXML.mPedidoAux.EmptyDataSet;
   if CheckBox1.Checked then
@@ -3120,6 +3121,12 @@ begin
     vItem := 0;
     Gravar_NotaEntrada;
     vIDAux := fDMRecebeXML.cdsNotaFiscalID.AsInteger;
+
+    vNumNotaAux   := fDMRecebeXML.cdsNotaFiscalNUMNOTA.AsInteger;
+    vSerieAux     := fDMRecebeXML.cdsNotaFiscalSERIE.AsInteger;
+    vIDClienteAux := fDMRecebeXML.cdsNotaFiscalID_CLIENTE.AsInteger;
+    if fDMRecebeXML.cdsNotaFiscalID_CLIENTETRIANG.AsInteger > 0 then
+      vIDClienteAux := fDMRecebeXML.cdsNotaFiscalID_CLIENTETRIANG.AsInteger;
 
     if vImportar_NotaSaida then
       Gravar_NotaFiscal_Ref;
@@ -3215,6 +3222,19 @@ begin
     dmDatabase.scoDados.Commit(ID);
 
     ShowMessage('Nota gerada!');
+
+    if (SQLLocate('PARAMETROS_NTE','ID','CONTROLAR_QTD_OS','1') = 'S') then
+    begin
+      if not (uUtilPadrao.fnc_Qtd_Nota_Dif_OS(vNumNotaAux,vSerieAux,vIDClienteAux)) then
+      begin
+        frmConsQtdOS_Nota := TfrmConsQtdOS_Nota.Create(self);
+        frmConsQtdOS_Nota.vID_Cliente_Local := vIDClienteAux;
+        frmConsQtdOS_Nota.vNumNota_Local    := vNumNotaAux;
+        frmConsQtdOS_Nota.vSerie_Local      := vSerieAux;
+        frmConsQtdOS_Nota.ShowModal;
+        FreeAndNil(frmConsQtdOS_Nota);
+      end;
+    end;
 
     ceVlrFrete_Nota.Value := 0;
 
@@ -4712,10 +4732,6 @@ begin
         fDMCadProduto_Lote.prc_Gravar(fDMRecebeXML.cdsProdutoID.AsInteger,fDMRecebeXML.mItensNotaNum_Lote_Controle.AsString,
                                        fDMRecebeXML.cdsProdutoPRECO_CUSTO_TOTAL.AsFloat,fDMRecebeXML.cdsProdutoPRECO_VENDA.AsFloat,fDMRecebeXML.cdsProdutoPERC_MARGEMLUCRO.AsFloat);
     end;
-    //******************
-
-    //24/02/2019
-//    prc_Gravar_Produto_Imp;
     //******************
 
     fDMRecebeXML.cdsNotaFiscal_Itens.Edit;

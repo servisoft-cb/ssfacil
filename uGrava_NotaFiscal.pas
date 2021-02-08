@@ -81,7 +81,6 @@ begin
         sds.NoMetadata := True;
         sds.GetMetadata := False;
         sds.CommandText := ' UPDATE TABELALOC SET FLAG = ' + IntToStr(vAux) + ' WHERE TABELA = ' + QuotedStr(vNomeAux);
-        //sds.CommandText   := ' UPDATE TABELALOC SET FLAG = 1 WHERE TABELA = ' + QuotedStr(vNomeAux);
         Flag := False;
         while not Flag do
         begin
@@ -94,7 +93,6 @@ begin
               Flag := False;
           end;
         end;
-        //sds.ExecSQL();
       except
         raise
       end;
@@ -185,7 +183,6 @@ begin
     fDMCadNotaFiscal.sdsPRC_Atualiza_DtNota.Close;
     fDMCadNotaFiscal.sdsPRC_Atualiza_DtNota.ParamByName('C_ID').AsInteger := vID_ClienteAux;
     fDMCadNotaFiscal.sdsPRC_Atualiza_DtNota.ExecSQL;
-
     if (vTipo_ESAux = 'S') and (vRefazer_Titulo = 'S') then
     begin
       sds := TSQLDataSet.Create(nil);
@@ -202,9 +199,8 @@ begin
       finally
         FreeAndNil(sds);
       end;
-
     end;
-    
+
   end;
 
 end;

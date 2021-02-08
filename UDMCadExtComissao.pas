@@ -512,8 +512,12 @@ var
   vIDAux: Integer;
   vIDNotaAux: Integer;
 begin
-  vIDAux := cdsExtComissaoID.AsInteger;
+  vIDAux   := cdsExtComissaoID.AsInteger;
   vMsgErro := '';
+  if (cdsExtComissaoTIPO_REG.AsString <> 'ENT') and (cdsExtComissaoTIPO_REG.AsString <> 'PAG')
+     and (cdsExtComissaoTIPO_REG.AsString <> 'ADI') and (cdsExtComissaoTIPO_REG.AsString <> 'DEV')
+     and (cdsExtComissaoTIPO_REG.AsString <> 'DES') then
+    vMsgErro := vMsgErro + #13 + '*** Tipo do Registro não informado!';
   if cdsExtComissaoID_VENDEDOR.AsInteger <= 0 then
     vMsgErro := vMsgErro + #13 + '*** Vendedor não informado!';
   if cdsExtComissaoFILIAL.AsInteger <= 0 then

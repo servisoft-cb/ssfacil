@@ -897,7 +897,8 @@ uses
   UEtiqueta_Zebra in 'UEtiqueta_Zebra.pas',
   UConsSaldo_Conta_Data in 'UConsSaldo_Conta_Data.pas' {frmConsSaldo_Conta_Data},
   UConsComissao in 'UConsComissao.pas' {frmConsComissao},
-  UConsComissao_Titulos in 'UConsComissao_Titulos.pas' {frmConsComissao_Titulos};
+  UConsComissao_Titulos in 'UConsComissao_Titulos.pas' {frmConsComissao_Titulos},
+  UConsQtdOS_Nota in 'UConsQtdOS_Nota.pas' {frmConsQtdOS_Nota};
 
 {$R *.res}
 
