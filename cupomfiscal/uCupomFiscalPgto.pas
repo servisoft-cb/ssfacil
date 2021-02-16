@@ -770,15 +770,17 @@ begin
       vAux := copy(vAux,1,3) + '.' + copy(vAux,4,3) + '.' + copy(vAux,7,3) + '-' + copy(vAux,10,2);
   end;
 
-  if not ValidaCPF(DBEdit5.Text) then
-    if not ValidaCNPJ(DBEdit5.Text) then
-    begin
-      ShowMessage('CPF/CNPJ inválido!');
-      vCpfOk := False;
-      fDmCupomFiscal.cdsCupomFiscalID_CLIENTE.Clear;
-      fDmCupomFiscal.cdsCupomFiscalCLIENTE_NOME.Clear;
-      ceCodCliente.Clear;
-    end; 
+  if DBEdit5.Text <> '' then
+    if not ValidaCPF(DBEdit5.Text) then
+      if not ValidaCNPJ(DBEdit5.Text) then
+      begin
+        ShowMessage('CPF/CNPJ inválido!' + #13 + 'Preencha um número válido ou deixe em branco para sair');
+        vCpfOk := False;
+        DBEdit5.SetFocus;
+        fDmCupomFiscal.cdsCupomFiscalID_CLIENTE.AsInteger  := 99999;
+        fDmCupomFiscal.cdsCupomFiscalCLIENTE_NOME.AsString := 'CONSUMIDOR';
+        ceCodCliente.AsInteger := 99999;
+      end;
 
   if (vAux <> '') and (vAux <> '000.000.000-00') and (vAux <> '00.000.000/0000-00') then
   begin
@@ -1187,9 +1189,9 @@ begin
       end
       else
       begin
-        DBEdit5.Clear;
-        fDmCupomFiscal.cdsCupomFiscalCPF.Clear;
-        RxDBLookupCombo2.SetFocus;
+//        DBEdit5.Clear;
+//        fDmCupomFiscal.cdsCupomFiscalCPF.Clear;
+//        RxDBLookupCombo2.SetFocus;
       end;
       fDmCupomFiscal.vClienteID := ceCodCliente.AsInteger;
     end
@@ -1216,7 +1218,8 @@ begin
   DBEdit8.SetFocus;
 
   fDmCupomFiscal.cdsCupomFiscalCLIENTE_NOME.AsString := Trim(fDmCupomFiscal.cdsPessoaNOME.AsString);
-  if (not fDmCupomFiscal.cdsPessoaCNPJ_CPF.IsNull) and (fDmCupomFiscal.cdsPessoaCNPJ_CPF.AsString <> '000.000.000-00') then
+  if (not fDmCupomFiscal.cdsPessoaCNPJ_CPF.IsNull) and (fDmCupomFiscal.cdsPessoaCNPJ_CPF.AsString <> '000.000.000-00') and
+     (fDmCupomFiscal.cdsPessoaCNPJ_CPF.AsString <> '00.000.000/0000-00') then
   begin
     DBEdit5.Text                              := fDmCupomFiscal.cdsPessoaCNPJ_CPF.AsString;
     fDmCupomFiscal.cdsCupomFiscalCPF.AsString := fDmCupomFiscal.cdsPessoaCNPJ_CPF.AsString;
