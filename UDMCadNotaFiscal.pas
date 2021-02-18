@@ -3212,6 +3212,7 @@ type
     sdsNotaFiscal_ItensPRECO_CUSTO: TFloatField;
     cdsNotaFiscal_ItensPRECO_CUSTO: TFloatField;
     cdsCFOPALT_CUSTO: TStringField;
+    cdsFilialDESCONTAR_IPI_NOTA: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);
@@ -4281,7 +4282,7 @@ begin
     cdsNotaFiscal_Itens.Post;
     cdsNotaFiscal_Itens.Next;
   end;
-  prc_Calcular_Desconto_Novo(fDMCadNotaFiscal, False);
+  prc_Calcular_Desconto_Novo(fDMCadNotaFiscal, False, 0);
   if Tipo = 'Z' then
     cdsNotaFiscalVLR_DUPLICATA.AsFloat := 0;
 end;
