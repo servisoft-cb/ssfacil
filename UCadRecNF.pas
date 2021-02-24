@@ -129,6 +129,7 @@ type
     DBEdit1: TDBEdit;
     Label8: TLabel;
     DBEdit2: TDBEdit;
+    CheckBox1: TCheckBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure btnInserirClick(Sender: TObject);
@@ -1870,6 +1871,9 @@ begin
   vTipo_Config_Email := 1;
   prc_Posiciona_NotaFiscal;
 
+  if CheckBox1.Checked then
+    fDMCadNotaFiscal.cdsNotaFiscal_Itens.IndexFieldNames := 'ID;ITEM;REFERENCIA';
+
   if (fDMCadNotaFiscal.cdsNotaFiscal.IsEmpty) or (fDMCadNotaFiscal.cdsNotaFiscalID.AsInteger < 1) then
   begin
     MessageDlg('*** Não existe nota selecionada!', mtError, [mbOk], 0);
@@ -1938,15 +1942,18 @@ begin
     vArq := ExtractFilePath(Application.ExeName) + 'Relatorios\RecNF.fr3'
   else
     vArq := fDMRecNF.qFilialRelCAMINHO.AsString;
-  
+
   if not(FileExists(vArq)) and (trim(vArq) <> '') then
   begin
     MessageDlg('*** Relatório ' + vArq + ', não encontrado!', mtInformation, [mbOk], 0);
     Exit;
   end;
+
   fDMRecNF.frxReport1.Report.LoadFromFile(vArq);
   fDMRecNF.frxReport1.variables['NumOC'] := QuotedStr(vObsAux);
   fDMRecNF.frxReport1.ShowReport;
+
+  fDMRecNF.cdsNotaFiscal_Itens.IndexFieldNames := 'ID;ITEM';
   FreeAndNil(fDMRecNF);
 end;
 
