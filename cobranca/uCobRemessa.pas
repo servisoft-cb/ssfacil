@@ -633,7 +633,7 @@ begin
     case fDmCob_Eletronica.cdsCobCarteiraCODIGO.AsInteger of
       1:
         ACBrBoleto1.Cedente.CaracTitulo := tcSimples; //simples com registro
-          3:
+      3:
         ACBrBoleto1.Cedente.CaracTitulo := tcCaucionada;
       5:
         ACBrBoleto1.Cedente.CaracTitulo := tcVinculada; //simples com registro
@@ -644,6 +644,7 @@ begin
       2:
         ACBrBoleto1.Cedente.TipoDocumento := Escritural;
     end;
+    ACBrBoleto1.Cedente.TipoCarteira := tctRegistrada;
   end
   else if ACBrBoleto1.Banco.Numero = 41 then
   begin
@@ -842,6 +843,7 @@ begin
       Mensagem.Add('2ª VIA - VALOR ATUALIZADO');
       Mensagem.Add('Valor Documento: ' + FormatCurr('R$ #,##0.00', fDmCob_Eletronica.vValor_Com_Juros));
       Mensagem.Add('Mora/Multa: ' + FormatCurr('R$ #,##0.00',fDmCob_Eletronica.vValor_Multa_Juros));
+      ValorDocumento := fDmCob_Eletronica.vValor_Com_Juros;
     end;
     if fDmCob_Eletronica.cdsDuplicataTAXA_BANCO.AsString = 'S' then
     begin
