@@ -3,7 +3,7 @@ object frmCadPedido: TfrmCadPedido
   Top = 18
   Width = 1105
   Height = 710
-  Caption = ']'
+  Caption = 'frmCadPedido'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText

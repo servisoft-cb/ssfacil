@@ -464,6 +464,11 @@ object DMCadFilial: TDMCadFilial
     object sdsFilialDDD_VENDAS: TIntegerField
       FieldName = 'DDD_VENDAS'
     end
+    object sdsFilialDESCONTAR_IPI_NOTA: TStringField
+      FieldName = 'DESCONTAR_IPI_NOTA'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspFilial: TDataSetProvider
     DataSet = sdsFilial
@@ -960,6 +965,11 @@ object DMCadFilial: TDMCadFilial
     end
     object cdsFilialDDD_VENDAS: TIntegerField
       FieldName = 'DDD_VENDAS'
+    end
+    object cdsFilialDESCONTAR_IPI_NOTA: TStringField
+      FieldName = 'DESCONTAR_IPI_NOTA'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsFilial: TDataSource

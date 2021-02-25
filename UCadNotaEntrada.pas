@@ -959,7 +959,7 @@ end;
 
 procedure TfrmCadNotaEntrada.btnCalcular_ValoresClick(Sender: TObject);
 begin
-  prc_Calcular_Desconto_Novo(fDMCadNotaFiscal,False);
+  prc_Calcular_Desconto_Novo(fDMCadNotaFiscal,False,0);
 end;
 
 procedure TfrmCadNotaEntrada.pnlClienteExit(Sender: TObject);

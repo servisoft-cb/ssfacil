@@ -388,6 +388,9 @@ type
     DBEdit95: TDBEdit;
     Label153: TLabel;
     Label154: TLabel;
+    GroupBox6: TGroupBox;
+    cePercVlrVenda: TCurrencyEdit;
+    BitBtn7: TBitBtn;
     procedure FormShow(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure SMDBGrid1GetCellParams(Sender: TObject; Field: TField;
@@ -439,6 +442,7 @@ type
     procedure ceConta_OrcamentoExit(Sender: TObject);
     procedure DBEdit94KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure BitBtn7Click(Sender: TObject);
   private
     { Private declarations }
     vCodCidade: Integer;
@@ -807,6 +811,7 @@ begin
   CheckBox2.Visible := (fDMRecebeXML.qParametrosUSA_NFCE.AsString = 'S');
   Shape7.Visible    := (fDMRecebeXML.qParametrosUSA_NFCE.AsString = 'S');
   Label149.Visible  := (fDMRecebeXML.qParametrosUSA_NFCE.AsString = 'S');
+  GroupBox6.Visible := fDMRecebeXML.qParametros_RecXMLMOSTRAR_VLR_VENDA.AsString = 'S';
 
   for i := 1 to SMDBGrid1.ColCount - 2 do
   begin
@@ -5055,6 +5060,20 @@ begin
     fDMRecebeXML.mItensNotaID_CentroCusto.AsInteger := vID_Centro_Custo;
     fDMRecebeXML.mItensNotaNome_CentroCusto.AsString := SQLLocate('CENTROCUSTO','ID','DESCRICAO',fDMRecebeXML.mItensNotaID_CentroCusto.AsString);
     fDMRecebeXML.mItensNota.Post;
+  end;
+end;
+
+procedure TfrmRecebeXML.BitBtn7Click(Sender: TObject);
+begin
+  fDMRecebeXML.mItensNota.First;
+  while not fDMRecebeXML.mItensNota.eof do
+  begin
+    fDMRecebeXML.mItensNota.Edit;
+    fDMRecebeXML.mItensNotaVlr_Venda.AsString := FormatFloat('0.00',fDMRecebeXML.mItensNotaVlrUnitario.AsCurrency *
+                                                 (1 + cePercVlrVenda.Value / 100));
+
+    fDMRecebeXML.mItensNota.Post;
+    fDMRecebeXML.mItensNota.Next;
   end;
 end;
 

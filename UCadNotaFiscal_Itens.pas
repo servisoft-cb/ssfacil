@@ -1857,7 +1857,7 @@ begin
         begin
           fDMCadNotaFiscal.cdsTab_NCM.Close;
           fDMCadNotaFiscal.cdsTab_NCM.Open;
-          prc_Calcular_Desconto_Novo(fDMCadNotaFiscal,False);
+          prc_Calcular_Desconto_Novo(fDMCadNotaFiscal,False, 0);
         end;
       end;
     end;

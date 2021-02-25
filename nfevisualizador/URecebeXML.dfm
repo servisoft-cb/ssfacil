@@ -2761,7 +2761,7 @@ object frmRecebeXML: TfrmRecebeXML
           Top = 262
           Width = 1096
           Height = 161
-          ActivePage = TabSheet9
+          ActivePage = TS_Calculo
           Align = alBottom
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
@@ -3871,8 +3871,8 @@ object frmRecebeXML: TfrmRecebeXML
               ParentFont = False
             end
             object Label131: TLabel
-              Left = 268
-              Top = 134
+              Left = 278
+              Top = 128
               Width = 57
               Height = 13
               Alignment = taRightJustify
@@ -3969,8 +3969,8 @@ object frmRecebeXML: TfrmRecebeXML
               TabOrder = 3
             end
             object DBCheckBox4: TDBCheckBox
-              Left = 205
-              Top = 73
+              Left = 215
+              Top = 67
               Width = 196
               Height = 17
               Caption = 'Subtrair o ICMS do Custo do Produto'
@@ -3987,8 +3987,8 @@ object frmRecebeXML: TfrmRecebeXML
               ValueUnchecked = 'N'
             end
             object DBCheckBox5: TDBCheckBox
-              Left = 205
-              Top = 105
+              Left = 215
+              Top = 99
               Width = 236
               Height = 17
               Caption = 'Subtrair o Pis/Cofins do Custo do Produto'
@@ -4005,8 +4005,8 @@ object frmRecebeXML: TfrmRecebeXML
               ValueUnchecked = 'N'
             end
             object DBCheckBox6: TDBCheckBox
-              Left = 205
-              Top = 11
+              Left = 215
+              Top = 5
               Width = 196
               Height = 17
               Caption = 'Somar IPI no custo'
@@ -4023,8 +4023,8 @@ object frmRecebeXML: TfrmRecebeXML
               ValueUnchecked = 'N'
             end
             object DBCheckBox7: TDBCheckBox
-              Left = 205
-              Top = 27
+              Left = 215
+              Top = 21
               Width = 196
               Height = 17
               Caption = 'Somar Frete no custo'
@@ -4041,8 +4041,8 @@ object frmRecebeXML: TfrmRecebeXML
               ValueUnchecked = 'N'
             end
             object DBCheckBox8: TDBCheckBox
-              Left = 205
-              Top = 42
+              Left = 215
+              Top = 36
               Width = 196
               Height = 17
               Caption = 'Somar ST no custo'
@@ -4059,8 +4059,8 @@ object frmRecebeXML: TfrmRecebeXML
               ValueUnchecked = 'N'
             end
             object DBCheckBox9: TDBCheckBox
-              Left = 205
-              Top = 88
+              Left = 215
+              Top = 82
               Width = 236
               Height = 17
               Caption = 'Subtrair o IPI do Custo do Produto'
@@ -4077,8 +4077,8 @@ object frmRecebeXML: TfrmRecebeXML
               ValueUnchecked = 'N'
             end
             object DBEdit73: TDBEdit
-              Left = 329
-              Top = 125
+              Left = 339
+              Top = 119
               Width = 81
               Height = 22
               Ctl3D = False
@@ -4088,13 +4088,45 @@ object frmRecebeXML: TfrmRecebeXML
               TabOrder = 10
             end
             object BitBtn5: TBitBtn
-              Left = 352
-              Top = 32
+              Left = 362
+              Top = 26
               Width = 75
               Height = 25
               Caption = 'Recalcular'
               TabOrder = 11
               OnClick = BitBtn5Click
+            end
+            object GroupBox6: TGroupBox
+              Left = 471
+              Top = 10
+              Width = 161
+              Height = 130
+              Caption = 'Calcular valor de venda'
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentFont = False
+              TabOrder = 12
+              object cePercVlrVenda: TCurrencyEdit
+                Left = 16
+                Top = 33
+                Width = 121
+                Height = 21
+                AutoSize = False
+                DisplayFormat = '0.00'
+                TabOrder = 0
+              end
+              object BitBtn7: TBitBtn
+                Left = 16
+                Top = 62
+                Width = 121
+                Height = 25
+                Caption = 'Aplicar nos itens'
+                TabOrder = 1
+                OnClick = BitBtn7Click
+              end
             end
           end
         end

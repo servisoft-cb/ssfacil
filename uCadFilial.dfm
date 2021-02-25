@@ -121,7 +121,6 @@ object frmCadFilial: TfrmCadFilial
             FieldName = 'FONE'
             Title.Alignment = taCenter
             Title.Caption = 'Fone'
-            Width = 64
             Visible = True
           end>
       end
@@ -1417,7 +1416,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object Label140: TLabel
             Left = 455
-            Top = 240
+            Top = 255
             Width = 106
             Height = 13
             Alignment = taRightJustify
@@ -1623,7 +1622,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object GroupBox1: TGroupBox
             Left = 130
-            Top = 228
+            Top = 244
             Width = 257
             Height = 112
             Caption = ' % Tributos Lei 12.741/12 '
@@ -1820,7 +1819,7 @@ object frmCadFilial: TfrmCadFilial
           end
           object RxDBComboBox26: TRxDBComboBox
             Left = 564
-            Top = 232
+            Top = 247
             Width = 145
             Height = 21
             Style = csDropDownList
@@ -1851,8 +1850,8 @@ object frmCadFilial: TfrmCadFilial
             ValueUnchecked = 'N'
           end
           object DBCheckBox27: TDBCheckBox
-            Left = 545
-            Top = 328
+            Left = 573
+            Top = 317
             Width = 130
             Height = 17
             Caption = 'Usar o Pre'#231'o com IPI'
@@ -1863,8 +1862,8 @@ object frmCadFilial: TfrmCadFilial
             ValueUnchecked = 'N'
           end
           object btnVlr_Outras_Despesas: TNxButton
-            Left = 682
-            Top = 303
+            Left = 695
+            Top = 305
             Width = 36
             Height = 27
             Font.Charset = DEFAULT_CHARSET
@@ -1943,6 +1942,18 @@ object frmCadFilial: TfrmCadFilial
             DataField = 'USA_RESPTECNICO'
             DataSource = DMCadFilial.dsFilial
             TabOrder = 21
+            ValueChecked = 'S'
+            ValueUnchecked = 'N'
+          end
+          object DBCheckBox30: TDBCheckBox
+            Left = 352
+            Top = 220
+            Width = 313
+            Height = 17
+            Caption = 'Descontar o IPI do total da Nota'
+            DataField = 'DESCONTAR_IPI_NOTA'
+            DataSource = DMCadFilial.dsFilial
+            TabOrder = 29
             ValueChecked = 'S'
             ValueUnchecked = 'N'
           end

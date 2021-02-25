@@ -2401,7 +2401,7 @@ begin
   fDMCadNotaFiscal.qParametros_NFe.Close;
   fDMCadNotaFiscal.qParametros_NFe.Open;
   SMDBGrid2.DisableScroll;
-  prc_Calcular_Desconto_Novo(fDMCadNotaFiscal,False);
+  prc_Calcular_Desconto_Novo(fDMCadNotaFiscal,False,0);
   SMDBGrid2.EnableScroll;
 end;
 
