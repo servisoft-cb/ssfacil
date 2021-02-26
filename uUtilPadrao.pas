@@ -30,6 +30,7 @@ uses
   function fnc_Calcula_DigitoEAN13(Seq_Maxima, Sequencia: Integer; Cod_Principal: String): Integer;
   function fnc_Busca_Estoque2(Filial, ID_PRODUTO, ID_Cor: Integer; Tamanho: String; ID_Local: Integer; ID_Estoque: Integer = 0): Real;
   function fnc_Verificar_Local(Usa_Local_Estoque: String): Integer;
+  function fnc_Verificar_Local_Ped(Usa_Local_Estoque: String): Integer;
   function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer ; Usa_Reserva: String = 'N'): Real;
   //function fnc_Buscar_Pedido_Res(CodProduto, ID_Cor, Filial: Integer): Real; //Fepam vai usar
   function fnc_Buscar_Estoque_Res(CodProduto, ID_Cor, Filial: Integer): Real; //Fepam vai usar
@@ -884,6 +885,34 @@ begin
   if Result <= 0 then
     MessageDlg('*** Não existe um local do estoque marcado como principal!' , mtInformation, [mbOk], 0);
 end;
+
+function fnc_Verificar_Local_Ped(Usa_Local_Estoque: String): Integer;
+var
+  sds: TSQLDataSet;
+begin
+  if Usa_Local_Estoque <> 'S' then
+    Result := 1
+  else
+  begin
+    Result := 0;
+    sds := TSQLDataSet.Create(nil);
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    try
+      sds.CommandText := 'SELECT ID, COD_LOCAL, NOME, PRINCIPAL_PEDIDO FROM LOCAL_ESTOQUE '
+                       + 'WHERE PRINCIPAL_PEDIDO = ' + QuotedStr('S')
+                       + '  AND INATIVO = ' + QuotedStr('N');
+      sds.Open;
+      Result := sds.FieldByName('ID').AsInteger;
+    finally
+      FreeAndNil(sds);
+    end;
+  end;
+  if Result <= 0 then
+    MessageDlg('*** Não existe um local do estoque marcado como principal pedido!' , mtInformation, [mbOk], 0);
+end;
+
 
 function fnc_Buscar_Estoque(CodProduto, ID_Local_Estoque, ID_Cor, Filial: Integer; Usa_Reserva: String = 'N'): Real;
 var

@@ -1,6 +1,6 @@
 object frmCadLocalEstoque: TfrmCadLocalEstoque
-  Left = 350
-  Top = 63
+  Left = 352
+  Top = 125
   Width = 871
   Height = 613
   Caption = 'Local Estoque'
@@ -22,8 +22,8 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 863
-    Height = 582
+    Width = 855
+    Height = 574
     ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -40,8 +40,8 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 67
-        Width = 859
-        Height = 475
+        Width = 851
+        Height = 467
         Align = alClient
         Ctl3D = False
         DataSource = DMCadLocal_Estoque.dsLocal_Estoque
@@ -144,8 +144,8 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 542
-        Width = 859
+        Top = 534
+        Width = 851
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -161,7 +161,7 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 859
+        Width = 851
         Height = 35
         Align = alTop
         Color = clSilver
@@ -266,7 +266,7 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 859
+        Width = 851
         Height = 32
         Align = alTop
         Color = clSilver
@@ -498,8 +498,8 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object pnlCadastro: TPanel
         Left = 0
         Top = 35
-        Width = 859
-        Height = 524
+        Width = 851
+        Height = 516
         Align = alClient
         Enabled = False
         TabOrder = 1
@@ -582,6 +582,14 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
           Height = 13
           Alignment = taRightJustify
           Caption = 'Principal:'
+        end
+        object Label10: TLabel
+          Left = 36
+          Top = 140
+          Width = 79
+          Height = 13
+          Alignment = taRightJustify
+          Caption = 'Principal Pedido:'
         end
         object DBEdit4: TDBEdit
           Left = 632
@@ -716,11 +724,29 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
           ValueChecked = 'S'
           ValueUnchecked = 'N'
         end
+        object RxDBComboBox2: TRxDBComboBox
+          Left = 117
+          Top = 132
+          Width = 145
+          Height = 21
+          Style = csDropDownList
+          DataField = 'PRINCIPAL_PEDIDO'
+          DataSource = DMCadLocal_Estoque.dsLocal_Estoque
+          EnableValues = True
+          ItemHeight = 13
+          Items.Strings = (
+            'Sim'
+            'N'#227'o')
+          TabOrder = 11
+          Values.Strings = (
+            'S'
+            'N')
+        end
       end
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 859
+        Width = 851
         Height = 35
         Align = alTop
         Color = 8404992

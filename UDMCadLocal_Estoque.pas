@@ -63,6 +63,10 @@ type
     cdsLocal_EstoqueINATIVO: TStringField;
     sdsLocal_EstoqueCIDADE: TStringField;
     cdsLocal_EstoqueCIDADE: TStringField;
+    sdsLocal_EstoqueGERAR_XML: TStringField;
+    sdsLocal_EstoquePRINCIPAL_PEDIDO: TStringField;
+    cdsLocal_EstoqueGERAR_XML: TStringField;
+    cdsLocal_EstoquePRINCIPAL_PEDIDO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure cdsLocal_EstoqueNewRecord(DataSet: TDataSet);

@@ -64,6 +64,15 @@ object DMCadLocal_Estoque: TDMCadLocal_Estoque
       FieldName = 'CIDADE'
       Size = 40
     end
+    object sdsLocal_EstoqueGERAR_XML: TStringField
+      FieldName = 'GERAR_XML'
+      Size = 1
+    end
+    object sdsLocal_EstoquePRINCIPAL_PEDIDO: TStringField
+      FieldName = 'PRINCIPAL_PEDIDO'
+      FixedChar = True
+      Size = 1
+    end
   end
   object dspLocal_Estoque: TDataSetProvider
     DataSet = sdsLocal_Estoque
@@ -134,6 +143,15 @@ object DMCadLocal_Estoque: TDMCadLocal_Estoque
     object cdsLocal_EstoqueCIDADE: TStringField
       FieldName = 'CIDADE'
       Size = 40
+    end
+    object cdsLocal_EstoqueGERAR_XML: TStringField
+      FieldName = 'GERAR_XML'
+      Size = 1
+    end
+    object cdsLocal_EstoquePRINCIPAL_PEDIDO: TStringField
+      FieldName = 'PRINCIPAL_PEDIDO'
+      FixedChar = True
+      Size = 1
     end
   end
   object dsLocal_Estoque: TDataSource

@@ -450,7 +450,7 @@ begin
   //Alerta valores em atraso 11/05/2015
   if (fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger <= 0) and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString <> 'S') then
   begin
-    vID_LocalAux := fnc_Verificar_Local(fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString);
+    vID_LocalAux := fnc_Verificar_Local_Ped(fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString);
     if vID_LocalAux <= 0 then
       vID_LocalAux := 1;
     fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger := vID_LocalAux;
@@ -548,7 +548,7 @@ var
 begin
   //if fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P' then
   //begin
-    vID_LocalAux := fnc_Verificar_Local(fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString);
+    vID_LocalAux := fnc_Verificar_Local_Ped(fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString);
     if vID_LocalAux <= 0 then
       exit;
   //end;

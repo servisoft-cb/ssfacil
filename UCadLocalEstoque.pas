@@ -49,6 +49,8 @@ type
     Label7: TLabel;
     DBCheckBox1: TDBCheckBox;
     ckInativo: TCheckBox;
+    Label10: TLabel;
+    RxDBComboBox2: TRxDBComboBox;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
