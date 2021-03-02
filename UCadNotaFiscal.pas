@@ -3363,6 +3363,9 @@ begin
     exit;
   end;
   fDMCadNotaFiscal.cdsFilial.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscal_ConsultaFILIAL.AsInteger,[loCaseInsensitive]);
+  if (fDMCadNotaFiscal.qParametros_GeralUSAR_PESSOA_FILIAL.AsString = 'S') then
+    fDMCadNotaFiscal.prc_Abrir_cdsCliente(vTipo_Reg,fDMCadNotaFiscal.cdsNotaFiscalFILIAL.AsInteger);
+
   //05/12/2018
   fDMCadNotaFiscal.prc_Abrir_CSTICMS(fDMCadNotaFiscal.cdsFilialSIMPLES.AsString);
   ffrmCadNotaFiscal_Itens := TfrmCadNotaFiscal_Itens.Create(self);

@@ -25,7 +25,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
     Top = 0
     Width = 1366
     Height = 688
-    ActivePage = TS_Cadastro
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -35,7 +35,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
     ParentBackgroundColor = False
     ParentColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -2563,7 +2563,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
         Top = 229
         Width = 1362
         Height = 408
-        ActivePage = TabSheet3
+        ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
         BackgroundColor = clSilver
@@ -2571,7 +2571,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
         FlatColor = clGray
         ParentBackgroundColor = False
         TabColors.Shadow = clSilver
-        TabIndex = 2
+        TabIndex = 0
         TabOrder = 2
         FixedDimension = 19
         object RzTabSheet1: TRzTabSheet
@@ -2670,7 +2670,6 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'N'#186' Lote Controle'
                 Title.Color = 12582847
-                Width = 64
                 Visible = True
               end
               item
@@ -2701,6 +2700,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Expanded = False
                 FieldName = 'UNIDADE'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
