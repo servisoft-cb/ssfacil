@@ -22,8 +22,8 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 855
-    Height = 574
+    Width = 863
+    Height = 582
     ActivePage = TS_Cadastro
     ActivePageDefault = TS_Consulta
     Align = alClient
@@ -40,8 +40,8 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object SMDBGrid1: TSMDBGrid
         Left = 0
         Top = 67
-        Width = 851
-        Height = 467
+        Width = 859
+        Height = 475
         Align = alClient
         Ctl3D = False
         DataSource = DMCadLocal_Estoque.dsLocal_Estoque
@@ -144,8 +144,8 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 534
-        Width = 851
+        Top = 542
+        Width = 859
         Height = 17
         Align = alBottom
         BorderStyle = sbsSunken
@@ -161,7 +161,7 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object pnlPesquisa: TPanel
         Left = 0
         Top = 32
-        Width = 851
+        Width = 859
         Height = 35
         Align = alTop
         Color = clSilver
@@ -266,7 +266,7 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object Panel2: TPanel
         Left = 0
         Top = 0
-        Width = 851
+        Width = 859
         Height = 32
         Align = alTop
         Color = clSilver
@@ -498,8 +498,8 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object pnlCadastro: TPanel
         Left = 0
         Top = 35
-        Width = 851
-        Height = 516
+        Width = 859
+        Height = 524
         Align = alClient
         Enabled = False
         TabOrder = 1
@@ -746,7 +746,7 @@ object frmCadLocalEstoque: TfrmCadLocalEstoque
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 851
+        Width = 859
         Height = 35
         Align = alTop
         Color = 8404992
