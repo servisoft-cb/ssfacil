@@ -39,7 +39,7 @@ object DMConsPedidoProc: TDMConsPedidoProc
     Params = <>
     ProviderName = 'dspConsPedidoProc'
     Left = 160
-    Top = 49
+    Top = 50
     object cdsConsPedidoProcID: TIntegerField
       FieldName = 'ID'
       Required = True

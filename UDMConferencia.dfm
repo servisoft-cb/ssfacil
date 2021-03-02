@@ -2117,18 +2117,19 @@ object DMConferencia: TDMConferencia
         ParamType = ptInput
       end
       item
-        DataType = ftUnknown
+        DataType = ftString
         Name = 'USUARIO_LOG'
-        ParamType = ptUnknown
+        ParamType = ptInput
       end>
     SQL.Strings = (
-      'SELECT F.CODIGO, F.nome, F.num_cartao, f.usuario_log'
+      
+        'SELECT F.CODIGO, F.nome, F.num_cartao, f.usuario_log, UC.uciduse' +
+        'r'
       'FROM FUNCIONARIO F'
+      'left join uctabusers uc'
+      'on f.usuario_log = uc.uclogin'
       'WHERE F.NUM_CARTAO = :NUM_CARTAO'
-      '  or (F.USUARIO_LOG = :USUARIO_LOG)'
-      ''
-      ''
-      '')
+      '  or (F.USUARIO_LOG = :USUARIO_LOG)')
     SQLConnection = dmDatabase.scoDados
     Left = 819
     Top = 72
@@ -2146,6 +2147,9 @@ object DMConferencia: TDMConferencia
     object qFuncionarioUSUARIO_LOG: TStringField
       FieldName = 'USUARIO_LOG'
       Size = 15
+    end
+    object qFuncionarioUCIDUSER: TIntegerField
+      FieldName = 'UCIDUSER'
     end
   end
   object sdsFuncionario_Proc: TSQLDataSet
@@ -2309,6 +2313,11 @@ object DMConferencia: TDMConferencia
         ParamType = ptInput
       end
       item
+        DataType = ftInteger
+        Name = 'P_FUNCIONARIO'
+        ParamType = ptInput
+      end
+      item
         DataType = ftString
         Name = 'R_NOME_PROCESSO'
         ParamType = ptOutput
@@ -2362,7 +2371,7 @@ object DMConferencia: TDMConferencia
         Name = 'R_MSG'
         ParamType = ptOutput
         Size = 200
-        Value = ' Pedido/Item nao encontrado!'
+        Value = ' Funcion'#225'rio n'#227'o informado ou n'#227'o cadastrado!'
       end>
     SQLConnection = dmDatabase.scoDados
     StoredProcName = 'PRC_BAIXA_PEDIDO_PROC'

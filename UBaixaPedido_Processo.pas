@@ -239,12 +239,17 @@ begin
 
     fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_NUM_PEDIDO').AsInteger := fDMConferencia.qPedido_ItemNUM_PEDIDO.AsInteger;
     fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_ITEM').AsInteger       := fDMConferencia.qPedido_ItemITEM.AsInteger;
-//    fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_USUARIO').AsString     := vUsuario;
-    fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_FUNCIONARIO').AsInteger  := fDMConferencia.qFuncionarioCODIGO.AsInteger;
+//    fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_USUARIO').AsString    := vUsuario;
+    fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('P_FUNCIONARIO').AsInteger := fDMConferencia.qFuncionarioUCIDUSER.AsInteger;
     fDMConferencia.sqlProcBaixaPedidoProc.ExecProc;
     vNomeProc  := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_NOME_PROCESSO').AsString;
     vConferido := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_CONFERIDO').AsString;
     vMSG := fDMConferencia.sqlProcBaixaPedidoProc.ParamByName('R_MSG').AsString;
+    if trim(vMSG) <> '' then
+    begin
+      MessageDlg(vMSG, mtInformation, [mbOk], 0);
+      exit;
+    end;
 
     fDMConferencia.cdsConsPedido_Item_Proc.Close;
     fDMConferencia.cdsConsPedido_Item_Proc.Open;

@@ -427,6 +427,7 @@ type
     qPedido_ItemNUM_PEDIDO: TIntegerField;
     qPedido_ItemEMAIL_COMPRAS: TStringField;
     sqlProcBaixaPedidoProc: TSQLStoredProc;
+    qFuncionarioUCIDUSER: TIntegerField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsConferencia_PedCalcFields(DataSet: TDataSet);
     procedure cdsPedido_ItemCalcFields(DataSet: TDataSet);
