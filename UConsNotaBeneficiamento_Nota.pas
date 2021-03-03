@@ -25,10 +25,14 @@ type
     SMDBGrid4: TSMDBGrid;
     Panel5: TPanel;
     RzBitBtn1: TRzBitBtn;
+    Shape1: TShape;
+    Label5: TLabel;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure RzBitBtn1Click(Sender: TObject);
+    procedure SMDBGrid2GetCellParams(Sender: TObject; Field: TField;
+      AFont: TFont; var Background: TColor; Highlight: Boolean);
   private
     { Private declarations }
     procedure prc_Calcular;
@@ -74,9 +78,16 @@ begin
   fDMConsNotaBeneficiamento.cdsNotaDevolvida.First;
   while not fDMConsNotaBeneficiamento.cdsNotaDevolvida.Eof do
   begin
+    if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA.AsString = 'S' then
+      vQtd := StrToFloat(FormatFloat('0.000000',vQtd + fDMConsNotaBeneficiamento.cdsNotaDevolvidaQTD.AsFloat))
+    else
+    if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA.AsString = 'E' then
+      vQtd := StrToFloat(FormatFloat('0.000000',vQtd - fDMConsNotaBeneficiamento.cdsNotaDevolvidaQTD.AsFloat))
+    else
     if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA_NF.AsString = 'S' then
       vQtd := StrToFloat(FormatFloat('0.000000',vQtd + fDMConsNotaBeneficiamento.cdsNotaDevolvidaQTD.AsFloat))
     else
+    if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA_NF.AsString = 'E' then
       vQtd := StrToFloat(FormatFloat('0.000000',vQtd - fDMConsNotaBeneficiamento.cdsNotaDevolvidaQTD.AsFloat));
     fDMConsNotaBeneficiamento.cdsNotaDevolvida.Next;
   end;
@@ -112,6 +123,17 @@ begin
 
 //  fDMConsPedido.prc_Abre_Baixar_Pedido(vID_Pedido_Cons,vItem_Pedido_Cons);
 
+end;
+
+procedure TfrmConsNotaBeneficiamento_Nota.SMDBGrid2GetCellParams(
+  Sender: TObject; Field: TField; AFont: TFont; var Background: TColor;
+  Highlight: Boolean);
+begin
+  if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA.AsString <> fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA_NF.AsString then
+  begin
+    Background  := clYellow;
+    AFont.Color := clBlack;
+  end;
 end;
 
 end.

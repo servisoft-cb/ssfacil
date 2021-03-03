@@ -622,7 +622,7 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
     BeforePost = cdsNotaFiscalBeforePost
     OnNewRecord = cdsNotaFiscalNewRecord
     Left = 80
-    Top = 9
+    Top = 8
     object cdsNotaFiscalID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

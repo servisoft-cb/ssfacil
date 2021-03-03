@@ -536,6 +536,7 @@ begin
   fDMCadNotaFiscal.cdsNotaFiscal_NDevolvidaMODELO.AsString             := '';
   fDMCadNotaFiscal.cdsNotaFiscal_NDevolvidaNOMEFORNECEDOR.AsString     := fDMCadNotaFiscal.cdsNotaEntradaNOMECLIENTE.AsString;
   fDMCadNotaFiscal.cdsNotaFiscal_NDevolvidaCNPJ_CPF.AsString           := fDMCadNotaFiscal.cdsNotaEntradaCNPJ_CPF.AsString;
+//  fDMCadNotaFiscal.cdsNotaFiscal_NDevolvidaTIPO_NOTA. 02/03/2021
   fDMCadNotaFiscal.cdsNotaFiscal_NDevolvida.Post;
 end;
 

@@ -1,6 +1,6 @@
 object frmConsNotaBeneficiamento_Nota: TfrmConsNotaBeneficiamento_Nota
-  Left = 316
-  Top = 41
+  Left = 292
+  Top = 80
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Consultar Notas de Beneficiamento'
@@ -63,12 +63,13 @@ object frmConsNotaBeneficiamento_Nota: TfrmConsNotaBeneficiamento_Nota
       TitleHeight.PixelCount = 24
       FooterColor = clBtnFace
       ExOptions = [eoDisableDelete, eoDisableInsert, eoENTERlikeTAB, eoKeepSelection, eoStandardPopup, eoBLOBEditor, eoTitleWordWrap]
+      OnGetCellParams = SMDBGrid2GetCellParams
       RegistryKey = 'Software\Scalabium'
       RegistrySection = 'SMDBGrid'
       WidthOfIndicator = 11
       DefaultRowHeight = 20
       ScrollBars = ssHorizontal
-      ColCount = 7
+      ColCount = 8
       RowCount = 2
       Columns = <
         item
@@ -148,7 +149,7 @@ object frmConsNotaBeneficiamento_Nota: TfrmConsNotaBeneficiamento_Nota
         item
           Alignment = taCenter
           Expanded = False
-          FieldName = 'TIPO_NOTA_NF'
+          FieldName = 'TIPO_NOTA'
           Title.Caption = 'E/S'
           Title.Color = 16767152
           Title.Font.Charset = DEFAULT_CHARSET
@@ -157,6 +158,14 @@ object frmConsNotaBeneficiamento_Nota: TfrmConsNotaBeneficiamento_Nota
           Title.Font.Name = 'MS Sans Serif'
           Title.Font.Style = []
           Width = 34
+          Visible = True
+        end
+        item
+          Expanded = False
+          FieldName = 'TIPO_NOTA_NF'
+          Title.Alignment = taCenter
+          Title.Caption = 'Tipo da nota'
+          Title.Color = 16767152
           Visible = True
         end>
     end
@@ -169,30 +178,50 @@ object frmConsNotaBeneficiamento_Nota: TfrmConsNotaBeneficiamento_Nota
       Color = 16762508
       TabOrder = 1
       object Label4: TLabel
-        Left = 382
+        Left = 526
         Top = 8
-        Width = 58
+        Width = 71
         Height = 16
-        Alignment = taCenter
+        Alignment = taRightJustify
         Caption = 'Total Qtd:'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
-        Font.Name = 'MS Sans Serif'
-        Font.Style = []
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
         ParentFont = False
       end
       object Label3: TLabel
-        Left = 442
+        Left = 602
         Top = 8
-        Width = 7
+        Width = 9
         Height = 16
         Caption = '0'
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clWindowText
         Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentFont = False
+      end
+      object Shape1: TShape
+        Left = 10
+        Top = 5
+        Width = 27
+        Height = 17
+        Brush.Color = clYellow
+      end
+      object Label5: TLabel
+        Left = 46
+        Top = 6
+        Width = 261
+        Height = 13
+        Caption = 'Verificar pois esse registro esta com problema'
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -11
         Font.Name = 'MS Sans Serif'
-        Font.Style = []
+        Font.Style = [fsBold]
         ParentFont = False
       end
     end

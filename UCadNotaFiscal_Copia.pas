@@ -622,7 +622,9 @@ procedure TfrmCadNotaFiscal_Copia.prc_Copiar_Nota_NDevolvida;
 var
   vItemAux: Integer;
   x: Integer;
+  vMSGAux : String;
 begin
+  vMSGAux := '';
   //if not ckEntrada.Checked then
   if (RadioGroup1.ItemIndex <> 1) and (RadioGroup1.ItemIndex <> 3) then
     exit;
@@ -644,10 +646,17 @@ begin
       end;
     end;
     //colocar entrada
-    fDMCadNotaFiscal.cdsNotaFiscal_NDevolvidaTIPO_NOTA.AsString := 'E';
+    case RadioGroup1.ItemIndex of
+      1 : fDMCadNotaFiscal.cdsNotaFiscal_NDevolvidaTIPO_NOTA.AsString := 'E';
+      3 : fDMCadNotaFiscal.cdsNotaFiscal_NDevolvidaTIPO_NOTA.AsString := 'S';
+    end;
+    if (trim(vMSGAux) = '') and (RadioGroup1.ItemIndex = 3) then
+      vMSGAux := '*** Essa copia foi feita com nota sendo devolvida!';
     fDMCadNotaFiscal.cdsNotaFiscal_NDevolvida.Post;
     fDMCopiarNota.cdsNotaFiscal_NDevolvida.Next;
   end;
+  if trim(vMSGAux) <> '' then
+    MessageDlg(vMSGAux, mtWarning, [mbOk], 0);
 end;
 
 procedure TfrmCadNotaFiscal_Copia.prc_Copiar_Nota_Ref;

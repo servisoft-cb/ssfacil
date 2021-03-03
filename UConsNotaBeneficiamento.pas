@@ -214,6 +214,13 @@ begin
       if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA.AsString = 'E' then
         vQtdDevolvida := StrToFloat(FormatFloat('0.00000',vQtdDevolvida - fDMConsNotaBeneficiamento.cdsNotaDevolvidaQTD.AsFloat))
       else
+      if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA.AsString = 'S' then
+        vQtdDevolvida := StrToFloat(FormatFloat('0.00000',vQtdDevolvida + fDMConsNotaBeneficiamento.cdsNotaDevolvidaQTD.AsFloat))
+      else
+      if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA_NF.AsString = 'E' then
+        vQtdDevolvida := StrToFloat(FormatFloat('0.00000',vQtdDevolvida - fDMConsNotaBeneficiamento.cdsNotaDevolvidaQTD.AsFloat))
+      else
+      if fDMConsNotaBeneficiamento.cdsNotaDevolvidaTIPO_NOTA_NF.AsString = 'S' then
         vQtdDevolvida := StrToFloat(FormatFloat('0.00000',vQtdDevolvida + fDMConsNotaBeneficiamento.cdsNotaDevolvidaQTD.AsFloat));
       fDMConsNotaBeneficiamento.cdsNotaDevolvida.Next;
     end;

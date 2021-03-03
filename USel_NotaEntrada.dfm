@@ -592,7 +592,6 @@ object frmSel_NotaEntrada: TfrmSel_NotaEntrada
           ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Data Emiss'#227'o'
-          Width = 64
           Visible = True
         end
         item
@@ -602,7 +601,6 @@ object frmSel_NotaEntrada: TfrmSel_NotaEntrada
           ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Data Entrada'
-          Width = 64
           Visible = True
         end
         item
@@ -639,7 +637,6 @@ object frmSel_NotaEntrada: TfrmSel_NotaEntrada
           ReadOnly = True
           Title.Alignment = taCenter
           Title.Caption = 'Nome Cliente'
-          Width = 64
           Visible = True
         end
         item
@@ -656,7 +653,6 @@ object frmSel_NotaEntrada: TfrmSel_NotaEntrada
           FieldName = 'NOME_CLIENTETRIANG'
           Title.Alignment = taCenter
           Title.Caption = 'Cliente Triangular'
-          Width = 64
           Visible = True
         end>
     end
