@@ -117,4 +117,51 @@ object DMRFID: TDMRFID
       Size = 18
     end
   end
+  object sdsProduto: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select P.ID, P.QTD_POR_ROTULO'#13#10'from PRODUTO P'#13#10'where P.ID = :ID'#13 +
+      #10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 118
+    Top = 143
+    object sdsProdutoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsProdutoQTD_POR_ROTULO: TFloatField
+      FieldName = 'QTD_POR_ROTULO'
+    end
+  end
+  object dspProduto: TDataSetProvider
+    DataSet = sdsProduto
+    UpdateMode = upWhereKeyOnly
+    Left = 158
+    Top = 143
+  end
+  object cdsProduto: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspProduto'
+    Left = 196
+    Top = 143
+    object cdsProdutoID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsProdutoQTD_POR_ROTULO: TFloatField
+      FieldName = 'QTD_POR_ROTULO'
+    end
+  end
 end

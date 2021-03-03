@@ -28,6 +28,13 @@ type
     cdsNotaFiscal_RFIDNUM_RFID: TStringField;
     sdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField;
     cdsNotaFiscal_RFIDCNPJ_FILIAL: TStringField;
+    sdsProduto: TSQLDataSet;
+    dspProduto: TDataSetProvider;
+    cdsProduto: TClientDataSet;
+    sdsProdutoID: TIntegerField;
+    sdsProdutoQTD_POR_ROTULO: TFloatField;
+    cdsProdutoID: TIntegerField;
+    cdsProdutoQTD_POR_ROTULO: TFloatField;
     procedure DataModuleCreate(Sender: TObject);
   private
     { Private declarations }

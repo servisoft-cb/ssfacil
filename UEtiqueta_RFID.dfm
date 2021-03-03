@@ -328,8 +328,8 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
           Width = 87
           Height = 21
           AutoSize = False
-          DecimalPlaces = 0
-          DisplayFormat = '0'
+          DecimalPlaces = 4
+          DisplayFormat = '0.####'
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clWindowText
           Font.Height = -12
@@ -337,6 +337,7 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
           Font.Style = []
           ParentFont = False
           TabOrder = 0
+          OnKeyDown = CurrencyEdit1KeyDown
         end
         object btnGerar: TNxButton
           Left = 325
@@ -363,7 +364,7 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
           Visible = False
           OnClick = btnImprimirA4Click
         end
-        object CheckBox1: TCheckBox
+        object ckTeste: TCheckBox
           Left = 1025
           Top = 26
           Width = 57
@@ -374,7 +375,7 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
         end
         object btnImprimir: TNxButton
           Left = 425
-          Top = 11
+          Top = 10
           Width = 101
           Height = 26
           Caption = 'Imprimir'
@@ -389,7 +390,7 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
         end
         object btnReenvio: TNxButton
           Left = 526
-          Top = 11
+          Top = 10
           Width = 101
           Height = 26
           Caption = 'Reenvio'
@@ -404,7 +405,7 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
         end
         object btnExcluir: TNxButton
           Left = 627
-          Top = 11
+          Top = 10
           Width = 102
           Height = 26
           Caption = 'Excluir Tabela'

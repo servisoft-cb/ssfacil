@@ -844,6 +844,8 @@ type
     NxPanel6: TNxPanel;
     Label120: TLabel;
     DBEdit59: TDBEdit;
+    Label270: TLabel;
+    DBEdit169: TDBEdit;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnExcluirClick(Sender: TObject);
     procedure FormShow(Sender: TObject);

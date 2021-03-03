@@ -1,8 +1,8 @@
 object frmCadNotaFiscal: TfrmCadNotaFiscal
   Left = -4
-  Top = -4
+  Top = 0
   Width = 1374
-  Height = 736
+  Height = 728
   Caption = 'Emiss'#227'o da Nota Fiscal (NFe)'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -24,8 +24,8 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
     Left = 0
     Top = 0
     Width = 1366
-    Height = 688
-    ActivePage = TS_Cadastro
+    Height = 680
+    ActivePage = TS_Consulta
     ActivePageDefault = TS_Consulta
     Align = alClient
     BackgroundColor = 16752448
@@ -35,7 +35,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
     ParentBackgroundColor = False
     ParentColor = False
     TabColors.Shadow = clSilver
-    TabIndex = 1
+    TabIndex = 0
     TabOrder = 0
     OnChange = RzPageControl1Change
     FixedDimension = 19
@@ -46,7 +46,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
         Left = 0
         Top = 150
         Width = 1362
-        Height = 364
+        Height = 356
         Align = alClient
         BorderStyle = bsNone
         Ctl3D = False
@@ -133,6 +133,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             FieldName = 'CODCFOP'
             Title.Alignment = taCenter
             Title.Caption = 'CFOP'
+            Width = 64
             Visible = True
           end
           item
@@ -172,6 +173,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             FieldName = 'VLR_DUPLICATA'
             Title.Alignment = taCenter
             Title.Caption = 'Valor Duplicatas'
+            Width = 64
             Visible = True
           end
           item
@@ -180,6 +182,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             FieldName = 'CANCELADA'
             Title.Alignment = taCenter
             Title.Caption = 'Cancelada'
+            Width = 64
             Visible = True
           end
           item
@@ -187,6 +190,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             FieldName = 'NFECHAVEACESSO'
             Title.Alignment = taCenter
             Title.Caption = 'Chave Acesso NFe'
+            Width = 64
             Visible = True
           end
           item
@@ -195,6 +199,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             FieldName = 'TIPO_PRAZO'
             Title.Alignment = taCenter
             Title.Caption = 'Tipo Prazo'
+            Width = 64
             Visible = True
           end
           item
@@ -213,12 +218,14 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             Expanded = False
             FieldName = 'ID_CONDPGTO'
             Title.Caption = 'ID CONDPGTO'
+            Width = 64
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'ID_VENDEDOR'
             Title.Caption = 'ID VENDEDOR'
+            Width = 64
             Visible = True
           end
           item
@@ -238,6 +245,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
           item
             Expanded = False
             FieldName = 'DESCRICAO_MANIFESTO'
+            Width = 64
             Visible = True
           end
           item
@@ -261,6 +269,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             FieldName = 'NUMNOTA_DEVOL'
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' Nota Feita a Devol.'
+            Width = 64
             Visible = True
           end
           item
@@ -268,6 +277,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             FieldName = 'SERIE_DEVOL'
             Title.Alignment = taCenter
             Title.Caption = 'S'#233'rie Devol.'
+            Width = 64
             Visible = True
           end
           item
@@ -276,6 +286,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             FieldName = 'DTEMISSAO_DEVOL'
             Title.Alignment = taCenter
             Title.Caption = 'Dt. Emiss'#227'o Devol.'
+            Width = 64
             Visible = True
           end>
       end
@@ -563,7 +574,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
       end
       object StaticText1: TStaticText
         Left = 0
-        Top = 648
+        Top = 640
         Width = 1362
         Height = 17
         Align = alBottom
@@ -1051,7 +1062,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
       end
       object Panel12: TPanel
         Left = 0
-        Top = 624
+        Top = 616
         Width = 1362
         Height = 24
         Align = alBottom
@@ -1160,7 +1171,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
       end
       object RzGroupBox2: TRzGroupBox
         Left = 0
-        Top = 514
+        Top = 506
         Width = 1362
         Height = 110
         Align = alBottom
@@ -1313,6 +1324,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Font.Height = -11
               Font.Name = 'MS Sans Serif'
               Font.Style = []
+              Width = 64
               Visible = True
             end
             item
@@ -2550,7 +2562,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
         Left = 0
         Top = 229
         Width = 1362
-        Height = 408
+        Height = 400
         ActivePage = RzTabSheet1
         ActivePageDefault = RzTabSheet1
         Align = alClient
@@ -2569,7 +2581,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             Left = 0
             Top = 52
             Width = 1358
-            Height = 104
+            Height = 96
             Align = alClient
             Ctl3D = False
             DataSource = DMCadNotaFiscal.dsNotaFiscal_Itens
@@ -2688,6 +2700,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Expanded = False
                 FieldName = 'UNIDADE'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
@@ -2821,6 +2834,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'N'#186' Lote/Tal'#227'o (Cliente)'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
@@ -2889,6 +2903,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'Com Notifica'#231#227'o'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
@@ -2897,6 +2912,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'Pre'#231'o Custo Total'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
@@ -2906,6 +2922,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Centro Custo'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
@@ -2915,6 +2932,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Conta Or'#231'.'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
@@ -2961,6 +2979,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'ANP UF'
                 Title.Color = 12582847
+                Width = 64
                 Visible = True
               end
               item
@@ -3264,7 +3283,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
           end
           object SMDBGrid6: TSMDBGrid
             Left = 0
-            Top = 235
+            Top = 227
             Width = 1358
             Height = 75
             Align = alBottom
@@ -3462,6 +3481,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'Pre'#231'o Custo Total'
                 Title.Color = 16758897
+                Width = 64
                 Visible = True
               end
               item
@@ -3470,6 +3490,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Ajuste Custo Total'
                 Title.Color = 16758897
+                Width = 64
                 Visible = True
               end
               item
@@ -3484,7 +3505,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
           end
           object SMDBGrid7: TSMDBGrid
             Left = 0
-            Top = 310
+            Top = 302
             Width = 1358
             Height = 75
             Align = alBottom
@@ -3663,6 +3684,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = '% Tributo Municipal'
                 Title.Color = 16758639
+                Width = 64
                 Visible = True
               end
               item
@@ -3716,6 +3738,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Duplicata'
                 Title.Color = 16758639
+                Width = 64
                 Visible = True
               end
               item
@@ -3733,6 +3756,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Taxa Siscomex'
                 Title.Color = 16758639
+                Width = 64
                 Visible = True
               end
               item
@@ -3823,6 +3847,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 Title.Alignment = taCenter
                 Title.Caption = 'Base ICMS Efet.'
                 Title.Color = 16758639
+                Width = 64
                 Visible = True
               end
               item
@@ -3939,7 +3964,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
           end
           object VDBGrid1: TVDBGrid
             Left = 0
-            Top = 156
+            Top = 148
             Width = 1358
             Height = 79
             Align = alBottom
@@ -3993,7 +4018,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
           Caption = 'Dados'
           DesignSize = (
             1358
-            385)
+            377)
           object gbxTransportes: TRzGroupBox
             Left = 2
             Top = 9
@@ -7295,7 +7320,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             Left = 0
             Top = 199
             Width = 1358
-            Height = 186
+            Height = 178
             Align = alClient
             Caption = ' Eventos '
             TabOrder = 1
@@ -7303,7 +7328,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Left = 2
               Top = 15
               Width = 1354
-              Height = 169
+              Height = 161
               Align = alClient
               Ctl3D = False
               DataSource = DMCadNotaFiscal.dsNotaFiscal_NFe
@@ -7367,11 +7392,13 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
                 item
                   Expanded = False
                   FieldName = 'NFERECIBO'
+                  Width = 64
                   Visible = True
                 end
                 item
                   Expanded = False
                   FieldName = 'DATAHORAAUT'
+                  Width = 64
                   Visible = True
                 end
                 item
@@ -7462,7 +7489,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             Left = 0
             Top = 31
             Width = 1358
-            Height = 354
+            Height = 346
             Align = alClient
             Ctl3D = False
             DataSource = DMCadNotaFiscal.dsNotaFiscal_Ref
@@ -7541,6 +7568,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               item
                 Expanded = False
                 FieldName = 'CNPJ_REF'
+                Width = 64
                 Visible = True
               end
               item
@@ -7552,6 +7580,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               item
                 Expanded = False
                 FieldName = 'NFECHAVEACESSO_REF'
+                Width = 64
                 Visible = True
               end
               item
@@ -7573,11 +7602,13 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               item
                 Expanded = False
                 FieldName = 'CUPOM_MODELO'
+                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'INSCESTADUAL_REF'
+                Width = 64
                 Visible = True
               end>
           end
@@ -7589,7 +7620,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
             Left = 0
             Top = 0
             Width = 1358
-            Height = 385
+            Height = 377
             Align = alClient
             TabOrder = 0
             object Panel2: TPanel
@@ -7811,7 +7842,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
               Left = 1
               Top = 31
               Width = 1356
-              Height = 353
+              Height = 345
               Align = alClient
               Ctl3D = False
               DataSource = DMCadNotaFiscal.dsNotaFiscal_Lei
@@ -7865,7 +7896,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
       end
       object Panel10: TPanel
         Left = 0
-        Top = 637
+        Top = 629
         Width = 1362
         Height = 28
         Align = alBottom
@@ -8227,7 +8258,7 @@ object frmCadNotaFiscal: TfrmCadNotaFiscal
   end
   object StaticText2: TStaticText
     Left = 0
-    Top = 688
+    Top = 680
     Width = 1366
     Height = 17
     Align = alBottom

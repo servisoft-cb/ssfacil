@@ -2,8 +2,8 @@ object DMEtiqueta: TDMEtiqueta
   OldCreateOrder = False
   OnCreate = DataModuleCreate
   Left = 359
-  Top = 188
-  Height = 450
+  Top = 208
+  Height = 430
   Width = 758
   object mEtiqueta_Nav: TClientDataSet
     Active = True
@@ -43,10 +43,6 @@ object DMEtiqueta: TDMEtiqueta
         Name = 'Nome_Cliente'
         DataType = ftString
         Size = 60
-      end
-      item
-        Name = 'Qtd'
-        DataType = ftInteger
       end
       item
         Name = 'Pedido_Cliente'
@@ -140,6 +136,10 @@ object DMEtiqueta: TDMEtiqueta
         Name = 'Enviado'
         DataType = ftString
         Size = 1
+      end
+      item
+        Name = 'Qtd'
+        DataType = ftFloat
       end>
     IndexDefs = <>
     IndexFieldNames = 'Nome_Etiqueta;Tamanho'
@@ -156,24 +156,24 @@ object DMEtiqueta: TDMEtiqueta
       0100490000000100055749445448020002000A000A5265666572656E63696101
       004900000001000557494454480200020014000C4E6F6D655F50726F6475746F
       01004900000001000557494454480200020064000C4E6F6D655F436C69656E74
-      650100490000000100055749445448020002003C000351746404000100000000
-      000E50656469646F5F436C69656E746501004900000001000557494454480200
-      020014000C46616E74617369615F436C69010049000000010005574944544802
-      0002002800094474456D697373616F04000600000000000C50726F645F436C69
-      656E74650100490000000100055749445448020002001400054E756D4F530100
-      490000000100055749445448020002001E0008456E63657261646F0100490000
-      000100055749445448020002000A00084974656D5F5065640400010000000000
-      07556E69646164650100490000000100055749445448020002000C00084E756D
-      5F4E6F746104000100000000000F436F645F436F725F436C69656E7465010049
-      0000000100055749445448020002000A00104E6F6D655F436F725F436C69656E
-      746501004900000001000557494454480200020064000E53657175656E636961
-      5F5246494408000100000000000B434E504A5F46696C69616C01004900000001
-      000557494454480200020012000749445F4E6F74610400010000000000094974
-      656D5F4E6F746104000100000000000646696C69616C0400010000000000084E
-      554D5F5246494401004900000001000557494454480200020018000F46616E74
-      617369615F46696C69616C01004900000001000557494454480200020019000B
-      53656C6563696F6E61646F010049000000010005574944544802000200010007
-      456E766961646F01004900000001000557494454480200020001000000}
+      650100490000000100055749445448020002003C000E50656469646F5F436C69
+      656E746501004900000001000557494454480200020014000C46616E74617369
+      615F436C690100490000000100055749445448020002002800094474456D6973
+      73616F04000600000000000C50726F645F436C69656E74650100490000000100
+      055749445448020002001400054E756D4F530100490000000100055749445448
+      020002001E0008456E63657261646F0100490000000100055749445448020002
+      000A00084974656D5F506564040001000000000007556E696461646501004900
+      00000100055749445448020002000C00084E756D5F4E6F746104000100000000
+      000F436F645F436F725F436C69656E7465010049000000010005574944544802
+      0002000A00104E6F6D655F436F725F436C69656E746501004900000001000557
+      494454480200020064000E53657175656E6369615F5246494408000100000000
+      000B434E504A5F46696C69616C01004900000001000557494454480200020012
+      000749445F4E6F74610400010000000000094974656D5F4E6F74610400010000
+      0000000646696C69616C0400010000000000084E554D5F524649440100490000
+      0001000557494454480200020018000F46616E74617369615F46696C69616C01
+      004900000001000557494454480200020019000B53656C6563696F6E61646F01
+      0049000000010005574944544802000200010007456E766961646F0100490000
+      0001000557494454480200020001000351746408000400000000000000}
     object mEtiqueta_NavNome_Empresa: TStringField
       FieldName = 'Nome_Empresa'
       Size = 15
@@ -200,9 +200,6 @@ object DMEtiqueta: TDMEtiqueta
     object mEtiqueta_NavNome_Cliente: TStringField
       FieldName = 'Nome_Cliente'
       Size = 60
-    end
-    object mEtiqueta_NavQtd: TIntegerField
-      FieldName = 'Qtd'
     end
     object mEtiqueta_NavPedido_Cliente: TStringField
       FieldName = 'Pedido_Cliente'
@@ -274,6 +271,10 @@ object DMEtiqueta: TDMEtiqueta
     object mEtiqueta_NavEnviado: TStringField
       FieldName = 'Enviado'
       Size = 1
+    end
+    object mEtiqueta_NavQtd: TFloatField
+      FieldName = 'Qtd'
+      DisplayFormat = '0.####'
     end
   end
   object dsmEtiqueta_Nav: TDataSource
@@ -857,11 +858,13 @@ object DMEtiqueta: TDMEtiqueta
       'RODUTO, I.REFERENCIA, I.UNIDADE, I.QTD, I.NUMERO_OC,'#13#10'       I.N' +
       'UMERO_OS, I.NUM_PEDIDO, I.COD_PRODUTO_FORN, I.COD_BARRA, I2.COD_' +
       'PRODUTO_CLIENTE, I2.COD_COR_CLIENTE,'#13#10'       I2.NOME_COR_CLIENTE' +
-      ', I2.TAMANHO_CLIENTE, C.NOME NOME_COR, I2.ENCERADO'#13#10'from NOTAFIS' +
-      'CAL_ITENS I'#13#10'inner join COMBINACAO C on (I.ID_COR = C.ID)'#13#10'inner' +
-      ' join TAB_CFOP CFOP on I.ID_CFOP = CFOP.ID'#13#10'left join PEDIDO_ITE' +
-      'M I2 on (I.ID_PEDIDO = I2.ID and I.ITEM_PEDIDO = I2.ITEM)'#13#10'where' +
-      ' I.ID = :ID and'#13#10'      CFOP.FATURAMENTO = '#39'S'#39'   '
+      ', I2.TAMANHO_CLIENTE, C.NOME NOME_COR, I2.ENCERADO,'#13#10'       coal' +
+      'esce(P.QTD_POR_ROTULO, 0) QTD_POR_ROTULO'#13#10'from NOTAFISCAL_ITENS ' +
+      'I'#13#10'inner join PRODUTO P on I.ID_PRODUTO = P.ID'#13#10'inner join COMBI' +
+      'NACAO C on (I.ID_COR = C.ID)'#13#10'inner join TAB_CFOP CFOP on I.ID_C' +
+      'FOP = CFOP.ID'#13#10'left join PEDIDO_ITEM I2 on (I.ID_PEDIDO = I2.ID ' +
+      'and I.ITEM_PEDIDO = I2.ITEM)'#13#10'where I.ID = :ID and'#13#10'      CFOP.F' +
+      'ATURAMENTO = '#39'S'#39'   '#13#10
     MaxBlobSize = -1
     Params = <
       item
@@ -870,8 +873,8 @@ object DMEtiqueta: TDMEtiqueta
         ParamType = ptInput
       end>
     SQLConnection = dmDatabase.scoDados
-    Left = 304
-    Top = 136
+    Left = 303
+    Top = 137
   end
   object dspNotaFiscal_Itens: TDataSetProvider
     DataSet = sdsNotaFiscal_Itens
@@ -957,6 +960,9 @@ object DMEtiqueta: TDMEtiqueta
       FieldName = 'ENCERADO'
       FixedChar = True
       Size = 1
+    end
+    object cdsNotaFiscal_ItensQTD_POR_ROTULO: TFloatField
+      FieldName = 'QTD_POR_ROTULO'
     end
   end
   object qNotaFiscal: TSQLQuery
@@ -1240,5 +1246,59 @@ object DMEtiqueta: TDMEtiqueta
       FixedChar = True
       Size = 1
     end
+  end
+  object sdsItemSemQtdRotulo: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select distinct I.id_produto, i.referencia, i.nome_produto, P.qt' +
+      'd_por_rotulo, I.UNIDADE'#13#10'from NOTAFISCAL_ITENS I'#13#10'inner join PRO' +
+      'DUTO P on I.ID_PRODUTO = P.ID'#13#10'inner join TAB_CFOP CFOP on I.ID_' +
+      'CFOP = CFOP.ID'#13#10'where I.ID = :ID and'#13#10'      CFOP.FATURAMENTO = '#39 +
+      'S'#39'    and'#13#10'      coalesce(p.qtd_por_rotulo,0) <= 0'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 548
+    Top = 76
+  end
+  object dspItemSemQtdRotulo: TDataSetProvider
+    DataSet = sdsItemSemQtdRotulo
+    Left = 589
+    Top = 74
+  end
+  object cdsItemSemQtdRotulo: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspItemSemQtdRotulo'
+    Left = 630
+    Top = 74
+    object cdsItemSemQtdRotuloID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsItemSemQtdRotuloREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsItemSemQtdRotuloNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsItemSemQtdRotuloQTD_POR_ROTULO: TFloatField
+      FieldName = 'QTD_POR_ROTULO'
+    end
+    object cdsItemSemQtdRotuloUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+  end
+  object dsItemSemQtdRotulo: TDataSource
+    DataSet = cdsItemSemQtdRotulo
+    Left = 670
+    Top = 76
   end
 end

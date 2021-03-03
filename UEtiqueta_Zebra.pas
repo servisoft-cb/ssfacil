@@ -37,7 +37,7 @@ var
     Writeln(F,'^FT525,300^A0N,28,38^FDCor:^FS');
     Writeln(F,'^FT593,300^A0N,34,46^FD'+copy(fDMEtiqueta.mEtiqueta_NavCod_Cor_Cliente.AsString,1,8)+'^FS');
     Writeln(F,'^FT16,370^A0N,28,38^FDQtde./Med.:^FS');
-    Writeln(F,'^FT202,370^A0N,39,53^FD'+fDMEtiqueta.mEtiqueta_NavQtd.AsString + ' / ' + fDMEtiqueta.mEtiqueta_NavUnidade.AsString +'^FS');
+    Writeln(F,'^FT202,370^A0N,39,53^FD'+FormatFloat('0.####',fDMEtiqueta.mEtiqueta_NavQtd.AsFloat) + ' / ' + fDMEtiqueta.mEtiqueta_NavUnidade.AsString +'^FS');
     Writeln(F,'^FT16,440^A0N,28,38^FDTam.:^FS');
     Writeln(F,'^FT110,440^A0N,39,53^FD'+' ' +'^FS');
     Writeln(F,'^FT16,513^A0N,28,38^FDMaterial:^FS');

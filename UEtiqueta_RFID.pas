@@ -25,7 +25,7 @@ type
     CurrencyEdit1: TCurrencyEdit;
     btnGerar: TNxButton;
     btnImprimirA4: TNxButton;
-    CheckBox1: TCheckBox;
+    ckTeste: TCheckBox;
     DBEdit2: TDBEdit;
     btnConfirmar_Etiq: TNxButton;
     Label6: TLabel;
@@ -50,17 +50,21 @@ type
       AFont: TFont; var Background: TColor; Highlight: Boolean);
     procedure btnReenvioClick(Sender: TObject);
     procedure btnExcluirClick(Sender: TObject);
+    procedure CurrencyEdit1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     fDMEtiqueta: TDMEtiqueta;
     fDMRFID: TDMRFID;
     vSeq: Integer;
     vImprimir : Boolean;
+    vJaGerado : Boolean;
 
     procedure prc_Gravar_RFID;
     procedure prc_Grava_Seq_Aux;
     procedure prc_Imprimir;
     procedure prc_Envio_RFID;
+    procedure prc_Verifica_ItemSemQtdRotulo;
 
     function fnc_Ultima_Seq : Integer;
 
@@ -76,7 +80,8 @@ var
 
 implementation
 
-uses DmdDatabase, rsDBUtils, uUtilPadrao, UEtiqueta_Zebra;
+uses DmdDatabase, rsDBUtils, uUtilPadrao, UEtiqueta_Zebra,
+  UEtiqueta_RFID_Qtd;
 
 {$R *.dfm}
 
@@ -93,15 +98,28 @@ begin
   fDMEtiqueta := TDMEtiqueta.Create(Self);
   oDBUtils.SetDataSourceProperties(Self, fDMEtiqueta);
   fDMRFID := TDMRFID.Create(Self);
+  vJaGerado := False;
 
+  fDMEtiqueta.mEtiqueta_Nav.EmptyDataSet;
   fDMEtiqueta.prc_Le_NotaFiscal_RFID(vID_Nota_Local);
+  if not fDMEtiqueta.mEtiqueta_Nav.IsEmpty then
+    vJaGerado := True;
 
-  //SMDBGrid1.ExOptions := [eoCheckBoxSelect,eoENTERlikeTAB,eoKeepSelection,eoStandardPopup,eoBLOBEditor,eoTitleWordWrap];
+  prc_Verifica_ItemSemQtdRotulo;
 end;
 
 procedure TfrmEtiqueta_RFID.btnGerarClick(Sender: TObject);
 begin
-  fDMEtiqueta.prc_Monta_Etiqueta_Calcado('A',vID_Nota_Local,CurrencyEdit1.AsInteger,True);
+  if trim(SQLLocate('PARAMETROS_PROD','ID','USA_QTD_ROTULO_RFID','1')) <> 'S' then
+  begin
+    if CurrencyEdit1.Value <= 0 then
+    begin
+      MessageDlg('*** É obrigatório informar a quantidade!' , mtInformation, [mbOk], 0);
+      CurrencyEdit1.SetFocus;
+      exit;
+    end;
+  end;
+  fDMEtiqueta.prc_Monta_Etiqueta_RFID(vID_Nota_Local,CurrencyEdit1.Value);
 end;
 
 procedure TfrmEtiqueta_RFID.btnImprimirA4Click(Sender: TObject);
@@ -134,7 +152,7 @@ begin
   end;
 
 
-  if (CheckBox1.Checked) and (CheckBox1.Visible) then
+  if (ckTeste.Checked) and (ckTeste.Visible) then
     vImp := True
   else
   begin
@@ -187,13 +205,12 @@ begin
   fDMRFID.cdsNotaFiscal_RFIDFILIAL.AsInteger     := fDMEtiqueta.mEtiqueta_NavFilial.AsInteger;
   fDMRFID.cdsNotaFiscal_RFIDCNPJ_FILIAL.AsString := fDMEtiqueta.mEtiqueta_NavCNPJ_Filial.AsString;
   fDMRFID.cdsNotaFiscal_RFIDSEQUENCIA.AsVariant  := fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsVariant;
-  fDMRFID.cdsNotaFiscal_RFIDQTD.AsInteger        := fDMEtiqueta.mEtiqueta_NavQtd.AsInteger;
+  fDMRFID.cdsNotaFiscal_RFIDQTD.AsFloat          := StrToFloat(FormatFloat('0.0000',fDMEtiqueta.mEtiqueta_NavQtd.AsFloat));
   fDMRFID.cdsNotaFiscal_RFIDUNIDADE.AsString     := fDMEtiqueta.mEtiqueta_NavUnidade.AsString;
   fDMRFID.cdsNotaFiscal_RFIDNUM_RFID.AsString    := Monta_Numero(fDMEtiqueta.mEtiqueta_NavCNPJ_Filial.AsString,14)
                                                   + Monta_Numero(fDMEtiqueta.mEtiqueta_NavSequencia_RFID.AsString,10);
   fDMRFID.cdsNotaFiscal_RFID.Post;
   fDMRFID.cdsNotaFiscal_RFID.ApplyUpdates(0);
-
 end;
 
 procedure TfrmEtiqueta_RFID.prc_Grava_Seq_Aux;
@@ -240,7 +257,7 @@ procedure TfrmEtiqueta_RFID.FormKeyDown(Sender: TObject; var Key: Word;
   Shift: TShiftState);
 begin
   if (Shift = [ssCtrl]) and (Key = 87) then
-    CheckBox1.Visible := not(CheckBox1.Visible);
+    ckTeste.Visible := not(ckTeste.Visible);
 end;
 
 procedure TfrmEtiqueta_RFID.btnAlterar_EtiqClick(Sender: TObject);
@@ -297,7 +314,7 @@ begin
     fDMEtiqueta.mEtiqueta_Nav.Next;
   end;
   uEtiqueta_Zebra.prc_Etiqueta_ZebraZT410(fDMEtiqueta);
-  if (CheckBox1.Checked) and (CheckBox1.Visible) then
+  if (ckTeste.Checked) and (ckTeste.Visible) then
     vImprimir := True
   else
     prc_Envio_RFID;
@@ -365,6 +382,37 @@ end;
 procedure TfrmEtiqueta_RFID.btnExcluirClick(Sender: TObject);
 begin
   fDMEtiqueta.mEtiqueta_Nav.EmptyDataSet;
+end;
+
+procedure TfrmEtiqueta_RFID.CurrencyEdit1KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_Return) and not(vJaGerado) then
+    prc_Verifica_ItemSemQtdRotulo;
+end;
+
+procedure TfrmEtiqueta_RFID.prc_Verifica_ItemSemQtdRotulo;
+begin
+  if trim(SQLLocate('PARAMETROS_PROD','ID','USA_QTD_ROTULO_RFID','1')) = 'S' then
+  begin
+    if (fDMEtiqueta.mEtiqueta_Nav.IsEmpty) or not(vJaGerado) then
+    begin
+      fDMEtiqueta.cdsItemSemQtdRotulo.Close;
+      fDMEtiqueta.sdsItemSemQtdRotulo.ParamByName('ID').AsInteger := vID_Nota_Local;
+      fDMEtiqueta.cdsItemSemQtdRotulo.Open;
+      if not fDMEtiqueta.cdsItemSemQtdRotulo.IsEmpty then
+      begin
+        frmEtiqueta_RFID_Qtd := TfrmEtiqueta_RFID_Qtd.Create(self);
+        frmEtiqueta_RFID_Qtd.fDMEtiqueta  := fDMEtiqueta;
+        frmEtiqueta_RFID_Qtd.fDMRFID      := fDMRFID;
+        frmEtiqueta_RFID_Qtd.vID_Nota_Qtd := vID_Nota_Local;
+        frmEtiqueta_RFID_Qtd.ShowModal;
+        FreeAndNil(frmEtiqueta_RFID_Qtd);
+
+        btnGerarClick(nil);
+      end;
+    end;
+  end;
 end;
 
 end.
