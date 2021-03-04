@@ -442,10 +442,8 @@ procedure TfrmCadPedidoLoja.prc_Gravar_Registro(Tipo : String = ''); //C=Cancela
 var
   vIDAux: Integer;
   vAux: Real;
-  ffrmSenha: TfrmSenha;
   vID_LocalAux: Integer;
   vAprazo_Avista: String;
-  vVlrAux: Real;
 begin
   //Alerta valores em atraso 11/05/2015
   if (fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger <= 0) and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString <> 'S') then
@@ -576,7 +574,7 @@ begin
   if fDMCadPedido.cdsPedido.State in [dsBrowse] then
     Exit;
 
-  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (vID_LocalAux > 0) then
+  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L') or (vID_LocalAux > 0) then
     fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger := vID_LocalAux;
 
   prc_Habilitar_CamposNota;
@@ -733,7 +731,8 @@ begin
 
   fDMCadPedido.cdsPedido_Consulta.AfterScroll := prc_scroll2;
 
-  btnLocalEstoque.Visible := ((fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString = 'S'));
+  btnLocalEstoque.Visible := (((fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L'))
+                           and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString = 'S'));
   vStatic_Processo := '';
   if fDMCadPedido.qParametros_GeralEMPRESA_VAREJO.AsString = 'S' then
     vStatic_Processo := vStatic_Processo + '   F8 Sel.Produtos';
@@ -1066,7 +1065,6 @@ end;
 procedure TfrmCadPedidoLoja.btnAlterar_ItensClick(Sender: TObject);
 var
   vMSGAux: String;
-  vItemAux: Integer;
 begin
   if not(fDMCadPedido.cdsPedido.State in [dsEdit,dsInsert]) then
     Exit;
@@ -1096,7 +1094,6 @@ begin
 
   fDMCadPedido.prc_Abrir_ProdutoLoja(fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,'','');
   //fDMCadPedido.cdsProduto.Locate('ID',fDMCadPedido.cdsPedido_ItensID_PRODUTO.AsInteger,[loCaseInsensitive]);
-  vItemAux := fDMCadPedido.cdsPedido_ItensITEM.AsInteger;
   btnAlterar_Itens.Tag := 1;
   if fDMCadPedido.qParametros_PedUSA_REF_DIG_PEDLOJA.AsString = 'S' then
     Edit2.Text := fDMCadPedido.cdsPedido_ItensREFERENCIA.AsString
@@ -2284,7 +2281,8 @@ begin
   vPerc_Pis_Suf    := 0;
   vPerc_IPI_Suf    := 0;
   //07/03/2015  para gravação do estoque dentro do pedido
-  if fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P' then
+  //04/03/2021  incluído o Tipo = L para a JG
+  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L') then
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'S'
   else
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'N';

@@ -495,12 +495,14 @@ begin
 
     //08/03/2015  quando for pedido e for para descontar do estoque
     //19/09/2016 Quando empresa for Sucata
-    if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P')  then
+    //04/03/2021 Tipo = L foi incluido para a JG
+    if (fDMCadPedido.cdsPedidoTIPO_REG.AsString = 'P') and ((fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L'))  then
     begin
       fDMCadPedido.cdsPedido_Itens.First;
       while not fDMCadPedido.cdsPedido_Itens.Eof do
       begin
-        if fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P' then
+        //04/03/2021  tipo = L incluído para a JG
+        if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L') then
         begin
           vID_Estoque := 0;
           if fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString = 'S' then

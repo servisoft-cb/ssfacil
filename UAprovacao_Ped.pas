@@ -741,7 +741,7 @@ begin
     exit;
   uGrava_Pedido.prc_Inserir_Ped(fdmCadPedido);
   fDMCadPedido.cdsPedidoTIPO_REG.AsString := 'P';
-  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (vID_LocalAux > 0) then
+  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L') or (vID_LocalAux > 0) then
     fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger := vID_LocalAux;
   fDMCadPedido.cdsPedidoID_REGIMETRIB.AsInteger := fDMCadPedido.cdsFilialID_REGIME_TRIB.AsInteger;
   fDMCadPedido.cdsPedidoSIMPLES_FILIAL.AsString := fDMCadPedido.cdsFilialSIMPLES.AsString;

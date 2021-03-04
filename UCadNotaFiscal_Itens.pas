@@ -702,10 +702,19 @@ begin
   TabSheet3.TabVisible := (copy(fDMCadNotaFiscal.cdsCFOPCODCFOP.AsString,1,1) = '3');
 
   if fDMCadNotaFiscal.cdsNotaFiscal_ItensID_MOVESTOQUE_PED.AsInteger > 0 then
-    fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N'
+  begin
+    // O tipo do Estoque = L foi criado dia 04/03/2021 para a JG, pois vai descontar estoque no Pedido e tb na Nota fiscal, vai diferenciar pelo Local
+    if fDMCadNotaFiscal.cdsParametrosTIPO_ESTOQUE.AsString = 'L' then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'S'
+    else
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N'
+  end
   else
   begin
     //13/01/2018  Foi incluido essa alteração para a RGB que esta fazendo baixa do estoque pela conferência do pedido (Cód. Barra)
+    if fDMCadNotaFiscal.cdsParametrosTIPO_ESTOQUE.AsString = 'L' then
+      fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'S'
+    else
     if (fDMCadNotaFiscal.cdsParametrosTIPO_ESTOQUE.AsString = 'B') or (fDMCadNotaFiscal.cdsParametrosTIPO_ESTOQUE.AsString = 'P') then
       fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N'
     else

@@ -430,7 +430,7 @@ begin
   //************
 
   DBCheckBox1.Visible := (fDMCadPedido.cdsParametrosUSA_LOTE.AsString  = 'S');
-  DBCheckBox2.Visible := (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P');
+  DBCheckBox2.Visible := ((fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L'));
 
   Label25.Visible  := (fDMCadPedido.cdsParametrosUSA_CARIMBO.AsString = 'S');
   DBEdit9.Visible  := (fDMCadPedido.cdsParametrosUSA_CARIMBO.AsString = 'S');
@@ -623,7 +623,8 @@ begin
   vPerc_IPI_Suf    := 0;
   vPerc_BRedICMS_NCM := 0;
   //07/03/2015  para gravação do estoque dentro do pedido
-  if fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P' then
+  //04/03/2021 o tipo L foi incluido pq a JG vai usar por local
+  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L') then
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'S'
   else
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'N';

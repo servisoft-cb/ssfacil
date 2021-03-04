@@ -971,6 +971,10 @@ begin
       fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_DESC_ESTOQUE.AsFloat := StrToFloat(FormatFloat('0.0000',fnc_Desc_Estoque));
       if fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_DESC_ESTOQUE.AsFloat > fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat then
         fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD_DESC_ESTOQUE.AsFloat := fDMCadNotaFiscal.cdsNotaFiscal_ItensQTD.AsFloat;
+      //04/03/2021 incluído esse primeiro if do tipo = L para a JG
+      if fDMCadNotaFiscal.cdsParametrosTIPO_ESTOQUE.AsString = 'L' then
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'S'
+      else
       if fDMCadNotaFiscal.cdsPedidoID_MOVESTOQUE.AsInteger > 0 then
         fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N'
       else
@@ -980,15 +984,14 @@ begin
         fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'S';
     end
     else
-    //09/03/2015
-    if fDMCadNotaFiscal.cdsPedidoID_MOVESTOQUE.AsInteger > 0 then
-      fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N';
-
-    //16/02/2015 Foi alterado pela função fnc_Desc_Estoque
-    //if StrToFloat(FormatFloat('0.0000',fDMCadNotaFiscal.cdsPedidoQTD_FUT.AsFloat)) > 0 then
-    //begin
-    //  fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N';
-    //end;
+    begin
+      //04/03/2021 incluído esse primeiro if
+      if fDMCadNotaFiscal.cdsParametrosTIPO_ESTOQUE.AsString = 'L' then
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'S'
+      else
+      if fDMCadNotaFiscal.cdsPedidoID_MOVESTOQUE.AsInteger > 0 then
+        fDMCadNotaFiscal.cdsNotaFiscal_ItensGERAR_ESTOQUE.AsString := 'N';
+    end;
   end;
   //05/10/2016
   fDMCadNotaFiscal.cdsNotaFiscal_ItensID_MOVESTOQUE_PED.AsInteger := fDMCadNotaFiscal.cdsPedidoID_MOVESTOQUE.AsInteger;

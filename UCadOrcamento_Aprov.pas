@@ -473,7 +473,8 @@ begin
     else
       fDMCadPedido.cdsPedido_ItensGRAVACAO_COM_ERRO.AsString := 'CST';
   end;
-  if fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P' then
+  //04/03/2021   incluído o tipo = L para a JG
+  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L') then
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'S'
   else
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'N';

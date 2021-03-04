@@ -841,8 +841,7 @@ begin
   //******************
 
   fDMCadPedido.cdsPedidoTIPO_REG.AsString := 'P';
-
-  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (vID_LocalAux > 0) then
+  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L') or (vID_LocalAux > 0) then
     fDMCadPedido.cdsPedidoID_LOCAL_ESTOQUE.AsInteger := vID_LocalAux;
 
   prc_Habilitar_CamposNota;
@@ -1096,7 +1095,8 @@ begin
   btnCopiar_Item.Visible  := (fDMCadPedido.cdsParametrosUSA_COPIA_PEDIDO_ITEM.AsString = 'S');
   btnCopiarPedido.Visible := (fDMCadPedido.cdsParametrosUSA_COPIA_PEDIDO.AsString = 'S');
   btnConsOrd_Prod.Visible := (fDMCadPedido.cdsParametrosUSA_LOTE.AsString = 'S');
-  pnlLocalEstoque.Visible := ((fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString = 'S'));
+  pnlLocalEstoque.Visible := (((fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L'))
+                           and (fDMCadPedido.cdsParametrosUSA_LOCAL_ESTOQUE.AsString = 'S'));
   pnlTab_Preco.Visible    := (fDMCadPedido.qParametros_PedUSA_TAB_PRECO.AsString = 'S');
   Panel7.Visible          := ((pnlLocalEstoque.Visible) or (pnlTab_Preco.Visible));
   Shape10.Visible         := (fDMCadPedido.cdsParametrosUSA_APROVACAO_PED.AsString = 'S');

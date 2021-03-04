@@ -367,7 +367,7 @@ begin
   vPerc_Pis_Suf    := 0;
   vPerc_IPI_Suf    := 0;
   //07/03/2015  para gravação do estoque dentro do pedido
-  if fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P' then
+  if (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'P') or (fDMCadPedido.cdsParametrosTIPO_ESTOQUE.AsString = 'L') then
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'S'
   else
     fDMCadPedido.cdsPedido_ItensGERAR_ESTOQUE.AsString := 'N';

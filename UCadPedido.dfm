@@ -129,7 +129,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'APROVADO_PED'
             Title.Alignment = taCenter
             Title.Caption = 'Aprovado'
-            Width = 64
             Visible = True
           end
           item
@@ -162,7 +161,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'PEDIDO_CLIENTE'
             Title.Alignment = taCenter
             Title.Caption = 'Pedido Cliente (OC)'
-            Width = 64
             Visible = True
           end
           item
@@ -177,7 +175,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'DTENTREGA'
             Title.Alignment = taCenter
             Title.Caption = 'Data Entrega'
-            Width = 64
             Visible = True
           end
           item
@@ -233,7 +230,6 @@ object frmCadPedido: TfrmCadPedido
             Expanded = False
             FieldName = 'QTD'
             Title.Caption = 'Qtd. Produtos'
-            Width = 64
             Visible = True
           end
           item
@@ -242,7 +238,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'FATURADO'
             Title.Alignment = taCenter
             Title.Caption = 'Faturado'
-            Width = 64
             Visible = True
           end
           item
@@ -273,7 +268,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'DTAPROVADO'
             Title.Alignment = taCenter
             Title.Caption = 'Data Aprovado'
-            Width = 64
             Visible = True
           end
           item
@@ -289,7 +283,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'USUARIO'
             Title.Alignment = taCenter
             Title.Caption = 'Usu'#225'rio'
-            Width = 64
             Visible = True
           end
           item
@@ -313,7 +306,6 @@ object frmCadPedido: TfrmCadPedido
             FieldName = 'IMPRESSO'
             Title.Alignment = taCenter
             Title.Caption = 'Impresso'
-            Width = 64
             Visible = True
           end>
       end
@@ -2637,7 +2629,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'ENCERADO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Encerado'
-                Width = 64
                 Visible = True
               end
               item
@@ -2668,7 +2659,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'QTD_ESTOQUE_RES'
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Reserva'
-                Width = 64
                 Visible = True
               end
               item
@@ -2703,7 +2693,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'VLR_DESCONTO_CALC'
                 Title.Alignment = taCenter
                 Title.Caption = 'Vlr. Desconto'
-                Width = 64
                 Visible = True
               end
               item
@@ -2743,7 +2732,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'QTD_CANCELADO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Cancelada'
-                Width = 64
                 Visible = True
               end
               item
@@ -2760,13 +2748,11 @@ object frmCadPedido: TfrmCadPedido
               item
                 Expanded = False
                 FieldName = 'COD_CST'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'COD_IPI'
-                Width = 64
                 Visible = True
               end
               item
@@ -2774,7 +2760,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'QTD_PRODUZIDA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Qtd. Produzida'
-                Width = 64
                 Visible = True
               end
               item
@@ -2782,7 +2767,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'CARIMBO'
                 Title.Alignment = taCenter
                 Title.Caption = 'Carimbo'
-                Width = 64
                 Visible = True
               end
               item
@@ -2790,7 +2774,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'CAIXINHA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Caixinha'
-                Width = 64
                 Visible = True
               end
               item
@@ -2838,7 +2821,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'DTCONFERENCIA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Dt. Confer'#234'ncia'
-                Width = 64
                 Visible = True
               end
               item
@@ -2846,7 +2828,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'HRCONFERENCIA'
                 Title.Alignment = taCenter
                 Title.Caption = 'Hr. Confer'#234'ncia'
-                Width = 64
                 Visible = True
               end
               item
@@ -2854,7 +2835,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'USUARIO_CONF'
                 Title.Alignment = taCenter
                 Title.Caption = 'Usu'#225'rio Confer'#234'ncia'
-                Width = 64
                 Visible = True
               end
               item
@@ -2863,7 +2843,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'TAMANHO_CLIENTE'
                 Title.Alignment = taCenter
                 Title.Caption = 'Tam. No Cliente'
-                Width = 64
                 Visible = True
               end
               item
@@ -2872,14 +2851,12 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'COD_COR_CLIENTE'
                 Title.Alignment = taCenter
                 Title.Caption = 'C'#243'd. Cor Cliente'
-                Width = 64
                 Visible = True
               end
               item
                 Expanded = False
                 FieldName = 'COD_PRODUTO_CLIENTE'
                 Title.Alignment = taCenter
-                Width = 64
                 Visible = True
               end
               item
@@ -2895,7 +2872,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'DRAWBACK'
                 Title.Alignment = taCenter
                 Title.Caption = 'Drawback'
-                Width = 64
                 Visible = True
               end
               item
@@ -2903,7 +2879,6 @@ object frmCadPedido: TfrmCadPedido
                 FieldName = 'ID_PEDIDO_RESERVA'
                 Title.Alignment = taCenter
                 Title.Caption = 'ID Ped. Reserva'
-                Width = 64
                 Visible = True
               end
               item
@@ -3587,7 +3562,6 @@ object frmCadPedido: TfrmCadPedido
                   Title.Alignment = taCenter
                   Title.Caption = 'Pre'#231'o cor M2'
                   Title.Color = 16764831
-                  Width = 64
                   Visible = True
                 end
                 item
