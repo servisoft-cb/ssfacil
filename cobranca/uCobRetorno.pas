@@ -305,17 +305,29 @@ begin
 
   ACBrBoleto1.LerRetorno;
 
-  vTexto := Monta_Numero(ACBrBoleto1.Cedente.CNPJCPF, 0);
-
-  if Length(vTexto) >= 14 then
-    vTexto := copy(vTexto, 1, 2) + '.' + copy(vTexto, 3, 3) + '.' + copy(vTexto, 6, 3) + '/' + copy(vTexto, 9, 4) + '-' + copy(vTexto, 13, 2)
-  else
-    vTexto := copy(vTexto, 1, 3) + '.' + copy(vTexto, 4, 3) + '.' + copy(vTexto, 7, 3) + '-' + copy(vTexto, 10, 2);
-  if fDmCob_Eletronica.cdsFilialCNPJ_CPF.AsString <> vTexto then
+  if  ACBrBoleto1.Banco.TipoCobranca = cobBanrisul then
   begin
-    MessageDlg('*** Filial/Conta diferente do retorno!', mtInformation, [mbOk], 0);
-    SMDBGrid1.EnableScroll;
-    exit;
+    vTexto := Monta_Numero(ACBrBoleto1.Cedente.CodigoCedente, 0);
+    if fDmCob_Eletronica.cdsContasCOD_CEDENTE.AsString <> vTexto then
+    begin
+      MessageDlg('*** Conta diferente do retorno!', mtInformation, [mbOk], 0);
+      SMDBGrid1.EnableScroll;
+      exit;
+    end;
+  end
+  else
+  begin
+    vTexto := Monta_Numero(ACBrBoleto1.Cedente.CNPJCPF, 0);
+    if Length(vTexto) >= 14 then
+      vTexto := copy(vTexto, 1, 2) + '.' + copy(vTexto, 3, 3) + '.' + copy(vTexto, 6, 3) + '/' + copy(vTexto, 9, 4) + '-' + copy(vTexto, 13, 2)
+    else
+      vTexto := copy(vTexto, 1, 3) + '.' + copy(vTexto, 4, 3) + '.' + copy(vTexto, 7, 3) + '-' + copy(vTexto, 10, 2);
+    if fDmCob_Eletronica.cdsFilialCNPJ_CPF.AsString <> vTexto then
+    begin
+      MessageDlg('*** Filial/Conta diferente do retorno!', mtInformation, [mbOk], 0);
+      SMDBGrid1.EnableScroll;
+      exit;
+    end;
   end;
 
   for i := 0 to acbrboleto1.ListadeBoletos.Count - 1 do

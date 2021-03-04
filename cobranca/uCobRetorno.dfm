@@ -21,7 +21,7 @@ object fCobRetorno: TfCobRetorno
   object Panel3: TPanel
     Left = 0
     Top = 0
-    Width = 980
+    Width = 972
     Height = 70
     Align = alTop
     Color = clSilver
@@ -128,8 +128,8 @@ object fCobRetorno: TfCobRetorno
   object SMDBGrid1: TSMDBGrid
     Left = 0
     Top = 70
-    Width = 980
-    Height = 389
+    Width = 972
+    Height = 382
     Align = alClient
     Ctl3D = False
     DataSource = DMCob_Eletronica.dsmRetorno
@@ -431,8 +431,8 @@ object fCobRetorno: TfCobRetorno
   end
   object Panel2: TPanel
     Left = 0
-    Top = 476
-    Width = 980
+    Top = 469
+    Width = 972
     Height = 56
     Align = alBottom
     Color = clSilver
@@ -558,7 +558,7 @@ object fCobRetorno: TfCobRetorno
     object stat1: TStatusBar
       Left = 1
       Top = 39
-      Width = 978
+      Width = 970
       Height = 16
       Panels = <
         item
@@ -573,8 +573,8 @@ object fCobRetorno: TfCobRetorno
   end
   object StaticText1: TStaticText
     Left = 0
-    Top = 459
-    Width = 980
+    Top = 452
+    Width = 972
     Height = 17
     Align = alBottom
     BevelKind = bkTile
@@ -597,9 +597,18 @@ object fCobRetorno: TfCobRetorno
       
         'SAC       BANRISUL - 0800 646 1515'#13#10'OUVIDORIA BANRISUL - 0800 64' +
         '4 2200')
+    Banco.LayoutVersaoArquivo = 0
+    Banco.LayoutVersaoLote = 0
+    Banco.CasasDecimaisMoraJuros = 2
     Cedente.TipoInscricao = pJuridica
     NumeroArquivo = 0
     LeCedenteRetorno = True
+    Configuracoes.Arquivos.LogRegistro = False
+    Configuracoes.WebService.SSLHttpLib = httpOpenSSL
+    Configuracoes.WebService.StoreName = 'My'
+    Configuracoes.WebService.Ambiente = taHomologacao
+    Configuracoes.WebService.Operacao = tpInclui
+    Configuracoes.WebService.VersaoDF = '1.2'
     Left = 368
     Top = 216
   end
