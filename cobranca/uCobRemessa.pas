@@ -418,7 +418,13 @@ begin
     MessageDlg('Geração concluída!' + #13, mtConfirmation, [mbOk], 0);
 
   except
-    MessageDlg('Erro ao gerar arquivo de remessa!', mtWarning, [mbOK], 0);
+      //MessageDlg('Erro ao gerar arquivo de remessa!', mtWarning, [mbOK], 0);
+      on E: exception do
+      begin
+        MessageDlg('Erro ao gerar arquivo de remessa!'+#13+
+                   'Mensagem: ' + E.Message + #13, mtWarning, [mbOK], 0);
+        //raise Exception.Create('Erro ao gerar arquivo de remessa!:' + #13 +
+      end;
   end;
   SMDBGrid1.UnSelectAllClick(Sender);
 end;
