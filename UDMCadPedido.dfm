@@ -1121,7 +1121,7 @@ object DMCadPedido: TDMCadPedido
   object dspPedido_Consulta: TDataSetProvider
     DataSet = sdsPedido_Consulta
     Left = 192
-    Top = 3
+    Top = 5
   end
   object cdsPedido_Consulta: TClientDataSet
     Aggregates = <>
@@ -19030,15 +19030,16 @@ object DMCadPedido: TDMCadPedido
       'ONFERIDO, PED.DTRECEBIMENTO, NUM_ORDPROD,'#13#10'       PED.CONFERIDO,' +
       ' PED.SELECIONADO, PED.IMPRESSO, VEND.NOME NOME_VENDEDOR, OPN.NOM' +
       'E NOME_OPERACAO,'#13#10'       PED.FINANCEIRO_CONF, PED.AMOSTRA, CLI.C' +
-      'NPJ_CPF, PED.ID_VENDEDOR_INT,'#13#10'cast(0 AS Float) VALOR_CUSTO , ca' +
-      'st(0 AS INTEGER) cont_talao, cast(0 AS INTEGER) cont_talao2,'#13#10'ca' +
-      'st(0 AS INTEGER) CONTADOR_PROCESSO, cast('#39#39' AS varchar(30)) DESC' +
-      'RICAO_STATUS,'#13#10'cast('#39#39' AS varchar(1)) GEROU_PRODUCAO,'#13#10'cast('#39#39' A' +
-      'S varchar(60)) nome_vendedor_int,'#13#10'cast(NULL AS Date) DTAPROVADO' +
-      ','#13#10'cast('#39#39' AS varchar(60)) nome_transportadora'#13#10'from PEDIDO PED'#13 +
-      #10'inner join PESSOA CLI on CLI.CODIGO = PED.ID_CLIENTE'#13#10'left join' +
-      ' PESSOA VEND on VEND.CODIGO = PED.ID_VENDEDOR'#13#10'left join OPERACA' +
-      'O_NOTA OPN on PED.ID_OPERACAO_NOTA = OPN.ID'#13#10#13#10#13#10#13#10#13#10#13#10#13#10'  '
+      'NPJ_CPF, PED.ID_VENDEDOR_INT,'#13#10'       ped.reordem,'#13#10'cast(0 AS Fl' +
+      'oat) VALOR_CUSTO , cast(0 AS INTEGER) cont_talao, cast(0 AS INTE' +
+      'GER) cont_talao2,'#13#10'cast(0 AS INTEGER) CONTADOR_PROCESSO, cast('#39#39 +
+      ' AS varchar(30)) DESCRICAO_STATUS,'#13#10'cast('#39#39' AS varchar(1)) GEROU' +
+      '_PRODUCAO,'#13#10'cast('#39#39' AS varchar(60)) nome_vendedor_int,'#13#10'cast(NUL' +
+      'L AS Date) DTAPROVADO,'#13#10'cast('#39#39' AS varchar(60)) nome_transportad' +
+      'ora,'#13#10'cast('#39#39' AS varchar(6)) DESC_ARQ_ANEXO'#13#10#13#10'from PEDIDO PED'#13#10 +
+      'inner join PESSOA CLI on CLI.CODIGO = PED.ID_CLIENTE'#13#10'left join ' +
+      'PESSOA VEND on VEND.CODIGO = PED.ID_VENDEDOR'#13#10'left join OPERACAO' +
+      '_NOTA OPN on PED.ID_OPERACAO_NOTA = OPN.ID'#13#10#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
