@@ -272,30 +272,40 @@ object dmCadCheque: TdmCadCheque
     NoMetadata = True
     GetMetadata = False
     CommandText = 
-      'SELECT C.*, E.NOME EMISSOR, R.NOME RECEPTOR,CT.NOME NOME_CONTA,'#13 +
-      #10'CT.agencia AGENCIA_CONTA, CT.numconta,'#13#10'CT.dig_agencia, CT.dig_' +
-      'conta, BC.nome NOME_BANCO, BC.CODIGO COD_BANCO,'#13#10'C.fone_contato ' +
-      '|| '#39' '#39' || C.titular Contato,'#13#10'CASE'#13#10'  WHEN C.EMITIDO_POR = '#39'1'#39' T' +
-      'HEN C.TITULAR'#13#10'  WHEN C.EMITIDO_POR = '#39'2'#39' THEN E.NOME'#13#10'  WHEN C.' +
-      'EMITIDO_POR = '#39'3'#39' THEN E.NOME'#13#10'  END NOME_CORRENTISTA,'#13#10'CASE'#13#10'  ' +
-      'WHEN C.EMITIDO_POR = '#39'1'#39' THEN R.NOME'#13#10'  WHEN C.EMITIDO_POR = '#39'2'#39 +
-      ' THEN E.NOME'#13#10'  WHEN C.EMITIDO_POR = '#39'3'#39' THEN E.NOME'#13#10'  END REC_' +
-      'EMITIDO,'#13#10'CASE'#13#10'  WHEN C.EMITIDO_POR = '#39'1'#39' THEN CT.NOME'#13#10'  WHEN ' +
-      'C.EMITIDO_POR = '#39'2'#39' THEN BC.NOME'#13#10'  WHEN C.EMITIDO_POR = '#39'3'#39' THE' +
-      'N BC.NOME'#13#10'  END NOME_CONTA_BANCO,'#13#10#13#10'CASE'#13#10'  WHEN C.EMITIDO_POR' +
-      ' = '#39'1'#39' THEN '#39'MIM'#39#13#10'  WHEN C.EMITIDO_POR = '#39'2'#39' THEN '#39'CLIENTE'#39#13#10'  ' +
-      'WHEN C.EMITIDO_POR = '#39'3'#39' THEN '#39'TERCEITO'#39#13#10'  END DESCRICAO_EMITID' +
-      'O,'#13#10'CASE'#13#10'  WHEN C.EMITIDO_POR = '#39'1'#39' THEN '#39'1'#39#13#10'  WHEN C.EMITIDO_' +
-      'POR = '#39'2'#39' THEN '#39'2'#39#13#10'  WHEN C.EMITIDO_POR = '#39'3'#39' THEN '#39'2'#39#13#10'  END T' +
-      'IPO_EMIT,'#13#10'CASE'#13#10'  WHEN C.STATUS = '#39'0'#39' THEN '#39'Pendente'#39#13#10'  WHEN C' +
-      '.STATUS = '#39'1'#39' THEN '#39'Dep'#243'sito'#39#13#10'  WHEN C.STATUS = '#39'2'#39' THEN '#39'Devol' +
-      'vido 1'#39#13#10'  WHEN C.STATUS = '#39'3'#39' THEN '#39'Reapresentado'#39#13#10'  WHEN C.ST' +
-      'ATUS = '#39'4'#39' THEN '#39'Devolvido 2'#39#13#10'  WHEN C.STATUS = '#39'5'#39' THEN '#39'Compe' +
-      'nsado'#39#13#10'  WHEN C.STATUS = '#39'6'#39' THEN '#39'Repasse'#39#13#10'  END DESC_STATUS'#13 +
-      #10#13#10#13#10#13#10'FROM CHEQUE C'#13#10'LEFT JOIN CONTAS CT'#13#10'ON C.ID_CONTA = CT.ID' +
-      #13#10'LEFT JOIN BANCO BC'#13#10'ON C.id_banco = BC.ID'#13#10'LEFT JOIN PESSOA E ' +
-      'ON (E.CODIGO = C.RECEBIDO_DE)'#13#10'LEFT JOIN PESSOA R ON (R.CODIGO =' +
-      '  C.EMITIDO_PARA)'#13#10
+      'select C.ID, C.EMITIDO_POR, C.RECEBIDO_DE, C.TITULAR, C.AGENCIA,' +
+      ' C.CONTA, C.NUM_CHEQUE, C.DTEMISSAO, C.DTBOM_PARA,'#13#10'       C.VAL' +
+      'OR, C.FONE_CONTATO, C.EMITIDO_PARA, C.FILIAL, C.ID_CONTA, C.ID_B' +
+      'ANCO, C.DTCOMPENSADO, C.UTILIZADO_PARA,'#13#10'       C.ID_CONTA_ORCAM' +
+      'ENTO, C.STATUS, C.SELECIONADO, C.ID_TRANSFERENCIA, C.CODCOMPENSA' +
+      'CAO, C.MOTIVO_COMP,'#13#10'       E.NOME EMISSOR, R.NOME RECEPTOR, CT.' +
+      'NOME NOME_CONTA, CT.AGENCIA AGENCIA_CONTA, CT.NUMCONTA, CT.DIG_A' +
+      'GENCIA,'#13#10'       CT.DIG_CONTA, BC.NOME NOME_BANCO, BC.CODIGO COD_' +
+      'BANCO, C.FONE_CONTATO || '#39' '#39' || C.TITULAR CONTATO,'#13#10'       case'#13 +
+      #10'         when C.EMITIDO_POR = '#39'1'#39' then C.TITULAR'#13#10'         when' +
+      ' C.EMITIDO_POR = '#39'2'#39' then E.NOME'#13#10'         when C.EMITIDO_POR = ' +
+      #39'3'#39' then E.NOME'#13#10'       end NOME_CORRENTISTA,'#13#10'       case'#13#10'    ' +
+      '     when C.EMITIDO_POR = '#39'1'#39' then R.NOME'#13#10'         when C.EMITI' +
+      'DO_POR = '#39'2'#39' then E.NOME'#13#10'         when C.EMITIDO_POR = '#39'3'#39' then' +
+      ' E.NOME'#13#10'       end REC_EMITIDO,'#13#10'       case'#13#10'         when C.E' +
+      'MITIDO_POR = '#39'1'#39' then CT.NOME'#13#10'         when C.EMITIDO_POR = '#39'2'#39 +
+      ' then BC.NOME'#13#10'         when C.EMITIDO_POR = '#39'3'#39' then BC.NOME'#13#10' ' +
+      '      end NOME_CONTA_BANCO,'#13#10#13#10'       case'#13#10'         when C.EMIT' +
+      'IDO_POR = '#39'1'#39' then '#39'MIM'#39#13#10'         when C.EMITIDO_POR = '#39'2'#39' then' +
+      ' '#39'CLIENTE'#39#13#10'         when C.EMITIDO_POR = '#39'3'#39' then '#39'TERCEITO'#39#13#10' ' +
+      '      end DESCRICAO_EMITIDO,'#13#10'       case'#13#10'         when C.EMITI' +
+      'DO_POR = '#39'1'#39' then '#39'1'#39#13#10'         when C.EMITIDO_POR = '#39'2'#39' then '#39'2' +
+      #39#13#10'         when C.EMITIDO_POR = '#39'3'#39' then '#39'2'#39#13#10'       end TIPO_E' +
+      'MIT,'#13#10'       case'#13#10'         when C.STATUS = '#39'0'#39' then '#39'Pendente'#39#13 +
+      #10'         when C.STATUS = '#39'1'#39' then '#39'Dep'#243'sito'#39#13#10'         when C.S' +
+      'TATUS = '#39'2'#39' then '#39'Devolvido 1'#39#13#10'         when C.STATUS = '#39'3'#39' the' +
+      'n '#39'Reapresentado'#39#13#10'         when C.STATUS = '#39'4'#39' then '#39'Devolvido ' +
+      '2'#39#13#10'         when C.STATUS = '#39'5'#39' then '#39'Compensado'#39#13#10'         whe' +
+      'n C.STATUS = '#39'6'#39' then '#39'Repasse'#39#13#10'       end DESC_STATUS,'#13#10'      ' +
+      ' case'#13#10'         when coalesce(C.NOMINAL, '#39#39') = '#39#39' then R.NOME'#13#10' ' +
+      '        else C.NOMINAL'#13#10'       end NOMINAL'#13#10'from CHEQUE C'#13#10'left ' +
+      'join CONTAS CT on C.ID_CONTA = CT.ID'#13#10'left join BANCO BC on C.ID' +
+      '_BANCO = BC.ID'#13#10'left join PESSOA E on (E.CODIGO = C.RECEBIDO_DE)' +
+      #13#10'left join PESSOA R on (R.CODIGO = C.EMITIDO_PARA)  '#13#10
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
@@ -457,6 +467,16 @@ object dmCadCheque: TdmCadCheque
     object cdsCheque_ConsultaREC_EMITIDO: TStringField
       FieldName = 'REC_EMITIDO'
       Size = 60
+    end
+    object cdsCheque_ConsultaSELECIONADO: TStringField
+      FieldName = 'SELECIONADO'
+      Size = 1
+    end
+    object cdsCheque_ConsultaID_TRANSFERENCIA: TIntegerField
+      FieldName = 'ID_TRANSFERENCIA'
+    end
+    object cdsCheque_ConsultaCODCOMPENSACAO: TIntegerField
+      FieldName = 'CODCOMPENSACAO'
     end
   end
   object dsCheque_Consulta: TDataSource

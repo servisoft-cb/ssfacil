@@ -274,6 +274,9 @@ type
     cdsCheque_ConsultaREC_EMITIDO: TStringField;
     qParametros_Geral: TSQLQuery;
     qParametros_GeralENDGRIDS: TStringField;
+    cdsCheque_ConsultaSELECIONADO: TStringField;
+    cdsCheque_ConsultaID_TRANSFERENCIA: TIntegerField;
+    cdsCheque_ConsultaCODCOMPENSACAO: TIntegerField;
     procedure cdsCheque_HistCalcFields(DataSet: TDataSet);
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsChequeNewRecord(DataSet: TDataSet);
