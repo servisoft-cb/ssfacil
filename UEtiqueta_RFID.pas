@@ -37,6 +37,11 @@ type
     Shape2: TShape;
     btnReenvio: TNxButton;
     btnExcluir: TNxButton;
+    Panel2: TPanel;
+    Label9: TLabel;
+    Shape3: TShape;
+    Label10: TLabel;
+    StaticText1: TStaticText;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormShow(Sender: TObject);
     procedure btnGerarClick(Sender: TObject);
@@ -52,6 +57,7 @@ type
     procedure btnExcluirClick(Sender: TObject);
     procedure CurrencyEdit1KeyDown(Sender: TObject; var Key: Word;
       Shift: TShiftState);
+    procedure SMDBGrid1DblClick(Sender: TObject);
   private
     { Private declarations }
     fDMEtiqueta: TDMEtiqueta;
@@ -65,9 +71,12 @@ type
     procedure prc_Imprimir;
     procedure prc_Envio_RFID;
     procedure prc_Verifica_ItemSemQtdRotulo;
+    procedure prc_Abrir_Produto_Forn;
+    procedure prc_Inserir_Produto_Forn;
+    procedure prc_Grava_ProdCli_Auxiliar;
 
     function fnc_Ultima_Seq : Integer;
-
+    function fnc_Proximo_Item : Integer;
 
   public
     { Public declarations }
@@ -81,7 +90,7 @@ var
 implementation
 
 uses DmdDatabase, rsDBUtils, uUtilPadrao, UEtiqueta_Zebra,
-  UEtiqueta_RFID_Qtd;
+  UEtiqueta_RFID_Qtd, UEtiqueta_RFID_Cli;
 
 {$R *.dfm}
 
@@ -99,6 +108,9 @@ begin
   oDBUtils.SetDataSourceProperties(Self, fDMEtiqueta);
   fDMRFID := TDMRFID.Create(Self);
   vJaGerado := False;
+  fDMEtiqueta.vProd_Cliente_Exite := True;
+
+  Panel2.Visible := trim(SQLLocate('PARAMETROS_NFE','ID','ETIQ_RFID_AGRUPADA','1')) = 'S';
 
   fDMEtiqueta.mEtiqueta_Nav.EmptyDataSet;
   fDMEtiqueta.prc_Le_NotaFiscal_RFID(vID_Nota_Local);
@@ -119,7 +131,10 @@ begin
       exit;
     end;
   end;
-  fDMEtiqueta.prc_Monta_Etiqueta_RFID(vID_Nota_Local,CurrencyEdit1.Value);
+  if trim(SQLLocate('PARAMETROS_NFE','ID','ETIQ_RFID_AGRUPADA','1')) = 'S' then
+    fDMEtiqueta.prc_Monta_Etiqueta_RFID_Agr(vID_Nota_Local,CurrencyEdit1.Value)
+  else
+    fDMEtiqueta.prc_Monta_Etiqueta_RFID(vID_Nota_Local,CurrencyEdit1.Value);
 end;
 
 procedure TfrmEtiqueta_RFID.btnImprimirA4Click(Sender: TObject);
@@ -298,6 +313,12 @@ end;
 
 procedure TfrmEtiqueta_RFID.btnImprimirClick(Sender: TObject);
 begin
+  if not fDMEtiqueta.vProd_Cliente_Exite then
+  begin
+    MessageDlg('*** Produto/Cor do Cliente não informado em algum item!' , mtError, [mbOk], 0);
+    exit;
+  end;
+
   vImprimir := False;
   vSeq := fnc_Ultima_Seq;
   fDMEtiqueta.mEtiqueta_Nav.IndexFieldNames := 'ID_Nota;Item_Nota';
@@ -313,21 +334,33 @@ begin
     end;
     fDMEtiqueta.mEtiqueta_Nav.Next;
   end;
-  uEtiqueta_Zebra.prc_Etiqueta_ZebraZT410(fDMEtiqueta);
   if (ckTeste.Checked) and (ckTeste.Visible) then
     vImprimir := True
   else
-    prc_Envio_RFID;
+  begin
+    try
+      prc_Envio_RFID;
+    except
+    end;
+  end;
+  uEtiqueta_Zebra.prc_Etiqueta_ZebraZT410(fDMEtiqueta);
 end;
 
 procedure TfrmEtiqueta_RFID.SMDBGrid1GetCellParams(Sender: TObject;
   Field: TField; AFont: TFont; var Background: TColor; Highlight: Boolean);
 begin
-  if fDMEtiqueta.mEtiqueta_NavEnviado.AsString = 'N' then
-    Background := clYellow
-  else
   if fDMEtiqueta.mEtiqueta_NavEnviado.AsString = 'S' then
-    Background := clLime;
+    Background := clLime
+  else
+  if (trim(fDMEtiqueta.mEtiqueta_NavProd_Cliente.AsString) = '') or (trim(fDMEtiqueta.mEtiqueta_NavCod_Cor_Cliente.AsString) = '') then
+  begin
+    Background  := clRed;
+    AFont.Color := clWhite;
+    fDMEtiqueta.vProd_Cliente_Exite := False;
+  end
+  else
+  if (fDMEtiqueta.mEtiqueta_NavEnviado.AsString = 'N') or (trim(fDMEtiqueta.mEtiqueta_NavEnviado.AsString) = '') then
+    Background  := clYellow;
 end;
 
 procedure TfrmEtiqueta_RFID.prc_Envio_RFID;
@@ -366,6 +399,11 @@ end;
 
 procedure TfrmEtiqueta_RFID.btnReenvioClick(Sender: TObject);
 begin
+  if not fDMEtiqueta.vProd_Cliente_Exite then
+  begin
+    MessageDlg('*** Produto/Cor do Cliente não informado em algum item!' , mtError, [mbOk], 0);
+    exit;
+  end;
   prc_Envio_RFID;
   fDMEtiqueta.mEtiqueta_Nav.First;
   while not fDMEtiqueta.mEtiqueta_Nav.Eof do
@@ -413,6 +451,102 @@ begin
       end;
     end;
   end;
+end;
+
+procedure TfrmEtiqueta_RFID.SMDBGrid1DblClick(Sender: TObject);
+begin
+  prc_Inserir_Produto_Forn;
+  frmEtiqueta_RFID_Cli := TfrmEtiqueta_RFID_Cli.Create(self);
+  frmEtiqueta_RFID_Cli.fDMRFID := fDMRFID;
+  frmEtiqueta_RFID_Cli.lblReferencia.Caption := fDMEtiqueta.mEtiqueta_NavReferencia.AsString;
+  frmEtiqueta_RFID_Cli.lblCor.Caption        := fDMEtiqueta.mEtiqueta_NavNome_Cor.AsString;
+  frmEtiqueta_RFID_Cli.ShowModal;
+  FreeAndNil(frmEtiqueta_RFID_Cli);
+  if fDMRFID.cdsProduto_Forn.State in [dsEdit,dsInsert] then
+    fDMRFID.cdsProduto_Forn.Cancel
+  else
+    prc_Grava_ProdCli_Auxiliar;
+
+end;
+
+procedure TfrmEtiqueta_RFID.prc_Inserir_Produto_Forn;
+var
+  vItemAux : Integer;
+begin
+  prc_Abrir_Produto_Forn;
+
+  if not fDMRFID.cdsProduto_Forn.IsEmpty then
+    fDMRFID.cdsProduto_Forn.Edit
+  else
+  begin
+    fDMRFID.cdsProduto_Forn.Insert;
+    fDMRFID.cdsProduto_FornID.AsInteger                := fDMEtiqueta.mEtiqueta_NavID_Produto.AsInteger;
+    fDMRFID.cdsProduto_FornITEM.AsInteger              := fnc_Proximo_Item + 1;
+    fDMRFID.cdsProduto_FornID_FORNECEDOR.AsInteger     := fDMEtiqueta.mEtiqueta_NavID_Cliente.AsInteger;
+    fDMRFID.cdsProduto_FornID_COR.AsInteger            := fDMEtiqueta.mEtiqueta_NavID_Cor.AsInteger;
+    fDMRFID.cdsProduto_FornNOME_MATERIAL_FORN.AsString := SQLLocate('PRODUTO','ID','NOME',fDMEtiqueta.mEtiqueta_NavID_Produto.AsString);
+  end;
+end;
+
+function TfrmEtiqueta_RFID.fnc_Proximo_Item: Integer;
+var
+  sds: TSQLDataSet;
+begin
+  Result := 0;
+  sds := TSQLDataSet.Create(nil);
+  try
+    sds.SQLConnection := dmDatabase.scoDados;
+    sds.NoMetadata    := True;
+    sds.GetMetadata   := False;
+    sds.CommandText   := 'select max(PF.ITEM) ITEM from PRODUTO_FORN PF where PF.ID = :ID ';
+    sds.ParamByName('ID').AsInteger := fDMEtiqueta.mEtiqueta_NavID_Produto.AsInteger;
+    sds.Open;
+    Result := sds.FieldByName('ITEM').AsInteger;
+  finally
+    FreeAndNil(sds);
+  end
+end;
+
+procedure TfrmEtiqueta_RFID.prc_Abrir_Produto_Forn;
+begin
+  fDMRFID.cdsProduto_Forn.Close;
+  fDMRFID.sdsProduto_Forn.ParamByName('ID').AsInteger            := fDMEtiqueta.mEtiqueta_NavID_Produto.AsInteger;
+  fDMRFID.sdsProduto_Forn.ParamByName('ID_COR').AsInteger        := fDMEtiqueta.mEtiqueta_NavID_Cor.AsInteger;
+  fDMRFID.sdsProduto_Forn.ParamByName('ID_FORNECEDOR').AsInteger := fDMEtiqueta.mEtiqueta_NavID_Cliente.AsInteger;
+  fDMRFID.cdsProduto_Forn.Open;
+end;
+
+procedure TfrmEtiqueta_RFID.prc_Grava_ProdCli_Auxiliar;
+var
+  vIDProd, vIDCor : Integer;
+  vAux : Boolean;
+begin
+  vAux := True;
+  prc_Abrir_Produto_Forn;
+  SMDBGrid1.DisableScroll;
+  try
+    vIDProd := fDMEtiqueta.mEtiqueta_NavID_Produto.AsInteger;
+    vIDCor  := fDMEtiqueta.mEtiqueta_NavID_Cor.AsInteger;
+
+    fDMEtiqueta.mEtiqueta_Nav.First;
+    while not fDMEtiqueta.mEtiqueta_Nav.Eof do
+    begin
+      if (fDMEtiqueta.mEtiqueta_NavID_Produto.AsInteger = vIDProd) and (fDMEtiqueta.mEtiqueta_NavID_Cor.AsInteger = vIDCor) then
+      begin
+        fDMEtiqueta.mEtiqueta_Nav.Edit;
+        fDMEtiqueta.mEtiqueta_NavProd_Cliente.AsString    := fDMRFID.cdsProduto_FornCOD_MATERIAL_FORN.AsString;
+        fDMEtiqueta.mEtiqueta_NavCod_Cor_Cliente.AsString := fDMRFID.cdsProduto_FornCOD_COR_FORN.AsString;
+        fDMEtiqueta.mEtiqueta_Nav.Post;
+      end;
+      if (trim(fDMEtiqueta.mEtiqueta_NavProd_Cliente.AsString) = '') or (trim(fDMEtiqueta.mEtiqueta_NavCod_Cor_Cliente.AsString) = '') then
+        vAux := False;
+      fDMEtiqueta.mEtiqueta_Nav.Next;
+    end;
+  finally
+    SMDBGrid1.EnableScroll;
+  end;
+
+  fDMEtiqueta.vProd_Cliente_Exite := vAux;
 end;
 
 end.

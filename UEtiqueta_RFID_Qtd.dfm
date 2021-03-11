@@ -46,8 +46,8 @@ object frmEtiqueta_RFID_Qtd: TfrmEtiqueta_RFID_Qtd
       Transparent = False
     end
     object NxButton1: TNxButton
-      Left = 668
-      Top = 9
+      Left = 667
+      Top = 11
       Width = 93
       Caption = 'Confirmar'
       Font.Charset = DEFAULT_CHARSET

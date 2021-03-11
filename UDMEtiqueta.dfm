@@ -140,6 +140,23 @@ object DMEtiqueta: TDMEtiqueta
       item
         Name = 'Qtd'
         DataType = ftFloat
+      end
+      item
+        Name = 'ID_Produto'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_Cor'
+        DataType = ftInteger
+      end
+      item
+        Name = 'ID_Cliente'
+        DataType = ftInteger
+      end
+      item
+        Name = 'Nome_Cor'
+        DataType = ftString
+        Size = 60
       end>
     IndexDefs = <>
     IndexFieldNames = 'Nome_Etiqueta;Tamanho'
@@ -149,7 +166,7 @@ object DMEtiqueta: TDMEtiqueta
     Left = 151
     Top = 40
     Data = {
-      190300009619E0BD01000000180000001C00000000000300000019030C4E6F6D
+      6B0300009619E0BD0100000018000000200000000000030000006B030C4E6F6D
       655F456D70726573610100490000000100055749445448020002000F0004466F
       6E650100490000000100055749445448020002000C000D4E6F6D655F45746971
       7565746101004900000001000557494454480200020019000754616D616E686F
@@ -173,7 +190,10 @@ object DMEtiqueta: TDMEtiqueta
       0001000557494454480200020018000F46616E74617369615F46696C69616C01
       004900000001000557494454480200020019000B53656C6563696F6E61646F01
       0049000000010005574944544802000200010007456E766961646F0100490000
-      0001000557494454480200020001000351746408000400000000000000}
+      0001000557494454480200020001000351746408000400000000000A49445F50
+      726F6475746F04000100000000000649445F436F7204000100000000000A4944
+      5F436C69656E74650400010000000000084E6F6D655F436F7201004900000001
+      00055749445448020002003C000000}
     object mEtiqueta_NavNome_Empresa: TStringField
       FieldName = 'Nome_Empresa'
       Size = 15
@@ -275,6 +295,19 @@ object DMEtiqueta: TDMEtiqueta
     object mEtiqueta_NavQtd: TFloatField
       FieldName = 'Qtd'
       DisplayFormat = '0.####'
+    end
+    object mEtiqueta_NavID_Produto: TIntegerField
+      FieldName = 'ID_Produto'
+    end
+    object mEtiqueta_NavID_Cor: TIntegerField
+      FieldName = 'ID_Cor'
+    end
+    object mEtiqueta_NavID_Cliente: TIntegerField
+      FieldName = 'ID_Cliente'
+    end
+    object mEtiqueta_NavNome_Cor: TStringField
+      FieldName = 'Nome_Cor'
+      Size = 60
     end
   end
   object dsmEtiqueta_Nav: TDataSource
@@ -1125,8 +1158,8 @@ object DMEtiqueta: TDMEtiqueta
     MaxBlobSize = -1
     Params = <>
     SQLConnection = dmDatabase.scoDados
-    Left = 122
-    Top = 199
+    Left = 111
+    Top = 245
     object sdsParametros_FinID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1144,15 +1177,15 @@ object DMEtiqueta: TDMEtiqueta
   end
   object dspParametros_Fin: TDataSetProvider
     DataSet = sdsParametros_Fin
-    Left = 161
-    Top = 200
+    Left = 150
+    Top = 246
   end
   object cdsParametros_Fin: TClientDataSet
     Aggregates = <>
     Params = <>
     ProviderName = 'dspParametros_Fin'
-    Left = 203
-    Top = 199
+    Left = 192
+    Top = 245
     object cdsParametros_FinID: TIntegerField
       FieldName = 'ID'
       Required = True
@@ -1170,8 +1203,8 @@ object DMEtiqueta: TDMEtiqueta
   end
   object dsParametros_Fin: TDataSource
     DataSet = cdsParametros_Fin
-    Left = 239
-    Top = 200
+    Left = 228
+    Top = 246
   end
   object sdsConsNotaFiscal_RFID: TSQLDataSet
     NoMetadata = True
@@ -1265,7 +1298,7 @@ object DMEtiqueta: TDMEtiqueta
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 548
-    Top = 76
+    Top = 77
   end
   object dspItemSemQtdRotulo: TDataSetProvider
     DataSet = sdsItemSemQtdRotulo
@@ -1300,5 +1333,219 @@ object DMEtiqueta: TDMEtiqueta
     DataSet = cdsItemSemQtdRotulo
     Left = 670
     Top = 76
+  end
+  object sdsNotaFiscal_Agr: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select I.ID, I.ID_PRODUTO, I.ID_COR, I.TAMANHO, I.NOME_PRODUTO, ' +
+      'I.REFERENCIA, I.UNIDADE, sum(I.QTD) QTD,'#13#10'       I.COD_PRODUTO_F' +
+      'ORN, I2.COD_PRODUTO_CLIENTE, I2.COD_COR_CLIENTE,'#13#10'       I2.TAMA' +
+      'NHO_CLIENTE, I2.ENCERADO, P.qtd_por_rotulo, C.NOME NOME_COR'#13#10'fro' +
+      'm NOTAFISCAL_ITENS I'#13#10'inner join PRODUTO P on I.ID_PRODUTO = P.I' +
+      'D'#13#10'inner join TAB_CFOP CFOP on I.ID_CFOP = CFOP.ID'#13#10'left join CO' +
+      'MBINACAO C on (I.ID_COR = C.ID)'#13#10'left join PEDIDO_ITEM I2 on (I.' +
+      'ID_PEDIDO = I2.ID and I.ITEM_PEDIDO = I2.ITEM)'#13#10'where I.ID = :ID' +
+      ' and'#13#10'      CFOP.FATURAMENTO = '#39'S'#39'   '#13#10'group by  I.ID, I.ID_PROD' +
+      'UTO, I.ID_COR, I.TAMANHO, I.NOME_PRODUTO, I.REFERENCIA, I.UNIDAD' +
+      'E,'#13#10'       I.COD_PRODUTO_FORN, I2.COD_PRODUTO_CLIENTE, I2.COD_CO' +
+      'R_CLIENTE,'#13#10'       I2.TAMANHO_CLIENTE, I2.ENCERADO, P.QTD_POR_RO' +
+      'TULO, C.NOME'#13#10
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 101
+    Top = 108
+  end
+  object dspNotaFiscal_Agr: TDataSetProvider
+    DataSet = sdsNotaFiscal_Agr
+    Left = 142
+    Top = 107
+  end
+  object cdsNotaFiscal_Agr: TClientDataSet
+    Aggregates = <>
+    Params = <>
+    ProviderName = 'dspNotaFiscal_Agr'
+    Left = 184
+    Top = 107
+    object cdsNotaFiscal_AgrID: TIntegerField
+      FieldName = 'ID'
+      Required = True
+    end
+    object cdsNotaFiscal_AgrID_PRODUTO: TIntegerField
+      FieldName = 'ID_PRODUTO'
+    end
+    object cdsNotaFiscal_AgrID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsNotaFiscal_AgrTAMANHO: TStringField
+      FieldName = 'TAMANHO'
+      Size = 10
+    end
+    object cdsNotaFiscal_AgrNOME_PRODUTO: TStringField
+      FieldName = 'NOME_PRODUTO'
+      Size = 100
+    end
+    object cdsNotaFiscal_AgrREFERENCIA: TStringField
+      FieldName = 'REFERENCIA'
+    end
+    object cdsNotaFiscal_AgrUNIDADE: TStringField
+      FieldName = 'UNIDADE'
+      Size = 6
+    end
+    object cdsNotaFiscal_AgrQTD: TFloatField
+      FieldName = 'QTD'
+    end
+    object cdsNotaFiscal_AgrCOD_PRODUTO_FORN: TStringField
+      FieldName = 'COD_PRODUTO_FORN'
+    end
+    object cdsNotaFiscal_AgrCOD_PRODUTO_CLIENTE: TStringField
+      FieldName = 'COD_PRODUTO_CLIENTE'
+      Size = 15
+    end
+    object cdsNotaFiscal_AgrCOD_COR_CLIENTE: TStringField
+      FieldName = 'COD_COR_CLIENTE'
+      Size = 10
+    end
+    object cdsNotaFiscal_AgrTAMANHO_CLIENTE: TStringField
+      FieldName = 'TAMANHO_CLIENTE'
+      Size = 10
+    end
+    object cdsNotaFiscal_AgrENCERADO: TStringField
+      FieldName = 'ENCERADO'
+      FixedChar = True
+      Size = 1
+    end
+    object cdsNotaFiscal_AgrQTD_POR_ROTULO: TFloatField
+      FieldName = 'QTD_POR_ROTULO'
+    end
+    object cdsNotaFiscal_AgrNOME_COR: TStringField
+      FieldName = 'NOME_COR'
+      Size = 60
+    end
+  end
+  object qNumOC: TSQLQuery
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_PRODUTO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COR'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COR'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'TAMANHO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'TAMANHO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'COD_PRODUTO_FORN'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'COD_PRODUTO_FORN'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'COD_PRODUTO_CLIENTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'COD_PRODUTO_CLIENTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'COD_COR_CLIENTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'COD_COR_CLIENTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'TAMANHO_CLIENTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'TAMANHO_CLIENTE'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'ENCERADO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftString
+        Name = 'ENCERADO'
+        ParamType = ptInput
+      end>
+    SQL.Strings = (
+      'select FIRST 1 I.NUMERO_OC, I.ITEM'
+      'from NOTAFISCAL_ITENS I'
+      'inner join TAB_CFOP CFOP on I.ID_CFOP = CFOP.ID'
+      
+        'left join PEDIDO_ITEM I2 on (I.ID_PEDIDO = I2.ID and I.ITEM_PEDI' +
+        'DO = I2.ITEM)'
+      'where I.ID = :ID and'
+      '      CFOP.FATURAMENTO = '#39'S'#39' and'
+      '      I.ID_PRODUTO = :ID_PRODUTO and'
+      '      (I.ID_COR = :ID_COR or :ID_COR = 0) and'
+      '      (I.TAMANHO = :TAMANHO or :TAMANHO = '#39#39') and'
+      
+        '      (I.COD_PRODUTO_FORN = :COD_PRODUTO_FORN or :COD_PRODUTO_FO' +
+        'RN = '#39#39') and'
+      
+        '      (I2.COD_PRODUTO_CLIENTE = :COD_PRODUTO_CLIENTE or :COD_PRO' +
+        'DUTO_CLIENTE = '#39#39') and'
+      
+        '      (I2.COD_COR_CLIENTE = :COD_COR_CLIENTE or :COD_COR_CLIENTE' +
+        ' = '#39#39') and'
+      
+        '      (I2.TAMANHO_CLIENTE = :TAMANHO_CLIENTE or :TAMANHO_CLIENTE' +
+        ' = '#39#39') and'
+      '      (I2.ENCERADO = :ENCERADO or :ENCERADO = '#39'N'#39')')
+    SQLConnection = dmDatabase.scoDados
+    Left = 119
+    Top = 155
+    object qNumOCNUMERO_OC: TStringField
+      FieldName = 'NUMERO_OC'
+    end
+    object qNumOCITEM: TIntegerField
+      FieldName = 'ITEM'
+      Required = True
+    end
   end
 end

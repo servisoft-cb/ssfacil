@@ -55,6 +55,8 @@ type
     procedure DBEdit10Enter(Sender: TObject);
     procedure DBEdit10Exit(Sender: TObject);
     procedure RxDBLookupCombo2Enter(Sender: TObject);
+    procedure RxDBLookupCombo2KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
   private
     { Private declarations }
     ffrmCadPessoa: TfrmCadPessoa;
@@ -71,7 +73,7 @@ var
 
 implementation
 
-uses rsDBUtils, uUtilPadrao;
+uses rsDBUtils, uUtilPadrao, USel_Pessoa;
 
 {$R *.dfm}
 
@@ -271,6 +273,19 @@ end;
 procedure TfrmCadProduto_Forn.RxDBLookupCombo2Enter(Sender: TObject);
 begin
   fDMCadProduto.cdsFornecedor.IndexFieldNames := 'NOME';
+end;
+
+procedure TfrmCadProduto_Forn.RxDBLookupCombo2KeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if (Key = Vk_F2) then
+  begin
+    vCodPessoa_Pos := fDMCadProduto.cdsProduto_FornID_FORNECEDOR.AsInteger;
+    frmSel_Pessoa := TfrmSel_Pessoa.Create(Self);
+    frmSel_Pessoa.ShowModal;
+    FreeAndNil(frmSel_Pessoa);
+    fDMCadProduto.cdsProduto_FornID_FORNECEDOR.AsInteger := vCodPessoa_Pos;
+  end;
 end;
 
 end.

@@ -1,8 +1,8 @@
 object frmEtiqueta_RFID: TfrmEtiqueta_RFID
-  Left = 111
+  Left = 104
   Top = 53
-  Width = 1190
-  Height = 595
+  Width = 1197
+  Height = 640
   Caption = 'frmEtiqueta_RFID'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -21,8 +21,8 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
   object RzPageControl1: TRzPageControl
     Left = 0
     Top = 0
-    Width = 1182
-    Height = 564
+    Width = 1189
+    Height = 609
     ActivePage = TS_Etiquetas
     ActivePageDefault = TS_Etiquetas
     Align = alClient
@@ -134,9 +134,9 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
       Caption = 'Etiquetas'
       object SMDBGrid1: TSMDBGrid
         Left = 0
-        Top = 46
-        Width = 1178
-        Height = 495
+        Top = 123
+        Width = 1185
+        Height = 443
         Align = alClient
         Ctl3D = False
         DataSource = DMEtiqueta.dsmEtiqueta_Nav
@@ -149,6 +149,7 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
         TitleFont.Height = -11
         TitleFont.Name = 'MS Sans Serif'
         TitleFont.Style = []
+        OnDblClick = SMDBGrid1DblClick
         Flat = True
         BandsFont.Charset = DEFAULT_CHARSET
         BandsFont.Color = clWindowText
@@ -168,7 +169,7 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
         WidthOfIndicator = 11
         DefaultRowHeight = 17
         ScrollBars = ssHorizontal
-        ColCount = 14
+        ColCount = 15
         RowCount = 2
         Columns = <
           item
@@ -193,6 +194,14 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
             FieldName = 'Item_Nota'
             Title.Alignment = taCenter
             Title.Caption = 'Item Nota'
+            Width = 43
+            Visible = True
+          end
+          item
+            Expanded = False
+            FieldName = 'ID_Produto'
+            Title.Alignment = taCenter
+            Title.Caption = 'ID Produto'
             Visible = True
           end
           item
@@ -215,6 +224,14 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
           item
             Alignment = taCenter
             Expanded = False
+            FieldName = 'Unidade'
+            Title.Alignment = taCenter
+            Width = 52
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
             FieldName = 'Qtd'
             Title.Alignment = taCenter
             Visible = True
@@ -224,28 +241,14 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
             FieldName = 'Pedido_Cliente'
             Title.Alignment = taCenter
             Title.Caption = 'N'#186' OC'
+            Width = 118
             Visible = True
           end
           item
             Expanded = False
             FieldName = 'Prod_Cliente'
             Title.Alignment = taCenter
-            Title.Caption = 'Prod. Cliente'
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'Unidade'
-            Title.Alignment = taCenter
-            Visible = True
-          end
-          item
-            Alignment = taCenter
-            Expanded = False
-            FieldName = 'Num_Nota'
-            Title.Alignment = taCenter
-            Title.Caption = 'N'#186' Nota'
+            Title.Caption = 'C'#243'd. Produto Cliente'
             Visible = True
           end
           item
@@ -254,6 +257,14 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
             FieldName = 'Cod_Cor_Cliente'
             Title.Alignment = taCenter
             Title.Caption = 'C'#243'd. Cor Cliente'
+            Visible = True
+          end
+          item
+            Alignment = taCenter
+            Expanded = False
+            FieldName = 'Num_Nota'
+            Title.Alignment = taCenter
+            Title.Caption = 'N'#186' Nota'
             Visible = True
           end
           item
@@ -276,8 +287,8 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
       object Panel1: TPanel
         Left = 0
         Top = 0
-        Width = 1178
-        Height = 46
+        Width = 1185
+        Height = 82
         Align = alTop
         Color = 13619151
         TabOrder = 1
@@ -295,32 +306,46 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
           ParentFont = False
         end
         object Shape1: TShape
-          Left = 745
-          Top = 7
+          Left = 333
+          Top = 43
           Width = 26
           Height = 17
           Brush.Color = clYellow
         end
         object Label7: TLabel
-          Left = 773
-          Top = 10
+          Left = 361
+          Top = 46
           Width = 199
           Height = 13
           Caption = 'N'#227'o enviado ao WebService da Beira Rio'
         end
         object Label8: TLabel
-          Left = 773
-          Top = 26
+          Left = 361
+          Top = 62
           Width = 39
           Height = 13
           Caption = 'Enviado'
         end
         object Shape2: TShape
-          Left = 745
-          Top = 23
+          Left = 333
+          Top = 59
           Width = 26
           Height = 17
           Brush.Color = clLime
+        end
+        object Shape3: TShape
+          Left = 493
+          Top = 60
+          Width = 26
+          Height = 17
+          Brush.Color = clRed
+        end
+        object Label10: TLabel
+          Left = 521
+          Top = 64
+          Width = 246
+          Height = 13
+          Caption = 'Sem o C'#243'digo do Produto e Cor do Cliente (Verificar)'
         end
         object CurrencyEdit1: TCurrencyEdit
           Left = 236
@@ -418,6 +443,53 @@ object frmEtiqueta_RFID: TfrmEtiqueta_RFID
           TabOrder = 6
           OnClick = btnExcluirClick
         end
+      end
+      object Panel2: TPanel
+        Left = 0
+        Top = 82
+        Width = 1185
+        Height = 41
+        Align = alTop
+        Color = clSilver
+        TabOrder = 2
+        object Label9: TLabel
+          Left = 41
+          Top = 15
+          Width = 1094
+          Height = 16
+          Caption = 
+            '*** Etiquetas geradas Agrupadas pelo (ID do Produto, ID Cor, Cod' +
+            ' Produto Cliente, Cod Cor Cliente, Tamanho Grade, Tamanho Grade ' +
+            'Cliente, Unidade)'
+          Color = 14145495
+          Font.Charset = DEFAULT_CHARSET
+          Font.Color = clBlue
+          Font.Height = -13
+          Font.Name = 'Verdana'
+          Font.Style = [fsBold]
+          ParentColor = False
+          ParentFont = False
+        end
+      end
+      object StaticText1: TStaticText
+        Left = 0
+        Top = 566
+        Width = 1185
+        Height = 20
+        Align = alBottom
+        BevelOuter = bvRaised
+        Caption = 
+          '                   Duplo Clique para alterar o Cod. Produto/Cor ' +
+          'do Cliente'
+        Color = 13290186
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clMaroon
+        Font.Height = -13
+        Font.Name = 'Verdana'
+        Font.Style = [fsBold]
+        ParentColor = False
+        ParentFont = False
+        TabOrder = 3
       end
     end
   end

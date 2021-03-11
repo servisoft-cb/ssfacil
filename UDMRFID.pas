@@ -35,7 +35,30 @@ type
     sdsProdutoQTD_POR_ROTULO: TFloatField;
     cdsProdutoID: TIntegerField;
     cdsProdutoQTD_POR_ROTULO: TFloatField;
+    sdsProduto_Forn: TSQLDataSet;
+    dspProduto_Forn: TDataSetProvider;
+    cdsProduto_Forn: TClientDataSet;
+    sdsProduto_FornID: TIntegerField;
+    sdsProduto_FornID_FORNECEDOR: TIntegerField;
+    sdsProduto_FornID_COR: TIntegerField;
+    sdsProduto_FornNOME_MATERIAL_FORN: TStringField;
+    sdsProduto_FornCOD_MATERIAL_FORN: TStringField;
+    sdsProduto_FornCOD_COR_FORN: TStringField;
+    sdsProduto_FornITEM: TIntegerField;
+    cdsProduto_FornID: TIntegerField;
+    cdsProduto_FornID_FORNECEDOR: TIntegerField;
+    cdsProduto_FornID_COR: TIntegerField;
+    cdsProduto_FornNOME_MATERIAL_FORN: TStringField;
+    cdsProduto_FornCOD_MATERIAL_FORN: TStringField;
+    cdsProduto_FornCOD_COR_FORN: TStringField;
+    cdsProduto_FornITEM: TIntegerField;
+    dsProduto_Forn: TDataSource;
+    sdsProduto_FornTAMANHO_CLIENTE: TStringField;
+    sdsProduto_FornTAMANHO: TStringField;
+    cdsProduto_FornTAMANHO_CLIENTE: TStringField;
+    cdsProduto_FornTAMANHO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
+    procedure cdsProduto_FornBeforePost(DataSet: TDataSet);
   private
     { Private declarations }
     procedure DoLogAdditionalValues(ATableName: string; var AValues: TArrayLogData; var UserName: string);
@@ -92,6 +115,14 @@ begin
       LogProviderList.AddProvider(TClientDataSet(Self.Components[i]), TClientDataSet(Self.Components[i]).Name, aIndices);
     end;
   end;
+end;
+
+procedure TDMRFID.cdsProduto_FornBeforePost(DataSet: TDataSet);
+begin
+ if cdsProduto_FornTAMANHO.IsNull then
+   cdsProduto_FornTAMANHO.AsString := '';
+ if cdsProduto_FornID_COR.IsNull then
+   cdsProduto_FornID_COR.AsInteger := 0;
 end;
 
 end.

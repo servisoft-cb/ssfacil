@@ -164,4 +164,126 @@ object DMRFID: TDMRFID
       FieldName = 'QTD_POR_ROTULO'
     end
   end
+  object sdsProduto_Forn: TSQLDataSet
+    NoMetadata = True
+    GetMetadata = False
+    CommandText = 
+      'select PF.ID, PF.ITEM, PF.ID_FORNECEDOR, PF.ID_COR, PF.NOME_MATE' +
+      'RIAL_FORN, PF.COD_MATERIAL_FORN, PF.COD_COR_FORN,'#13#10'       PF.TAM' +
+      'ANHO_CLIENTE, PF.TAMANHO'#13#10'from PRODUTO_FORN PF'#13#10'where PF.ID = :I' +
+      'D and'#13#10'      PF.ID_FORNECEDOR = :ID_FORNECEDOR and'#13#10'      PF.ID_' +
+      'COR = :ID_COR'
+    MaxBlobSize = -1
+    Params = <
+      item
+        DataType = ftInteger
+        Name = 'ID'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_FORNECEDOR'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftInteger
+        Name = 'ID_COR'
+        ParamType = ptInput
+      end>
+    SQLConnection = dmDatabase.scoDados
+    Left = 119
+    Top = 219
+    object sdsProduto_FornID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsProduto_FornITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object sdsProduto_FornID_FORNECEDOR: TIntegerField
+      FieldName = 'ID_FORNECEDOR'
+    end
+    object sdsProduto_FornID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object sdsProduto_FornNOME_MATERIAL_FORN: TStringField
+      FieldName = 'NOME_MATERIAL_FORN'
+      Size = 100
+    end
+    object sdsProduto_FornCOD_MATERIAL_FORN: TStringField
+      FieldName = 'COD_MATERIAL_FORN'
+      Size = 60
+    end
+    object sdsProduto_FornCOD_COR_FORN: TStringField
+      FieldName = 'COD_COR_FORN'
+      Size = 10
+    end
+    object sdsProduto_FornTAMANHO_CLIENTE: TStringField
+      FieldName = 'TAMANHO_CLIENTE'
+      Size = 10
+    end
+    object sdsProduto_FornTAMANHO: TStringField
+      FieldName = 'TAMANHO'
+      Size = 10
+    end
+  end
+  object dspProduto_Forn: TDataSetProvider
+    DataSet = sdsProduto_Forn
+    UpdateMode = upWhereKeyOnly
+    Left = 159
+    Top = 219
+  end
+  object cdsProduto_Forn: TClientDataSet
+    Aggregates = <>
+    IndexFieldNames = 'ID'
+    Params = <>
+    ProviderName = 'dspProduto_Forn'
+    BeforePost = cdsProduto_FornBeforePost
+    Left = 197
+    Top = 219
+    object cdsProduto_FornID: TIntegerField
+      FieldName = 'ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsProduto_FornITEM: TIntegerField
+      FieldName = 'ITEM'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+    end
+    object cdsProduto_FornID_FORNECEDOR: TIntegerField
+      FieldName = 'ID_FORNECEDOR'
+    end
+    object cdsProduto_FornID_COR: TIntegerField
+      FieldName = 'ID_COR'
+    end
+    object cdsProduto_FornNOME_MATERIAL_FORN: TStringField
+      FieldName = 'NOME_MATERIAL_FORN'
+      Size = 100
+    end
+    object cdsProduto_FornCOD_MATERIAL_FORN: TStringField
+      FieldName = 'COD_MATERIAL_FORN'
+      Size = 60
+    end
+    object cdsProduto_FornCOD_COR_FORN: TStringField
+      FieldName = 'COD_COR_FORN'
+      Size = 10
+    end
+    object cdsProduto_FornTAMANHO_CLIENTE: TStringField
+      FieldName = 'TAMANHO_CLIENTE'
+      Size = 10
+    end
+    object cdsProduto_FornTAMANHO: TStringField
+      FieldName = 'TAMANHO'
+      Size = 10
+    end
+  end
+  object dsProduto_Forn: TDataSource
+    DataSet = cdsProduto_Forn
+    Left = 236
+    Top = 220
+  end
 end

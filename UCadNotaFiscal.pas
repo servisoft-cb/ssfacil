@@ -3691,14 +3691,18 @@ begin
   if (fDMCadNotaFiscal.cdsCFOPCOPIARNOTATRIANGULAR.AsString <> 'S') and (fDMCadNotaFiscal.cdsNotaFiscalID_NOTACOPIADA.AsInteger > 0) then
   begin
     sds := TSQLDataSet.Create(nil);
-    sds.SQLConnection := dmDatabase.scoDados;
-    sds.NoMetadata  := True;
-    sds.GetMetadata := False;
-    sds.CommandText := 'UPDATE NOTAFISCAL SET NUMNOTACOPIADA = ' + IntToStr(fDMCadNotaFiscal.cdsNotaFiscalNUMNOTA.AsInteger) +
-                       ' , SERIECOPIADA = ' + QuotedStr(fDMCadNotaFiscal.cdsNotaFiscalSERIE.AsString) +
-                       ' , ID_NOTACOPIADA = ' + IntToStr(fDMCadNotaFiscal.cdsNotaFiscalID.AsInteger) +
-                       ' WHERE ID = ' + fDMCadNotaFiscal.cdsNotaFiscalID_NOTACOPIADA.AsString;
-    sds.ExecSQL();
+    try
+      sds.SQLConnection := dmDatabase.scoDados;
+      sds.NoMetadata  := True;
+      sds.GetMetadata := False;
+      sds.CommandText := 'UPDATE NOTAFISCAL SET NUMNOTACOPIADA = ' + IntToStr(fDMCadNotaFiscal.cdsNotaFiscalNUMNOTA.AsInteger) +
+                         ' , SERIECOPIADA = ' + QuotedStr(fDMCadNotaFiscal.cdsNotaFiscalSERIE.AsString) +
+                         ' , ID_NOTACOPIADA = ' + IntToStr(fDMCadNotaFiscal.cdsNotaFiscalID.AsInteger) +
+                         ' WHERE ID = ' + fDMCadNotaFiscal.cdsNotaFiscalID_NOTACOPIADA.AsString;
+      sds.ExecSQL();
+    finally
+      FreeAndNil(sds);
+    end;
     exit;
   end
  else

@@ -899,7 +899,8 @@ uses
   UConsComissao in 'UConsComissao.pas' {frmConsComissao},
   UConsComissao_Titulos in 'UConsComissao_Titulos.pas' {frmConsComissao_Titulos},
   UConsQtdOS_Nota in 'UConsQtdOS_Nota.pas' {frmConsQtdOS_Nota},
-  UEtiqueta_RFID_Qtd in 'UEtiqueta_RFID_Qtd.pas' {frmEtiqueta_RFID_Qtd};
+  UEtiqueta_RFID_Qtd in 'UEtiqueta_RFID_Qtd.pas' {frmEtiqueta_RFID_Qtd},
+  UEtiqueta_RFID_Cli in 'uEtiqueta_RFID_Cli.pas' {frmEtiqueta_RFID_Cli};
 
 {$R *.res}
 

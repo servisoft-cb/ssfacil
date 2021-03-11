@@ -7280,7 +7280,7 @@ object dmCadProduto: TdmCadProduto
       end>
     SQLConnection = dmDatabase.scoDados
     Left = 218
-    Top = 2
+    Top = 3
     object sdsProduto_Cad_AntID: TIntegerField
       FieldName = 'ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]

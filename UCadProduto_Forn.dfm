@@ -1,6 +1,6 @@
 object frmCadProduto_Forn: TfrmCadProduto_Forn
-  Left = 327
-  Top = 206
+  Left = 242
+  Top = 194
   BorderIcons = [biSystemMenu]
   BorderStyle = bsSingle
   Caption = 'Cadastro dos Itens'
@@ -266,6 +266,7 @@ object frmCadProduto_Forn: TfrmCadProduto_Forn
       ParentCtl3D = False
       TabOrder = 0
       OnEnter = RxDBLookupCombo2Enter
+      OnKeyDown = RxDBLookupCombo2KeyDown
     end
     object DBEdit1: TDBEdit
       Left = 174

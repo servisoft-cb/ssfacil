@@ -257,18 +257,46 @@ type
     cdsItemSemQtdRotuloNOME_PRODUTO: TStringField;
     cdsItemSemQtdRotuloQTD_POR_ROTULO: TFloatField;
     cdsItemSemQtdRotuloUNIDADE: TStringField;
+    sdsNotaFiscal_Agr: TSQLDataSet;
+    dspNotaFiscal_Agr: TDataSetProvider;
+    cdsNotaFiscal_Agr: TClientDataSet;
+    cdsNotaFiscal_AgrID: TIntegerField;
+    cdsNotaFiscal_AgrID_PRODUTO: TIntegerField;
+    cdsNotaFiscal_AgrID_COR: TIntegerField;
+    cdsNotaFiscal_AgrTAMANHO: TStringField;
+    cdsNotaFiscal_AgrNOME_PRODUTO: TStringField;
+    cdsNotaFiscal_AgrREFERENCIA: TStringField;
+    cdsNotaFiscal_AgrUNIDADE: TStringField;
+    cdsNotaFiscal_AgrQTD: TFloatField;
+    cdsNotaFiscal_AgrCOD_PRODUTO_FORN: TStringField;
+    cdsNotaFiscal_AgrCOD_PRODUTO_CLIENTE: TStringField;
+    cdsNotaFiscal_AgrCOD_COR_CLIENTE: TStringField;
+    cdsNotaFiscal_AgrTAMANHO_CLIENTE: TStringField;
+    cdsNotaFiscal_AgrENCERADO: TStringField;
+    cdsNotaFiscal_AgrQTD_POR_ROTULO: TFloatField;
+    qNumOC: TSQLQuery;
+    qNumOCNUMERO_OC: TStringField;
+    qNumOCITEM: TIntegerField;
+    cdsNotaFiscal_AgrNOME_COR: TStringField;
+    mEtiqueta_NavID_Produto: TIntegerField;
+    mEtiqueta_NavID_Cor: TIntegerField;
+    mEtiqueta_NavID_Cliente: TIntegerField;
+    mEtiqueta_NavNome_Cor: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure mEtiqueta_NavNewRecord(DataSet: TDataSet);
   private
     { Private declarations }
     vCod_Cor_Cli, vProd_Cliente : String;
-    procedure prc_Busca_Produto_Cliente;
+    procedure prc_Busca_Produto_Cliente(ID_Produto, ID_Cor : Integer);
 
   public
     { Public declarations }
+    vProd_Cliente_Exite : Boolean;
+
     procedure prc_Monta_Etiqueta_Calcado(Tipo: String; ID: Integer; Qtd : Integer ; RFID : Boolean); //D= DOS   A=A4 em windows
 
     procedure prc_Monta_Etiqueta_RFID(ID: Integer; Qtd : Real);
+    procedure prc_Monta_Etiqueta_RFID_Agr(ID: Integer; Qtd : Real);
 
     procedure prc_Le_NotaFiscal_RFID(ID : Integer);
 
@@ -287,7 +315,7 @@ uses DmdDatabase, uUtilPadrao, Math;
 
 { TDMEtiqueta }
 
-procedure TDMEtiqueta.prc_Busca_Produto_Cliente;
+procedure TDMEtiqueta.prc_Busca_Produto_Cliente(ID_Produto, ID_Cor : Integer);
 var
   sds: TSQLDataSet;
 begin
@@ -301,7 +329,12 @@ begin
     sds.CommandText   := 'select P.COD_MATERIAL_FORN, P.COD_COR_FORN, P.TAMANHO_CLIENTE '
                        + 'from PRODUTO_FORN P '
                        + 'where P.ID = :ID and P.ID_FORNECEDOR = :ID_FORNECEDOR ';
-    sds.ParamByName('ID').AsInteger := cdsNotaFiscal_ItensID_PRODUTO.AsInteger;
+    if ID_Cor > 0 then
+    begin
+      sds.CommandText := sds.CommandText + ' AND P.ID_COR = :ID_COR ';
+      sds.ParamByName('ID_COR').AsInteger := ID_Cor;
+    end;
+    sds.ParamByName('ID').AsInteger := ID_Produto;
     sds.ParamByName('ID_FORNECEDOR').AsInteger := qNotaFiscalID_CLIENTE.AsInteger;
     sds.Open;
 
@@ -373,7 +406,7 @@ begin
       vProd_Cliente := '';
       if (RFID) and (trim(cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString) = '') then
       begin
-        prc_Busca_Produto_Cliente;
+        prc_Busca_Produto_Cliente(cdsNotaFiscal_ItensID_PRODUTO.AsInteger,cdsNotaFiscal_ItensID_COR.AsInteger);
         mEtiqueta_NavCod_Cor_Cliente.AsString := vCod_Cor_Cli;
       end;
       mEtiqueta_NavNome_Cor_Cliente.AsString := cdsNotaFiscal_ItensNOME_COR_CLIENTE.AsString;
@@ -467,14 +500,19 @@ begin
       mEtiqueta_NavID_Nota.AsInteger         := qNotaFiscalID.AsInteger;
       mEtiqueta_NavItem_Nota.AsInteger       := cdsNotaFiscal_ItensITEM.AsInteger;
       mEtiqueta_NavFilial.AsInteger          := qNotaFiscalFILIAL.AsInteger;
+      mEtiqueta_NavID_Cliente.AsInteger      := qNotaFiscalID_CLIENTE.AsInteger;
       mEtiqueta_NavReferencia.AsString       := cdsNotaFiscal_ItensREFERENCIA.AsString;
       mEtiqueta_NavNome_Produto.AsString     := cdsNotaFiscal_ItensNOME_PRODUTO.AsString;
       mEtiqueta_NavItem_Ped.AsInteger        := cdsNotaFiscal_ItensITEM.AsInteger;
       mEtiqueta_NavCod_Cor_Cliente.AsString  := cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString;
+      mEtiqueta_NavID_Produto.AsInteger      := cdsNotaFiscal_ItensID_PRODUTO.AsInteger;
+      mEtiqueta_NavID_Cor.AsInteger          := cdsNotaFiscal_ItensID_COR.AsInteger;
+      if cdsNotaFiscal_ItensID_COR.IsNull then
+        mEtiqueta_NavID_Cor.AsInteger := 0;
       vProd_Cliente := '';
       if (trim(cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString) = '') then
       begin
-        prc_Busca_Produto_Cliente;
+        prc_Busca_Produto_Cliente(cdsNotaFiscal_ItensID_PRODUTO.AsInteger,cdsNotaFiscal_ItensID_COR.AsInteger) ;
         mEtiqueta_NavCod_Cor_Cliente.AsString := vCod_Cor_Cli;
       end;
       mEtiqueta_NavNome_Cor_Cliente.AsString := cdsNotaFiscal_ItensNOME_COR_CLIENTE.AsString;
@@ -551,6 +589,7 @@ var
   vQtdRest: Real;
   vUsaQtdRotulo : String;
 begin
+  vProd_Cliente_Exite := True;
   vUsaQtdRotulo := SQLLocate('PARAMETROS_PROD','ID','USA_QTD_ROTULO_RFID','1');
 
   qNotaFiscal.Close;
@@ -581,6 +620,12 @@ begin
       mEtiqueta_NavID_Nota.AsInteger         := qNotaFiscalID.AsInteger;
       mEtiqueta_NavItem_Nota.AsInteger       := cdsNotaFiscal_ItensITEM.AsInteger;
       mEtiqueta_NavFilial.AsInteger          := qNotaFiscalFILIAL.AsInteger;
+      mEtiqueta_NavID_Cliente.AsInteger      := qNotaFiscalID_CLIENTE.AsInteger;
+      mEtiqueta_NavID_Produto.AsInteger      := cdsNotaFiscal_ItensID_PRODUTO.AsInteger;
+      mEtiqueta_NavID_Cor.AsInteger          := cdsNotaFiscal_ItensID_COR.AsInteger;
+      if cdsNotaFiscal_ItensID_COR.IsNull then
+        mEtiqueta_NavID_Cor.AsInteger := 0;
+      mEtiqueta_NavNome_Cor.AsString := cdsNotaFiscal_ItensNOME_COR.AsString;
       mEtiqueta_NavReferencia.AsString       := cdsNotaFiscal_ItensREFERENCIA.AsString;
       mEtiqueta_NavNome_Produto.AsString     := cdsNotaFiscal_ItensNOME_PRODUTO.AsString;
       mEtiqueta_NavItem_Ped.AsInteger        := cdsNotaFiscal_ItensITEM.AsInteger;
@@ -588,7 +633,7 @@ begin
       vProd_Cliente := '';
       if (trim(cdsNotaFiscal_ItensCOD_COR_CLIENTE.AsString) = '') then
       begin
-        prc_Busca_Produto_Cliente;
+        prc_Busca_Produto_Cliente(cdsNotaFiscal_ItensID_PRODUTO.AsInteger,cdsNotaFiscal_ItensID_COR.AsInteger);
         mEtiqueta_NavCod_Cor_Cliente.AsString := vCod_Cor_Cli;
       end;
       mEtiqueta_NavNome_Cor_Cliente.AsString := cdsNotaFiscal_ItensNOME_COR_CLIENTE.AsString;
@@ -634,6 +679,134 @@ begin
     end;
     cdsNotaFiscal_Itens.Next;
   end;
+end;
+
+procedure TDMEtiqueta.prc_Monta_Etiqueta_RFID_Agr(ID: Integer; Qtd: Real);
+var
+  vFlag: Boolean;
+  vQtdRest: Real;
+  vUsaQtdRotulo : String;
+begin
+  vProd_Cliente_Exite := True; 
+  vUsaQtdRotulo := SQLLocate('PARAMETROS_PROD','ID','USA_QTD_ROTULO_RFID','1');
+
+  qNotaFiscal.Close;
+  qNotaFiscal.ParamByName('ID').AsInteger := ID;
+  qNotaFiscal.Open;
+
+  cdsNotaFiscal_Agr.Close;
+  sdsNotaFiscal_Agr.ParamByName('ID').AsInteger := ID;
+  cdsNotaFiscal_Agr.Open;
+
+  mEtiqueta_Nav.EmptyDataSet;
+  cdsNotaFiscal_Agr.First;
+  while not cdsNotaFiscal_Agr.Eof do
+  begin
+    vQtdRest := StrToFloat(FormatFloat('0.0000',cdsNotaFiscal_AgrQTD.AsFloat));
+    if vUsaQtdRotulo = 'S' then
+    begin
+      if StrToFloat(FormatFloat('0.0000',cdsNotaFiscal_AgrQTD_POR_ROTULO.AsFloat)) <= 0 then
+        Qtd := StrToFloat(FormatFloat('0.0000',cdsNotaFiscal_AgrQTD.AsFloat))
+      else
+        Qtd := StrToFloat(FormatFloat('0.0000',cdsNotaFiscal_AgrQTD_POR_ROTULO.AsFloat));
+    end;
+    qNumOC.Close;
+    qNumOC.ParamByName('ID').AsInteger         := cdsNotaFiscal_AgrID.AsInteger;
+    qNumOC.ParamByName('ID_PRODUTO').AsInteger := cdsNotaFiscal_AgrID_PRODUTO.AsInteger;
+    qNumOC.ParamByName('ID_COR').AsInteger     := cdsNotaFiscal_AgrID_COR.AsInteger;
+    if trim(cdsNotaFiscal_AgrTAMANHO.AsString) = '' then
+      qNumOC.ParamByName('TAMANHO').AsString := ''
+    else
+      qNumOC.ParamByName('TAMANHO').AsString := cdsNotaFiscal_AgrTAMANHO.AsString;
+    if trim(cdsNotaFiscal_AgrCOD_PRODUTO_FORN.AsString) = '' then
+      qNumOC.ParamByName('COD_PRODUTO_FORN').AsString := ''
+    else
+      qNumOC.ParamByName('COD_PRODUTO_FORN').AsString := cdsNotaFiscal_AgrCOD_PRODUTO_FORN.AsString;
+    if trim(cdsNotaFiscal_AgrCOD_PRODUTO_CLIENTE.AsString) = '' then
+      qNumOC.ParamByName('COD_PRODUTO_CLIENTE').AsString := ''
+    else
+      qNumOC.ParamByName('COD_PRODUTO_CLIENTE').AsString := cdsNotaFiscal_AgrCOD_PRODUTO_CLIENTE.AsString;
+    if trim(cdsNotaFiscal_AgrCOD_COR_CLIENTE.AsString) = '' then
+      qNumOC.ParamByName('COD_COR_CLIENTE').AsString := ''
+    else
+      qNumOC.ParamByName('COD_COR_CLIENTE').AsString := cdsNotaFiscal_AgrCOD_COR_CLIENTE.AsString;
+    if cdsNotaFiscal_AgrTAMANHO_CLIENTE.AsString = '' then
+      qNumOC.ParamByName('TAMANHO_CLIENTE').AsString := ''
+    else
+      qNumOC.ParamByName('TAMANHO_CLIENTE').AsString := cdsNotaFiscal_AgrTAMANHO_CLIENTE.AsString;
+    if trim(cdsNotaFiscal_AgrENCERADO.AsString) = '' then
+      qNumOC.ParamByName('ENCERADO').AsString := ''
+    else
+      qNumOC.ParamByName('ENCERADO').AsString := cdsNotaFiscal_AgrENCERADO.AsString;
+    qNumOC.Open;
+    vFlag    := False;
+    while not vFlag do
+    begin
+      mEtiqueta_Nav.Insert;
+      mEtiqueta_NavNum_Nota.AsInteger        := qNotaFiscalNUMNOTA.AsInteger;
+      mEtiqueta_NavID_Nota.AsInteger         := qNotaFiscalID.AsInteger;
+      mEtiqueta_NavItem_Nota.AsInteger       := qNumOCITEM.AsInteger;
+      mEtiqueta_NavFilial.AsInteger          := qNotaFiscalFILIAL.AsInteger;
+      mEtiqueta_NavID_Cliente.AsInteger      := qNotaFiscalID_CLIENTE.AsInteger;
+      mEtiqueta_NavID_Produto.AsInteger      := cdsNotaFiscal_AgrID_PRODUTO.AsInteger;
+      mEtiqueta_NavID_Cor.AsInteger          := cdsNotaFiscal_AgrID_COR.AsInteger;
+      if cdsNotaFiscal_AgrID_COR.IsNull then
+        mEtiqueta_NavID_Cor.AsInteger := 0;
+      mEtiqueta_NavNome_Cor.AsString         := cdsNotaFiscal_AgrNOME_COR.AsString;
+      mEtiqueta_NavReferencia.AsString       := cdsNotaFiscal_AgrREFERENCIA.AsString;
+      mEtiqueta_NavNome_Produto.AsString     := cdsNotaFiscal_AgrNOME_PRODUTO.AsString;
+      mEtiqueta_NavCod_Cor_Cliente.AsString  := cdsNotaFiscal_AgrCOD_COR_CLIENTE.AsString;
+      vProd_Cliente := '';
+      if (trim(cdsNotaFiscal_AgrCOD_COR_CLIENTE.AsString) = '') then
+      begin
+        prc_Busca_Produto_Cliente(cdsNotaFiscal_AgrID_PRODUTO.AsInteger,cdsNotaFiscal_AgrID_COR.AsInteger);
+        mEtiqueta_NavCod_Cor_Cliente.AsString := vCod_Cor_Cli;
+      end;
+      
+      //mEtiqueta_NavNome_Cor_Cliente.AsString := cdsNotaFiscal_Agrn ItensNOME_COR_CLIENTE.AsString;
+      mEtiqueta_NavCNPJ_Filial.AsString      := SQLLocate('FILIAL','ID','CNPJ_CPF',qNotaFiscalFILIAL.AsString);
+      if (qNotaFiscalIMP_COR_CLIENTE.AsString = 'S') and (cdsNotaFiscal_AgrID_COR.AsInteger > 0) and
+         (cdsNotaFiscal_AgrCOD_COR_CLIENTE.AsString <> '') then
+      begin
+        if (trim(cdsNotaFiscal_AgrTAMANHO_CLIENTE.AsString) <> '') and (trim(cdsNotaFiscal_AgrTAMANHO_CLIENTE.AsString) <> '0') then
+          mEtiqueta_NavNome_Produto.AsString := mEtiqueta_NavNome_Produto.AsString + ' TAM. ' + cdsNotaFiscal_AgrTAMANHO_CLIENTE.AsString;
+      end
+      else
+      if cdsNotaFiscal_AgrID_COR.AsInteger > 0 then
+        mEtiqueta_NavNome_Produto.AsString := mEtiqueta_NavNome_Produto.AsString + ' ' + cdsNotaFiscal_AgrNOME_COR.AsString;
+      mEtiqueta_NavTamanho.AsString      := cdsNotaFiscal_AgrTAMANHO.AsString;
+      //mEtiqueta_NavNumOS.AsString        := cdsNotaFiscal_ItensNUMERO_OS.AsString;
+      mEtiqueta_NavUnidade.AsString      := cdsNotaFiscal_AgrUNIDADE.AsString;
+      //mEtiqueta_NavEncerado.AsString     := '';
+      if trim(cdsNotaFiscal_AgrCOD_PRODUTO_CLIENTE.AsString) <> '' then
+        mEtiqueta_NavProd_Cliente.AsString := cdsNotaFiscal_AgrCOD_PRODUTO_CLIENTE.AsString
+      else
+      begin
+        mEtiqueta_NavProd_Cliente.AsString := fnc_Busca_CodProduto_Cliente(cdsNotaFiscal_AgrID_PRODUTO.AsInteger,
+                                                                           qNotaFiscalID_CLIENTE.AsInteger,
+                                                                           cdsNotaFiscal_AgrID_COR.AsInteger,'',
+                                                                           cdsNotaFiscal_AgrTAMANHO_CLIENTE.AsString);
+      end;
+      if (trim(mEtiqueta_NavProd_Cliente.AsString) = '') then
+        mEtiqueta_NavProd_Cliente.AsString := vProd_Cliente;
+
+      mEtiqueta_NavDtEmissao.AsDateTime    := qNotaFiscalDTEMISSAO.AsDateTime;
+      mEtiqueta_NavNome_Empresa.AsString   := qNotaFiscalNOME_INTERNO.AsString;
+      mEtiqueta_NavNome_Cliente.AsString   := qNotaFiscalNOME_CLIENTE.AsString;
+      mEtiqueta_NavFantasia_Cli.AsString   := qNotaFiscalFANTASIA.AsString;
+      mEtiqueta_NavPedido_Cliente.AsString := qNumOCNUMERO_OC.AsString;
+      if vQtdRest > qtd then
+        mEtiqueta_NavQtd.AsFloat := StrToFloat(FormatFloat('0.0000',Qtd))
+      else
+        mEtiqueta_NavQtd.AsFloat := StrToFloat(FormatFloat('0.0000',vQtdRest));
+      vQtdRest := StrToFloat(FormatFloat('0.0000',vQtdRest - mEtiqueta_NavQtd.AsFloat));
+      if StrToFloat(FormatFloat('0.0000',vQtdRest)) <= 0 then
+        vFlag := True;
+      mEtiqueta_Nav.Post;
+    end;
+    cdsNotaFiscal_Agr.Next;
+  end;
+
 end;
 
 end.
