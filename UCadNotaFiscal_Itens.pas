@@ -617,6 +617,8 @@ var
   vCod_CBenef_Loc : String;
   vGera_FCP : String;
   vPerc_ICMS: Real;
+  vDesc_Preco_IPI : Real;
+  vAplicar_Desc_IPI : Boolean;
 begin
   vPerc_ICMS := 0;
   vID_ICMS   := 0;
@@ -627,7 +629,9 @@ begin
   vPerc_IPI_Suf      := 0;
   vID_EnqIPI         := 0;
   vPerc_BRedICMS_NCM := 0;
+  vDesc_Preco_IPI    := 0;
   vCod_CBenef        := '';
+  vAplicar_Desc_IPI  := False;
 
   if not fDMCadNotaFiscal.cdsCFOP.Locate('ID',fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CFOP.AsInteger,[loCaseInsensitive]) then
   begin
@@ -894,7 +898,7 @@ begin
     vID_ICMS_Original := vID_ICMS;
   end
   else
-  begin           
+  begin
     vID_ICMS_Original := vID_ICMS;
     if not vUsouICM then
     begin
@@ -905,7 +909,7 @@ begin
         vCod_CBenef_Loc := vCod_CBenef;
       end;
     end;
-  end;                                                     
+  end;
 
   //30/06/2017   Feito para a Ciex quando for para Revenda na Zona Franca de Manaus
   if (fDMCadNotaFiscal.qPessoa_FiscalID_CST_ICMS_SUFRAMA_ST.AsInteger > 0) and (fDMCadNotaFiscal.cdsTab_NCMGERAR_ST.AsString = 'S') and
@@ -1065,6 +1069,13 @@ begin
             end;
           end;
         end;
+        //11/03/2021 aplicar o % do IPI no desconto do produto vlr. unitário   Cleomar
+        if fDMCadNotaFiscal.cdsFilialDESCONTAR_IPI_PRECO.AsString = 'S' then
+        begin
+          if (StrToFloat(FormatFloat('0.000000',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat)) > 0)  then
+            vAplicar_Desc_IPI := True;
+        end;
+        //*************
       end;
     end;
   end;
@@ -1301,6 +1312,18 @@ begin
     if not fnc_Gerar_IPI(fDMCadNotaFiscal.cdsNotaFiscal_ItensID_CSTIPI.AsInteger) then
       fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat := 0;
   end;
+
+  //11/03/2021 aplicar o % do IPI no desconto do produto vlr. unitário   Cleomar
+  if (fDMCadNotaFiscal.cdsFilialDESCONTAR_IPI_PRECO.AsString = 'S') and
+     (StrToFloat(FormatFloat('0.000000',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat)) > 0) and
+     (vAplicar_Desc_IPI) and
+     (StrToFloat(FormatFloat('0.000',fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat)) > 0) then
+  begin
+    vAux := StrToFloat(FormatFloat('0.00',fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat / ((fDMCadNotaFiscal.cdsNotaFiscal_ItensPERC_IPI.AsFloat / 100) + 1)));
+    fDMCadNotaFiscal.cdsNotaFiscal_ItensVLR_UNITARIO.AsFloat := vAux;
+  end;
+  //*************
+
   if (StrToFloat(FormatFloat('0.00',vPerc_Cofins_Suf)) > 0) and (fDMCadNotaFiscal.qPessoa_FiscalID_CST_PIS_COFINS_SUFRAMA.AsInteger > 0) then
   begin
     fDMCadNotaFiscal.cdsNotaFiscal_ItensID_COFINS.AsInteger := fDMCadNotaFiscal.qPessoa_FiscalID_CST_PIS_COFINS_SUFRAMA.AsInteger;

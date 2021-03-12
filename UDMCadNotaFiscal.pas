@@ -3212,7 +3212,7 @@ type
     sdsNotaFiscal_ItensPRECO_CUSTO: TFloatField;
     cdsNotaFiscal_ItensPRECO_CUSTO: TFloatField;
     cdsCFOPALT_CUSTO: TStringField;
-    cdsFilialDESCONTAR_IPI_NOTA: TStringField;
+    cdsFilialDESCONTAR_IPI_PRECO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsNotaFiscalNewRecord(DataSet: TDataSet);
     procedure cdsNotaFiscalBeforePost(DataSet: TDataSet);

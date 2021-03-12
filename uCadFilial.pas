@@ -550,6 +550,9 @@ begin
     fDMCadFilial.cdsFilialDIFAL_GERAR_VALORES.AsString := 'N';
   if FilenameEdit1.Text <> '' then
     fDMCadFilial.cdsFilialARQ_MODELO_CONTRATO.AsString := FilenameEdit1.Text;
+  if not DBCheckBox30.Visible then
+    fDMCadFilial.cdsFilialDESCONTAR_IPI_PRECO.AsString := 'N';
+
   fDMCadFilial.prc_Gravar;
   if fDMCadFilial.cdsFilial.State in [dsEdit,dsInsert] then
   begin
@@ -595,6 +598,8 @@ begin
   TS_SMS.TabVisible   := (fDMCadFilial.qParametros_PedENVIA_SMS.AsString = 'S');
 
   lblBuscaFilial.Visible := (fDMCadFilial.qParametros_GeralUSA_NFCE_LOCAL.AsString = 'S');
+
+  DBCheckBox30.Visible := (SQLLocate('PARAMETROS_NFE','ID','USA_DESCONTO_IPI','1') = 'S');
 end;
 
 procedure TfrmCadFilial.prc_Consultar;

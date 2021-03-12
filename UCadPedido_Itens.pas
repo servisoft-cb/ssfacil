@@ -1131,6 +1131,17 @@ begin
     fDMCadPedido.cdsPedidoTIPO_DESCONTO.AsString := 'I';
   end;
   //*****************
+
+  //11/03/2021 aplicar o % do IPI no desconto do produto vlr. unitário   Cleomar
+  if (fDMCadPedido.cdsFilialDESCONTAR_IPI_PRECO.AsString = 'S') and
+     (StrToFloat(FormatFloat('0.000000',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat)) > 0) and
+     (StrToFloat(FormatFloat('0.000',fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat)) > 0) then
+  begin
+    vAux := StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat / ((fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat / 100) + 1)));
+    fDMCadPedido.cdsPedido_ItensVLR_UNITARIO.AsFloat := vAux;
+  end;
+  //*************
+
   //10/11/2015 Comissão por item
   if trim(fDMCadPedido.cdsPedidoREORDEM.AsString) <> 'S' then
   begin
@@ -1145,6 +1156,9 @@ begin
     fDMCadPedido.cdsPedido_ItensPERC_COMISSAO.AsFloat := 0;
 
   //****************
+
+
+
   DBCheckBox3.Visible := (StrToFloat(FormatFloat('0.00',fDMCadPedido.cdsPedido_ItensPERC_IPI.AsFloat)) > 0);
   if fDMCadPedido.qParametros_NFeSOMAR_IPI_NO_ICMS.AsString = 'S' then
   begin

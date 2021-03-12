@@ -121,6 +121,7 @@ object frmCadFilial: TfrmCadFilial
             FieldName = 'FONE'
             Title.Alignment = taCenter
             Title.Caption = 'Fone'
+            Width = 64
             Visible = True
           end>
       end
@@ -1948,10 +1949,10 @@ object frmCadFilial: TfrmCadFilial
           object DBCheckBox30: TDBCheckBox
             Left = 352
             Top = 220
-            Width = 313
+            Width = 311
             Height = 17
-            Caption = 'Descontar o IPI do total da Nota'
-            DataField = 'DESCONTAR_IPI_NOTA'
+            Caption = 'Descontar o IPI do Pre'#231'o Unit'#225'rio do Produto'
+            DataField = 'DESCONTAR_IPI_PRECO'
             DataSource = DMCadFilial.dsFilial
             TabOrder = 29
             ValueChecked = 'S'

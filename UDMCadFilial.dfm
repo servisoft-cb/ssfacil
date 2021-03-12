@@ -464,8 +464,8 @@ object DMCadFilial: TDMCadFilial
     object sdsFilialDDD_VENDAS: TIntegerField
       FieldName = 'DDD_VENDAS'
     end
-    object sdsFilialDESCONTAR_IPI_NOTA: TStringField
-      FieldName = 'DESCONTAR_IPI_NOTA'
+    object sdsFilialDESCONTAR_IPI_PRECO: TStringField
+      FieldName = 'DESCONTAR_IPI_PRECO'
       FixedChar = True
       Size = 1
     end
@@ -966,8 +966,8 @@ object DMCadFilial: TDMCadFilial
     object cdsFilialDDD_VENDAS: TIntegerField
       FieldName = 'DDD_VENDAS'
     end
-    object cdsFilialDESCONTAR_IPI_NOTA: TStringField
-      FieldName = 'DESCONTAR_IPI_NOTA'
+    object cdsFilialDESCONTAR_IPI_PRECO: TStringField
+      FieldName = 'DESCONTAR_IPI_PRECO'
       FixedChar = True
       Size = 1
     end

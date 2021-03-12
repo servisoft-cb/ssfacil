@@ -3944,6 +3944,7 @@ type
     qParametros_NFeID_CONTA_ADTO: TIntegerField;
     cdsPedidoImpVLR_SALDO_USADO: TFloatField;
     cdsPedidoImpID_ADTO: TIntegerField;
+    cdsFilialDESCONTAR_IPI_PRECO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsPedidoNewRecord(DataSet: TDataSet);
     procedure cdsPedidoBeforePost(DataSet: TDataSet);

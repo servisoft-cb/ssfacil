@@ -5090,8 +5090,8 @@ object DMCadNotaFiscal: TDMCadNotaFiscal
       FixedChar = True
       Size = 1
     end
-    object cdsFilialDESCONTAR_IPI_NOTA: TStringField
-      FieldName = 'DESCONTAR_IPI_NOTA'
+    object cdsFilialDESCONTAR_IPI_PRECO: TStringField
+      FieldName = 'DESCONTAR_IPI_PRECO'
       FixedChar = True
       Size = 1
     end

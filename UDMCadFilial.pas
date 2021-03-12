@@ -703,8 +703,8 @@ type
     cdsFilialFONE_VENDAS: TStringField;
     sdsFilialDDD_VENDAS: TIntegerField;
     cdsFilialDDD_VENDAS: TIntegerField;
-    sdsFilialDESCONTAR_IPI_NOTA: TStringField;
-    cdsFilialDESCONTAR_IPI_NOTA: TStringField;
+    sdsFilialDESCONTAR_IPI_PRECO: TStringField;
+    cdsFilialDESCONTAR_IPI_PRECO: TStringField;
     procedure DataModuleCreate(Sender: TObject);
     procedure cdsFilialNewRecord(DataSet: TDataSet);
     procedure cdsFilialBeforePost(DataSet: TDataSet);
